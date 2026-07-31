@@ -2,6 +2,9 @@
 
 ## Updates 07/31/2026
 
+- **Guaranteed moving-worm capture** — Added shortest-path search over evolving
+  hole information sets, a six-check guarantee for five holes, and a stepwise
+  explanation of the forced parity change after every miss.
 - **Robust bean-taking analysis** — Added five-player minimax solving over an
   uncertain pile-size interval, exact-count safe-action ranges, zero-risk action
   intersection, and a conservative recommendation when no action is universally safe.
@@ -13,8 +16,8 @@ AIP is a modular Python environment for exploring dynamic games, backward
 induction, common knowledge, information sets, and robust strategies.
 
 The project currently solves pirate gold allocation, public coloured-hat
-reasoning, and robust sequential bean taking. It also reserves a clean module
-boundary for the moving worm and future puzzles.
+reasoning, robust sequential bean taking, and adversarial moving-worm search.
+Its shared core remains ready for future puzzles.
 
 ## Project layout
 
@@ -34,7 +37,7 @@ boundary for the moving worm and future puzzles.
 │       │   └── formatting.py
 │       ├── hats/                  # common-knowledge evolution solver
 │       ├── beans/                 # interval minimax and robust strategies
-│       └── worm/                  # planned: adversarial search strategy
+│       └── worm/                  # shortest adversarial search strategy
 └── tests/
     ├── test_information.py
     └── test_pirates.py
@@ -105,6 +108,18 @@ player 1 lose. The solver reports safe actions for every exact pile size, their
 intersection across the information set, and the action with least worst-case
 exposure when an absolute guarantee is impossible.
 
+## Run the moving-worm solver
+
+```bash
+PYTHONPATH=src python -m aip worm --holes 5
+```
+
+The worm starts in any of five adjacent holes. After every unsuccessful check,
+it must move exactly one hole left or right. A breadth-first search over belief
+states proves that `2 → 3 → 4 → 2 → 3 → 4` is a shortest guaranteed sequence:
+if all first five checks miss, only hole 4 remains possible at the sixth check.
+The repeated sweep handles both possible starting parities.
+
 ## Architecture notes
 
 `InformationSet[StateT]` is the extension seam for imperfect-information
@@ -112,7 +127,7 @@ puzzles. It records all states a player regards as possible, private
 observations, public history, and optional Bayesian beliefs. Domain modules
 provide the compatibility rule used to eliminate states after an observation.
 
-This supports the next planned modules without coupling their reasoning styles:
+The modules use the shared information interface without coupling their reasoning styles:
 
 - **Hats:** each public answer becomes a timestamped public observation;
   repeated state elimination models common-knowledge evolution and delay.
