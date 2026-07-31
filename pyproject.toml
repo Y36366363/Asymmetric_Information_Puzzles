@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aip-puzzles"
+version = "0.1.0"
+description = "Interactive solvers for dynamic games with asymmetric information"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "AIP Contributors"}]
+dependencies = []
+
+[project.scripts]
+aip = "aip.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
