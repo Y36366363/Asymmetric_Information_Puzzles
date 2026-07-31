@@ -2,6 +2,9 @@
 
 ## Updates 07/31/2026
 
+- **Robust bean-taking analysis** — Added five-player minimax solving over an
+  uncertain pile-size interval, exact-count safe-action ranges, zero-risk action
+  intersection, and a conservative recommendation when no action is universally safe.
 - **Public-knowledge hat solver** — Added finite-world information sets,
   simultaneous public announcements, repeated world elimination, and explicit
   discovery-delay traces for arbitrary two-colour hat configurations.
@@ -9,9 +12,9 @@
 AIP is a modular Python environment for exploring dynamic games, backward
 induction, common knowledge, information sets, and robust strategies.
 
-The project currently solves pirate gold allocation and public coloured-hat
-reasoning. It also reserves clean module boundaries for sequential bean taking,
-the moving worm, and future puzzles.
+The project currently solves pirate gold allocation, public coloured-hat
+reasoning, and robust sequential bean taking. It also reserves a clean module
+boundary for the moving worm and future puzzles.
 
 ## Project layout
 
@@ -30,7 +33,7 @@ the moving worm, and future puzzles.
 │       │   ├── solver.py
 │       │   └── formatting.py
 │       ├── hats/                  # common-knowledge evolution solver
-│       ├── beans/                 # planned: ranges and robust strategies
+│       ├── beans/                 # interval minimax and robust strategies
 │       └── worm/                  # planned: adversarial search strategy
 └── tests/
     ├── test_information.py
@@ -87,6 +90,20 @@ Every player sees all hats except their own. The announcement “at least one ha
 is B” is public knowledge, and all answers are simultaneous and public. With
 three B hats, nobody knows in rounds one and two; all three B-hat players know
 in round three. The output exposes each player's information set at every round.
+
+## Run the bean-taking solver
+
+```bash
+PYTHONPATH=src python -m aip beans --min-beans 4 --max-beans 7 \
+  --players 5 --min-take 1 --max-take 3
+```
+
+The default model has five cyclic players taking one to three beans, with the
+last taker losing. Player 1 initially knows only an inclusive pile-size range;
+all other players are conservatively treated as a coalition trying to make
+player 1 lose. The solver reports safe actions for every exact pile size, their
+intersection across the information set, and the action with least worst-case
+exposure when an absolute guarantee is impossible.
 
 ## Architecture notes
 

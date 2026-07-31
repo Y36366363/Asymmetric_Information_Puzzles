@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import argparse
 
+from aip.puzzles.beans.formatting import format_solution as format_bean_solution
+from aip.puzzles.beans.models import BeanRules
+from aip.puzzles.beans.solver import BeanSolver
 from aip.puzzles.hats.formatting import format_solution as format_hat_solution
 from aip.puzzles.hats.solver import HatSolver
 from aip.puzzles.pirates.formatting import format_solution
@@ -30,6 +33,12 @@ def build_parser() -> argparse.ArgumentParser:
     hats.add_argument("--target", default="B", help="publicly announced colour")
     hats.add_argument("--other", default="R", help="the other possible colour")
     hats.add_argument("--max-rounds", type=int, default=None)
+    beans = subparsers.add_parser("beans", help="solve robust sequential bean taking")
+    beans.add_argument("--min-beans", type=int, required=True)
+    beans.add_argument("--max-beans", type=int, required=True)
+    beans.add_argument("--players", type=int, default=5)
+    beans.add_argument("--min-take", type=int, default=1)
+    beans.add_argument("--max-take", type=int, default=3)
     return parser
 
 
@@ -47,4 +56,8 @@ def main(argv: list[str] | None = None) -> int:
     elif args.puzzle == "hats":
         solution = HatSolver().solve(args.colors, args.target, args.other, args.max_rounds)
         print(format_hat_solution(solution))
+    elif args.puzzle == "beans":
+        rules = BeanRules(args.players, args.min_take, args.max_take)
+        solution = BeanSolver(rules).solve(args.min_beans, args.max_beans)
+        print(format_bean_solution(solution))
     return 0
