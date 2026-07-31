@@ -1,11 +1,17 @@
 # AIP — Asymmetric Information Puzzles
 
+## Updates 07/31/2026
+
+- **Public-knowledge hat solver** — Added finite-world information sets,
+  simultaneous public announcements, repeated world elimination, and explicit
+  discovery-delay traces for arbitrary two-colour hat configurations.
+
 AIP is a modular Python environment for exploring dynamic games, backward
 induction, common knowledge, information sets, and robust strategies.
 
-The first working module solves the classic pirate gold-allocation puzzle. The
-package also reserves clean module boundaries for coloured hats, sequential
-bean taking, the moving worm, and future puzzles.
+The project currently solves pirate gold allocation and public coloured-hat
+reasoning. It also reserves clean module boundaries for sequential bean taking,
+the moving worm, and future puzzles.
 
 ## Project layout
 
@@ -23,7 +29,7 @@ bean taking, the moving worm, and future puzzles.
 │       │   ├── models.py
 │       │   ├── solver.py
 │       │   └── formatting.py
-│       ├── hats/                  # planned: common-knowledge updates
+│       ├── hats/                  # common-knowledge evolution solver
 │       ├── beans/                 # planned: ranges and robust strategies
 │       └── worm/                  # planned: adversarial search strategy
 └── tests/
@@ -70,6 +76,17 @@ aip pirates --pirates 5 --gold 100 --accept-equal
 Both the vote threshold and equal-outcome preference are configurable through
 `PirateRules`. If a coalition is unaffordable, the solver records the
 proposer's death and carries forward the already-solved continuation outcome.
+
+## Run the coloured-hat solver
+
+```bash
+PYTHONPATH=src python -m aip hats --colors BBBRR --target B --other R
+```
+
+Every player sees all hats except their own. The announcement “at least one hat
+is B” is public knowledge, and all answers are simultaneous and public. With
+three B hats, nobody knows in rounds one and two; all three B-hat players know
+in round three. The output exposes each player's information set at every round.
 
 ## Architecture notes
 
