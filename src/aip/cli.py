@@ -13,6 +13,9 @@ from aip.puzzles.hats.solver import HatSolver
 from aip.puzzles.pirates.formatting import format_solution
 from aip.puzzles.pirates.models import PirateRules, VoteThreshold
 from aip.puzzles.pirates.solver import PirateSolver
+from aip.puzzles.prisoners.formatting import format_simulation
+from aip.puzzles.prisoners.models import DeclarationGoal, InitialLight
+from aip.puzzles.prisoners.solver import PrisonerLightSolver
 from aip.puzzles.worm.formatting import format_solution as format_worm_solution
 from aip.puzzles.worm.solver import WormSolver
 
@@ -56,6 +59,25 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="remove the common-knowledge announcement",
     )
+    prisoners = subparsers.add_parser(
+        "prisoners", help="solve and simulate the prisoners-and-light puzzle"
+    )
+    prisoners.add_argument("--count", type=int, default=100)
+    prisoners.add_argument(
+        "--initial", choices=[state.value for state in InitialLight], default="off"
+    )
+    prisoners.add_argument(
+        "--goal",
+        choices=[goal.value for goal in DeclarationGoal],
+        default=DeclarationGoal.TURNED_ON.value,
+    )
+    prisoners.add_argument(
+        "--actual-initial-on",
+        action="store_true",
+        help="simulation state when --initial unknown",
+    )
+    prisoners.add_argument("--seed", type=int, default=42)
+    prisoners.add_argument("--max-days", type=int, default=1_000_000)
     return parser
 
 
@@ -87,4 +109,14 @@ def main(argv: list[str] | None = None) -> int:
         )
         solution = EyeVillageSolver(rules).solve(args.target_count, args.other_count)
         print(format_eye_solution(solution))
+    elif args.puzzle == "prisoners":
+        solver = PrisonerLightSolver()
+        plan = solver.create_plan(args.count, args.initial, args.goal)
+        result = solver.simulate(
+            plan,
+            seed=args.seed,
+            max_days=args.max_days,
+            actual_initial_on=args.actual_initial_on,
+        )
+        print(format_simulation(result))
     return 0

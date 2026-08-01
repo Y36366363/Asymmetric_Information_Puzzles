@@ -2,6 +2,9 @@
 
 ## Updates 08/01/2026
 
+- **Prisoners-and-light coordination** — Added safe designated-counter plans
+  for known-off and unknown initial light states, reproducible random simulation,
+  execution traces, and an explicit distinction between safety and finite-time completion.
 - **Village eye-colour induction** — Added a configurable common-knowledge
   solver that identifies the simultaneous action night, exposes the day-by-day
   counterfactual reasoning, and demonstrates why a public announcement is essential.
@@ -22,8 +25,9 @@ AIP is a modular Python environment for exploring dynamic games, backward
 induction, common knowledge, information sets, and robust strategies.
 
 The project currently solves pirate gold allocation, public coloured-hat and
-village eye-colour reasoning, robust sequential bean taking, and adversarial
-moving-worm search. Its shared core remains ready for future puzzles.
+village eye-colour reasoning, prisoners-and-light coordination, robust
+sequential bean taking, and adversarial moving-worm search. Its shared core
+remains ready for future puzzles.
 
 ## Project layout
 
@@ -43,6 +47,7 @@ moving-worm search. Its shared core remains ready for future puzzles.
 │       │   └── formatting.py
 │       ├── hats/                  # common-knowledge evolution solver
 │       ├── eyes/                  # village eye-colour induction
+│       ├── prisoners/             # one-bit distributed coordination
 │       ├── beans/                 # interval minimax and robust strategies
 │       └── worm/                  # shortest adversarial search strategy
 └── tests/
@@ -120,6 +125,32 @@ The announcement is not redundant: it turns a visible fact into common
 knowledge and supplies the induction's base case. Use
 `--no-public-announcement` to show that no synchronized day is guaranteed.
 
+## Run the prisoners-and-light solver
+
+```bash
+PYTHONPATH=src python -m aip prisoners --count 100 --initial off \
+  --goal turned-on --seed 42
+```
+
+Before separation, prisoner 0 is designated as the counter. If the light is
+known to start off, every other prisoner turns it on exactly once—the first
+time they find it off—and otherwise does nothing. The counter turns it off and
+increments a private count. At `N-1`, the counter can safely declare that all
+non-counters have operated the light. For the literal `turned-on` goal in this
+puzzle, the counter must additionally turn the light on personally before
+declaring. The standard `--goal visited` variant omits this extra self-signal.
+
+If the initial state is unknown, use `--initial unknown`. Every non-counter then
+signals twice, and the counter waits for `2(N-1)` off-events. A possibly
+initially-on light contributes at most one phantom count, which is insufficient
+to cause a premature declaration. Use `--actual-initial-on` to simulate that
+branch.
+
+Under independent fair random selection the strategy completes with probability
+1, but it has no finite worst-case deadline: a particular prisoner could be
+skipped for an arbitrarily long time. Each simulated visit performs at most one
+light operation, matching the puzzle's restriction.
+
 ## Run the bean-taking solver
 
 ```bash
@@ -161,6 +192,8 @@ The modules use the shared information interface without coupling their reasonin
   beliefs can support expected utility while intervals support worst-case play.
 - **Worm:** a belief state is the set of holes still reachable after each forced
   move; actions update that set adversarially.
+- **Prisoners:** the light is a shared one-bit memory channel; local signal
+  quotas and the counter's private state form a distributed protocol.
 
 Puzzle solvers remain self-contained under `puzzles/<name>`, while shared state,
 transition, and information abstractions stay dependency-free in `core`.
