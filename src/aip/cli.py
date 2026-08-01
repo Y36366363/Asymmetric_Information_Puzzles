@@ -119,11 +119,25 @@ def build_parser() -> argparse.ArgumentParser:
         default=0.02,
         help="per-player chance of breaking the price-1 tacit convention each round",
     )
+    auction.add_argument("--social-supporters", type=int, default=None)
+    auction.add_argument("--leader-bid", type=int, default=101)
+    auction.add_argument("--social-deviation-rate", type=float, default=0.0)
+    auction.add_argument(
+        "--social-identity-hidden",
+        action="store_true",
+        help="prices reveal defection but cannot identify whom to expel",
+    )
     auction.add_argument(
         "--modes",
         nargs="+",
         choices=[mode.value for mode in AuctionMode],
-        default=[mode.value for mode in AuctionMode],
+        default=[
+            AuctionMode.NAIVE.value,
+            AuctionMode.CAUTIOUS.value,
+            AuctionMode.EQUILIBRIUM.value,
+            AuctionMode.COOPERATIVE.value,
+            AuctionMode.TACIT.value,
+        ],
     )
     return parser
 
@@ -181,11 +195,15 @@ def main(argv: list[str] | None = None) -> int:
         print(format_timing_analysis(analysis))
     elif args.puzzle == "auction":
         rules = AuctionRules(
-            args.players,
-            args.rounds,
-            args.value,
-            args.budget,
-            args.deviation_rate,
+            player_count=args.players,
+            rounds=args.rounds,
+            prize_value=args.value,
+            initial_budget=args.budget,
+            tacit_deviation_probability=args.deviation_rate,
+            social_supporters=args.social_supporters,
+            social_identity_observable=not args.social_identity_hidden,
+            social_leader_bid=args.leader_bid,
+            social_deviation_probability=args.social_deviation_rate,
         )
         modes = tuple(AuctionMode(mode) for mode in args.modes)
         analysis = AllPayAuctionAnalyzer().analyze(

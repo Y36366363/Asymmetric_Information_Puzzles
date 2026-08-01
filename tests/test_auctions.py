@@ -55,6 +55,36 @@ class AllPayAuctionTests(unittest.TestCase):
         self.assertGreater(threshold, 0.8)
         self.assertLess(threshold, 1.0)
 
+    def test_majority_can_expel_identifiable_non_supporters(self) -> None:
+        rules = AuctionRules(
+            player_count=5,
+            rounds=4,
+            initial_budget=200,
+            social_supporters=3,
+        )
+        run = AllPayAuctionSimulator().run(rules, AuctionMode.SOCIAL, seed=4)
+        self.assertEqual(run.rounds[0].public_price, 101)
+        self.assertEqual(run.rounds[0].winner, 0)
+        self.assertEqual(run.rounds[1].expelled_after, (3, 4))
+        self.assertEqual(run.expelled_players, (3, 4))
+        self.assertTrue(all(round_.bids[3:] == (0, 0) for round_ in run.rounds[2:]))
+
+    def test_anonymous_price_cannot_target_non_supporters(self) -> None:
+        rules = AuctionRules(
+            player_count=5,
+            rounds=3,
+            initial_budget=200,
+            social_supporters=3,
+            social_identity_observable=False,
+        )
+        run = AllPayAuctionSimulator().run(rules, AuctionMode.SOCIAL, seed=4)
+        self.assertEqual(run.expelled_players, ())
+        self.assertEqual(run.rounds[1].public_price, 2)
+
+    def test_social_exclusion_patience_threshold(self) -> None:
+        threshold = AllPayAuctionAnalyzer.social_patience_threshold(5, 100)
+        self.assertAlmostEqual(threshold, 79 / 98)
+
 
 if __name__ == "__main__":
     unittest.main()

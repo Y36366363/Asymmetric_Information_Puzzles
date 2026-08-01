@@ -2,6 +2,9 @@
 
 ## Updates 08/01/2026
 
+- **Costly leadership and majority enforcement** — Added a 101-price leadership
+  signal, symmetric all-bid-1 norm, majority expulsion of attributable defectors,
+  social-deviation simulation, and the finite-horizon enforcement boundary.
 - **Price-only tacit auction coordination** — Added anonymous public-price
   signals, a low-price convention with collective punishment, deviation-noise
   simulation, and patience thresholds for indefinite repeated auctions.
@@ -275,6 +278,50 @@ For five players and `V=100`, the threshold is approximately `delta=0.8556`.
 Below it, future low-price wins are not valuable enough to offset the immediate
 98-unit deviation gain. More players raise the threshold because each player
 waits longer for their designated win.
+
+### Costly leadership, conformity, and majority enforcement
+
+Pure payoff maximization misses a plausible human coordination mechanism. In
+`social` mode, one player first bids `V+1` (101 for a 100-value lot). Winning
+costs that leader only 1 net unit, but publicly demonstrates willingness to
+break the high-price contest and creates a focal authority. From the next round,
+supporters all bid 1. This symmetric rule needs less private coordination than a
+rotation: everyone follows the same visible norm, the winner is selected by the
+tie rule, and group surplus per round is `V - supporter_count`.
+
+If supporters are a strict majority and individual compliance is attributable,
+they expel anyone who does not bid 1. Expulsion converts conformity, fear of
+missing future lots, fairness preferences, and willingness to punish into a
+real strategic cost. For five supporters and `V=100`, cooperative expected flow
+is `100/5 - 1 = 19` per round. A bid-2 defection improves the current expected
+payoff by `98 - 19 = 79`; permanent exclusion deters it when
+`delta*19/(1-delta) >= 79`, or `delta >= 79/98 ≈ 0.8061`.
+
+```bash
+PYTHONPATH=src python -m aip auction --players 5 --rounds 10 \
+  --budget 200 --social-supporters 3 --leader-bid 101 \
+  --modes social equilibrium cooperative
+```
+
+There is an essential observability boundary. A public price above 1 reveals
+that someone defected, but a truly anonymous price does not reveal whom to
+expel. Targeted majority enforcement therefore requires attributable bids,
+observable winner identity, or an external auction rule that can identify
+noncompliance. Use `--social-identity-hidden` to remove that channel; the model
+then detects rejection through price 2 but cannot remove the rejectors.
+
+With three supporters out of five, the simulated sequence is: price 101 signals
+leadership; in the acceptance round supporters bid 1 while two rejectors bid 2;
+the majority expels those two; the three remaining members continue bidding 1.
+Across ten rounds this produces auctioneer revenue 132 versus roughly 1,014 in
+the budget-truncated noncooperative benchmark. This outcome is socially
+enforced, not a one-shot Nash equilibrium.
+
+Finite horizons still matter. Exclusion loses force near the final round because
+there are fewer future low-price prizes to lose. A final-round defection can be
+prevented only by an immediate expulsion penalty, preferences for norm
+compliance or fairness, reputational consequences outside the auction, or an
+uncertain continuation—not merely by intelligence.
 
 ### 2. Fully rational players
 

@@ -38,12 +38,23 @@ class AllPayAuctionSimulator:
         total_revenue = 0
         tacit_active = behavior is AuctionMode.TACIT
         break_round: int | None = None
+        active_players = set(range(rules.player_count))
+        expelled_players: set[int] = set()
+
+        if behavior is AuctionMode.SOCIAL and rules.initial_budget < rules.social_leader_bid:
+            raise ValueError("social leadership mode requires budget >= social_leader_bid")
 
         for round_number in range(1, rules.rounds + 1):
             before = tuple(budgets)
             active_before = tacit_active
             bids = self._bids(
-                rules, behavior, budgets, round_number, rng, tacit_active=tacit_active
+                rules,
+                behavior,
+                budgets,
+                round_number,
+                rng,
+                tacit_active=tacit_active,
+                active_players=active_players,
             )
             max_bid = max(bids)
             if max_bid == 0:
@@ -60,6 +71,17 @@ class AllPayAuctionSimulator:
             if behavior is AuctionMode.TACIT and tacit_active and max_bid > 1:
                 tacit_active = False
                 break_round = round_number
+            expelled_this_round: set[int] = set()
+            if behavior is AuctionMode.SOCIAL and round_number >= 2:
+                compliant = {player for player in active_players if bids[player] == 1}
+                noncompliant = active_players.difference(compliant)
+                if (
+                    rules.social_identity_observable
+                    and len(compliant) > len(active_players) / 2
+                ):
+                    expelled_this_round = set(noncompliant)
+                    active_players.difference_update(expelled_this_round)
+                    expelled_players.update(expelled_this_round)
             rounds.append(
                 AuctionRound(
                     round_number,
@@ -71,6 +93,8 @@ class AllPayAuctionSimulator:
                     max_bid,
                     active_before,
                     tacit_active,
+                    tuple(sorted(active_players.union(expelled_this_round))),
+                    tuple(sorted(expelled_this_round)),
                 )
             )
         return AuctionRun(
@@ -80,6 +104,7 @@ class AllPayAuctionSimulator:
             tuple(budgets),
             total_revenue,
             break_round,
+            tuple(sorted(expelled_players)),
         )
 
     def _bids(
@@ -91,8 +116,26 @@ class AllPayAuctionSimulator:
         rng: random.Random,
         *,
         tacit_active: bool = False,
+        active_players: set[int] | None = None,
     ) -> list[int]:
-        active = sum(budget > 0 for budget in budgets)
+        participants = set(range(rules.player_count)) if active_players is None else active_players
+        active = sum(budget > 0 and player in participants for player, budget in enumerate(budgets))
+        if mode is AuctionMode.SOCIAL:
+            bids = [0] * rules.player_count
+            supporters = set(range(rules.effective_social_supporters))
+            if round_number == 1:
+                bids[0] = rules.social_leader_bid
+                return bids
+            for player in participants:
+                if budgets[player] <= 0:
+                    continue
+                if player not in supporters:
+                    bids[player] = min(2, budgets[player])
+                elif rng.random() < rules.social_deviation_probability:
+                    bids[player] = min(2, budgets[player])
+                else:
+                    bids[player] = 1
+            return bids
         if mode is AuctionMode.COOPERATIVE or (
             mode is AuctionMode.TACIT and tacit_active
         ):
@@ -115,8 +158,8 @@ class AllPayAuctionSimulator:
         effective_mode = AuctionMode.EQUILIBRIUM if mode is AuctionMode.TACIT else mode
 
         bids: list[int] = []
-        for budget in budgets:
-            if budget == 0:
+        for player, budget in enumerate(budgets):
+            if budget == 0 or player not in participants:
                 bids.append(0)
                 continue
             if effective_mode is AuctionMode.NAIVE:
@@ -183,13 +226,31 @@ class AllPayAuctionAnalyzer:
                 low = discount
         return high
 
+    @staticmethod
+    def social_patience_threshold(player_count: int, prize_value: float = 100) -> float:
+        """Discount factor when an identifiable deviator is permanently excluded."""
+
+        if player_count < 2:
+            return 1.0
+        cooperative_flow = prize_value / player_count - 1
+        if cooperative_flow <= 0:
+            return 1.0
+        deviation_gain = prize_value - 2 - cooperative_flow
+        return deviation_gain / (deviation_gain + cooperative_flow)
+
     def analyze(
         self,
         rules: AuctionRules,
         *,
         trials: int = 1_000,
         seed: int = 42,
-        modes: tuple[AuctionMode, ...] = tuple(AuctionMode),
+        modes: tuple[AuctionMode, ...] = (
+            AuctionMode.NAIVE,
+            AuctionMode.CAUTIOUS,
+            AuctionMode.EQUILIBRIUM,
+            AuctionMode.COOPERATIVE,
+            AuctionMode.TACIT,
+        ),
     ) -> AuctionAnalysis:
         if trials < 1:
             raise ValueError("trials must be positive")
@@ -201,6 +262,7 @@ class AllPayAuctionAnalyzer:
             richest_share_total = 0.0
             bankrupt_total = 0.0
             coordination_survivals = 0
+            expelled_total = 0.0
             for trial in range(trials):
                 run_seed = seed + mode_index * 1_000_003 + trial
                 run = self.simulator.run(rules, mode, seed=run_seed)
@@ -213,6 +275,7 @@ class AllPayAuctionAnalyzer:
                 bankrupt_total += sum(budget == 0 for budget in run.final_budgets)
                 if mode is AuctionMode.TACIT and run.coordination_break_round is None:
                     coordination_survivals += 1
+                expelled_total += len(run.expelled_players)
             summaries.append(
                 ScenarioSummary(
                     mode,
@@ -222,6 +285,7 @@ class AllPayAuctionAnalyzer:
                     richest_share_total / trials,
                     bankrupt_total / trials,
                     coordination_survivals / trials if mode is AuctionMode.TACIT else None,
+                    expelled_total / trials,
                 )
             )
         return AuctionAnalysis(
@@ -230,4 +294,13 @@ class AllPayAuctionAnalyzer:
             tuple(summaries),
             tuple(samples),
             self.tacit_patience_threshold(rules.player_count, rules.prize_value),
+            (
+                self.social_patience_threshold(
+                    rules.effective_social_supporters, rules.prize_value
+                )
+                if rules.effective_social_supporters > rules.player_count / 2
+                else 1.0
+            ),
+            float(rules.social_leader_bid - rules.prize_value),
+            rules.prize_value / rules.effective_social_supporters - 1,
         )

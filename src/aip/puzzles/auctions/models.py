@@ -10,6 +10,7 @@ class AuctionMode(str, Enum):
     EQUILIBRIUM = "equilibrium"
     COOPERATIVE = "cooperative"
     TACIT = "tacit"
+    SOCIAL = "social"
 
 
 @dataclass(frozen=True, slots=True)
@@ -19,6 +20,10 @@ class AuctionRules:
     prize_value: int = 100
     initial_budget: int = 100
     tacit_deviation_probability: float = 0.0
+    social_supporters: int | None = None
+    social_identity_observable: bool = True
+    social_leader_bid: int = 101
+    social_deviation_probability: float = 0.0
 
     def __post_init__(self) -> None:
         if self.player_count < 2:
@@ -27,6 +32,17 @@ class AuctionRules:
             raise ValueError("rounds and prize must be positive; budget cannot be negative")
         if not 0 <= self.tacit_deviation_probability <= 1:
             raise ValueError("tacit_deviation_probability must be between 0 and 1")
+        supporters = self.player_count if self.social_supporters is None else self.social_supporters
+        if not 1 <= supporters <= self.player_count:
+            raise ValueError("social_supporters must be between 1 and player_count")
+        if self.social_leader_bid <= self.prize_value:
+            raise ValueError("social_leader_bid must exceed the prize value")
+        if not 0 <= self.social_deviation_probability <= 1:
+            raise ValueError("social_deviation_probability must be between 0 and 1")
+
+    @property
+    def effective_social_supporters(self) -> int:
+        return self.player_count if self.social_supporters is None else self.social_supporters
 
 
 @dataclass(frozen=True, slots=True)
@@ -40,6 +56,8 @@ class AuctionRound:
     public_price: int
     coordination_active_before: bool
     coordination_active_after: bool
+    active_players_before: tuple[int, ...]
+    expelled_after: tuple[int, ...]
 
     @property
     def bidder_group_gain(self) -> int:
@@ -54,6 +72,7 @@ class AuctionRun:
     final_budgets: tuple[int, ...]
     auctioneer_revenue: int
     coordination_break_round: int | None = None
+    expelled_players: tuple[int, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -76,6 +95,7 @@ class ScenarioSummary:
     mean_richest_share: float
     mean_bankrupt_players: float
     coordination_survival_rate: float | None = None
+    mean_expelled_players: float = 0.0
 
 
 @dataclass(frozen=True, slots=True)
@@ -85,3 +105,6 @@ class AuctionAnalysis:
     scenarios: tuple[ScenarioSummary, ...]
     sample_runs: tuple[AuctionRun, ...]
     tacit_patience_threshold: float
+    social_patience_threshold: float
+    leadership_signal_net_cost: float
+    cooperative_payoff_per_round: float

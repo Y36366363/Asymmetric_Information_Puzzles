@@ -19,9 +19,13 @@ def format_analysis(analysis: AuctionAnalysis) -> str:
         f"  expected net payoff/player={benchmark.expected_payoff_per_player:.2f}",
         f"  price-only rotating convention needs discount/continuation >= "
         f"{analysis.tacit_patience_threshold:.4f} in the worst rotation position",
+        f"  majority exclusion convention needs discount/continuation >= "
+        f"{analysis.social_patience_threshold:.4f}",
+        f"  101-style leadership signal net cost={analysis.leadership_signal_net_cost:.2f}; "
+        f"cooperative expected flow/player/round={analysis.cooperative_payoff_per_round:.2f}",
         "",
         "Finite-budget simulation averages:",
-        "  mode         auctioneer revenue  final group wealth  richest share  bankrupt",
+        "  mode         auctioneer revenue  final group wealth  richest share  bankrupt  expelled",
     ]
     for summary in analysis.scenarios:
         survival = (
@@ -32,7 +36,8 @@ def format_analysis(analysis: AuctionAnalysis) -> str:
         lines.append(
             f"  {summary.mode.value:11s} {summary.mean_auctioneer_revenue:18.2f} "
             f"{summary.mean_final_group_wealth:19.2f} "
-            f"{summary.mean_richest_share:13.2%} {summary.mean_bankrupt_players:9.2f}"
+            f"{summary.mean_richest_share:13.2%} {summary.mean_bankrupt_players:9.2f} "
+            f"{summary.mean_expelled_players:9.2f}"
             + survival
         )
     lines.extend(
@@ -44,6 +49,7 @@ def format_analysis(analysis: AuctionAnalysis) -> str:
             "  equilibrium: one-shot mixed-equilibrium draws, then truncated by budgets",
             "  cooperative: rotating winner bids 1; efficient but not self-enforcing",
             "  tacit: price 1 means cooperate; price >1 publicly triggers equilibrium punishment",
+            "  social: a >V costly signal proposes the norm; an observable majority expels defectors",
             "  Finite budgets/rounds make the exact dynamic equilibrium state-dependent.",
         ]
     )
