@@ -14,6 +14,8 @@ from aip.puzzles.pirates.formatting import format_solution
 from aip.puzzles.pirates.models import PirateRules, VoteThreshold
 from aip.puzzles.pirates.solver import PirateSolver
 from aip.puzzles.prisoners.formatting import format_simulation
+from aip.puzzles.prisoners.analysis import PrisonerTimingAnalyzer
+from aip.puzzles.prisoners.analysis_formatting import format_timing_analysis
 from aip.puzzles.prisoners.models import DeclarationGoal, InitialLight
 from aip.puzzles.prisoners.solver import PrisonerLightSolver
 from aip.puzzles.worm.formatting import format_solution as format_worm_solution
@@ -78,6 +80,15 @@ def build_parser() -> argparse.ArgumentParser:
     )
     prisoners.add_argument("--seed", type=int, default=42)
     prisoners.add_argument("--max-days", type=int, default=1_000_000)
+    prisoner_analysis = subparsers.add_parser(
+        "prisoners-analysis", help="analyze coverage and proof timing"
+    )
+    prisoner_analysis.add_argument("--count", type=int, default=100)
+    prisoner_analysis.add_argument("--max-days", type=int, default=30_000)
+    prisoner_analysis.add_argument("--trials", type=int, default=2_000)
+    prisoner_analysis.add_argument("--seed", type=int, default=42)
+    prisoner_analysis.add_argument("--false-cost", type=float, default=1_000_000)
+    prisoner_analysis.add_argument("--daily-cost", type=float, default=1.0)
     return parser
 
 
@@ -119,4 +130,14 @@ def main(argv: list[str] | None = None) -> int:
             actual_initial_on=args.actual_initial_on,
         )
         print(format_simulation(result))
+    elif args.puzzle == "prisoners-analysis":
+        analysis = PrisonerTimingAnalyzer().analyze(
+            args.count,
+            max_days=args.max_days,
+            false_declaration_cost=args.false_cost,
+            daily_wait_cost=args.daily_cost,
+            simulation_trials=args.trials,
+            seed=args.seed,
+        )
+        print(format_timing_analysis(analysis))
     return 0

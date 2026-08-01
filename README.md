@@ -2,6 +2,9 @@
 
 ## Updates 08/01/2026
 
+- **Prisoner timing and risk analysis** — Added exact coupon-collector and
+  single-counter completion distributions, closed-form expectations, Monte Carlo
+  validation, confidence deadlines, and a configurable false-declaration trade-off.
 - **Prisoners-and-light coordination** — Added safe designated-counter plans
   for known-off and unknown initial light states, reproducible random simulation,
   execution traces, and an explicit distinction between safety and finite-time completion.
@@ -150,6 +153,56 @@ Under independent fair random selection the strategy completes with probability
 1, but it has no finite worst-case deadline: a particular prisoner could be
 skipped for an arbitrarily long time. Each simulated visit performs at most one
 light operation, matching the puzzle's restriction.
+
+### Timing, alternatives, and risky deadlines
+
+```bash
+PYTHONPATH=src python -m aip prisoners-analysis --count 100 \
+  --trials 2000 --false-cost 1000000 --daily-cost 1
+```
+
+For `N` prisoners, the expected day on which everyone has physically visited is
+the coupon-collector value `N × H_N`. The standard known-off single-counter
+protocol has exact expectation `N × H_(N-1) + N(N-1)`: each new signal takes an
+average `N/k` days to appear, and each of the `N-1` signals then waits an average
+`N` days for the counter. For `N=100`, these are approximately 518.74 and
+10,417.74 days respectively.
+
+A blind fixed-day declaration is a deliberately simpler alternative. Its
+success probability is exactly the probability that all coupon types have been
+seen by that day, but it can never be 100% at any finite day. More sophisticated
+zero-error protocols also exist—dynamic counter selection, multiple assistant
+counters, staged counting, and binary-token protocols—so the elementary single
+counter is easy to prove but is not time-optimal.
+
+An intentionally slower but still zero-error variant lets every non-counter
+send the same signal several times and raises the counter's threshold by the
+same factor. It adds no information and only delays completion, but demonstrates
+that many successful protocols exist. Merely waiting for a calendar deadline is
+simpler still, but is a positive-risk policy rather than a puzzle solution.
+
+The analyzer reports the earliest 50%, 90%, 95%, 99%, and 99.9% coverage days.
+It also illustrates a cost-based deadline by minimizing
+`wait_days × daily_cost + P(error) × false_cost`. This deadline is not universal:
+if a false claim means certain collective death, the appropriate false cost is
+effectively enormous and the rational zero-error choice is to wait for a valid
+light-based proof.
+
+For `N=100` and one unit of cost per waiting day, illustrative error-cost ratios
+produce the following fixed deadlines (these are decision assumptions, not new
+mathematical guarantees):
+
+| False-claim cost | Chosen day | Probability all visited |
+|---:|---:|---:|
+| 1,000 | 678 | 89.5585% |
+| 10,000 | 916 | 99.0003% |
+| 100,000 | 1,146 | 99.9005% |
+| 1,000,000 | 1,375 | 99.9900% |
+
+Further reading: [Majerech's one-light retrospective](https://arxiv.org/abs/2208.00771)
+surveys faster protocols and reports sub-3390-day average designs. William Wu's
+[protocol survey](https://www.ocf.berkeley.edu/~wwu/papers/100prisonersLightBulb.pdf)
+develops single-counter, dynamic-counter, two-stage, and binary-token methods.
 
 ## Run the bean-taking solver
 
