@@ -1,5 +1,11 @@
 # AIP — Asymmetric Information Puzzles
 
+## Updates 08/01/2026
+
+- **Village eye-colour induction** — Added a configurable common-knowledge
+  solver that identifies the simultaneous action night, exposes the day-by-day
+  counterfactual reasoning, and demonstrates why a public announcement is essential.
+
 ## Updates 07/31/2026
 
 - **Guaranteed moving-worm capture** — Added shortest-path search over evolving
@@ -15,9 +21,9 @@
 AIP is a modular Python environment for exploring dynamic games, backward
 induction, common knowledge, information sets, and robust strategies.
 
-The project currently solves pirate gold allocation, public coloured-hat
-reasoning, robust sequential bean taking, and adversarial moving-worm search.
-Its shared core remains ready for future puzzles.
+The project currently solves pirate gold allocation, public coloured-hat and
+village eye-colour reasoning, robust sequential bean taking, and adversarial
+moving-worm search. Its shared core remains ready for future puzzles.
 
 ## Project layout
 
@@ -36,6 +42,7 @@ Its shared core remains ready for future puzzles.
 │       │   ├── solver.py
 │       │   └── formatting.py
 │       ├── hats/                  # common-knowledge evolution solver
+│       ├── eyes/                  # village eye-colour induction
 │       ├── beans/                 # interval minimax and robust strategies
 │       └── worm/                  # shortest adversarial search strategy
 └── tests/
@@ -93,6 +100,25 @@ Every player sees all hats except their own. The announcement “at least one ha
 is B” is public knowledge, and all answers are simultaneous and public. With
 three B hats, nobody knows in rounds one and two; all three B-hat players know
 in round three. The output exposes each player's information set at every round.
+
+## Run the village eye-colour solver
+
+```bash
+PYTHONPATH=src python -m aip eyes --target-count 3 --other-count 7 \
+  --target-color white --other-color black
+```
+
+Assumptions: everyone sees everyone else's eyes but not their own; all villagers
+are perfect reasoners; an outsider publicly announces that at least one person
+has the target eye colour; and every night's actions are publicly observed. If
+there are `N` target-colour people, nobody acts on nights 1 through `N-1`, then
+all `N` target-colour people infer their colour on day `N` and act simultaneously
+that night (in the stated puzzle, they die by suicide). Other-colour people do
+not act under this rule.
+
+The announcement is not redundant: it turns a visible fact into common
+knowledge and supplies the induction's base case. Use
+`--no-public-announcement` to show that no synchronized day is guaranteed.
 
 ## Run the bean-taking solver
 

@@ -5,6 +5,9 @@ import argparse
 from aip.puzzles.beans.formatting import format_solution as format_bean_solution
 from aip.puzzles.beans.models import BeanRules
 from aip.puzzles.beans.solver import BeanSolver
+from aip.puzzles.eyes.formatting import format_solution as format_eye_solution
+from aip.puzzles.eyes.models import EyeRules
+from aip.puzzles.eyes.solver import EyeVillageSolver
 from aip.puzzles.hats.formatting import format_solution as format_hat_solution
 from aip.puzzles.hats.solver import HatSolver
 from aip.puzzles.pirates.formatting import format_solution
@@ -43,6 +46,16 @@ def build_parser() -> argparse.ArgumentParser:
     beans.add_argument("--max-take", type=int, default=3)
     worm = subparsers.add_parser("worm", help="find a guaranteed moving-worm search")
     worm.add_argument("--holes", type=int, default=5)
+    eyes = subparsers.add_parser("eyes", help="solve the village eye-colour puzzle")
+    eyes.add_argument("--target-count", type=int, required=True)
+    eyes.add_argument("--other-count", type=int, default=0)
+    eyes.add_argument("--target-color", default="white")
+    eyes.add_argument("--other-color", default="black")
+    eyes.add_argument(
+        "--no-public-announcement",
+        action="store_true",
+        help="remove the common-knowledge announcement",
+    )
     return parser
 
 
@@ -66,4 +79,12 @@ def main(argv: list[str] | None = None) -> int:
         print(format_bean_solution(solution))
     elif args.puzzle == "worm":
         print(format_worm_solution(WormSolver().solve(args.holes)))
+    elif args.puzzle == "eyes":
+        rules = EyeRules(
+            target_color=args.target_color,
+            other_color=args.other_color,
+            public_announcement=not args.no_public_announcement,
+        )
+        solution = EyeVillageSolver(rules).solve(args.target_count, args.other_count)
+        print(format_eye_solution(solution))
     return 0
