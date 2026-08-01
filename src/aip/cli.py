@@ -114,6 +114,12 @@ def build_parser() -> argparse.ArgumentParser:
     auction.add_argument("--trials", type=int, default=1_000)
     auction.add_argument("--seed", type=int, default=42)
     auction.add_argument(
+        "--deviation-rate",
+        type=float,
+        default=0.02,
+        help="per-player chance of breaking the price-1 tacit convention each round",
+    )
+    auction.add_argument(
         "--modes",
         nargs="+",
         choices=[mode.value for mode in AuctionMode],
@@ -174,7 +180,13 @@ def main(argv: list[str] | None = None) -> int:
         analysis = PrisonerTimingAnalyzer().analyze(args.count, **options)
         print(format_timing_analysis(analysis))
     elif args.puzzle == "auction":
-        rules = AuctionRules(args.players, args.rounds, args.value, args.budget)
+        rules = AuctionRules(
+            args.players,
+            args.rounds,
+            args.value,
+            args.budget,
+            args.deviation_rate,
+        )
         modes = tuple(AuctionMode(mode) for mode in args.modes)
         analysis = AllPayAuctionAnalyzer().analyze(
             rules, trials=args.trials, seed=args.seed, modes=modes

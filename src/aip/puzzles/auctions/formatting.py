@@ -17,15 +17,23 @@ def format_analysis(analysis: AuctionAnalysis) -> str:
         f"  expected total bids={benchmark.expected_total_bids:.2f}",
         f"  expected winning bid={benchmark.expected_winning_bid:.2f}",
         f"  expected net payoff/player={benchmark.expected_payoff_per_player:.2f}",
+        f"  price-only rotating convention needs discount/continuation >= "
+        f"{analysis.tacit_patience_threshold:.4f} in the worst rotation position",
         "",
         "Finite-budget simulation averages:",
         "  mode         auctioneer revenue  final group wealth  richest share  bankrupt",
     ]
     for summary in analysis.scenarios:
+        survival = (
+            f"; tacit norm survives={summary.coordination_survival_rate:.2%}"
+            if summary.coordination_survival_rate is not None
+            else ""
+        )
         lines.append(
             f"  {summary.mode.value:11s} {summary.mean_auctioneer_revenue:18.2f} "
             f"{summary.mean_final_group_wealth:19.2f} "
             f"{summary.mean_richest_share:13.2%} {summary.mean_bankrupt_players:9.2f}"
+            + survival
         )
     lines.extend(
         [
@@ -35,6 +43,7 @@ def format_analysis(analysis: AuctionAnalysis) -> str:
             "  cautious: frequent abstention and bids capped near value/player-count",
             "  equilibrium: one-shot mixed-equilibrium draws, then truncated by budgets",
             "  cooperative: rotating winner bids 1; efficient but not self-enforcing",
+            "  tacit: price 1 means cooperate; price >1 publicly triggers equilibrium punishment",
             "  Finite budgets/rounds make the exact dynamic equilibrium state-dependent.",
         ]
     )

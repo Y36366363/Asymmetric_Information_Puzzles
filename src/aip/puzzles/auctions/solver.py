@@ -36,10 +36,15 @@ class AllPayAuctionSimulator:
         budgets = [rules.initial_budget] * rules.player_count
         rounds: list[AuctionRound] = []
         total_revenue = 0
+        tacit_active = behavior is AuctionMode.TACIT
+        break_round: int | None = None
 
         for round_number in range(1, rules.rounds + 1):
             before = tuple(budgets)
-            bids = self._bids(rules, behavior, budgets, round_number, rng)
+            active_before = tacit_active
+            bids = self._bids(
+                rules, behavior, budgets, round_number, rng, tacit_active=tacit_active
+            )
             max_bid = max(bids)
             if max_bid == 0:
                 winner = None
@@ -52,6 +57,9 @@ class AllPayAuctionSimulator:
                 budgets[winner] += rules.prize_value
             revenue = sum(bids)
             total_revenue += revenue
+            if behavior is AuctionMode.TACIT and tacit_active and max_bid > 1:
+                tacit_active = False
+                break_round = round_number
             rounds.append(
                 AuctionRound(
                     round_number,
@@ -60,9 +68,19 @@ class AllPayAuctionSimulator:
                     winner,
                     tuple(budgets),
                     revenue,
+                    max_bid,
+                    active_before,
+                    tacit_active,
                 )
             )
-        return AuctionRun(rules, behavior, tuple(rounds), tuple(budgets), total_revenue)
+        return AuctionRun(
+            rules,
+            behavior,
+            tuple(rounds),
+            tuple(budgets),
+            total_revenue,
+            break_round,
+        )
 
     def _bids(
         self,
@@ -71,29 +89,43 @@ class AllPayAuctionSimulator:
         budgets: list[int],
         round_number: int,
         rng: random.Random,
+        *,
+        tacit_active: bool = False,
     ) -> list[int]:
         active = sum(budget > 0 for budget in budgets)
-        if mode is AuctionMode.COOPERATIVE:
+        if mode is AuctionMode.COOPERATIVE or (
+            mode is AuctionMode.TACIT and tacit_active
+        ):
             bids = [0] * rules.player_count
             for offset in range(rules.player_count):
                 designated = (round_number - 1 + offset) % rules.player_count
                 if budgets[designated] > 0:
                     bids[designated] = 1
                     break
+            if mode is AuctionMode.TACIT:
+                for player, budget in enumerate(budgets):
+                    if (
+                        bids[player] == 0
+                        and budget >= 2
+                        and rng.random() < rules.tacit_deviation_probability
+                    ):
+                        bids[player] = 2
             return bids
+
+        effective_mode = AuctionMode.EQUILIBRIUM if mode is AuctionMode.TACIT else mode
 
         bids: list[int] = []
         for budget in budgets:
             if budget == 0:
                 bids.append(0)
                 continue
-            if mode is AuctionMode.NAIVE:
+            if effective_mode is AuctionMode.NAIVE:
                 if rng.random() < 0.08:
                     bids.append(0)
                 else:
                     ceiling = min(budget, int(rules.prize_value * 1.5))
                     bids.append(rng.randint(1, ceiling))
-            elif mode is AuctionMode.CAUTIOUS:
+            elif effective_mode is AuctionMode.CAUTIOUS:
                 if rng.random() < 0.35:
                     bids.append(0)
                 else:
@@ -125,6 +157,32 @@ class AllPayAuctionAnalyzer:
             bid_cdf=f"F(b)=(b/{prize_value:g})^(1/{player_count - 1}), 0<=b<={prize_value:g}",
         )
 
+    @staticmethod
+    def tacit_patience_threshold(player_count: int, prize_value: float = 100) -> float:
+        """Worst-position discount factor for a rotating price-1 convention.
+
+        A non-designated bidder can bid 2 for an immediate V-2 gain. Detection
+        triggers the credible one-shot equilibrium forever (zero continuation
+        payoff). The most tempted player waits m-1 rounds for their next V-1
+        cooperative prize.
+        """
+
+        if player_count < 2 or prize_value <= 2:
+            raise ValueError("threshold needs at least two players and prize value > 2")
+        low, high = 0.0, 1.0
+        for _ in range(100):
+            discount = (low + high) / 2
+            cooperative_value = (
+                discount ** (player_count - 1)
+                * (prize_value - 1)
+                / (1 - discount**player_count)
+            )
+            if cooperative_value >= prize_value - 2:
+                high = discount
+            else:
+                low = discount
+        return high
+
     def analyze(
         self,
         rules: AuctionRules,
@@ -142,6 +200,7 @@ class AllPayAuctionAnalyzer:
             wealth_total = 0.0
             richest_share_total = 0.0
             bankrupt_total = 0.0
+            coordination_survivals = 0
             for trial in range(trials):
                 run_seed = seed + mode_index * 1_000_003 + trial
                 run = self.simulator.run(rules, mode, seed=run_seed)
@@ -152,6 +211,8 @@ class AllPayAuctionAnalyzer:
                 wealth_total += wealth
                 richest_share_total += max(run.final_budgets) / wealth if wealth else 0.0
                 bankrupt_total += sum(budget == 0 for budget in run.final_budgets)
+                if mode is AuctionMode.TACIT and run.coordination_break_round is None:
+                    coordination_survivals += 1
             summaries.append(
                 ScenarioSummary(
                     mode,
@@ -160,6 +221,7 @@ class AllPayAuctionAnalyzer:
                     wealth_total / trials,
                     richest_share_total / trials,
                     bankrupt_total / trials,
+                    coordination_survivals / trials if mode is AuctionMode.TACIT else None,
                 )
             )
         return AuctionAnalysis(
@@ -167,4 +229,5 @@ class AllPayAuctionAnalyzer:
             self.symmetric_benchmark(rules.player_count, rules.prize_value),
             tuple(summaries),
             tuple(samples),
+            self.tacit_patience_threshold(rules.player_count, rules.prize_value),
         )

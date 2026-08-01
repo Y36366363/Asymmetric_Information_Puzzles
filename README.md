@@ -2,6 +2,9 @@
 
 ## Updates 08/01/2026
 
+- **Price-only tacit auction coordination** — Added anonymous public-price
+  signals, a low-price convention with collective punishment, deviation-noise
+  simulation, and patience thresholds for indefinite repeated auctions.
 - **Repeated all-pay auction lab** — Added a formal 100-value auction model,
   symmetric mixed-equilibrium benchmark, finite-budget multi-round simulation,
   and comparisons of naive, cautious, rational-benchmark, and cooperative play.
@@ -220,10 +223,13 @@ PYTHONPATH=src python -m aip auction --players 5 --rounds 10 \
 This formalizes the *Kakegurui* “100 Votes Auction” as a sealed simultaneous
 all-pay auction: a zero bid abstains, every positive integer bid is lost, the
 highest bidder receives 100 reusable units, and a tied highest bid is broken
-uniformly. Bids are anonymous, coordination is disallowed, and the auctioneer
-does not secretly bid. These assumptions match the central published rules;
-changing sequential visibility or allowing auctioneer bids creates a different
-game. See the anime's [official rules](https://kakegurui-anime.com/game_rules/).
+uniformly. Bids and bidder identities are private; the only public communication
+signal is the winning price after each round. Direct coordination is disallowed,
+and the auctioneer does not secretly bid. These assumptions match the central
+published rules plus the price-observation premise used here; if even the
+winning price is hidden, price-based recognition is impossible. Changing
+sequential visibility or allowing auctioneer bids creates a different game. See
+the anime's [official rules](https://kakegurui-anime.com/game_rules/).
 
 ### 1. Ordinary or bounded-rational players
 
@@ -238,6 +244,38 @@ The simulator includes `naive`, `cautious`, `equilibrium`, and `cooperative`
 modes. The first two are explicit bounded-rational scenarios rather than claims
 about universal human behavior.
 
+### Price as the only communication channel
+
+The `tacit` mode treats the public winning price as a noisy shared language:
+
+- price `1`: continue the low-price convention;
+- price above `1`: somebody defected, but anonymity hides who;
+- after detection: everyone switches to the one-shot mixed-equilibrium
+  punishment benchmark for all remaining rounds.
+
+The cooperative role rotates by a public clock and player labels. This rotation
+must already be a focal convention; observing a price of 1 proves only that no
+one bid above 1, not that every player privately accepted the same agreement.
+Thus prices can coordinate behavior and detect a deviation, but cannot create
+logical common knowledge of private intentions or support targeted punishment.
+
+```bash
+PYTHONPATH=src python -m aip auction --players 5 --rounds 20 \
+  --deviation-rate 0.02 --modes tacit equilibrium cooperative
+```
+
+For an indefinitely repeated rotating convention, let `delta` be the per-round
+discount/continuation factor. A non-designated player can defect with bid 2 and
+gain `V-2` immediately. In the worst place in a rotation, their next cooperative
+win is `m-1` rounds away. Collective punishment can deter that deviation only if
+
+`delta^(m-1)(V-1)/(1-delta^m) >= V-2`.
+
+For five players and `V=100`, the threshold is approximately `delta=0.8556`.
+Below it, future low-price wins are not valuable enough to offset the immediate
+98-unit deviation gain. More players raise the threshold because each player
+waits longer for their designated win.
+
 ### 2. Fully rational players
 
 For one continuous-bid round with `m` identical risk-neutral bidders, common
@@ -251,7 +289,8 @@ payoff is zero. For five players, the mean bid is 20 and the mean winning bid is
 Everyone bidding zero is not an equilibrium because one bidder can profitably
 bid 1. A rotating agreement where one person bids 1 creates almost the full
 group surplus, but is not self-enforcing: another bidder can bid 2 and steal a
-98-unit gain. Complete-information all-pay auctions can also have asymmetric
+98-unit gain unless sufficiently valuable future price-triggered punishment is
+available. Complete-information all-pay auctions can also have asymmetric
 equilibria, so “all rational” does not imply one deterministic outcome. See
 [Baye, Kovenock, and de Vries](https://repub.eur.nl/pub/12406/).
 
