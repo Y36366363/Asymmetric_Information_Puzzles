@@ -3,6 +3,11 @@ from __future__ import annotations
 import argparse
 
 from aip.puzzles.auctions.formatting import format_analysis as format_auction_analysis
+from aip.puzzles.auctions.coordination import (
+    LeadershipCandidate,
+    PublicPriceCoordinationSolver,
+)
+from aip.puzzles.auctions.coordination_formatting import format_coordination
 from aip.puzzles.auctions.models import AuctionMode, AuctionRules
 from aip.puzzles.auctions.solver import AllPayAuctionAnalyzer
 from aip.puzzles.beans.formatting import format_solution as format_bean_solution
@@ -139,6 +144,20 @@ def build_parser() -> argparse.ArgumentParser:
             AuctionMode.TACIT.value,
         ],
     )
+    coordination = subparsers.add_parser(
+        "auction-coordination", help="resolve public leadership and price conventions"
+    )
+    coordination.add_argument(
+        "--candidate",
+        nargs="+",
+        required=True,
+        metavar="PLAYER:BID:PRICE",
+    )
+    coordination.add_argument("--ideals", type=int, nargs="+", required=True)
+    coordination.add_argument("--value", type=int, default=100)
+    coordination.add_argument("--remaining-rounds", type=int, default=10)
+    coordination.add_argument("--discount", type=float, default=0.9)
+    coordination.add_argument("--leader-bonus", type=float, default=0.0)
     return parser
 
 
@@ -210,4 +229,23 @@ def main(argv: list[str] | None = None) -> int:
             rules, trials=args.trials, seed=args.seed, modes=modes
         )
         print(format_auction_analysis(analysis))
+    elif args.puzzle == "auction-coordination":
+        candidates = []
+        for encoded in args.candidate:
+            try:
+                player, bid, price = (int(part) for part in encoded.split(":"))
+            except ValueError as error:
+                raise SystemExit(
+                    f"invalid candidate {encoded!r}; expected PLAYER:BID:PRICE"
+                ) from error
+            candidates.append(LeadershipCandidate(player, bid, price))
+        outcome = PublicPriceCoordinationSolver().solve(
+            tuple(candidates),
+            tuple(args.ideals),
+            prize_value=args.value,
+            remaining_rounds=args.remaining_rounds,
+            discount_factor=args.discount,
+            leadership_bonus_per_round=args.leader_bonus,
+        )
+        print(format_coordination(outcome))
     return 0

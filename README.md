@@ -2,6 +2,9 @@
 
 ## Updates 08/01/2026
 
+- **Public leadership and convention selection** — Separated raw high-bid
+  dominance from majority legitimacy, added competing 101+ leadership signals,
+  pairwise public-price runoffs, and median selection among 1/5/25 conventions.
 - **Costly leadership and majority enforcement** — Added a 101-price leadership
   signal, symmetric all-bid-1 norm, majority expulsion of attributable defectors,
   social-deviation simulation, and the finite-horizon enforcement boundary.
@@ -226,13 +229,12 @@ PYTHONPATH=src python -m aip auction --players 5 --rounds 10 \
 This formalizes the *Kakegurui* “100 Votes Auction” as a sealed simultaneous
 all-pay auction: a zero bid abstains, every positive integer bid is lost, the
 highest bidder receives 100 reusable units, and a tied highest bid is broken
-uniformly. Bids and bidder identities are private; the only public communication
-signal is the winning price after each round. Direct coordination is disallowed,
-and the auctioneer does not secretly bid. These assumptions match the central
-published rules plus the price-observation premise used here; if even the
-winning price is hidden, price-based recognition is impossible. Changing
-sequential visibility or allowing auctioneer bids creates a different game. See
-the anime's [official rules](https://kakegurui-anime.com/game_rules/).
+uniformly. The main model now treats bidder identities, bids, and the winning
+price as public, while forbidding direct conversation; prices are the only
+language. `tacit` and `--social-identity-hidden` preserve the earlier anonymous
+information variants for comparison. The auctioneer does not secretly bid.
+Changing sequential visibility or allowing auctioneer bids creates a different
+game. See the anime's [official rules](https://kakegurui-anime.com/game_rules/).
 
 ### 1. Ordinary or bounded-rational players
 
@@ -322,6 +324,62 @@ there are fewer future low-price prizes to lose. A final-round defection can be
 prevented only by an immediate expulsion penalty, preferences for norm
 compliance or fairness, reputational consequences outside the auction, or an
 uncertain continuation—not merely by intelligence.
+
+### Competing leaders and competing equilibrium prices
+
+```bash
+PYTHONPATH=src python -m aip auction-coordination \
+  --candidate 0:101:1 1:105:5 2:130:25 \
+  --ideals 1 1 5 25 25 --remaining-rounds 10 \
+  --discount 0.9 --leader-bonus 1
+```
+
+Each candidate is encoded as `player:public-leadership-bid:proposed-future-price`.
+Operationally this represents a two-stage public price code: a fixed candidacy
+window records each 101+ commitment, then a fixed proposal window records the
+same identified candidate's intended operating price. No spoken message is
+needed, but the common clock and code must be known from the auction rules or
+learned as a focal convention.
+The model deliberately separates two concepts:
+
+1. **Raw dominance:** the highest 101+ bidder controls the current lot.
+2. **Legitimacy:** the candidate whose proposed convention wins public pairwise
+   majority comparisons becomes the socially recognized leader.
+
+A bid of 101 does not lock leadership. A rival can bid 102, but escalation is
+rational only when leadership has private continuation value. If leadership
+adds `L` per future round, a guaranteed winner's break-even cap is
+`100 + sum(delta^t L)`. Symmetric candidates competing for the same leadership
+rent create another all-pay contest, so deterministic escalation can dissipate
+the entire future benefit. A fixed candidacy window and majority ratification
+prevent an endless 101/102/103 leadership war.
+
+The future norm price should not be encoded mechanically as `100 + price` and
+awarded to the highest bid: that would make a proposal of 25 automatically beat
+5 and 1 even though it destroys more surplus. Candidate commitment and proposed
+operating price are therefore separate public fields.
+
+If `q` symmetric supporters all bid a common price `p`, then
+
+- expected payoff per supporter is `100/q - p`;
+- group surplus is `100 - qp`;
+- economic participation is positive only when `p < 100/q`.
+
+For five equal participants, price 1 yields 19 each, price 5 yields 15 each, and
+price 25 yields -5 each. Thus 1 strictly dominates 5 and 25 on monetary surplus.
+Higher norms can still attract human support as entry barriers, status signals,
+fairness conventions, or tools favoring wealthier players. Interestingly, the
+incremental temptation to defect from common `p` to `p+1` is
+`[100-(p+1)] - [100/q-p] = 100(1-1/q)-1`, so merely raising the norm does not
+solve the enforcement problem; it mainly burns more group wealth.
+
+When preferences over 1, 5, and 25 are single-peaked, pairwise majority voting
+selects the median ideal. With ideals `[1,1,5,25,25]`, no proposal has an
+immediate strict first-choice majority, but 5 defeats both 1 and 25 in public
+runoffs. A bidder offering 130 for leadership may therefore win raw dominance,
+while the bidder proposing 5 becomes the majority-recognized leader. Without a
+predeclared rule choosing between “highest bid” and “majority recognition,”
+leadership itself remains ambiguous and no unique equilibrium can be inferred.
 
 ### 2. Fully rational players
 

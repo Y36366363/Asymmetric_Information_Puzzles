@@ -2,6 +2,10 @@
 
 from aip.puzzles.auctions.models import AuctionMode, AuctionRules, AuctionRun
 from aip.puzzles.auctions.solver import AllPayAuctionAnalyzer, AllPayAuctionSimulator
+from aip.puzzles.auctions.coordination import (
+    LeadershipCandidate,
+    PublicPriceCoordinationSolver,
+)
 
 __all__ = [
     "AllPayAuctionAnalyzer",
@@ -9,4 +13,6 @@ __all__ = [
     "AuctionMode",
     "AuctionRules",
     "AuctionRun",
+    "LeadershipCandidate",
+    "PublicPriceCoordinationSolver",
 ]
