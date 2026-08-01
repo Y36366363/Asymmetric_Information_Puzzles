@@ -89,6 +89,20 @@ def build_parser() -> argparse.ArgumentParser:
     prisoner_analysis.add_argument("--seed", type=int, default=42)
     prisoner_analysis.add_argument("--false-cost", type=float, default=1_000_000)
     prisoner_analysis.add_argument("--daily-cost", type=float, default=1.0)
+    prisoner_analysis.add_argument(
+        "--confidences",
+        type=float,
+        nargs="+",
+        default=[0.5, 0.9, 0.95, 0.99, 0.999],
+        help="target probabilities expressed between 0 and 1",
+    )
+    prisoner_analysis.add_argument(
+        "--sample-days",
+        type=int,
+        nargs="+",
+        default=None,
+        help="days to include in the probability table",
+    )
     return parser
 
 
@@ -131,13 +145,16 @@ def main(argv: list[str] | None = None) -> int:
         )
         print(format_simulation(result))
     elif args.puzzle == "prisoners-analysis":
-        analysis = PrisonerTimingAnalyzer().analyze(
-            args.count,
-            max_days=args.max_days,
-            false_declaration_cost=args.false_cost,
-            daily_wait_cost=args.daily_cost,
-            simulation_trials=args.trials,
-            seed=args.seed,
-        )
+        options = {
+            "max_days": args.max_days,
+            "confidences": tuple(args.confidences),
+            "false_declaration_cost": args.false_cost,
+            "daily_wait_cost": args.daily_cost,
+            "simulation_trials": args.trials,
+            "seed": args.seed,
+        }
+        if args.sample_days is not None:
+            options["sample_days"] = tuple(args.sample_days)
+        analysis = PrisonerTimingAnalyzer().analyze(args.count, **options)
         print(format_timing_analysis(analysis))
     return 0

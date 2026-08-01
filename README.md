@@ -158,7 +158,9 @@ light operation, matching the puzzle's restriction.
 
 ```bash
 PYTHONPATH=src python -m aip prisoners-analysis --count 100 \
-  --trials 2000 --false-cost 1000000 --daily-cost 1
+  --trials 2000 --false-cost 1000000 --daily-cost 1 \
+  --confidences 0.9 0.95 0.99 0.999 \
+  --sample-days 500 700 900 1100 1300
 ```
 
 For `N` prisoners, the expected day on which everyone has physically visited is

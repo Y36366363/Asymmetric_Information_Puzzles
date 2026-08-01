@@ -29,6 +29,18 @@ class PrisonerTimingAnalyzerTests(unittest.TestCase):
         second = self.analyzer.monte_carlo(5, 100, seed=7)
         self.assertEqual(first, second)
 
+    def test_custom_planning_grid(self) -> None:
+        analysis = self.analyzer.analyze(
+            10,
+            max_days=1000,
+            sample_days=(25, 50),
+            confidences=(0.8, 0.99),
+        )
+        self.assertEqual([point.day for point in analysis.points], [25, 50])
+        self.assertEqual(
+            [item.confidence for item in analysis.confidence_days], [0.8, 0.99]
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
