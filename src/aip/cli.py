@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import argparse
 
+from aip.puzzles.auctions.formatting import format_analysis as format_auction_analysis
+from aip.puzzles.auctions.models import AuctionMode, AuctionRules
+from aip.puzzles.auctions.solver import AllPayAuctionAnalyzer
 from aip.puzzles.beans.formatting import format_solution as format_bean_solution
 from aip.puzzles.beans.models import BeanRules
 from aip.puzzles.beans.solver import BeanSolver
@@ -103,6 +106,19 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="days to include in the probability table",
     )
+    auction = subparsers.add_parser("auction", help="analyze repeated all-pay auctions")
+    auction.add_argument("--players", type=int, default=5)
+    auction.add_argument("--rounds", type=int, default=10)
+    auction.add_argument("--value", type=int, default=100)
+    auction.add_argument("--budget", type=int, default=100)
+    auction.add_argument("--trials", type=int, default=1_000)
+    auction.add_argument("--seed", type=int, default=42)
+    auction.add_argument(
+        "--modes",
+        nargs="+",
+        choices=[mode.value for mode in AuctionMode],
+        default=[mode.value for mode in AuctionMode],
+    )
     return parser
 
 
@@ -157,4 +173,11 @@ def main(argv: list[str] | None = None) -> int:
             options["sample_days"] = tuple(args.sample_days)
         analysis = PrisonerTimingAnalyzer().analyze(args.count, **options)
         print(format_timing_analysis(analysis))
+    elif args.puzzle == "auction":
+        rules = AuctionRules(args.players, args.rounds, args.value, args.budget)
+        modes = tuple(AuctionMode(mode) for mode in args.modes)
+        analysis = AllPayAuctionAnalyzer().analyze(
+            rules, trials=args.trials, seed=args.seed, modes=modes
+        )
+        print(format_auction_analysis(analysis))
     return 0

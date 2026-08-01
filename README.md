@@ -2,6 +2,9 @@
 
 ## Updates 08/01/2026
 
+- **Repeated all-pay auction lab** — Added a formal 100-value auction model,
+  symmetric mixed-equilibrium benchmark, finite-budget multi-round simulation,
+  and comparisons of naive, cautious, rational-benchmark, and cooperative play.
 - **Prisoner timing and risk analysis** — Added exact coupon-collector and
   single-counter completion distributions, closed-form expectations, Monte Carlo
   validation, confidence deadlines, and a configurable false-declaration trade-off.
@@ -29,8 +32,8 @@ induction, common knowledge, information sets, and robust strategies.
 
 The project currently solves pirate gold allocation, public coloured-hat and
 village eye-colour reasoning, prisoners-and-light coordination, robust
-sequential bean taking, and adversarial moving-worm search. Its shared core
-remains ready for future puzzles.
+sequential bean taking, repeated all-pay auctions, and adversarial moving-worm
+search. Its shared core remains ready for future puzzles.
 
 ## Project layout
 
@@ -51,6 +54,7 @@ remains ready for future puzzles.
 │       ├── hats/                  # common-knowledge evolution solver
 │       ├── eyes/                  # village eye-colour induction
 │       ├── prisoners/             # one-bit distributed coordination
+│       ├── auctions/              # repeated all-pay auction analysis
 │       ├── beans/                 # interval minimax and robust strategies
 │       └── worm/                  # shortest adversarial search strategy
 └── tests/
@@ -205,6 +209,68 @@ Further reading: [Majerech's one-light retrospective](https://arxiv.org/abs/2208
 surveys faster protocols and reports sub-3390-day average designs. William Wu's
 [protocol survey](https://www.ocf.berkeley.edu/~wwu/papers/100prisonersLightBulb.pdf)
 develops single-counter, dynamic-counter, two-stage, and binary-token methods.
+
+## Run the repeated all-pay auction lab
+
+```bash
+PYTHONPATH=src python -m aip auction --players 5 --rounds 10 \
+  --value 100 --budget 100 --trials 1000
+```
+
+This formalizes the *Kakegurui* “100 Votes Auction” as a sealed simultaneous
+all-pay auction: a zero bid abstains, every positive integer bid is lost, the
+highest bidder receives 100 reusable units, and a tied highest bid is broken
+uniformly. Bids are anonymous, coordination is disallowed, and the auctioneer
+does not secretly bid. These assumptions match the central published rules;
+changing sequential visibility or allowing auctioneer bids creates a different
+game. See the anime's [official rules](https://kakegurui-anime.com/game_rules/).
+
+### 1. Ordinary or bounded-rational players
+
+There is no single prediction without a behavioral model. Players may anchor
+near 100, overreact to earlier losses, overbid, abstain too often, imitate past
+winners, or conserve cash. Since losers also pay, errors transfer wealth to the
+auctioneer and can quickly bankrupt bidders. Early wins replenish a bankroll,
+so finite budgets create path dependence and concentration: a lucky rich player
+can remain aggressive while poorer players lose the ability to challenge.
+
+The simulator includes `naive`, `cautious`, `equilibrium`, and `cooperative`
+modes. The first two are explicit bounded-rational scenarios rather than claims
+about universal human behavior.
+
+### 2. Fully rational players
+
+For one continuous-bid round with `m` identical risk-neutral bidders, common
+value `V=100`, and nonbinding budgets, there is no symmetric deterministic bid.
+The symmetric mixed benchmark has
+`F(b)=(b/V)^(1/(m-1))` on `[0,V]`. Consequently each player bids `V/m` in
+expectation, total expected bids equal `V`, and each player's expected net
+payoff is zero. For five players, the mean bid is 20 and the mean winning bid is
+`500/9 ≈ 55.56`, while the auctioneer receives 100 in expectation.
+
+Everyone bidding zero is not an equilibrium because one bidder can profitably
+bid 1. A rotating agreement where one person bids 1 creates almost the full
+group surplus, but is not self-enforcing: another bidder can bid 2 and steal a
+98-unit gain. Complete-information all-pay auctions can also have asymmetric
+equilibria, so “all rational” does not imply one deterministic outcome. See
+[Baye, Kovenock, and de Vries](https://repub.eur.nl/pub/12406/).
+
+### 3. A finite number of rounds
+
+In the final round there is no value to preserving budget for later, so the
+one-shot all-pay incentives apply. Earlier rounds attach continuation value to
+cash: with binding budgets, optimal bids depend on every bankroll, remaining
+rounds, public history, tie rules, and whether winnings can be rebid. Rich players
+gain strategic endurance, poor players rationally abstain more often, and late
+rounds can become more aggressive as the option value of saved cash disappears.
+
+If all budgets are large enough never to bind, independently repeating the
+one-shot mixed equilibrium is a subgame-perfect benchmark and dissipates roughly
+100 units per round in expectation. With binding budgets it is only a benchmark,
+not an exact dynamic equilibrium; the CLI labels its samples accordingly. A
+finite horizon also weakens unsupported cooperation because the final round has
+no future punishment, and backward-induction pressure propagates toward earlier
+rounds.
 
 ## Run the bean-taking solver
 
