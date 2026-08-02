@@ -15,7 +15,7 @@ class LocalGameUITests(unittest.TestCase):
     def test_lobby_lists_one_playable_game_and_future_games(self) -> None:
         games = self.service.games()
         playable = [game["id"] for game in games if game["available"]]
-        self.assertEqual(playable, ["cases"])
+        self.assertEqual(playable, ["cases", "worm"])
         self.assertIn("liars-dice", [game["id"] for game in games])
 
     def test_case_value_stays_hidden_until_opened_or_finished(self) -> None:
@@ -91,6 +91,35 @@ class LocalGameUITests(unittest.TestCase):
             server.shutdown()
             server.server_close()
             thread.join(timeout=2)
+
+    def test_worm_position_is_hidden_while_playing(self) -> None:
+        created = self.service.create_session("worm", {"seed": 5})
+        state = created["state"]
+        self.assertEqual(state["phase"], "playing")
+        self.assertFalse(any(hole["worm"] for hole in state["holes"]))
+        self.assertNotIn("seed", state)
+
+    def test_guaranteed_worm_sequence_catches_random_movement(self) -> None:
+        for seed in range(30):
+            created = self.service.create_session("worm", {"seed": seed})
+            session_id = created["sessionId"]
+            state = created["state"]
+            for hole_id in state["strategy"]:
+                state = self.service.act(
+                    session_id, "check_hole", {"holeId": hole_id}
+                )
+                if state["phase"] == "finished":
+                    break
+            self.assertEqual(state["phase"], "finished", f"seed={seed}")
+            self.assertTrue(any(hole["worm"] for hole in state["holes"]))
+            self.assertIsNone(state["suggestedHole"])
+
+    def test_worm_miss_updates_public_information_set(self) -> None:
+        created = self.service.create_session("worm", {"seed": 0})
+        state = self.service.act(created["sessionId"], "check_hole", {"holeId": 2})
+        if state["phase"] == "playing":
+            self.assertNotIn(1, state["possiblePositions"])
+            self.assertEqual(state["turn"], 1)
 
 
 if __name__ == "__main__":

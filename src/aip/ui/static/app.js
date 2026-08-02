@@ -2,6 +2,7 @@ const $ = (selector) => document.querySelector(selector);
 const money = new Intl.NumberFormat("zh-CN", { maximumFractionDigits: 2 });
 let sessionId = null;
 let currentState = null;
+let currentGameId = null;
 
 async function request(path, options = {}) {
   const response = await fetch(path, {
@@ -43,8 +44,10 @@ async function startGame(gameId = "cases") {
     });
     sessionId = result.sessionId;
     currentState = result.state;
+    currentGameId = gameId;
     $("#lobbyView").classList.add("hidden");
-    $("#gameView").classList.remove("hidden");
+    $("#gameView").classList.toggle("hidden", gameId !== "cases");
+    $("#wormView").classList.toggle("hidden", gameId !== "worm");
     render();
   } catch (error) {
     showToast(error.message);
@@ -65,6 +68,10 @@ async function act(action, payload = {}) {
 }
 
 function render() {
+  if (currentState.gameId === "worm") {
+    renderWorm();
+    return;
+  }
   const state = currentState;
   $("#roundNumber").textContent = state.phase === "choose" ? "—" : state.round;
   $("#remainingCount").textContent = state.prizeBoard.filter((prize) => prize.remaining).length;
@@ -100,6 +107,40 @@ function render() {
     $("#offerValue").textContent = formatMoney(state.offer);
     $("#offerContext").textContent = `剩余 ${state.prizeBoard.filter((prize) => prize.remaining).length} 个可能金额。模型保留价为 ${formatMoney(state.metrics.certaintyEquivalent)}。`;
   }
+}
+
+function renderWorm() {
+  const state = currentState;
+  $("#wormTurn").textContent = state.turn;
+  $("#possibleHoles").textContent = state.possiblePositions.join(" · ") || "已锁定";
+  $("#wormHint").textContent = state.phase === "finished"
+    ? "已成功抓捕"
+    : state.suggestedHole
+      ? `检查 ${state.suggestedHole} 号洞`
+      : state.followedStrategy ? "序列已完成" : "已偏离保证序列";
+  $("#wormHeadline").textContent = state.phase === "finished"
+    ? `抓到了！第 ${state.turn} 次检查成功`
+    : "虫子仍在移动";
+  $("#wormInstruction").textContent = state.phase === "finished"
+    ? "重新开始可以更换虫子的初始位置。"
+    : "选择一个洞检查；每次失手后，虫子必定移动到相邻洞。";
+
+  $("#holeRow").innerHTML = state.holes.map((hole) => `
+    <button class="hole ${hole.possible ? "" : "impossible"} ${hole.worm ? "worm-found" : ""}"
+      data-hole="${hole.id}" ${state.phase === "finished" ? "disabled" : ""}
+      aria-label="检查 ${hole.id} 号洞">${hole.worm ? "●" : hole.id}</button>
+  `).join("");
+  document.querySelectorAll(".hole:not(:disabled)").forEach((button) => {
+    button.addEventListener("click", () => act("check_hole", { holeId: Number(button.dataset.hole) }));
+  });
+
+  $("#strategySequence").innerHTML = state.strategy.map((hole, index) => {
+    const status = index < state.turn ? "done" : index === state.turn && state.followedStrategy ? "next" : "";
+    return `<span class="strategy-step ${status}">${hole}</span>`;
+  }).join("");
+  $("#wormHistory").innerHTML = state.history.slice().reverse().map((item) =>
+    `<li>第 ${item.turn} 次检查 ${item.holeId} 号洞：${item.result === "caught" ? "成功抓到" : "没有，虫子已移动"}</li>`
+  ).join("");
 }
 
 function caseDisabled(item) {
@@ -147,12 +188,15 @@ function findCase(caseId) {
 function showLobby() {
   $("#offerModal").classList.add("hidden");
   $("#gameView").classList.add("hidden");
+  $("#wormView").classList.add("hidden");
   $("#lobbyView").classList.remove("hidden");
 }
 
 $("#homeButton").addEventListener("click", showLobby);
 $("#backButton").addEventListener("click", showLobby);
+document.querySelectorAll(".back-to-lobby").forEach((button) => button.addEventListener("click", showLobby));
 $("#newGameButton").addEventListener("click", () => startGame("cases"));
+$("#newWormButton").addEventListener("click", () => startGame("worm"));
 $("#dealButton").addEventListener("click", () => act("deal"));
 $("#noDealButton").addEventListener("click", () => act("no_deal"));
 loadLobby().catch((error) => showToast(error.message));

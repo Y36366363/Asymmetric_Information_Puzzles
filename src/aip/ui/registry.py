@@ -8,6 +8,7 @@ from typing import Callable, Protocol
 
 from aip.puzzles.cases.models import CLASSROOM_BANKER, CaseGameRules, RiskPreferences
 from aip.puzzles.cases.solver import CaseGameAnalyzer
+from aip.puzzles.worm.solver import WormSolver
 
 
 class PlayableSession(Protocol):
@@ -250,6 +251,96 @@ class CaseGameSession:
         }
 
 
+class WormGameSession:
+    """Playable hidden-worm search with a public belief-state companion."""
+
+    def __init__(self, options: dict[str, object]) -> None:
+        self.hole_count = int(options.get("holes", 5))
+        if self.hole_count < 2 or self.hole_count > 12:
+            raise ValueError("holes must be between 2 and 12")
+        self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
+        self._rng = random.Random(self.seed)
+        self._worm_position = self._rng.randint(1, self.hole_count)
+        self.possible_positions = set(range(1, self.hole_count + 1))
+        self.turn = 0
+        self.phase = "playing"
+        self.history: list[dict[str, object]] = []
+        self.strategy = WormSolver().solve(self.hole_count).checks
+        self.followed_strategy = True
+
+    def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
+        if action != "check_hole":
+            raise ValueError(f"unknown action: {action}")
+        self._check_hole(int(payload.get("holeId", 0)))
+        return self.snapshot()
+
+    def _check_hole(self, hole_id: int) -> None:
+        if self.phase != "playing":
+            raise ValueError("the worm has already been caught")
+        if hole_id < 1 or hole_id > self.hole_count:
+            raise ValueError("hole is outside the board")
+        suggested = self.strategy[self.turn] if self.turn < len(self.strategy) else None
+        self.followed_strategy = self.followed_strategy and hole_id == suggested
+        self.turn += 1
+        if hole_id == self._worm_position:
+            self.phase = "finished"
+            self.possible_positions = {hole_id}
+            self.history.append(
+                {"turn": self.turn, "holeId": hole_id, "result": "caught"}
+            )
+            return
+
+        self.history.append({"turn": self.turn, "holeId": hole_id, "result": "miss"})
+        self.possible_positions = self._after_miss(
+            self.possible_positions, hole_id, self.hole_count
+        )
+        neighbors = []
+        if self._worm_position > 1:
+            neighbors.append(self._worm_position - 1)
+        if self._worm_position < self.hole_count:
+            neighbors.append(self._worm_position + 1)
+        self._worm_position = self._rng.choice(neighbors)
+
+    @staticmethod
+    def _after_miss(
+        positions: set[int], checked: int, hole_count: int
+    ) -> set[int]:
+        destinations: set[int] = set()
+        for position in positions.difference({checked}):
+            if position > 1:
+                destinations.add(position - 1)
+            if position < hole_count:
+                destinations.add(position + 1)
+        return destinations
+
+    def snapshot(self) -> dict[str, object]:
+        next_suggestion = None
+        if (
+            self.phase == "playing"
+            and self.followed_strategy
+            and self.turn < len(self.strategy)
+        ):
+            next_suggestion = self.strategy[self.turn]
+        return {
+            "gameId": "worm",
+            "phase": self.phase,
+            "turn": self.turn,
+            "holes": [
+                {
+                    "id": hole_id,
+                    "possible": hole_id in self.possible_positions,
+                    "worm": self.phase == "finished" and hole_id == self._worm_position,
+                }
+                for hole_id in range(1, self.hole_count + 1)
+            ],
+            "possiblePositions": sorted(self.possible_positions),
+            "strategy": list(self.strategy),
+            "followedStrategy": self.followed_strategy,
+            "suggestedHole": next_suggestion,
+            "history": list(self.history),
+        }
+
+
 def build_default_registry() -> GameRegistry:
     registry = GameRegistry()
     registry.register(
@@ -260,6 +351,15 @@ def build_default_registry() -> GameRegistry:
             "单人 · 决策与风险",
         ),
         CaseGameSession,
+    )
+    registry.register(
+        GameDescriptor(
+            "worm",
+            "移动虫穴",
+            "虫子每次失手后必向相邻洞移动；找出能保证抓住它的检查节奏。",
+            "单人 · 隐藏状态追踪",
+        ),
+        WormGameSession,
     )
     for descriptor in (
         GameDescriptor(

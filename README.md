@@ -2,6 +2,9 @@
 
 ## Updates 08/02/2026
 
+- **Playable moving-worm search** — Added a second lobby game with a hidden
+  moving target, interactive hole checks, public belief-state tracking, random
+  legal movement, and the shortest minimax capture sequence as an optional hint.
 - **Reliable local preview launch** — Added a double-click macOS launcher,
   health endpoint, existing-server detection, automatic occupied-port fallback,
   and verified the complete first-round flow in a real browser.
@@ -90,7 +93,8 @@ network connection, JavaScript build tool, or third-party runtime dependency is
 required. Game sessions live only in memory and disappear when the local server
 stops.
 
-The lobby currently exposes **命运之箱** as a complete single-player game:
+The lobby currently exposes **命运之箱** and **移动虫穴** as complete
+single-player games. In 命运之箱:
 
 1. Choose one of 26 sealed cases to keep.
 2. Click other cases to reveal the required number for the current round.
@@ -98,6 +102,13 @@ The lobby currently exposes **命运之箱** as a complete single-player game:
    and probability that the chosen case beats the offer.
 4. Accept the deal or reject it and continue opening cases.
 5. Review the full decision history and final case value.
+
+In 移动虫穴, choose one of five adjacent holes on every turn. A missed worm
+immediately moves exactly one step left or right. The game keeps the actual
+position private while showing the information set that remains logically
+possible after each public miss. The optional minimax sequence is highlighted
+one step at a time; following it from the beginning guarantees capture within
+six checks for five holes, even against adversarial rather than random movement.
 
 The UI never receives the chosen case's hidden amount before the game finishes.
 The Python-side `GameRegistry`, `PlayableSession`, and `LocalGameService`

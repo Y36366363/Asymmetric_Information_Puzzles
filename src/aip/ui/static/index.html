@@ -62,6 +62,43 @@
           </aside>
         </div>
       </section>
+
+      <section id="wormView" class="view worm-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby">← 返回大厅</button>
+            <p class="eyebrow">CASE 02 · 隐藏状态追踪</p>
+            <h1>移动虫穴</h1>
+          </div>
+          <button class="secondary-button" id="newWormButton">重新开始</button>
+        </div>
+
+        <div class="worm-stage panel">
+          <div class="worm-copy">
+            <p class="eyebrow">THE WORM MUST MOVE</p>
+            <h2 id="wormHeadline">它藏在五个洞中的某一个</h2>
+            <p id="wormInstruction">每次点击一个洞检查。若没有抓到，虫子会立刻移动到相邻洞。</p>
+          </div>
+          <div class="hole-row" id="holeRow"></div>
+          <div class="worm-status">
+            <div><span>检查次数</span><strong id="wormTurn">0</strong></div>
+            <div><span>仍可能的位置</span><strong id="possibleHoles">1 · 2 · 3 · 4 · 5</strong></div>
+            <div><span>保证策略提示</span><strong id="wormHint">—</strong></div>
+          </div>
+        </div>
+
+        <div class="worm-lower">
+          <section class="panel strategy-panel">
+            <div class="panel-title"><span>保证抓捕序列</span><span>MINIMAX</span></div>
+            <div class="strategy-sequence" id="strategySequence"></div>
+            <p>只要从第一步开始严格执行该序列，即使虫子选择最不利的移动，也能在序列结束前抓到。</p>
+          </section>
+          <section class="panel">
+            <div class="panel-title"><span>搜索记录</span><span>PUBLIC</span></div>
+            <ol class="worm-history" id="wormHistory"></ol>
+          </section>
+        </div>
+      </section>
     </main>
 
     <div class="modal-backdrop hidden" id="offerModal" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
