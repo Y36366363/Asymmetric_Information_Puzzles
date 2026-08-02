@@ -14,7 +14,10 @@ dependencies = []
 
 [project.scripts]
 aip = "aip.cli:main"
+aip-play = "aip.ui.server:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+"aip.ui" = ["static/*"]

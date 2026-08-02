@@ -188,6 +188,10 @@ def build_parser() -> argparse.ArgumentParser:
     dice.add_argument("--honest-prior", type=float, default=0.7)
     dice.add_argument("--trials", type=int, default=100_000)
     dice.add_argument("--seed", type=int, default=42)
+    play = subparsers.add_parser("play", help="start the local playable game lobby")
+    play.add_argument("--host", default="127.0.0.1")
+    play.add_argument("--port", type=int, default=8765)
+    play.add_argument("--no-open", action="store_true")
     return parser
 
 
@@ -310,4 +314,8 @@ def main(argv: list[str] | None = None) -> int:
             analysis.probability_bid_true, honest_prior=args.honest_prior
         )
         print(format_liars_dice(analysis, raises, check, beliefs))
+    elif args.puzzle == "play":
+        from aip.ui.server import serve
+
+        serve(args.host, args.port, open_browser=not args.no_open)
     return 0

@@ -2,6 +2,9 @@
 
 ## Updates 08/02/2026
 
+- **Local playable game lobby** — Added a dependency-free local browser UI,
+  pluggable game registry, private in-memory sessions, and a fully playable
+  26-case banker game with live risk metrics and decision history.
 - **Liar's Dice belief and challenge engine** — Added private-hand information
   sets, exact binomial claim odds, cost-sensitive challenge thresholds, legal
   raise ranking, Bayesian bluff-type inference, and Monte Carlo verification.
@@ -55,6 +58,42 @@ sequential bean taking, repeated all-pay auctions, adversarial moving-worm
 search, a sequential case-and-banker lab, and Liar's Dice. Its shared core
 supports both deterministic elimination and Bayesian belief updates.
 
+## Start the local game lobby
+
+The first genuinely playable AIP experience is now available locally:
+
+```bash
+PYTHONPATH=src python -m aip play
+```
+
+Or, after installing the project in editable mode:
+
+```bash
+aip-play
+```
+
+The program opens `http://127.0.0.1:8765` in the default browser. It listens
+only on the local machine unless `--host` is explicitly changed. No account,
+network connection, JavaScript build tool, or third-party runtime dependency is
+required. Game sessions live only in memory and disappear when the local server
+stops.
+
+The lobby currently exposes **命运之箱** as a complete single-player game:
+
+1. Choose one of 26 sealed cases to keep.
+2. Click other cases to reveal the required number for the current round.
+3. Inspect the banker's offer, expected value, certainty equivalent, volatility,
+   and probability that the chosen case beats the offer.
+4. Accept the deal or reject it and continue opening cases.
+5. Review the full decision history and final case value.
+
+The UI never receives the chosen case's hidden amount before the game finishes.
+The Python-side `GameRegistry`, `PlayableSession`, and `LocalGameService`
+separate lobby discovery, private state, legal actions, and public snapshots.
+Upcoming pirate, Liar's Dice, and auction cards are already registered as
+disabled previews; each can become playable by adding its own session adapter
+without changing the local server or lobby shell.
+
 ## Project layout
 
 ```text
@@ -66,6 +105,7 @@ supports both deterministic elimination and Bayesian belief updates.
 │   ├── core/
 │   │   ├── game.py               # reusable game/solver protocols
 │   │   └── information.py        # information sets, beliefs, public history
+│   ├── ui/                       # local game lobby, API, and browser assets
 │   └── puzzles/
 │       ├── pirates/              # complete backward-induction solver
 │       │   ├── models.py
