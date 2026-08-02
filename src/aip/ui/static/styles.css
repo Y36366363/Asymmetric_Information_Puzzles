@@ -54,6 +54,12 @@ button { font: inherit; }
 }
 
 .status { color: var(--muted); font-size: 13px; }
+.header-actions { display: flex; align-items: center; gap: 16px; }
+.github-link { display: flex; align-items: center; gap: 7px; color: var(--ink); text-decoration: none; font-size: 13px; }
+.github-mark { display: grid; place-items: center; width: 28px; height: 28px; color: #111; border-radius: 50%; background: var(--ink); font-size: 9px; font-weight: 900; }
+.language-switch { display: flex; padding: 3px; border: 1px solid var(--line); }
+.language-switch button { padding: 6px 9px; color: var(--muted); border: 0; background: transparent; cursor: pointer; font-size: 12px; }
+.language-switch button.active { color: #17130c; background: var(--gold); font-weight: 800; }
 .status-dot {
   display: inline-block;
   width: 7px;
@@ -183,10 +189,6 @@ button { font: inherit; }
 .toast { position: fixed; left: 50%; bottom: 28px; z-index: 20; transform: translateX(-50%); padding: 12px 18px; color: #fff; background: var(--red); box-shadow: var(--shadow); }
 
 .worm-stage { padding: clamp(26px, 5vw, 64px); text-align: center; }
-.worm-controls { display: flex; align-items: center; gap: 12px; }
-.mode-switch { display: flex; padding: 3px; border: 1px solid var(--line); background: #11110f; }
-.mode-switch button { padding: 9px 12px; color: var(--muted); border: 0; background: transparent; cursor: pointer; }
-.mode-switch button.active { color: #17130c; background: var(--gold); font-weight: 800; }
 .worm-copy h2 { margin: 14px 0 8px; font: 500 clamp(28px, 4vw, 46px) Georgia, "Songti SC", serif; }
 .worm-copy > p:last-child { color: var(--muted); }
 .hole-row { display: flex; justify-content: center; gap: clamp(10px, 2.5vw, 30px); margin: 64px 0; }
@@ -206,10 +208,11 @@ button { font: inherit; }
 .hole:hover:not(:disabled) { transform: translateY(-7px); border-color: var(--gold); }
 .hole.impossible { opacity: .38; }
 .hole.worm-found { border-color: #79c987; background: radial-gradient(circle, #5ca76a 0 18%, #102616 32%, #6c4d25 70%); }
-.worm-status { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
+.worm-status { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
 .worm-status div { padding: 22px 12px 0; }
 .worm-status span { display: block; color: var(--muted); font-size: 11px; letter-spacing: .09em; }
 .worm-status strong { display: block; margin-top: 9px; color: var(--gold-soft); font-size: 16px; }
+.worm-status .live-counter strong { font-size: 34px; line-height: 1; }
 .worm-lower { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
 .strategy-sequence { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0; }
 .strategy-step { min-width: 38px; padding: 9px; color: #19150e; background: var(--gold); text-align: center; font-weight: 800; }
@@ -255,6 +258,8 @@ button { font: inherit; }
 
 @media (max-width: 720px) {
   .status { display: none; }
+  .github-link > span:last-child { display: none; }
+  .header-actions { gap: 8px; }
   .view { padding-inline: 14px; }
   .game-heading { align-items: center; }
   .game-layout { display: flex; flex-direction: column; }
@@ -268,6 +273,5 @@ button { font: inherit; }
   .offer-actions { grid-template-columns: 1fr; }
   .worm-status, .worm-lower { grid-template-columns: 1fr; }
   .pirate-summary, .pirate-grid, .vote-grid { grid-template-columns: 1fr; }
-  .worm-controls { flex-direction: column; align-items: flex-end; }
   .hole-row { gap: 5px; }
 }

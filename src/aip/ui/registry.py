@@ -260,14 +260,6 @@ class WormGameSession:
         self.hole_count = int(options.get("holes", 5))
         if self.hole_count < 2 or self.hole_count > 12:
             raise ValueError("holes must be between 2 and 12")
-        self.mode = str(options.get("mode", "adversarial"))
-        if self.mode not in {"adversarial", "random"}:
-            raise ValueError("worm mode must be adversarial or random")
-        self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
-        self._rng = random.Random(self.seed)
-        self._worm_position = (
-            self._rng.randint(1, self.hole_count) if self.mode == "random" else None
-        )
         self._caught_hole: int | None = None
         self.possible_positions = set(range(1, self.hole_count + 1))
         self.turn = 0
@@ -291,8 +283,7 @@ class WormGameSession:
         self.followed_strategy = self.followed_strategy and hole_id == suggested
         self.turn += 1
         guaranteed_capture = self.possible_positions.issubset({hole_id})
-        random_capture = self.mode == "random" and hole_id == self._worm_position
-        if guaranteed_capture or random_capture:
+        if guaranteed_capture:
             self.phase = "finished"
             self.possible_positions = {hole_id}
             self._caught_hole = hole_id
@@ -310,13 +301,6 @@ class WormGameSession:
         self.possible_positions = self._after_miss(
             self.possible_positions, hole_id, self.hole_count
         )
-        if self.mode == "random":
-            neighbors = []
-            if self._worm_position > 1:  # type: ignore[operator]
-                neighbors.append(self._worm_position - 1)  # type: ignore[operator]
-            if self._worm_position < self.hole_count:  # type: ignore[operator]
-                neighbors.append(self._worm_position + 1)  # type: ignore[operator]
-            self._worm_position = self._rng.choice(neighbors)
 
     @staticmethod
     def _after_miss(
@@ -340,7 +324,7 @@ class WormGameSession:
             next_suggestion = self.strategy[self.turn]
         return {
             "gameId": "worm",
-            "mode": self.mode,
+            "mode": "adversarial",
             "phase": self.phase,
             "turn": self.turn,
             "holes": [

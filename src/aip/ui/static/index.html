@@ -11,17 +11,27 @@
     <header class="topbar">
       <button class="brand" id="homeButton" aria-label="返回游戏大厅">
         <span class="brand-mark">AIP</span>
-        <span>非对称博弈实验室</span>
+        <span data-i18n="brandName">非对称博弈实验室</span>
       </button>
-      <div class="status"><span class="status-dot"></span>仅在本机运行</div>
+      <div class="header-actions">
+        <div class="status"><span class="status-dot"></span><span data-i18n="localOnly">仅在本机运行</span></div>
+        <a class="github-link" href="https://github.com/Y36366363/Asymmetric_Information_Puzzles"
+          target="_blank" rel="noreferrer" aria-label="Open AIP on GitHub">
+          <span class="github-mark">GH</span><span>GitHub</span>
+        </a>
+        <div class="language-switch" aria-label="Language">
+          <button id="languageZh" class="active">中文</button>
+          <button id="languageEn">EN</button>
+        </div>
+      </div>
     </header>
 
     <main>
       <section id="lobbyView" class="view lobby-view">
         <div class="hero">
           <p class="eyebrow">ASYMMETRIC INFORMATION PUZZLES</p>
-          <h1>把推理变成一场<br /><em>真正可以玩的博弈</em></h1>
-          <p class="hero-copy">选择一个实验。你做决定，系统隐藏信息、扮演对手，并在关键时刻揭示概率与代价。</p>
+          <h1><span data-i18n="heroLine1">把推理变成一场</span><br /><em data-i18n="heroLine2">真正可以玩的博弈</em></h1>
+          <p class="hero-copy" data-i18n="heroCopy">选择一个实验。你做决定，系统隐藏信息、扮演对手，并在关键时刻揭示概率与代价。</p>
         </div>
         <div class="game-grid" id="gameGrid" aria-live="polite"></div>
       </section>
@@ -29,22 +39,22 @@
       <section id="gameView" class="view game-view hidden">
         <div class="game-heading">
           <div>
-            <button class="text-button" id="backButton">← 返回大厅</button>
-            <p class="eyebrow">CASE 01 · 风险与谈判</p>
-            <h1>命运之箱</h1>
+            <button class="text-button" id="backButton" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="caseEyebrow">CASE 01 · 风险与谈判</p>
+            <h1 data-i18n="caseTitle">命运之箱</h1>
           </div>
-          <button class="secondary-button" id="newGameButton">重新开始</button>
+          <button class="secondary-button" id="newGameButton" data-i18n="restart">重新开始</button>
         </div>
 
         <div class="game-layout">
           <aside class="prize-panel panel">
-            <div class="panel-title"><span>奖金池</span><span id="remainingCount">26</span></div>
+            <div class="panel-title"><span data-i18n="prizePool">奖金池</span><span id="remainingCount">26</span></div>
             <div class="prize-board" id="prizeBoard"></div>
           </aside>
 
           <section class="table-panel">
             <div class="round-banner">
-              <div><span>回合</span><strong id="roundNumber">—</strong></div>
+              <div><span data-i18n="round">回合</span><strong id="roundNumber">—</strong></div>
               <p id="instruction">请选择一个属于你的密封箱</p>
             </div>
             <div class="case-grid" id="caseGrid"></div>
@@ -52,11 +62,11 @@
           </section>
 
           <aside class="insight-panel panel">
-            <div class="panel-title"><span>决策仪表</span><span>LIVE</span></div>
-            <div id="emptyInsight" class="empty-insight">银行家报价后，这里会显示期望值、风险和模型建议。</div>
+            <div class="panel-title"><span data-i18n="decisionPanel">决策仪表</span><span>LIVE</span></div>
+            <div id="emptyInsight" class="empty-insight" data-i18n="emptyInsight">银行家报价后，这里会显示期望值、风险和模型建议。</div>
             <div id="metrics" class="metrics hidden"></div>
             <div class="history">
-              <h2>博弈记录</h2>
+              <h2 data-i18n="gameHistory">博弈记录</h2>
               <ol id="historyList"></ol>
             </div>
           </aside>
@@ -66,17 +76,11 @@
       <section id="wormView" class="view worm-view hidden">
         <div class="game-heading">
           <div>
-            <button class="text-button back-to-lobby">← 返回大厅</button>
-            <p class="eyebrow">CASE 02 · 隐藏状态追踪</p>
-            <h1>移动虫穴</h1>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="wormEyebrow">CASE 02 · 隐藏状态追踪</p>
+            <h1 data-i18n="wormTitle">移动虫穴</h1>
           </div>
-          <div class="worm-controls">
-            <div class="mode-switch" aria-label="虫子移动模式">
-              <button id="wormModeAdversarial">对抗模式</button>
-              <button id="wormModeRandom">随机模式</button>
-            </div>
-            <button class="secondary-button" id="newWormButton">重新开始</button>
-          </div>
+          <button class="secondary-button" id="newWormButton" data-i18n="restart">重新开始</button>
         </div>
 
         <div class="worm-stage panel">
@@ -87,21 +91,20 @@
           </div>
           <div class="hole-row" id="holeRow"></div>
           <div class="worm-status">
-            <div><span>当前模式</span><strong id="wormMode">对抗</strong></div>
-            <div><span>检查次数</span><strong id="wormTurn">0</strong></div>
-            <div><span>仍可能的位置</span><strong id="possibleHoles">1 · 2 · 3 · 4 · 5</strong></div>
-            <div><span>保证策略提示</span><strong id="wormHint">—</strong></div>
+            <div class="live-counter"><span data-i18n="liveChecks">实时检查次数</span><strong id="wormTurn">0</strong></div>
+            <div><span data-i18n="possiblePositions">仍可能的位置</span><strong id="possibleHoles">1 · 2 · 3 · 4 · 5</strong></div>
+            <div><span data-i18n="strategyHint">保证策略提示</span><strong id="wormHint">—</strong></div>
           </div>
         </div>
 
         <div class="worm-lower">
           <section class="panel strategy-panel">
-            <div class="panel-title"><span>保证抓捕序列</span><span>MINIMAX</span></div>
+            <div class="panel-title"><span data-i18n="guaranteedSequence">保证抓捕序列</span><span>MINIMAX</span></div>
             <div class="strategy-sequence" id="strategySequence"></div>
-            <p>只要从第一步开始严格执行该序列，即使虫子选择最不利的移动，也能在序列结束前抓到。</p>
+            <p data-i18n="wormStrategyCopy">只要从第一步开始严格执行该序列，即使虫子选择最不利的移动，也能在序列结束前抓到。</p>
           </section>
           <section class="panel">
-            <div class="panel-title"><span>搜索记录</span><span>PUBLIC</span></div>
+            <div class="panel-title"><span data-i18n="searchHistory">搜索记录</span><span>PUBLIC</span></div>
             <ol class="worm-history" id="wormHistory"></ol>
           </section>
         </div>
@@ -110,31 +113,31 @@
       <section id="pirateView" class="view pirate-view hidden">
         <div class="game-heading">
           <div>
-            <button class="text-button back-to-lobby">← 返回大厅</button>
-            <p class="eyebrow">CASE 03 · 逆向归纳与联盟</p>
-            <h1>海盗议会</h1>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="pirateEyebrow">CASE 03 · 逆向归纳与联盟</p>
+            <h1 data-i18n="pirateTitle">海盗议会</h1>
           </div>
-          <button class="secondary-button" id="newPirateButton">重新召开议会</button>
+          <button class="secondary-button" id="newPirateButton" data-i18n="restartCouncil">重新召开议会</button>
         </div>
 
         <div class="pirate-summary panel">
-          <div><span>可分配金币</span><strong id="pirateTotalGold">100</strong></div>
-          <div><span>通过所需票数</span><strong id="pirateVotesNeeded">3 / 5</strong></div>
-          <div><span>尚未分配</span><strong id="pirateGoldLeft">100</strong></div>
+          <div><span data-i18n="availableGold">可分配金币</span><strong id="pirateTotalGold">100</strong></div>
+          <div><span data-i18n="votesNeeded">通过所需票数</span><strong id="pirateVotesNeeded">3 / 5</strong></div>
+          <div><span data-i18n="unallocated">尚未分配</span><strong id="pirateGoldLeft">100</strong></div>
         </div>
 
         <section class="pirate-council panel">
-          <div class="panel-title"><span>你的提案</span><span>ALL COINS MUST BE ALLOCATED</span></div>
-          <p class="council-intro" id="pirateInstruction">你是最资深的 A。为每名海盗分配金币，然后让所有人同时投票。</p>
+          <div class="panel-title"><span data-i18n="yourProposal">你的提案</span><span>ALL COINS MUST BE ALLOCATED</span></div>
+          <p class="council-intro" id="pirateInstruction" data-i18n="pirateInstruction">你是最资深的 A。为每名海盗分配金币，然后让所有人同时投票。</p>
           <div class="pirate-grid" id="pirateGrid"></div>
-          <button class="deal-button council-submit" id="submitPirateProposal">提交提案并投票</button>
+          <button class="deal-button council-submit" id="submitPirateProposal" data-i18n="submitProposal">提交提案并投票</button>
         </section>
 
         <section class="pirate-result panel hidden" id="pirateResult">
           <div class="pirate-verdict" id="pirateVerdict"></div>
           <div class="vote-grid" id="pirateVotes"></div>
           <div class="optimal-compare">
-            <div class="panel-title"><span>逆向归纳基准</span><span>SUBGAME PERFECT</span></div>
+            <div class="panel-title"><span data-i18n="backwardBenchmark">逆向归纳基准</span><span>SUBGAME PERFECT</span></div>
             <p id="pirateOptimal"></p>
           </div>
         </section>
@@ -144,12 +147,12 @@
     <div class="modal-backdrop hidden" id="offerModal" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
       <div class="offer-card">
         <p class="eyebrow">THE BANKER IS CALLING</p>
-        <h2 id="offerTitle">银行家报价</h2>
+        <h2 id="offerTitle" data-i18n="bankerOffer">银行家报价</h2>
         <div class="offer-value" id="offerValue">¥0</div>
         <p id="offerContext"></p>
         <div class="offer-actions">
-          <button class="deal-button" id="dealButton">接受报价</button>
-          <button class="no-deal-button" id="noDealButton">拒绝，继续开箱</button>
+          <button class="deal-button" id="dealButton" data-i18n="acceptOffer">接受报价</button>
+          <button class="no-deal-button" id="noDealButton" data-i18n="rejectOffer">拒绝，继续开箱</button>
         </div>
       </div>
     </div>

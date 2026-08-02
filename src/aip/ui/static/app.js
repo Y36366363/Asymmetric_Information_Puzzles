@@ -1,8 +1,90 @@
 const $ = (selector) => document.querySelector(selector);
-const money = new Intl.NumberFormat("zh-CN", { maximumFractionDigits: 2 });
+let language = localStorage.getItem("aip-language") || "zh";
+let money = new Intl.NumberFormat(language === "zh" ? "zh-CN" : "en-US", { maximumFractionDigits: 2 });
 let sessionId = null;
 let currentState = null;
 let currentGameId = null;
+let lobbyGames = [];
+let pirateDraft = [];
+
+const copy = {
+  zh: {
+    brandName: "非对称博弈实验室", localOnly: "仅在本机运行",
+    heroLine1: "把推理变成一场", heroLine2: "真正可以玩的博弈",
+    heroCopy: "选择一个实验。你做决定，系统隐藏信息、扮演对手，并在关键时刻揭示概率与代价。",
+    backLobby: "← 返回大厅", restart: "重新开始", restartCouncil: "重新召开议会",
+    caseEyebrow: "CASE 01 · 风险与谈判", caseTitle: "命运之箱",
+    wormEyebrow: "CASE 02 · 隐藏状态追踪", wormTitle: "移动虫穴",
+    pirateEyebrow: "CASE 03 · 逆向归纳与联盟", pirateTitle: "海盗议会",
+    prizePool: "奖金池", round: "回合", decisionPanel: "决策仪表",
+    emptyInsight: "银行家报价后，这里会显示期望值、风险和模型建议。",
+    gameHistory: "博弈记录", liveChecks: "实时检查次数", possiblePositions: "仍可能的位置",
+    strategyHint: "保证策略提示", guaranteedSequence: "保证抓捕序列",
+    wormStrategyCopy: "只要从第一步开始严格执行该序列，即使虫子选择最不利的移动，也能在序列结束前抓到。",
+    searchHistory: "搜索记录", availableGold: "可分配金币", votesNeeded: "通过所需票数",
+    unallocated: "尚未分配", yourProposal: "你的提案", submitProposal: "提交提案并投票",
+    pirateInstruction: "你是最资深的 A。为每名海盗分配金币，然后让所有人同时投票。",
+    backwardBenchmark: "逆向归纳基准", bankerOffer: "银行家报价", acceptOffer: "接受报价",
+    rejectOffer: "拒绝，继续开箱", operationFailed: "操作失败",
+  },
+  en: {
+    brandName: "Asymmetric Games Lab", localOnly: "Running locally",
+    heroLine1: "Turn reasoning into", heroLine2: "games you can actually play",
+    heroCopy: "Choose an experiment. You decide; the system hides information, plays the opposition, and reveals probability and cost at decisive moments.",
+    backLobby: "← Back to lobby", restart: "New game", restartCouncil: "New council",
+    caseEyebrow: "CASE 01 · RISK & NEGOTIATION", caseTitle: "Cases of Fate",
+    wormEyebrow: "CASE 02 · HIDDEN-STATE TRACKING", wormTitle: "The Moving Worm",
+    pirateEyebrow: "CASE 03 · BACKWARD INDUCTION & COALITIONS", pirateTitle: "Pirate Council",
+    prizePool: "Prize board", round: "Round", decisionPanel: "Decision dashboard",
+    emptyInsight: "Expected value, risk, and model guidance appear after the banker's offer.",
+    gameHistory: "Game history", liveChecks: "Live check count", possiblePositions: "Possible positions",
+    strategyHint: "Guaranteed-strategy hint", guaranteedSequence: "Guaranteed capture sequence",
+    wormStrategyCopy: "Follow this sequence from the first move and even a worst-case worm must be caught before it ends.",
+    searchHistory: "Search history", availableGold: "Gold available", votesNeeded: "Votes required",
+    unallocated: "Unallocated", yourProposal: "Your proposal", submitProposal: "Submit proposal and vote",
+    pirateInstruction: "You are A, the most senior pirate. Allocate gold to every pirate, then call a simultaneous vote.",
+    backwardBenchmark: "Backward-induction benchmark", bankerOffer: "Banker's offer", acceptOffer: "Deal",
+    rejectOffer: "No deal — keep opening", operationFailed: "Action failed",
+  },
+};
+
+const gamesCopy = {
+  zh: {
+    cases: ["命运之箱", "从 26 个密封箱中保留一个，在不断缩小的风险中与银行家谈判。", "单人 · 决策与风险"],
+    worm: ["移动虫穴", "面对无随机性的智能虫子；错误方法永远无法靠运气抓到它。", "单人 · 对抗搜索"],
+    pirates: ["海盗议会", "亲自分配 100 枚金币，面对会做逆向归纳的理性海盗投票。", "单人 · 人机投票"],
+    "liars-dice": ["骗子骰子", "隐藏手牌、公开叫价与诈唬识别。", "本地多人 · 即将开放"],
+    auction: ["百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放"],
+  },
+  en: {
+    cases: ["Cases of Fate", "Keep one of 26 sealed cases and negotiate with the banker as uncertainty narrows.", "Solo · Risk & decision"],
+    worm: ["The Moving Worm", "Face a deterministic adversary: a wrong method can never win by luck.", "Solo · Adversarial search"],
+    pirates: ["Pirate Council", "Allocate 100 coins and face rational pirates who reason backward before voting.", "Solo · Human vs AI vote"],
+    "liars-dice": ["Liar's Dice", "Private hands, public bids, and bluff inference.", "Local multiplayer · Coming soon"],
+    auction: ["100-Unit All-Pay Auction", "Fight for leadership through public prices, alliances, and defection.", "Local multiplayer · Coming soon"],
+  },
+};
+
+function tr(key) { return copy[language][key] ?? key; }
+
+function applyLanguage() {
+  document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
+  document.title = language === "zh" ? "AIP · 非对称博弈实验室" : "AIP · Asymmetric Games Lab";
+  money = new Intl.NumberFormat(language === "zh" ? "zh-CN" : "en-US", { maximumFractionDigits: 2 });
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    element.textContent = tr(element.dataset.i18n);
+  });
+  $("#languageZh").classList.toggle("active", language === "zh");
+  $("#languageEn").classList.toggle("active", language === "en");
+  renderLobby();
+  if (currentState) render();
+}
+
+function setLanguage(nextLanguage) {
+  language = nextLanguage;
+  localStorage.setItem("aip-language", language);
+  applyLanguage();
+}
 
 async function request(path, options = {}) {
   const response = await fetch(path, {
@@ -10,7 +92,7 @@ async function request(path, options = {}) {
     ...options,
   });
   const data = await response.json();
-  if (!response.ok) throw new Error(data.error || "操作失败");
+  if (!response.ok) throw new Error(data.error || tr("operationFailed"));
   return data;
 }
 
@@ -23,14 +105,22 @@ function showToast(message) {
 
 async function loadLobby() {
   const { games } = await request("/api/games");
-  $("#gameGrid").innerHTML = games.map((game, index) => `
+  lobbyGames = games;
+  renderLobby();
+}
+
+function renderLobby() {
+  if (!lobbyGames.length) return;
+  $("#gameGrid").innerHTML = lobbyGames.map((game, index) => {
+    const localized = gamesCopy[language][game.id] || [game.title, game.summary, game.playerMode];
+    return `
     <button class="game-card" data-game="${game.id}" ${game.available ? "" : "disabled"}>
       <span class="game-index">0${index + 1}</span>
-      <h2>${game.title}</h2>
-      <p>${game.summary}</p>
-      <span class="game-mode">${game.playerMode}</span>
+      <h2>${localized[0]}</h2>
+      <p>${localized[1]}</p>
+      <span class="game-mode">${localized[2]}</span>
     </button>
-  `).join("");
+  `; }).join("");
   document.querySelectorAll(".game-card:not(:disabled)").forEach((button) => {
     button.addEventListener("click", () => startGame(button.dataset.game));
   });
@@ -48,6 +138,7 @@ async function startGame(gameId = "cases", options = {}) {
     sessionId = result.sessionId;
     currentState = result.state;
     currentGameId = gameId;
+    if (gameId === "pirates") pirateDraft = currentState.pirates.map(() => 0);
     $("#lobbyView").classList.add("hidden");
     $("#gameView").classList.toggle("hidden", gameId !== "cases");
     $("#wormView").classList.toggle("hidden", gameId !== "worm");
@@ -83,16 +174,23 @@ function render() {
   const state = currentState;
   $("#roundNumber").textContent = state.phase === "choose" ? "—" : state.round;
   $("#remainingCount").textContent = state.prizeBoard.filter((prize) => prize.remaining).length;
-  const instructions = {
+  const instructions = language === "zh" ? {
     choose: "请选择一个属于你的密封箱",
     opening: `再打开 ${state.opensRemaining} 个箱子，银行家随后报价`,
     offer: "银行家正在等待你的决定",
     finished: `本局结束 · 你获得 ${formatMoney(state.payout)}`,
+  } : {
+    choose: "Choose one sealed case to keep",
+    opening: `Open ${state.opensRemaining} more case(s) before the next offer`,
+    offer: "The banker is waiting for your decision",
+    finished: `Game over · You received ${formatMoney(state.payout)}`,
   };
   $("#instruction").textContent = instructions[state.phase];
   $("#chosenStrip").textContent = state.chosenCase
-    ? `你的密封箱：${state.chosenCase} 号${state.phase === "finished" ? ` · ${formatMoney(findCase(state.chosenCase).value)}` : ""}`
-    : "你的箱子尚未选择";
+    ? (language === "zh"
+      ? `你的密封箱：${state.chosenCase} 号${state.phase === "finished" ? ` · ${formatMoney(findCase(state.chosenCase).value)}` : ""}`
+      : `Your sealed case: No. ${state.chosenCase}${state.phase === "finished" ? ` · ${formatMoney(findCase(state.chosenCase).value)}` : ""}`)
+    : (language === "zh" ? "你的箱子尚未选择" : "You have not chosen a case yet");
 
   $("#caseGrid").innerHTML = state.cases.map((item) => {
     const label = item.status === "opened" ? formatMoney(item.value) : item.id;
@@ -113,21 +211,26 @@ function render() {
   $("#offerModal").classList.toggle("hidden", state.phase !== "offer");
   if (state.phase === "offer") {
     $("#offerValue").textContent = formatMoney(state.offer);
-    $("#offerContext").textContent = `剩余 ${state.prizeBoard.filter((prize) => prize.remaining).length} 个可能金额。模型保留价为 ${formatMoney(state.metrics.certaintyEquivalent)}。`;
+    const remaining = state.prizeBoard.filter((prize) => prize.remaining).length;
+    $("#offerContext").textContent = language === "zh"
+      ? `剩余 ${remaining} 个可能金额。模型保留价为 ${formatMoney(state.metrics.certaintyEquivalent)}。`
+      : `${remaining} prize values remain. The model's reservation value is ${formatMoney(state.metrics.certaintyEquivalent)}.`;
   }
 }
 
 function renderPirates() {
   const state = currentState;
-  const proposal = state.proposal || state.pirates.map(() => 0);
+  const proposal = state.proposal || (pirateDraft.length ? pirateDraft : state.pirates.map(() => 0));
   $("#pirateTotalGold").textContent = state.totalGold;
   $("#pirateVotesNeeded").textContent = `${state.votesRequired} / ${state.pirateCount}`;
   $("#pirateGrid").innerHTML = state.pirates.map((pirate, index) => `
     <div class="pirate-card ${pirate.isProposer ? "proposer" : ""}">
       <div class="pirate-avatar">${pirate.name}</div>
-      <strong>海盗 ${pirate.name}</strong>
-      <div class="pirate-role">${pirate.isProposer ? "提案者 · 你" : "理性投票者"}</div>
-      <label for="pirate-gold-${index}">分配金币</label>
+      <strong>${language === "zh" ? "海盗" : "Pirate"} ${pirate.name}</strong>
+      <div class="pirate-role">${pirate.isProposer
+        ? (language === "zh" ? "提案者 · 你" : "Proposer · You")
+        : (language === "zh" ? "理性投票者" : "Rational voter")}</div>
+      <label for="pirate-gold-${index}">${language === "zh" ? "分配金币" : "Gold allocation"}</label>
       <input id="pirate-gold-${index}" class="pirate-gold-input" data-index="${index}"
         type="number" min="0" max="${state.totalGold}" step="1" value="${proposal[index]}"
         ${state.phase === "finished" ? "disabled" : ""} />
@@ -141,26 +244,37 @@ function renderPirates() {
   if (state.phase !== "finished") return;
 
   $("#pirateVerdict").className = `pirate-verdict ${state.passed ? "pass" : "fail"}`;
-  $("#pirateVerdict").textContent = state.passed
-    ? `提案通过：${state.yesVotes} 票赞成，你活了下来。`
-    : `提案被否决：只有 ${state.yesVotes} 票赞成，提案者 A 被处决。`;
+  $("#pirateVerdict").textContent = language === "zh"
+    ? (state.passed
+      ? `提案通过：${state.yesVotes} 票赞成，你活了下来。`
+      : `提案被否决：只有 ${state.yesVotes} 票赞成，提案者 A 被处决。`)
+    : (state.passed
+      ? `Proposal passed with ${state.yesVotes} yes votes. You survive.`
+      : `Proposal rejected with only ${state.yesVotes} yes votes. Pirate A is executed.`);
   $("#pirateVotes").innerHTML = state.votes.map((vote) => `
     <div class="vote-card ${vote.supports ? "yes" : "no"}">
-      <strong>${vote.pirate} · ${vote.supports ? "赞成" : "反对"}</strong>
-      <p>获得 ${vote.offered} 枚；拒绝后${vote.rejectionAlive ? `可活并获得 ${vote.rejectionGold} 枚` : "会死亡"}。</p>
+      <strong>${vote.pirate} · ${vote.supports ? (language === "zh" ? "赞成" : "YES") : (language === "zh" ? "反对" : "NO")}</strong>
+      <p>${language === "zh"
+        ? `获得 ${vote.offered} 枚；拒绝后${vote.rejectionAlive ? `可活并获得 ${vote.rejectionGold} 枚` : "会死亡"}。`
+        : `Offered ${vote.offered}; after rejection, ${vote.rejectionAlive ? `survives with ${vote.rejectionGold}` : "dies"}.`}</p>
       <p>${pirateVoteReason(vote)}</p>
     </div>
   `).join("");
-  const optimal = state.pirates.map((pirate, index) => `${pirate.name}: ${state.optimalAllocation[index]}`).join("，");
-  $("#pirateOptimal").textContent = state.matchesOptimal
-    ? `你找到了选定规则下的均衡提案：${optimal}。`
-    : `理论最优提案为 ${optimal}。它用最低成本购买足够票数，并让 A 保留最多金币。`;
+  const optimal = state.pirates.map((pirate, index) => `${pirate.name}: ${state.optimalAllocation[index]}`).join(language === "zh" ? "，" : ", ");
+  $("#pirateOptimal").textContent = language === "zh"
+    ? (state.matchesOptimal
+      ? `你找到了选定规则下的均衡提案：${optimal}。`
+      : `理论最优提案为 ${optimal}。它用最低成本购买足够票数，并让 A 保留最多金币。`)
+    : (state.matchesOptimal
+      ? `You found the equilibrium proposal under these rules: ${optimal}.`
+      : `The theoretical optimum is ${optimal}. It buys the required votes at minimum cost and maximizes A's gold.`);
 }
 
 function updatePirateBudget() {
   if (!currentState || currentState.gameId !== "pirates") return;
   const inputs = [...document.querySelectorAll(".pirate-gold-input")];
   const used = inputs.reduce((sum, input) => sum + Math.max(0, Number(input.value) || 0), 0);
+  pirateDraft = inputs.map((input) => Math.max(0, Number(input.value) || 0));
   const left = currentState.totalGold - used;
   $("#pirateGoldLeft").textContent = left;
   $("#pirateGoldLeft").style.color = left === 0 ? "var(--gold-soft)" : "#efb0aa";
@@ -168,42 +282,48 @@ function updatePirateBudget() {
 }
 
 function pirateVoteReason(vote) {
-  const reasons = {
+  const reasons = language === "zh" ? {
     proposer: "提案者支持自己的可行提案。",
     survival: "接受可以活命，而否决后会死亡。",
     more_gold: "接受得到的金币比否决后的延续结果更多。",
     equal_accepted: "规则允许在金币相同时投赞成票。",
     equal_rejected: "金币相同不足以收买他，因此投反对票。",
     less_gold: "接受得到的金币少于否决后的延续结果。",
+  } : {
+    proposer: "The proposer supports their own feasible proposal.",
+    survival: "Acceptance means survival; rejection means death.",
+    more_gold: "The offer beats the continuation payoff after rejection.",
+    equal_accepted: "The configured rule permits a yes vote when gold is equal.",
+    equal_rejected: "Equal gold is not enough to buy this pirate's vote.",
+    less_gold: "The offer is below the continuation payoff after rejection.",
   };
   return reasons[vote.reasonCode];
 }
 
 function renderWorm() {
   const state = currentState;
-  $("#wormMode").textContent = state.mode === "adversarial" ? "对抗" : "随机";
-  $("#wormModeAdversarial").classList.toggle("active", state.mode === "adversarial");
-  $("#wormModeRandom").classList.toggle("active", state.mode === "random");
   $("#wormTurn").textContent = state.turn;
-  $("#possibleHoles").textContent = state.possiblePositions.join(" · ") || "已锁定";
+  $("#possibleHoles").textContent = state.possiblePositions.join(" · ") || (language === "zh" ? "已锁定" : "Locked");
   $("#wormHint").textContent = state.phase === "finished"
-    ? "已成功抓捕"
+    ? (language === "zh" ? "已成功抓捕" : "Captured")
     : state.suggestedHole
-      ? `检查 ${state.suggestedHole} 号洞`
-      : state.followedStrategy ? "序列已完成" : "已偏离保证序列";
+      ? (language === "zh" ? `检查 ${state.suggestedHole} 号洞` : `Check hole ${state.suggestedHole}`)
+      : state.followedStrategy
+        ? (language === "zh" ? "序列已完成" : "Sequence complete")
+        : (language === "zh" ? "已偏离保证序列" : "Guaranteed sequence lost");
   $("#wormHeadline").textContent = state.phase === "finished"
-    ? `抓到了！第 ${state.turn} 次检查成功`
-    : "虫子仍在移动";
+    ? (language === "zh" ? `抓到了！第 ${state.turn} 次检查成功` : `Captured on check ${state.turn}`)
+    : (language === "zh" ? "虫子仍在移动" : "The worm is still moving");
   $("#wormInstruction").textContent = state.phase === "finished"
-    ? "重新开始可以更换虫子的初始位置。"
-    : state.mode === "adversarial"
-      ? "系统会选择所有合法轨迹中最难抓的一条；只能靠保证策略取胜。"
-      : "虫子从一个随机位置出发，每次失手后随机移动到相邻洞。";
+    ? (language === "zh" ? "重新开始可再次挑战智能对手。" : "Start again to challenge the adversary once more.")
+    : (language === "zh"
+      ? "系统始终选择所有合法轨迹中最难抓的一条；没有随机位置，也不能靠运气撞中。"
+      : "The system always preserves the hardest legal escape path. There is no random position and no lucky capture.");
 
   $("#holeRow").innerHTML = state.holes.map((hole) => `
     <button class="hole ${hole.possible ? "" : "impossible"} ${hole.worm ? "worm-found" : ""}"
       data-hole="${hole.id}" ${state.phase === "finished" ? "disabled" : ""}
-      aria-label="检查 ${hole.id} 号洞">${hole.worm ? "●" : hole.id}</button>
+      aria-label="${language === "zh" ? `检查 ${hole.id} 号洞` : `Check hole ${hole.id}`}">${hole.worm ? "●" : hole.id}</button>
   `).join("");
   document.querySelectorAll(".hole:not(:disabled)").forEach((button) => {
     button.addEventListener("click", () => act("check_hole", { holeId: Number(button.dataset.hole) }));
@@ -214,9 +334,9 @@ function renderWorm() {
     return `<span class="strategy-step ${status}">${hole}</span>`;
   }).join("");
   $("#wormHistory").innerHTML = state.history.slice().reverse().map((item) =>
-    `<li>第 ${item.turn} 次检查 ${item.holeId} 号洞：${item.result === "caught"
-      ? item.guaranteed ? "所有轨迹均被封锁，保证抓到" : "成功抓到"
-      : state.mode === "adversarial" ? "对手仍有逃脱轨迹" : "没有，虫子已移动"}</li>`
+    `<li>${language === "zh" ? `第 ${item.turn} 次检查 ${item.holeId} 号洞：` : `Check ${item.turn}, hole ${item.holeId}: `}${item.result === "caught"
+      ? (language === "zh" ? "所有轨迹均被封锁，保证抓到" : "all legal paths are blocked — guaranteed capture")
+      : (language === "zh" ? "智能对手仍有合法逃脱轨迹" : "the adversary still has a legal escape path")}</li>`
   ).join("");
 }
 
@@ -230,24 +350,40 @@ function renderMetrics(metrics) {
   $("#emptyInsight").classList.toggle("hidden", Boolean(metrics));
   $("#metrics").classList.toggle("hidden", !metrics);
   if (!metrics) return;
+  const labels = language === "zh" ? {
+    ev: "剩余期望值", ce: "确定性等价", ratio: "报价 / 期望值",
+    beat: "箱内金额超过报价", volatility: "剩余波动", recommendation: "模型建议：",
+    deal: "接受报价", noDeal: "继续开箱",
+  } : {
+    ev: "Expected value", ce: "Certainty equivalent", ratio: "Offer / expected value",
+    beat: "Chance case beats offer", volatility: "Remaining volatility", recommendation: "Model guidance: ",
+    deal: "Take the deal", noDeal: "Keep opening",
+  };
   $("#metrics").innerHTML = `
-    <div class="metric"><span>剩余期望值</span><strong>${formatMoney(metrics.expectedValue)}</strong></div>
-    <div class="metric"><span>确定性等价</span><strong>${formatMoney(metrics.certaintyEquivalent)}</strong></div>
-    <div class="metric"><span>报价 / 期望值</span><strong>${(metrics.offerRatio * 100).toFixed(1)}%</strong></div>
-    <div class="metric"><span>箱内金额超过报价</span><strong>${(metrics.chanceToBeatOffer * 100).toFixed(1)}%</strong></div>
-    <div class="metric"><span>剩余波动</span><strong>${formatMoney(metrics.standardDeviation)}</strong></div>
-    <div class="recommendation">模型建议：${metrics.reservationRecommendation === "deal" ? "接受报价" : "继续开箱"}</div>
+    <div class="metric"><span>${labels.ev}</span><strong>${formatMoney(metrics.expectedValue)}</strong></div>
+    <div class="metric"><span>${labels.ce}</span><strong>${formatMoney(metrics.certaintyEquivalent)}</strong></div>
+    <div class="metric"><span>${labels.ratio}</span><strong>${(metrics.offerRatio * 100).toFixed(1)}%</strong></div>
+    <div class="metric"><span>${labels.beat}</span><strong>${(metrics.chanceToBeatOffer * 100).toFixed(1)}%</strong></div>
+    <div class="metric"><span>${labels.volatility}</span><strong>${formatMoney(metrics.standardDeviation)}</strong></div>
+    <div class="recommendation">${labels.recommendation}${metrics.reservationRecommendation === "deal" ? labels.deal : labels.noDeal}</div>
   `;
 }
 
 function renderHistory(history) {
-  const labels = {
+  const labels = language === "zh" ? {
     choose: (item) => `选择 ${item.caseId} 号作为自己的箱子`,
     reveal: (item) => `打开 ${item.caseId} 号：${formatMoney(item.value)}`,
     offer: (item) => `第 ${item.round} 轮报价：${formatMoney(item.value)}`,
     deal: (item) => `接受报价：${formatMoney(item.value)}`,
     no_deal: (item) => `第 ${item.round} 轮拒绝报价`,
     case_payout: (item) => `坚持到底：箱内为 ${formatMoney(item.value)}`,
+  } : {
+    choose: (item) => `Kept case ${item.caseId}`,
+    reveal: (item) => `Opened case ${item.caseId}: ${formatMoney(item.value)}`,
+    offer: (item) => `Round ${item.round} offer: ${formatMoney(item.value)}`,
+    deal: (item) => `Accepted ${formatMoney(item.value)}`,
+    no_deal: (item) => `Rejected the round ${item.round} offer`,
+    case_payout: (item) => `Went to the end: case held ${formatMoney(item.value)}`,
   };
   $("#historyList").innerHTML = history.slice().reverse().map((item) =>
     `<li>${labels[item.kind](item)}</li>`
@@ -255,7 +391,7 @@ function renderHistory(history) {
 }
 
 function formatMoney(value) {
-  return `¥${money.format(value ?? 0)}`;
+  return `${language === "zh" ? "¥" : "$"}${money.format(value ?? 0)}`;
 }
 
 function findCase(caseId) {
@@ -271,17 +407,18 @@ function showLobby() {
 }
 
 $("#homeButton").addEventListener("click", showLobby);
+$("#languageZh").addEventListener("click", () => setLanguage("zh"));
+$("#languageEn").addEventListener("click", () => setLanguage("en"));
 $("#backButton").addEventListener("click", showLobby);
 document.querySelectorAll(".back-to-lobby").forEach((button) => button.addEventListener("click", showLobby));
 $("#newGameButton").addEventListener("click", () => startGame("cases"));
-$("#newWormButton").addEventListener("click", () => startGame("worm", { mode: currentState?.mode || "adversarial" }));
+$("#newWormButton").addEventListener("click", () => startGame("worm"));
 $("#newPirateButton").addEventListener("click", () => startGame("pirates"));
 $("#submitPirateProposal").addEventListener("click", () => {
   const allocation = [...document.querySelectorAll(".pirate-gold-input")].map((input) => Number(input.value));
   act("submit_proposal", { allocation });
 });
-$("#wormModeAdversarial").addEventListener("click", () => startGame("worm", { mode: "adversarial" }));
-$("#wormModeRandom").addEventListener("click", () => startGame("worm", { mode: "random" }));
 $("#dealButton").addEventListener("click", () => act("deal"));
 $("#noDealButton").addEventListener("click", () => act("no_deal"));
+applyLanguage();
 loadLobby().catch((error) => showToast(error.message));

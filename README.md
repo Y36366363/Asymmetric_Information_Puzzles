@@ -1,13 +1,21 @@
 # AIP — Asymmetric Information Puzzles
 
+> 🎮 **[Open the local game lobby / 打开本地游戏大厅](http://127.0.0.1:8765/)**
+> · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
+
 ## Updates 08/02/2026
 
+- **Bilingual navigation and project links** — Added a persistent Chinese/English
+  switch across all playable games, a GitHub mark linking to the repository,
+  and direct local-lobby and GitHub links at the very top of this README.
+- **Deterministic smart-worm opponent** — Removed random capture entirely,
+  made every miss preserve a worst-case legal escape trajectory, emphasized the
+  live check counter, and added a regression proving repeated wrong checks never win.
 - **Playable pirate council** — Added a human-authored gold proposal screen,
   rational continuation-aware voters, individual vote explanations, survival
   consequences, and comparison with the backward-induction equilibrium.
 - **Adversarial task-4 game mode** — Upgraded the moving-worm game from a
-  random simulation to a true worst-case opponent, while retaining random mode
-  for comparison and exposing whether capture was lucky or mathematically forced.
+  random simulation to a true worst-case opponent driven by its public belief state.
 - **Playable moving-worm search** — Added a second lobby game with a hidden
   moving target, interactive hole checks, public belief-state tracking, random
   legal movement, and the shortest minimax capture sequence as an optional hint.
@@ -111,17 +119,17 @@ complete single-player games. In 命运之箱:
 
 In 移动虫穴, choose one of five adjacent holes on every turn. A missed worm
 immediately moves exactly one step left or right. **对抗模式** is now the
-default and directly implements task 4: the computer keeps every trajectory
+only mode and directly implements task 4: the computer keeps every trajectory
 that is still legal and always chooses a surviving worst-case branch. It cannot
 be beaten by luck—capture occurs only when the selected hole covers every state
-left in the public information set. **随机模式** instead commits to one hidden
-worm and samples a legal neighboring move after every miss, so early lucky
-captures are possible.
+left in the public information set. There is no preselected random position and
+no random movement; twenty repeated checks of the wrong hole still produce
+twenty misses. The live counter updates after every attempt.
 
 The optional minimax sequence is highlighted one step at a time. Following
 `2 → 3 → 4 → 2 → 3 → 4` from the beginning guarantees capture within six
-checks for five holes. The result screen explicitly distinguishes an ordinary
-random capture from a mathematically forced capture against the adversary.
+checks for five holes. A capture is therefore always mathematically forced,
+never lucky.
 
 In 海盗议会, you play the most senior pirate A. Allocate all 100 coins among
 five pirates and submit the proposal. Every other pirate compares the offer

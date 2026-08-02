@@ -1,6 +1,7 @@
 import unittest
 import json
 import threading
+from importlib.resources import files
 from http.client import HTTPConnection
 from http.server import ThreadingHTTPServer
 
@@ -92,6 +93,14 @@ class LocalGameUITests(unittest.TestCase):
             server.server_close()
             thread.join(timeout=2)
 
+    def test_lobby_assets_include_language_and_github_navigation(self) -> None:
+        html = files("aip.ui").joinpath("static/index.html").read_text()
+        script = files("aip.ui").joinpath("static/app.js").read_text()
+        self.assertIn("https://github.com/Y36366363/Asymmetric_Information_Puzzles", html)
+        self.assertIn('id="languageEn"', html)
+        self.assertIn('en: {', script)
+        self.assertIn('localStorage.setItem("aip-language"', script)
+
     def test_worm_position_is_hidden_while_playing(self) -> None:
         created = self.service.create_session("worm", {"seed": 5})
         state = created["state"]
@@ -115,22 +124,16 @@ class LocalGameUITests(unittest.TestCase):
         self.assertTrue(state["history"][-1]["guaranteed"])
         self.assertIsNone(state["suggestedHole"])
 
-    def test_guaranteed_sequence_also_catches_every_random_seed(self) -> None:
-        for seed in range(30):
-            created = self.service.create_session(
-                "worm", {"seed": seed, "mode": "random"}
+    def test_repeated_wrong_check_never_catches_smart_worm(self) -> None:
+        created = self.service.create_session("worm")
+        state = created["state"]
+        for _ in range(20):
+            state = self.service.act(
+                created["sessionId"], "check_hole", {"holeId": 1}
             )
-            session_id = created["sessionId"]
-            state = created["state"]
-            for hole_id in state["strategy"]:
-                state = self.service.act(session_id, "check_hole", {"holeId": hole_id})
-                if state["phase"] == "finished":
-                    break
-            self.assertEqual(state["phase"], "finished", f"seed={seed}")
-
-    def test_invalid_worm_mode_is_rejected(self) -> None:
-        with self.assertRaises(ValueError):
-            self.service.create_session("worm", {"mode": "teleporting"})
+        self.assertEqual(state["phase"], "playing")
+        self.assertEqual(state["turn"], 20)
+        self.assertFalse(state["followedStrategy"])
 
     def test_optimal_pirate_proposal_passes_and_is_recognized(self) -> None:
         created = self.service.create_session("pirates")
