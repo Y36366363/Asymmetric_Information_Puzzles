@@ -1,5 +1,12 @@
 # AIP — Asymmetric Information Puzzles
 
+## Updates 08/02/2026
+
+- **Sequential case-and-banker lab** — Added the standard 26-case prize board,
+  configurable opening and offer schedules, expected value and CARA certainty
+  equivalents, exact next-offer projection, reproducible simulation, and Bayesian
+  learning over hidden banker types.
+
 ## Updates 08/01/2026
 
 - **Public leadership and convention selection** — Separated raw high-bid
@@ -42,7 +49,8 @@ induction, common knowledge, information sets, and robust strategies.
 The project currently solves pirate gold allocation, public coloured-hat and
 village eye-colour reasoning, prisoners-and-light coordination, robust
 sequential bean taking, repeated all-pay auctions, and adversarial moving-worm
-search. Its shared core remains ready for future puzzles.
+search. It also includes a sequential case-and-banker decision lab. Its shared
+core supports both deterministic elimination and Bayesian belief updates.
 
 ## Project layout
 
@@ -64,6 +72,7 @@ search. Its shared core remains ready for future puzzles.
 │       ├── eyes/                  # village eye-colour induction
 │       ├── prisoners/             # one-bit distributed coordination
 │       ├── auctions/              # repeated all-pay auction analysis
+│       ├── cases/                 # sequential case opening and banker signals
 │       ├── beans/                 # interval minimax and robust strategies
 │       └── worm/                  # shortest adversarial search strategy
 └── tests/
@@ -218,6 +227,48 @@ Further reading: [Majerech's one-light retrospective](https://arxiv.org/abs/2208
 surveys faster protocols and reports sub-3390-day average designs. William Wu's
 [protocol survey](https://www.ocf.berkeley.edu/~wwu/papers/100prisonersLightBulb.pdf)
 develops single-counter, dynamic-counter, two-stage, and binary-token methods.
+
+## Run the sequential case-and-banker lab
+
+```bash
+PYTHONPATH=src python -m aip cases --risk-tolerance 100000 \
+  --trials 1000 --seed 42
+```
+
+The default board contains the 26 standard amounts from 0.01 to 1,000,000. The
+player keeps one sealed case, then opens `6, 5, 4, 3, 2, 1, 1, 1, 1, 1` other
+cases between offers. The included classroom banker offers 50%, 50%, 60%, 60%,
+70%, 70%, 80%, 90%, 99%, and 99% of the remaining mean. Both schedules and all
+prizes are configurable Python data.
+
+For remaining values `x₁…xₘ`, the risk-neutral reservation value is
+`EV = (Σxᵢ)/m`. A player with constant absolute risk aversion and tolerance `T`
+uses the certainty equivalent `CE = -T log[(1/m)Σ exp(-xᵢ/T)]`; lower `T` means
+stronger dislike of downside risk. The report also gives volatility, the chance
+that the chosen case beats the offer, and the offer/EV ratio. The exact
+next-round enumerator shows an important trap: the probability that the next
+offer rises is not the same as the expected value of continuing.
+
+The CLI's `deal/no-deal` recommendation is deliberately labeled a reservation
+rule: it compares today's offer with the terminal case lottery. Before the last
+round, a truly optimal decision also values the option to reject future offers
+and therefore needs a specified future banker policy. The simulator supplies a
+reproducible behavioral benchmark, not a claim that this simple stopping rule is
+the unique dynamic optimum.
+
+Standard U.S.-style play is primarily a decision under uncertainty, not
+automatically an asymmetric-information game: the contestant does not know the
+case value, but the banker generally appears not to know it either. AIP's
+`BankerHypothesis` extension creates the game-theoretic version: the contestant
+holds a belief over hidden banker profiles and updates it from each public offer
+using Bayes' rule. An unusually high offer raises the posterior probability of a
+generous banker; an omniscient banker could instead signal private knowledge of
+the chosen case.
+
+The rules, prize table, classroom discount schedule, exponential-utility
+calculation, and the distinction between the ordinary U.S. banker and an
+omniscient variant follow Timothy Chan's peer-reviewed
+[decision-analysis treatment](https://pubsonline.informs.org/doi/10.1287/ited.2013.0104).
 
 ## Run the repeated all-pay auction lab
 

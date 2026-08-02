@@ -76,3 +76,39 @@ class InformationSet(Generic[StateT]):
             observations=self.observations + (() if observation.is_public else (observation,)),
             public_history=self.public_history + ((observation,) if observation.is_public else ()),
         )
+
+    def bayesian_update(
+        self,
+        observation: Observation,
+        likelihood: Callable[[StateT, Observation], float],
+    ) -> "InformationSet[StateT]":
+        """Return a posterior information set using Bayes' rule.
+
+        An omitted prior is interpreted as uniform over ``possible_states``.
+        Zero-likelihood states are removed.
+        """
+
+        prior = self.beliefs or {
+            state: 1.0 / len(self.possible_states) for state in self.possible_states
+        }
+        weights = {
+            state: prior[state] * likelihood(state, observation)
+            for state in self.possible_states
+        }
+        if any(weight < 0 for weight in weights.values()):
+            raise ValueError("likelihoods cannot be negative")
+        evidence = sum(weights.values())
+        if evidence <= 0:
+            raise ValueError("observation has zero probability under every state")
+        posterior = {
+            state: weight / evidence for state, weight in weights.items() if weight > 0
+        }
+        remaining = tuple(state for state in self.possible_states if state in posterior)
+        return InformationSet(
+            key=f"{self.key}@{len(self.observations) + len(self.public_history) + 1}",
+            player_id=self.player_id,
+            possible_states=remaining,
+            observations=self.observations + (() if observation.is_public else (observation,)),
+            public_history=self.public_history + ((observation,) if observation.is_public else ()),
+            beliefs=posterior,
+        )

@@ -13,6 +13,9 @@ from aip.puzzles.auctions.solver import AllPayAuctionAnalyzer
 from aip.puzzles.beans.formatting import format_solution as format_bean_solution
 from aip.puzzles.beans.models import BeanRules
 from aip.puzzles.beans.solver import BeanSolver
+from aip.puzzles.cases.formatting import format_case_game
+from aip.puzzles.cases.models import CLASSROOM_BANKER, CaseGameRules, RiskPreferences
+from aip.puzzles.cases.solver import CaseGameAnalyzer
 from aip.puzzles.eyes.formatting import format_solution as format_eye_solution
 from aip.puzzles.eyes.models import EyeRules
 from aip.puzzles.eyes.solver import EyeVillageSolver
@@ -158,6 +161,17 @@ def build_parser() -> argparse.ArgumentParser:
     coordination.add_argument("--remaining-rounds", type=int, default=10)
     coordination.add_argument("--discount", type=float, default=0.9)
     coordination.add_argument("--leader-bonus", type=float, default=0.0)
+    cases = subparsers.add_parser(
+        "cases", help="simulate the 26-case banker-offer decision game"
+    )
+    cases.add_argument(
+        "--risk-tolerance",
+        type=float,
+        default=None,
+        help="CARA risk tolerance in prize units; omit for risk-neutral play",
+    )
+    cases.add_argument("--trials", type=int, default=1_000)
+    cases.add_argument("--seed", type=int, default=42)
     return parser
 
 
@@ -248,4 +262,17 @@ def main(argv: list[str] | None = None) -> int:
             leadership_bonus_per_round=args.leader_bonus,
         )
         print(format_coordination(outcome))
+    elif args.puzzle == "cases":
+        analyzer = CaseGameAnalyzer()
+        rules = CaseGameRules()
+        preferences = RiskPreferences(args.risk_tolerance)
+        result = analyzer.play(rules, CLASSROOM_BANKER, preferences, seed=args.seed)
+        summary = analyzer.simulate(
+            rules,
+            CLASSROOM_BANKER,
+            preferences,
+            trials=args.trials,
+            seed=args.seed,
+        )
+        print(format_case_game(result, summary))
     return 0
