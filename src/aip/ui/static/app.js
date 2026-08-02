@@ -36,11 +36,14 @@ async function loadLobby() {
   });
 }
 
-async function startGame(gameId = "cases") {
+async function startGame(gameId = "cases", options = {}) {
   try {
+    const gameOptions = gameId === "cases"
+      ? { riskTolerance: 100000, ...options }
+      : options;
     const result = await request("/api/sessions", {
       method: "POST",
-      body: JSON.stringify({ gameId, options: { riskTolerance: 100000 } }),
+      body: JSON.stringify({ gameId, options: gameOptions }),
     });
     sessionId = result.sessionId;
     currentState = result.state;
@@ -111,6 +114,9 @@ function render() {
 
 function renderWorm() {
   const state = currentState;
+  $("#wormMode").textContent = state.mode === "adversarial" ? "对抗" : "随机";
+  $("#wormModeAdversarial").classList.toggle("active", state.mode === "adversarial");
+  $("#wormModeRandom").classList.toggle("active", state.mode === "random");
   $("#wormTurn").textContent = state.turn;
   $("#possibleHoles").textContent = state.possiblePositions.join(" · ") || "已锁定";
   $("#wormHint").textContent = state.phase === "finished"
@@ -123,7 +129,9 @@ function renderWorm() {
     : "虫子仍在移动";
   $("#wormInstruction").textContent = state.phase === "finished"
     ? "重新开始可以更换虫子的初始位置。"
-    : "选择一个洞检查；每次失手后，虫子必定移动到相邻洞。";
+    : state.mode === "adversarial"
+      ? "系统会选择所有合法轨迹中最难抓的一条；只能靠保证策略取胜。"
+      : "虫子从一个随机位置出发，每次失手后随机移动到相邻洞。";
 
   $("#holeRow").innerHTML = state.holes.map((hole) => `
     <button class="hole ${hole.possible ? "" : "impossible"} ${hole.worm ? "worm-found" : ""}"
@@ -139,7 +147,9 @@ function renderWorm() {
     return `<span class="strategy-step ${status}">${hole}</span>`;
   }).join("");
   $("#wormHistory").innerHTML = state.history.slice().reverse().map((item) =>
-    `<li>第 ${item.turn} 次检查 ${item.holeId} 号洞：${item.result === "caught" ? "成功抓到" : "没有，虫子已移动"}</li>`
+    `<li>第 ${item.turn} 次检查 ${item.holeId} 号洞：${item.result === "caught"
+      ? item.guaranteed ? "所有轨迹均被封锁，保证抓到" : "成功抓到"
+      : state.mode === "adversarial" ? "对手仍有逃脱轨迹" : "没有，虫子已移动"}</li>`
   ).join("");
 }
 
@@ -196,7 +206,9 @@ $("#homeButton").addEventListener("click", showLobby);
 $("#backButton").addEventListener("click", showLobby);
 document.querySelectorAll(".back-to-lobby").forEach((button) => button.addEventListener("click", showLobby));
 $("#newGameButton").addEventListener("click", () => startGame("cases"));
-$("#newWormButton").addEventListener("click", () => startGame("worm"));
+$("#newWormButton").addEventListener("click", () => startGame("worm", { mode: currentState?.mode || "adversarial" }));
+$("#wormModeAdversarial").addEventListener("click", () => startGame("worm", { mode: "adversarial" }));
+$("#wormModeRandom").addEventListener("click", () => startGame("worm", { mode: "random" }));
 $("#dealButton").addEventListener("click", () => act("deal"));
 $("#noDealButton").addEventListener("click", () => act("no_deal"));
 loadLobby().catch((error) => showToast(error.message));

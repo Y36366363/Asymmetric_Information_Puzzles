@@ -70,7 +70,13 @@
             <p class="eyebrow">CASE 02 · 隐藏状态追踪</p>
             <h1>移动虫穴</h1>
           </div>
-          <button class="secondary-button" id="newWormButton">重新开始</button>
+          <div class="worm-controls">
+            <div class="mode-switch" aria-label="虫子移动模式">
+              <button id="wormModeAdversarial">对抗模式</button>
+              <button id="wormModeRandom">随机模式</button>
+            </div>
+            <button class="secondary-button" id="newWormButton">重新开始</button>
+          </div>
         </div>
 
         <div class="worm-stage panel">
@@ -81,6 +87,7 @@
           </div>
           <div class="hole-row" id="holeRow"></div>
           <div class="worm-status">
+            <div><span>当前模式</span><strong id="wormMode">对抗</strong></div>
             <div><span>检查次数</span><strong id="wormTurn">0</strong></div>
             <div><span>仍可能的位置</span><strong id="possibleHoles">1 · 2 · 3 · 4 · 5</strong></div>
             <div><span>保证策略提示</span><strong id="wormHint">—</strong></div>

@@ -2,6 +2,9 @@
 
 ## Updates 08/02/2026
 
+- **Adversarial task-4 game mode** — Upgraded the moving-worm game from a
+  random simulation to a true worst-case opponent, while retaining random mode
+  for comparison and exposing whether capture was lucky or mathematically forced.
 - **Playable moving-worm search** — Added a second lobby game with a hidden
   moving target, interactive hole checks, public belief-state tracking, random
   legal movement, and the shortest minimax capture sequence as an optional hint.
@@ -104,11 +107,18 @@ single-player games. In 命运之箱:
 5. Review the full decision history and final case value.
 
 In 移动虫穴, choose one of five adjacent holes on every turn. A missed worm
-immediately moves exactly one step left or right. The game keeps the actual
-position private while showing the information set that remains logically
-possible after each public miss. The optional minimax sequence is highlighted
-one step at a time; following it from the beginning guarantees capture within
-six checks for five holes, even against adversarial rather than random movement.
+immediately moves exactly one step left or right. **对抗模式** is now the
+default and directly implements task 4: the computer keeps every trajectory
+that is still legal and always chooses a surviving worst-case branch. It cannot
+be beaten by luck—capture occurs only when the selected hole covers every state
+left in the public information set. **随机模式** instead commits to one hidden
+worm and samples a legal neighboring move after every miss, so early lucky
+captures are possible.
+
+The optional minimax sequence is highlighted one step at a time. Following
+`2 → 3 → 4 → 2 → 3 → 4` from the beginning guarantees capture within six
+checks for five holes. The result screen explicitly distinguishes an ordinary
+random capture from a mathematically forced capture against the adversary.
 
 The UI never receives the chosen case's hidden amount before the game finishes.
 The Python-side `GameRegistry`, `PlayableSession`, and `LocalGameService`

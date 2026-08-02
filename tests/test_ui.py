@@ -96,23 +96,41 @@ class LocalGameUITests(unittest.TestCase):
         created = self.service.create_session("worm", {"seed": 5})
         state = created["state"]
         self.assertEqual(state["phase"], "playing")
+        self.assertEqual(state["mode"], "adversarial")
         self.assertFalse(any(hole["worm"] for hole in state["holes"]))
         self.assertNotIn("seed", state)
 
-    def test_guaranteed_worm_sequence_catches_random_movement(self) -> None:
+    def test_guaranteed_sequence_beats_adversarial_worm_on_last_check(self) -> None:
+        created = self.service.create_session("worm", {"mode": "adversarial"})
+        session_id = created["sessionId"]
+        state = created["state"]
+        strategy = state["strategy"]
+        for index, hole_id in enumerate(strategy):
+            state = self.service.act(session_id, "check_hole", {"holeId": hole_id})
+            if index < len(strategy) - 1:
+                self.assertEqual(state["phase"], "playing")
+        self.assertEqual(state["phase"], "finished")
+        self.assertEqual(state["turn"], len(strategy))
+        self.assertTrue(any(hole["worm"] for hole in state["holes"]))
+        self.assertTrue(state["history"][-1]["guaranteed"])
+        self.assertIsNone(state["suggestedHole"])
+
+    def test_guaranteed_sequence_also_catches_every_random_seed(self) -> None:
         for seed in range(30):
-            created = self.service.create_session("worm", {"seed": seed})
+            created = self.service.create_session(
+                "worm", {"seed": seed, "mode": "random"}
+            )
             session_id = created["sessionId"]
             state = created["state"]
             for hole_id in state["strategy"]:
-                state = self.service.act(
-                    session_id, "check_hole", {"holeId": hole_id}
-                )
+                state = self.service.act(session_id, "check_hole", {"holeId": hole_id})
                 if state["phase"] == "finished":
                     break
             self.assertEqual(state["phase"], "finished", f"seed={seed}")
-            self.assertTrue(any(hole["worm"] for hole in state["holes"]))
-            self.assertIsNone(state["suggestedHole"])
+
+    def test_invalid_worm_mode_is_rejected(self) -> None:
+        with self.assertRaises(ValueError):
+            self.service.create_session("worm", {"mode": "teleporting"})
 
     def test_worm_miss_updates_public_information_set(self) -> None:
         created = self.service.create_session("worm", {"seed": 0})
