@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import argparse
+import errno
 import json
 import mimetypes
 import threading
 import webbrowser
+from http.client import HTTPConnection
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from importlib.resources import files
@@ -24,6 +26,9 @@ class AIPRequestHandler(BaseHTTPRequestHandler):
         path = urlparse(self.path).path
         if path == "/api/games":
             self._json({"games": self.service.games()})
+            return
+        if path == "/api/health":
+            self._json({"status": "ok", "application": "aip-game-lobby"})
             return
         if path.startswith("/api/sessions/"):
             session_id = path.removeprefix("/api/sessions/")
@@ -105,8 +110,33 @@ class AIPRequestHandler(BaseHTTPRequestHandler):
         return
 
 
+def _is_existing_aip_server(host: str, port: int) -> bool:
+    connection = HTTPConnection(host, port, timeout=0.5)
+    try:
+        connection.request("GET", "/api/health")
+        response = connection.getresponse()
+        payload = json.loads(response.read())
+        return payload.get("application") == "aip-game-lobby"
+    except (OSError, ValueError, json.JSONDecodeError):
+        return False
+    finally:
+        connection.close()
+
+
 def serve(host: str = "127.0.0.1", port: int = 8765, *, open_browser: bool = True) -> None:
-    server = ThreadingHTTPServer((host, port), AIPRequestHandler)
+    try:
+        server = ThreadingHTTPServer((host, port), AIPRequestHandler)
+    except OSError as error:
+        if error.errno != errno.EADDRINUSE:
+            raise
+        if _is_existing_aip_server(host, port):
+            url = f"http://{host}:{port}"
+            print(f"AIP 游戏大厅已经在运行：{url}")
+            if open_browser:
+                webbrowser.open(url)
+            return
+        server = ThreadingHTTPServer((host, 0), AIPRequestHandler)
+        print(f"端口 {port} 已被其他程序占用，已自动改用空闲端口。")
     url = f"http://{host}:{server.server_port}"
     print(f"AIP 游戏大厅已启动：{url}")
     print("按 Ctrl+C 结束游戏服务器。")

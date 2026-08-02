@@ -1,6 +1,11 @@
 import unittest
+import json
+import threading
+from http.client import HTTPConnection
+from http.server import ThreadingHTTPServer
 
 from aip.ui.registry import LocalGameService, build_default_registry
+from aip.ui.server import AIPRequestHandler
 
 
 class LocalGameUITests(unittest.TestCase):
@@ -69,6 +74,23 @@ class LocalGameUITests(unittest.TestCase):
         created = self.service.create_session("cases", {"seed": 19})
         with self.assertRaises(ValueError):
             self.service.act(created["sessionId"], "deal")
+
+    def test_health_endpoint_identifies_running_aip_server(self) -> None:
+        server = ThreadingHTTPServer(("127.0.0.1", 0), AIPRequestHandler)
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        try:
+            connection = HTTPConnection("127.0.0.1", server.server_port, timeout=2)
+            connection.request("GET", "/api/health")
+            response = connection.getresponse()
+            payload = json.loads(response.read())
+            connection.close()
+            self.assertEqual(payload["status"], "ok")
+            self.assertEqual(payload["application"], "aip-game-lobby")
+        finally:
+            server.shutdown()
+            server.server_close()
+            thread.join(timeout=2)
 
 
 if __name__ == "__main__":

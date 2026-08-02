@@ -2,6 +2,9 @@
 
 ## Updates 08/02/2026
 
+- **Reliable local preview launch** — Added a double-click macOS launcher,
+  health endpoint, existing-server detection, automatic occupied-port fallback,
+  and verified the complete first-round flow in a real browser.
 - **Local playable game lobby** — Added a dependency-free local browser UI,
   pluggable game registry, private in-memory sessions, and a fully playable
   26-case banker game with live risk metrics and decision history.
@@ -62,6 +65,12 @@ supports both deterministic elimination and Bayesian belief updates.
 
 The first genuinely playable AIP experience is now available locally:
 
+On macOS, the easiest method is to double-click **`启动 AIP 游戏.command`** in
+the project folder. Keep the Terminal window that appears open while playing.
+Closing that window stops the local page.
+
+The command-line equivalent is:
+
 ```bash
 PYTHONPATH=src python -m aip play
 ```
@@ -72,7 +81,10 @@ Or, after installing the project in editable mode:
 aip-play
 ```
 
-The program opens `http://127.0.0.1:8765` in the default browser. It listens
+The program normally opens `http://127.0.0.1:8765` in the default browser. If
+that port belongs to another program, AIP automatically selects a free port and
+prints its exact address in the launcher window. Starting the launcher twice
+detects the existing AIP process and simply reopens it. It listens
 only on the local machine unless `--host` is explicitly changed. No account,
 network connection, JavaScript build tool, or third-party runtime dependency is
 required. Game sessions live only in memory and disappear when the local server
