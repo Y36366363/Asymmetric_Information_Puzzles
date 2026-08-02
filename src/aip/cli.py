@@ -21,6 +21,9 @@ from aip.puzzles.eyes.models import EyeRules
 from aip.puzzles.eyes.solver import EyeVillageSolver
 from aip.puzzles.hats.formatting import format_solution as format_hat_solution
 from aip.puzzles.hats.solver import HatSolver
+from aip.puzzles.liars_dice.formatting import format_liars_dice
+from aip.puzzles.liars_dice.models import DiceBid, LiarsDiceRules
+from aip.puzzles.liars_dice.solver import LiarsDiceAnalyzer
 from aip.puzzles.pirates.formatting import format_solution
 from aip.puzzles.pirates.models import PirateRules, VoteThreshold
 from aip.puzzles.pirates.solver import PirateSolver
@@ -172,6 +175,19 @@ def build_parser() -> argparse.ArgumentParser:
     )
     cases.add_argument("--trials", type=int, default=1_000)
     cases.add_argument("--seed", type=int, default=42)
+    dice = subparsers.add_parser(
+        "liars-dice", help="analyze a Liar's Dice bid from a private hand"
+    )
+    dice.add_argument("--players", type=int, default=4)
+    dice.add_argument("--dice-per-player", type=int, default=5)
+    dice.add_argument("--sides", type=int, default=6)
+    dice.add_argument("--hand", type=int, nargs="+", default=[1, 3, 3, 5, 6])
+    dice.add_argument("--bid-quantity", type=int, default=9)
+    dice.add_argument("--bid-face", type=int, default=3)
+    dice.add_argument("--no-wild-ones", action="store_true")
+    dice.add_argument("--honest-prior", type=float, default=0.7)
+    dice.add_argument("--trials", type=int, default=100_000)
+    dice.add_argument("--seed", type=int, default=42)
     return parser
 
 
@@ -275,4 +291,23 @@ def main(argv: list[str] | None = None) -> int:
             seed=args.seed,
         )
         print(format_case_game(result, summary))
+    elif args.puzzle == "liars-dice":
+        rules = LiarsDiceRules(
+            player_count=args.players,
+            dice_per_player=args.dice_per_player,
+            sides=args.sides,
+            wild_ones=not args.no_wild_ones,
+        )
+        hand = tuple(args.hand)
+        bid = DiceBid(args.bid_quantity, args.bid_face)
+        analyzer = LiarsDiceAnalyzer()
+        analysis = analyzer.analyze_bid(hand, bid, rules)
+        raises = analyzer.safest_raises(hand, bid, rules)
+        check = analyzer.validate_probability(
+            hand, bid, rules, trials=args.trials, seed=args.seed
+        )
+        beliefs = analyzer.infer_bidder_type(
+            analysis.probability_bid_true, honest_prior=args.honest_prior
+        )
+        print(format_liars_dice(analysis, raises, check, beliefs))
     return 0

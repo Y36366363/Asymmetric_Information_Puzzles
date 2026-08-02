@@ -2,6 +2,9 @@
 
 ## Updates 08/02/2026
 
+- **Liar's Dice belief and challenge engine** — Added private-hand information
+  sets, exact binomial claim odds, cost-sensitive challenge thresholds, legal
+  raise ranking, Bayesian bluff-type inference, and Monte Carlo verification.
 - **Sequential case-and-banker lab** — Added the standard 26-case prize board,
   configurable opening and offer schedules, expected value and CARA certainty
   equivalents, exact next-offer projection, reproducible simulation, and Bayesian
@@ -48,9 +51,9 @@ induction, common knowledge, information sets, and robust strategies.
 
 The project currently solves pirate gold allocation, public coloured-hat and
 village eye-colour reasoning, prisoners-and-light coordination, robust
-sequential bean taking, repeated all-pay auctions, and adversarial moving-worm
-search. It also includes a sequential case-and-banker decision lab. Its shared
-core supports both deterministic elimination and Bayesian belief updates.
+sequential bean taking, repeated all-pay auctions, adversarial moving-worm
+search, a sequential case-and-banker lab, and Liar's Dice. Its shared core
+supports both deterministic elimination and Bayesian belief updates.
 
 ## Project layout
 
@@ -73,6 +76,7 @@ core supports both deterministic elimination and Bayesian belief updates.
 │       ├── prisoners/             # one-bit distributed coordination
 │       ├── auctions/              # repeated all-pay auction analysis
 │       ├── cases/                 # sequential case opening and banker signals
+│       ├── liars_dice/            # private dice, bluff odds, and challenges
 │       ├── beans/                 # interval minimax and robust strategies
 │       └── worm/                  # shortest adversarial search strategy
 └── tests/
@@ -269,6 +273,48 @@ The rules, prize table, classroom discount schedule, exponential-utility
 calculation, and the distinction between the ordinary U.S. banker and an
 omniscient variant follow Timothy Chan's peer-reviewed
 [decision-analysis treatment](https://pubsonline.informs.org/doi/10.1287/ited.2013.0104).
+
+## Run the Liar's Dice analyzer
+
+```bash
+PYTHONPATH=src python -m aip liars-dice --players 4 --dice-per-player 5 \
+  --hand 1 3 3 5 6 --bid-quantity 9 --bid-face 3 --trials 100000
+```
+
+Each player's dice are private; bids are public. Under the included common
+variant, ones are wild for bids on faces 2–6 but a bid on ones counts only ones.
+A legal raise increases quantity, or keeps quantity fixed and increases face.
+Rules vary across tables, so wild ones can be disabled and player, hand, and die
+sizes are configurable.
+
+Suppose your hand already contributes `s` matches to a claim of at least `q`
+matching dice. If `h` dice remain hidden, then the bid is true with probability
+
+`P(X ≥ q-s) = Σ C(h,k)pᵏ(1-p)^(h-k)`,
+
+where `p=2/6` for an ordinary face when ones are wild and `p=1/6` for a bid on
+ones (or any face when wilds are disabled). If a correct challenge gains `G`
+and a wrong challenge costs `L`, challenging has value
+`(1-P(true))G - P(true)L` and is attractive when
+`P(true) < G/(G+L)`. With symmetric one-die stakes, the cutoff is 50%.
+
+The module ranks legal raises by their raw chance of being true, then checks the
+closed-form probability against seeded Monte Carlo. “Safest raise” is not the
+same as equilibrium play: bids also reveal information, influence later bids,
+and sometimes need deliberate bluffing to prevent opponents from decoding a
+player's hand.
+
+For explicit asymmetric information, AIP adds a transparent two-type model.
+An observer starts with a prior that the bidder is honest or a bluffer; credible
+bids are more likely under the honest type and incredible bids under the bluff
+type. The posterior is computed through the shared `InformationSet` API. This is
+a configurable behavioral inference model, not a claim to solve the full
+multi-round game, whose equilibrium generally requires mixed strategies and a
+much larger game tree. Ferguson and Ferguson's mathematical
+[Liar's Dice models](https://www.math.ucla.edu/~tom/papers/LiarsDice.pdf) show
+how even reduced variants become nontrivial zero-sum games; Sanford Research's
+[one-page rules](https://research.sanfordhealth.org/-/media/research/promise/resources/printables/liars-dice/liars-dice-how-to-play.pdf)
+provide a concise conventional rules reference.
 
 ## Run the repeated all-pay auction lab
 
