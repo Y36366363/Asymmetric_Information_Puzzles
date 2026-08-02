@@ -51,6 +51,7 @@ async function startGame(gameId = "cases", options = {}) {
     $("#lobbyView").classList.add("hidden");
     $("#gameView").classList.toggle("hidden", gameId !== "cases");
     $("#wormView").classList.toggle("hidden", gameId !== "worm");
+    $("#pirateView").classList.toggle("hidden", gameId !== "pirates");
     render();
   } catch (error) {
     showToast(error.message);
@@ -71,6 +72,10 @@ async function act(action, payload = {}) {
 }
 
 function render() {
+  if (currentState.gameId === "pirates") {
+    renderPirates();
+    return;
+  }
   if (currentState.gameId === "worm") {
     renderWorm();
     return;
@@ -110,6 +115,68 @@ function render() {
     $("#offerValue").textContent = formatMoney(state.offer);
     $("#offerContext").textContent = `剩余 ${state.prizeBoard.filter((prize) => prize.remaining).length} 个可能金额。模型保留价为 ${formatMoney(state.metrics.certaintyEquivalent)}。`;
   }
+}
+
+function renderPirates() {
+  const state = currentState;
+  const proposal = state.proposal || state.pirates.map(() => 0);
+  $("#pirateTotalGold").textContent = state.totalGold;
+  $("#pirateVotesNeeded").textContent = `${state.votesRequired} / ${state.pirateCount}`;
+  $("#pirateGrid").innerHTML = state.pirates.map((pirate, index) => `
+    <div class="pirate-card ${pirate.isProposer ? "proposer" : ""}">
+      <div class="pirate-avatar">${pirate.name}</div>
+      <strong>海盗 ${pirate.name}</strong>
+      <div class="pirate-role">${pirate.isProposer ? "提案者 · 你" : "理性投票者"}</div>
+      <label for="pirate-gold-${index}">分配金币</label>
+      <input id="pirate-gold-${index}" class="pirate-gold-input" data-index="${index}"
+        type="number" min="0" max="${state.totalGold}" step="1" value="${proposal[index]}"
+        ${state.phase === "finished" ? "disabled" : ""} />
+    </div>
+  `).join("");
+  document.querySelectorAll(".pirate-gold-input").forEach((input) => {
+    input.addEventListener("input", updatePirateBudget);
+  });
+  updatePirateBudget();
+  $("#pirateResult").classList.toggle("hidden", state.phase !== "finished");
+  if (state.phase !== "finished") return;
+
+  $("#pirateVerdict").className = `pirate-verdict ${state.passed ? "pass" : "fail"}`;
+  $("#pirateVerdict").textContent = state.passed
+    ? `提案通过：${state.yesVotes} 票赞成，你活了下来。`
+    : `提案被否决：只有 ${state.yesVotes} 票赞成，提案者 A 被处决。`;
+  $("#pirateVotes").innerHTML = state.votes.map((vote) => `
+    <div class="vote-card ${vote.supports ? "yes" : "no"}">
+      <strong>${vote.pirate} · ${vote.supports ? "赞成" : "反对"}</strong>
+      <p>获得 ${vote.offered} 枚；拒绝后${vote.rejectionAlive ? `可活并获得 ${vote.rejectionGold} 枚` : "会死亡"}。</p>
+      <p>${pirateVoteReason(vote)}</p>
+    </div>
+  `).join("");
+  const optimal = state.pirates.map((pirate, index) => `${pirate.name}: ${state.optimalAllocation[index]}`).join("，");
+  $("#pirateOptimal").textContent = state.matchesOptimal
+    ? `你找到了选定规则下的均衡提案：${optimal}。`
+    : `理论最优提案为 ${optimal}。它用最低成本购买足够票数，并让 A 保留最多金币。`;
+}
+
+function updatePirateBudget() {
+  if (!currentState || currentState.gameId !== "pirates") return;
+  const inputs = [...document.querySelectorAll(".pirate-gold-input")];
+  const used = inputs.reduce((sum, input) => sum + Math.max(0, Number(input.value) || 0), 0);
+  const left = currentState.totalGold - used;
+  $("#pirateGoldLeft").textContent = left;
+  $("#pirateGoldLeft").style.color = left === 0 ? "var(--gold-soft)" : "#efb0aa";
+  $("#submitPirateProposal").disabled = currentState.phase !== "proposing" || left !== 0;
+}
+
+function pirateVoteReason(vote) {
+  const reasons = {
+    proposer: "提案者支持自己的可行提案。",
+    survival: "接受可以活命，而否决后会死亡。",
+    more_gold: "接受得到的金币比否决后的延续结果更多。",
+    equal_accepted: "规则允许在金币相同时投赞成票。",
+    equal_rejected: "金币相同不足以收买他，因此投反对票。",
+    less_gold: "接受得到的金币少于否决后的延续结果。",
+  };
+  return reasons[vote.reasonCode];
 }
 
 function renderWorm() {
@@ -199,6 +266,7 @@ function showLobby() {
   $("#offerModal").classList.add("hidden");
   $("#gameView").classList.add("hidden");
   $("#wormView").classList.add("hidden");
+  $("#pirateView").classList.add("hidden");
   $("#lobbyView").classList.remove("hidden");
 }
 
@@ -207,6 +275,11 @@ $("#backButton").addEventListener("click", showLobby);
 document.querySelectorAll(".back-to-lobby").forEach((button) => button.addEventListener("click", showLobby));
 $("#newGameButton").addEventListener("click", () => startGame("cases"));
 $("#newWormButton").addEventListener("click", () => startGame("worm", { mode: currentState?.mode || "adversarial" }));
+$("#newPirateButton").addEventListener("click", () => startGame("pirates"));
+$("#submitPirateProposal").addEventListener("click", () => {
+  const allocation = [...document.querySelectorAll(".pirate-gold-input")].map((input) => Number(input.value));
+  act("submit_proposal", { allocation });
+});
 $("#wormModeAdversarial").addEventListener("click", () => startGame("worm", { mode: "adversarial" }));
 $("#wormModeRandom").addEventListener("click", () => startGame("worm", { mode: "random" }));
 $("#dealButton").addEventListener("click", () => act("deal"));

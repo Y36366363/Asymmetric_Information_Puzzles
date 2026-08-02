@@ -15,7 +15,7 @@ class LocalGameUITests(unittest.TestCase):
     def test_lobby_lists_one_playable_game_and_future_games(self) -> None:
         games = self.service.games()
         playable = [game["id"] for game in games if game["available"]]
-        self.assertEqual(playable, ["cases", "worm"])
+        self.assertEqual(playable, ["cases", "worm", "pirates"])
         self.assertIn("liars-dice", [game["id"] for game in games])
 
     def test_case_value_stays_hidden_until_opened_or_finished(self) -> None:
@@ -131,6 +131,37 @@ class LocalGameUITests(unittest.TestCase):
     def test_invalid_worm_mode_is_rejected(self) -> None:
         with self.assertRaises(ValueError):
             self.service.create_session("worm", {"mode": "teleporting"})
+
+    def test_optimal_pirate_proposal_passes_and_is_recognized(self) -> None:
+        created = self.service.create_session("pirates")
+        session_id = created["sessionId"]
+        self.assertIsNone(created["state"]["optimalAllocation"])
+        result = self.service.act(
+            session_id, "submit_proposal", {"allocation": [98, 0, 1, 0, 1]}
+        )
+        self.assertTrue(result["passed"])
+        self.assertEqual(result["yesVotes"], 3)
+        self.assertTrue(result["matchesOptimal"])
+
+    def test_greedy_pirate_proposal_is_rejected_and_proposer_dies(self) -> None:
+        created = self.service.create_session("pirates")
+        result = self.service.act(
+            created["sessionId"],
+            "submit_proposal",
+            {"allocation": [100, 0, 0, 0, 0]},
+        )
+        self.assertFalse(result["passed"])
+        self.assertFalse(result["realizedAlive"][0])
+        self.assertEqual(sum(result["realizedAllocation"]), 100)
+
+    def test_pirate_proposal_must_allocate_every_coin(self) -> None:
+        created = self.service.create_session("pirates")
+        with self.assertRaises(ValueError):
+            self.service.act(
+                created["sessionId"],
+                "submit_proposal",
+                {"allocation": [90, 0, 1, 0, 1]},
+            )
 
     def test_worm_miss_updates_public_information_set(self) -> None:
         created = self.service.create_session("worm", {"seed": 0})

@@ -8,6 +8,8 @@ from typing import Callable, Protocol
 
 from aip.puzzles.cases.models import CLASSROOM_BANKER, CaseGameRules, RiskPreferences
 from aip.puzzles.cases.solver import CaseGameAnalyzer
+from aip.puzzles.pirates.models import PirateRules
+from aip.puzzles.pirates.solver import PirateSolver
 from aip.puzzles.worm.solver import WormSolver
 
 
@@ -357,6 +359,131 @@ class WormGameSession:
         }
 
 
+class PirateGameSession:
+    """One human proposal against backward-induction pirate voters."""
+
+    def __init__(self, options: dict[str, object]) -> None:
+        self.pirate_count = int(options.get("pirates", 5))
+        self.total_gold = int(options.get("gold", 100))
+        if self.pirate_count < 1 or self.pirate_count > 12:
+            raise ValueError("pirates must be between 1 and 12")
+        if self.total_gold < 0 or self.total_gold > 10_000:
+            raise ValueError("gold must be between 0 and 10000")
+        self.rules = PirateRules()
+        self.solution = PirateSolver(self.rules).solve(
+            self.pirate_count, self.total_gold
+        )
+        self.phase = "proposing"
+        self.proposal: tuple[int, ...] | None = None
+        self.votes: list[dict[str, object]] = []
+        self.passed: bool | None = None
+        self.realized_allocation: tuple[int, ...] | None = None
+        self.realized_alive: tuple[bool, ...] | None = None
+
+    def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
+        if action != "submit_proposal":
+            raise ValueError(f"unknown action: {action}")
+        raw_allocation = payload.get("allocation")
+        if not isinstance(raw_allocation, list):
+            raise ValueError("allocation must be a list")
+        self._submit(tuple(int(value) for value in raw_allocation))
+        return self.snapshot()
+
+    def _submit(self, allocation: tuple[int, ...]) -> None:
+        if self.phase != "proposing":
+            raise ValueError("the council has already voted")
+        if len(allocation) != self.pirate_count:
+            raise ValueError("allocation length must equal pirate count")
+        if any(value < 0 for value in allocation):
+            raise ValueError("gold allocations cannot be negative")
+        if sum(allocation) != self.total_gold:
+            raise ValueError("the proposal must allocate every gold coin")
+
+        names = self.solution.pirate_names
+        continuation = (
+            self.solution.rounds[-2] if self.pirate_count > 1 else None
+        )
+        votes: list[dict[str, object]] = []
+        for index, (name, offered) in enumerate(zip(names, allocation)):
+            if index == 0:
+                supports = True
+                rejection_alive = False
+                rejection_gold = 0
+                reason_code = "proposer"
+            else:
+                rejection_alive = continuation.alive[index - 1]  # type: ignore[union-attr]
+                rejection_gold = continuation.allocation[index - 1]  # type: ignore[union-attr]
+                if not rejection_alive:
+                    supports = True
+                    reason_code = "survival"
+                elif offered > rejection_gold:
+                    supports = True
+                    reason_code = "more_gold"
+                elif offered == rejection_gold and self.rules.accept_equal_gold:
+                    supports = True
+                    reason_code = "equal_accepted"
+                elif offered == rejection_gold:
+                    supports = False
+                    reason_code = "equal_rejected"
+                else:
+                    supports = False
+                    reason_code = "less_gold"
+            votes.append(
+                {
+                    "pirate": name,
+                    "offered": offered,
+                    "supports": supports,
+                    "rejectionAlive": rejection_alive,
+                    "rejectionGold": rejection_gold,
+                    "reasonCode": reason_code,
+                }
+            )
+
+        required = self.rules.votes_required(self.pirate_count)
+        self.proposal = allocation
+        self.votes = votes
+        self.passed = sum(bool(vote["supports"]) for vote in votes) >= required
+        if self.passed:
+            self.realized_allocation = allocation
+            self.realized_alive = tuple(True for _ in names)
+        else:
+            self.realized_allocation = (
+                (0,) if continuation is None else (0,) + continuation.allocation
+            )
+            self.realized_alive = (
+                (False,) if continuation is None else (False,) + continuation.alive
+            )
+        self.phase = "finished"
+
+    def snapshot(self) -> dict[str, object]:
+        optimal = self.solution.final_round.allocation
+        return {
+            "gameId": "pirates",
+            "phase": self.phase,
+            "pirateCount": self.pirate_count,
+            "totalGold": self.total_gold,
+            "votesRequired": self.rules.votes_required(self.pirate_count),
+            "pirates": [
+                {"id": index, "name": name, "isProposer": index == 0}
+                for index, name in enumerate(self.solution.pirate_names)
+            ],
+            "proposal": list(self.proposal) if self.proposal is not None else None,
+            "votes": list(self.votes),
+            "yesVotes": sum(bool(vote["supports"]) for vote in self.votes),
+            "passed": self.passed,
+            "realizedAllocation": (
+                list(self.realized_allocation)
+                if self.realized_allocation is not None
+                else None
+            ),
+            "realizedAlive": (
+                list(self.realized_alive) if self.realized_alive is not None else None
+            ),
+            "optimalAllocation": list(optimal) if self.phase == "finished" else None,
+            "matchesOptimal": self.proposal == optimal if self.proposal is not None else None,
+        }
+
+
 def build_default_registry() -> GameRegistry:
     registry = GameRegistry()
     registry.register(
@@ -377,19 +504,21 @@ def build_default_registry() -> GameRegistry:
         ),
         WormGameSession,
     )
+    registry.register(
+        GameDescriptor(
+            "pirates",
+            "海盗议会",
+            "亲自分配 100 枚金币，面对会做逆向归纳的理性海盗投票。",
+            "单人 · 人机投票",
+        ),
+        PirateGameSession,
+    )
     for descriptor in (
         GameDescriptor(
             "liars-dice",
             "骗子骰子",
             "隐藏手牌、公开叫价与诈唬识别。",
             "本地多人 · 即将开放",
-            False,
-        ),
-        GameDescriptor(
-            "pirates",
-            "海盗议会",
-            "扮演提案者，在有限金币与生死投票中组建联盟。",
-            "人机博弈 · 即将开放",
             False,
         ),
         GameDescriptor(

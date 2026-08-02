@@ -106,6 +106,39 @@
           </section>
         </div>
       </section>
+
+      <section id="pirateView" class="view pirate-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby">← 返回大厅</button>
+            <p class="eyebrow">CASE 03 · 逆向归纳与联盟</p>
+            <h1>海盗议会</h1>
+          </div>
+          <button class="secondary-button" id="newPirateButton">重新召开议会</button>
+        </div>
+
+        <div class="pirate-summary panel">
+          <div><span>可分配金币</span><strong id="pirateTotalGold">100</strong></div>
+          <div><span>通过所需票数</span><strong id="pirateVotesNeeded">3 / 5</strong></div>
+          <div><span>尚未分配</span><strong id="pirateGoldLeft">100</strong></div>
+        </div>
+
+        <section class="pirate-council panel">
+          <div class="panel-title"><span>你的提案</span><span>ALL COINS MUST BE ALLOCATED</span></div>
+          <p class="council-intro" id="pirateInstruction">你是最资深的 A。为每名海盗分配金币，然后让所有人同时投票。</p>
+          <div class="pirate-grid" id="pirateGrid"></div>
+          <button class="deal-button council-submit" id="submitPirateProposal">提交提案并投票</button>
+        </section>
+
+        <section class="pirate-result panel hidden" id="pirateResult">
+          <div class="pirate-verdict" id="pirateVerdict"></div>
+          <div class="vote-grid" id="pirateVotes"></div>
+          <div class="optimal-compare">
+            <div class="panel-title"><span>逆向归纳基准</span><span>SUBGAME PERFECT</span></div>
+            <p id="pirateOptimal"></p>
+          </div>
+        </section>
+      </section>
     </main>
 
     <div class="modal-backdrop hidden" id="offerModal" role="dialog" aria-modal="true" aria-labelledby="offerTitle">

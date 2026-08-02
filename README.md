@@ -2,6 +2,9 @@
 
 ## Updates 08/02/2026
 
+- **Playable pirate council** — Added a human-authored gold proposal screen,
+  rational continuation-aware voters, individual vote explanations, survival
+  consequences, and comparison with the backward-induction equilibrium.
 - **Adversarial task-4 game mode** — Upgraded the moving-worm game from a
   random simulation to a true worst-case opponent, while retaining random mode
   for comparison and exposing whether capture was lucky or mathematically forced.
@@ -96,8 +99,8 @@ network connection, JavaScript build tool, or third-party runtime dependency is
 required. Game sessions live only in memory and disappear when the local server
 stops.
 
-The lobby currently exposes **命运之箱** and **移动虫穴** as complete
-single-player games. In 命运之箱:
+The lobby currently exposes **命运之箱**, **移动虫穴**, and **海盗议会** as
+complete single-player games. In 命运之箱:
 
 1. Choose one of 26 sealed cases to keep.
 2. Click other cases to reveal the required number for the current round.
@@ -120,10 +123,17 @@ The optional minimax sequence is highlighted one step at a time. Following
 checks for five holes. The result screen explicitly distinguishes an ordinary
 random capture from a mathematically forced capture against the adversary.
 
+In 海盗议会, you play the most senior pirate A. Allocate all 100 coins among
+five pirates and submit the proposal. Every other pirate compares the offer
+with the already-solved equilibrium that follows if A is killed, then votes
+according to survival first and gold second. The council displays every vote,
+its continuation outcome, the realized survival result, and the subgame-perfect
+benchmark only after the human proposal is locked in.
+
 The UI never receives the chosen case's hidden amount before the game finishes.
 The Python-side `GameRegistry`, `PlayableSession`, and `LocalGameService`
 separate lobby discovery, private state, legal actions, and public snapshots.
-Upcoming pirate, Liar's Dice, and auction cards are already registered as
+Upcoming Liar's Dice and auction cards are already registered as
 disabled previews; each can become playable by adding its own session adapter
 without changing the local server or lobby shell.
 
