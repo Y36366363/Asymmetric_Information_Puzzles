@@ -5,7 +5,12 @@ from importlib.resources import files
 from http.client import HTTPConnection
 from http.server import ThreadingHTTPServer
 
-from aip.ui.registry import ECardSession, LocalGameService, build_default_registry
+from aip.ui.registry import (
+    ECardSession,
+    LocalGameService,
+    RestrictedRPSSession,
+    build_default_registry,
+)
 from aip.ui.server import AIPRequestHandler
 
 
@@ -17,9 +22,57 @@ class LocalGameUITests(unittest.TestCase):
         games = self.service.games()
         playable = [game["id"] for game in games if game["available"]]
         self.assertEqual(
-            playable, ["cases", "worm", "pirates", "kuhn-poker", "e-card"]
+            playable,
+            [
+                "cases",
+                "worm",
+                "pirates",
+                "kuhn-poker",
+                "e-card",
+                "restricted-rps",
+            ],
         )
         self.assertIn("liars-dice", [game["id"] for game in games])
+
+    def test_restricted_rps_dominance_cycle_is_zero_sum(self) -> None:
+        self.assertEqual(RestrictedRPSSession._payoff("rock", "scissors"), 1)
+        self.assertEqual(RestrictedRPSSession._payoff("paper", "rock"), 1)
+        self.assertEqual(RestrictedRPSSession._payoff("scissors", "paper"), 1)
+        self.assertEqual(RestrictedRPSSession._payoff("rock", "paper"), -1)
+        self.assertEqual(RestrictedRPSSession._payoff("rock", "rock"), 0)
+
+    def test_restricted_rps_consumes_public_inventory(self) -> None:
+        created = self.service.create_session("restricted-rps", {"seed": 5})
+        state = self.service.act(
+            created["sessionId"], "play_move", {"move": "rock"}
+        )
+        self.assertEqual(state["playerInventory"]["rock"], 2)
+        self.assertEqual(sum(state["aiInventory"].values()), 8)
+        self.assertEqual(state["roundNumber"], 1)
+
+    def test_restricted_rps_strategy_probabilities_normalize(self) -> None:
+        created = self.service.create_session("restricted-rps", {"seed": 11})
+        state = self.service.act(
+            created["sessionId"], "play_move", {"move": "paper"}
+        )
+        analysis = state["lastAnalysis"]
+        self.assertAlmostEqual(sum(analysis["equilibriumDistribution"].values()), 1)
+        self.assertAlmostEqual(sum(analysis["finalDistribution"].values()), 1)
+        self.assertGreaterEqual(analysis["exploitWeight"], 0)
+        self.assertLessEqual(analysis["exploitWeight"], 0.32)
+
+    def test_restricted_rps_match_uses_every_card_once(self) -> None:
+        created = self.service.create_session(
+            "restricted-rps", {"seed": 19, "copies": 1}
+        )
+        session_id = created["sessionId"]
+        state = created["state"]
+        for move in ("rock", "paper", "scissors"):
+            state = self.service.act(session_id, "play_move", {"move": move})
+        self.assertEqual(state["phase"], "finished")
+        self.assertEqual(state["roundNumber"], 3)
+        self.assertEqual(sum(state["playerInventory"].values()), 0)
+        self.assertEqual(state["playerScore"] + state["aiScore"] + state["draws"], 3)
 
     def test_e_card_uses_the_asymmetric_dominance_cycle(self) -> None:
         self.assertEqual(ECardSession._outcome("emperor", "citizen"), "player")

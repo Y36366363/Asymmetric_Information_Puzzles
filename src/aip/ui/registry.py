@@ -771,6 +771,182 @@ class ECardSession:
         }
 
 
+class RestrictedRPSSession:
+    """Finite-inventory RPS with a minimax baseline and bounded exploitation."""
+
+    MOVES = ("rock", "paper", "scissors")
+    BEATS = {"rock": "scissors", "paper": "rock", "scissors": "paper"}
+
+    def __init__(self, options: dict[str, object]) -> None:
+        self.copies = int(options.get("copies", 3))
+        if self.copies < 1 or self.copies > 8:
+            raise ValueError("copies must be between 1 and 8")
+        self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
+        self._rng = random.Random(self.seed)
+        self.player_inventory: dict[str, int] = {}
+        self.ai_inventory: dict[str, int] = {}
+        self.player_history: dict[str, int] = {}
+        self.round_number = 0
+        self.player_score = 0
+        self.ai_score = 0
+        self.draws = 0
+        self.phase = "playing"
+        self.history: list[dict[str, object]] = []
+        self.last_analysis: dict[str, object] | None = None
+        self._reset_match()
+
+    def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
+        if action == "play_move":
+            self._play(str(payload.get("move", "")))
+        elif action == "new_match":
+            if self.phase != "finished":
+                raise ValueError("finish the current match first")
+            self._reset_match()
+        else:
+            raise ValueError(f"unknown action: {action}")
+        return self.snapshot()
+
+    def _reset_match(self) -> None:
+        self.player_inventory = {move: self.copies for move in self.MOVES}
+        self.ai_inventory = {move: self.copies for move in self.MOVES}
+        self.player_history = {move: 0 for move in self.MOVES}
+        self.round_number = 0
+        self.player_score = 0
+        self.ai_score = 0
+        self.draws = 0
+        self.phase = "playing"
+        self.history = []
+        self.last_analysis = None
+
+    def _play(self, player_move: str) -> None:
+        if self.phase != "playing":
+            raise ValueError("the match has already ended")
+        if self.player_inventory.get(player_move, 0) <= 0:
+            raise ValueError("that move has no cards remaining")
+
+        strategy = self._ai_strategy()
+        ai_move = self._sample(strategy["finalDistribution"])
+        self.player_inventory[player_move] -= 1
+        self.ai_inventory[ai_move] -= 1
+        self.player_history[player_move] += 1
+        self.round_number += 1
+
+        if player_move == ai_move:
+            outcome = "draw"
+            self.draws += 1
+        elif self.BEATS[player_move] == ai_move:
+            outcome = "player"
+            self.player_score += 1
+        else:
+            outcome = "ai"
+            self.ai_score += 1
+        entry = {
+            "round": self.round_number,
+            "playerMove": player_move,
+            "aiMove": ai_move,
+            "outcome": outcome,
+            "analysis": strategy,
+        }
+        self.history.append(entry)
+        self.last_analysis = strategy
+        if sum(self.player_inventory.values()) == 0:
+            self.phase = "finished"
+
+    def _ai_strategy(self) -> dict[str, object]:
+        remaining = sum(self.ai_inventory.values())
+        equilibrium = {
+            move: self.ai_inventory[move] / remaining for move in self.MOVES
+        }
+        observations = sum(self.player_history.values())
+        empirical = {
+            move: (self.player_history[move] + 1) / (observations + 3)
+            for move in self.MOVES
+        }
+        player_remaining = sum(self.player_inventory.values())
+        inventory_prior = {
+            move: self.player_inventory[move] / player_remaining for move in self.MOVES
+        }
+        prediction = {
+            move: 0.55 * inventory_prior[move] + 0.45 * empirical[move]
+            for move in self.MOVES
+        }
+        best_response = max(
+            (move for move in self.MOVES if self.ai_inventory[move] > 0),
+            key=lambda candidate: sum(
+                prediction[player_move]
+                * self._payoff(candidate, player_move)
+                for player_move in self.MOVES
+            ),
+        )
+        exploit_weight = min(0.32, observations * 0.045)
+        final = {
+            move: (1 - exploit_weight) * equilibrium[move]
+            + (exploit_weight if move == best_response else 0)
+            for move in self.MOVES
+        }
+        return {
+            "equilibriumDistribution": equilibrium,
+            "predictedPlayerDistribution": prediction,
+            "bestResponse": best_response,
+            "exploitWeight": exploit_weight,
+            "finalDistribution": final,
+        }
+
+    def _sample(self, distribution: object) -> str:
+        probabilities = distribution
+        if not isinstance(probabilities, dict):
+            raise TypeError("distribution must be a mapping")
+        target = self._rng.random()
+        cumulative = 0.0
+        for move in self.MOVES:
+            cumulative += float(probabilities.get(move, 0.0))
+            if target <= cumulative and self.ai_inventory[move] > 0:
+                return move
+        return next(move for move in reversed(self.MOVES) if self.ai_inventory[move] > 0)
+
+    @classmethod
+    def _payoff(cls, ai_move: str, player_move: str) -> int:
+        if ai_move == player_move:
+            return 0
+        return 1 if cls.BEATS[ai_move] == player_move else -1
+
+    def snapshot(self) -> dict[str, object]:
+        rounds_total = self.copies * len(self.MOVES)
+        recommendation_total = sum(self.player_inventory.values())
+        recommendation = {
+            move: (
+                self.player_inventory[move] / recommendation_total
+                if recommendation_total
+                else 0.0
+            )
+            for move in self.MOVES
+        }
+        public_history = [dict(entry) for entry in self.history]
+        return {
+            "gameId": "restricted-rps",
+            "phase": self.phase,
+            "roundNumber": self.round_number,
+            "roundsTotal": rounds_total,
+            "playerInventory": dict(self.player_inventory),
+            "aiInventory": dict(self.ai_inventory),
+            "playerScore": self.player_score,
+            "aiScore": self.ai_score,
+            "draws": self.draws,
+            "history": public_history,
+            "lastAnalysis": self.last_analysis,
+            "equilibriumRecommendation": recommendation,
+            "legalActions": ["play_move"] if self.phase == "playing" else ["new_match"],
+            "informationSet": {
+                "privateChoice": None,
+                "publicHistory": public_history,
+                "knownInventories": {
+                    "player": dict(self.player_inventory),
+                    "ai": dict(self.ai_inventory),
+                },
+            },
+        }
+
+
 def build_default_registry() -> GameRegistry:
     registry = GameRegistry()
     registry.register(
@@ -817,6 +993,15 @@ def build_default_registry() -> GameRegistry:
             "单人 · 非对称混合策略",
         ),
         ECardSession,
+    )
+    registry.register(
+        GameDescriptor(
+            "restricted-rps",
+            "限定猜拳实验室",
+            "固定库存让每次出拳都消耗未来选择；对抗均衡随机化与会学习的策略型 AI。",
+            "单人 · 资源约束与机制设计",
+        ),
+        RestrictedRPSSession,
     )
     for descriptor in (
         GameDescriptor(

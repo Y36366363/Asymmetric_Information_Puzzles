@@ -244,6 +244,54 @@
           </section>
         </div>
       </section>
+
+      <section id="rpsView" class="view rps-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="rpsEyebrow">CASE 06 · 有限资源与策略随机化</p>
+            <h1 data-i18n="rpsTitle">限定猜拳实验室</h1>
+          </div>
+          <button class="secondary-button" id="newRpsMatch" data-i18n="restartMatch">重新开始比赛</button>
+        </div>
+
+        <div class="rps-score panel">
+          <div><span data-i18n="currentRound">当前轮次</span><strong id="rpsRound">0 / 9</strong></div>
+          <div><span data-i18n="eCardYourScore">你的得分</span><strong id="rpsPlayerScore">0</strong></div>
+          <div><span data-i18n="draws">平局</span><strong id="rpsDraws">0</strong></div>
+          <div><span data-i18n="eCardAiScore">AI 得分</span><strong id="rpsAiScore">0</strong></div>
+        </div>
+
+        <section class="rps-arena panel">
+          <div class="rps-opponent">
+            <p class="eyebrow">BOUNDED EXPLOITATION AI</p>
+            <h2 id="rpsHeadline">选择一张有限卡牌</h2>
+            <p id="rpsSubline">AI 同时隐藏出牌；使用过的卡不能再使用。</p>
+            <div class="rps-reveal" id="rpsReveal"><span>?</span><b>VS</b><span>?</span></div>
+          </div>
+          <div class="rps-inventory">
+            <div class="panel-title"><span data-i18n="yourInventory">你的剩余库存</span><span>PUBLIC</span></div>
+            <div class="rps-card-row" id="rpsCards"></div>
+            <div class="rps-ai-stock"><span data-i18n="aiInventory">AI 剩余库存</span><div id="rpsAiInventory"></div></div>
+          </div>
+        </section>
+
+        <div class="rps-lower">
+          <section class="panel">
+            <div class="panel-title"><span data-i18n="equilibriumGuide">不可利用的均衡建议</span><span>MINIMAX BASELINE</span></div>
+            <p class="strategy-explainer" data-i18n="rpsEquilibriumCopy">从剩余卡牌的随机排列中依次出牌：每种手势的概率等于它在剩余库存中的占比。这能保证对手无法系统性获利。</p>
+            <div class="probability-bars" id="rpsRecommendation"></div>
+          </section>
+          <section class="panel">
+            <div class="panel-title"><span data-i18n="aiAnalysis">AI 上轮策略分析</span><span>AFTER REVEAL</span></div>
+            <div id="rpsAnalysis" class="strategy-explainer"></div>
+          </section>
+          <section class="panel rps-history-panel">
+            <div class="panel-title"><span data-i18n="gameHistory">博弈记录</span><span>PUBLIC</span></div>
+            <div class="rps-history" id="rpsHistory"></div>
+          </section>
+        </div>
+      </section>
     </main>
 
     <div class="modal-backdrop hidden" id="offerModal" role="dialog" aria-modal="true" aria-labelledby="offerTitle">

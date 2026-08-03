@@ -5,6 +5,9 @@
 
 ## Updates 08/03/2026
 
+- **Playable restricted RPS lab** — Added finite public move inventories,
+  simultaneous hidden choices, an unexploitable random-permutation baseline,
+  bounded adaptive exploitation, probability diagnostics, and match simulation.
 - **Playable E-Card asymmetric duel** — Added alternating Emperor and Slave
   roles, simultaneous hidden card selection, five-times underdog rewards,
   adaptive mixed-strategy AI, public duel history, and bilingual round analysis.

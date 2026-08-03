@@ -26,6 +26,11 @@ const copy = {
     eCardYourScore: "你的得分", eCardAiScore: "AI 得分",
     duelHistory: "公开对局记录",
     eCardPayoff: "皇帝获胜得 1 分，奴隶获胜得 5 分。双方市民相撞时只弃掉两张牌并继续本轮。",
+    rpsEyebrow: "CASE 06 · 有限资源与策略随机化", rpsTitle: "限定猜拳实验室",
+    currentRound: "当前轮次", draws: "平局", yourInventory: "你的剩余库存",
+    aiInventory: "AI 剩余库存", equilibriumGuide: "不可利用的均衡建议",
+    rpsEquilibriumCopy: "从剩余卡牌的随机排列中依次出牌：每种手势的概率等于它在剩余库存中的占比。这能保证对手无法系统性获利。",
+    aiAnalysis: "AI 上轮策略分析",
     prizePool: "奖金池", round: "回合", decisionPanel: "决策仪表",
     emptyInsight: "银行家报价后，这里会显示期望值、风险和模型建议。",
     gameHistory: "博弈记录", liveChecks: "实时检查次数", possiblePositions: "仍可能的位置",
@@ -55,6 +60,11 @@ const copy = {
     eCardYourScore: "Your score", eCardAiScore: "AI score",
     duelHistory: "Public duel history",
     eCardPayoff: "An Emperor win scores 1; a Slave win scores 5. Citizen versus Citizen discards both cards and continues the round.",
+    rpsEyebrow: "CASE 06 · FINITE RESOURCES & RANDOMIZATION", rpsTitle: "Restricted RPS Lab",
+    currentRound: "Current round", draws: "Draws", yourInventory: "Your remaining inventory",
+    aiInventory: "AI remaining inventory", equilibriumGuide: "Unexploitable equilibrium guide",
+    rpsEquilibriumCopy: "Play through a random permutation of your remaining cards: each move's probability equals its share of inventory. This prevents an opponent from earning a systematic edge.",
+    aiAnalysis: "AI strategy from the last round",
     prizePool: "Prize board", round: "Round", decisionPanel: "Decision dashboard",
     emptyInsight: "Expected value, risk, and model guidance appear after the banker's offer.",
     gameHistory: "Game history", liveChecks: "Live check count", possiblePositions: "Possible positions",
@@ -75,6 +85,7 @@ const gamesCopy = {
     pirates: ["海盗议会", "亲自分配 100 枚金币，面对会做逆向归纳的理性海盗投票。", "单人 · 人机投票"],
     "kuhn-poker": ["库恩扑克", "在三张牌的极简牌局中读取信号、抓诈唬，并与混合策略 AI 连续对战。", "单人 · 隐藏手牌与诈唬"],
     "e-card": ["E-Card 皇帝牌", "轮流扮演皇帝方与奴隶方，在非对称收益下猜测 AI 的隐藏出牌时机。", "单人 · 非对称混合策略"],
+    "restricted-rps": ["限定猜拳实验室", "管理公开的有限手势库存，对抗以均衡随机化为底线、同时学习你偏好的 AI。", "单人 · 资源约束与机制设计"],
     "liars-dice": ["骗子骰子", "隐藏手牌、公开叫价与诈唬识别。", "本地多人 · 即将开放"],
     auction: ["百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放"],
   },
@@ -84,6 +95,7 @@ const gamesCopy = {
     pirates: ["Pirate Council", "Allocate 100 coins and face rational pirates who reason backward before voting.", "Solo · Human vs AI vote"],
     "kuhn-poker": ["Kuhn Poker", "Read signals, catch bluffs, and battle a mixed-strategy AI in the classic three-card game.", "Solo · Hidden cards & bluffing"],
     "e-card": ["E-Card", "Alternate between Emperor and Slave, reading the AI's hidden timing under asymmetric rewards.", "Solo · Asymmetric mixed strategy"],
+    "restricted-rps": ["Restricted RPS Lab", "Manage a public finite move inventory against an AI that combines equilibrium randomization with learning.", "Solo · Resource constraints & mechanism design"],
     "liars-dice": ["Liar's Dice", "Private hands, public bids, and bluff inference.", "Local multiplayer · Coming soon"],
     auction: ["100-Unit All-Pay Auction", "Fight for leadership through public prices, alliances, and defection.", "Local multiplayer · Coming soon"],
   },
@@ -169,6 +181,7 @@ async function startGame(gameId = "cases", options = {}) {
     $("#pirateView").classList.toggle("hidden", gameId !== "pirates");
     $("#pokerView").classList.toggle("hidden", gameId !== "kuhn-poker");
     $("#eCardView").classList.toggle("hidden", gameId !== "e-card");
+    $("#rpsView").classList.toggle("hidden", gameId !== "restricted-rps");
     render();
   } catch (error) {
     showToast(error.message);
@@ -189,6 +202,10 @@ async function act(action, payload = {}) {
 }
 
 function render() {
+  if (currentState.gameId === "restricted-rps") {
+    renderRestrictedRps();
+    return;
+  }
   if (currentState.gameId === "e-card") {
     renderECard();
     return;
@@ -250,6 +267,59 @@ function render() {
       ? `剩余 ${remaining} 个可能金额。模型保留价为 ${formatMoney(state.metrics.certaintyEquivalent)}。`
       : `${remaining} prize values remain. The model's reservation value is ${formatMoney(state.metrics.certaintyEquivalent)}.`;
   }
+}
+
+function renderRestrictedRps() {
+  const state = currentState;
+  const moveNames = language === "zh"
+    ? { rock: "石头", paper: "布", scissors: "剪刀" }
+    : { rock: "Rock", paper: "Paper", scissors: "Scissors" };
+  const moveMarks = { rock: "●", paper: "▰", scissors: "✕" };
+  $("#rpsRound").textContent = `${state.roundNumber} / ${state.roundsTotal}`;
+  $("#rpsPlayerScore").textContent = state.playerScore;
+  $("#rpsAiScore").textContent = state.aiScore;
+  $("#rpsDraws").textContent = state.draws;
+  $("#rpsCards").innerHTML = Object.entries(state.playerInventory).map(([move, count]) => `
+    <button class="rps-move ${move}" data-rps-move="${move}" ${count === 0 || state.phase !== "playing" ? "disabled" : ""}>
+      <strong>${moveMarks[move]}</strong><span>${moveNames[move]}</span><b>×${count}</b>
+    </button>`).join("");
+  document.querySelectorAll("[data-rps-move]:not(:disabled)").forEach((button) => {
+    button.addEventListener("click", () => act("play_move", {move: button.dataset.rpsMove}));
+  });
+  $("#rpsAiInventory").innerHTML = Object.entries(state.aiInventory).map(([move, count]) => `<span>${moveNames[move]} ×${count}</span>`).join("");
+  const last = state.history[state.history.length - 1];
+  $("#rpsReveal").innerHTML = last
+    ? `<span>${moveMarks[last.playerMove]}<small>${moveNames[last.playerMove]}</small></span><b>VS</b><span>${moveMarks[last.aiMove]}<small>${moveNames[last.aiMove]}</small></span>`
+    : '<span>?</span><b>VS</b><span>?</span>';
+  const winnerText = state.playerScore > state.aiScore
+    ? (language === "zh" ? "你领先" : "You lead")
+    : state.playerScore < state.aiScore
+      ? (language === "zh" ? "AI 领先" : "AI leads")
+      : (language === "zh" ? "比分持平" : "Scores tied");
+  $("#rpsHeadline").textContent = state.phase === "finished"
+    ? `${language === "zh" ? "比赛结束" : "Match over"} · ${winnerText}`
+    : last
+      ? (last.outcome === "draw" ? (language === "zh" ? "这一轮平局" : "That round was a draw") : last.outcome === "player" ? (language === "zh" ? "你赢下这一轮" : "You won that round") : (language === "zh" ? "AI 赢下这一轮" : "AI won that round"))
+      : (language === "zh" ? "选择一张有限卡牌" : "Choose a limited card");
+  $("#rpsSubline").textContent = state.phase === "finished"
+    ? (language === "zh" ? "所有库存均已耗尽，可以重新开始观察另一条策略轨迹。" : "All cards are exhausted. Restart to explore another strategy path.")
+    : (language === "zh" ? "AI 同时隐藏出牌；使用过的卡不能再使用。" : "The AI chooses simultaneously; spent cards cannot be reused.");
+  $("#rpsRecommendation").innerHTML = probabilityBars(state.equilibriumRecommendation, moveNames);
+  if (state.lastAnalysis) {
+    const analysis = state.lastAnalysis;
+    $("#rpsAnalysis").innerHTML = `<p>${language === "zh" ? `AI 保留 ${(100 - analysis.exploitWeight * 100).toFixed(0)}% 的均衡基线，并用 ${(analysis.exploitWeight * 100).toFixed(0)}% 权重尝试针对你的模式；本轮最佳回应为${moveNames[analysis.bestResponse]}。` : `The AI kept ${(100 - analysis.exploitWeight * 100).toFixed(0)}% equilibrium weight and used ${(analysis.exploitWeight * 100).toFixed(0)}% to exploit your pattern; its best response was ${moveNames[analysis.bestResponse]}.`}</p>${probabilityBars(analysis.finalDistribution, moveNames)}`;
+  } else {
+    $("#rpsAnalysis").textContent = language === "zh" ? "第一轮结束后显示 AI 实际采用的混合概率。" : "The AI's actual mixed probabilities appear after round one.";
+  }
+  $("#rpsHistory").innerHTML = state.history.slice().reverse().map((item) => `<div><span>${item.round}</span><b>${moveNames[item.playerMove]}</b><em>VS</em><b>${moveNames[item.aiMove]}</b><small>${item.outcome === "draw" ? (language === "zh" ? "平" : "Draw") : item.outcome === "player" ? (language === "zh" ? "胜" : "Win") : (language === "zh" ? "负" : "Loss")}</small></div>`).join("");
+  if (state.phase === "finished") {
+    $("#rpsCards").innerHTML += `<button class="rps-new-match" data-rps-new>${language === "zh" ? "重新洗牌" : "New match"}</button>`;
+    $("[data-rps-new]").addEventListener("click", () => act("new_match"));
+  }
+}
+
+function probabilityBars(distribution, labels) {
+  return Object.entries(distribution).map(([move, probability]) => `<div class="probability-row"><span>${labels[move]}</span><i><b style="width:${(probability * 100).toFixed(1)}%"></b></i><strong>${(probability * 100).toFixed(1)}%</strong></div>`).join("");
 }
 
 function renderECard() {
@@ -547,6 +617,7 @@ function showLobby() {
   $("#pirateView").classList.add("hidden");
   $("#pokerView").classList.add("hidden");
   $("#eCardView").classList.add("hidden");
+  $("#rpsView").classList.add("hidden");
   $("#lobbyView").classList.remove("hidden");
 }
 
@@ -560,6 +631,7 @@ $("#newWormButton").addEventListener("click", () => startGame("worm"));
 $("#newPirateButton").addEventListener("click", () => startGame("pirates"));
 $("#newPokerMatch").addEventListener("click", () => startGame("kuhn-poker"));
 $("#newECardMatch").addEventListener("click", () => startGame("e-card"));
+$("#newRpsMatch").addEventListener("click", () => startGame("restricted-rps"));
 $("#submitPirateProposal").addEventListener("click", () => {
   const allocation = [...document.querySelectorAll(".pirate-gold-input")].map((input) => Number(input.value));
   act("submit_proposal", { allocation });

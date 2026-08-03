@@ -316,6 +316,42 @@ button { font: inherit; }
 .ecard-history small { text-align: right; }
 .information-set .payoff-note { color: var(--gold-soft); }
 
+.rps-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
+.rps-score div { padding: 10px 24px; text-align: center; border-right: 1px solid var(--line); }
+.rps-score div:last-child { border-right: 0; }
+.rps-score span { color: var(--muted); font-size: 11px; letter-spacing: .09em; }
+.rps-score strong { display: block; margin-top: 7px; color: var(--gold-soft); font: 500 28px Georgia, serif; }
+.rps-arena { display: grid; grid-template-columns: .9fr 1.4fr; gap: 38px; padding: clamp(28px, 5vw, 60px); background: radial-gradient(circle at 28% 50%, #342519 0, #1b1a16 46%, #131310 100%); }
+.rps-opponent { text-align: center; }
+.rps-opponent h2 { margin: 14px 0 8px; font: 500 clamp(27px, 4vw, 44px) Georgia, "Songti SC", serif; }
+.rps-opponent > p:not(.eyebrow) { color: var(--muted); }
+.rps-reveal { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 34px; }
+.rps-reveal > span { width: 112px; aspect-ratio: 1; display: grid; place-items: center; color: #17130c; border-radius: 50%; background: var(--gold); font-size: 44px; font-weight: 900; }
+.rps-reveal span small { display: block; font-size: 11px; }
+.rps-reveal > b { color: var(--muted); }
+.rps-inventory { padding: 25px; border: 1px solid var(--line); background: rgba(0,0,0,.18); }
+.rps-card-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 25px 0; }
+.rps-move { min-height: 190px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 24px 12px; color: var(--ink); border: 1px solid var(--line); background: rgba(255,255,255,.03); cursor: pointer; transition: transform .18s ease, border-color .18s ease; }
+.rps-move:hover:not(:disabled) { transform: translateY(-7px); border-color: var(--gold); }
+.rps-move:disabled { opacity: .3; cursor: not-allowed; }
+.rps-move strong { color: var(--gold); font-size: 43px; }
+.rps-move span { font: 500 21px Georgia, "Songti SC", serif; }
+.rps-move b { color: var(--gold-soft); }
+.rps-ai-stock { display: flex; justify-content: space-between; gap: 16px; color: var(--muted); font-size: 12px; }
+.rps-ai-stock div { display: flex; gap: 12px; color: var(--gold-soft); }
+.rps-lower { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+.rps-history-panel { grid-column: 1 / -1; }
+.strategy-explainer { color: var(--muted); line-height: 1.7; }
+.probability-bars { margin-top: 20px; }
+.probability-row { display: grid; grid-template-columns: 65px 1fr 55px; align-items: center; gap: 10px; margin: 10px 0; font-size: 12px; }
+.probability-row i { height: 7px; overflow: hidden; background: #2d2b26; }
+.probability-row i b { display: block; height: 100%; background: var(--gold); }
+.probability-row strong { text-align: right; color: var(--gold-soft); }
+.rps-history { max-height: 220px; overflow: auto; margin-top: 16px; }
+.rps-history > div { display: grid; grid-template-columns: 30px 1fr 36px 1fr 60px; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.rps-history em, .rps-history small { color: var(--muted); text-align: center; }
+.rps-new-match { grid-column: 1 / -1; padding: 15px; color: #17130c; border: 0; background: var(--gold); cursor: pointer; font-weight: 800; }
+
 @media (max-width: 1100px) {
   .game-layout { grid-template-columns: 180px 1fr; }
   .insight-panel { grid-column: 1 / -1; }
@@ -348,5 +384,10 @@ button { font: inherit; }
   .ecard-arena { grid-template-columns: 1fr 1fr; }
   .ecard-center { grid-column: 1 / -1; grid-row: 2; }
   .ecard-lower { grid-template-columns: 1fr; }
+  .rps-score { grid-template-columns: 1fr 1fr; }
+  .rps-arena, .rps-lower { grid-template-columns: 1fr; }
+  .rps-history-panel { grid-column: auto; }
+  .rps-card-row { gap: 6px; }
+  .rps-move { min-height: 150px; padding: 16px 6px; }
   .hole-row { gap: 5px; }
 }
