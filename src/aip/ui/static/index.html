@@ -292,6 +292,54 @@
           </section>
         </div>
       </section>
+
+      <section id="blackjackView" class="view blackjack-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="blackjackEyebrow">CASE 07 · 条件概率与策略审计</p>
+            <h1 data-i18n="blackjackTitle">21 点策略实验室</h1>
+          </div>
+          <button class="secondary-button" id="newBlackjackMatch" data-i18n="restartSession">重新开始实验</button>
+        </div>
+
+        <div class="blackjack-score panel">
+          <div><span data-i18n="handNumber">牌局</span><strong id="blackjackRound">1</strong></div>
+          <div><span data-i18n="netUnits">净收益单位</span><strong id="blackjackBankroll">0</strong></div>
+          <div><span data-i18n="record">胜 / 负 / 和</span><strong id="blackjackRecord">0 / 0 / 0</strong></div>
+          <div><span data-i18n="strategyAccuracy">基础策略吻合率</span><strong id="blackjackAccuracy">—</strong></div>
+        </div>
+
+        <section class="blackjack-table panel">
+          <div class="blackjack-hand dealer-hand">
+            <div><span data-i18n="dealer">庄家</span><strong id="dealerTotal">明牌</strong></div>
+            <div class="blackjack-cards" id="dealerCards"></div>
+          </div>
+          <div class="blackjack-center">
+            <p class="eyebrow">6 DECKS · DEALER STANDS ON SOFT 17</p>
+            <h2 id="blackjackHeadline">根据手牌与庄家明牌做决定</h2>
+            <div class="blackjack-actions" id="blackjackActions"></div>
+            <div class="blackjack-result hidden" id="blackjackResult"></div>
+          </div>
+          <div class="blackjack-hand player-hand">
+            <div><span data-i18n="you">你</span><strong id="playerTotal">0</strong></div>
+            <div class="blackjack-cards" id="playerCards"></div>
+          </div>
+        </section>
+
+        <div class="blackjack-lower">
+          <section class="panel strategy-advisor">
+            <div class="panel-title"><span data-i18n="basicStrategyAi">基础策略 AI</span><span>RULE-SCOPED OPTIMUM</span></div>
+            <div class="advisor-call" id="blackjackRecommendation">—</div>
+            <button id="blackjackAiPlay" data-i18n="letAiPlay">让 AI 执行这一步</button>
+            <p data-i18n="blackjackScope">此建议针对六副牌、软 17 停牌、不可分牌/投降/保险且不计牌的动作集合。改变规则或利用牌靴构成后，最优动作可能改变。</p>
+          </section>
+          <section class="panel">
+            <div class="panel-title"><span data-i18n="decisionAudit">决策审计</span><span id="shoeRemaining">308 CARDS</span></div>
+            <div class="blackjack-history" id="blackjackHistory"></div>
+          </section>
+        </div>
+      </section>
     </main>
 
     <div class="modal-backdrop hidden" id="offerModal" role="dialog" aria-modal="true" aria-labelledby="offerTitle">

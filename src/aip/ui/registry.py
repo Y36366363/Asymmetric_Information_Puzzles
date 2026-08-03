@@ -947,6 +947,278 @@ class RestrictedRPSSession:
         }
 
 
+class BlackjackSession:
+    """Six-deck S17 blackjack lab with a rule-scoped basic-strategy AI."""
+
+    RANKS = ("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
+
+    def __init__(self, options: dict[str, object]) -> None:
+        self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
+        self._rng = random.Random(self.seed)
+        self.shoe: list[str] = []
+        self.player_hand: list[str] = []
+        self.dealer_hand: list[str] = []
+        self.phase = "player_turn"
+        self.round_number = 0
+        self.bet_multiplier = 1
+        self.bankroll = 0.0
+        self.wins = 0
+        self.losses = 0
+        self.pushes = 0
+        self.decisions = 0
+        self.basic_strategy_matches = 0
+        self.history: list[dict[str, object]] = []
+        self.result: dict[str, object] | None = None
+        self._build_shoe()
+        self._start_round()
+
+    def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
+        del payload
+        if action == "new_round":
+            if self.phase != "finished":
+                raise ValueError("finish the current hand first")
+            self._start_round()
+        elif action == "ai_play":
+            if self.phase != "player_turn":
+                raise ValueError("there is no player decision to automate")
+            self._player_action(self._recommendation(), used_ai=True)
+        elif action in {"hit", "stand", "double"}:
+            self._player_action(action, used_ai=False)
+        else:
+            raise ValueError(f"unknown action: {action}")
+        return self.snapshot()
+
+    def _build_shoe(self) -> None:
+        self.shoe = [rank for rank in self.RANKS for _ in range(4 * 6)]
+        self._rng.shuffle(self.shoe)
+
+    def _draw(self) -> str:
+        return self.shoe.pop()
+
+    def _start_round(self) -> None:
+        if len(self.shoe) < 52:
+            self._build_shoe()
+        self.round_number += 1
+        self.bet_multiplier = 1
+        self.player_hand = [self._draw()]
+        self.dealer_hand = [self._draw()]
+        self.player_hand.append(self._draw())
+        self.dealer_hand.append(self._draw())
+        self.phase = "player_turn"
+        self.history = []
+        self.result = None
+        player_blackjack = self._is_blackjack(self.player_hand)
+        dealer_blackjack = self._is_blackjack(self.dealer_hand)
+        if player_blackjack or dealer_blackjack:
+            if player_blackjack and dealer_blackjack:
+                self._finish("push", 0.0, "both_blackjack")
+            elif player_blackjack:
+                self._finish("player", 1.5, "player_blackjack")
+            else:
+                self._finish("dealer", -1.0, "dealer_blackjack")
+
+    def _player_action(self, action: str, *, used_ai: bool) -> None:
+        if self.phase != "player_turn":
+            raise ValueError("the player hand is not awaiting an action")
+        legal = self._legal_actions()
+        if action not in legal:
+            raise ValueError(f"illegal blackjack action: {action}")
+        recommendation = self._recommendation()
+        self.decisions += 1
+        matched = action == recommendation
+        if matched:
+            self.basic_strategy_matches += 1
+        self.history.append(
+            {
+                "actor": "ai" if used_ai else "player",
+                "action": action,
+                "recommended": recommendation,
+                "matched": matched,
+                "totalBefore": self._hand_value(self.player_hand)[0],
+            }
+        )
+        if action == "hit":
+            self.player_hand.append(self._draw())
+            total, _soft = self._hand_value(self.player_hand)
+            if total > 21:
+                self._finish("dealer", -float(self.bet_multiplier), "player_bust")
+            elif total == 21:
+                self._resolve_dealer()
+        elif action == "double":
+            self.bet_multiplier = 2
+            self.player_hand.append(self._draw())
+            if self._hand_value(self.player_hand)[0] > 21:
+                self._finish("dealer", -2.0, "player_bust")
+            else:
+                self._resolve_dealer()
+        else:
+            self._resolve_dealer()
+
+    def _resolve_dealer(self) -> None:
+        self.phase = "dealer_turn"
+        while True:
+            total, _soft = self._hand_value(self.dealer_hand)
+            if total >= 17:
+                break
+            card = self._draw()
+            self.dealer_hand.append(card)
+            self.history.append(
+                {
+                    "actor": "dealer",
+                    "action": "hit",
+                    "card": card,
+                    "total": self._hand_value(self.dealer_hand)[0],
+                }
+            )
+        player_total = self._hand_value(self.player_hand)[0]
+        dealer_total = self._hand_value(self.dealer_hand)[0]
+        stake = float(self.bet_multiplier)
+        if dealer_total > 21 or player_total > dealer_total:
+            self._finish("player", stake, "dealer_bust" if dealer_total > 21 else "higher_total")
+        elif player_total < dealer_total:
+            self._finish("dealer", -stake, "lower_total")
+        else:
+            self._finish("push", 0.0, "equal_total")
+
+    def _finish(self, winner: str, delta: float, reason: str) -> None:
+        self.phase = "finished"
+        self.bankroll += delta
+        if winner == "player":
+            self.wins += 1
+        elif winner == "dealer":
+            self.losses += 1
+        else:
+            self.pushes += 1
+        self.result = {"winner": winner, "delta": delta, "reason": reason}
+
+    def _legal_actions(self) -> list[str]:
+        actions = ["hit", "stand"]
+        if len(self.player_hand) == 2:
+            actions.append("double")
+        return actions
+
+    def _recommendation(self) -> str:
+        total, soft = self._hand_value(self.player_hand)
+        dealer = self._dealer_value(self.dealer_hand[0])
+        can_double = len(self.player_hand) == 2
+
+        if soft:
+            if total >= 19:
+                recommendation = "stand"
+            elif total == 18:
+                if 3 <= dealer <= 6:
+                    recommendation = "double"
+                elif dealer in {2, 7, 8}:
+                    recommendation = "stand"
+                else:
+                    recommendation = "hit"
+            elif total == 17:
+                recommendation = "double" if 3 <= dealer <= 6 else "hit"
+            elif total in {15, 16}:
+                recommendation = "double" if 4 <= dealer <= 6 else "hit"
+            elif total in {13, 14}:
+                recommendation = "double" if 5 <= dealer <= 6 else "hit"
+            else:
+                recommendation = "hit"
+        else:
+            if total >= 17:
+                recommendation = "stand"
+            elif 13 <= total <= 16:
+                recommendation = "stand" if 2 <= dealer <= 6 else "hit"
+            elif total == 12:
+                recommendation = "stand" if 4 <= dealer <= 6 else "hit"
+            elif total == 11:
+                recommendation = "double" if dealer <= 10 else "hit"
+            elif total == 10:
+                recommendation = "double" if 2 <= dealer <= 9 else "hit"
+            elif total == 9:
+                recommendation = "double" if 3 <= dealer <= 6 else "hit"
+            else:
+                recommendation = "hit"
+        if recommendation == "double" and not can_double:
+            return "hit"
+        return recommendation
+
+    @staticmethod
+    def _dealer_value(card: str) -> int:
+        if card == "A":
+            return 11
+        if card in {"10", "J", "Q", "K"}:
+            return 10
+        return int(card)
+
+    @classmethod
+    def _hand_value(cls, cards: list[str]) -> tuple[int, bool]:
+        total = 0
+        aces = 0
+        for card in cards:
+            if card == "A":
+                aces += 1
+                total += 11
+            elif card in {"10", "J", "Q", "K"}:
+                total += 10
+            else:
+                total += int(card)
+        while total > 21 and aces:
+            total -= 10
+            aces -= 1
+        return total, aces > 0
+
+    @classmethod
+    def _is_blackjack(cls, cards: list[str]) -> bool:
+        return len(cards) == 2 and cls._hand_value(cards)[0] == 21
+
+    def snapshot(self) -> dict[str, object]:
+        player_total, player_soft = self._hand_value(self.player_hand)
+        dealer_visible = [self.dealer_hand[0]]
+        if self.phase == "finished":
+            dealer_visible = list(self.dealer_hand)
+        dealer_total = self._hand_value(self.dealer_hand)[0] if self.phase == "finished" else None
+        accuracy = self.basic_strategy_matches / self.decisions if self.decisions else None
+        return {
+            "gameId": "blackjack",
+            "phase": self.phase,
+            "roundNumber": self.round_number,
+            "playerHand": list(self.player_hand),
+            "playerTotal": player_total,
+            "playerSoft": player_soft,
+            "dealerHand": dealer_visible,
+            "dealerTotal": dealer_total,
+            "dealerHoleHidden": self.phase != "finished",
+            "shoeRemaining": len(self.shoe),
+            "betMultiplier": self.bet_multiplier,
+            "bankroll": self.bankroll,
+            "wins": self.wins,
+            "losses": self.losses,
+            "pushes": self.pushes,
+            "legalActions": (
+                self._legal_actions()
+                if self.phase == "player_turn"
+                else (["new_round"] if self.phase == "finished" else [])
+            ),
+            "recommendation": self._recommendation() if self.phase == "player_turn" else None,
+            "strategyAccuracy": accuracy,
+            "decisions": self.decisions,
+            "history": [dict(item) for item in self.history],
+            "result": dict(self.result) if self.result else None,
+            "rules": {
+                "decks": 6,
+                "dealerStandsSoft17": True,
+                "blackjackPayout": 1.5,
+                "split": False,
+                "surrender": False,
+                "insurance": False,
+            },
+            "strategyScope": "six_deck_s17_no_split_no_surrender_no_counting",
+            "informationSet": {
+                "privateHand": list(self.player_hand),
+                "publicDealerUpcard": self.dealer_hand[0],
+                "hiddenDealerHole": True if self.phase != "finished" else self.dealer_hand[1],
+                "shoeRemaining": len(self.shoe),
+            },
+        }
+
+
 def build_default_registry() -> GameRegistry:
     registry = GameRegistry()
     registry.register(
@@ -1002,6 +1274,15 @@ def build_default_registry() -> GameRegistry:
             "单人 · 资源约束与机制设计",
         ),
         RestrictedRPSSession,
+    )
+    registry.register(
+        GameDescriptor(
+            "blackjack",
+            "21 点策略实验室",
+            "在透明规则下对抗庄家，比较自己的决策与规则限定的最优基础策略。",
+            "单人 · 概率决策与策略审计",
+        ),
+        BlackjackSession,
     )
     for descriptor in (
         GameDescriptor(

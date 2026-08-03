@@ -31,6 +31,11 @@ const copy = {
     aiInventory: "AI 剩余库存", equilibriumGuide: "不可利用的均衡建议",
     rpsEquilibriumCopy: "从剩余卡牌的随机排列中依次出牌：每种手势的概率等于它在剩余库存中的占比。这能保证对手无法系统性获利。",
     aiAnalysis: "AI 上轮策略分析",
+    blackjackEyebrow: "CASE 07 · 条件概率与策略审计", blackjackTitle: "21 点策略实验室",
+    restartSession: "重新开始实验", netUnits: "净收益单位", record: "胜 / 负 / 和",
+    strategyAccuracy: "基础策略吻合率", dealer: "庄家", basicStrategyAi: "基础策略 AI",
+    letAiPlay: "让 AI 执行这一步", decisionAudit: "决策审计",
+    blackjackScope: "此建议针对六副牌、软 17 停牌、不可分牌/投降/保险且不计牌的动作集合。改变规则或利用牌靴构成后，最优动作可能改变。",
     prizePool: "奖金池", round: "回合", decisionPanel: "决策仪表",
     emptyInsight: "银行家报价后，这里会显示期望值、风险和模型建议。",
     gameHistory: "博弈记录", liveChecks: "实时检查次数", possiblePositions: "仍可能的位置",
@@ -65,6 +70,11 @@ const copy = {
     aiInventory: "AI remaining inventory", equilibriumGuide: "Unexploitable equilibrium guide",
     rpsEquilibriumCopy: "Play through a random permutation of your remaining cards: each move's probability equals its share of inventory. This prevents an opponent from earning a systematic edge.",
     aiAnalysis: "AI strategy from the last round",
+    blackjackEyebrow: "CASE 07 · CONDITIONAL PROBABILITY & STRATEGY AUDIT", blackjackTitle: "Blackjack Strategy Lab",
+    restartSession: "Restart session", netUnits: "Net units", record: "Win / Loss / Push",
+    strategyAccuracy: "Basic-strategy match", dealer: "Dealer", basicStrategyAi: "Basic-strategy AI",
+    letAiPlay: "Let AI take this action", decisionAudit: "Decision audit",
+    blackjackScope: "This advice is scoped to six decks, dealer standing on soft 17, no split/surrender/insurance, and no card counting. Change the rules or use shoe composition and the optimal action may change.",
     prizePool: "Prize board", round: "Round", decisionPanel: "Decision dashboard",
     emptyInsight: "Expected value, risk, and model guidance appear after the banker's offer.",
     gameHistory: "Game history", liveChecks: "Live check count", possiblePositions: "Possible positions",
@@ -86,6 +96,7 @@ const gamesCopy = {
     "kuhn-poker": ["库恩扑克", "在三张牌的极简牌局中读取信号、抓诈唬，并与混合策略 AI 连续对战。", "单人 · 隐藏手牌与诈唬"],
     "e-card": ["E-Card 皇帝牌", "轮流扮演皇帝方与奴隶方，在非对称收益下猜测 AI 的隐藏出牌时机。", "单人 · 非对称混合策略"],
     "restricted-rps": ["限定猜拳实验室", "管理公开的有限手势库存，对抗以均衡随机化为底线、同时学习你偏好的 AI。", "单人 · 资源约束与机制设计"],
+    blackjack: ["21 点策略实验室", "对抗固定规则庄家，逐步比较你的行动与规则限定的最优基础策略。", "单人 · 概率决策与策略审计"],
     "liars-dice": ["骗子骰子", "隐藏手牌、公开叫价与诈唬识别。", "本地多人 · 即将开放"],
     auction: ["百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放"],
   },
@@ -96,6 +107,7 @@ const gamesCopy = {
     "kuhn-poker": ["Kuhn Poker", "Read signals, catch bluffs, and battle a mixed-strategy AI in the classic three-card game.", "Solo · Hidden cards & bluffing"],
     "e-card": ["E-Card", "Alternate between Emperor and Slave, reading the AI's hidden timing under asymmetric rewards.", "Solo · Asymmetric mixed strategy"],
     "restricted-rps": ["Restricted RPS Lab", "Manage a public finite move inventory against an AI that combines equilibrium randomization with learning.", "Solo · Resource constraints & mechanism design"],
+    blackjack: ["Blackjack Strategy Lab", "Play against a fixed-rule dealer and audit every choice against the rule-scoped optimal basic strategy.", "Solo · Probability & strategy audit"],
     "liars-dice": ["Liar's Dice", "Private hands, public bids, and bluff inference.", "Local multiplayer · Coming soon"],
     auction: ["100-Unit All-Pay Auction", "Fight for leadership through public prices, alliances, and defection.", "Local multiplayer · Coming soon"],
   },
@@ -182,6 +194,7 @@ async function startGame(gameId = "cases", options = {}) {
     $("#pokerView").classList.toggle("hidden", gameId !== "kuhn-poker");
     $("#eCardView").classList.toggle("hidden", gameId !== "e-card");
     $("#rpsView").classList.toggle("hidden", gameId !== "restricted-rps");
+    $("#blackjackView").classList.toggle("hidden", gameId !== "blackjack");
     render();
   } catch (error) {
     showToast(error.message);
@@ -202,6 +215,10 @@ async function act(action, payload = {}) {
 }
 
 function render() {
+  if (currentState.gameId === "blackjack") {
+    renderBlackjack();
+    return;
+  }
   if (currentState.gameId === "restricted-rps") {
     renderRestrictedRps();
     return;
@@ -267,6 +284,46 @@ function render() {
       ? `剩余 ${remaining} 个可能金额。模型保留价为 ${formatMoney(state.metrics.certaintyEquivalent)}。`
       : `${remaining} prize values remain. The model's reservation value is ${formatMoney(state.metrics.certaintyEquivalent)}.`;
   }
+}
+
+function renderBlackjack() {
+  const state = currentState;
+  const actionNames = language === "zh"
+    ? { hit: "要牌", stand: "停牌", double: "加倍", new_round: "下一局" }
+    : { hit: "Hit", stand: "Stand", double: "Double", new_round: "Next hand" };
+  $("#blackjackRound").textContent = state.roundNumber;
+  $("#blackjackBankroll").textContent = signed(state.bankroll);
+  $("#blackjackRecord").textContent = `${state.wins} / ${state.losses} / ${state.pushes}`;
+  $("#blackjackAccuracy").textContent = state.strategyAccuracy == null ? "—" : `${(state.strategyAccuracy * 100).toFixed(0)}%`;
+  $("#shoeRemaining").textContent = `${state.shoeRemaining} ${language === "zh" ? "张剩余" : "CARDS LEFT"}`;
+  $("#playerTotal").textContent = `${state.playerSoft ? (language === "zh" ? "软 " : "Soft ") : ""}${state.playerTotal}`;
+  $("#dealerTotal").textContent = state.dealerTotal == null ? (language === "zh" ? "明牌" : "Upcard") : state.dealerTotal;
+  $("#playerCards").innerHTML = state.playerHand.map(renderBlackjackCard).join("");
+  $("#dealerCards").innerHTML = state.dealerHand.map(renderBlackjackCard).join("") + (state.dealerHoleHidden ? '<div class="blackjack-card hidden-card">?</div>' : "");
+  $("#blackjackActions").innerHTML = state.legalActions.map((action) => `<button data-blackjack-action="${action}">${actionNames[action]}</button>`).join("");
+  document.querySelectorAll("[data-blackjack-action]").forEach((button) => button.addEventListener("click", () => act(button.dataset.blackjackAction)));
+  $("#blackjackRecommendation").textContent = state.recommendation
+    ? actionNames[state.recommendation]
+    : (language === "zh" ? "本局已结算" : "Hand settled");
+  $("#blackjackAiPlay").disabled = state.phase !== "player_turn";
+  $("#blackjackHeadline").textContent = state.phase === "player_turn"
+    ? (language === "zh" ? "根据手牌与庄家明牌做决定" : "Decide from your hand and the dealer upcard")
+    : (language === "zh" ? "庄家底牌与最终结果已经揭晓" : "The dealer hole card and result are revealed");
+  $("#blackjackHistory").innerHTML = state.history.length ? state.history.map((item) => {
+    if (item.actor === "dealer") return `<div><b>${language === "zh" ? "庄家" : "Dealer"}</b><span>${language === "zh" ? "要牌" : "hits"} ${item.card} → ${item.total}</span></div>`;
+    return `<div><b>${item.actor === "ai" ? "AI" : (language === "zh" ? "你" : "You")}</b><span>${actionNames[item.action]} · ${item.matched ? (language === "zh" ? "符合基础策略" : "matched basic strategy") : `${language === "zh" ? "建议" : "advice"}: ${actionNames[item.recommended]}`}</span></div>`;
+  }).join("") : `<p>${language === "zh" ? "尚无决策记录。" : "No decisions yet."}</p>`;
+  $("#blackjackResult").classList.toggle("hidden", state.phase !== "finished");
+  if (state.phase === "finished") {
+    const labels = language === "zh" ? { player: "你赢了", dealer: "庄家获胜", push: "平局" } : { player: "You win", dealer: "Dealer wins", push: "Push" };
+    $("#blackjackResult").className = `blackjack-result ${state.result.winner}`;
+    $("#blackjackResult").textContent = `${labels[state.result.winner]} · ${signed(state.result.delta)}`;
+  }
+}
+
+function renderBlackjackCard(card) {
+  const red = ["A", "3", "5", "7", "9", "J", "K"].includes(card);
+  return `<div class="blackjack-card ${red ? "red" : ""}">${card}</div>`;
 }
 
 function renderRestrictedRps() {
@@ -618,6 +675,7 @@ function showLobby() {
   $("#pokerView").classList.add("hidden");
   $("#eCardView").classList.add("hidden");
   $("#rpsView").classList.add("hidden");
+  $("#blackjackView").classList.add("hidden");
   $("#lobbyView").classList.remove("hidden");
 }
 
@@ -632,6 +690,8 @@ $("#newPirateButton").addEventListener("click", () => startGame("pirates"));
 $("#newPokerMatch").addEventListener("click", () => startGame("kuhn-poker"));
 $("#newECardMatch").addEventListener("click", () => startGame("e-card"));
 $("#newRpsMatch").addEventListener("click", () => startGame("restricted-rps"));
+$("#newBlackjackMatch").addEventListener("click", () => startGame("blackjack"));
+$("#blackjackAiPlay").addEventListener("click", () => act("ai_play"));
 $("#submitPirateProposal").addEventListener("click", () => {
   const allocation = [...document.querySelectorAll(".pirate-gold-input")].map((input) => Number(input.value));
   act("submit_proposal", { allocation });

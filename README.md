@@ -5,6 +5,9 @@
 
 ## Updates 08/03/2026
 
+- **Playable blackjack strategy lab** — Added a six-deck S17 table, hidden
+  dealer hole card, hit/stand/double decisions, rule-scoped basic-strategy AI,
+  autoplay, bankroll tracking, and per-decision strategy auditing.
 - **Playable restricted RPS lab** — Added finite public move inventories,
   simultaneous hidden choices, an unexploitable random-permutation baseline,
   bounded adaptive exploitation, probability diagnostics, and match simulation.
@@ -119,8 +122,9 @@ network connection, JavaScript build tool, or third-party runtime dependency is
 required. Game sessions live only in memory and disappear when the local server
 stops.
 
-The lobby currently exposes **命运之箱**, **移动虫穴**, and **海盗议会** as
-complete single-player games. In 命运之箱:
+The lobby currently exposes **命运之箱**, **移动虫穴**, **海盗议会**,
+**库恩扑克**, **E-Card 皇帝牌**, **限定猜拳实验室**, and
+**21 点策略实验室** as complete single-player games. In 命运之箱:
 
 1. Choose one of 26 sealed cases to keep.
 2. Click other cases to reveal the required number for the current round.
@@ -149,6 +153,26 @@ with the already-solved equilibrium that follows if A is killed, then votes
 according to survival first and gold second. The council displays every vote,
 its continuation outcome, the realized survival result, and the subgame-perfect
 benchmark only after the human proposal is locked in.
+
+限定猜拳 gives both sides three copies each of Rock, Paper, and Scissors.
+Every move permanently consumes one card and both remaining inventories are
+public. Randomly permuting the remaining cards is the minimax baseline; the AI
+keeps most of that distribution while assigning a bounded weight to exploiting
+the player's observed bias. The page reveals both the equilibrium and exploit
+components after each simultaneous choice.
+
+21 点策略实验室 uses six decks, U.S.-style hole-card checking, dealer stands
+on soft 17, blackjack pays 3:2, and no split, surrender, or insurance actions.
+Its AI implements the total-dependent basic-strategy table for Hit, Stand, and
+Double, and audits every manual decision against that table. This is the
+optimal baseline for the stated action abstraction without card counting; it
+is not a universal optimum. Exact shoe composition, splitting, surrender,
+different soft-17 rules, and payout changes can alter the best action. A future
+composition-dependent expected-value solver therefore remains worthwhile for
+research, although it is unnecessary for ordinary basic-strategy training.
+The rule distinctions and composition-dependent boundary follow the
+[Wizard of Odds 4–8 deck strategy](https://wizardofodds.com/games/blackjack/strategy/4-decks/)
+and its [total-versus-composition comparison](https://wizardofodds.com/games/blackjack/composition-dependent-benefit/).
 
 The UI never receives the chosen case's hidden amount before the game finishes.
 The Python-side `GameRegistry`, `PlayableSession`, and `LocalGameService`

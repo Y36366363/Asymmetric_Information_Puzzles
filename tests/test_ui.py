@@ -6,6 +6,7 @@ from http.client import HTTPConnection
 from http.server import ThreadingHTTPServer
 
 from aip.ui.registry import (
+    BlackjackSession,
     ECardSession,
     LocalGameService,
     RestrictedRPSSession,
@@ -30,9 +31,51 @@ class LocalGameUITests(unittest.TestCase):
                 "kuhn-poker",
                 "e-card",
                 "restricted-rps",
+                "blackjack",
             ],
         )
         self.assertIn("liars-dice", [game["id"] for game in games])
+
+    def test_blackjack_ace_totals_are_soft_until_ace_must_shrink(self) -> None:
+        self.assertEqual(BlackjackSession._hand_value(["A", "6"]), (17, True))
+        self.assertEqual(BlackjackSession._hand_value(["A", "6", "K"]), (17, False))
+        self.assertEqual(BlackjackSession._hand_value(["A", "A", "9"]), (21, True))
+
+    def test_blackjack_basic_strategy_is_rule_scoped_and_deterministic(self) -> None:
+        session = BlackjackSession({"seed": 1})
+        session.player_hand = ["10", "6"]
+        session.dealer_hand = ["6", "K"]
+        self.assertEqual(session._recommendation(), "stand")
+        session.dealer_hand = ["10", "6"]
+        self.assertEqual(session._recommendation(), "hit")
+        session.player_hand = ["5", "6"]
+        session.dealer_hand = ["6", "10"]
+        self.assertEqual(session._recommendation(), "double")
+
+    def test_blackjack_hides_dealer_hole_card_until_settlement(self) -> None:
+        created = self.service.create_session("blackjack", {"seed": 6})
+        state = created["state"]
+        self.assertTrue(state["dealerHoleHidden"])
+        self.assertEqual(len(state["dealerHand"]), 1)
+        self.assertEqual(state["strategyScope"], "six_deck_s17_no_split_no_surrender_no_counting")
+        state = self.service.act(created["sessionId"], "stand")
+        self.assertFalse(state["dealerHoleHidden"])
+        self.assertGreaterEqual(len(state["dealerHand"]), 2)
+
+    def test_blackjack_ai_action_always_matches_basic_strategy(self) -> None:
+        created = self.service.create_session("blackjack", {"seed": 1})
+        state = self.service.act(created["sessionId"], "ai_play")
+        self.assertTrue(state["history"][0]["matched"])
+        self.assertEqual(state["history"][0]["actor"], "ai")
+        self.assertEqual(state["strategyAccuracy"], 1.0)
+
+    def test_blackjack_manual_deviation_is_audited(self) -> None:
+        created = self.service.create_session("blackjack", {"seed": 6})
+        state = created["state"]
+        self.assertEqual(state["recommendation"], "stand")
+        state = self.service.act(created["sessionId"], "hit")
+        self.assertFalse(state["history"][0]["matched"])
+        self.assertEqual(state["strategyAccuracy"], 0.0)
 
     def test_restricted_rps_dominance_cycle_is_zero_sum(self) -> None:
         self.assertEqual(RestrictedRPSSession._payoff("rock", "scissors"), 1)
