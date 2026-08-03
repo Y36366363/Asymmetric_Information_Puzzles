@@ -9,7 +9,7 @@
   dealer hole card, hit/stand/double decisions, rule-scoped basic-strategy AI,
   autoplay, bankroll tracking, and per-decision strategy auditing.
 - **Playable restricted RPS lab** — Added finite public move inventories,
-  simultaneous hidden choices, an unexploitable random-permutation baseline,
+  simultaneous hidden choices, an exact finite-state minimax baseline,
   bounded adaptive exploitation, probability diagnostics, and match simulation.
 - **Playable E-Card asymmetric duel** — Added alternating Emperor and Slave
   roles, simultaneous hidden card selection, five-times underdog rewards,
@@ -156,10 +156,11 @@ benchmark only after the human proposal is locked in.
 
 限定猜拳 gives both sides three copies each of Rock, Paper, and Scissors.
 Every move permanently consumes one card and both remaining inventories are
-public. Randomly permuting the remaining cards is the minimax baseline; the AI
-keeps most of that distribution while assigning a bounded weight to exploiting
-the player's observed bias. The page reveals both the equilibrium and exploit
-components after each simultaneous choice.
+public. A backward dynamic program solves the zero-sum matrix game at every
+reachable pair of remaining inventories; the AI keeps most of that minimax
+distribution while assigning a bounded weight to exploiting the player's
+observed bias. The page reveals both the equilibrium and exploit components
+after each simultaneous choice.
 
 21 点策略实验室 uses six decks, U.S.-style hole-card checking, dealer stands
 on soft 17, blackjack pays 3:2, and no split, surrender, or insurance actions.

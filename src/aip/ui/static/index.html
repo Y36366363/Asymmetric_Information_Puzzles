@@ -279,7 +279,7 @@
         <div class="rps-lower">
           <section class="panel">
             <div class="panel-title"><span data-i18n="equilibriumGuide">不可利用的均衡建议</span><span>MINIMAX BASELINE</span></div>
-            <p class="strategy-explainer" data-i18n="rpsEquilibriumCopy">从剩余卡牌的随机排列中依次出牌：每种手势的概率等于它在剩余库存中的占比。这能保证对手无法系统性获利。</p>
+            <p class="strategy-explainer" data-i18n="rpsEquilibriumCopy">系统从比赛终点逆向计算每一种剩余库存，求解当前零和矩阵的极小极大混合策略；后期建议可能从均匀随机转为确定性出牌。</p>
             <div class="probability-bars" id="rpsRecommendation"></div>
           </section>
           <section class="panel">

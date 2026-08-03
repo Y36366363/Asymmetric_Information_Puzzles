@@ -4,6 +4,7 @@ import random
 import threading
 import uuid
 from dataclasses import dataclass
+from itertools import combinations
 from typing import Callable, Protocol
 
 from aip.puzzles.cases.models import CLASSROOM_BANKER, CaseGameRules, RiskPreferences
@@ -793,6 +794,10 @@ class RestrictedRPSSession:
         self.phase = "playing"
         self.history: list[dict[str, object]] = []
         self.last_analysis: dict[str, object] | None = None
+        self._minimax_cache: dict[
+            tuple[tuple[int, ...], tuple[int, ...]],
+            tuple[float, tuple[float, ...], tuple[float, ...]],
+        ] = {}
         self._reset_match()
 
     def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
@@ -853,10 +858,12 @@ class RestrictedRPSSession:
             self.phase = "finished"
 
     def _ai_strategy(self) -> dict[str, object]:
-        remaining = sum(self.ai_inventory.values())
-        equilibrium = {
-            move: self.ai_inventory[move] / remaining for move in self.MOVES
-        }
+        ai_counts = tuple(self.ai_inventory[move] for move in self.MOVES)
+        player_counts = tuple(self.player_inventory[move] for move in self.MOVES)
+        value, ai_minimax, player_minimax = self._solve_minimax(
+            ai_counts, player_counts
+        )
+        equilibrium = dict(zip(self.MOVES, ai_minimax))
         observations = sum(self.player_history.values())
         empirical = {
             move: (self.player_history[move] + 1) / (observations + 3)
@@ -886,11 +893,139 @@ class RestrictedRPSSession:
         }
         return {
             "equilibriumDistribution": equilibrium,
+            "playerMinimaxDistribution": dict(zip(self.MOVES, player_minimax)),
+            "minimaxValue": value,
             "predictedPlayerDistribution": prediction,
             "bestResponse": best_response,
             "exploitWeight": exploit_weight,
             "finalDistribution": final,
         }
+
+    def _solve_minimax(
+        self, ai_counts: tuple[int, ...], player_counts: tuple[int, ...]
+    ) -> tuple[float, tuple[float, ...], tuple[float, ...]]:
+        key = (ai_counts, player_counts)
+        if key in self._minimax_cache:
+            return self._minimax_cache[key]
+        if sum(ai_counts) == 0:
+            result = (0.0, (0.0, 0.0, 0.0), (0.0, 0.0, 0.0))
+            self._minimax_cache[key] = result
+            return result
+
+        ai_actions = [index for index, count in enumerate(ai_counts) if count]
+        player_actions = [
+            index for index, count in enumerate(player_counts) if count
+        ]
+        matrix: list[list[float]] = []
+        for ai_index in ai_actions:
+            row: list[float] = []
+            for player_index in player_actions:
+                next_ai = list(ai_counts)
+                next_player = list(player_counts)
+                next_ai[ai_index] -= 1
+                next_player[player_index] -= 1
+                continuation = self._solve_minimax(
+                    tuple(next_ai), tuple(next_player)
+                )[0]
+                immediate = self._payoff(
+                    self.MOVES[ai_index], self.MOVES[player_index]
+                )
+                row.append(immediate + continuation)
+            matrix.append(row)
+
+        value, row_mix, column_mix = self._solve_matrix_game(matrix)
+        ai_full = [0.0, 0.0, 0.0]
+        player_full = [0.0, 0.0, 0.0]
+        for local, global_index in enumerate(ai_actions):
+            ai_full[global_index] = row_mix[local]
+        for local, global_index in enumerate(player_actions):
+            player_full[global_index] = column_mix[local]
+        result = (value, tuple(ai_full), tuple(player_full))
+        self._minimax_cache[key] = result
+        return result
+
+    @classmethod
+    def _solve_matrix_game(
+        cls, matrix: list[list[float]]
+    ) -> tuple[float, tuple[float, ...], tuple[float, ...]]:
+        rows = len(matrix)
+        columns = len(matrix[0])
+        tolerance = 1e-7
+        for size in range(1, min(rows, columns) + 1):
+            for row_support in combinations(range(rows), size):
+                for column_support in combinations(range(columns), size):
+                    row_system = [
+                        [1.0] * size + [0.0]
+                    ] + [
+                        [matrix[row][column] for row in row_support] + [-1.0]
+                        for column in column_support
+                    ]
+                    column_system = [
+                        [1.0] * size + [0.0]
+                    ] + [
+                        [matrix[row][column] for column in column_support] + [-1.0]
+                        for row in row_support
+                    ]
+                    row_solution = cls._linear_solve(
+                        row_system, [1.0] + [0.0] * size
+                    )
+                    column_solution = cls._linear_solve(
+                        column_system, [1.0] + [0.0] * size
+                    )
+                    if row_solution is None or column_solution is None:
+                        continue
+                    row_probabilities = row_solution[:size]
+                    column_probabilities = column_solution[:size]
+                    value = (row_solution[-1] + column_solution[-1]) / 2
+                    if min(row_probabilities + column_probabilities) < -tolerance:
+                        continue
+                    row_mix = [0.0] * rows
+                    column_mix = [0.0] * columns
+                    for index, probability in zip(row_support, row_probabilities):
+                        row_mix[index] = max(0.0, probability)
+                    for index, probability in zip(
+                        column_support, column_probabilities
+                    ):
+                        column_mix[index] = max(0.0, probability)
+                    guaranteed = [
+                        sum(row_mix[row] * matrix[row][column] for row in range(rows))
+                        for column in range(columns)
+                    ]
+                    capped = [
+                        sum(matrix[row][column] * column_mix[column] for column in range(columns))
+                        for row in range(rows)
+                    ]
+                    if min(guaranteed) < value - tolerance:
+                        continue
+                    if max(capped) > value + tolerance:
+                        continue
+                    return value, tuple(row_mix), tuple(column_mix)
+        raise RuntimeError("unable to solve restricted RPS matrix game")
+
+    @staticmethod
+    def _linear_solve(
+        coefficients: list[list[float]], values: list[float]
+    ) -> list[float] | None:
+        size = len(values)
+        augmented = [row[:] + [value] for row, value in zip(coefficients, values)]
+        for column in range(size):
+            pivot = max(range(column, size), key=lambda row: abs(augmented[row][column]))
+            if abs(augmented[pivot][column]) < 1e-10:
+                return None
+            augmented[column], augmented[pivot] = augmented[pivot], augmented[column]
+            divisor = augmented[column][column]
+            augmented[column] = [value / divisor for value in augmented[column]]
+            for row in range(size):
+                if row == column:
+                    continue
+                factor = augmented[row][column]
+                augmented[row] = [
+                    current - factor * pivot_value
+                    for current, pivot_value in zip(
+                        augmented[row], augmented[column]
+                    )
+                ]
+        return [augmented[index][-1] for index in range(size)]
 
     def _sample(self, distribution: object) -> str:
         probabilities = distribution
@@ -912,15 +1047,12 @@ class RestrictedRPSSession:
 
     def snapshot(self) -> dict[str, object]:
         rounds_total = self.copies * len(self.MOVES)
-        recommendation_total = sum(self.player_inventory.values())
-        recommendation = {
-            move: (
-                self.player_inventory[move] / recommendation_total
-                if recommendation_total
-                else 0.0
-            )
-            for move in self.MOVES
-        }
+        ai_counts = tuple(self.ai_inventory[move] for move in self.MOVES)
+        player_counts = tuple(self.player_inventory[move] for move in self.MOVES)
+        _value, _ai_strategy, player_strategy = self._solve_minimax(
+            ai_counts, player_counts
+        )
+        recommendation = dict(zip(self.MOVES, player_strategy))
         public_history = [dict(entry) for entry in self.history]
         return {
             "gameId": "restricted-rps",

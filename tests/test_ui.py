@@ -104,6 +104,15 @@ class LocalGameUITests(unittest.TestCase):
         self.assertGreaterEqual(analysis["exploitWeight"], 0)
         self.assertLessEqual(analysis["exploitWeight"], 0.32)
 
+    def test_restricted_rps_exact_minimax_has_zero_symmetric_value(self) -> None:
+        session = RestrictedRPSSession({"seed": 13})
+        value, ai_mix, player_mix = session._solve_minimax(
+            (3, 3, 3), (3, 3, 3)
+        )
+        self.assertAlmostEqual(value, 0.0)
+        self.assertAlmostEqual(sum(ai_mix), 1.0)
+        self.assertAlmostEqual(sum(player_mix), 1.0)
+
     def test_restricted_rps_match_uses_every_card_once(self) -> None:
         created = self.service.create_session(
             "restricted-rps", {"seed": 19, "copies": 1}
