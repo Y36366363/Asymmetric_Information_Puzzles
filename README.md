@@ -1,13 +1,15 @@
 # AIP — Asymmetric Information Puzzles
 
-> 🎮 **[Open the local game lobby / 打开本地游戏大厅](http://127.0.0.1:8765/)**
+> 🌐 **[Play AIP online / 在线打开 AIP 游戏大厅](https://aip-asymmetric-games.jyao27254718.chatgpt.site)**
+> · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
 ## Updates 08/03/2026
 
-- **Public web runtime** — Added a dependency-free edge build that serves the
-  bilingual lobby and all seven playable games outside the local Python process,
-  with ephemeral browser sessions and automated public-runtime smoke tests.
+- **Public production deployment** — Published the bilingual lobby and all
+  seven playable games at
+  [aip-asymmetric-games.jyao27254718.chatgpt.site](https://aip-asymmetric-games.jyao27254718.chatgpt.site),
+  with dependency-free edge execution, ephemeral sessions, and live health checks.
 - **Playable blackjack strategy lab** — Added a six-deck S17 table, hidden
   dealer hole card, hit/stand/double decisions, rule-scoped basic-strategy AI,
   autoplay, bankroll tracking, and per-decision strategy auditing.
