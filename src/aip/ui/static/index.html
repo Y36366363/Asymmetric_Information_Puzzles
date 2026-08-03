@@ -191,6 +191,59 @@
           </section>
         </div>
       </section>
+
+      <section id="eCardView" class="view ecard-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="eCardEyebrow">CASE 05 · 非对称收益与混合策略</p>
+            <h1 data-i18n="eCardTitle">E-Card 皇帝牌</h1>
+          </div>
+          <button class="secondary-button" id="newECardMatch" data-i18n="restartMatch">重新开始比赛</button>
+        </div>
+
+        <div class="ecard-score panel">
+          <div><span data-i18n="round">回合</span><strong id="ecardRound">1</strong></div>
+          <div><span data-i18n="eCardYourScore">你的得分</span><strong id="ecardPlayerScore">0</strong></div>
+          <div><span data-i18n="currentDuel">本轮对决</span><strong id="ecardDuel">1 / 5</strong></div>
+          <div><span data-i18n="eCardAiScore">AI 得分</span><strong id="ecardAiScore">0</strong></div>
+        </div>
+
+        <section class="ecard-arena panel">
+          <div class="ecard-role ai-role">
+            <span data-i18n="strategyAi">策略型 AI</span>
+            <strong id="ecardAiRole">奴隶方</strong>
+            <div class="ecard-hidden-hand" id="ecardHiddenHand"></div>
+          </div>
+          <div class="ecard-center">
+            <div class="dominance-cycle">
+              <span data-i18n="emperor">皇帝</span><b>›</b><span data-i18n="citizen">市民</span><b>›</b><span data-i18n="slave">奴隶</span><b>›</b><span data-i18n="emperor">皇帝</span>
+            </div>
+            <h2 id="ecardInstruction">选择一张牌，双方将同时揭晓</h2>
+            <div class="ecard-reveal" id="ecardReveal">
+              <div class="mini-card card-back">?</div><strong>VS</strong><div class="mini-card card-back">?</div>
+            </div>
+            <div class="ecard-result hidden" id="ecardResult"></div>
+          </div>
+          <div class="ecard-role player-role">
+            <span data-i18n="you">你</span>
+            <strong id="ecardPlayerRole">皇帝方</strong>
+            <div class="ecard-hand" id="ecardHand"></div>
+          </div>
+        </section>
+
+        <div class="ecard-lower">
+          <section class="panel">
+            <div class="panel-title"><span data-i18n="duelHistory">公开对局记录</span><span>PUBLIC SIGNALS</span></div>
+            <div class="ecard-history" id="ecardHistory"></div>
+          </section>
+          <section class="panel information-set">
+            <div class="panel-title"><span data-i18n="yourInformationSet">你的信息集</span><span>HIDDEN CHOICE</span></div>
+            <p id="ecardInformation"></p>
+            <p class="payoff-note" data-i18n="eCardPayoff">皇帝获胜得 1 分，奴隶获胜得 5 分。双方市民相撞时只弃掉两张牌并继续本轮。</p>
+          </section>
+        </div>
+      </section>
     </main>
 
     <div class="modal-backdrop hidden" id="offerModal" role="dialog" aria-modal="true" aria-labelledby="offerTitle">

@@ -277,6 +277,45 @@ button { font: inherit; }
 .poker-lower { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
 .poker-lower p { margin: 20px 0 0; color: var(--muted); line-height: 1.75; }
 
+.ecard-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
+.ecard-score div { padding: 10px 24px; text-align: center; border-right: 1px solid var(--line); }
+.ecard-score div:last-child { border-right: 0; }
+.ecard-score span, .ecard-role > span { display: block; color: var(--muted); font-size: 11px; letter-spacing: .09em; }
+.ecard-score strong { display: block; margin-top: 7px; color: var(--gold-soft); font: 500 28px Georgia, serif; }
+.ecard-arena { min-height: 570px; display: grid; grid-template-columns: minmax(220px, 1fr) minmax(320px, 1.45fr) minmax(220px, 1fr); align-items: center; gap: 28px; padding: clamp(28px, 5vw, 60px); background: radial-gradient(circle at center, #3c2d1a 0, #211d16 48%, #141412 100%); }
+.ecard-role { text-align: center; }
+.ecard-role > strong { display: block; margin: 10px 0 25px; color: var(--gold-soft); font: 500 25px Georgia, "Songti SC", serif; }
+.ecard-hidden-hand, .ecard-hand { min-height: 190px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 9px; }
+.tiny-card { width: 54px; aspect-ratio: .7; display: grid; place-items: center; margin-left: -22px; border: 1px solid #8f6e34; border-radius: 6px; }
+.tiny-card:first-child { margin-left: 0; }
+.ecard-card { width: 104px; min-height: 145px; display: flex; flex-direction: column; justify-content: space-between; padding: 18px 10px; color: #1a150d; border: 2px solid #f4dfaa; border-radius: 8px; background: linear-gradient(145deg, #f7e8be, #bd8735); box-shadow: 0 15px 25px rgba(0,0,0,.35); cursor: pointer; transition: transform .18s ease; }
+.ecard-card:hover:not(:disabled) { transform: translateY(-8px); }
+.ecard-card span { font: 600 20px Georgia, "Songti SC", serif; }
+.ecard-card b { font-size: 16px; }
+.ecard-card.slave { color: #f0ddd5; border-color: #a85b50; background: linear-gradient(145deg, #722e29, #2d1715); }
+.ecard-center { text-align: center; }
+.dominance-cycle { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; color: var(--muted); font-size: 12px; }
+.dominance-cycle b { color: var(--gold); font-size: 19px; }
+.ecard-center h2 { margin: 18px auto 28px; font: 500 clamp(23px, 3vw, 36px) Georgia, "Songti SC", serif; }
+.ecard-reveal { display: flex; justify-content: center; align-items: center; gap: 18px; }
+.ecard-reveal > strong { color: var(--gold); }
+.mini-card { width: 105px; aspect-ratio: .7; display: grid; place-items: center; padding: 8px; color: #1a150d; border: 2px solid #f4dfaa; border-radius: 8px; background: linear-gradient(145deg, #f7e8be, #bd8735); font: 600 17px Georgia, "Songti SC", serif; }
+.card-back { color: var(--gold) !important; border-color: #8f6e34 !important; background: repeating-linear-gradient(45deg, #16130e, #16130e 8px, #302718 8px, #302718 16px) !important; }
+.mini-card.slave { color: #f0ddd5; border-color: #a85b50; background: #552824; }
+.ecard-result { margin: 24px auto 0; padding: 16px; border: 1px solid var(--line); }
+.ecard-result.win { border-color: #51855a; background: rgba(81,133,90,.15); }
+.ecard-result.loss { border-color: var(--red); background: rgba(159,62,53,.14); }
+.ecard-result strong { font: 500 22px Georgia, serif; }
+.ecard-result p { color: var(--muted); }
+.ecard-result button { padding: 11px 16px; color: #17130c; border: 0; background: var(--gold); cursor: pointer; font-weight: 800; }
+.ecard-lower { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+.ecard-history { margin-top: 18px; }
+.ecard-history > div { display: grid; grid-template-columns: 30px 1fr 36px 1fr 70px; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.ecard-history span, .ecard-history em, .ecard-history small { color: var(--muted); }
+.ecard-history em { text-align: center; }
+.ecard-history small { text-align: right; }
+.information-set .payoff-note { color: var(--gold-soft); }
+
 @media (max-width: 1100px) {
   .game-layout { grid-template-columns: 180px 1fr; }
   .insight-panel { grid-column: 1 / -1; }
@@ -305,5 +344,9 @@ button { font: inherit; }
   .poker-table { min-height: auto; grid-template-columns: 1fr 1fr; }
   .poker-center { grid-column: 1 / -1; grid-row: 2; }
   .poker-lower { grid-template-columns: 1fr; }
+  .ecard-score { grid-template-columns: 1fr 1fr; }
+  .ecard-arena { grid-template-columns: 1fr 1fr; }
+  .ecard-center { grid-column: 1 / -1; grid-row: 2; }
+  .ecard-lower { grid-template-columns: 1fr; }
   .hole-row { gap: 5px; }
 }

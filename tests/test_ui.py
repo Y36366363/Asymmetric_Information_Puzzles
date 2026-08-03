@@ -5,7 +5,7 @@ from importlib.resources import files
 from http.client import HTTPConnection
 from http.server import ThreadingHTTPServer
 
-from aip.ui.registry import LocalGameService, build_default_registry
+from aip.ui.registry import ECardSession, LocalGameService, build_default_registry
 from aip.ui.server import AIPRequestHandler
 
 
@@ -16,8 +16,48 @@ class LocalGameUITests(unittest.TestCase):
     def test_lobby_lists_one_playable_game_and_future_games(self) -> None:
         games = self.service.games()
         playable = [game["id"] for game in games if game["available"]]
-        self.assertEqual(playable, ["cases", "worm", "pirates", "kuhn-poker"])
+        self.assertEqual(
+            playable, ["cases", "worm", "pirates", "kuhn-poker", "e-card"]
+        )
         self.assertIn("liars-dice", [game["id"] for game in games])
+
+    def test_e_card_uses_the_asymmetric_dominance_cycle(self) -> None:
+        self.assertEqual(ECardSession._outcome("emperor", "citizen"), "player")
+        self.assertEqual(ECardSession._outcome("citizen", "slave"), "player")
+        self.assertEqual(ECardSession._outcome("slave", "emperor"), "player")
+        self.assertEqual(ECardSession._outcome("citizen", "citizen"), "draw")
+
+    def test_e_card_hides_ai_choice_until_player_commits(self) -> None:
+        created = self.service.create_session("e-card", {"seed": 7})
+        state = created["state"]
+        self.assertNotIn("aiHand", state)
+        self.assertIsNone(state["lastReveal"])
+        self.assertEqual(state["informationSet"]["opponentCardsLeft"], 5)
+        state = self.service.act(
+            created["sessionId"], "play_card", {"card": "citizen"}
+        )
+        self.assertIn(state["lastReveal"]["aiCard"], {"citizen", "slave"})
+
+    def test_e_card_scores_by_winning_role_and_swaps_sides(self) -> None:
+        created = self.service.create_session("e-card", {"seed": 17})
+        session_id = created["sessionId"]
+        state = created["state"]
+        while state["phase"] == "playing":
+            card = state["playerHand"][0]["card"]
+            state = self.service.act(session_id, "play_card", {"card": card})
+        expected_points = 5 if state["result"]["winnerRole"] == "slave" else 1
+        self.assertEqual(state["result"]["points"], expected_points)
+        state = self.service.act(session_id, "next_round")
+        self.assertEqual(state["roundNumber"], 2)
+        self.assertEqual(state["playerRole"], "slave")
+        self.assertEqual(state["aiRole"], "emperor")
+
+    def test_e_card_rejects_a_card_not_in_the_current_hand(self) -> None:
+        created = self.service.create_session("e-card", {"seed": 29})
+        with self.assertRaises(ValueError):
+            self.service.act(
+                created["sessionId"], "play_card", {"card": "not-a-card"}
+            )
 
     def test_kuhn_poker_keeps_ai_card_private_until_hand_finishes(self) -> None:
         created = self.service.create_session("kuhn-poker", {"seed": 23})

@@ -21,6 +21,11 @@ const copy = {
     potSize: "底池", aiScore: "AI 净筹码", strategyAi: "策略型 AI", you: "你",
     yourInformationSet: "你的信息集", quickRules: "快速规则",
     pokerRules: "双方先各投入 1。下注为 1；跟注后比牌，弃牌则直接输。K 最大、J 最小。AI 会按概率诈唬，所以同一种动作不总代表同一张牌。",
+    eCardEyebrow: "CASE 05 · 非对称收益与混合策略", eCardTitle: "E-Card 皇帝牌",
+    currentDuel: "本轮对决", emperor: "皇帝", citizen: "市民", slave: "奴隶",
+    eCardYourScore: "你的得分", eCardAiScore: "AI 得分",
+    duelHistory: "公开对局记录",
+    eCardPayoff: "皇帝获胜得 1 分，奴隶获胜得 5 分。双方市民相撞时只弃掉两张牌并继续本轮。",
     prizePool: "奖金池", round: "回合", decisionPanel: "决策仪表",
     emptyInsight: "银行家报价后，这里会显示期望值、风险和模型建议。",
     gameHistory: "博弈记录", liveChecks: "实时检查次数", possiblePositions: "仍可能的位置",
@@ -45,6 +50,11 @@ const copy = {
     potSize: "Pot", aiScore: "AI net chips", strategyAi: "Strategy AI", you: "You",
     yourInformationSet: "Your information set", quickRules: "Quick rules",
     pokerRules: "Both players ante 1. A bet costs 1; a call leads to showdown, while a fold loses immediately. K is high and J is low. The AI bluffs probabilistically, so one action never reveals one card with certainty.",
+    eCardEyebrow: "CASE 05 · ASYMMETRIC PAYOFFS & MIXED STRATEGY", eCardTitle: "E-Card",
+    currentDuel: "Duel", emperor: "Emperor", citizen: "Citizen", slave: "Slave",
+    eCardYourScore: "Your score", eCardAiScore: "AI score",
+    duelHistory: "Public duel history",
+    eCardPayoff: "An Emperor win scores 1; a Slave win scores 5. Citizen versus Citizen discards both cards and continues the round.",
     prizePool: "Prize board", round: "Round", decisionPanel: "Decision dashboard",
     emptyInsight: "Expected value, risk, and model guidance appear after the banker's offer.",
     gameHistory: "Game history", liveChecks: "Live check count", possiblePositions: "Possible positions",
@@ -64,6 +74,7 @@ const gamesCopy = {
     worm: ["移动虫穴", "面对无随机性的智能虫子；错误方法永远无法靠运气抓到它。", "单人 · 对抗搜索"],
     pirates: ["海盗议会", "亲自分配 100 枚金币，面对会做逆向归纳的理性海盗投票。", "单人 · 人机投票"],
     "kuhn-poker": ["库恩扑克", "在三张牌的极简牌局中读取信号、抓诈唬，并与混合策略 AI 连续对战。", "单人 · 隐藏手牌与诈唬"],
+    "e-card": ["E-Card 皇帝牌", "轮流扮演皇帝方与奴隶方，在非对称收益下猜测 AI 的隐藏出牌时机。", "单人 · 非对称混合策略"],
     "liars-dice": ["骗子骰子", "隐藏手牌、公开叫价与诈唬识别。", "本地多人 · 即将开放"],
     auction: ["百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放"],
   },
@@ -72,6 +83,7 @@ const gamesCopy = {
     worm: ["The Moving Worm", "Face a deterministic adversary: a wrong method can never win by luck.", "Solo · Adversarial search"],
     pirates: ["Pirate Council", "Allocate 100 coins and face rational pirates who reason backward before voting.", "Solo · Human vs AI vote"],
     "kuhn-poker": ["Kuhn Poker", "Read signals, catch bluffs, and battle a mixed-strategy AI in the classic three-card game.", "Solo · Hidden cards & bluffing"],
+    "e-card": ["E-Card", "Alternate between Emperor and Slave, reading the AI's hidden timing under asymmetric rewards.", "Solo · Asymmetric mixed strategy"],
     "liars-dice": ["Liar's Dice", "Private hands, public bids, and bluff inference.", "Local multiplayer · Coming soon"],
     auction: ["100-Unit All-Pay Auction", "Fight for leadership through public prices, alliances, and defection.", "Local multiplayer · Coming soon"],
   },
@@ -156,6 +168,7 @@ async function startGame(gameId = "cases", options = {}) {
     $("#wormView").classList.toggle("hidden", gameId !== "worm");
     $("#pirateView").classList.toggle("hidden", gameId !== "pirates");
     $("#pokerView").classList.toggle("hidden", gameId !== "kuhn-poker");
+    $("#eCardView").classList.toggle("hidden", gameId !== "e-card");
     render();
   } catch (error) {
     showToast(error.message);
@@ -176,6 +189,10 @@ async function act(action, payload = {}) {
 }
 
 function render() {
+  if (currentState.gameId === "e-card") {
+    renderECard();
+    return;
+  }
   if (currentState.gameId === "kuhn-poker") {
     renderPoker();
     return;
@@ -232,6 +249,55 @@ function render() {
     $("#offerContext").textContent = language === "zh"
       ? `剩余 ${remaining} 个可能金额。模型保留价为 ${formatMoney(state.metrics.certaintyEquivalent)}。`
       : `${remaining} prize values remain. The model's reservation value is ${formatMoney(state.metrics.certaintyEquivalent)}.`;
+  }
+}
+
+function renderECard() {
+  const state = currentState;
+  const cardNames = language === "zh"
+    ? { emperor: "皇帝", citizen: "市民", slave: "奴隶" }
+    : { emperor: "Emperor", citizen: "Citizen", slave: "Slave" };
+  const roleName = (role) => language === "zh" ? `${cardNames[role]}方` : `${cardNames[role]} side`;
+  $("#ecardRound").textContent = state.roundNumber;
+  $("#ecardDuel").textContent = `${state.duelNumber} / 5`;
+  $("#ecardPlayerScore").textContent = state.playerScore;
+  $("#ecardAiScore").textContent = state.aiScore;
+  $("#ecardPlayerRole").textContent = roleName(state.playerRole);
+  $("#ecardAiRole").textContent = roleName(state.aiRole);
+  $("#ecardHiddenHand").innerHTML = Array.from({length: state.opponentCardsLeft}, () => '<div class="tiny-card card-back">?</div>').join("");
+  $("#ecardHand").innerHTML = state.playerHand.map((item) => `
+    <button class="ecard-card ${item.card}" data-ecard="${item.card}" ${state.phase !== "playing" ? "disabled" : ""}>
+      <span>${cardNames[item.card]}</span><b>×${item.count}</b>
+    </button>`).join("");
+  document.querySelectorAll("[data-ecard]:not(:disabled)").forEach((button) => {
+    button.addEventListener("click", () => act("play_card", {card: button.dataset.ecard}));
+  });
+
+  const reveal = state.lastReveal;
+  $("#ecardReveal").innerHTML = reveal
+    ? `<div class="mini-card ${reveal.playerCard}">${cardNames[reveal.playerCard]}</div><strong>VS</strong><div class="mini-card ${reveal.aiCard}">${cardNames[reveal.aiCard]}</div>`
+    : '<div class="mini-card card-back">?</div><strong>VS</strong><div class="mini-card card-back">?</div>';
+  $("#ecardInstruction").textContent = state.phase === "finished"
+    ? (language === "zh" ? "本轮结束：双方下一轮交换阵营" : "Round over: sides swap next round")
+    : reveal?.outcome === "draw"
+      ? (language === "zh" ? "市民相撞，记住已消耗的牌并再次选择" : "Citizens tied. Track the discarded cards and choose again")
+      : (language === "zh" ? "选择一张牌，双方将同时揭晓" : "Choose a card; both choices are revealed together");
+
+  $("#ecardHistory").innerHTML = state.history.length
+    ? state.history.map((item) => `<div><span>${item.duel}</span><b>${cardNames[item.playerCard]}</b><em>VS</em><b>${cardNames[item.aiCard]}</b><small>${item.outcome === "draw" ? (language === "zh" ? "平局" : "Draw") : item.outcome === "player" ? (language === "zh" ? "你胜" : "You win") : (language === "zh" ? "AI 胜" : "AI wins")}</small></div>`).join("")
+    : `<p>${language === "zh" ? "尚无公开出牌。" : "No public plays yet."}</p>`;
+  const possible = state.informationSet.possibleOpponentCards.map((card) => cardNames[card]).join(language === "zh" ? "或" : " or ");
+  $("#ecardInformation").textContent = language === "zh"
+    ? `AI 还剩 ${state.informationSet.opponentCardsLeft} 张牌，可能出的牌型为${possible}。它的实际选择在你出牌前保持隐藏。`
+    : `The AI has ${state.informationSet.opponentCardsLeft} cards left and may play ${possible}. Its actual choice stays hidden until yours is committed.`;
+
+  $("#ecardResult").classList.toggle("hidden", state.phase !== "finished");
+  if (state.phase === "finished") {
+    const won = state.result.winner === "player";
+    $("#ecardResult").className = `ecard-result ${won ? "win" : "loss"}`;
+    $("#ecardResult").innerHTML = `<strong>${won ? (language === "zh" ? "你赢得本轮" : "You win the round") : (language === "zh" ? "AI 赢得本轮" : "AI wins the round")} · +${state.result.points}</strong><p>${language === "zh" ? `${roleName(state.result.winnerRole)}在第 ${state.result.decisiveDuel} 次对决获胜。` : `${roleName(state.result.winnerRole)} prevailed on duel ${state.result.decisiveDuel}.`}</p><button data-ecard-next>${language === "zh" ? "交换阵营，进入下一轮" : "Swap sides and play next round"}</button>`;
+    const nextButton = $("[data-ecard-next]");
+    if (nextButton) nextButton.addEventListener("click", () => act("next_round"));
   }
 }
 
@@ -480,6 +546,7 @@ function showLobby() {
   $("#wormView").classList.add("hidden");
   $("#pirateView").classList.add("hidden");
   $("#pokerView").classList.add("hidden");
+  $("#eCardView").classList.add("hidden");
   $("#lobbyView").classList.remove("hidden");
 }
 
@@ -492,6 +559,7 @@ $("#newGameButton").addEventListener("click", () => startGame("cases"));
 $("#newWormButton").addEventListener("click", () => startGame("worm"));
 $("#newPirateButton").addEventListener("click", () => startGame("pirates"));
 $("#newPokerMatch").addEventListener("click", () => startGame("kuhn-poker"));
+$("#newECardMatch").addEventListener("click", () => startGame("e-card"));
 $("#submitPirateProposal").addEventListener("click", () => {
   const allocation = [...document.querySelectorAll(".pirate-gold-input")].map((input) => Number(input.value));
   act("submit_proposal", { allocation });

@@ -5,6 +5,9 @@
 
 ## Updates 08/03/2026
 
+- **Playable E-Card asymmetric duel** — Added alternating Emperor and Slave
+  roles, simultaneous hidden card selection, five-times underdog rewards,
+  adaptive mixed-strategy AI, public duel history, and bilingual round analysis.
 - **Playable Kuhn Poker** — Added a repeatable three-card poker match against
   a mixed-strategy AI, with alternating first position, bluffing, live chip
   scores, private-card information sets, bilingual play, and post-hand analysis.

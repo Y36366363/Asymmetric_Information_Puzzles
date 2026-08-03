@@ -624,6 +624,153 @@ class KuhnPokerSession:
         }
 
 
+class ECardSession:
+    """Repeated asymmetric card duels with simultaneous hidden choices."""
+
+    SPECIAL_COUNTER = {"emperor": "slave", "slave": "emperor"}
+
+    def __init__(self, options: dict[str, object]) -> None:
+        self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
+        self._rng = random.Random(self.seed)
+        self.round_number = 0
+        self.player_score = 0
+        self.ai_score = 0
+        self.phase = "playing"
+        self.player_role = "emperor"
+        self.ai_role = "slave"
+        self.player_hand: list[str] = []
+        self.ai_hand: list[str] = []
+        self.history: list[dict[str, object]] = []
+        self.last_reveal: dict[str, object] | None = None
+        self.result: dict[str, object] | None = None
+        self.player_special_timings: list[int] = []
+        self._start_round()
+
+    def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
+        if action == "next_round":
+            if self.phase != "finished":
+                raise ValueError("finish the current round first")
+            self._start_round()
+        elif action == "play_card":
+            self._play_card(str(payload.get("card", "")))
+        else:
+            raise ValueError(f"unknown action: {action}")
+        return self.snapshot()
+
+    def _start_round(self) -> None:
+        self.round_number += 1
+        self.player_role = "emperor" if self.round_number % 2 == 1 else "slave"
+        self.ai_role = self.SPECIAL_COUNTER[self.player_role]
+        self.player_hand = [self.player_role] + ["citizen"] * 4
+        self.ai_hand = [self.ai_role] + ["citizen"] * 4
+        self.phase = "playing"
+        self.history = []
+        self.last_reveal = None
+        self.result = None
+
+    def _play_card(self, card: str) -> None:
+        if self.phase != "playing":
+            raise ValueError("the round has already ended")
+        if card not in self.player_hand:
+            raise ValueError("that card is not available in your hand")
+
+        duel = len(self.history) + 1
+        ai_card, special_probability = self._choose_ai_card()
+        self.player_hand.remove(card)
+        self.ai_hand.remove(ai_card)
+        outcome = self._outcome(card, ai_card)
+        reveal = {
+            "duel": duel,
+            "playerCard": card,
+            "aiCard": ai_card,
+            "outcome": outcome,
+            "aiSpecialProbability": special_probability,
+        }
+        self.history.append(reveal)
+        self.last_reveal = reveal
+
+        if card == self.player_role:
+            self.player_special_timings.append(duel)
+        if outcome == "draw":
+            if not self.player_hand:
+                raise RuntimeError("an E-Card round cannot exhaust without a winner")
+            return
+
+        winner_role = self.player_role if outcome == "player" else self.ai_role
+        points = 5 if winner_role == "slave" else 1
+        if outcome == "player":
+            self.player_score += points
+        else:
+            self.ai_score += points
+        self.result = {
+            "winner": outcome,
+            "winnerRole": winner_role,
+            "points": points,
+            "decisiveDuel": duel,
+        }
+        self.phase = "finished"
+
+    def _choose_ai_card(self) -> tuple[str, float]:
+        special = self.ai_role
+        if special not in self.ai_hand:
+            return "citizen", 0.0
+        citizen_count = self.ai_hand.count("citizen")
+        if citizen_count == 0:
+            return special, 1.0
+
+        cards_left = len(self.ai_hand)
+        average_timing = (
+            sum(self.player_special_timings) / len(self.player_special_timings)
+            if self.player_special_timings
+            else 3.0
+        )
+        learned_early_bias = max(-0.08, min(0.08, (3.0 - average_timing) * 0.04))
+        probability = min(0.78, 1 / cards_left + learned_early_bias)
+        if self._rng.random() < probability:
+            return special, probability
+        return "citizen", probability
+
+    @staticmethod
+    def _outcome(player_card: str, ai_card: str) -> str:
+        if player_card == ai_card:
+            return "draw"
+        wins_against = {
+            "emperor": "citizen",
+            "citizen": "slave",
+            "slave": "emperor",
+        }
+        return "player" if wins_against[player_card] == ai_card else "ai"
+
+    def snapshot(self) -> dict[str, object]:
+        visible_history = [dict(item) for item in self.history]
+        opponent_possible = sorted(set(self.ai_hand))
+        return {
+            "gameId": "e-card",
+            "phase": self.phase,
+            "roundNumber": self.round_number,
+            "duelNumber": len(self.history) + (0 if self.phase == "finished" else 1),
+            "playerRole": self.player_role,
+            "aiRole": self.ai_role,
+            "playerHand": [
+                {"card": card, "count": self.player_hand.count(card)}
+                for card in dict.fromkeys(self.player_hand)
+            ],
+            "opponentCardsLeft": len(self.ai_hand),
+            "playerScore": self.player_score,
+            "aiScore": self.ai_score,
+            "history": visible_history,
+            "lastReveal": dict(self.last_reveal) if self.last_reveal else None,
+            "result": dict(self.result) if self.result else None,
+            "legalActions": ["play_card"] if self.phase == "playing" else ["next_round"],
+            "informationSet": {
+                "privateHand": list(self.player_hand),
+                "publicHistory": visible_history,
+                "possibleOpponentCards": opponent_possible,
+                "opponentCardsLeft": len(self.ai_hand),
+            },
+        }
+
+
 def build_default_registry() -> GameRegistry:
     registry = GameRegistry()
     registry.register(
@@ -661,6 +808,15 @@ def build_default_registry() -> GameRegistry:
             "单人 · 隐藏手牌与诈唬",
         ),
         KuhnPokerSession,
+    )
+    registry.register(
+        GameDescriptor(
+            "e-card",
+            "E-Card 皇帝牌",
+            "皇帝、市民与奴隶构成不对称循环；用隐藏出牌和高额弱者收益击败策略型 AI。",
+            "单人 · 非对称混合策略",
+        ),
+        ECardSession,
     )
     for descriptor in (
         GameDescriptor(
