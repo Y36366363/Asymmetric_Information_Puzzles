@@ -5,6 +5,9 @@
 
 ## Updates 08/03/2026
 
+- **Public web runtime** — Added a dependency-free edge build that serves the
+  bilingual lobby and all seven playable games outside the local Python process,
+  with ephemeral browser sessions and automated public-runtime smoke tests.
 - **Playable blackjack strategy lab** — Added a six-deck S17 table, hidden
   dealer hole card, hit/stand/double decisions, rule-scoped basic-strategy AI,
   autoplay, bankroll tracking, and per-decision strategy auditing.

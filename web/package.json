@@ -1,0 +1,13 @@
+{
+  "name": "aip-public-lobby",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test tests/public-worker.test.mjs"
+  },
+  "type": "module"
+}

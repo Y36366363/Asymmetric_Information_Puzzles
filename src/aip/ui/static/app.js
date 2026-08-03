@@ -9,7 +9,7 @@ let pirateDraft = [];
 
 const copy = {
   zh: {
-    brandName: "非对称博弈实验室", localOnly: "仅在本机运行",
+    brandName: "非对称博弈实验室", localOnly: "浏览器临时会话",
     heroLine1: "把推理变成一场", heroLine2: "真正可以玩的博弈",
     heroCopy: "选择一个实验。你做决定，系统隐藏信息、扮演对手，并在关键时刻揭示概率与代价。",
     backLobby: "← 返回大厅", restart: "重新开始", restartCouncil: "重新召开议会",
@@ -48,7 +48,7 @@ const copy = {
     rejectOffer: "拒绝，继续开箱", operationFailed: "操作失败",
   },
   en: {
-    brandName: "Asymmetric Games Lab", localOnly: "Running locally",
+    brandName: "Asymmetric Games Lab", localOnly: "Browser session",
     heroLine1: "Turn reasoning into", heroLine2: "games you can actually play",
     heroCopy: "Choose an experiment. You decide; the system hides information, plays the opposition, and reveals probability and cost at decisive moments.",
     backLobby: "← Back to lobby", restart: "New game", restartCouncil: "New council",
