@@ -3,6 +3,12 @@
 > 🎮 **[Open the local game lobby / 打开本地游戏大厅](http://127.0.0.1:8765/)**
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/03/2026
+
+- **Playable Kuhn Poker** — Added a repeatable three-card poker match against
+  a mixed-strategy AI, with alternating first position, bluffing, live chip
+  scores, private-card information sets, bilingual play, and post-hand analysis.
+
 ## Updates 08/02/2026
 
 - **Bilingual navigation and project links** — Added a persistent Chinese/English

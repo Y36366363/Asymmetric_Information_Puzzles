@@ -16,6 +16,11 @@ const copy = {
     caseEyebrow: "CASE 01 · 风险与谈判", caseTitle: "命运之箱",
     wormEyebrow: "CASE 02 · 隐藏状态追踪", wormTitle: "移动虫穴",
     pirateEyebrow: "CASE 03 · 逆向归纳与联盟", pirateTitle: "海盗议会",
+    pokerEyebrow: "CASE 04 · 私有信息与诈唬", pokerTitle: "库恩扑克",
+    restartMatch: "重新开始比赛", handNumber: "当前牌局", yourScore: "你的净筹码",
+    potSize: "底池", aiScore: "AI 净筹码", strategyAi: "策略型 AI", you: "你",
+    yourInformationSet: "你的信息集", quickRules: "快速规则",
+    pokerRules: "双方先各投入 1。下注为 1；跟注后比牌，弃牌则直接输。K 最大、J 最小。AI 会按概率诈唬，所以同一种动作不总代表同一张牌。",
     prizePool: "奖金池", round: "回合", decisionPanel: "决策仪表",
     emptyInsight: "银行家报价后，这里会显示期望值、风险和模型建议。",
     gameHistory: "博弈记录", liveChecks: "实时检查次数", possiblePositions: "仍可能的位置",
@@ -35,6 +40,11 @@ const copy = {
     caseEyebrow: "CASE 01 · RISK & NEGOTIATION", caseTitle: "Cases of Fate",
     wormEyebrow: "CASE 02 · HIDDEN-STATE TRACKING", wormTitle: "The Moving Worm",
     pirateEyebrow: "CASE 03 · BACKWARD INDUCTION & COALITIONS", pirateTitle: "Pirate Council",
+    pokerEyebrow: "CASE 04 · PRIVATE INFORMATION & BLUFFING", pokerTitle: "Kuhn Poker",
+    restartMatch: "Restart match", handNumber: "Current hand", yourScore: "Your net chips",
+    potSize: "Pot", aiScore: "AI net chips", strategyAi: "Strategy AI", you: "You",
+    yourInformationSet: "Your information set", quickRules: "Quick rules",
+    pokerRules: "Both players ante 1. A bet costs 1; a call leads to showdown, while a fold loses immediately. K is high and J is low. The AI bluffs probabilistically, so one action never reveals one card with certainty.",
     prizePool: "Prize board", round: "Round", decisionPanel: "Decision dashboard",
     emptyInsight: "Expected value, risk, and model guidance appear after the banker's offer.",
     gameHistory: "Game history", liveChecks: "Live check count", possiblePositions: "Possible positions",
@@ -53,6 +63,7 @@ const gamesCopy = {
     cases: ["命运之箱", "从 26 个密封箱中保留一个，在不断缩小的风险中与银行家谈判。", "单人 · 决策与风险"],
     worm: ["移动虫穴", "面对无随机性的智能虫子；错误方法永远无法靠运气抓到它。", "单人 · 对抗搜索"],
     pirates: ["海盗议会", "亲自分配 100 枚金币，面对会做逆向归纳的理性海盗投票。", "单人 · 人机投票"],
+    "kuhn-poker": ["库恩扑克", "在三张牌的极简牌局中读取信号、抓诈唬，并与混合策略 AI 连续对战。", "单人 · 隐藏手牌与诈唬"],
     "liars-dice": ["骗子骰子", "隐藏手牌、公开叫价与诈唬识别。", "本地多人 · 即将开放"],
     auction: ["百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放"],
   },
@@ -60,6 +71,7 @@ const gamesCopy = {
     cases: ["Cases of Fate", "Keep one of 26 sealed cases and negotiate with the banker as uncertainty narrows.", "Solo · Risk & decision"],
     worm: ["The Moving Worm", "Face a deterministic adversary: a wrong method can never win by luck.", "Solo · Adversarial search"],
     pirates: ["Pirate Council", "Allocate 100 coins and face rational pirates who reason backward before voting.", "Solo · Human vs AI vote"],
+    "kuhn-poker": ["Kuhn Poker", "Read signals, catch bluffs, and battle a mixed-strategy AI in the classic three-card game.", "Solo · Hidden cards & bluffing"],
     "liars-dice": ["Liar's Dice", "Private hands, public bids, and bluff inference.", "Local multiplayer · Coming soon"],
     auction: ["100-Unit All-Pay Auction", "Fight for leadership through public prices, alliances, and defection.", "Local multiplayer · Coming soon"],
   },
@@ -143,6 +155,7 @@ async function startGame(gameId = "cases", options = {}) {
     $("#gameView").classList.toggle("hidden", gameId !== "cases");
     $("#wormView").classList.toggle("hidden", gameId !== "worm");
     $("#pirateView").classList.toggle("hidden", gameId !== "pirates");
+    $("#pokerView").classList.toggle("hidden", gameId !== "kuhn-poker");
     render();
   } catch (error) {
     showToast(error.message);
@@ -163,6 +176,10 @@ async function act(action, payload = {}) {
 }
 
 function render() {
+  if (currentState.gameId === "kuhn-poker") {
+    renderPoker();
+    return;
+  }
   if (currentState.gameId === "pirates") {
     renderPirates();
     return;
@@ -217,6 +234,65 @@ function render() {
       : `${remaining} prize values remain. The model's reservation value is ${formatMoney(state.metrics.certaintyEquivalent)}.`;
   }
 }
+
+function renderPoker() {
+  const state = currentState;
+  const names = language === "zh"
+    ? { check: "过牌", bet: "下注", fold: "弃牌", call: "跟注", next_hand: "下一局", player: "你", ai: "AI" }
+    : { check: "Check", bet: "Bet", fold: "Fold", call: "Call", next_hand: "Next hand", player: "You", ai: "AI" };
+  $("#pokerHand").textContent = state.handNumber;
+  $("#pokerPlayerScore").textContent = signed(state.playerScore);
+  $("#pokerAiScore").textContent = signed(state.aiScore);
+  $("#pokerPot").textContent = state.pot;
+  $("#playerCard").textContent = state.playerCard;
+  $("#aiCard").textContent = state.aiCard || "?";
+  $("#aiCard").classList.toggle("card-back", !state.aiCard);
+  $("#playerPosition").textContent = language === "zh"
+    ? (state.playerIsFirst ? "先手" : "后手")
+    : (state.playerIsFirst ? "First to act" : "Second to act");
+  $("#aiPosition").textContent = language === "zh"
+    ? (state.playerIsFirst ? "后手" : "先手")
+    : (state.playerIsFirst ? "Second to act" : "First to act");
+  $("#pokerActionLog").innerHTML = state.history.length
+    ? state.history.map((item) => `<span>${names[item.actor]} · ${names[item.action]}</span>`).join('<b>→</b>')
+    : `<span>${language === "zh" ? "等待你的决定" : "Waiting for your decision"}</span>`;
+  $("#pokerActions").innerHTML = state.legalActions.map((action) =>
+    `<button class="${action === "fold" ? "poker-fold" : ""}" data-poker-action="${action}">${names[action]}</button>`
+  ).join("");
+  document.querySelectorAll("[data-poker-action]").forEach((button) => {
+    button.addEventListener("click", () => act(button.dataset.pokerAction));
+  });
+  const facingBet = state.legalActions.includes("call");
+  $("#pokerInstruction").textContent = state.phase === "finished"
+    ? (language === "zh" ? "本局信息已经揭晓" : "The hand is revealed")
+    : facingBet
+      ? (language === "zh" ? "AI 下注了：它拿着 K，还是在用 J 诈唬？" : "The AI bet: is it holding K, or bluffing with J?")
+      : (language === "zh" ? "利用你的私牌与公开行动做决定" : "Decide from your private card and the public actions");
+  $("#pokerInformation").textContent = language === "zh"
+    ? `你确定自己拿到 ${state.informationSet.privateCard}；因此 AI 只可能持有 ${state.informationSet.possibleOpponentCards.join(" 或 ")}。公开行动不会直接揭示是哪一张。`
+    : `You know you hold ${state.informationSet.privateCard}; therefore the AI can only hold ${state.informationSet.possibleOpponentCards.join(" or ")}. Public actions do not identify which one with certainty.`;
+  $("#pokerResult").classList.toggle("hidden", state.phase !== "finished");
+  if (state.phase === "finished") {
+    const won = state.result.winner === "player";
+    $("#pokerResult").className = `poker-result ${won ? "win" : "loss"}`;
+    const reason = language === "zh" ? {
+      player_folded: "你弃牌，AI 无需亮牌便拿下底池。",
+      ai_folded: "AI 弃牌，你的下注成功拿下底池。",
+      both_checked: "双方过牌后直接比牌。",
+      bet_called: "下注被跟注，双方摊牌。",
+    }[state.result.reason] : {
+      player_folded: "You folded, so the AI took the pot without a showdown.",
+      ai_folded: "The AI folded, so your bet took the pot.",
+      both_checked: "Both players checked and went to showdown.",
+      bet_called: "The bet was called and both cards were revealed.",
+    }[state.result.reason];
+    const bluff = state.result.aiBluffed
+      ? (language === "zh" ? " AI 这次确实在用 J 诈唬。" : " The AI really was bluffing with J.") : "";
+    $("#pokerResult").innerHTML = `<strong>${won ? (language === "zh" ? "你赢了" : "You win") : (language === "zh" ? "AI 赢了" : "AI wins")} · ${signed(state.result.playerDelta)}</strong><p>${reason}${bluff}</p>`;
+  }
+}
+
+function signed(value) { return value > 0 ? `+${value}` : `${value}`; }
 
 function renderPirates() {
   const state = currentState;
@@ -403,6 +479,7 @@ function showLobby() {
   $("#gameView").classList.add("hidden");
   $("#wormView").classList.add("hidden");
   $("#pirateView").classList.add("hidden");
+  $("#pokerView").classList.add("hidden");
   $("#lobbyView").classList.remove("hidden");
 }
 
@@ -414,6 +491,7 @@ document.querySelectorAll(".back-to-lobby").forEach((button) => button.addEventL
 $("#newGameButton").addEventListener("click", () => startGame("cases"));
 $("#newWormButton").addEventListener("click", () => startGame("worm"));
 $("#newPirateButton").addEventListener("click", () => startGame("pirates"));
+$("#newPokerMatch").addEventListener("click", () => startGame("kuhn-poker"));
 $("#submitPirateProposal").addEventListener("click", () => {
   const allocation = [...document.querySelectorAll(".pirate-gold-input")].map((input) => Number(input.value));
   act("submit_proposal", { allocation });

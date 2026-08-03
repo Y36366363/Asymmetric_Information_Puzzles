@@ -142,6 +142,55 @@
           </div>
         </section>
       </section>
+
+      <section id="pokerView" class="view poker-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="pokerEyebrow">CASE 04 · 私有信息与诈唬</p>
+            <h1 data-i18n="pokerTitle">库恩扑克</h1>
+          </div>
+          <button class="secondary-button" id="newPokerMatch" data-i18n="restartMatch">重新开始比赛</button>
+        </div>
+
+        <div class="poker-score panel">
+          <div><span data-i18n="handNumber">当前牌局</span><strong id="pokerHand">1</strong></div>
+          <div><span data-i18n="yourScore">你的净筹码</span><strong id="pokerPlayerScore">0</strong></div>
+          <div><span data-i18n="potSize">底池</span><strong id="pokerPot">2</strong></div>
+          <div><span data-i18n="aiScore">AI 净筹码</span><strong id="pokerAiScore">0</strong></div>
+        </div>
+
+        <section class="poker-table panel">
+          <div class="poker-seat opponent-seat">
+            <span class="seat-label" data-i18n="strategyAi">策略型 AI</span>
+            <div class="playing-card card-back" id="aiCard">?</div>
+            <strong id="aiPosition">后手</strong>
+          </div>
+          <div class="poker-center">
+            <p class="eyebrow">J &lt; Q &lt; K</p>
+            <h2 id="pokerInstruction">看牌后选择过牌或下注</h2>
+            <div class="poker-action-log" id="pokerActionLog"></div>
+            <div class="poker-actions" id="pokerActions"></div>
+            <div class="poker-result hidden" id="pokerResult"></div>
+          </div>
+          <div class="poker-seat player-seat">
+            <span class="seat-label" data-i18n="you">你</span>
+            <div class="playing-card" id="playerCard">K</div>
+            <strong id="playerPosition">先手</strong>
+          </div>
+        </section>
+
+        <div class="poker-lower">
+          <section class="panel information-set">
+            <div class="panel-title"><span data-i18n="yourInformationSet">你的信息集</span><span>PRIVATE + PUBLIC</span></div>
+            <p id="pokerInformation"></p>
+          </section>
+          <section class="panel poker-rules">
+            <div class="panel-title"><span data-i18n="quickRules">快速规则</span><span>KUHN 1950</span></div>
+            <p data-i18n="pokerRules">双方先各投入 1。下注为 1；跟注后比牌，弃牌则直接输。K 最大、J 最小。AI 会按概率诈唬，所以同一种动作不总代表同一张牌。</p>
+          </section>
+        </div>
+      </section>
     </main>
 
     <div class="modal-backdrop hidden" id="offerModal" role="dialog" aria-modal="true" aria-labelledby="offerTitle">

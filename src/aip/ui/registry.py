@@ -468,6 +468,162 @@ class PirateGameSession:
         }
 
 
+class KuhnPokerSession:
+    """A short repeated poker match with private cards and a mixed-strategy AI."""
+
+    CARDS = ("J", "Q", "K")
+
+    def __init__(self, options: dict[str, object]) -> None:
+        self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
+        self._rng = random.Random(self.seed)
+        self.hand_number = 0
+        self.player_score = 0
+        self.ai_score = 0
+        self.player_card = ""
+        self.ai_card = ""
+        self.player_is_first = True
+        self.phase = "playing"
+        self.history: list[dict[str, str]] = []
+        self.legal_actions: list[str] = []
+        self.result: dict[str, object] | None = None
+        self.pot = 2
+        self._start_hand()
+
+    def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
+        del payload
+        if action == "next_hand":
+            if self.phase != "finished":
+                raise ValueError("finish the current hand first")
+            self._start_hand()
+        elif action in self.legal_actions and self.phase == "playing":
+            self._player_action(action)
+        else:
+            raise ValueError(f"illegal action: {action}")
+        return self.snapshot()
+
+    def _start_hand(self) -> None:
+        self.hand_number += 1
+        cards = list(self.CARDS)
+        self._rng.shuffle(cards)
+        self.player_card, self.ai_card = cards[:2]
+        self.player_is_first = self.hand_number % 2 == 1
+        self.phase = "playing"
+        self.history = []
+        self.result = None
+        self.pot = 2
+        if self.player_is_first:
+            self.legal_actions = ["check", "bet"]
+        else:
+            self.legal_actions = []
+            self._ai_opening_action()
+
+    def _player_action(self, action: str) -> None:
+        self.history.append({"actor": "player", "action": action})
+        if action == "fold":
+            self._finish("ai", 1, "player_folded")
+            return
+        if action == "call":
+            self.pot = 4
+            self._showdown(2, "bet_called")
+            return
+        if action == "bet":
+            self.pot = 3
+            self.legal_actions = []
+            self._ai_facing_bet()
+            return
+
+        # Player checked. A second check ends the hand; otherwise the AI may bet.
+        if self.history[0]["actor"] == "ai":
+            self._showdown(1, "both_checked")
+            return
+        self.legal_actions = []
+        self._ai_after_player_check()
+
+    def _ai_opening_action(self) -> None:
+        should_bet = self.ai_card == "K" or (
+            self.ai_card == "J" and self._rng.random() < 1 / 3
+        )
+        action = "bet" if should_bet else "check"
+        self.history.append({"actor": "ai", "action": action})
+        if action == "bet":
+            self.pot = 3
+            self.legal_actions = ["fold", "call"]
+        else:
+            self.legal_actions = ["check", "bet"]
+
+    def _ai_after_player_check(self) -> None:
+        should_bet = self.ai_card == "K" or (
+            self.ai_card == "J" and self._rng.random() < 1 / 3
+        )
+        action = "bet" if should_bet else "check"
+        self.history.append({"actor": "ai", "action": action})
+        if action == "bet":
+            self.pot = 3
+            self.legal_actions = ["fold", "call"]
+        else:
+            self._showdown(1, "both_checked")
+
+    def _ai_facing_bet(self) -> None:
+        should_call = self.ai_card == "K" or (
+            self.ai_card == "Q" and self._rng.random() < 1 / 3
+        )
+        action = "call" if should_call else "fold"
+        self.history.append({"actor": "ai", "action": action})
+        if action == "fold":
+            self._finish("player", 1, "ai_folded")
+        else:
+            self.pot = 4
+            self._showdown(2, "bet_called")
+
+    def _showdown(self, stakes: int, reason: str) -> None:
+        winner = (
+            "player"
+            if self.CARDS.index(self.player_card) > self.CARDS.index(self.ai_card)
+            else "ai"
+        )
+        self._finish(winner, stakes, reason)
+
+    def _finish(self, winner: str, stakes: int, reason: str) -> None:
+        player_delta = stakes if winner == "player" else -stakes
+        self.player_score += player_delta
+        self.ai_score -= player_delta
+        ai_bet = any(
+            item["actor"] == "ai" and item["action"] == "bet"
+            for item in self.history
+        )
+        self.result = {
+            "winner": winner,
+            "playerDelta": player_delta,
+            "reason": reason,
+            "aiBluffed": ai_bet and self.ai_card == "J",
+        }
+        self.phase = "finished"
+        self.legal_actions = ["next_hand"]
+
+    def snapshot(self) -> dict[str, object]:
+        public_history = [dict(item) for item in self.history]
+        possible_ai_cards = [card for card in self.CARDS if card != self.player_card]
+        return {
+            "gameId": "kuhn-poker",
+            "phase": self.phase,
+            "handNumber": self.hand_number,
+            "playerCard": self.player_card,
+            "aiCard": self.ai_card if self.phase == "finished" else None,
+            "playerIsFirst": self.player_is_first,
+            "pot": self.pot,
+            "playerScore": self.player_score,
+            "aiScore": self.ai_score,
+            "legalActions": list(self.legal_actions),
+            "history": public_history,
+            "result": self.result,
+            "informationSet": {
+                "privateCard": self.player_card,
+                "publicHistory": public_history,
+                "possibleOpponentCards": possible_ai_cards,
+            },
+        }
+
+
 def build_default_registry() -> GameRegistry:
     registry = GameRegistry()
     registry.register(
@@ -496,6 +652,15 @@ def build_default_registry() -> GameRegistry:
             "单人 · 人机投票",
         ),
         PirateGameSession,
+    )
+    registry.register(
+        GameDescriptor(
+            "kuhn-poker",
+            "库恩扑克",
+            "只用三张牌与策略型 AI 对决：读取下注信号，决定诈唬、跟注或弃牌。",
+            "单人 · 隐藏手牌与诈唬",
+        ),
+        KuhnPokerSession,
     )
     for descriptor in (
         GameDescriptor(

@@ -16,8 +16,41 @@ class LocalGameUITests(unittest.TestCase):
     def test_lobby_lists_one_playable_game_and_future_games(self) -> None:
         games = self.service.games()
         playable = [game["id"] for game in games if game["available"]]
-        self.assertEqual(playable, ["cases", "worm", "pirates"])
+        self.assertEqual(playable, ["cases", "worm", "pirates", "kuhn-poker"])
         self.assertIn("liars-dice", [game["id"] for game in games])
+
+    def test_kuhn_poker_keeps_ai_card_private_until_hand_finishes(self) -> None:
+        created = self.service.create_session("kuhn-poker", {"seed": 23})
+        state = created["state"]
+        self.assertIsNone(state["aiCard"])
+        self.assertEqual(len(state["informationSet"]["possibleOpponentCards"]), 2)
+        self.assertNotIn(
+            state["playerCard"], state["informationSet"]["possibleOpponentCards"]
+        )
+
+        while state["phase"] == "playing":
+            action = state["legalActions"][0]
+            state = self.service.act(created["sessionId"], action)
+        self.assertIn(state["aiCard"], {"J", "Q", "K"})
+        self.assertEqual(state["playerScore"] + state["aiScore"], 0)
+
+    def test_kuhn_poker_continues_as_a_scored_multi_hand_match(self) -> None:
+        created = self.service.create_session("kuhn-poker", {"seed": 31})
+        session_id = created["sessionId"]
+        state = created["state"]
+        while state["phase"] == "playing":
+            state = self.service.act(session_id, state["legalActions"][-1])
+        score = state["playerScore"]
+        state = self.service.act(session_id, "next_hand")
+        self.assertEqual(state["handNumber"], 2)
+        self.assertEqual(state["playerScore"], score)
+        self.assertFalse(state["playerIsFirst"])
+        self.assertIsNone(state["aiCard"])
+
+    def test_kuhn_poker_rejects_actions_outside_the_information_set(self) -> None:
+        created = self.service.create_session("kuhn-poker", {"seed": 41})
+        with self.assertRaises(ValueError):
+            self.service.act(created["sessionId"], "call")
 
     def test_case_value_stays_hidden_until_opened_or_finished(self) -> None:
         created = self.service.create_session("cases", {"seed": 7})
