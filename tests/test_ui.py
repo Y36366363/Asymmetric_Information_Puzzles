@@ -8,6 +8,7 @@ from http.server import ThreadingHTTPServer
 from aip.ui.registry import (
     BlackjackSession,
     ECardSession,
+    LiarDiceSession,
     LocalGameService,
     RestrictedRPSSession,
     build_default_registry,
@@ -257,6 +258,38 @@ class LocalGameUITests(unittest.TestCase):
         created = self.service.create_session("cases", {"seed": 19})
         with self.assertRaises(ValueError):
             self.service.act(created["sessionId"], "deal")
+
+    def test_pirate_allocations_reject_fractional_coins(self) -> None:
+        created = self.service.create_session("pirates", {"pirates": 5, "gold": 100})
+        with self.assertRaisesRegex(ValueError, "whole coins"):
+            self.service.act(
+                created["sessionId"],
+                "submit_proposal",
+                {"allocation": [97.5, 1.5, 1, 0, 0]},
+            )
+
+    def test_discrete_game_inputs_reject_fractional_values(self) -> None:
+        with self.assertRaisesRegex(ValueError, "whole number"):
+            self.service.create_session("worm", {"holes": 5.5})
+        worm = self.service.create_session("worm", {"holes": 5})
+        with self.assertRaisesRegex(ValueError, "whole number"):
+            self.service.act(worm["sessionId"], "check_hole", {"holeId": 2.5})
+        liar = self.service.create_session("liars-dice", {"dice": 5})
+        with self.assertRaisesRegex(ValueError, "whole number"):
+            self.service.act(
+                liar["sessionId"], "raise_bid", {"quantity": 1.5, "face": 2}
+            )
+
+    def test_liars_dice_ai_uses_its_own_private_hand(self) -> None:
+        session = LiarDiceSession({"seed": 7, "dice": 5})
+        session.player_dice = [1, 2, 3, 6, 6]
+        session.ai_dice = [2, 3, 4, 5, 5]
+        session.current_bid = (3, 6)
+        session.history = []
+        session.phase = "bidding"
+        session.turn = "ai"
+        session._ai_response()
+        self.assertEqual(session.history[0]["action"], "challenge")
 
     def test_health_endpoint_identifies_running_aip_server(self) -> None:
         server = ThreadingHTTPServer(("127.0.0.1", 0), AIPRequestHandler)

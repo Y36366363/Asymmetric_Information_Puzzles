@@ -6,6 +6,7 @@ let currentState = null;
 let currentGameId = null;
 let lobbyGames = [];
 let pirateDraft = [];
+let openRulesGameId = null;
 
 const copy = {
   zh: {
@@ -211,6 +212,7 @@ function installRulesButtons() {
 }
 
 function openRules(gameId) {
+  openRulesGameId = gameId;
   const lines = rulesCopy[language][gameId] || [];
   const details = ruleDetails[language][gameId] || {};
   const labels = ruleLabels[language];
@@ -227,13 +229,15 @@ function openRules(gameId) {
   $("#rulesModal .rules-card").scrollTop = 0;
 }
 
-function closeRules() { $("#rulesModal").classList.add("hidden"); }
+function closeRules() { openRulesGameId = null; $("#rulesModal").classList.add("hidden"); }
 
 function tr(key) { return copy[language][key] ?? key; }
 
 function applyLanguage() {
   document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
   document.title = language === "zh" ? "AIP · 非对称博弈实验室" : "AIP · Asymmetric Games Lab";
+  $("#homeButton").setAttribute("aria-label", language === "zh" ? "返回游戏大厅" : "Return to game lobby");
+  $("#rulesClose").setAttribute("aria-label", tr("closeRules"));
   money = new Intl.NumberFormat(language === "zh" ? "zh-CN" : "en-US", { maximumFractionDigits: 2 });
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     element.textContent = tr(element.dataset.i18n);
@@ -244,6 +248,7 @@ function applyLanguage() {
   $("#languageEn").classList.toggle("active", language === "en");
   renderLobby();
   if (currentState) render();
+  if (openRulesGameId) openRules(openRulesGameId);
 }
 
 function setLanguage(nextLanguage) {
@@ -281,7 +286,7 @@ function renderLobby() {
     const localized = gamesCopy[language][game.id] || [game.title, game.summary, game.playerMode];
     return `
     <button class="game-card" data-game="${game.id}" ${game.available ? "" : "disabled"}>
-      <span class="game-index">0${index + 1}</span>
+      <span class="game-index">${String(index + 1).padStart(2, "0")}</span>
       <h2>${localized[0]}</h2>
       <p>${localized[1]}</p>
       <span class="difficulty-badge">${language === "zh" ? "难度" : "Difficulty"} · ${difficultyCopy[language][game.id] || "—"}</span>
@@ -890,7 +895,13 @@ $("#liarRaise").addEventListener("click", () => act("raise_bid", {
 }));
 $("#liarChallenge").addEventListener("click", () => act("challenge"));
 $("#mastermindNew").addEventListener("click", () => act("new_game"));
-$("#mastermindSubmit").addEventListener("click", () => act("submit_guess", { guess: [...$("#mastermindInput").value].map(Number) }));
+function submitMastermindGuess() {
+  act("submit_guess", { guess: [...$("#mastermindInput").value].map(Number) });
+}
+$("#mastermindSubmit").addEventListener("click", submitMastermindGuess);
+$("#mastermindInput").addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && !event.repeat) submitMastermindGuess();
+});
 $("#submitPirateProposal").addEventListener("click", () => {
   const allocation = [...document.querySelectorAll(".pirate-gold-input")].map((input) => Number(input.value));
   act("submit_proposal", { allocation });
@@ -899,5 +910,6 @@ $("#dealButton").addEventListener("click", () => act("deal"));
 $("#noDealButton").addEventListener("click", () => act("no_deal"));
 $("#rulesClose").addEventListener("click", closeRules);
 $("#rulesModal").addEventListener("click", (event) => { if (event.target.id === "rulesModal") closeRules(); });
+document.addEventListener("keydown", (event) => { if (event.key === "Escape" && openRulesGameId) closeRules(); });
 applyLanguage();
 loadLobby().catch((error) => showToast(error.message));

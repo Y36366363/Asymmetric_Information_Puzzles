@@ -15,6 +15,16 @@ from aip.puzzles.pirates.solver import PirateSolver
 from aip.puzzles.worm.solver import WormSolver
 
 
+def _whole_int(value: object, label: str) -> int:
+    try:
+        number = float(value)
+    except (TypeError, ValueError) as error:
+        raise ValueError(f"{label} must be a whole number") from error
+    if not number.is_integer():
+        raise ValueError(f"{label} must be a whole number")
+    return int(number)
+
+
 class PlayableSession(Protocol):
     def snapshot(self) -> dict[str, object]: ...
 
@@ -278,7 +288,7 @@ class WormGameSession:
     """Playable hidden-worm search with a public belief-state companion."""
 
     def __init__(self, options: dict[str, object]) -> None:
-        self.hole_count = int(options.get("holes", 5))
+        self.hole_count = _whole_int(options.get("holes", 5), "holes")
         if self.hole_count < 2 or self.hole_count > 12:
             raise ValueError("holes must be between 2 and 12")
         self._caught_hole: int | None = None
@@ -292,7 +302,7 @@ class WormGameSession:
     def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
         if action != "check_hole":
             raise ValueError(f"unknown action: {action}")
-        self._check_hole(int(payload.get("holeId", 0)))
+        self._check_hole(_whole_int(payload.get("holeId", 0), "holeId"))
         return self.snapshot()
 
     def _check_hole(self, hole_id: int) -> None:
@@ -368,8 +378,8 @@ class PirateGameSession:
     """One human proposal against backward-induction pirate voters."""
 
     def __init__(self, options: dict[str, object]) -> None:
-        self.pirate_count = int(options.get("pirates", 5))
-        self.total_gold = int(options.get("gold", 100))
+        self.pirate_count = _whole_int(options.get("pirates", 5), "pirates")
+        self.total_gold = _whole_int(options.get("gold", 100), "gold")
         if self.pirate_count < 1 or self.pirate_count > 12:
             raise ValueError("pirates must be between 1 and 12")
         if self.total_gold < 0 or self.total_gold > 10_000:
@@ -391,7 +401,13 @@ class PirateGameSession:
         raw_allocation = payload.get("allocation")
         if not isinstance(raw_allocation, list):
             raise ValueError("allocation must be a list")
-        self._submit(tuple(int(value) for value in raw_allocation))
+        parsed: list[int] = []
+        for value in raw_allocation:
+            number = float(value)
+            if not number.is_integer():
+                raise ValueError("gold allocations must be whole coins")
+            parsed.append(int(number))
+        self._submit(tuple(parsed))
         return self.snapshot()
 
     def _submit(self, allocation: tuple[int, ...]) -> None:
@@ -799,7 +815,7 @@ class RestrictedRPSSession:
     BEATS = {"rock": "scissors", "paper": "rock", "scissors": "paper"}
 
     def __init__(self, options: dict[str, object]) -> None:
-        self.copies = int(options.get("copies", 3))
+        self.copies = _whole_int(options.get("copies", 3), "copies")
         if self.copies < 1 or self.copies > 8:
             raise ValueError("copies must be between 1 and 8")
         self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
@@ -1375,7 +1391,9 @@ class LiarDiceSession:
     """A two-player liar's-dice match with private dice and public bids."""
 
     def __init__(self, options: dict[str, object]) -> None:
-        self.dice_per_player = max(2, min(8, int(options.get("dice", 5))))
+        self.dice_per_player = _whole_int(options.get("dice", 5), "dice")
+        if self.dice_per_player < 2 or self.dice_per_player > 8:
+            raise ValueError("dice must be between 2 and 8")
         self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
         self._rng = random.Random(self.seed)
         self.player_score = 0
@@ -1402,7 +1420,10 @@ class LiarDiceSession:
                 raise ValueError("finish the current round first")
             self._start_round()
         elif action == "raise_bid":
-            self._player_raise(int(payload.get("quantity", 0)), int(payload.get("face", 0)))
+            self._player_raise(
+                _whole_int(payload.get("quantity", 0), "quantity"),
+                _whole_int(payload.get("face", 0), "face"),
+            )
         elif action == "challenge":
             self._player_challenge()
         else:
@@ -1438,9 +1459,10 @@ class LiarDiceSession:
         self.history.append({"actor": "player", "action": "challenge", "bid": list(self.current_bid)})
         self._resolve_challenge("player")
 
-    def _claim_probability(self, bid: tuple[int, int]) -> float:
+    def _claim_probability(self, bid: tuple[int, int], known_dice: list[int] | None = None) -> float:
         quantity, face = bid
-        own = sum(value == face or (face != 1 and value == 1) for value in self.player_dice)
+        observer_dice = self.player_dice if known_dice is None else known_dice
+        own = sum(value == face or (face != 1 and value == 1) for value in observer_dice)
         needed = quantity - own
         if needed <= 0:
             return 1.0
@@ -1453,7 +1475,7 @@ class LiarDiceSession:
 
     def _ai_response(self) -> None:
         assert self.current_bid is not None
-        confidence = self._claim_probability(self.current_bid)
+        confidence = self._claim_probability(self.current_bid, self.ai_dice)
         if confidence < 0.45 or self.current_bid[0] >= self.dice_per_player * 2:
             self.history.append({"actor": "ai", "action": "challenge", "bid": list(self.current_bid), "confidence": confidence})
             self._resolve_challenge("ai")

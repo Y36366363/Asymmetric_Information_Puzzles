@@ -5,6 +5,13 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/05/2026
+
+- **Hardening and mobile usability pass** — Fixed a Liar's Dice AI private-hand
+  information leak, rejected malformed and fractional game inputs, corrected
+  double-digit lobby numbering, improved compact-screen controls and rule panels,
+  added keyboard/focus accessibility, and expanded randomized regression tests.
+
 ## Updates 08/04/2026
 
 - **End-state hardening and difficulty order** — Fixed the browser case game's

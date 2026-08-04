@@ -57,6 +57,21 @@ test("creates a pirate session and completes a rational vote", async () => {
   assert.equal(result.state.yesVotes, 3);
 });
 
+test("rejects malformed options and fractional pirate coins", async () => {
+  const invalidWorm = await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId:"worm",options:{holes:"not-a-number"}})});
+  assert.equal(invalidWorm.status, 400);
+  const created = await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId:"pirates",options:{pirates:5,gold:100}})});
+  const session = await created.json();
+  const fractional = await call(`/api/sessions/${session.sessionId}/actions`, {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"submit_proposal",payload:{allocation:[97.5,1.5,1,0,0]}})});
+  assert.equal(fractional.status, 400);
+  const worm = await (await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId:"worm",options:{holes:5}})})).json();
+  const fractionalHole = await call(`/api/sessions/${worm.sessionId}/actions`, {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"check_hole",payload:{holeId:2.5}})});
+  assert.equal(fractionalHole.status, 400);
+  const liar = await (await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId:"liars-dice",options:{dice:5}})})).json();
+  const fractionalBid = await call(`/api/sessions/${liar.sessionId}/actions`, {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"raise_bid",payload:{quantity:1.5,face:2}})});
+  assert.equal(fractionalBid.status, 400);
+});
+
 test("worm capture stays adversarial until the belief state is a singleton", async () => {
   const created = await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId:"worm"})});
   let session = await created.json();

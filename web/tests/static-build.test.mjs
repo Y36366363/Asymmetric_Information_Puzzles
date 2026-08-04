@@ -17,6 +17,10 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /先弄懂：你在做什么/);
   assert.match(app, /看一个具体例子/);
   assert.match(app, /页面上的词是什么意思/);
+  assert.match(app, /padStart\(2, "0"\)/);
+  assert.match(app, /openRulesGameId/);
+  assert.match(app, /submitMastermindGuess/);
+  assert.match(app, /event\.key === "Enter"/);
 });
 
 test("browser engine intercepts API calls without a backend", async () => {
