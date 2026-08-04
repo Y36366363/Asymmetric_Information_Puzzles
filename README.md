@@ -7,6 +7,10 @@
 
 ## Updates 08/04/2026
 
+- **Beginner-friendly game guidance** — Rewrote every rules panel as an actionable
+  tutorial with goals, exact clicks, feedback interpretation, end conditions,
+  and strategy tips; entering a game now jumps to the top and the lobby return
+  control is a prominent button.
 - **Playable Mastermind information-set lab** — Added a solo hidden-code game with
   exact/partial feedback, candidate-world elimination, a worst-case partition
   suggestion, ten-attempt pressure, bilingual controls, and a visible solve log.

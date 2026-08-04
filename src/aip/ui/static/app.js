@@ -137,26 +137,26 @@ const gamesCopy = {
 
 const rulesCopy = {
   zh: {
-    cases: ["选择一个箱子保留；按当前回合要求打开其他箱子；银行家报价后选择接受或继续。剩余金额、期望值和风险指标会辅助你的决策。"],
-    worm: ["虫子藏在五个相邻洞中。每次检查一个洞；若没抓到，虫子会移动到相邻洞。对抗模式保留最坏情况轨迹，按提示序列行动才能保证成功。"],
-    pirates: ["你是最资深海盗 A。给所有海盗分配全部金币并提交投票。其他海盗会比较当前提案与 A 被处决后的延续收益；达到所需票数才通过。"],
-    "kuhn-poker": ["双方各拿一张 J、Q、K 中的牌并投入底注。你可以过牌或下注；面对下注可跟注或弃牌。跟注后比牌，K 大于 Q 大于 J。"],
-    "e-card": ["你与 AI 各有一张特殊牌和多张市民牌。每次同时出牌；皇帝击败市民，市民击败奴隶，奴隶击败皇帝。奴隶获胜收益更高，市民相撞则继续。"],
-    "restricted-rps": ["双方各有有限数量的石头、剪刀、布。每张牌只能用一次，库存公开但出牌同时隐藏。耗尽库存后比较得分；系统展示均衡建议与 AI 的适应。"],
-    blackjack: ["目标是让手牌尽量接近 21 且不爆牌。面对庄家明牌选择要牌、停牌或首轮加倍；庄家在软 17 停牌。页面会把你的动作与基础策略比较。"],
-    "liars-dice": ["你只能看见自己的骰子。公开叫价表示全桌至少有多少个某点数；1 点对其他点数是万能牌。你可以提高数量/点数，或质疑上一口叫价。"],
-    mastermind: ["猜一个由 1–6 组成、四位不重复的隐藏密码。黑色反馈代表数字和位置都对，白色反馈代表数字对但位置错。十次内破解即可获胜。"],
+    cases: ["目标：在 26 个箱子中尽可能拿到高奖金。", "先点击任意一个箱子作为你的保留箱；之后不要再打开它。", "按页面提示点击指定数量的其他箱子，打开后会显示金额。完成本轮后银行家报价。", "报价出现时点击“接受报价”立即结束并领取报价；点击“拒绝，继续开箱”则进入下一轮。", "坚持到最后会拿到保留箱里的金额；右侧的期望值、风险和建议只是辅助，不会替你操作。"],
+    worm: ["目标：在虫子逃走前抓到它。五个洞按 1–5 排成一行。", "每回合点击一个洞进行检查；点击正确位置就立即成功。", "如果没抓到，虫子会移动到相邻洞，系统随后更新“仍可能的位置”。", "这是最坏情况模式，不靠随机运气；点击“保证抓捕序列”中下一个洞，才能保证最终抓到。"],
+    pirates: ["目标：让你的提案获得足够票数，并让海盗 A 活下来。", "在每个海盗的金币输入框中填整数，所有分配之和必须正好等于 100。", "点击“提交提案并投票”。每名海盗会比较你的报价与否决后按逆向归纳得到的金币/生存结果。", "达到页面显示的赞成票数就通过；否则 A 被处决，系统展示实际结果和理论最优方案。"],
+    "kuhn-poker": ["目标：赢得更多筹码。你和 AI 各拿一张 J、Q 或 K，并各投入 1 枚底注。", "轮到你时可点击“过牌”或“下注”；下注会额外投入 1 枚。", "若 AI 下注，你只能选择“跟注”或“弃牌”；弃牌立即输掉底注。", "跟注后双方亮牌，K > Q > J，牌大者赢得底池；下一局会交换先手。"],
+    "e-card": ["目标：利用特殊牌的循环克制关系赢得高分。你和 AI 各有 1 张特殊牌与 4 张市民牌。", "点击手中的一张牌，双方会同时出牌，AI 的选择在揭示前保持隐藏。", "皇帝击败市民，市民击败奴隶，奴隶击败皇帝；奴隶获胜通常得到更高收益。", "市民对市民不会结束本轮，两张牌会被消耗后继续；特殊牌相遇则按克制关系结束本轮。"],
+    "restricted-rps": ["目标：在有限库存耗尽前赢得更多回合。你和 AI 各有相同数量的石头、剪刀、布。", "点击一张仍有库存的手势牌；双方同时出牌，使用过的牌永久减少。", "石头胜剪刀，剪刀胜布，布胜石头；相同手势为平局。双方库存和历史都会公开。", "库存全部用完后比赛结束。页面显示均衡建议，以及 AI 是否根据你的历史偏好进行了有限度适应。"],
+    blackjack: ["目标：让自己的点数尽量接近 21，但超过 21 就爆牌并立即输。", "A 可算 1 或 11；J/Q/K 算 10。开始时你会看到两张手牌和庄家的一张明牌。", "点击“要牌”再拿一张；点击“停牌”结束行动；首轮可点击“加倍”并只再拿一张。", "庄家随后按固定规则补牌（软 17 停牌），最后比较点数；黑杰克按页面规则结算。右侧可让 AI 执行基础策略建议。"],
+    "liars-dice": ["目标：判断公开叫价是真实还是虚张声势，并在质疑中赢下本轮。", "你能看到自己的骰子，但看不到 AI 的骰子。叫价“数量 × 点数”表示全桌至少有这么多个该点数。", "点击“加注”提交更高的数量，或在数量相同时提交更高点数；1 点对 2–6 点是万能牌。", "如果你认为上一口不可信，点击“质疑”。系统揭示全部骰子并根据实际数量判定胜负。"],
+    mastermind: ["目标：在 10 次尝试内破解 AI 隐藏的四位密码。密码由 1–6 组成且数字不重复。", "在输入框输入恰好四个不同数字，例如 1234，然后点击“提交猜测”。", "黑色反馈表示数字和位置都正确；白色反馈表示数字正确但位置错误；没有反馈表示该数字不在密码中。", "每次反馈都会缩小候选数量。可以参考“信息集建议”，也可以自行设计下一次猜测；猜中四位即获胜。"],
   },
   en: {
-    cases: ["Keep one case, open the required number of other cases each round, then choose Deal or No Deal after the banker's offer. Expected value and risk metrics support the decision."],
-    worm: ["A worm hides in five adjacent holes. Check one hole per turn; after a miss it moves to a neighbor. The adversarial mode preserves the worst legal path, so follow the guaranteed sequence."],
-    pirates: ["You are senior pirate A. Allocate every coin and submit the proposal. Other pirates compare the offer with their continuation payoff if A is executed; enough votes are required."],
-    "kuhn-poker": ["Each player receives J, Q, or K and antes. Check or bet when first; facing a bet, call or fold. A call reaches showdown, with K high and J low."],
-    "e-card": ["You and the AI hold one special card plus citizens. Play simultaneously: Emperor beats Citizen, Citizen beats Slave, Slave beats Emperor. Slave wins pay more; Citizen ties continue."],
-    "restricted-rps": ["Each side has a finite public inventory of Rock, Paper, and Scissors. Every card is consumed once and choices are simultaneous. Finish the inventory while tracking equilibrium and adaptation."],
-    blackjack: ["Get as close to 21 as possible without busting. Against the dealer upcard choose Hit, Stand, or Double on the first decision; the dealer stands on soft 17. Your actions are audited against basic strategy."],
-    "liars-dice": ["You see only your dice. A public bid claims at least a quantity of a face; ones are wild for other faces. Raise the quantity/face or challenge the previous bid."],
-    mastermind: ["Crack a hidden four-digit code using distinct symbols from 1–6. Black feedback is an exact match; white feedback is a right digit in the wrong position. Solve it within ten attempts."],
+    cases: ["Goal: maximize your payout from 26 cases.", "Click one case to keep; never open it afterward.", "Open the number of other cases shown on screen. The banker then makes an offer.", "Choose Deal to end for the offer, or No Deal to continue. If you reach the end, you receive the kept case's value."],
+    worm: ["Goal: catch the worm. Five holes are arranged from 1 to 5.", "Check one hole per turn. A correct check catches it immediately.", "After a miss, the adversary moves to a neighboring hole and the possible-position panel updates.", "This is worst-case play, so follow the guaranteed sequence rather than relying on luck."],
+    pirates: ["Goal: pass your proposal and keep pirate A alive.", "Enter integer gold allocations totaling exactly 100, then submit the proposal.", "Each pirate compares your offer with the continuation payoff after A's execution.", "If enough votes support the proposal it passes; otherwise A is executed and the benchmark is shown."],
+    "kuhn-poker": ["Goal: win chips. Each player receives J, Q, or K and antes 1.", "When first, choose Check or Bet. Facing a bet, choose Call or Fold.", "A fold loses immediately; a call reaches showdown. K beats Q, which beats J.", "The next hand swaps first position."],
+    "e-card": ["Goal: exploit the asymmetric special-card cycle. Each side holds one special card and four citizens.", "Click one card; both sides reveal simultaneously.", "Emperor beats Citizen, Citizen beats Slave, and Slave beats Emperor. Slave wins pay more.", "Citizen versus Citizen consumes both cards and continues the round."],
+    "restricted-rps": ["Goal: win more rounds before your finite inventory runs out.", "Click an available Rock, Paper, or Scissors card; both choices are simultaneous and the card is consumed.", "Rock beats Scissors, Scissors beats Paper, and Paper beats Rock. Equal moves draw.", "The match ends when the inventory is exhausted; equilibrium and adaptation diagnostics remain visible."],
+    blackjack: ["Goal: approach 21 without going over.", "A counts as 1 or 11; face cards count as 10. You see your hand and the dealer upcard.", "Choose Hit, Stand, or Double (first decision only). The dealer then follows the fixed soft-17 rule.", "Compare the final totals; the strategy panel can execute the basic-strategy recommendation."],
+    "liars-dice": ["Goal: identify a bluff and win the round.", "You see your dice only. A bid Quantity × Face claims at least that many matching dice across both hands.", "Raise quantity, or raise face at equal quantity; ones are wild for faces 2–6.", "Challenge the current bid to reveal all dice and settle the round."],
+    mastermind: ["Goal: crack the hidden four-digit code within ten attempts. Digits 1–6 are distinct.", "Enter exactly four different digits and submit the guess.", "Black feedback means exact digit and position; white feedback means a right digit in the wrong position; no marker means absent.", "Use the candidate count and suggestion to choose your next experiment. Four exact matches win."],
   },
 };
 
@@ -270,6 +270,7 @@ async function startGame(gameId = "cases", options = {}) {
     $("#liarView").classList.toggle("hidden", gameId !== "liars-dice");
     $("#mastermindView").classList.toggle("hidden", gameId !== "mastermind");
     $("#blackjackView").classList.toggle("hidden", gameId !== "blackjack");
+    window.scrollTo(0, 0);
     render();
   } catch (error) {
     showToast(error.message);
@@ -816,6 +817,7 @@ function showLobby() {
   $("#mastermindView").classList.add("hidden");
   $("#blackjackView").classList.add("hidden");
   $("#lobbyView").classList.remove("hidden");
+  window.scrollTo(0, 0);
 }
 
 $("#homeButton").addEventListener("click", showLobby);

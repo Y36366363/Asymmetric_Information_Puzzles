@@ -119,6 +119,8 @@ button { font: inherit; }
 .rules-button { padding: 10px 15px; color: var(--gold-soft); border: 1px solid var(--gold); background: transparent; cursor: pointer; }
 .game-heading h1 { font-size: clamp(42px, 5vw, 68px); margin-bottom: 0; }
 .text-button { padding: 0; color: var(--muted); background: none; border: 0; cursor: pointer; }
+.game-heading .back-to-lobby, .game-heading #backButton { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 14px; padding: 10px 14px; color: var(--ink); border: 1px solid var(--gold); border-radius: 4px; background: rgba(216,170,76,.16); font-size: 13px; font-weight: 700; }
+.game-heading .back-to-lobby:hover, .game-heading #backButton:hover { background: var(--gold); color: #17130c; }
 .secondary-button {
   padding: 12px 18px;
   color: var(--ink);
