@@ -1,8 +1,16 @@
 # AIP — Asymmetric Information Puzzles
 
-> 🌐 **[Play AIP online / 在线打开 AIP 游戏大厅](https://aip-asymmetric-games.jyao27254718.chatgpt.site)**
+> 🌐 **[Play AIP online / 在线打开独立游戏大厅](https://y36366363.github.io/Asymmetric_Information_Puzzles/)**
+> · [ChatGPT-hosted backup / 备用入口](https://aip-asymmetric-games.jyao27254718.chatgpt.site)
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
+
+## Updates 08/04/2026
+
+- **Backend-free public mirror** — Published all seven playable games at
+  [y36366363.github.io/Asymmetric_Information_Puzzles](https://y36366363.github.io/Asymmetric_Information_Puzzles/).
+  Game state and AI now run entirely inside the visitor's browser, with no
+  ChatGPT request, account, server session, or saved data; refreshing starts over.
 
 ## Updates 08/03/2026
 
