@@ -7,6 +7,9 @@
 
 ## Updates 08/04/2026
 
+- **Full beginner rulebooks** — Expanded every playable game's help panel into
+  a six-part tutorial covering the player's role, objective, click-by-click
+  flow, a concrete example, end conditions, and plain-language terminology.
 - **Beginner-friendly game guidance** — Rewrote every rules panel as an actionable
   tutorial with goals, exact clicks, feedback interpretation, end conditions,
   and strategy tips; entering a game now jumps to the top and the lobby return

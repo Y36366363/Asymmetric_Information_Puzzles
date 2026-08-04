@@ -160,6 +160,36 @@ const rulesCopy = {
   },
 };
 
+const ruleDetails = {
+  zh: {
+    cases: { role: "你是一名电视游戏参赛者。26 个箱子里分别装着从极小到一百万不等的奖金，但你看不到每个箱子的金额。你要一边排除金额，一边决定是否接受银行家的现金报价。", example: "例：你保留了 7 号箱，本轮打开 3 号箱并发现里面是 1 元。1 元从奖金池消失，说明你的保留箱更不可能是低额。完成规定开箱数后，银行家可能报价 80,000 元；接受就拿 80,000 元离场，拒绝就继续冒险。", finish: "接受任意一次银行家报价时立即结束；若一直拒绝，就在最后打开保留箱并获得其中金额。这里没有唯一正确答案——保守玩家可能早接受，愿意冒险的玩家可能继续。", terms: "保留箱＝你最初选中、暂时不打开的箱子；剩余期望值＝所有未揭晓金额的平均数；报价/期望值越高，银行家的条件通常越有吸引力。" },
+    worm: { role: "你是搜捕者，虫子是会主动躲避你的对手。你看不到它在哪个洞，只能根据它每次必须移动到相邻洞的规则推理。", example: "例：你检查 2 号洞但没抓到。虫子此前若在 1 号，只能移到 2 号；若在 3 号，可移到 2 或 4。系统会把仍然可能的洞显示出来。", finish: "当你检查的洞覆盖虫子所有仍合法的可能位置时，保证抓捕成功。乱点可能永远抓不到；从第一步严格执行页面给出的 2→3→4→2→3→4，可以在五洞规则下保证成功。", terms: "可能位置＝根据所有历史记录，虫子现在仍可能所在的洞；保证策略＝无论虫子怎样选择合法移动都能成功的检查顺序。" },
+    pirates: { role: "你扮演最资深海盗 A。规则是：A 提出如何分 100 枚金币，所有海盗投票；若票数不足，A 被处决，下一位海盗重新提案。每个人都知道之后会发生什么。", example: "例：如果海盗 C 在 A 死后能得到 1 枚金币，那么给 C 仍然只有 1 枚通常买不到他的票；给 2 枚才比他的后续结果更好。也可以收买那些 A 死后会一无所有的人。", finish: "分配总和恰好为 100 后提交。赞成票达到页面要求，A 存活并按提案分金币；票数不足则 A 死亡，页面展示后续结果。你的核心任务是用尽量少的金币买到足够票数。", terms: "逆向归纳＝先算只剩最后几名海盗时会怎样，再一步步倒推到现在；延续收益＝否决当前提案后，该海盗预计能否存活以及能拿多少金币。" },
+    "kuhn-poker": { role: "这是把扑克压缩到三张牌的练习。你只知道自己的牌，不知道 AI 的牌；下注既可能代表强牌，也可能是拿弱牌诈唬。", example: "例：你拿 Q，AI 下注。AI 可能拿 K 认真下注，也可能拿 J 诈唬。跟注要再投入 1 枚并亮牌；弃牌会损失已投入的底注，但避免继续亏损。", finish: "一方弃牌或双方完成过牌/跟注后，本局结束并结算筹码。连续多局比较净筹码；同一个 AI 动作不一定对应同一张牌。", terms: "过牌＝不加钱，把行动交给对方；下注＝额外投入 1；跟注＝支付同样金额并要求亮牌；诈唬＝弱牌下注，希望对手弃牌。" },
+    "e-card": { role: "你和 AI 轮流扮演皇帝方与奴隶方。皇帝通常强，但奴隶能击败皇帝且回报更高，因此双方都要猜特殊牌会在哪一次出现。", example: "例：你是奴隶方，前两次先出市民试探。若 AI 也出市民，两张市民消耗后继续。你第三次出奴隶，若 AI 此时出皇帝，你将以弱胜强获得高分；若 AI 出市民，你会输。", finish: "出现非市民平局的胜负关系时，本轮结束并计分，然后双方交换阵营开始下一轮。重点不是只看单张强弱，而是推测对方何时使用唯一的特殊牌。", terms: "皇帝＞市民、 市民＞奴隶、奴隶＞皇帝；特殊牌＝皇帝或奴隶；市民相撞＝平局并消耗双方各一张市民。" },
+    "restricted-rps": { role: "这是有库存的猜拳。普通猜拳每轮都能随便出，但这里每种手势只有有限张；你刚才用掉什么，会改变后面还能怎么出。", example: "例：你只剩 1 石头、0 剪刀、2 布，AI 能看到这个库存，所以知道你不可能出剪刀。你仍需在石头和布之间随机选择，避免行为过于容易预测。", finish: "双方所有手势卡用完后结束，胜局多的一方获胜。每轮后可以看公开库存、均衡建议和 AI 对你历史偏好的分析。", terms: "库存＝每种手势还可使用几次；均衡建议＝即使对手知道你的概率，也难以稳定利用你的随机方案；适应＝AI 根据你过去偏爱哪种手势调整。" },
+    blackjack: { role: "你是玩家，与按固定规则行动的庄家比较点数。你看得到庄家一张明牌，但看不到他的底牌，因此每次要牌都在不完全信息下承担爆牌风险。", example: "例：你有 10+6=16 点，庄家明牌是 10。停牌很可能输给庄家较高点数；要牌可能改善手牌，也可能抽到 6 以上直接爆牌。页面的基础策略会告诉你在长期统计下哪种动作损失更小。", finish: "你爆牌时立即输；你停牌或加倍后庄家自动补牌，最后不爆牌且更接近 21 的一方获胜，同点为和局。每局结束后点击下一局。", terms: "要牌＝再抽一张；停牌＝不再抽；加倍＝赌注翻倍且只抽一张；软牌＝有 A 暂时按 11 计算的手牌；爆牌＝超过 21。" },
+    "liars-dice": { role: "你和 AI 各有五颗隐藏骰子。双方看不到对方点数，只能通过越来越高的公开叫价传递信息或诈唬。", example: "例：你手里有两个 4 和一个 1。因为 1 是万能牌，你已知道全桌至少有三个可算作 4。叫“3×4”很安全；AI 若叫到“7×4”，你需要判断它真的有很多 4，还是在虚张声势。", finish: "当任一方质疑时揭开所有骰子。实际匹配数量达到叫价，质疑者输；数量不足，最后叫价者输。赢一轮得 1 分，可继续开始下一轮。", terms: "叫价 3×4＝声称全桌至少有三个 4（包括可作万能牌的 1）；加注＝提高数量，或数量不变时提高点数；质疑＝认为当前叫价不成立。" },
+    mastermind: { role: "AI 先秘密选定一个四位密码，你看不到答案。你像侦探一样不断提交测试密码，再利用反馈排除不可能的答案。", example: "例：答案假设为 1-3-5-6，你猜 1-2-6-4。数字 1 的位置也正确，所以有 1 个黑色反馈；数字 6 存在但位置错误，所以有 1 个白色反馈；2 和 4 不在密码中。", finish: "十次之内得到 4 个位置正确即获胜；十次仍未破解则答案揭晓。建议猜测尝试让下一次反馈排除尽量多的候选，但你可以完全自行推理。", terms: "候选数量＝根据全部反馈仍可能是答案的密码个数；黑色反馈只表示正确数量，不告诉你具体是哪一位；白色反馈也不指出对应数字。" },
+  },
+  en: {
+    cases: { role: "You are a TV-game contestant. Twenty-six cases hide prizes from tiny amounts to one million. You eliminate prizes and decide whether to accept the banker's cash offer.", example: "Example: you keep case 7 and open case 3, revealing $1. That prize leaves the board. After the required openings, an $80,000 offer means you can leave with $80,000 or reject it and keep risking your hidden case.", finish: "The game ends when you accept an offer, or when you reject every offer and receive the value in your kept case. There is no single correct risk preference.", terms: "Kept case: your unopened original choice. Expected value: the average of unrevealed prizes. A higher offer-to-EV ratio is usually more attractive." },
+    worm: { role: "You are the searcher; the worm actively avoids capture. You cannot see it and must reason from the rule that every miss forces it to move to a neighboring hole.", example: "Example: after you miss at hole 2, a worm formerly at 1 can only move to 2, while one at 3 may move to 2 or 4. The possible-position display updates these paths.", finish: "Capture is guaranteed only when your check covers every remaining legal location. For five holes, following 2→3→4→2→3→4 from the start guarantees success.", terms: "Possible positions are locations consistent with all history. A guaranteed strategy succeeds against every legal movement choice." },
+    pirates: { role: "You are senior pirate A. You propose how to split 100 coins. If the vote fails, A dies and the next pirate proposes, so everyone compares the present offer with that future outcome.", example: "Example: if C expects 1 coin after A dies, offering C 1 is normally insufficient; 2 is better than C's continuation payoff and can buy the vote.", finish: "Submit allocations totaling exactly 100. Enough yes votes pass the plan and keep A alive; otherwise A dies. Your challenge is buying enough votes as cheaply as possible.", terms: "Backward induction solves later councils first and works back. Continuation payoff is a pirate's expected survival and gold after rejection." },
+    "kuhn-poker": { role: "This is poker reduced to J, Q, and K. You know your card but not the AI's; a bet can signal strength or be a bluff with a weak card.", example: "Example: you hold Q and the AI bets. It may hold K for value or J as a bluff. Calling pays 1 more to reveal; folding loses the ante but avoids further loss.", finish: "A fold or completed check/call sequence ends the hand and settles chips. Play repeated hands and track net chips.", terms: "Check passes without paying. Bet adds 1. Call matches the bet and shows cards. Bluff means betting weak to induce a fold." },
+    "e-card": { role: "You and the AI alternate Emperor and Slave sides. Emperor is usually strong, but Slave beats Emperor for a larger reward, so timing the unique special card is the central decision.", example: "Example: as Slave, you spend citizens on early probes. If you play Slave exactly when the AI commits Emperor, you score the upset; against Citizen, Slave loses.", finish: "A decisive non-citizen tie outcome ends and scores the round, then roles swap. Track which cards were consumed and infer when the AI will commit its special card.", terms: "Emperor beats Citizen; Citizen beats Slave; Slave beats Emperor. Citizen versus Citizen consumes both and continues." },
+    "restricted-rps": { role: "This is Rock-Paper-Scissors with limited cards. Every move you spend changes what remains possible later, and both inventories are public.", example: "Example: with 1 Rock, 0 Scissors, and 2 Paper left, the AI knows Scissors is impossible. Randomizing between Rock and Paper keeps your choice less predictable.", finish: "The match ends when all cards are used; more round wins takes the match. Review inventory, equilibrium guidance, and AI adaptation after each reveal.", terms: "Inventory is remaining uses. Equilibrium guidance is a mixture that is hard to exploit. Adaptation is the AI reacting to your historical bias." },
+    blackjack: { role: "You compare your hand with a fixed-rule dealer. You see one dealer card but not the hole card, so Hit and Stand decisions trade improvement against bust risk.", example: "Example: you have 16 against a dealer 10. Standing often loses to a stronger dealer total; hitting may improve the hand or bust. Basic strategy identifies the better long-run action.", finish: "Bust loses immediately. After you stand or double, the dealer draws automatically; the higher non-bust total wins and equal totals push.", terms: "Hit: draw. Stand: stop. Double: double the stake and draw once. Soft hand: an Ace currently counted as 11. Bust: exceed 21." },
+    "liars-dice": { role: "You and the AI each hold five hidden dice. Public bids rise while private dice stay secret, so every bid can be information or a bluff.", example: "Example: two 4s and one wild 1 give you three known matches for face 4. A bid of 3×4 is safe; after the AI raises to 7×4, decide whether its private hand supports that claim.", finish: "A challenge reveals all dice. If the bid's quantity exists, the challenger loses; otherwise the last bidder loses. The winner scores one point.", terms: "3×4 claims at least three 4-matches across both hands. Raise increases quantity or face. Challenge says the current claim is false." },
+    mastermind: { role: "The AI secretly chooses a four-digit code. You act as a detective, testing codes and using feedback to eliminate impossible answers.", example: "Example: if the code is 1-3-5-6 and you guess 1-2-6-4, digit 1 earns one exact marker; digit 6 earns one wrong-position marker; 2 and 4 earn none.", finish: "Four exact matches within ten guesses wins; otherwise the answer is revealed. The suggestion aims to eliminate many candidates, but you may reason independently.", terms: "Candidate count is the number of codes consistent with every clue. Markers report counts only; they do not identify which digit produced each marker." },
+  },
+};
+
+const ruleLabels = {
+  zh: { role: "先弄懂：你在做什么", goal: "你的目标", steps: "按这个顺序操作", example: "看一个具体例子", finish: "怎样判断结束与胜负", terms: "页面上的词是什么意思" },
+  en: { role: "First: what are you doing?", goal: "Your goal", steps: "Do this in order", example: "A concrete example", finish: "How the game ends", terms: "Terms on the screen" },
+};
+
 function installRulesButtons() {
   document.querySelectorAll(".game-heading").forEach((heading) => {
     if (heading.querySelector(".rules-button")) return;
@@ -177,9 +207,19 @@ function installRulesButtons() {
 
 function openRules(gameId) {
   const lines = rulesCopy[language][gameId] || [];
+  const details = ruleDetails[language][gameId] || {};
+  const labels = ruleLabels[language];
+  const [goal, ...steps] = lines;
   $("#rulesTitle").textContent = `${gamesCopy[language][gameId]?.[0] || gameId} · ${tr("rulesTitle")}`;
-  $("#rulesBody").innerHTML = `<ul>${lines.map((line) => `<li>${line}</li>`).join("")}</ul>`;
+  $("#rulesBody").innerHTML = `
+    <section class="rules-intro"><h3>${labels.role}</h3><p>${details.role || ""}</p></section>
+    <section class="rules-section"><h3>${labels.goal}</h3><p>${goal || ""}</p></section>
+    <section class="rules-section"><h3>${labels.steps}</h3><ol>${steps.map((line) => `<li>${line}</li>`).join("")}</ol></section>
+    <section class="rules-example"><h3>${labels.example}</h3><p>${details.example || ""}</p></section>
+    <section class="rules-section"><h3>${labels.finish}</h3><p>${details.finish || ""}</p></section>
+    <section class="rules-terms"><h3>${labels.terms}</h3><p>${details.terms || ""}</p></section>`;
   $("#rulesModal").classList.remove("hidden");
+  $("#rulesModal .rules-card").scrollTop = 0;
 }
 
 function closeRules() { $("#rulesModal").classList.add("hidden"); }

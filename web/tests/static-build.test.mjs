@@ -14,6 +14,9 @@ test("static lobby boots the browser engine before the UI", async () => {
   const app = await readFile(new URL("app.js", publicRoot), "utf8");
   assert.match(app, /installRulesButtons/);
   assert.match(app, /Mastermind/);
+  assert.match(app, /先弄懂：你在做什么/);
+  assert.match(app, /看一个具体例子/);
+  assert.match(app, /页面上的词是什么意思/);
 });
 
 test("browser engine intercepts API calls without a backend", async () => {
