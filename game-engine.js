@@ -8,6 +8,7 @@ const GAMES = [
   ["restricted-rps", "限定猜拳实验室", "固定库存让每次出拳都消耗未来选择；对抗均衡随机化与会学习的策略型 AI。", "单人 · 资源约束与机制设计", true],
   ["blackjack", "21 点策略实验室", "在透明规则下对抗庄家，比较自己的决策与规则限定的最优基础策略。", "单人 · 概率决策与策略审计", true],
   ["liars-dice", "骗子骰子", "隐藏手牌、公开叫价与质疑概率；判断何时加注，何时抓住 AI 的虚张声势。", "单人 · 隐藏骰子与公开信号", true],
+  ["mastermind", "密码破解", "通过黑白反馈缩小隐藏密码的候选集合；每一次猜测都改变下一步策略。", "单人 · 信息集搜索", true],
   ["auction", "百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放", false],
 ].map(([id, title, summary, playerMode, available]) => ({ id, title, summary, playerMode, available }));
 
@@ -151,8 +152,17 @@ class LiarDiceSession {
   snapshot() { const confidence = this.probability(this.bid); return {gameId:"liars-dice", phase:this.phase, roundNumber:this.round, dicePerPlayer:this.dicePerPlayer, playerDice:this.player, opponentDiceCount:this.ai.length, currentBid:this.bid, minimumBid:this.bid ? {quantity:this.bid[1] < 6 ? this.bid[0] : this.bid[0]+1, face:this.bid[1] < 6 ? this.bid[1]+1 : 1} : null, turn:this.turn, playerScore:this.playerScore, aiScore:this.aiScore, claimProbability:confidence, history:this.history, result:this.result, legalActions:this.phase === "bidding" && this.turn === "player" ? ["raise_bid","challenge"] : this.phase === "finished" ? ["new_round"] : [], informationSet:{privateHand:this.player, publicHistory:this.history, opponentDiceCount:this.ai.length, claimProbability:confidence}}; }
 }
 
+class MastermindSession {
+  constructor(options = {}) { this.length=4; this.symbols=[1,2,3,4,5,6]; this.maxAttempts=10; this.start(); }
+  start() { this.secret=shuffle(this.symbols).slice(0,4); this.candidates=[]; for(const a of this.symbols)for(const b of this.symbols)for(const c of this.symbols)for(const d of this.symbols)if(new Set([a,b,c,d]).size===4)this.candidates.push([a,b,c,d]); this.attempts=[]; this.phase="playing"; this.result=null; }
+  feedback(guess, secret) { const exact=guess.reduce((n,v,i)=>n+(v===secret[i]?1:0),0); const shared=guess.filter(v=>secret.includes(v)).length; return [exact,shared-exact]; }
+  suggestion() { if(!this.candidates.length)return null; const pool=this.candidates.slice(0,120); return pool.reduce((best,guess)=>{const counts={}; for(const candidate of this.candidates){const key=this.feedback(guess,candidate).join(","); counts[key]=(counts[key]||0)+1;} const worst=Math.max(...Object.values(counts)); return !best||worst<best.worst?{guess,worst}:best;},null).guess; }
+  act(action,payload={}) { if(action==="new_game"){this.start();return;} if(action!=="submit_guess"||this.phase!=="playing")throw new Error("submit a guess while the game is active"); const guess=(payload.guess||[]).map(Number); if(guess.length!==4||new Set(guess).size!==4||guess.some(v=>!this.symbols.includes(v)))throw new Error("guess must contain four distinct digits from 1 to 6"); const [exact,partial]=this.feedback(guess,this.secret); this.attempts.push({guess,exact,partial}); this.candidates=this.candidates.filter(candidate=>{const f=this.feedback(guess,candidate);return f[0]===exact&&f[1]===partial;}); if(exact===4){this.phase="finished";this.result={won:true,secret:this.secret,attempts:this.attempts.length};}else if(this.attempts.length>=this.maxAttempts){this.phase="finished";this.result={won:false,secret:this.secret,attempts:this.attempts.length};} }
+  snapshot() { const suggestion=this.phase==="playing"?this.suggestion():null; return {gameId:"mastermind",phase:this.phase,length:4,symbols:this.symbols,maxAttempts:10,attemptsUsed:this.attempts.length,attempts:this.attempts,candidateCount:this.candidates.length,suggestedGuess:suggestion,result:this.result,legalActions:this.phase==="playing"?["submit_guess"]:["new_game"],informationSet:{candidateCount:this.candidates.length,feedbackHistory:this.attempts}}; }
+}
+
 function createSession(gameId, options={}) {
-  const factories={cases:CaseSession,worm:WormSession,pirates:PirateSession,"kuhn-poker":PokerSession,"e-card":ECardSession,"restricted-rps":RPSSession,blackjack:BlackjackSession,"liars-dice":LiarDiceSession};
+  const factories={cases:CaseSession,worm:WormSession,pirates:PirateSession,"kuhn-poker":PokerSession,"e-card":ECardSession,"restricted-rps":RPSSession,blackjack:BlackjackSession,"liars-dice":LiarDiceSession,mastermind:MastermindSession};
   const Factory=factories[gameId]; if(!Factory)throw new Error("unknown or unavailable game"); return new Factory(options);
 }
 

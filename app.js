@@ -41,6 +41,10 @@ const copy = {
     currentBid: "当前公开叫价", quantity: "数量", face: "点数", raiseBid: "加注", challengeBid: "质疑叫价",
     liarInstruction: "你只能看见自己的骰子。1 点是万能牌；判断公开叫价是否值得相信。",
     liarHistory: "公开叫价记录", liarInformation: "你的信息集", liarProbability: "模型认为该叫价为真的概率",
+    mastermindEyebrow: "CASE 09 · 候选集合与反馈学习", mastermindTitle: "密码破解",
+    mastermindAttempts: "已用尝试", mastermindCandidates: "剩余候选", mastermindGuess: "提交猜测",
+    mastermindSuggested: "信息集建议", mastermindExact: "位置正确", mastermindPartial: "数字正确但位置不同",
+    mastermindInstruction: "输入四个不重复的数字。黑色标记表示位置和数字都正确，白色标记表示数字正确但位置错误。",
     prizePool: "奖金池", round: "回合", decisionPanel: "决策仪表",
     emptyInsight: "银行家报价后，这里会显示期望值、风险和模型建议。",
     gameHistory: "博弈记录", liveChecks: "实时检查次数", possiblePositions: "仍可能的位置",
@@ -85,6 +89,10 @@ const copy = {
     currentBid: "Current public bid", quantity: "Quantity", face: "Face", raiseBid: "Raise", challengeBid: "Challenge",
     liarInstruction: "You see only your own dice. Ones are wild; decide whether the public claim is worth believing.",
     liarHistory: "Public bid history", liarInformation: "Your information set", liarProbability: "Model probability the bid is true",
+    mastermindEyebrow: "CASE 09 · CANDIDATE SETS & FEEDBACK", mastermindTitle: "Mastermind",
+    mastermindAttempts: "Attempts", mastermindCandidates: "Candidates left", mastermindGuess: "Submit guess",
+    mastermindSuggested: "Information-set suggestion", mastermindExact: "Exact position", mastermindPartial: "Right digit, wrong position",
+    mastermindInstruction: "Enter four distinct digits. Black markers are exact matches; white markers are right digits in the wrong positions.",
     prizePool: "Prize board", round: "Round", decisionPanel: "Decision dashboard",
     emptyInsight: "Expected value, risk, and model guidance appear after the banker's offer.",
     gameHistory: "Game history", liveChecks: "Live check count", possiblePositions: "Possible positions",
@@ -108,6 +116,7 @@ const gamesCopy = {
     "restricted-rps": ["限定猜拳实验室", "管理公开的有限手势库存，对抗以均衡随机化为底线、同时学习你偏好的 AI。", "单人 · 资源约束与机制设计"],
     blackjack: ["21 点策略实验室", "对抗固定规则庄家，逐步比较你的行动与规则限定的最优基础策略。", "单人 · 概率决策与策略审计"],
     "liars-dice": ["骗子骰子", "隐藏骰子、公开叫价与质疑概率；判断何时加注，何时抓住 AI 的虚张声势。", "单人 · 隐藏骰子与公开信号"],
+    mastermind: ["密码破解", "通过黑白反馈缩小隐藏密码的候选集合，并寻找最少尝试次数的解法。", "单人 · 信息集搜索"],
     auction: ["百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放"],
   },
   en: {
@@ -119,6 +128,7 @@ const gamesCopy = {
     "restricted-rps": ["Restricted RPS Lab", "Manage a public finite move inventory against an AI that combines equilibrium randomization with learning.", "Solo · Resource constraints & mechanism design"],
     blackjack: ["Blackjack Strategy Lab", "Play against a fixed-rule dealer and audit every choice against the rule-scoped optimal basic strategy.", "Solo · Probability & strategy audit"],
     "liars-dice": ["Liar's Dice", "Private dice, public bids, and probability-guided challenges against a bluffing AI.", "Solo · Hidden dice & public signals"],
+    mastermind: ["Mastermind", "Use exact and partial-match feedback to shrink a hidden code's candidate set.", "Solo · Information-set search"],
     auction: ["100-Unit All-Pay Auction", "Fight for leadership through public prices, alliances, and defection.", "Local multiplayer · Coming soon"],
   },
 };
@@ -205,6 +215,7 @@ async function startGame(gameId = "cases", options = {}) {
     $("#eCardView").classList.toggle("hidden", gameId !== "e-card");
     $("#rpsView").classList.toggle("hidden", gameId !== "restricted-rps");
     $("#liarView").classList.toggle("hidden", gameId !== "liars-dice");
+    $("#mastermindView").classList.toggle("hidden", gameId !== "mastermind");
     $("#blackjackView").classList.toggle("hidden", gameId !== "blackjack");
     render();
   } catch (error) {
@@ -236,6 +247,10 @@ function render() {
   }
   if (currentState.gameId === "liars-dice") {
     renderLiarDice();
+    return;
+  }
+  if (currentState.gameId === "mastermind") {
+    renderMastermind();
     return;
   }
   if (currentState.gameId === "e-card") {
@@ -430,6 +445,22 @@ function renderLiarDice() {
     const winner = state.result.winner === "player" ? (language === "zh" ? "你赢下本轮" : "You win the round") : (language === "zh" ? "AI 赢下本轮" : "AI wins the round");
     $("#liarResult").textContent = `${winner} · ${state.result.claimTrue ? (language === "zh" ? "叫价成立" : "claim true") : (language === "zh" ? "叫价被揭穿" : "claim false")}`;
   }
+}
+
+function renderMastermind() {
+  const state = currentState;
+  $("#mastermindAttempts").textContent = `${state.attemptsUsed} / ${state.maxAttempts}`;
+  $("#mastermindCandidates").textContent = state.candidateCount;
+  $("#mastermindSuggestion").textContent = state.suggestedGuess ? state.suggestedGuess.join(" · ") : "—";
+  $("#mastermindInput").value = state.suggestedGuess ? state.suggestedGuess.join("") : "";
+  $("#mastermindSubmit").disabled = state.phase !== "playing";
+  $("#mastermindInput").disabled = state.phase !== "playing";
+  $("#mastermindInstruction").textContent = state.phase === "finished"
+    ? (state.result.won ? (language === "zh" ? `破解成功！用了 ${state.result.attempts} 次。` : `Cracked in ${state.result.attempts} attempts.`) : (language === "zh" ? `本轮结束，密码是 ${state.result.secret.join(" · ")}。` : `Out of attempts. The code was ${state.result.secret.join(" · ")}.`))
+    : tr("mastermindInstruction");
+  $("#mastermindHistory").innerHTML = state.attempts.length ? state.attempts.map((item) => `<div><b>${item.guess.join(" · ")}</b><span>${item.exact} ${tr("mastermindExact")} · ${item.partial} ${tr("mastermindPartial")}</span></div>`).join("") : `<p>${language === "zh" ? "还没有提交猜测。" : "No guesses yet."}</p>`;
+  $("#mastermindResult").classList.toggle("hidden", state.phase !== "finished");
+  if (state.phase === "finished") $("#mastermindResult").textContent = state.result.won ? (language === "zh" ? "成功破解" : "Code cracked") : (language === "zh" ? "机会用尽" : "Attempts exhausted");
 }
 
 function renderECard() {
@@ -729,6 +760,7 @@ function showLobby() {
   $("#eCardView").classList.add("hidden");
   $("#rpsView").classList.add("hidden");
   $("#liarView").classList.add("hidden");
+  $("#mastermindView").classList.add("hidden");
   $("#blackjackView").classList.add("hidden");
   $("#lobbyView").classList.remove("hidden");
 }
@@ -752,6 +784,8 @@ $("#liarRaise").addEventListener("click", () => act("raise_bid", {
   face: Number($("#liarFace").value),
 }));
 $("#liarChallenge").addEventListener("click", () => act("challenge"));
+$("#mastermindNew").addEventListener("click", () => act("new_game"));
+$("#mastermindSubmit").addEventListener("click", () => act("submit_guess", { guess: [...$("#mastermindInput").value].map(Number) }));
 $("#submitPirateProposal").addEventListener("click", () => {
   const allocation = [...document.querySelectorAll(".pirate-gold-input")].map((input) => Number(input.value));
   act("submit_proposal", { allocation });
