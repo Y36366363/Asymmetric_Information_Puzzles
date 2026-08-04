@@ -1,14 +1,14 @@
 const sessions = new Map();
 const GAMES = [
   ["cases", "命运之箱", "从 26 个密封箱中保留一个，在不断缩小的风险中与银行家谈判。", "单人 · 决策与风险", true],
-  ["worm", "移动虫穴", "虫子每次失手后必向相邻洞移动；找出能保证抓住它的检查节奏。", "单人 · 隐藏状态追踪", true],
+  ["blackjack", "21 点策略实验室", "在透明规则下对抗庄家，比较自己的决策与规则限定的最优基础策略。", "单人 · 概率决策与策略审计", true],
+  ["restricted-rps", "限定猜拳实验室", "固定库存让每次出拳都消耗未来选择；对抗均衡随机化与会学习的策略型 AI。", "单人 · 资源约束与机制设计", true],
+  ["mastermind", "密码破解", "通过黑白反馈缩小隐藏密码的候选集合；每一次猜测都改变下一步策略。", "单人 · 信息集搜索", true],
+  ["e-card", "E-Card 皇帝牌", "皇帝、市民与奴隶构成不对称循环；用隐藏出牌和高额弱者收益击败策略型 AI。", "单人 · 非对称混合策略", true],
   ["pirates", "海盗议会", "亲自分配 100 枚金币，面对会做逆向归纳的理性海盗投票。", "单人 · 人机投票", true],
   ["kuhn-poker", "库恩扑克", "只用三张牌与策略型 AI 对决：读取下注信号，决定诈唬、跟注或弃牌。", "单人 · 隐藏手牌与诈唬", true],
-  ["e-card", "E-Card 皇帝牌", "皇帝、市民与奴隶构成不对称循环；用隐藏出牌和高额弱者收益击败策略型 AI。", "单人 · 非对称混合策略", true],
-  ["restricted-rps", "限定猜拳实验室", "固定库存让每次出拳都消耗未来选择；对抗均衡随机化与会学习的策略型 AI。", "单人 · 资源约束与机制设计", true],
-  ["blackjack", "21 点策略实验室", "在透明规则下对抗庄家，比较自己的决策与规则限定的最优基础策略。", "单人 · 概率决策与策略审计", true],
   ["liars-dice", "骗子骰子", "隐藏手牌、公开叫价与质疑概率；判断何时加注，何时抓住 AI 的虚张声势。", "单人 · 隐藏骰子与公开信号", true],
-  ["mastermind", "密码破解", "通过黑白反馈缩小隐藏密码的候选集合；每一次猜测都改变下一步策略。", "单人 · 信息集搜索", true],
+  ["worm", "移动虫穴", "虫子每次失手后必向相邻洞移动；找出能保证抓住它的检查节奏。", "单人 · 隐藏状态追踪", true],
   ["auction", "百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放", false],
 ].map(([id, title, summary, playerMode, available]) => ({ id, title, summary, playerMode, available }));
 
@@ -37,11 +37,11 @@ const sample = (distribution) => {
 class CaseSession {
   constructor(options) {
     this.prizes = [0.01,1,5,10,25,50,75,100,200,300,400,500,750,1000,5000,10000,25000,50000,75000,100000,200000,300000,400000,500000,750000,1000000];
-    this.schedule = [6,5,4,3,2,1,1,1,1];
+    this.schedule = [6,5,4,3,2,1,1,1,1,1];
     this.values = Object.fromEntries(shuffle(this.prizes).map((v, i) => [i + 1, v]));
     this.riskTolerance = Number(options.riskTolerance || 100000);
     this.chosen = null; this.opened = {}; this.round = 0; this.openedRound = 0;
-    this.phase = "choose"; this.offer = null; this.payout = null; this.history = [];
+    this.phase = "choose"; this.offer = null; this.payout = null; this.history = []; this.result = null;
   }
   remaining() { return Object.entries(this.values).filter(([id]) => !(id in this.opened)).map(([,v]) => v); }
   act(action, payload) {
@@ -57,10 +57,10 @@ class CaseSession {
         this.phase = "offer"; this.history.push({kind:"offer", round:this.round+1, value:this.offer});
       }
     } else if (action === "deal" && this.phase === "offer") {
-      this.payout = this.offer; this.phase = "finished"; this.history.push({kind:"deal", value:this.payout});
+      this.payout = this.offer; this.phase = "finished"; this.result={kind:"deal",payout:this.payout,offer:this.offer}; this.history.push({kind:"deal", value:this.payout});
     } else if (action === "no_deal" && this.phase === "offer") {
       this.history.push({kind:"no_deal", round:this.round+1});
-      if (this.remaining().length === 1) { this.payout = this.values[this.chosen]; this.phase = "finished"; }
+      if (this.remaining().length === 1) { this.payout = this.values[this.chosen]; this.phase = "finished"; this.result={kind:"kept_case",payout:this.payout,chosenCase:this.chosen}; this.history.push({kind:"case_payout",caseId:this.chosen,value:this.payout}); }
       else { this.round += 1; this.openedRound = 0; this.offer = null; this.phase = "opening"; }
     } else throw new Error("illegal case-game action");
   }
@@ -74,7 +74,7 @@ class CaseSession {
     const target = ["opening","offer"].includes(this.phase) ? this.schedule[this.round] : 0;
     return {gameId:"cases", phase:this.phase, round:this.round+1, chosenCase:this.chosen,
       cases:Object.keys(this.values).map(Number).map(id=>({id,status:id===this.chosen?"chosen":id in this.opened?"opened":"closed", ...((id in this.opened || (this.phase==="finished"&&id===this.chosen))?{value:this.values[id]}:{})})),
-      prizeBoard:this.prizes.map(value=>({value,remaining:remaining.includes(value)})), openTarget:target, openedThisRound:this.openedRound, opensRemaining:Math.max(0,target-this.openedRound), offer:this.offer, metrics, payout:this.payout, history:this.history, riskTolerance:this.riskTolerance};
+      prizeBoard:this.prizes.map(value=>({value,remaining:remaining.includes(value)})), openTarget:target, openedThisRound:this.openedRound, opensRemaining:Math.max(0,target-this.openedRound), offer:this.offer, isFinalOffer:this.phase==="offer"&&remaining.length===1, metrics, payout:this.payout, result:this.result, history:this.history, riskTolerance:this.riskTolerance};
   }
 }
 

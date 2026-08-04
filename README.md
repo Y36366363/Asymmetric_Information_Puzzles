@@ -7,6 +7,10 @@
 
 ## Updates 08/04/2026
 
+- **End-state hardening and difficulty order** — Fixed the browser case game's
+  missing final opening round, added explicit final-offer and kept-case results,
+  sorted the lobby from beginner to challenge, and added complete multi-game
+  decision-loop regression coverage.
 - **Full beginner rulebooks** — Expanded every playable game's help panel into
   a six-part tutorial covering the player's role, objective, click-by-click
   flow, a concrete example, end conditions, and plain-language terminology.
@@ -148,9 +152,10 @@ network connection, JavaScript build tool, or third-party runtime dependency is
 required. Game sessions live only in memory and disappear when the local server
 stops.
 
-The lobby currently exposes **命运之箱**, **移动虫穴**, **海盗议会**,
-**库恩扑克**, **E-Card 皇帝牌**, **限定猜拳实验室**, **21 点策略实验室**, **骗子骰子**,
-and **密码破解** as complete single-player games. In 命运之箱:
+The lobby now orders its complete single-player games from approachable to demanding:
+**命运之箱**, **21 点策略实验室**, **限定猜拳实验室**, **密码破解**,
+**E-Card 皇帝牌**, **海盗议会**, **库恩扑克**, **骗子骰子**, and **移动虫穴**.
+In 命运之箱:
 
 1. Choose one of 26 sealed cases to keep.
 2. Click other cases to reveal the required number for the current round.

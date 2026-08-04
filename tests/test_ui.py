@@ -26,14 +26,14 @@ class LocalGameUITests(unittest.TestCase):
             playable,
             [
                 "cases",
-                "worm",
+                "blackjack",
+                "restricted-rps",
+                "mastermind",
+                "e-card",
                 "pirates",
                 "kuhn-poker",
-                "e-card",
-                "restricted-rps",
-                "blackjack",
                 "liars-dice",
-                "mastermind",
+                "worm",
             ],
         )
         self.assertIn("liars-dice", [game["id"] for game in games])
@@ -247,6 +247,8 @@ class LocalGameUITests(unittest.TestCase):
                 state = self.service.act(session_id, "no_deal")
         chosen = next(case for case in state["cases"] if case["id"] == 26)
         self.assertEqual(state["payout"], chosen["value"])
+        self.assertEqual(state["result"]["kind"], "kept_case")
+        self.assertIsNotNone(state["payout"])
         self.assertEqual(
             len([case for case in state["cases"] if case["status"] == "opened"]), 25
         )

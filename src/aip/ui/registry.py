@@ -41,6 +41,19 @@ class GameDescriptor:
 
 SessionFactory = Callable[[dict[str, object]], PlayableSession]
 
+GAME_DISPLAY_ORDER = {
+    "cases": 1,
+    "blackjack": 2,
+    "restricted-rps": 3,
+    "mastermind": 4,
+    "e-card": 5,
+    "pirates": 6,
+    "kuhn-poker": 7,
+    "liars-dice": 8,
+    "worm": 9,
+    "auction": 10,
+}
+
 
 class GameRegistry:
     """Maps stable game identifiers to isolated playable session factories."""
@@ -54,7 +67,8 @@ class GameRegistry:
         self._entries[descriptor.game_id] = (descriptor, factory)
 
     def list_games(self) -> tuple[GameDescriptor, ...]:
-        return tuple(descriptor for descriptor, _factory in self._entries.values())
+        descriptors = (descriptor for descriptor, _factory in self._entries.values())
+        return tuple(sorted(descriptors, key=lambda item: GAME_DISPLAY_ORDER.get(item.game_id, 999)))
 
     def create(self, game_id: str, options: dict[str, object]) -> PlayableSession:
         try:
@@ -122,6 +136,7 @@ class CaseGameSession:
         self.phase = "choose"
         self.current_offer: float | None = None
         self.payout: float | None = None
+        self.result: dict[str, object] | None = None
         self.history: list[dict[str, object]] = []
 
     @staticmethod
@@ -180,6 +195,7 @@ class CaseGameSession:
             raise ValueError("there is no offer to accept")
         self.payout = self.current_offer
         self.phase = "finished"
+        self.result = {"kind": "deal", "payout": self.payout, "offer": self.current_offer}
         self.history.append({"kind": "deal", "value": self.payout})
 
     def _no_deal(self) -> None:
@@ -189,7 +205,8 @@ class CaseGameSession:
         if len(self._remaining_values()) == 1:
             self.payout = self._values[self.chosen_case]  # type: ignore[index]
             self.phase = "finished"
-            self.history.append({"kind": "case_payout", "value": self.payout})
+            self.result = {"kind": "kept_case", "payout": self.payout, "chosenCase": self.chosen_case}
+            self.history.append({"kind": "case_payout", "caseId": self.chosen_case, "value": self.payout})
             return
         self.round_index += 1
         self.opened_this_round = 0
@@ -248,8 +265,10 @@ class CaseGameSession:
             "openedThisRound": self.opened_this_round,
             "opensRemaining": max(0, target - self.opened_this_round),
             "offer": self.current_offer,
+            "isFinalOffer": self.phase == "offer" and len(remaining_prizes) == 1,
             "metrics": metrics,
             "payout": self.payout,
+            "result": dict(self.result) if self.result else None,
             "history": list(self.history),
             "riskTolerance": self.risk.risk_tolerance,
         }
