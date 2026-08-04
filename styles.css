@@ -25,6 +25,13 @@ body {
 
 button { font: inherit; }
 
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--gold-soft);
+  outline-offset: 3px;
+}
+
 .topbar {
   height: 72px;
   padding: 0 clamp(20px, 4vw, 64px);
@@ -445,7 +452,12 @@ button { font: inherit; }
   .github-link > span:last-child { display: none; }
   .header-actions { gap: 8px; }
   .view { padding-inline: 14px; }
-  .game-heading { align-items: center; }
+  .brand > span:last-child { display: none; }
+  .game-heading { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; gap: 10px; }
+  .game-heading > div { grid-column: 1 / -1; }
+  .game-heading > .rules-button { width: 100%; margin: 0; }
+  .game-heading > .secondary-button { width: 100%; }
+  .rules-card { max-height: 90vh; padding: 34px 16px 20px; }
   .game-layout { display: flex; flex-direction: column; }
   .table-panel { order: 1; min-height: auto; }
   .prize-panel { order: 2; }
