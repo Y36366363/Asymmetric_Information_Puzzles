@@ -4,7 +4,7 @@ import random
 import threading
 import uuid
 from dataclasses import dataclass
-from itertools import combinations
+from itertools import combinations, permutations
 from math import comb
 from typing import Callable, Protocol
 
@@ -1506,6 +1506,71 @@ class LiarDiceSession:
         }
 
 
+class MastermindSession:
+    """Single-player code-breaking game with an explicit candidate information set."""
+
+    def __init__(self, options: dict[str, object]) -> None:
+        self.length = 4
+        self.symbols = tuple(range(1, 7))
+        self.max_attempts = 10
+        self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
+        self._rng = random.Random(self.seed)
+        self.secret = self._rng.choice(list(permutations(self.symbols, self.length)))
+        self.candidates = list(permutations(self.symbols, self.length))
+        self.attempts: list[dict[str, object]] = []
+        self.phase = "playing"
+        self.result: dict[str, object] | None = None
+
+    @staticmethod
+    def _feedback(guess: tuple[int, ...], secret: tuple[int, ...]) -> tuple[int, int]:
+        exact = sum(a == b for a, b in zip(guess, secret))
+        shared = len(set(guess) & set(secret))
+        return exact, shared - exact
+
+    def _suggestion(self) -> tuple[int, ...] | None:
+        if not self.candidates:
+            return None
+        pool = self.candidates[:120]
+        best = min(pool, key=lambda guess: max(
+            sum(1 for candidate in self.candidates if self._feedback(guess, candidate) == feedback)
+            for feedback in {(e, p) for e in range(self.length + 1) for p in range(self.length + 1 - e)}
+        ))
+        return best
+
+    def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
+        if action == "new_game":
+            self.__init__({"seed": self._rng.randrange(2**32)})
+            return self.snapshot()
+        if action != "submit_guess" or self.phase != "playing":
+            raise ValueError("submit a guess while the game is active")
+        raw = payload.get("guess", [])
+        guess = tuple(int(value) for value in raw) if isinstance(raw, list) else ()
+        if len(guess) != self.length or len(set(guess)) != self.length or any(value not in self.symbols for value in guess):
+            raise ValueError("guess must contain four distinct digits from 1 to 6")
+        exact, partial = self._feedback(guess, self.secret)
+        self.attempts.append({"guess": list(guess), "exact": exact, "partial": partial})
+        self.candidates = [candidate for candidate in self.candidates if self._feedback(guess, candidate) == (exact, partial)]
+        if exact == self.length:
+            self.phase = "finished"
+            self.result = {"won": True, "secret": list(self.secret), "attempts": len(self.attempts)}
+        elif len(self.attempts) >= self.max_attempts:
+            self.phase = "finished"
+            self.result = {"won": False, "secret": list(self.secret), "attempts": len(self.attempts)}
+        return self.snapshot()
+
+    def snapshot(self) -> dict[str, object]:
+        suggestion = self._suggestion() if self.phase == "playing" else None
+        return {
+            "gameId": "mastermind", "phase": self.phase, "length": self.length,
+            "symbols": list(self.symbols), "maxAttempts": self.max_attempts,
+            "attemptsUsed": len(self.attempts), "attempts": list(self.attempts),
+            "candidateCount": len(self.candidates), "suggestedGuess": list(suggestion) if suggestion else None,
+            "result": dict(self.result) if self.result else None,
+            "legalActions": ["submit_guess"] if self.phase == "playing" else ["new_game"],
+            "informationSet": {"candidateCount": len(self.candidates), "feedbackHistory": list(self.attempts)},
+        }
+
+
 def build_default_registry() -> GameRegistry:
     registry = GameRegistry()
     registry.register(
@@ -1579,6 +1644,15 @@ def build_default_registry() -> GameRegistry:
             "单人 · 隐藏骰子与公开信号",
         ),
         LiarDiceSession,
+    )
+    registry.register(
+        GameDescriptor(
+            "mastermind",
+            "密码破解",
+            "对隐藏的四位密码反复猜测；用黑白反馈缩小候选信息集，并寻找最少尝试次数的解法。",
+            "单人 · 信息集搜索",
+        ),
+        MastermindSession,
     )
     for descriptor in (
         GameDescriptor(

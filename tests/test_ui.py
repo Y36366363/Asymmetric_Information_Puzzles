@@ -33,6 +33,7 @@ class LocalGameUITests(unittest.TestCase):
                 "restricted-rps",
                 "blackjack",
                 "liars-dice",
+                "mastermind",
             ],
         )
         self.assertIn("liars-dice", [game["id"] for game in games])

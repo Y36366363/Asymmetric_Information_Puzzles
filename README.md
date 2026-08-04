@@ -7,10 +7,13 @@
 
 ## Updates 08/04/2026
 
+- **Playable Mastermind information-set lab** — Added a solo hidden-code game with
+  exact/partial feedback, candidate-world elimination, a worst-case partition
+  suggestion, ten-attempt pressure, bilingual controls, and a visible solve log.
 - **Playable Liar’s Dice** — Added a two-player hidden-dice match with wild ones,
   public lexicographic raises, explicit challenge decisions, exact binomial odds,
   an adaptive AI, round history, and a bilingual information-set panel.
-- **Backend-free public mirror** — Published all eight playable games at
+- **Backend-free public mirror** — Published all nine playable games at
   [y36366363.github.io/Asymmetric_Information_Puzzles](https://y36366363.github.io/Asymmetric_Information_Puzzles/).
   Game state and AI now run entirely inside the visitor's browser, with no
   ChatGPT request, account, server session, or saved data; refreshing starts over.
@@ -139,8 +142,8 @@ required. Game sessions live only in memory and disappear when the local server
 stops.
 
 The lobby currently exposes **命运之箱**, **移动虫穴**, **海盗议会**,
-**库恩扑克**, **E-Card 皇帝牌**, **限定猜拳实验室**, **21 点策略实验室**, and
-**骗子骰子** as complete single-player games. In 命运之箱:
+**库恩扑克**, **E-Card 皇帝牌**, **限定猜拳实验室**, **21 点策略实验室**, **骗子骰子**,
+and **密码破解** as complete single-player games. In 命运之箱:
 
 1. Choose one of 26 sealed cases to keep.
 2. Click other cases to reveal the required number for the current round.
@@ -194,9 +197,23 @@ and its [total-versus-composition comparison](https://wizardofodds.com/games/bla
 The UI never receives the chosen case's hidden amount before the game finishes.
 The Python-side `GameRegistry`, `PlayableSession`, and `LocalGameService`
 separate lobby discovery, private state, legal actions, and public snapshots.
-Upcoming Liar's Dice and auction cards are already registered as
-disabled previews; each can become playable by adding its own session adapter
-without changing the local server or lobby shell.
+Liar's Dice and Mastermind are now playable through the same session adapter;
+the auction remains a disabled preview and can be enabled without changing the
+local server or lobby shell.
+
+## Mastermind: a single-player information-set game
+
+The new **密码破解 / Mastermind** game hides a four-digit code made of four
+distinct symbols from 1–6. Each guess returns two public signals: exact matches
+(right symbol, right position) and partial matches (right symbol, wrong
+position). The secret itself remains private until the player solves the code or
+uses all ten attempts.
+
+This is a compact asymmetric-information game: the computer knows the code,
+while the player only observes feedback. The live candidate count is the size
+of the player's information set. A suggested guess is chosen by a minimax-style
+partition heuristic that tries to minimize the largest surviving candidate
+bucket, so the player can compare intuition with systematic experimentation.
 
 ## Project layout
 

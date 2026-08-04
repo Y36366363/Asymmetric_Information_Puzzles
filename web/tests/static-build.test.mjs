@@ -18,7 +18,7 @@ test("browser engine intercepts API calls without a backend", async () => {
   await import(`../../docs/game-engine.js?test=${Date.now()}`);
   try {
     const games = await (await fetch("/api/games")).json();
-    assert.equal(games.games.filter((game) => game.available).length, 8);
+    assert.equal(games.games.filter((game) => game.available).length, 9);
     const created = await (await fetch("/api/sessions", {
       method: "POST",
       body: JSON.stringify({ gameId: "pirates", options: { pirates: 5, gold: 100 } }),
@@ -28,6 +28,9 @@ test("browser engine intercepts API calls without a backend", async () => {
     const liar = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "liars-dice" }) })).json();
     assert.equal(liar.state.gameId, "liars-dice");
     assert.deepEqual(liar.state.playerDice.length, 5);
+    const mastermind = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "mastermind" }) })).json();
+    assert.equal(mastermind.state.gameId, "mastermind");
+    assert.equal(mastermind.state.candidateCount, 360);
   } finally {
     globalThis.fetch = originalFetch;
     delete globalThis.location;
