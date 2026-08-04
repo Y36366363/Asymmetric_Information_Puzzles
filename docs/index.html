@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#10100f" />
+    <title>AIP · 非对称博弈实验室</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <button class="brand" id="homeButton" aria-label="返回游戏大厅">
+        <span class="brand-mark">AIP</span>
+        <span data-i18n="brandName">非对称博弈实验室</span>
+      </button>
+      <div class="header-actions">
+        <div class="status"><span class="status-dot"></span><span data-i18n="localOnly">浏览器临时会话</span></div>
+        <a class="github-link" href="https://github.com/Y36366363/Asymmetric_Information_Puzzles"
+          target="_blank" rel="noreferrer" aria-label="Open AIP on GitHub">
+          <span class="github-mark">GH</span><span>GitHub</span>
+        </a>
+        <div class="language-switch" aria-label="Language">
+          <button id="languageZh" class="active">中文</button>
+          <button id="languageEn">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="lobbyView" class="view lobby-view">
+        <div class="hero">
+          <p class="eyebrow">ASYMMETRIC INFORMATION PUZZLES</p>
+          <h1><span data-i18n="heroLine1">把推理变成一场</span><br /><em data-i18n="heroLine2">真正可以玩的博弈</em></h1>
+          <p class="hero-copy" data-i18n="heroCopy">选择一个实验。你做决定，系统隐藏信息、扮演对手，并在关键时刻揭示概率与代价。</p>
+        </div>
+        <div class="game-grid" id="gameGrid" aria-live="polite"></div>
+      </section>
+
+      <section id="gameView" class="view game-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button" id="backButton" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="caseEyebrow">CASE 01 · 风险与谈判</p>
+            <h1 data-i18n="caseTitle">命运之箱</h1>
+          </div>
+          <button class="secondary-button" id="newGameButton" data-i18n="restart">重新开始</button>
+        </div>
+
+        <div class="game-layout">
+          <aside class="prize-panel panel">
+            <div class="panel-title"><span data-i18n="prizePool">奖金池</span><span id="remainingCount">26</span></div>
+            <div class="prize-board" id="prizeBoard"></div>
+          </aside>
+
+          <section class="table-panel">
+            <div class="round-banner">
+              <div><span data-i18n="round">回合</span><strong id="roundNumber">—</strong></div>
+              <p id="instruction">请选择一个属于你的密封箱</p>
+            </div>
+            <div class="case-grid" id="caseGrid"></div>
+            <div class="chosen-strip" id="chosenStrip">你的箱子尚未选择</div>
+          </section>
+
+          <aside class="insight-panel panel">
+            <div class="panel-title"><span data-i18n="decisionPanel">决策仪表</span><span>LIVE</span></div>
+            <div id="emptyInsight" class="empty-insight" data-i18n="emptyInsight">银行家报价后，这里会显示期望值、风险和模型建议。</div>
+            <div id="metrics" class="metrics hidden"></div>
+            <div class="history">
+              <h2 data-i18n="gameHistory">博弈记录</h2>
+              <ol id="historyList"></ol>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="wormView" class="view worm-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="wormEyebrow">CASE 02 · 隐藏状态追踪</p>
+            <h1 data-i18n="wormTitle">移动虫穴</h1>
+          </div>
+          <button class="secondary-button" id="newWormButton" data-i18n="restart">重新开始</button>
+        </div>
+
+        <div class="worm-stage panel">
+          <div class="worm-copy">
+            <p class="eyebrow">THE WORM MUST MOVE</p>
+            <h2 id="wormHeadline">它藏在五个洞中的某一个</h2>
+            <p id="wormInstruction">每次点击一个洞检查。若没有抓到，虫子会立刻移动到相邻洞。</p>
+          </div>
+          <div class="hole-row" id="holeRow"></div>
+          <div class="worm-status">
+            <div class="live-counter"><span data-i18n="liveChecks">实时检查次数</span><strong id="wormTurn">0</strong></div>
+            <div><span data-i18n="possiblePositions">仍可能的位置</span><strong id="possibleHoles">1 · 2 · 3 · 4 · 5</strong></div>
+            <div><span data-i18n="strategyHint">保证策略提示</span><strong id="wormHint">—</strong></div>
+          </div>
+        </div>
+
+        <div class="worm-lower">
+          <section class="panel strategy-panel">
+            <div class="panel-title"><span data-i18n="guaranteedSequence">保证抓捕序列</span><span>MINIMAX</span></div>
+            <div class="strategy-sequence" id="strategySequence"></div>
+            <p data-i18n="wormStrategyCopy">只要从第一步开始严格执行该序列，即使虫子选择最不利的移动，也能在序列结束前抓到。</p>
+          </section>
+          <section class="panel">
+            <div class="panel-title"><span data-i18n="searchHistory">搜索记录</span><span>PUBLIC</span></div>
+            <ol class="worm-history" id="wormHistory"></ol>
+          </section>
+        </div>
+      </section>
+
+      <section id="pirateView" class="view pirate-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="pirateEyebrow">CASE 03 · 逆向归纳与联盟</p>
+            <h1 data-i18n="pirateTitle">海盗议会</h1>
+          </div>
+          <button class="secondary-button" id="newPirateButton" data-i18n="restartCouncil">重新召开议会</button>
+        </div>
+
+        <div class="pirate-summary panel">
+          <div><span data-i18n="availableGold">可分配金币</span><strong id="pirateTotalGold">100</strong></div>
+          <div><span data-i18n="votesNeeded">通过所需票数</span><strong id="pirateVotesNeeded">3 / 5</strong></div>
+          <div><span data-i18n="unallocated">尚未分配</span><strong id="pirateGoldLeft">100</strong></div>
+        </div>
+
+        <section class="pirate-council panel">
+          <div class="panel-title"><span data-i18n="yourProposal">你的提案</span><span>ALL COINS MUST BE ALLOCATED</span></div>
+          <p class="council-intro" id="pirateInstruction" data-i18n="pirateInstruction">你是最资深的 A。为每名海盗分配金币，然后让所有人同时投票。</p>
+          <div class="pirate-grid" id="pirateGrid"></div>
+          <button class="deal-button council-submit" id="submitPirateProposal" data-i18n="submitProposal">提交提案并投票</button>
+        </section>
+
+        <section class="pirate-result panel hidden" id="pirateResult">
+          <div class="pirate-verdict" id="pirateVerdict"></div>
+          <div class="vote-grid" id="pirateVotes"></div>
+          <div class="optimal-compare">
+            <div class="panel-title"><span data-i18n="backwardBenchmark">逆向归纳基准</span><span>SUBGAME PERFECT</span></div>
+            <p id="pirateOptimal"></p>
+          </div>
+        </section>
+      </section>
+
+      <section id="pokerView" class="view poker-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="pokerEyebrow">CASE 04 · 私有信息与诈唬</p>
+            <h1 data-i18n="pokerTitle">库恩扑克</h1>
+          </div>
+          <button class="secondary-button" id="newPokerMatch" data-i18n="restartMatch">重新开始比赛</button>
+        </div>
+
+        <div class="poker-score panel">
+          <div><span data-i18n="handNumber">当前牌局</span><strong id="pokerHand">1</strong></div>
+          <div><span data-i18n="yourScore">你的净筹码</span><strong id="pokerPlayerScore">0</strong></div>
+          <div><span data-i18n="potSize">底池</span><strong id="pokerPot">2</strong></div>
+          <div><span data-i18n="aiScore">AI 净筹码</span><strong id="pokerAiScore">0</strong></div>
+        </div>
+
+        <section class="poker-table panel">
+          <div class="poker-seat opponent-seat">
+            <span class="seat-label" data-i18n="strategyAi">策略型 AI</span>
+            <div class="playing-card card-back" id="aiCard">?</div>
+            <strong id="aiPosition">后手</strong>
+          </div>
+          <div class="poker-center">
+            <p class="eyebrow">J &lt; Q &lt; K</p>
+            <h2 id="pokerInstruction">看牌后选择过牌或下注</h2>
+            <div class="poker-action-log" id="pokerActionLog"></div>
+            <div class="poker-actions" id="pokerActions"></div>
+            <div class="poker-result hidden" id="pokerResult"></div>
+          </div>
+          <div class="poker-seat player-seat">
+            <span class="seat-label" data-i18n="you">你</span>
+            <div class="playing-card" id="playerCard">K</div>
+            <strong id="playerPosition">先手</strong>
+          </div>
+        </section>
+
+        <div class="poker-lower">
+          <section class="panel information-set">
+            <div class="panel-title"><span data-i18n="yourInformationSet">你的信息集</span><span>PRIVATE + PUBLIC</span></div>
+            <p id="pokerInformation"></p>
+          </section>
+          <section class="panel poker-rules">
+            <div class="panel-title"><span data-i18n="quickRules">快速规则</span><span>KUHN 1950</span></div>
+            <p data-i18n="pokerRules">双方先各投入 1。下注为 1；跟注后比牌，弃牌则直接输。K 最大、J 最小。AI 会按概率诈唬，所以同一种动作不总代表同一张牌。</p>
+          </section>
+        </div>
+      </section>
+
+      <section id="eCardView" class="view ecard-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="eCardEyebrow">CASE 05 · 非对称收益与混合策略</p>
+            <h1 data-i18n="eCardTitle">E-Card 皇帝牌</h1>
+          </div>
+          <button class="secondary-button" id="newECardMatch" data-i18n="restartMatch">重新开始比赛</button>
+        </div>
+
+        <div class="ecard-score panel">
+          <div><span data-i18n="round">回合</span><strong id="ecardRound">1</strong></div>
+          <div><span data-i18n="eCardYourScore">你的得分</span><strong id="ecardPlayerScore">0</strong></div>
+          <div><span data-i18n="currentDuel">本轮对决</span><strong id="ecardDuel">1 / 5</strong></div>
+          <div><span data-i18n="eCardAiScore">AI 得分</span><strong id="ecardAiScore">0</strong></div>
+        </div>
+
+        <section class="ecard-arena panel">
+          <div class="ecard-role ai-role">
+            <span data-i18n="strategyAi">策略型 AI</span>
+            <strong id="ecardAiRole">奴隶方</strong>
+            <div class="ecard-hidden-hand" id="ecardHiddenHand"></div>
+          </div>
+          <div class="ecard-center">
+            <div class="dominance-cycle">
+              <span data-i18n="emperor">皇帝</span><b>›</b><span data-i18n="citizen">市民</span><b>›</b><span data-i18n="slave">奴隶</span><b>›</b><span data-i18n="emperor">皇帝</span>
+            </div>
+            <h2 id="ecardInstruction">选择一张牌，双方将同时揭晓</h2>
+            <div class="ecard-reveal" id="ecardReveal">
+              <div class="mini-card card-back">?</div><strong>VS</strong><div class="mini-card card-back">?</div>
+            </div>
+            <div class="ecard-result hidden" id="ecardResult"></div>
+          </div>
+          <div class="ecard-role player-role">
+            <span data-i18n="you">你</span>
+            <strong id="ecardPlayerRole">皇帝方</strong>
+            <div class="ecard-hand" id="ecardHand"></div>
+          </div>
+        </section>
+
+        <div class="ecard-lower">
+          <section class="panel">
+            <div class="panel-title"><span data-i18n="duelHistory">公开对局记录</span><span>PUBLIC SIGNALS</span></div>
+            <div class="ecard-history" id="ecardHistory"></div>
+          </section>
+          <section class="panel information-set">
+            <div class="panel-title"><span data-i18n="yourInformationSet">你的信息集</span><span>HIDDEN CHOICE</span></div>
+            <p id="ecardInformation"></p>
+            <p class="payoff-note" data-i18n="eCardPayoff">皇帝获胜得 1 分，奴隶获胜得 5 分。双方市民相撞时只弃掉两张牌并继续本轮。</p>
+          </section>
+        </div>
+      </section>
+
+      <section id="rpsView" class="view rps-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="rpsEyebrow">CASE 06 · 有限资源与策略随机化</p>
+            <h1 data-i18n="rpsTitle">限定猜拳实验室</h1>
+          </div>
+          <button class="secondary-button" id="newRpsMatch" data-i18n="restartMatch">重新开始比赛</button>
+        </div>
+
+        <div class="rps-score panel">
+          <div><span data-i18n="currentRound">当前轮次</span><strong id="rpsRound">0 / 9</strong></div>
+          <div><span data-i18n="eCardYourScore">你的得分</span><strong id="rpsPlayerScore">0</strong></div>
+          <div><span data-i18n="draws">平局</span><strong id="rpsDraws">0</strong></div>
+          <div><span data-i18n="eCardAiScore">AI 得分</span><strong id="rpsAiScore">0</strong></div>
+        </div>
+
+        <section class="rps-arena panel">
+          <div class="rps-opponent">
+            <p class="eyebrow">BOUNDED EXPLOITATION AI</p>
+            <h2 id="rpsHeadline">选择一张有限卡牌</h2>
+            <p id="rpsSubline">AI 同时隐藏出牌；使用过的卡不能再使用。</p>
+            <div class="rps-reveal" id="rpsReveal"><span>?</span><b>VS</b><span>?</span></div>
+          </div>
+          <div class="rps-inventory">
+            <div class="panel-title"><span data-i18n="yourInventory">你的剩余库存</span><span>PUBLIC</span></div>
+            <div class="rps-card-row" id="rpsCards"></div>
+            <div class="rps-ai-stock"><span data-i18n="aiInventory">AI 剩余库存</span><div id="rpsAiInventory"></div></div>
+          </div>
+        </section>
+
+        <div class="rps-lower">
+          <section class="panel">
+            <div class="panel-title"><span data-i18n="equilibriumGuide">不可利用的均衡建议</span><span>MINIMAX BASELINE</span></div>
+            <p class="strategy-explainer" data-i18n="rpsEquilibriumCopy">系统从比赛终点逆向计算每一种剩余库存，求解当前零和矩阵的极小极大混合策略；后期建议可能从均匀随机转为确定性出牌。</p>
+            <div class="probability-bars" id="rpsRecommendation"></div>
+          </section>
+          <section class="panel">
+            <div class="panel-title"><span data-i18n="aiAnalysis">AI 上轮策略分析</span><span>AFTER REVEAL</span></div>
+            <div id="rpsAnalysis" class="strategy-explainer"></div>
+          </section>
+          <section class="panel rps-history-panel">
+            <div class="panel-title"><span data-i18n="gameHistory">博弈记录</span><span>PUBLIC</span></div>
+            <div class="rps-history" id="rpsHistory"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="blackjackView" class="view blackjack-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="blackjackEyebrow">CASE 07 · 条件概率与策略审计</p>
+            <h1 data-i18n="blackjackTitle">21 点策略实验室</h1>
+          </div>
+          <button class="secondary-button" id="newBlackjackMatch" data-i18n="restartSession">重新开始实验</button>
+        </div>
+
+        <div class="blackjack-score panel">
+          <div><span data-i18n="handNumber">牌局</span><strong id="blackjackRound">1</strong></div>
+          <div><span data-i18n="netUnits">净收益单位</span><strong id="blackjackBankroll">0</strong></div>
+          <div><span data-i18n="record">胜 / 负 / 和</span><strong id="blackjackRecord">0 / 0 / 0</strong></div>
+          <div><span data-i18n="strategyAccuracy">基础策略吻合率</span><strong id="blackjackAccuracy">—</strong></div>
+        </div>
+
+        <section class="blackjack-table panel">
+          <div class="blackjack-hand dealer-hand">
+            <div><span data-i18n="dealer">庄家</span><strong id="dealerTotal">明牌</strong></div>
+            <div class="blackjack-cards" id="dealerCards"></div>
+          </div>
+          <div class="blackjack-center">
+            <p class="eyebrow">6 DECKS · DEALER STANDS ON SOFT 17</p>
+            <h2 id="blackjackHeadline">根据手牌与庄家明牌做决定</h2>
+            <div class="blackjack-actions" id="blackjackActions"></div>
+            <div class="blackjack-result hidden" id="blackjackResult"></div>
+          </div>
+          <div class="blackjack-hand player-hand">
+            <div><span data-i18n="you">你</span><strong id="playerTotal">0</strong></div>
+            <div class="blackjack-cards" id="playerCards"></div>
+          </div>
+        </section>
+
+        <div class="blackjack-lower">
+          <section class="panel strategy-advisor">
+            <div class="panel-title"><span data-i18n="basicStrategyAi">基础策略 AI</span><span>RULE-SCOPED OPTIMUM</span></div>
+            <div class="advisor-call" id="blackjackRecommendation">—</div>
+            <button id="blackjackAiPlay" data-i18n="letAiPlay">让 AI 执行这一步</button>
+            <p data-i18n="blackjackScope">此建议针对六副牌、软 17 停牌、不可分牌/投降/保险且不计牌的动作集合。改变规则或利用牌靴构成后，最优动作可能改变。</p>
+          </section>
+          <section class="panel">
+            <div class="panel-title"><span data-i18n="decisionAudit">决策审计</span><span id="shoeRemaining">308 CARDS</span></div>
+            <div class="blackjack-history" id="blackjackHistory"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal-backdrop hidden" id="offerModal" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
+      <div class="offer-card">
+        <p class="eyebrow">THE BANKER IS CALLING</p>
+        <h2 id="offerTitle" data-i18n="bankerOffer">银行家报价</h2>
+        <div class="offer-value" id="offerValue">¥0</div>
+        <p id="offerContext"></p>
+        <div class="offer-actions">
+          <button class="deal-button" id="dealButton" data-i18n="acceptOffer">接受报价</button>
+          <button class="no-deal-button" id="noDealButton" data-i18n="rejectOffer">拒绝，继续开箱</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast hidden" id="toast" role="status"></div>
+    <script type="module" src="bootstrap.js"></script>
+  </body>
+</html>
