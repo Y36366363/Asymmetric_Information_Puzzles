@@ -1,0 +1,425 @@
+:root {
+  color-scheme: dark;
+  --ink: #f4efe3;
+  --muted: #aaa494;
+  --gold: #d8aa4c;
+  --gold-soft: #f0cf83;
+  --red: #9f3e35;
+  --surface: #171715;
+  --surface-2: #20201d;
+  --line: rgba(240, 207, 131, 0.19);
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "PingFang SC", sans-serif;
+  background:
+    radial-gradient(circle at 80% -10%, rgba(216, 170, 76, 0.16), transparent 34rem),
+    linear-gradient(145deg, #11110f 0%, #181713 52%, #0d0d0c 100%);
+}
+
+button { font: inherit; }
+
+.topbar {
+  height: 72px;
+  padding: 0 clamp(20px, 4vw, 64px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+}
+
+.brand-mark {
+  color: #111;
+  background: var(--gold);
+  padding: 8px 9px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.status { color: var(--muted); font-size: 13px; }
+.header-actions { display: flex; align-items: center; gap: 16px; }
+.github-link { display: flex; align-items: center; gap: 7px; color: var(--ink); text-decoration: none; font-size: 13px; }
+.github-mark { display: grid; place-items: center; width: 28px; height: 28px; color: #111; border-radius: 50%; background: var(--ink); font-size: 9px; font-weight: 900; }
+.language-switch { display: flex; padding: 3px; border: 1px solid var(--line); }
+.language-switch button { padding: 6px 9px; color: var(--muted); border: 0; background: transparent; cursor: pointer; font-size: 12px; }
+.language-switch button.active { color: #17130c; background: var(--gold); font-weight: 800; }
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #72b57c;
+  box-shadow: 0 0 12px #72b57c;
+}
+
+.view { padding: clamp(28px, 5vw, 72px) clamp(18px, 4vw, 64px) 64px; }
+.hidden { display: none !important; }
+.hero { max-width: 870px; margin: 5vh 0 64px; }
+.eyebrow { color: var(--gold); font-size: 12px; font-weight: 800; letter-spacing: 0.18em; }
+
+.hero h1, .game-heading h1 {
+  margin: 14px 0 20px;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: clamp(44px, 7vw, 88px);
+  line-height: 0.98;
+  font-weight: 500;
+}
+
+.hero h1 em { color: var(--gold-soft); font-weight: 500; }
+.hero-copy { max-width: 650px; color: var(--muted); font-size: 18px; line-height: 1.75; }
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 18px;
+}
+
+.game-card {
+  min-height: 265px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: var(--ink);
+  text-align: left;
+  border: 1px solid var(--line);
+  background: linear-gradient(160deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform .2s ease, border-color .2s ease;
+}
+
+.game-card:hover:not(:disabled) { transform: translateY(-5px); border-color: var(--gold); }
+.game-card:disabled { cursor: default; opacity: .52; }
+.game-index { color: var(--gold); font: 600 13px/1 Georgia, serif; }
+.game-card h2 { margin: 34px 0 12px; font: 500 31px/1.1 Georgia, "Songti SC", serif; }
+.game-card p { color: var(--muted); line-height: 1.65; }
+.game-mode { margin-top: auto; color: var(--gold-soft); font-size: 12px; letter-spacing: .08em; }
+
+.game-heading { display: flex; justify-content: space-between; align-items: end; margin-bottom: 30px; }
+.game-heading h1 { font-size: clamp(42px, 5vw, 68px); margin-bottom: 0; }
+.text-button { padding: 0; color: var(--muted); background: none; border: 0; cursor: pointer; }
+.secondary-button {
+  padding: 12px 18px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+}
+
+.game-layout { display: grid; grid-template-columns: 230px minmax(480px, 1fr) 290px; gap: 18px; }
+.panel { padding: 20px; border: 1px solid var(--line); background: rgba(24, 24, 21, .86); }
+.panel-title { display: flex; justify-content: space-between; color: var(--gold); font-size: 12px; letter-spacing: .12em; }
+.prize-board { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 18px; }
+.prize { padding: 7px 8px; color: var(--gold-soft); background: rgba(216,170,76,.08); font-size: 11px; text-align: right; }
+.prize.gone { color: #59574f; background: rgba(255,255,255,.015); text-decoration: line-through; }
+
+.table-panel {
+  position: relative;
+  min-height: 640px;
+  padding: clamp(20px, 3vw, 38px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(ellipse at center, rgba(132, 89, 36, .2), transparent 65%),
+    linear-gradient(180deg, #25231e, #171714);
+  box-shadow: var(--shadow);
+}
+
+.round-banner { display: flex; justify-content: space-between; align-items: center; margin-bottom: 34px; }
+.round-banner div { display: flex; align-items: baseline; gap: 10px; color: var(--muted); }
+.round-banner strong { color: var(--gold-soft); font: 500 32px Georgia, serif; }
+.round-banner p { margin: 0; color: var(--muted); text-align: right; }
+.case-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+
+.case {
+  aspect-ratio: 1.28;
+  min-width: 0;
+  color: #17140e;
+  font-weight: 900;
+  border: 1px solid #f1dca6;
+  border-radius: 5px 5px 10px 10px;
+  background: linear-gradient(145deg, #f6dda3, #b8812e);
+  box-shadow: inset 0 2px rgba(255,255,255,.45), 0 8px 16px rgba(0,0,0,.3);
+  cursor: pointer;
+  transition: transform .15s ease, filter .15s ease;
+}
+.case:hover:not(:disabled) { transform: translateY(-3px) scale(1.03); filter: brightness(1.12); }
+.case.opened { color: var(--muted); border-color: #3c3a34; background: #24231f; box-shadow: none; font-size: 10px; }
+.case.chosen { color: var(--gold-soft); border: 2px solid var(--gold); background: #3a2c16; }
+.chosen-strip { margin-top: 32px; padding: 15px; color: var(--muted); text-align: center; border: 1px dashed var(--line); }
+
+.empty-insight { margin: 24px 0; color: var(--muted); line-height: 1.7; }
+.metrics { margin-top: 20px; }
+.metric { padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
+.metric span { display: block; color: var(--muted); font-size: 11px; letter-spacing: .08em; }
+.metric strong { display: block; margin-top: 5px; font: 500 23px Georgia, serif; }
+.recommendation { margin-top: 16px; padding: 13px; color: #15130e; background: var(--gold); text-align: center; font-weight: 800; }
+.history { margin-top: 30px; }
+.history h2 { font-size: 13px; font-weight: 600; }
+.history ol { max-height: 230px; padding-left: 22px; overflow: auto; color: var(--muted); font-size: 12px; line-height: 1.8; }
+
+.modal-backdrop { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; padding: 20px; background: rgba(0,0,0,.78); backdrop-filter: blur(8px); }
+.offer-card { width: min(520px, 100%); padding: 46px; text-align: center; border: 1px solid var(--gold); background: #171612; box-shadow: 0 30px 100px #000; }
+.offer-card h2 { font: 500 32px Georgia, "Songti SC", serif; }
+.offer-value { margin: 24px 0; color: var(--gold-soft); font: 500 clamp(42px, 8vw, 72px) Georgia, serif; }
+.offer-card > p:not(.eyebrow) { color: var(--muted); }
+.offer-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; }
+.deal-button, .no-deal-button { padding: 15px; cursor: pointer; }
+.deal-button { color: #17130c; border: 1px solid var(--gold); background: var(--gold); font-weight: 800; }
+.no-deal-button { color: var(--ink); border: 1px solid #605d54; background: transparent; }
+.toast { position: fixed; left: 50%; bottom: 28px; z-index: 20; transform: translateX(-50%); padding: 12px 18px; color: #fff; background: var(--red); box-shadow: var(--shadow); }
+
+.worm-stage { padding: clamp(26px, 5vw, 64px); text-align: center; }
+.worm-copy h2 { margin: 14px 0 8px; font: 500 clamp(28px, 4vw, 46px) Georgia, "Songti SC", serif; }
+.worm-copy > p:last-child { color: var(--muted); }
+.hole-row { display: flex; justify-content: center; gap: clamp(10px, 2.5vw, 30px); margin: 64px 0; }
+.hole {
+  position: relative;
+  width: clamp(62px, 10vw, 120px);
+  aspect-ratio: 1;
+  color: var(--gold-soft);
+  font: 600 clamp(18px, 3vw, 30px) Georgia, serif;
+  border: 2px solid #4e4028;
+  border-radius: 50%;
+  background: radial-gradient(circle, #030303 34%, #15110b 52%, #6c4d25 70%, #252017 72%);
+  box-shadow: inset 0 12px 25px #000, 0 12px 28px rgba(0,0,0,.35);
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease;
+}
+.hole:hover:not(:disabled) { transform: translateY(-7px); border-color: var(--gold); }
+.hole.impossible { opacity: .38; }
+.hole.worm-found { border-color: #79c987; background: radial-gradient(circle, #5ca76a 0 18%, #102616 32%, #6c4d25 70%); }
+.worm-status { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+.worm-status div { padding: 22px 12px 0; }
+.worm-status span { display: block; color: var(--muted); font-size: 11px; letter-spacing: .09em; }
+.worm-status strong { display: block; margin-top: 9px; color: var(--gold-soft); font-size: 16px; }
+.worm-status .live-counter strong { font-size: 34px; line-height: 1; }
+.worm-lower { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+.strategy-sequence { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0; }
+.strategy-step { min-width: 38px; padding: 9px; color: #19150e; background: var(--gold); text-align: center; font-weight: 800; }
+.strategy-step.done { color: #777268; background: #292722; }
+.strategy-step.next { outline: 2px solid var(--gold-soft); outline-offset: 3px; }
+.strategy-panel p { color: var(--muted); line-height: 1.7; }
+.worm-history { max-height: 150px; margin: 20px 0 0; color: var(--muted); line-height: 2; }
+
+.pirate-summary { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 18px; }
+.pirate-summary div { padding: 10px 24px; border-right: 1px solid var(--line); }
+.pirate-summary div:last-child { border-right: 0; }
+.pirate-summary span { display: block; color: var(--muted); font-size: 11px; letter-spacing: .09em; }
+.pirate-summary strong { display: block; margin-top: 8px; color: var(--gold-soft); font: 500 28px Georgia, serif; }
+.pirate-council { padding: clamp(24px, 4vw, 46px); }
+.council-intro { margin: 24px 0 30px; color: var(--muted); }
+.pirate-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.pirate-card { padding: 20px; border: 1px solid var(--line); background: rgba(255,255,255,.025); }
+.pirate-card.proposer { border-color: var(--gold); background: rgba(216,170,76,.08); }
+.pirate-avatar { width: 44px; height: 44px; display: grid; place-items: center; margin-bottom: 18px; color: #17130c; border-radius: 50%; background: var(--gold); font: 700 20px Georgia, serif; }
+.pirate-role { color: var(--muted); font-size: 11px; }
+.pirate-card label { display: block; margin: 18px 0 7px; color: var(--muted); font-size: 11px; }
+.pirate-card input { width: 100%; padding: 11px; color: var(--ink); border: 1px solid var(--line); background: #11110f; font: 500 20px Georgia, serif; }
+.council-submit { display: block; width: min(360px, 100%); margin: 32px auto 0; border: 0; }
+.council-submit:disabled { opacity: .35; cursor: not-allowed; }
+.pirate-result { margin-top: 18px; padding: clamp(24px, 4vw, 46px); }
+.pirate-verdict { margin-bottom: 28px; padding: 22px; text-align: center; font: 500 28px Georgia, "Songti SC", serif; border: 1px solid var(--line); }
+.pirate-verdict.pass { color: #bce5c2; border-color: #51855a; background: rgba(81,133,90,.12); }
+.pirate-verdict.fail { color: #efb0aa; border-color: var(--red); background: rgba(159,62,53,.12); }
+.vote-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.vote-card { padding: 18px; border: 1px solid var(--line); }
+.vote-card.yes { border-top: 3px solid #72b57c; }
+.vote-card.no { border-top: 3px solid #b85a50; }
+.vote-card strong { font-size: 18px; }
+.vote-card p { color: var(--muted); font-size: 12px; line-height: 1.6; }
+.optimal-compare { margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--line); }
+.optimal-compare p { color: var(--muted); line-height: 1.7; }
+
+.poker-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
+.poker-score div { padding: 10px 24px; text-align: center; border-right: 1px solid var(--line); }
+.poker-score div:last-child { border-right: 0; }
+.poker-score span { display: block; color: var(--muted); font-size: 11px; letter-spacing: .09em; }
+.poker-score strong { display: block; margin-top: 7px; color: var(--gold-soft); font: 500 28px Georgia, serif; }
+.poker-table { min-height: 560px; display: grid; grid-template-columns: 220px 1fr 220px; align-items: center; gap: 30px; padding: clamp(28px, 5vw, 64px); background: radial-gradient(ellipse at center, #3b3020 0, #211e18 48%, #151512 100%); }
+.poker-seat { text-align: center; }
+.seat-label { display: block; margin-bottom: 14px; color: var(--muted); font-size: 12px; letter-spacing: .12em; }
+.poker-seat > strong { display: block; margin-top: 14px; color: var(--gold-soft); font-size: 12px; }
+.playing-card { width: min(150px, 100%); aspect-ratio: .7; display: grid; place-items: center; margin: auto; color: #19150f; border: 2px solid #fff0c7; border-radius: 10px; background: linear-gradient(145deg, #fff7e3, #d6b76e); box-shadow: 0 20px 35px rgba(0,0,0,.4); font: 700 76px Georgia, serif; }
+.playing-card.card-back { color: var(--gold); border-color: #9b7532; background: repeating-linear-gradient(45deg, #16130e, #16130e 8px, #302718 8px, #302718 16px); }
+.poker-center { text-align: center; }
+.poker-center h2 { margin: 12px auto 24px; max-width: 520px; font: 500 clamp(24px, 3vw, 38px) Georgia, "Songti SC", serif; }
+.poker-action-log { min-height: 34px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; color: var(--muted); font-size: 12px; }
+.poker-action-log span { padding: 7px 10px; border: 1px solid var(--line); }
+.poker-action-log b { color: var(--gold); }
+.poker-actions { display: flex; justify-content: center; gap: 12px; margin-top: 30px; }
+.poker-actions button { min-width: 130px; padding: 15px 24px; color: #17130c; border: 1px solid var(--gold); background: var(--gold); cursor: pointer; font-weight: 800; }
+.poker-actions button.poker-fold { color: var(--ink); border-color: #605d54; background: transparent; }
+.poker-result { margin: 25px auto 0; max-width: 560px; padding: 18px; border: 1px solid var(--line); }
+.poker-result.win { border-color: #51855a; background: rgba(81,133,90,.15); }
+.poker-result.loss { border-color: var(--red); background: rgba(159,62,53,.14); }
+.poker-result strong { font: 500 25px Georgia, serif; }
+.poker-result p { margin-bottom: 0; color: var(--muted); line-height: 1.6; }
+.poker-lower { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+.poker-lower p { margin: 20px 0 0; color: var(--muted); line-height: 1.75; }
+
+.ecard-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
+.ecard-score div { padding: 10px 24px; text-align: center; border-right: 1px solid var(--line); }
+.ecard-score div:last-child { border-right: 0; }
+.ecard-score span, .ecard-role > span { display: block; color: var(--muted); font-size: 11px; letter-spacing: .09em; }
+.ecard-score strong { display: block; margin-top: 7px; color: var(--gold-soft); font: 500 28px Georgia, serif; }
+.ecard-arena { min-height: 570px; display: grid; grid-template-columns: minmax(220px, 1fr) minmax(320px, 1.45fr) minmax(220px, 1fr); align-items: center; gap: 28px; padding: clamp(28px, 5vw, 60px); background: radial-gradient(circle at center, #3c2d1a 0, #211d16 48%, #141412 100%); }
+.ecard-role { text-align: center; }
+.ecard-role > strong { display: block; margin: 10px 0 25px; color: var(--gold-soft); font: 500 25px Georgia, "Songti SC", serif; }
+.ecard-hidden-hand, .ecard-hand { min-height: 190px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 9px; }
+.tiny-card { width: 54px; aspect-ratio: .7; display: grid; place-items: center; margin-left: -22px; border: 1px solid #8f6e34; border-radius: 6px; }
+.tiny-card:first-child { margin-left: 0; }
+.ecard-card { width: 104px; min-height: 145px; display: flex; flex-direction: column; justify-content: space-between; padding: 18px 10px; color: #1a150d; border: 2px solid #f4dfaa; border-radius: 8px; background: linear-gradient(145deg, #f7e8be, #bd8735); box-shadow: 0 15px 25px rgba(0,0,0,.35); cursor: pointer; transition: transform .18s ease; }
+.ecard-card:hover:not(:disabled) { transform: translateY(-8px); }
+.ecard-card span { font: 600 20px Georgia, "Songti SC", serif; }
+.ecard-card b { font-size: 16px; }
+.ecard-card.slave { color: #f0ddd5; border-color: #a85b50; background: linear-gradient(145deg, #722e29, #2d1715); }
+.ecard-center { text-align: center; }
+.dominance-cycle { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; color: var(--muted); font-size: 12px; }
+.dominance-cycle b { color: var(--gold); font-size: 19px; }
+.ecard-center h2 { margin: 18px auto 28px; font: 500 clamp(23px, 3vw, 36px) Georgia, "Songti SC", serif; }
+.ecard-reveal { display: flex; justify-content: center; align-items: center; gap: 18px; }
+.ecard-reveal > strong { color: var(--gold); }
+.mini-card { width: 105px; aspect-ratio: .7; display: grid; place-items: center; padding: 8px; color: #1a150d; border: 2px solid #f4dfaa; border-radius: 8px; background: linear-gradient(145deg, #f7e8be, #bd8735); font: 600 17px Georgia, "Songti SC", serif; }
+.card-back { color: var(--gold) !important; border-color: #8f6e34 !important; background: repeating-linear-gradient(45deg, #16130e, #16130e 8px, #302718 8px, #302718 16px) !important; }
+.mini-card.slave { color: #f0ddd5; border-color: #a85b50; background: #552824; }
+.ecard-result { margin: 24px auto 0; padding: 16px; border: 1px solid var(--line); }
+.ecard-result.win { border-color: #51855a; background: rgba(81,133,90,.15); }
+.ecard-result.loss { border-color: var(--red); background: rgba(159,62,53,.14); }
+.ecard-result strong { font: 500 22px Georgia, serif; }
+.ecard-result p { color: var(--muted); }
+.ecard-result button { padding: 11px 16px; color: #17130c; border: 0; background: var(--gold); cursor: pointer; font-weight: 800; }
+.ecard-lower { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+.ecard-history { margin-top: 18px; }
+.ecard-history > div { display: grid; grid-template-columns: 30px 1fr 36px 1fr 70px; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.ecard-history span, .ecard-history em, .ecard-history small { color: var(--muted); }
+.ecard-history em { text-align: center; }
+.ecard-history small { text-align: right; }
+.information-set .payoff-note { color: var(--gold-soft); }
+
+.rps-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
+.rps-score div { padding: 10px 24px; text-align: center; border-right: 1px solid var(--line); }
+.rps-score div:last-child { border-right: 0; }
+.rps-score span { color: var(--muted); font-size: 11px; letter-spacing: .09em; }
+.rps-score strong { display: block; margin-top: 7px; color: var(--gold-soft); font: 500 28px Georgia, serif; }
+.rps-arena { display: grid; grid-template-columns: .9fr 1.4fr; gap: 38px; padding: clamp(28px, 5vw, 60px); background: radial-gradient(circle at 28% 50%, #342519 0, #1b1a16 46%, #131310 100%); }
+.rps-opponent { text-align: center; }
+.rps-opponent h2 { margin: 14px 0 8px; font: 500 clamp(27px, 4vw, 44px) Georgia, "Songti SC", serif; }
+.rps-opponent > p:not(.eyebrow) { color: var(--muted); }
+.rps-reveal { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 34px; }
+.rps-reveal > span { width: 112px; aspect-ratio: 1; display: grid; place-items: center; color: #17130c; border-radius: 50%; background: var(--gold); font-size: 44px; font-weight: 900; }
+.rps-reveal span small { display: block; font-size: 11px; }
+.rps-reveal > b { color: var(--muted); }
+.rps-inventory { padding: 25px; border: 1px solid var(--line); background: rgba(0,0,0,.18); }
+.rps-card-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 25px 0; }
+.rps-move { min-height: 190px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 24px 12px; color: var(--ink); border: 1px solid var(--line); background: rgba(255,255,255,.03); cursor: pointer; transition: transform .18s ease, border-color .18s ease; }
+.rps-move:hover:not(:disabled) { transform: translateY(-7px); border-color: var(--gold); }
+.rps-move:disabled { opacity: .3; cursor: not-allowed; }
+.rps-move strong { color: var(--gold); font-size: 43px; }
+.rps-move span { font: 500 21px Georgia, "Songti SC", serif; }
+.rps-move b { color: var(--gold-soft); }
+.rps-ai-stock { display: flex; justify-content: space-between; gap: 16px; color: var(--muted); font-size: 12px; }
+.rps-ai-stock div { display: flex; gap: 12px; color: var(--gold-soft); }
+.rps-lower { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+.rps-history-panel { grid-column: 1 / -1; }
+.strategy-explainer { color: var(--muted); line-height: 1.7; }
+.probability-bars { margin-top: 20px; }
+.probability-row { display: grid; grid-template-columns: 65px 1fr 55px; align-items: center; gap: 10px; margin: 10px 0; font-size: 12px; }
+.probability-row i { height: 7px; overflow: hidden; background: #2d2b26; }
+.probability-row i b { display: block; height: 100%; background: var(--gold); }
+.probability-row strong { text-align: right; color: var(--gold-soft); }
+.rps-history { max-height: 220px; overflow: auto; margin-top: 16px; }
+.rps-history > div { display: grid; grid-template-columns: 30px 1fr 36px 1fr 60px; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.rps-history em, .rps-history small { color: var(--muted); text-align: center; }
+.rps-new-match { grid-column: 1 / -1; padding: 15px; color: #17130c; border: 0; background: var(--gold); cursor: pointer; font-weight: 800; }
+
+.blackjack-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
+.blackjack-score div { padding: 10px 24px; text-align: center; border-right: 1px solid var(--line); }
+.blackjack-score div:last-child { border-right: 0; }
+.blackjack-score span { color: var(--muted); font-size: 11px; letter-spacing: .09em; }
+.blackjack-score strong { display: block; margin-top: 7px; color: var(--gold-soft); font: 500 27px Georgia, serif; }
+.blackjack-table { min-height: 630px; display: grid; grid-template-rows: 1fr auto 1fr; gap: 24px; padding: clamp(28px, 5vw, 60px); background: radial-gradient(ellipse at center, #1e5138 0, #153424 48%, #101c16 100%); }
+.blackjack-hand > div:first-child { display: flex; justify-content: space-between; max-width: 520px; margin: 0 auto 15px; color: var(--muted); }
+.blackjack-hand > div:first-child strong { color: var(--gold-soft); }
+.blackjack-cards { display: flex; justify-content: center; gap: 10px; min-height: 128px; }
+.blackjack-card { width: 84px; aspect-ratio: .7; display: grid; place-items: center; color: #17130d; border: 2px solid #fff7df; border-radius: 8px; background: linear-gradient(145deg, #fffdf5, #d9ceb5); box-shadow: 0 15px 25px rgba(0,0,0,.35); font: 700 34px Georgia, serif; }
+.blackjack-card.red { color: #a22f2a; }
+.blackjack-card.hidden-card { color: var(--gold); border-color: #b18a43; background: repeating-linear-gradient(45deg, #1b1710, #1b1710 7px, #47371e 7px, #47371e 14px); }
+.blackjack-center { text-align: center; }
+.blackjack-center h2 { margin: 12px 0 22px; font: 500 clamp(24px, 3vw, 36px) Georgia, "Songti SC", serif; }
+.blackjack-actions { display: flex; justify-content: center; gap: 10px; }
+.blackjack-actions button { min-width: 110px; padding: 13px 18px; color: #17130c; border: 1px solid var(--gold); background: var(--gold); cursor: pointer; font-weight: 800; }
+.blackjack-actions button:nth-child(2) { color: var(--ink); border-color: #9eaa9f; background: rgba(0,0,0,.25); }
+.blackjack-result { width: fit-content; margin: 20px auto 0; padding: 13px 25px; border: 1px solid var(--line); font: 500 22px Georgia, serif; }
+.blackjack-result.player { border-color: #72b57c; background: rgba(81,133,90,.24); }
+.blackjack-result.dealer { border-color: var(--red); background: rgba(159,62,53,.2); }
+.blackjack-lower { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+.advisor-call { margin: 26px 0 18px; color: var(--gold-soft); font: 500 46px Georgia, "Songti SC", serif; }
+.strategy-advisor button { padding: 12px 17px; color: #17130c; border: 0; background: var(--gold); cursor: pointer; font-weight: 800; }
+.strategy-advisor button:disabled { opacity: .35; cursor: not-allowed; }
+.strategy-advisor p { color: var(--muted); line-height: 1.7; }
+.blackjack-history { max-height: 230px; overflow: auto; margin-top: 18px; }
+.blackjack-history div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.blackjack-history span, .blackjack-history p { color: var(--muted); }
+
+@media (max-width: 1100px) {
+  .game-layout { grid-template-columns: 180px 1fr; }
+  .insight-panel { grid-column: 1 / -1; }
+  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+}
+
+@media (max-width: 720px) {
+  .status { display: none; }
+  .github-link > span:last-child { display: none; }
+  .header-actions { gap: 8px; }
+  .view { padding-inline: 14px; }
+  .game-heading { align-items: center; }
+  .game-layout { display: flex; flex-direction: column; }
+  .table-panel { order: 1; min-height: auto; }
+  .prize-panel { order: 2; }
+  .insight-panel { order: 3; }
+  .case-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .round-banner { align-items: flex-start; gap: 16px; }
+  .round-banner p { max-width: 210px; }
+  .metrics { grid-template-columns: 1fr 1fr; }
+  .offer-actions { grid-template-columns: 1fr; }
+  .worm-status, .worm-lower { grid-template-columns: 1fr; }
+  .pirate-summary, .pirate-grid, .vote-grid { grid-template-columns: 1fr; }
+  .poker-score { grid-template-columns: 1fr 1fr; }
+  .poker-score div:nth-child(2) { border-right: 0; }
+  .poker-table { min-height: auto; grid-template-columns: 1fr 1fr; }
+  .poker-center { grid-column: 1 / -1; grid-row: 2; }
+  .poker-lower { grid-template-columns: 1fr; }
+  .ecard-score { grid-template-columns: 1fr 1fr; }
+  .ecard-arena { grid-template-columns: 1fr 1fr; }
+  .ecard-center { grid-column: 1 / -1; grid-row: 2; }
+  .ecard-lower { grid-template-columns: 1fr; }
+  .rps-score { grid-template-columns: 1fr 1fr; }
+  .rps-arena, .rps-lower { grid-template-columns: 1fr; }
+  .rps-history-panel { grid-column: auto; }
+  .rps-card-row { gap: 6px; }
+  .rps-move { min-height: 150px; padding: 16px 6px; }
+  .blackjack-score { grid-template-columns: 1fr 1fr; }
+  .blackjack-lower { grid-template-columns: 1fr; }
+  .blackjack-card { width: 62px; }
+  .hole-row { gap: 5px; }
+}
