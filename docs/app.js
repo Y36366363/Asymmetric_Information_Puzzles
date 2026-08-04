@@ -45,6 +45,7 @@ const copy = {
     mastermindAttempts: "已用尝试", mastermindCandidates: "剩余候选", mastermindGuess: "提交猜测",
     mastermindSuggested: "信息集建议", mastermindExact: "位置正确", mastermindPartial: "数字正确但位置不同",
     mastermindInstruction: "输入四个不重复的数字。黑色标记表示位置和数字都正确，白色标记表示数字正确但位置错误。",
+    rulesEyebrow: "玩法说明", rulesTitle: "游戏规则", closeRules: "关闭",
     prizePool: "奖金池", round: "回合", decisionPanel: "决策仪表",
     emptyInsight: "银行家报价后，这里会显示期望值、风险和模型建议。",
     gameHistory: "博弈记录", liveChecks: "实时检查次数", possiblePositions: "仍可能的位置",
@@ -93,6 +94,7 @@ const copy = {
     mastermindAttempts: "Attempts", mastermindCandidates: "Candidates left", mastermindGuess: "Submit guess",
     mastermindSuggested: "Information-set suggestion", mastermindExact: "Exact position", mastermindPartial: "Right digit, wrong position",
     mastermindInstruction: "Enter four distinct digits. Black markers are exact matches; white markers are right digits in the wrong positions.",
+    rulesEyebrow: "HOW TO PLAY", rulesTitle: "Rules", closeRules: "Close",
     prizePool: "Prize board", round: "Round", decisionPanel: "Decision dashboard",
     emptyInsight: "Expected value, risk, and model guidance appear after the banker's offer.",
     gameHistory: "Game history", liveChecks: "Live check count", possiblePositions: "Possible positions",
@@ -133,6 +135,55 @@ const gamesCopy = {
   },
 };
 
+const rulesCopy = {
+  zh: {
+    cases: ["选择一个箱子保留；按当前回合要求打开其他箱子；银行家报价后选择接受或继续。剩余金额、期望值和风险指标会辅助你的决策。"],
+    worm: ["虫子藏在五个相邻洞中。每次检查一个洞；若没抓到，虫子会移动到相邻洞。对抗模式保留最坏情况轨迹，按提示序列行动才能保证成功。"],
+    pirates: ["你是最资深海盗 A。给所有海盗分配全部金币并提交投票。其他海盗会比较当前提案与 A 被处决后的延续收益；达到所需票数才通过。"],
+    "kuhn-poker": ["双方各拿一张 J、Q、K 中的牌并投入底注。你可以过牌或下注；面对下注可跟注或弃牌。跟注后比牌，K 大于 Q 大于 J。"],
+    "e-card": ["你与 AI 各有一张特殊牌和多张市民牌。每次同时出牌；皇帝击败市民，市民击败奴隶，奴隶击败皇帝。奴隶获胜收益更高，市民相撞则继续。"],
+    "restricted-rps": ["双方各有有限数量的石头、剪刀、布。每张牌只能用一次，库存公开但出牌同时隐藏。耗尽库存后比较得分；系统展示均衡建议与 AI 的适应。"],
+    blackjack: ["目标是让手牌尽量接近 21 且不爆牌。面对庄家明牌选择要牌、停牌或首轮加倍；庄家在软 17 停牌。页面会把你的动作与基础策略比较。"],
+    "liars-dice": ["你只能看见自己的骰子。公开叫价表示全桌至少有多少个某点数；1 点对其他点数是万能牌。你可以提高数量/点数，或质疑上一口叫价。"],
+    mastermind: ["猜一个由 1–6 组成、四位不重复的隐藏密码。黑色反馈代表数字和位置都对，白色反馈代表数字对但位置错。十次内破解即可获胜。"],
+  },
+  en: {
+    cases: ["Keep one case, open the required number of other cases each round, then choose Deal or No Deal after the banker's offer. Expected value and risk metrics support the decision."],
+    worm: ["A worm hides in five adjacent holes. Check one hole per turn; after a miss it moves to a neighbor. The adversarial mode preserves the worst legal path, so follow the guaranteed sequence."],
+    pirates: ["You are senior pirate A. Allocate every coin and submit the proposal. Other pirates compare the offer with their continuation payoff if A is executed; enough votes are required."],
+    "kuhn-poker": ["Each player receives J, Q, or K and antes. Check or bet when first; facing a bet, call or fold. A call reaches showdown, with K high and J low."],
+    "e-card": ["You and the AI hold one special card plus citizens. Play simultaneously: Emperor beats Citizen, Citizen beats Slave, Slave beats Emperor. Slave wins pay more; Citizen ties continue."],
+    "restricted-rps": ["Each side has a finite public inventory of Rock, Paper, and Scissors. Every card is consumed once and choices are simultaneous. Finish the inventory while tracking equilibrium and adaptation."],
+    blackjack: ["Get as close to 21 as possible without busting. Against the dealer upcard choose Hit, Stand, or Double on the first decision; the dealer stands on soft 17. Your actions are audited against basic strategy."],
+    "liars-dice": ["You see only your dice. A public bid claims at least a quantity of a face; ones are wild for other faces. Raise the quantity/face or challenge the previous bid."],
+    mastermind: ["Crack a hidden four-digit code using distinct symbols from 1–6. Black feedback is an exact match; white feedback is a right digit in the wrong position. Solve it within ten attempts."],
+  },
+};
+
+function installRulesButtons() {
+  document.querySelectorAll(".game-heading").forEach((heading) => {
+    if (heading.querySelector(".rules-button")) return;
+    const view = heading.closest(".view");
+    const gameId = { gameView: "cases", wormView: "worm", pirateView: "pirates", pokerView: "kuhn-poker", eCardView: "e-card", rpsView: "restricted-rps", liarView: "liars-dice", blackjackView: "blackjack", mastermindView: "mastermind" }[view?.id];
+    if (!gameId) return;
+    const button = document.createElement("button");
+    button.className = "rules-button";
+    button.dataset.rulesGame = gameId;
+    button.addEventListener("click", () => openRules(gameId));
+    const restart = heading.querySelector(".secondary-button");
+    heading.insertBefore(button, restart || null);
+  });
+}
+
+function openRules(gameId) {
+  const lines = rulesCopy[language][gameId] || [];
+  $("#rulesTitle").textContent = `${gamesCopy[language][gameId]?.[0] || gameId} · ${tr("rulesTitle")}`;
+  $("#rulesBody").innerHTML = `<ul>${lines.map((line) => `<li>${line}</li>`).join("")}</ul>`;
+  $("#rulesModal").classList.remove("hidden");
+}
+
+function closeRules() { $("#rulesModal").classList.add("hidden"); }
+
 function tr(key) { return copy[language][key] ?? key; }
 
 function applyLanguage() {
@@ -142,6 +193,8 @@ function applyLanguage() {
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     element.textContent = tr(element.dataset.i18n);
   });
+  installRulesButtons();
+  document.querySelectorAll(".rules-button").forEach((button) => { button.textContent = tr("rulesTitle"); });
   $("#languageZh").classList.toggle("active", language === "zh");
   $("#languageEn").classList.toggle("active", language === "en");
   renderLobby();
@@ -792,5 +845,7 @@ $("#submitPirateProposal").addEventListener("click", () => {
 });
 $("#dealButton").addEventListener("click", () => act("deal"));
 $("#noDealButton").addEventListener("click", () => act("no_deal"));
+$("#rulesClose").addEventListener("click", closeRules);
+$("#rulesModal").addEventListener("click", (event) => { if (event.target.id === "rulesModal") closeRules(); });
 applyLanguage();
 loadLobby().catch((error) => showToast(error.message));

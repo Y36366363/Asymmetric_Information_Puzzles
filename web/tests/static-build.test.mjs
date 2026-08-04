@@ -10,6 +10,10 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(html, /type="module" src="bootstrap\.js"/);
   assert.doesNotMatch(html, /<script src="app\.js"><\/script>/);
   assert.ok(bootstrap.indexOf("game-engine.js") < bootstrap.indexOf("app.js"));
+  assert.match(html, /id="rulesModal"/);
+  const app = await readFile(new URL("app.js", publicRoot), "utf8");
+  assert.match(app, /installRulesButtons/);
+  assert.match(app, /Mastermind/);
 });
 
 test("browser engine intercepts API calls without a backend", async () => {
