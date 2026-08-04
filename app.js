@@ -13,35 +13,35 @@ const copy = {
     heroLine1: "把推理变成一场", heroLine2: "真正可以玩的博弈",
     heroCopy: "选择一个实验。你做决定，系统隐藏信息、扮演对手，并在关键时刻揭示概率与代价。",
     backLobby: "← 返回大厅", restart: "重新开始", restartCouncil: "重新召开议会",
-    caseEyebrow: "CASE 01 · 风险与谈判", caseTitle: "命运之箱",
-    wormEyebrow: "CASE 02 · 隐藏状态追踪", wormTitle: "移动虫穴",
-    pirateEyebrow: "CASE 03 · 逆向归纳与联盟", pirateTitle: "海盗议会",
-    pokerEyebrow: "CASE 04 · 私有信息与诈唬", pokerTitle: "库恩扑克",
+    caseEyebrow: "CASE 01 · 风险与谈判 · 入门", caseTitle: "命运之箱",
+    wormEyebrow: "CASE 09 · 隐藏状态追踪 · 挑战", wormTitle: "移动虫穴",
+    pirateEyebrow: "CASE 06 · 逆向归纳与联盟 · 中等", pirateTitle: "海盗议会",
+    pokerEyebrow: "CASE 07 · 私有信息与诈唬 · 较难", pokerTitle: "库恩扑克",
     restartMatch: "重新开始比赛", handNumber: "当前牌局", yourScore: "你的净筹码",
     potSize: "底池", aiScore: "AI 净筹码", strategyAi: "策略型 AI", you: "你",
     yourInformationSet: "你的信息集", quickRules: "快速规则",
     pokerRules: "双方先各投入 1。下注为 1；跟注后比牌，弃牌则直接输。K 最大、J 最小。AI 会按概率诈唬，所以同一种动作不总代表同一张牌。",
-    eCardEyebrow: "CASE 05 · 非对称收益与混合策略", eCardTitle: "E-Card 皇帝牌",
+    eCardEyebrow: "CASE 05 · 非对称收益与混合策略 · 中等", eCardTitle: "E-Card 皇帝牌",
     currentDuel: "本轮对决", emperor: "皇帝", citizen: "市民", slave: "奴隶",
     eCardYourScore: "你的得分", eCardAiScore: "AI 得分",
     duelHistory: "公开对局记录",
     eCardPayoff: "皇帝获胜得 1 分，奴隶获胜得 5 分。双方市民相撞时只弃掉两张牌并继续本轮。",
-    rpsEyebrow: "CASE 06 · 有限资源与策略随机化", rpsTitle: "限定猜拳实验室",
+    rpsEyebrow: "CASE 03 · 有限资源与策略随机化 · 简单", rpsTitle: "限定猜拳实验室",
     currentRound: "当前轮次", draws: "平局", yourInventory: "你的剩余库存",
     aiInventory: "AI 剩余库存", equilibriumGuide: "不可利用的均衡建议",
     rpsEquilibriumCopy: "系统从比赛终点逆向计算每一种剩余库存，求解当前零和矩阵的极小极大混合策略；后期建议可能从均匀随机转为确定性出牌。",
     aiAnalysis: "AI 上轮策略分析",
-    blackjackEyebrow: "CASE 07 · 条件概率与策略审计", blackjackTitle: "21 点策略实验室",
+    blackjackEyebrow: "CASE 02 · 条件概率与策略审计 · 入门", blackjackTitle: "21 点策略实验室",
     restartSession: "重新开始实验", netUnits: "净收益单位", record: "胜 / 负 / 和",
     strategyAccuracy: "基础策略吻合率", dealer: "庄家", basicStrategyAi: "基础策略 AI",
     letAiPlay: "让 AI 执行这一步", decisionAudit: "决策审计",
     blackjackScope: "此建议针对六副牌、软 17 停牌、不可分牌/投降/保险且不计牌的动作集合。改变规则或利用牌靴构成后，最优动作可能改变。",
-    liarEyebrow: "CASE 08 · 隐藏骰子与公开信号", liarTitle: "骗子骰子", liarRound: "回合",
+    liarEyebrow: "CASE 08 · 隐藏骰子与公开信号 · 较难", liarTitle: "骗子骰子", liarRound: "回合",
     opponentDice: "对手隐藏骰子", yourDice: "你的骰子", aiHiddenDice: "AI 的隐藏骰子",
     currentBid: "当前公开叫价", quantity: "数量", face: "点数", raiseBid: "加注", challengeBid: "质疑叫价",
     liarInstruction: "你只能看见自己的骰子。1 点是万能牌；判断公开叫价是否值得相信。",
     liarHistory: "公开叫价记录", liarInformation: "你的信息集", liarProbability: "模型认为该叫价为真的概率",
-    mastermindEyebrow: "CASE 09 · 候选集合与反馈学习", mastermindTitle: "密码破解",
+    mastermindEyebrow: "CASE 04 · 候选集合与反馈学习 · 简单", mastermindTitle: "密码破解",
     mastermindAttempts: "已用尝试", mastermindCandidates: "剩余候选", mastermindGuess: "提交猜测",
     mastermindSuggested: "信息集建议", mastermindExact: "位置正确", mastermindPartial: "数字正确但位置不同",
     mastermindInstruction: "输入四个不重复的数字。黑色标记表示位置和数字都正确，白色标记表示数字正确但位置错误。",
@@ -62,35 +62,35 @@ const copy = {
     heroLine1: "Turn reasoning into", heroLine2: "games you can actually play",
     heroCopy: "Choose an experiment. You decide; the system hides information, plays the opposition, and reveals probability and cost at decisive moments.",
     backLobby: "← Back to lobby", restart: "New game", restartCouncil: "New council",
-    caseEyebrow: "CASE 01 · RISK & NEGOTIATION", caseTitle: "Cases of Fate",
-    wormEyebrow: "CASE 02 · HIDDEN-STATE TRACKING", wormTitle: "The Moving Worm",
-    pirateEyebrow: "CASE 03 · BACKWARD INDUCTION & COALITIONS", pirateTitle: "Pirate Council",
-    pokerEyebrow: "CASE 04 · PRIVATE INFORMATION & BLUFFING", pokerTitle: "Kuhn Poker",
+    caseEyebrow: "CASE 01 · RISK & NEGOTIATION · BEGINNER", caseTitle: "Cases of Fate",
+    wormEyebrow: "CASE 09 · HIDDEN-STATE TRACKING · CHALLENGE", wormTitle: "The Moving Worm",
+    pirateEyebrow: "CASE 06 · BACKWARD INDUCTION & COALITIONS · MEDIUM", pirateTitle: "Pirate Council",
+    pokerEyebrow: "CASE 07 · PRIVATE INFORMATION & BLUFFING · HARD", pokerTitle: "Kuhn Poker",
     restartMatch: "Restart match", handNumber: "Current hand", yourScore: "Your net chips",
     potSize: "Pot", aiScore: "AI net chips", strategyAi: "Strategy AI", you: "You",
     yourInformationSet: "Your information set", quickRules: "Quick rules",
     pokerRules: "Both players ante 1. A bet costs 1; a call leads to showdown, while a fold loses immediately. K is high and J is low. The AI bluffs probabilistically, so one action never reveals one card with certainty.",
-    eCardEyebrow: "CASE 05 · ASYMMETRIC PAYOFFS & MIXED STRATEGY", eCardTitle: "E-Card",
+    eCardEyebrow: "CASE 05 · ASYMMETRIC PAYOFFS & MIXED STRATEGY · MEDIUM", eCardTitle: "E-Card",
     currentDuel: "Duel", emperor: "Emperor", citizen: "Citizen", slave: "Slave",
     eCardYourScore: "Your score", eCardAiScore: "AI score",
     duelHistory: "Public duel history",
     eCardPayoff: "An Emperor win scores 1; a Slave win scores 5. Citizen versus Citizen discards both cards and continues the round.",
-    rpsEyebrow: "CASE 06 · FINITE RESOURCES & RANDOMIZATION", rpsTitle: "Restricted RPS Lab",
+    rpsEyebrow: "CASE 03 · FINITE RESOURCES & RANDOMIZATION · EASY", rpsTitle: "Restricted RPS Lab",
     currentRound: "Current round", draws: "Draws", yourInventory: "Your remaining inventory",
     aiInventory: "AI remaining inventory", equilibriumGuide: "Unexploitable equilibrium guide",
     rpsEquilibriumCopy: "The solver works backward through every remaining-inventory state and solves the current zero-sum matrix for its minimax mixture. Late-game advice can become deterministic rather than uniformly random.",
     aiAnalysis: "AI strategy from the last round",
-    blackjackEyebrow: "CASE 07 · CONDITIONAL PROBABILITY & STRATEGY AUDIT", blackjackTitle: "Blackjack Strategy Lab",
+    blackjackEyebrow: "CASE 02 · CONDITIONAL PROBABILITY & STRATEGY AUDIT · BEGINNER", blackjackTitle: "Blackjack Strategy Lab",
     restartSession: "Restart session", netUnits: "Net units", record: "Win / Loss / Push",
     strategyAccuracy: "Basic-strategy match", dealer: "Dealer", basicStrategyAi: "Basic-strategy AI",
     letAiPlay: "Let AI take this action", decisionAudit: "Decision audit",
     blackjackScope: "This advice is scoped to six decks, dealer standing on soft 17, no split/surrender/insurance, and no card counting. Change the rules or use shoe composition and the optimal action may change.",
-    liarEyebrow: "CASE 08 · HIDDEN DICE & PUBLIC SIGNALS", liarTitle: "Liar's Dice", liarRound: "Round",
+    liarEyebrow: "CASE 08 · HIDDEN DICE & PUBLIC SIGNALS · HARD", liarTitle: "Liar's Dice", liarRound: "Round",
     opponentDice: "Opponent hidden dice", yourDice: "Your dice", aiHiddenDice: "AI hidden dice",
     currentBid: "Current public bid", quantity: "Quantity", face: "Face", raiseBid: "Raise", challengeBid: "Challenge",
     liarInstruction: "You see only your own dice. Ones are wild; decide whether the public claim is worth believing.",
     liarHistory: "Public bid history", liarInformation: "Your information set", liarProbability: "Model probability the bid is true",
-    mastermindEyebrow: "CASE 09 · CANDIDATE SETS & FEEDBACK", mastermindTitle: "Mastermind",
+    mastermindEyebrow: "CASE 04 · CANDIDATE SETS & FEEDBACK · EASY", mastermindTitle: "Mastermind",
     mastermindAttempts: "Attempts", mastermindCandidates: "Candidates left", mastermindGuess: "Submit guess",
     mastermindSuggested: "Information-set suggestion", mastermindExact: "Exact position", mastermindPartial: "Right digit, wrong position",
     mastermindInstruction: "Enter four distinct digits. Black markers are exact matches; white markers are right digits in the wrong positions.",
@@ -133,6 +133,11 @@ const gamesCopy = {
     mastermind: ["Mastermind", "Use exact and partial-match feedback to shrink a hidden code's candidate set.", "Solo · Information-set search"],
     auction: ["100-Unit All-Pay Auction", "Fight for leadership through public prices, alliances, and defection.", "Local multiplayer · Coming soon"],
   },
+};
+
+const difficultyCopy = {
+  zh: { cases: "入门", blackjack: "入门", "restricted-rps": "简单", mastermind: "简单", "e-card": "中等", pirates: "中等", "kuhn-poker": "较难", "liars-dice": "较难", worm: "挑战", auction: "未开放" },
+  en: { cases: "Beginner", blackjack: "Beginner", "restricted-rps": "Easy", mastermind: "Easy", "e-card": "Medium", pirates: "Medium", "kuhn-poker": "Hard", "liars-dice": "Hard", worm: "Challenge", auction: "Coming soon" },
 };
 
 const rulesCopy = {
@@ -279,6 +284,7 @@ function renderLobby() {
       <span class="game-index">0${index + 1}</span>
       <h2>${localized[0]}</h2>
       <p>${localized[1]}</p>
+      <span class="difficulty-badge">${language === "zh" ? "难度" : "Difficulty"} · ${difficultyCopy[language][game.id] || "—"}</span>
       <span class="game-mode">${localized[2]}</span>
     </button>
   `; }).join("");
@@ -366,26 +372,28 @@ function render() {
   const state = currentState;
   $("#roundNumber").textContent = state.phase === "choose" ? "—" : state.round;
   $("#remainingCount").textContent = state.prizeBoard.filter((prize) => prize.remaining).length;
+  const finalPayout = Number.isFinite(state.payout) ? formatMoney(state.payout) : (language === "zh" ? "金额待确认" : "Payout unavailable");
   const instructions = language === "zh" ? {
-    choose: "请选择一个属于你的密封箱",
-    opening: `再打开 ${state.opensRemaining} 个箱子，银行家随后报价`,
-    offer: "银行家正在等待你的决定",
-    finished: `本局结束 · 你获得 ${formatMoney(state.payout)}`,
+    choose: "第一步：点击一个箱子作为你的保留箱",
+    opening: `本轮请再打开 ${state.opensRemaining} 个箱子，完成后银行家会报价`,
+    offer: state.isFinalOffer ? "最终阶段：只剩你的保留箱，请决定接受最终报价还是直接揭晓" : "银行家正在等待：接受报价，或拒绝并继续开箱",
+    finished: state.result?.kind === "deal" ? `本局结束 · 你接受了 ${finalPayout}` : `最终揭晓 · 你的保留箱奖金为 ${finalPayout}`,
   } : {
-    choose: "Choose one sealed case to keep",
-    opening: `Open ${state.opensRemaining} more case(s) before the next offer`,
-    offer: "The banker is waiting for your decision",
-    finished: `Game over · You received ${formatMoney(state.payout)}`,
+    choose: "First: click one case to keep",
+    opening: `Open ${state.opensRemaining} more case(s); the banker will then make an offer`,
+    offer: state.isFinalOffer ? "Final stage: only your kept case remains. Take the final offer or reveal it" : "The banker is waiting: take the offer or reject it and keep opening",
+    finished: state.result?.kind === "deal" ? `Game over · You accepted ${finalPayout}` : `Final reveal · Your kept case pays ${finalPayout}`,
   };
   $("#instruction").textContent = instructions[state.phase];
+  const chosenCase = state.chosenCase ? findCase(state.chosenCase) : null;
   $("#chosenStrip").textContent = state.chosenCase
     ? (language === "zh"
-      ? `你的密封箱：${state.chosenCase} 号${state.phase === "finished" ? ` · ${formatMoney(findCase(state.chosenCase).value)}` : ""}`
-      : `Your sealed case: No. ${state.chosenCase}${state.phase === "finished" ? ` · ${formatMoney(findCase(state.chosenCase).value)}` : ""}`)
-    : (language === "zh" ? "你的箱子尚未选择" : "You have not chosen a case yet");
+      ? `你的保留箱：${state.chosenCase} 号${state.phase === "finished" ? ` · 最终金额 ${Number.isFinite(chosenCase?.value) ? formatMoney(chosenCase.value) : "尚未取得"}` : " · 游戏结束前不会打开"}`
+      : `Your kept case: No. ${state.chosenCase}${state.phase === "finished" ? ` · Final value ${Number.isFinite(chosenCase?.value) ? formatMoney(chosenCase.value) : "unavailable"}` : " · stays sealed until the game ends"}`)
+    : (language === "zh" ? "尚未选择保留箱：请点击下方任意箱子开始" : "No kept case yet: click any case below to begin");
 
   $("#caseGrid").innerHTML = state.cases.map((item) => {
-    const label = item.status === "opened" ? formatMoney(item.value) : item.id;
+    const label = item.status === "opened" || (state.phase === "finished" && item.status === "chosen") ? formatMoney(item.value) : item.id;
     return `<button class="case ${item.status}" data-case="${item.id}" ${caseDisabled(item) ? "disabled" : ""}>${label}</button>`;
   }).join("");
   document.querySelectorAll(".case:not(:disabled)").forEach((button) => {
@@ -404,9 +412,11 @@ function render() {
   if (state.phase === "offer") {
     $("#offerValue").textContent = formatMoney(state.offer);
     const remaining = state.prizeBoard.filter((prize) => prize.remaining).length;
-    $("#offerContext").textContent = language === "zh"
-      ? `剩余 ${remaining} 个可能金额。模型保留价为 ${formatMoney(state.metrics.certaintyEquivalent)}。`
-      : `${remaining} prize values remain. The model's reservation value is ${formatMoney(state.metrics.certaintyEquivalent)}.`;
+    $("#offerContext").textContent = state.isFinalOffer
+      ? (language === "zh" ? `这是最终报价。接受可立即获得 ${formatMoney(state.offer)}；拒绝后会直接打开 ${state.chosenCase} 号保留箱并领取其中金额。` : `This is the final offer. Take ${formatMoney(state.offer)} now, or reject it to reveal and receive kept case No. ${state.chosenCase}.`)
+      : (language === "zh" ? `还有 ${remaining} 个可能金额。接受就立即结束；拒绝则继续开箱。模型保留价为 ${formatMoney(state.metrics.certaintyEquivalent)}。` : `${remaining} prize values remain. Deal ends the game; No Deal continues. Model reservation value: ${formatMoney(state.metrics.certaintyEquivalent)}.`);
+    $("#dealButton").textContent = state.isFinalOffer ? (language === "zh" ? "接受最终报价" : "Take final offer") : tr("acceptOffer");
+    $("#noDealButton").textContent = state.isFinalOffer ? (language === "zh" ? "拒绝并揭晓保留箱" : "Reject and reveal my case") : tr("rejectOffer");
   }
 }
 
