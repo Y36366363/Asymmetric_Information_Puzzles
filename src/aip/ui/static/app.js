@@ -36,6 +36,11 @@ const copy = {
     strategyAccuracy: "基础策略吻合率", dealer: "庄家", basicStrategyAi: "基础策略 AI",
     letAiPlay: "让 AI 执行这一步", decisionAudit: "决策审计",
     blackjackScope: "此建议针对六副牌、软 17 停牌、不可分牌/投降/保险且不计牌的动作集合。改变规则或利用牌靴构成后，最优动作可能改变。",
+    liarEyebrow: "CASE 08 · 隐藏骰子与公开信号", liarTitle: "骗子骰子", liarRound: "回合",
+    opponentDice: "对手隐藏骰子", yourDice: "你的骰子", aiHiddenDice: "AI 的隐藏骰子",
+    currentBid: "当前公开叫价", quantity: "数量", face: "点数", raiseBid: "加注", challengeBid: "质疑叫价",
+    liarInstruction: "你只能看见自己的骰子。1 点是万能牌；判断公开叫价是否值得相信。",
+    liarHistory: "公开叫价记录", liarInformation: "你的信息集", liarProbability: "模型认为该叫价为真的概率",
     prizePool: "奖金池", round: "回合", decisionPanel: "决策仪表",
     emptyInsight: "银行家报价后，这里会显示期望值、风险和模型建议。",
     gameHistory: "博弈记录", liveChecks: "实时检查次数", possiblePositions: "仍可能的位置",
@@ -75,6 +80,11 @@ const copy = {
     strategyAccuracy: "Basic-strategy match", dealer: "Dealer", basicStrategyAi: "Basic-strategy AI",
     letAiPlay: "Let AI take this action", decisionAudit: "Decision audit",
     blackjackScope: "This advice is scoped to six decks, dealer standing on soft 17, no split/surrender/insurance, and no card counting. Change the rules or use shoe composition and the optimal action may change.",
+    liarEyebrow: "CASE 08 · HIDDEN DICE & PUBLIC SIGNALS", liarTitle: "Liar's Dice", liarRound: "Round",
+    opponentDice: "Opponent hidden dice", yourDice: "Your dice", aiHiddenDice: "AI hidden dice",
+    currentBid: "Current public bid", quantity: "Quantity", face: "Face", raiseBid: "Raise", challengeBid: "Challenge",
+    liarInstruction: "You see only your own dice. Ones are wild; decide whether the public claim is worth believing.",
+    liarHistory: "Public bid history", liarInformation: "Your information set", liarProbability: "Model probability the bid is true",
     prizePool: "Prize board", round: "Round", decisionPanel: "Decision dashboard",
     emptyInsight: "Expected value, risk, and model guidance appear after the banker's offer.",
     gameHistory: "Game history", liveChecks: "Live check count", possiblePositions: "Possible positions",
@@ -97,7 +107,7 @@ const gamesCopy = {
     "e-card": ["E-Card 皇帝牌", "轮流扮演皇帝方与奴隶方，在非对称收益下猜测 AI 的隐藏出牌时机。", "单人 · 非对称混合策略"],
     "restricted-rps": ["限定猜拳实验室", "管理公开的有限手势库存，对抗以均衡随机化为底线、同时学习你偏好的 AI。", "单人 · 资源约束与机制设计"],
     blackjack: ["21 点策略实验室", "对抗固定规则庄家，逐步比较你的行动与规则限定的最优基础策略。", "单人 · 概率决策与策略审计"],
-    "liars-dice": ["骗子骰子", "隐藏手牌、公开叫价与诈唬识别。", "本地多人 · 即将开放"],
+    "liars-dice": ["骗子骰子", "隐藏骰子、公开叫价与质疑概率；判断何时加注，何时抓住 AI 的虚张声势。", "单人 · 隐藏骰子与公开信号"],
     auction: ["百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放"],
   },
   en: {
@@ -108,7 +118,7 @@ const gamesCopy = {
     "e-card": ["E-Card", "Alternate between Emperor and Slave, reading the AI's hidden timing under asymmetric rewards.", "Solo · Asymmetric mixed strategy"],
     "restricted-rps": ["Restricted RPS Lab", "Manage a public finite move inventory against an AI that combines equilibrium randomization with learning.", "Solo · Resource constraints & mechanism design"],
     blackjack: ["Blackjack Strategy Lab", "Play against a fixed-rule dealer and audit every choice against the rule-scoped optimal basic strategy.", "Solo · Probability & strategy audit"],
-    "liars-dice": ["Liar's Dice", "Private hands, public bids, and bluff inference.", "Local multiplayer · Coming soon"],
+    "liars-dice": ["Liar's Dice", "Private dice, public bids, and probability-guided challenges against a bluffing AI.", "Solo · Hidden dice & public signals"],
     auction: ["100-Unit All-Pay Auction", "Fight for leadership through public prices, alliances, and defection.", "Local multiplayer · Coming soon"],
   },
 };
@@ -194,6 +204,7 @@ async function startGame(gameId = "cases", options = {}) {
     $("#pokerView").classList.toggle("hidden", gameId !== "kuhn-poker");
     $("#eCardView").classList.toggle("hidden", gameId !== "e-card");
     $("#rpsView").classList.toggle("hidden", gameId !== "restricted-rps");
+    $("#liarView").classList.toggle("hidden", gameId !== "liars-dice");
     $("#blackjackView").classList.toggle("hidden", gameId !== "blackjack");
     render();
   } catch (error) {
@@ -221,6 +232,10 @@ function render() {
   }
   if (currentState.gameId === "restricted-rps") {
     renderRestrictedRps();
+    return;
+  }
+  if (currentState.gameId === "liars-dice") {
+    renderLiarDice();
     return;
   }
   if (currentState.gameId === "e-card") {
@@ -377,6 +392,44 @@ function renderRestrictedRps() {
 
 function probabilityBars(distribution, labels) {
   return Object.entries(distribution).map(([move, probability]) => `<div class="probability-row"><span>${labels[move]}</span><i><b style="width:${(probability * 100).toFixed(1)}%"></b></i><strong>${(probability * 100).toFixed(1)}%</strong></div>`).join("");
+}
+
+function renderLiarDice() {
+  const state = currentState;
+  $("#liarRound").textContent = state.roundNumber;
+  $("#liarPlayerScore").textContent = state.playerScore;
+  $("#liarAiScore").textContent = state.aiScore;
+  $("#liarOpponentDice").textContent = state.opponentDiceCount;
+  $("#liarPlayerDice").innerHTML = state.playerDice.map((face) => `<span class="liar-die">${face}</span>`).join("");
+  $("#liarAiDice").innerHTML = Array.from({ length: state.opponentDiceCount }, () => '<span class="liar-die hidden-die">?</span>').join("");
+  $("#liarCurrentBid").textContent = state.currentBid ? `${state.currentBid[0]} × ${state.currentBid[1]}` : "—";
+  $("#liarProbability").textContent = state.claimProbability == null ? "" : `${tr("liarProbability")}: ${(state.claimProbability * 100).toFixed(1)}%`;
+  const playerTurn = state.phase === "bidding" && state.turn === "player";
+  $("#liarActions").classList.toggle("hidden", !playerTurn);
+  $("#liarChallenge").disabled = !state.currentBid;
+  if (state.minimumBid) {
+    $("#liarQuantity").min = state.minimumBid.quantity;
+    $("#liarFace").value = String(Math.min(6, state.minimumBid.face));
+  }
+  $("#liarInstruction").textContent = state.phase === "finished"
+    ? (language === "zh" ? `本轮结束：实际符合叫价的骰子数量为 ${state.result.actualCount}。` : `Round over: ${state.result.actualCount} dice matched the claim.`)
+    : state.turn === "ai"
+      ? (language === "zh" ? "AI 正在根据公开叫价与自己的骰子判断。" : "The AI is evaluating the public bid against its private dice.")
+      : tr("liarInstruction");
+  $("#liarHistory").innerHTML = state.history.length ? state.history.map((item) => {
+    const actor = item.actor === "player" ? (language === "zh" ? "你" : "You") : "AI";
+    const action = item.action === "challenge" ? (language === "zh" ? "质疑" : "challenged") : (language === "zh" ? `加注 ${item.quantity} × ${item.face}` : `raised to ${item.quantity} × ${item.face}`);
+    return `<div><b>${actor}</b><span>${action}</span>${item.confidence == null ? "" : `<small>${(item.confidence * 100).toFixed(0)}%</small>`}</div>`;
+  }).join("") : `<p>${language === "zh" ? "还没有公开叫价。" : "No public bids yet."}</p>`;
+  const info = state.claimProbability == null
+    ? (language === "zh" ? "第一轮由你先叫价。把自己骰子的分布作为先验，再观察 AI 是否愿意继续加注。" : "You open the round. Use your own dice as a prior, then observe whether the AI is willing to raise.")
+    : (language === "zh" ? `在把 1 点视为万能牌后，模型估计当前叫价为真的概率是 ${(state.claimProbability * 100).toFixed(1)}%。概率低不等于必假，但它决定质疑的风险边界。` : `Treating ones as wild, the model estimates a ${(state.claimProbability * 100).toFixed(1)}% chance the current bid is true. Low probability is not certainty, but it sets a useful challenge threshold.`);
+  $("#liarInformation").textContent = info;
+  $("#liarResult").classList.toggle("hidden", state.phase !== "finished");
+  if (state.phase === "finished") {
+    const winner = state.result.winner === "player" ? (language === "zh" ? "你赢下本轮" : "You win the round") : (language === "zh" ? "AI 赢下本轮" : "AI wins the round");
+    $("#liarResult").textContent = `${winner} · ${state.result.claimTrue ? (language === "zh" ? "叫价成立" : "claim true") : (language === "zh" ? "叫价被揭穿" : "claim false")}`;
+  }
 }
 
 function renderECard() {
@@ -675,6 +728,7 @@ function showLobby() {
   $("#pokerView").classList.add("hidden");
   $("#eCardView").classList.add("hidden");
   $("#rpsView").classList.add("hidden");
+  $("#liarView").classList.add("hidden");
   $("#blackjackView").classList.add("hidden");
   $("#lobbyView").classList.remove("hidden");
 }
@@ -690,8 +744,14 @@ $("#newPirateButton").addEventListener("click", () => startGame("pirates"));
 $("#newPokerMatch").addEventListener("click", () => startGame("kuhn-poker"));
 $("#newECardMatch").addEventListener("click", () => startGame("e-card"));
 $("#newRpsMatch").addEventListener("click", () => startGame("restricted-rps"));
+$("#newLiarMatch").addEventListener("click", () => startGame("liars-dice"));
 $("#newBlackjackMatch").addEventListener("click", () => startGame("blackjack"));
 $("#blackjackAiPlay").addEventListener("click", () => act("ai_play"));
+$("#liarRaise").addEventListener("click", () => act("raise_bid", {
+  quantity: Number($("#liarQuantity").value),
+  face: Number($("#liarFace").value),
+}));
+$("#liarChallenge").addEventListener("click", () => act("challenge"));
 $("#submitPirateProposal").addEventListener("click", () => {
   const allocation = [...document.querySelectorAll(".pirate-gold-input")].map((input) => Number(input.value));
   act("submit_proposal", { allocation });

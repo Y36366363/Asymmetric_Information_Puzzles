@@ -5,6 +5,7 @@ import threading
 import uuid
 from dataclasses import dataclass
 from itertools import combinations
+from math import comb
 from typing import Callable, Protocol
 
 from aip.puzzles.cases.models import CLASSROOM_BANKER, CaseGameRules, RiskPreferences
@@ -1351,6 +1352,160 @@ class BlackjackSession:
         }
 
 
+class LiarDiceSession:
+    """A two-player liar's-dice match with private dice and public bids."""
+
+    def __init__(self, options: dict[str, object]) -> None:
+        self.dice_per_player = max(2, min(8, int(options.get("dice", 5))))
+        self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
+        self._rng = random.Random(self.seed)
+        self.player_score = 0
+        self.ai_score = 0
+        self.round_number = 0
+        self._start_round()
+
+    def _start_round(self) -> None:
+        self.round_number += 1
+        self.player_dice = sorted(self._roll(self.dice_per_player))
+        self.ai_dice = sorted(self._roll(self.dice_per_player))
+        self.current_bid: tuple[int, int] | None = None
+        self.phase = "bidding"
+        self.turn = "player"
+        self.history: list[dict[str, object]] = []
+        self.result: dict[str, object] | None = None
+
+    def _roll(self, count: int) -> list[int]:
+        return [self._rng.randint(1, 6) for _ in range(count)]
+
+    def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
+        if action == "new_round":
+            if self.phase != "finished":
+                raise ValueError("finish the current round first")
+            self._start_round()
+        elif action == "raise_bid":
+            self._player_raise(int(payload.get("quantity", 0)), int(payload.get("face", 0)))
+        elif action == "challenge":
+            self._player_challenge()
+        else:
+            raise ValueError(f"unknown liar's-dice action: {action}")
+        return self.snapshot()
+
+    @staticmethod
+    def _is_higher(candidate: tuple[int, int], current: tuple[int, int] | None) -> bool:
+        return current is None or candidate[0] > current[0] or (
+            candidate[0] == current[0] and candidate[1] > current[1]
+        )
+
+    def _validate_bid(self, quantity: int, face: int) -> tuple[int, int]:
+        bid = (quantity, face)
+        if quantity < 1 or quantity > self.dice_per_player * 2 or face not in range(1, 7):
+            raise ValueError("bid must use a face from 1 to 6 and fit the dice pool")
+        if not self._is_higher(bid, self.current_bid):
+            raise ValueError("a new bid must raise quantity, or raise the face at equal quantity")
+        return bid
+
+    def _player_raise(self, quantity: int, face: int) -> None:
+        if self.phase != "bidding" or self.turn != "player":
+            raise ValueError("it is not your bidding turn")
+        bid = self._validate_bid(quantity, face)
+        self.current_bid = bid
+        self.history.append({"actor": "player", "action": "raise", "quantity": quantity, "face": face})
+        self.turn = "ai"
+        self._ai_response()
+
+    def _player_challenge(self) -> None:
+        if self.phase != "bidding" or self.turn != "player" or self.current_bid is None:
+            raise ValueError("there is no bid to challenge")
+        self.history.append({"actor": "player", "action": "challenge", "bid": list(self.current_bid)})
+        self._resolve_challenge("player")
+
+    def _claim_probability(self, bid: tuple[int, int]) -> float:
+        quantity, face = bid
+        own = sum(value == face or (face != 1 and value == 1) for value in self.player_dice)
+        needed = quantity - own
+        if needed <= 0:
+            return 1.0
+        probability = 1 / 6 if face == 1 else 1 / 3
+        total = self.dice_per_player
+        return sum(
+            comb(total, k) * probability**k * (1 - probability) ** (total - k)
+            for k in range(needed, total + 1)
+        )
+
+    def _ai_response(self) -> None:
+        assert self.current_bid is not None
+        confidence = self._claim_probability(self.current_bid)
+        if confidence < 0.45 or self.current_bid[0] >= self.dice_per_player * 2:
+            self.history.append({"actor": "ai", "action": "challenge", "bid": list(self.current_bid), "confidence": confidence})
+            self._resolve_challenge("ai")
+            return
+
+        quantity, face = self.current_bid
+        preferred = max(range(1, 7), key=lambda value: self.ai_dice.count(value) + (0 if value == 1 else self.ai_dice.count(1)))
+        next_bid = (quantity + 1, preferred) if quantity < self.dice_per_player * 2 else (quantity, min(6, face + 1))
+        if not self._is_higher(next_bid, self.current_bid) or next_bid[0] > self.dice_per_player * 2:
+            self.history.append({"actor": "ai", "action": "challenge", "bid": list(self.current_bid), "confidence": confidence})
+            self._resolve_challenge("ai")
+            return
+        self.current_bid = next_bid
+        self.history.append({"actor": "ai", "action": "raise", "quantity": next_bid[0], "face": next_bid[1], "confidence": confidence})
+        self.turn = "player"
+
+    def _resolve_challenge(self, challenger: str) -> None:
+        assert self.current_bid is not None
+        quantity, face = self.current_bid
+        count = sum(value == face or (face != 1 and value == 1) for value in self.player_dice + self.ai_dice)
+        claim_true = count >= quantity
+        challenger_lost = claim_true
+        loser = challenger if challenger_lost else ("ai" if challenger == "player" else "player")
+        winner = "ai" if loser == "player" else "player"
+        if winner == "player":
+            self.player_score += 1
+        else:
+            self.ai_score += 1
+        self.result = {
+            "challenger": challenger,
+            "bid": [quantity, face],
+            "actualCount": count,
+            "claimTrue": claim_true,
+            "winner": winner,
+            "loser": loser,
+        }
+        self.phase = "finished"
+        self.turn = "none"
+
+    def snapshot(self) -> dict[str, object]:
+        bid = list(self.current_bid) if self.current_bid is not None else None
+        confidence = self._claim_probability(self.current_bid) if self.current_bid else None
+        minimum = None if self.current_bid is None else {
+            "quantity": self.current_bid[0] if self.current_bid[1] < 6 else self.current_bid[0] + 1,
+            "face": self.current_bid[1] + 1 if self.current_bid[1] < 6 else 1,
+        }
+        return {
+            "gameId": "liars-dice",
+            "phase": self.phase,
+            "roundNumber": self.round_number,
+            "dicePerPlayer": self.dice_per_player,
+            "playerDice": list(self.player_dice),
+            "opponentDiceCount": len(self.ai_dice),
+            "currentBid": bid,
+            "minimumBid": minimum,
+            "turn": self.turn,
+            "playerScore": self.player_score,
+            "aiScore": self.ai_score,
+            "claimProbability": confidence,
+            "history": list(self.history),
+            "result": dict(self.result) if self.result else None,
+            "legalActions": (["raise_bid", "challenge"] if self.phase == "bidding" and self.turn == "player" else ["new_round"] if self.phase == "finished" else []),
+            "informationSet": {
+                "privateHand": list(self.player_dice),
+                "publicHistory": list(self.history),
+                "opponentDiceCount": len(self.ai_dice),
+                "claimProbability": confidence,
+            },
+        }
+
+
 def build_default_registry() -> GameRegistry:
     registry = GameRegistry()
     registry.register(
@@ -1416,14 +1571,16 @@ def build_default_registry() -> GameRegistry:
         ),
         BlackjackSession,
     )
-    for descriptor in (
+    registry.register(
         GameDescriptor(
             "liars-dice",
             "骗子骰子",
-            "隐藏手牌、公开叫价与诈唬识别。",
-            "本地多人 · 即将开放",
-            False,
+            "隐藏手牌、公开叫价与质疑概率；用信息集判断何时加注，何时抓住 AI 的虚张声势。",
+            "单人 · 隐藏骰子与公开信号",
         ),
+        LiarDiceSession,
+    )
+    for descriptor in (
         GameDescriptor(
             "auction",
             "百元全支付拍卖",

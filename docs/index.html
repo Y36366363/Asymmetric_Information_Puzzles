@@ -293,6 +293,54 @@
         </div>
       </section>
 
+      <section id="liarView" class="view liar-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="liarEyebrow">CASE 08 · 隐藏骰子与公开信号</p>
+            <h1 data-i18n="liarTitle">骗子骰子</h1>
+          </div>
+          <button class="secondary-button" id="newLiarMatch" data-i18n="restartMatch">重新开始比赛</button>
+        </div>
+
+        <div class="liar-score panel">
+          <div><span data-i18n="liarRound">回合</span><strong id="liarRound">1</strong></div>
+          <div><span data-i18n="yourScore">你的得分</span><strong id="liarPlayerScore">0</strong></div>
+          <div><span data-i18n="aiScore">AI 得分</span><strong id="liarAiScore">0</strong></div>
+          <div><span data-i18n="opponentDice">对手隐藏骰子</span><strong id="liarOpponentDice">5</strong></div>
+        </div>
+
+        <section class="liar-table panel">
+          <div class="liar-hands">
+            <div><span class="seat-label" data-i18n="yourDice">你的骰子</span><div class="liar-dice" id="liarPlayerDice"></div></div>
+            <div class="liar-hidden-dice"><span class="seat-label" data-i18n="aiHiddenDice">AI 的隐藏骰子</span><div class="liar-dice" id="liarAiDice"></div></div>
+          </div>
+          <div class="liar-bid-banner">
+            <span data-i18n="currentBid">当前公开叫价</span><strong id="liarCurrentBid">—</strong>
+            <small id="liarProbability"></small>
+          </div>
+          <div class="liar-actions" id="liarActions">
+            <label><span data-i18n="quantity">数量</span><input id="liarQuantity" type="number" min="1" max="10" value="1" /></label>
+            <label><span data-i18n="face">点数</span><select id="liarFace"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></label>
+            <button class="deal-button" id="liarRaise" data-i18n="raiseBid">加注</button>
+            <button class="no-deal-button" id="liarChallenge" data-i18n="challengeBid">质疑叫价</button>
+          </div>
+          <p class="liar-instruction" id="liarInstruction" data-i18n="liarInstruction">你只能看见自己的骰子。1 点是万能牌；判断公开叫价是否值得相信。</p>
+        </section>
+
+        <div class="liar-lower">
+          <section class="panel">
+            <div class="panel-title"><span data-i18n="liarHistory">公开叫价记录</span><span>PUBLIC SIGNALS</span></div>
+            <div class="liar-history" id="liarHistory"></div>
+          </section>
+          <section class="panel information-set">
+            <div class="panel-title"><span data-i18n="liarInformation">你的信息集</span><span>BAYESIAN VIEW</span></div>
+            <p id="liarInformation"></p>
+            <div class="liar-result hidden" id="liarResult"></div>
+          </section>
+        </div>
+      </section>
+
       <section id="blackjackView" class="view blackjack-view hidden">
         <div class="game-heading">
           <div>

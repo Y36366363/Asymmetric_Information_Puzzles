@@ -10,7 +10,7 @@ test("serves the bilingual lobby and all playable descriptors", async () => {
   assert.match(await page.text(), /ASYMMETRIC INFORMATION PUZZLES/);
   const response = await call("/api/games");
   const { games } = await response.json();
-  assert.equal(games.filter((game) => game.available).length, 7);
+  assert.equal(games.filter((game) => game.available).length, 8);
 });
 
 test("creates a pirate session and completes a rational vote", async () => {
@@ -42,7 +42,7 @@ test("worm capture stays adversarial until the belief state is a singleton", asy
 });
 
 test("every public game creates a playable state", async () => {
-  for (const gameId of ["cases", "kuhn-poker", "e-card", "restricted-rps", "blackjack"]) {
+  for (const gameId of ["cases", "kuhn-poker", "e-card", "restricted-rps", "blackjack", "liars-dice"]) {
     const response = await call("/api/sessions", {
       method:"POST", headers:{"content-type":"application/json"},
       body:JSON.stringify({gameId}),

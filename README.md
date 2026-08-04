@@ -7,7 +7,10 @@
 
 ## Updates 08/04/2026
 
-- **Backend-free public mirror** — Published all seven playable games at
+- **Playable Liar’s Dice** — Added a two-player hidden-dice match with wild ones,
+  public lexicographic raises, explicit challenge decisions, exact binomial odds,
+  an adaptive AI, round history, and a bilingual information-set panel.
+- **Backend-free public mirror** — Published all eight playable games at
   [y36366363.github.io/Asymmetric_Information_Puzzles](https://y36366363.github.io/Asymmetric_Information_Puzzles/).
   Game state and AI now run entirely inside the visitor's browser, with no
   ChatGPT request, account, server session, or saved data; refreshing starts over.
@@ -136,8 +139,8 @@ required. Game sessions live only in memory and disappear when the local server
 stops.
 
 The lobby currently exposes **命运之箱**, **移动虫穴**, **海盗议会**,
-**库恩扑克**, **E-Card 皇帝牌**, **限定猜拳实验室**, and
-**21 点策略实验室** as complete single-player games. In 命运之箱:
+**库恩扑克**, **E-Card 皇帝牌**, **限定猜拳实验室**, **21 点策略实验室**, and
+**骗子骰子** as complete single-player games. In 命运之箱:
 
 1. Choose one of 26 sealed cases to keep.
 2. Click other cases to reveal the required number for the current round.

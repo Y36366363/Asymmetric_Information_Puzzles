@@ -380,6 +380,29 @@ button { font: inherit; }
 .blackjack-history { max-height: 230px; overflow: auto; margin-top: 18px; }
 .blackjack-history div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .blackjack-history span, .blackjack-history p { color: var(--muted); }
+.liar-table { padding: clamp(24px, 5vw, 56px); background: radial-gradient(ellipse at center, #362347 0, #21172f 52%, #13101d 100%); }
+.liar-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
+.liar-score div { padding: 10px 18px; text-align: center; border-right: 1px solid var(--line); }
+.liar-score div:last-child { border-right: 0; }
+.liar-score span { color: var(--muted); font-size: 11px; letter-spacing: .09em; }
+.liar-score strong { display: block; margin-top: 7px; color: var(--gold-soft); font: 500 27px Georgia, serif; }
+.liar-hands { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin: 26px 0; }
+.liar-hand { padding: 22px; border: 1px solid var(--line); background: rgba(0,0,0,.18); }
+.liar-hand h3 { margin: 0 0 15px; color: var(--gold-soft); font: 500 22px Georgia, serif; }
+.liar-dice { display: flex; flex-wrap: wrap; gap: 9px; }
+.liar-die { width: 42px; height: 42px; display: grid; place-items: center; color: #18121f; border-radius: 8px; background: #f4e6c1; font: 700 20px Georgia, serif; }
+.liar-die.hidden-die { color: var(--gold); border: 1px solid #8f6a39; background: repeating-linear-gradient(45deg, #24172e, #24172e 7px, #4c315d 7px, #4c315d 14px); }
+.liar-center { max-width: 560px; margin: 0 auto; text-align: center; }
+.liar-bid { margin: 10px 0 5px; font: 500 clamp(30px, 4vw, 48px) Georgia, serif; color: var(--gold-soft); }
+.liar-probability { min-height: 20px; color: var(--muted); }
+.liar-actions { display: flex; justify-content: center; align-items: end; flex-wrap: wrap; gap: 10px; margin: 22px 0; }
+.liar-field { display: grid; gap: 5px; text-align: left; color: var(--muted); font-size: 12px; }
+.liar-field input { width: 78px; padding: 11px; color: var(--ink); border: 1px solid var(--line); background: #f1e7cc; }
+.liar-actions button { padding: 12px 18px; color: #17130c; border: 1px solid var(--gold); background: var(--gold); cursor: pointer; font-weight: 800; }
+.liar-actions button:last-child { color: var(--ink); border-color: #9eaa9f; background: rgba(0,0,0,.25); }
+.liar-history { max-height: 220px; overflow: auto; margin-top: 18px; }
+.liar-history div { display: flex; justify-content: space-between; gap: 14px; padding: 9px 0; border-bottom: 1px solid var(--line); color: var(--muted); }
+.liar-result { margin: 18px auto 0; padding: 13px 20px; border: 1px solid var(--line); text-align: center; font: 500 21px Georgia, serif; }
 
 @media (max-width: 1100px) {
   .game-layout { grid-template-columns: 180px 1fr; }
@@ -421,5 +444,7 @@ button { font: inherit; }
   .blackjack-score { grid-template-columns: 1fr 1fr; }
   .blackjack-lower { grid-template-columns: 1fr; }
   .blackjack-card { width: 62px; }
+  .liar-score { grid-template-columns: 1fr 1fr; }
+  .liar-hands { grid-template-columns: 1fr; }
   .hole-row { gap: 5px; }
 }
