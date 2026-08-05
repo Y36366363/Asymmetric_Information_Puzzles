@@ -7,9 +7,12 @@ const publicRoot = new URL("../../docs/", import.meta.url);
 test("static lobby boots the browser engine before the UI", async () => {
   const html = await readFile(new URL("index.html", publicRoot), "utf8");
   const bootstrap = await readFile(new URL("bootstrap.js", publicRoot), "utf8");
-  assert.match(html, /type="module" src="bootstrap\.js"/);
+  assert.match(html, /type="module" src="bootstrap\.js\?v=[a-f0-9]{12}"/);
+  assert.match(html, /styles\.css\?v=[a-f0-9]{12}/);
   assert.doesNotMatch(html, /<script src="app\.js"><\/script>/);
   assert.ok(bootstrap.indexOf("game-engine.js") < bootstrap.indexOf("app.js"));
+  assert.match(bootstrap, /game-engine\.js\?v=[a-f0-9]{12}/);
+  assert.match(bootstrap, /app\.js\?v=[a-f0-9]{12}/);
   assert.match(html, /id="rulesModal"/);
   const app = await readFile(new URL("app.js", publicRoot), "utf8");
   assert.match(app, /installRulesButtons/);
@@ -21,6 +24,8 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /openRulesGameId/);
   assert.match(app, /submitMastermindGuess/);
   assert.match(app, /event\.key === "Enter"/);
+  assert.match(app, /aip-rules-seen-/);
+  assert.match(app, /playNow/);
 });
 
 test("browser engine intercepts API calls without a backend", async () => {

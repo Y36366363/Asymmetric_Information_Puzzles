@@ -13,7 +13,7 @@ const copy = {
     brandName: "非对称博弈实验室", localOnly: "浏览器临时会话",
     heroLine1: "把推理变成一场", heroLine2: "真正可以玩的博弈",
     heroCopy: "选择一个实验。你做决定，系统隐藏信息、扮演对手，并在关键时刻揭示概率与代价。",
-    backLobby: "← 返回大厅", restart: "重新开始", restartCouncil: "重新召开议会",
+    backLobby: "← 返回大厅", restart: "重新开始", restartCouncil: "重新召开议会", playNow: "开始游戏 →", comingSoon: "后续开放",
     caseEyebrow: "CASE 01 · 风险与谈判 · 入门", caseTitle: "命运之箱",
     wormEyebrow: "CASE 09 · 隐藏状态追踪 · 挑战", wormTitle: "移动虫穴",
     pirateEyebrow: "CASE 06 · 逆向归纳与联盟 · 中等", pirateTitle: "海盗议会",
@@ -62,7 +62,7 @@ const copy = {
     brandName: "Asymmetric Games Lab", localOnly: "Browser session",
     heroLine1: "Turn reasoning into", heroLine2: "games you can actually play",
     heroCopy: "Choose an experiment. You decide; the system hides information, plays the opposition, and reveals probability and cost at decisive moments.",
-    backLobby: "← Back to lobby", restart: "New game", restartCouncil: "New council",
+    backLobby: "← Back to lobby", restart: "New game", restartCouncil: "New council", playNow: "Play now →", comingSoon: "Coming later",
     caseEyebrow: "CASE 01 · RISK & NEGOTIATION · BEGINNER", caseTitle: "Cases of Fate",
     wormEyebrow: "CASE 09 · HIDDEN-STATE TRACKING · CHALLENGE", wormTitle: "The Moving Worm",
     pirateEyebrow: "CASE 06 · BACKWARD INDUCTION & COALITIONS · MEDIUM", pirateTitle: "Pirate Council",
@@ -291,6 +291,7 @@ function renderLobby() {
       <p>${localized[1]}</p>
       <span class="difficulty-badge">${language === "zh" ? "难度" : "Difficulty"} · ${difficultyCopy[language][game.id] || "—"}</span>
       <span class="game-mode">${localized[2]}</span>
+      <span class="game-cta">${game.available ? tr("playNow") : tr("comingSoon")}</span>
     </button>
   `; }).join("");
   document.querySelectorAll(".game-card:not(:disabled)").forEach((button) => {
@@ -323,6 +324,11 @@ async function startGame(gameId = "cases", options = {}) {
     $("#blackjackView").classList.toggle("hidden", gameId !== "blackjack");
     window.scrollTo(0, 0);
     render();
+    const rulesSeenKey = `aip-rules-seen-${gameId}`;
+    if (!localStorage.getItem(rulesSeenKey)) {
+      localStorage.setItem(rulesSeenKey, "1");
+      openRules(gameId);
+    }
   } catch (error) {
     showToast(error.message);
   }

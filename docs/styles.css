@@ -121,6 +121,8 @@ input:focus-visible {
 .game-card p { color: var(--muted); line-height: 1.65; }
 .difficulty-badge { width: fit-content; margin: 16px 0 8px; padding: 5px 9px; color: #17130c; border-radius: 999px; background: var(--gold-soft); font-size: 11px; font-weight: 800; }
 .game-mode { margin-top: auto; color: var(--gold-soft); font-size: 12px; letter-spacing: .08em; }
+.game-cta { margin-top: 15px; color: var(--ink); font-size: 13px; font-weight: 800; }
+.game-card:not(:disabled) .game-cta { color: var(--gold); }
 
 .game-heading { display: flex; justify-content: space-between; align-items: end; margin-bottom: 30px; }
 .game-heading > .rules-button { margin-left: auto; margin-right: 10px; }

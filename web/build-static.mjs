@@ -1,4 +1,5 @@
-import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -10,7 +11,17 @@ const output = resolve(root, "docs");
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 
-const runtime = await readFile(resolve(here, "worker-runtime.js"), "utf8");
+const [runtime, app, styles] = await Promise.all([
+  readFile(resolve(here, "worker-runtime.js"), "utf8"),
+  readFile(resolve(source, "app.js"), "utf8"),
+  readFile(resolve(source, "styles.css"), "utf8"),
+]);
+const version = createHash("sha256")
+  .update(runtime)
+  .update(app)
+  .update(styles)
+  .digest("hex")
+  .slice(0, 12);
 const apiBoundary = runtime.indexOf("async function api(request, url)");
 if (apiBoundary < 0) throw new Error("Unable to locate the shared game engine boundary");
 
@@ -50,15 +61,16 @@ globalThis.fetch = async (input, init = {}) => {
 `;
 
 const index = (await readFile(resolve(source, "index.html"), "utf8"))
-  .replace('<script src="app.js"></script>', '<script type="module" src="bootstrap.js"></script>');
+  .replace('href="styles.css"', `href="styles.css?v=${version}"`)
+  .replace('<script src="app.js"></script>', `<script type="module" src="bootstrap.js?v=${version}"></script>`);
 
 await Promise.all([
   writeFile(resolve(output, "index.html"), index),
-  copyFile(resolve(source, "styles.css"), resolve(output, "styles.css")),
-  copyFile(resolve(source, "app.js"), resolve(output, "app.js")),
+  writeFile(resolve(output, "styles.css"), styles),
+  writeFile(resolve(output, "app.js"), app),
   writeFile(resolve(output, "game-engine.js"), runtime.slice(0, apiBoundary) + browserAdapter),
-  writeFile(resolve(output, "bootstrap.js"), 'import "./game-engine.js";\nimport "./app.js";\n'),
+  writeFile(resolve(output, "bootstrap.js"), `import "./game-engine.js?v=${version}";\nimport "./app.js?v=${version}";\n`),
   writeFile(resolve(output, ".nojekyll"), ""),
 ]);
 
-console.log("Built the zero-backend static lobby in docs/");
+console.log(`Built the zero-backend static lobby in docs/ (${version})`);

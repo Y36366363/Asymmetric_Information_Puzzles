@@ -7,6 +7,9 @@
 
 ## Updates 08/05/2026
 
+- **First-play guidance and Battleship research** — Added explicit lobby action
+  labels and one-time automatic rule tutorials, plus a local Battleship simulator
+  comparing random, hunt/target, and probability-density AI before future UI integration.
 - **Hardening and mobile usability pass** — Fixed a Liar's Dice AI private-hand
   information leak, rejected malformed and fractional game inputs, corrected
   double-digit lobby numbering, improved compact-screen controls and rule panels,
