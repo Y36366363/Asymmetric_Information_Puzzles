@@ -10,8 +10,8 @@ test("serves the bilingual lobby and all playable descriptors", async () => {
   assert.match(await page.text(), /ASYMMETRIC INFORMATION PUZZLES/);
   const response = await call("/api/games");
   const { games } = await response.json();
-  assert.equal(games.filter((game) => game.available).length, 9);
-  assert.deepEqual(games.filter((game) => game.available).map((game) => game.id), ["cases", "blackjack", "restricted-rps", "mastermind", "e-card", "pirates", "kuhn-poker", "liars-dice", "worm"]);
+  assert.equal(games.filter((game) => game.available).length, 10);
+  assert.deepEqual(games.filter((game) => game.available).map((game) => game.id), ["cases", "blackjack", "restricted-rps", "mastermind", "battleship", "e-card", "pirates", "kuhn-poker", "liars-dice", "worm"]);
 });
 
 test("case game reaches a clear non-null final reveal", async () => {
@@ -84,7 +84,7 @@ test("worm capture stays adversarial until the belief state is a singleton", asy
 });
 
 test("every public game creates a playable state", async () => {
-  for (const gameId of ["cases", "kuhn-poker", "e-card", "restricted-rps", "blackjack", "liars-dice", "mastermind"]) {
+  for (const gameId of ["cases", "kuhn-poker", "e-card", "restricted-rps", "blackjack", "liars-dice", "mastermind", "battleship"]) {
     const response = await call("/api/sessions", {
       method:"POST", headers:{"content-type":"application/json"},
       body:JSON.stringify({gameId}),
@@ -134,4 +134,14 @@ test("single-player games survive complete decision loops", async () => {
   await act(liar, "raise_bid", {quantity:1,face:1});
   if (liar.state.phase === "bidding") await act(liar, "challenge");
   assert.equal(liar.state.phase, "finished");
+
+  const battleship = await create("battleship");
+  assert.equal(battleship.state.enemyBoard.some((cell) => cell.ship), false);
+  await act(battleship, "start_battle");
+  while (battleship.state.phase === "player_turn") {
+    const [row, column] = battleship.state.suggestedShot;
+    await act(battleship, "fire", {row, column});
+  }
+  assert.ok(["player", "ai"].includes(battleship.state.winner));
+  assert.ok(battleship.state.enemyBoard.some((cell) => cell.ship));
 });

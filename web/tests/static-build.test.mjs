@@ -26,6 +26,10 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /event\.key === "Enter"/);
   assert.match(app, /aip-rules-seen-/);
   assert.match(app, /playNow/);
+  assert.match(app, /renderBattleship/);
+  assert.match(app, /aip-rules-seen-/);
+  assert.match(app, /actionPending/);
+  assert.match(html, /id="battleEnemyBoard"/);
 });
 
 test("browser engine intercepts API calls without a backend", async () => {
@@ -34,7 +38,7 @@ test("browser engine intercepts API calls without a backend", async () => {
   await import(`../../docs/game-engine.js?test=${Date.now()}`);
   try {
     const games = await (await fetch("/api/games")).json();
-    assert.equal(games.games.filter((game) => game.available).length, 9);
+    assert.equal(games.games.filter((game) => game.available).length, 10);
     const created = await (await fetch("/api/sessions", {
       method: "POST",
       body: JSON.stringify({ gameId: "pirates", options: { pirates: 5, gold: 100 } }),
@@ -47,6 +51,9 @@ test("browser engine intercepts API calls without a backend", async () => {
     const mastermind = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "mastermind" }) })).json();
     assert.equal(mastermind.state.gameId, "mastermind");
     assert.equal(mastermind.state.candidateCount, 360);
+    const battleship = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "battleship" }) })).json();
+    assert.equal(battleship.state.gameId, "battleship");
+    assert.equal(battleship.state.enemyBoard.some((cell) => cell.ship), false);
   } finally {
     globalThis.fetch = originalFetch;
     delete globalThis.location;

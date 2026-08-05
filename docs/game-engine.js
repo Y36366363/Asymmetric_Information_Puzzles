@@ -4,6 +4,7 @@ const GAMES = [
   ["blackjack", "21 点策略实验室", "在透明规则下对抗庄家，比较自己的决策与规则限定的最优基础策略。", "单人 · 概率决策与策略审计", true],
   ["restricted-rps", "限定猜拳实验室", "固定库存让每次出拳都消耗未来选择；对抗均衡随机化与会学习的策略型 AI。", "单人 · 资源约束与机制设计", true],
   ["mastermind", "密码破解", "通过黑白反馈缩小隐藏密码的候选集合；每一次猜测都改变下一步策略。", "单人 · 信息集搜索", true],
+  ["battleship", "海战棋", "部署自己的舰队，在未知海域中搜索敌舰，并对抗概率热力图 AI。", "单人 · 隐藏部署与概率搜索", true],
   ["e-card", "E-Card 皇帝牌", "皇帝、市民与奴隶构成不对称循环；用隐藏出牌和高额弱者收益击败策略型 AI。", "单人 · 非对称混合策略", true],
   ["pirates", "海盗议会", "亲自分配 100 枚金币，面对会做逆向归纳的理性海盗投票。", "单人 · 人机投票", true],
   ["kuhn-poker", "库恩扑克", "只用三张牌与策略型 AI 对决：读取下注信号，决定诈唬、跟注或弃牌。", "单人 · 隐藏手牌与诈唬", true],
@@ -153,6 +154,35 @@ class LiarDiceSession {
   snapshot() { const confidence = this.probability(this.bid); return {gameId:"liars-dice", phase:this.phase, roundNumber:this.round, dicePerPlayer:this.dicePerPlayer, playerDice:this.player, opponentDiceCount:this.ai.length, currentBid:this.bid, minimumBid:this.bid ? {quantity:this.bid[1] < 6 ? this.bid[0] : this.bid[0]+1, face:this.bid[1] < 6 ? this.bid[1]+1 : 1} : null, turn:this.turn, playerScore:this.playerScore, aiScore:this.aiScore, claimProbability:confidence, history:this.history, result:this.result, legalActions:this.phase === "bidding" && this.turn === "player" ? ["raise_bid","challenge"] : this.phase === "finished" ? ["new_round"] : [], informationSet:{privateHand:this.player, publicHistory:this.history, opponentDiceCount:this.ai.length, claimProbability:confidence}}; }
 }
 
+const battleKey = (cell) => `${cell[0]},${cell[1]}`;
+const battleCell = (key) => key.split(",").map(Number);
+function battlePlacements(size, length) {
+  const result=[];
+  for(let row=0;row<size;row+=1)for(let column=0;column<=size-length;column+=1)result.push(Array.from({length},(_,offset)=>[row,column+offset]));
+  for(let row=0;row<=size-length;row+=1)for(let column=0;column<size;column+=1)result.push(Array.from({length},(_,offset)=>[row+offset,column]));
+  return result;
+}
+function battleFleet(size, lengths) {
+  for(let attempt=0;attempt<1000;attempt+=1){const occupied=new Set(),ships=[];for(const length of lengths){const candidates=battlePlacements(size,length).filter(cells=>cells.every(cell=>!occupied.has(battleKey(cell))));if(!candidates.length)break;const cells=randomChoice(candidates),keys=new Set(cells.map(battleKey));keys.forEach(key=>occupied.add(key));ships.push({length,cells:keys});}if(ships.length===lengths.length)return{ships,shots:new Set(),hits:new Set()};}
+  throw new Error("could not place a legal fleet");
+}
+function battleFire(board, cell, size) {
+  const key=battleKey(cell);if(cell.some(value=>!Number.isInteger(value)||value<0||value>=size))throw new Error("shot is outside the board");if(board.shots.has(key))throw new Error("the same cell cannot be fired at twice");board.shots.add(key);const ship=board.ships.find(item=>item.cells.has(key));if(!ship)return{cell,hit:false,sunk:false,sunkLength:null,sunkCells:[]};board.hits.add(key);const sunk=[...ship.cells].every(item=>board.hits.has(item));return{cell,hit:true,sunk,sunkLength:sunk?ship.length:null,sunkCells:sunk?[...ship.cells].map(battleCell):[]};
+}
+function battleTracker(lengths){return{shots:new Set(),misses:new Set(),hits:new Set(),sunk:new Set(),remaining:[...lengths]};}
+function observeBattle(tracker,outcome){const key=battleKey(outcome.cell);tracker.shots.add(key);if(!outcome.hit){tracker.misses.add(key);return;}tracker.hits.add(key);if(outcome.sunk){tracker.remaining.splice(tracker.remaining.indexOf(outcome.sunkLength),1);for(const cell of outcome.sunkCells){const item=battleKey(cell);tracker.sunk.add(item);tracker.hits.delete(item);}}}
+function battleDensity(tracker,size){const scores=new Map();for(let row=0;row<size;row+=1)for(let column=0;column<size;column+=1){const key=battleKey([row,column]);if(!tracker.shots.has(key))scores.set(key,0);}let candidatePlacements=0;for(const length of tracker.remaining){let candidates=battlePlacements(size,length).filter(cells=>cells.every(cell=>!tracker.misses.has(battleKey(cell))&&!tracker.sunk.has(battleKey(cell))));if(tracker.hits.size){const focused=candidates.filter(cells=>cells.some(cell=>tracker.hits.has(battleKey(cell))));if(focused.length)candidates=focused;}candidatePlacements+=candidates.length;for(const cells of candidates)for(const cell of cells){const key=battleKey(cell);if(scores.has(key))scores.set(key,scores.get(key)+1);}}return{scores,candidatePlacements};}
+function chooseBattleShot(tracker,size,randomize=true){const{scores,candidatePlacements}=battleDensity(tracker,size),peak=Math.max(...scores.values()),best=[...scores].filter(([,score])=>score===peak).map(([key])=>key).sort(),key=randomize?randomChoice(best):best[0];return{cell:battleCell(key),analysis:{candidatePlacements,peakDensity:peak,tiedBestCells:best.length,chosenCell:battleCell(key)}};}
+
+class BattleshipSession {
+  constructor(){this.size=10;this.lengths=[5,4,3,3,2];this.player=battleFleet(this.size,this.lengths);this.enemy=battleFleet(this.size,this.lengths);this.ai=battleTracker(this.lengths);this.advisor=battleTracker(this.lengths);this.phase="placement";this.turn=0;this.winner=null;this.history=[];this.lastAiAnalysis=null;}
+  remaining(board){return board.ships.filter(ship=>![...ship.cells].every(key=>board.hits.has(key))).map(ship=>ship.length);}
+  boardPayload(board,reveal){const cells=[];for(let row=0;row<this.size;row+=1)for(let column=0;column<this.size;column+=1){const key=battleKey([row,column]),ship=board.ships.find(item=>item.cells.has(key)),sunk=Boolean(ship&&[...ship.cells].every(item=>board.hits.has(item)));cells.push({row,column,shot:board.shots.has(key),hit:board.hits.has(key),sunk,ship:reveal?Boolean(ship):sunk});}return cells;}
+  outcome(outcome){return{cell:outcome.cell,hit:outcome.hit,sunk:outcome.sunk,sunkLength:outcome.sunkLength};}
+  act(action,payload={}){if(action==="randomize_fleet"){if(this.phase!=="placement")throw new Error("fleet placement is already locked");this.player=battleFleet(this.size,this.lengths);return;}if(action==="start_battle"){if(this.phase!=="placement")throw new Error("battle has already started");this.phase="player_turn";return;}if(action!=="fire"||this.phase!=="player_turn")throw new Error("fire only when the battle is active");const cell=[Number(payload.row),Number(payload.column)],playerOutcome=battleFire(this.enemy,cell,this.size);observeBattle(this.advisor,playerOutcome);this.turn+=1;const event={turn:this.turn,playerShot:this.outcome(playerOutcome),aiShot:null};if(!this.remaining(this.enemy).length){this.phase="finished";this.winner="player";this.history.push(event);return;}const decision=chooseBattleShot(this.ai,this.size),aiOutcome=battleFire(this.player,decision.cell,this.size);observeBattle(this.ai,aiOutcome);event.aiShot=this.outcome(aiOutcome);this.lastAiAnalysis=decision.analysis;this.history.push(event);if(!this.remaining(this.player).length){this.phase="finished";this.winner="ai";}}
+  snapshot(){const density=battleDensity(this.advisor,this.size),suggestion=this.phase==="player_turn"?chooseBattleShot(this.advisor,this.size,false).cell:null,finished=this.phase==="finished";return{gameId:"battleship",phase:this.phase,turn:this.turn,winner:this.winner,boardSize:this.size,shipLengths:this.lengths,playerBoard:this.boardPayload(this.player,true),enemyBoard:this.boardPayload(this.enemy,finished),playerShipsRemaining:this.remaining(this.player),enemyShipsRemaining:this.remaining(this.enemy),suggestedShot:suggestion,candidatePlacementCount:density.candidatePlacements,lastAiAnalysis:this.lastAiAnalysis,history:this.history,legalActions:this.phase==="placement"?["randomize_fleet","start_battle"]:this.phase==="player_turn"?["fire"]:[],informationSet:{misses:[...this.advisor.misses].map(battleCell),unresolvedHits:[...this.advisor.hits].map(battleCell),sunkCells:[...this.advisor.sunk].map(battleCell),remainingShipLengths:this.advisor.remaining,candidatePlacementCount:density.candidatePlacements}};}
+}
+
 class MastermindSession {
   constructor(options = {}) { this.length=4; this.symbols=[1,2,3,4,5,6]; this.maxAttempts=10; this.start(); }
   start() { this.secret=shuffle(this.symbols).slice(0,4); this.candidates=[]; for(const a of this.symbols)for(const b of this.symbols)for(const c of this.symbols)for(const d of this.symbols)if(new Set([a,b,c,d]).size===4)this.candidates.push([a,b,c,d]); this.attempts=[]; this.phase="playing"; this.result=null; }
@@ -163,7 +193,7 @@ class MastermindSession {
 }
 
 function createSession(gameId, options={}) {
-  const factories={cases:CaseSession,worm:WormSession,pirates:PirateSession,"kuhn-poker":PokerSession,"e-card":ECardSession,"restricted-rps":RPSSession,blackjack:BlackjackSession,"liars-dice":LiarDiceSession,mastermind:MastermindSession};
+  const factories={cases:CaseSession,worm:WormSession,pirates:PirateSession,"kuhn-poker":PokerSession,"e-card":ECardSession,"restricted-rps":RPSSession,blackjack:BlackjackSession,"liars-dice":LiarDiceSession,mastermind:MastermindSession,battleship:BattleshipSession};
   const Factory=factories[gameId]; if(!Factory)throw new Error("unknown or unavailable game"); return new Factory(options);
 }
 

@@ -1,4 +1,4 @@
-# Battleship AI research candidate
+# Battleship AI research and implementation baseline
 
 Battleship is the recommended next solo game for AIP. It is widely recognized,
 has a clear click-per-turn loop, and turns every miss, hit, and sunk ship into a
@@ -25,9 +25,10 @@ multiplayer server.
 - **Later adaptive level:** learn a player's placement bias across local matches, but
   cap the learned component so the AI does not confuse exploitation with privileged information.
 
-The local simulator uses paired board seeds for fair policy comparisons. No Battleship
-card or browser runtime has been registered yet; this module is deliberately a research
-candidate until its pacing and difficulty thresholds are stable.
+The local simulator uses paired board seeds for fair policy comparisons. The first
+solo implementation is now registered in both the Python service and zero-backend
+browser runtime. It uses probability-density targeting, while this document remains
+the calibration baseline for later difficulty and multiplayer work.
 
 ## Initial 1,000-game benchmark
 
@@ -42,10 +43,10 @@ All three policies played the same 1,000 seeded hidden fleets. Hunt/target used
 fewer shots than hunt/target. The remaining long-tail games show why the future
 hard AI should keep explaining uncertainty instead of presenting itself as infallible.
 
-## Integration gates
+## Next integration gates
 
 - Use the 1,000-game baseline to calibrate easy, normal, and hard match pacing.
-- Add an explicit information-set object containing misses, unresolved hits, sunk cells,
-  remaining ship lengths, and legal candidate placements.
-- Test touch targets and board readability at 390px before adding it to the public lobby.
-- Add a short first-game tutorial for placement, firing, hit markers, and victory conditions.
+- Add manual drag/rotate placement on top of the current safe random-placement flow.
+- Add easy and normal policies alongside the current probability-density opponent.
+- Extract player identity and turn transport so a later two-player room can reuse the
+  same board state without exposing either private fleet.

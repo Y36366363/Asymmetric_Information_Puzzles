@@ -30,6 +30,7 @@ class LocalGameUITests(unittest.TestCase):
                 "blackjack",
                 "restricted-rps",
                 "mastermind",
+                "battleship",
                 "e-card",
                 "pirates",
                 "kuhn-poker",
@@ -38,6 +39,32 @@ class LocalGameUITests(unittest.TestCase):
             ],
         )
         self.assertIn("liars-dice", [game["id"] for game in games])
+
+    def test_battleship_hides_enemy_fleet_and_completes_against_ai(self) -> None:
+        created = self.service.create_session("battleship", {"seed": 41})
+        state = created["state"]
+        self.assertEqual(state["phase"], "placement")
+        self.assertEqual(sum(cell["ship"] for cell in state["playerBoard"]), 17)
+        self.assertFalse(any(cell["ship"] for cell in state["enemyBoard"]))
+        state = self.service.act(created["sessionId"], "start_battle")
+        while state["phase"] == "player_turn":
+            row, column = state["suggestedShot"]
+            state = self.service.act(
+                created["sessionId"], "fire", {"row": row, "column": column}
+            )
+        self.assertEqual(state["phase"], "finished")
+        self.assertIn(state["winner"], {"player", "ai"})
+        self.assertLessEqual(state["turn"], 100)
+        self.assertTrue(any(cell["ship"] for cell in state["enemyBoard"]))
+
+    def test_battleship_rejects_repeat_shots(self) -> None:
+        created = self.service.create_session("battleship", {"seed": 17})
+        self.service.act(created["sessionId"], "start_battle")
+        self.service.act(created["sessionId"], "fire", {"row": 0, "column": 0})
+        with self.assertRaisesRegex(ValueError, "same cell"):
+            self.service.act(
+                created["sessionId"], "fire", {"row": 0, "column": 0}
+            )
 
     def test_blackjack_ace_totals_are_soft_until_ace_must_shrink(self) -> None:
         self.assertEqual(BlackjackSession._hand_value(["A", "6"]), (17, True))

@@ -151,8 +151,9 @@ class HuntTargetAI(_KnowledgePolicy):
 class ProbabilityDensityAI(_KnowledgePolicy):
     name = "probability-density"
 
-    def choose(self) -> Cell:
+    def density_scores(self) -> tuple[dict[Cell, int], int]:
         scores = {cell: 0 for cell in self.available()}
+        candidate_count = 0
         for length in self.remaining_lengths:
             candidates = [
                 cells
@@ -162,13 +163,25 @@ class ProbabilityDensityAI(_KnowledgePolicy):
             if self.unresolved_hits:
                 focused = [cells for cells in candidates if cells & self.unresolved_hits]
                 candidates = focused or candidates
+            candidate_count += len(candidates)
             for cells in candidates:
                 for cell in cells:
                     if cell in scores:
                         scores[cell] += 1
+        return scores, candidate_count
+
+    def choose(self) -> Cell:
+        scores, candidate_count = self.density_scores()
         best_score = max(scores.values())
         best = sorted(cell for cell, score in scores.items() if score == best_score)
-        return self.rng.choice(best)
+        choice = self.rng.choice(best)
+        self.last_analysis = {
+            "candidatePlacements": candidate_count,
+            "peakDensity": best_score,
+            "tiedBestCells": len(best),
+            "chosenCell": choice,
+        }
+        return choice
 
 
 POLICIES = {

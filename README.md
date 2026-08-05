@@ -7,6 +7,10 @@
 
 ## Updates 08/05/2026
 
+- **Playable solo Battleship** — Promoted the Battleship research prototype into
+  the bilingual web lobby with fleet randomization, hidden enemy deployment,
+  alternating fire, sink detection, probability-density AI, decision explanations,
+  responsive 10×10 boards, complete rules, and future multiplayer-ready sessions.
 - **First-play guidance and Battleship research** — Added explicit lobby action
   labels and one-time automatic rule tutorials, plus a local Battleship simulator
   comparing random, hunt/target, and probability-density AI before future UI integration.

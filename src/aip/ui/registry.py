@@ -10,6 +10,8 @@ from typing import Callable, Protocol
 
 from aip.puzzles.cases.models import CLASSROOM_BANKER, CaseGameRules, RiskPreferences
 from aip.puzzles.cases.solver import CaseGameAnalyzer
+from aip.puzzles.battleship.models import FleetRules, ShotOutcome
+from aip.puzzles.battleship.solver import HiddenFleetBoard, ProbabilityDensityAI
 from aip.puzzles.pirates.models import PirateRules
 from aip.puzzles.pirates.solver import PirateSolver
 from aip.puzzles.worm.solver import WormSolver
@@ -56,12 +58,13 @@ GAME_DISPLAY_ORDER = {
     "blackjack": 2,
     "restricted-rps": 3,
     "mastermind": 4,
-    "e-card": 5,
-    "pirates": 6,
-    "kuhn-poker": 7,
-    "liars-dice": 8,
-    "worm": 9,
-    "auction": 10,
+    "battleship": 5,
+    "e-card": 6,
+    "pirates": 7,
+    "kuhn-poker": 8,
+    "liars-dice": 9,
+    "worm": 10,
+    "auction": 11,
 }
 
 
@@ -1612,6 +1615,147 @@ class MastermindSession:
         }
 
 
+class BattleshipGameSession:
+    """Solo Battleship match with private fleets and probability-density AI."""
+
+    def __init__(self, options: dict[str, object]) -> None:
+        self.rules = FleetRules()
+        self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
+        self._rng = random.Random(self.seed)
+        self._new_boards()
+
+    def _new_boards(self) -> None:
+        self.player_board = HiddenFleetBoard(self.rules, self._rng)
+        self.enemy_board = HiddenFleetBoard(self.rules, self._rng)
+        self.ai = ProbabilityDensityAI(self.rules, self._rng)
+        self.advisor = ProbabilityDensityAI(self.rules, random.Random(self.seed ^ 0xA1B2C3))
+        self.phase = "placement"
+        self.turn = 0
+        self.winner: str | None = None
+        self.history: list[dict[str, object]] = []
+        self.last_ai_analysis: dict[str, object] | None = None
+
+    def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
+        if action == "randomize_fleet":
+            if self.phase != "placement":
+                raise ValueError("fleet placement is already locked")
+            self.player_board = HiddenFleetBoard(self.rules, self._rng)
+        elif action == "start_battle":
+            if self.phase != "placement":
+                raise ValueError("battle has already started")
+            self.phase = "player_turn"
+        elif action == "fire":
+            self._player_fire(
+                (
+                    _whole_int(payload.get("row", -1), "row"),
+                    _whole_int(payload.get("column", -1), "column"),
+                )
+            )
+        else:
+            raise ValueError(f"unknown Battleship action: {action}")
+        return self.snapshot()
+
+    def _player_fire(self, cell: tuple[int, int]) -> None:
+        if self.phase != "player_turn":
+            raise ValueError("fire only when the battle is active")
+        player_outcome = self.enemy_board.fire(cell)
+        self.advisor.observe(player_outcome)
+        self.turn += 1
+        event: dict[str, object] = {
+            "turn": self.turn,
+            "playerShot": self._outcome_payload(player_outcome),
+            "aiShot": None,
+        }
+        if self.enemy_board.all_sunk:
+            self.phase = "finished"
+            self.winner = "player"
+            self.history.append(event)
+            return
+
+        ai_cell = self.ai.choose()
+        ai_outcome = self.player_board.fire(ai_cell)
+        self.ai.observe(ai_outcome)
+        event["aiShot"] = self._outcome_payload(ai_outcome)
+        self.last_ai_analysis = {
+            **getattr(self.ai, "last_analysis", {}),
+            "chosenCell": list(ai_cell),
+        }
+        self.history.append(event)
+        if self.player_board.all_sunk:
+            self.phase = "finished"
+            self.winner = "ai"
+
+    @staticmethod
+    def _outcome_payload(outcome: ShotOutcome) -> dict[str, object]:
+        return {
+            "cell": list(outcome.cell),
+            "hit": outcome.hit,
+            "sunk": outcome.sunk,
+            "sunkLength": outcome.sunk_length,
+        }
+
+    @staticmethod
+    def _remaining_ships(board: HiddenFleetBoard) -> list[int]:
+        return [ship.length for ship in board.ships if not ship.cells.issubset(board.hits)]
+
+    def _board_payload(self, board: HiddenFleetBoard, reveal_fleet: bool) -> list[dict[str, object]]:
+        size = self.rules.board_size
+        cells: list[dict[str, object]] = []
+        for row in range(size):
+            for column in range(size):
+                cell = (row, column)
+                ship = next((item for item in board.ships if cell in item.cells), None)
+                sunk = bool(ship and ship.cells.issubset(board.hits))
+                cells.append(
+                    {
+                        "row": row,
+                        "column": column,
+                        "shot": cell in board.shots,
+                        "hit": cell in board.hits,
+                        "sunk": sunk,
+                        "ship": bool(ship) if reveal_fleet else bool(sunk),
+                    }
+                )
+        return cells
+
+    def snapshot(self) -> dict[str, object]:
+        scores, candidate_count = self.advisor.density_scores()
+        available_scores = scores or {(0, 0): 0}
+        peak = max(available_scores.values())
+        suggested = min(cell for cell, score in available_scores.items() if score == peak)
+        finished = self.phase == "finished"
+        return {
+            "gameId": "battleship",
+            "phase": self.phase,
+            "turn": self.turn,
+            "winner": self.winner,
+            "boardSize": self.rules.board_size,
+            "shipLengths": list(self.rules.ship_lengths),
+            "playerBoard": self._board_payload(self.player_board, True),
+            "enemyBoard": self._board_payload(self.enemy_board, finished),
+            "playerShipsRemaining": self._remaining_ships(self.player_board),
+            "enemyShipsRemaining": self._remaining_ships(self.enemy_board),
+            "suggestedShot": list(suggested) if self.phase == "player_turn" else None,
+            "candidatePlacementCount": candidate_count,
+            "lastAiAnalysis": dict(self.last_ai_analysis) if self.last_ai_analysis else None,
+            "history": list(self.history),
+            "legalActions": (
+                ["randomize_fleet", "start_battle"]
+                if self.phase == "placement"
+                else ["fire"]
+                if self.phase == "player_turn"
+                else []
+            ),
+            "informationSet": {
+                "misses": [list(cell) for cell in sorted(self.advisor.misses)],
+                "unresolvedHits": [list(cell) for cell in sorted(self.advisor.unresolved_hits)],
+                "sunkCells": [list(cell) for cell in sorted(self.advisor.sunk_cells)],
+                "remainingShipLengths": list(self.advisor.remaining_lengths),
+                "candidatePlacementCount": candidate_count,
+            },
+        }
+
+
 def build_default_registry() -> GameRegistry:
     registry = GameRegistry()
     registry.register(
@@ -1694,6 +1838,15 @@ def build_default_registry() -> GameRegistry:
             "单人 · 信息集搜索",
         ),
         MastermindSession,
+    )
+    registry.register(
+        GameDescriptor(
+            "battleship",
+            "海战棋",
+            "部署自己的舰队，在未知海域中搜索敌舰，并对抗概率热力图 AI。",
+            "单人 · 隐藏部署与概率搜索",
+        ),
+        BattleshipGameSession,
     )
     for descriptor in (
         GameDescriptor(

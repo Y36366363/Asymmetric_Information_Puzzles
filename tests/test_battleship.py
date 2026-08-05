@@ -2,7 +2,11 @@ import random
 import unittest
 
 from aip.puzzles.battleship.models import FleetRules
-from aip.puzzles.battleship.solver import BattleshipSimulator, HiddenFleetBoard
+from aip.puzzles.battleship.solver import (
+    BattleshipSimulator,
+    HiddenFleetBoard,
+    ProbabilityDensityAI,
+)
 
 
 class BattleshipResearchTests(unittest.TestCase):
@@ -36,6 +40,13 @@ class BattleshipResearchTests(unittest.TestCase):
         random_mean = summaries["random"].mean_shots
         self.assertLess(summaries["hunt-target"].mean_shots, random_mean)
         self.assertLess(summaries["probability-density"].mean_shots, random_mean)
+
+    def test_probability_ai_exposes_auditable_density_analysis(self) -> None:
+        ai = ProbabilityDensityAI(FleetRules(), random.Random(9))
+        choice = ai.choose()
+        self.assertEqual(ai.last_analysis["chosenCell"], choice)
+        self.assertGreater(ai.last_analysis["candidatePlacements"], 0)
+        self.assertGreater(ai.last_analysis["peakDensity"], 0)
 
 
 if __name__ == "__main__":
