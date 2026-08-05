@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#10100f" />
     <title>AIP · 非对称博弈实验室</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23d8aa4c'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial' font-size='23' font-weight='900' fill='%2311110f'%3EAIP%3C/text%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=6fdf8dc537d9" />
+    <link rel="stylesheet" href="styles.css?v=b5f600c223ea" />
   </head>
   <body>
     <header class="topbar">
@@ -78,7 +78,7 @@
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="wormEyebrow">CASE 09 · 隐藏状态追踪 · 挑战</p>
+            <p class="eyebrow" data-i18n="wormEyebrow">CASE 10 · 隐藏状态追踪 · 挑战</p>
             <h1 data-i18n="wormTitle">移动虫穴</h1>
           </div>
           <button class="secondary-button" id="newWormButton" data-i18n="restart">重新开始</button>
@@ -115,7 +115,7 @@
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="pirateEyebrow">CASE 06 · 逆向归纳与联盟 · 中等</p>
+            <p class="eyebrow" data-i18n="pirateEyebrow">CASE 07 · 逆向归纳与联盟 · 中等</p>
             <h1 data-i18n="pirateTitle">海盗议会</h1>
           </div>
           <button class="secondary-button" id="newPirateButton" data-i18n="restartCouncil">重新召开议会</button>
@@ -148,7 +148,7 @@
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="pokerEyebrow">CASE 07 · 私有信息与诈唬 · 较难</p>
+            <p class="eyebrow" data-i18n="pokerEyebrow">CASE 08 · 私有信息与诈唬 · 较难</p>
             <h1 data-i18n="pokerTitle">库恩扑克</h1>
           </div>
           <button class="secondary-button" id="newPokerMatch" data-i18n="restartMatch">重新开始比赛</button>
@@ -197,7 +197,7 @@
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="eCardEyebrow">CASE 05 · 非对称收益与混合策略 · 中等</p>
+            <p class="eyebrow" data-i18n="eCardEyebrow">CASE 06 · 非对称收益与混合策略 · 中等</p>
             <h1 data-i18n="eCardTitle">E-Card 皇帝牌</h1>
           </div>
           <button class="secondary-button" id="newECardMatch" data-i18n="restartMatch">重新开始比赛</button>
@@ -298,7 +298,7 @@
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="liarEyebrow">CASE 08 · 隐藏骰子与公开信号 · 较难</p>
+            <p class="eyebrow" data-i18n="liarEyebrow">CASE 09 · 隐藏骰子与公开信号 · 较难</p>
             <h1 data-i18n="liarTitle">骗子骰子</h1>
           </div>
           <button class="secondary-button" id="newLiarMatch" data-i18n="restartMatch">重新开始比赛</button>
@@ -390,6 +390,66 @@
         </div>
       </section>
 
+      <section id="battleshipView" class="view battleship-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="battleshipEyebrow">CASE 05 · 隐藏部署与概率搜索 · 中等</p>
+            <h1 data-i18n="battleshipTitle">海战棋</h1>
+          </div>
+          <button class="secondary-button" id="newBattleshipMatch" data-i18n="restartMatch">重新开始比赛</button>
+        </div>
+
+        <div class="battle-score panel">
+          <div><span data-i18n="currentRound">当前轮次</span><strong id="battleTurn">0</strong></div>
+          <div><span data-i18n="shipsRemaining">剩余舰船</span><strong id="battlePlayerShips">5</strong></div>
+          <div><span data-i18n="candidateWorlds">候选部署</span><strong id="battleCandidates">—</strong></div>
+          <div><span data-i18n="advisorShot">概率建议</span><strong id="battleSuggestion">—</strong></div>
+        </div>
+
+        <section class="battle-deployment panel" id="battleDeployment">
+          <div>
+            <p class="eyebrow">DEPLOYMENT PHASE</p>
+            <h2 id="battleDeploymentTitle">先确认你的舰队布置</h2>
+            <p id="battleDeploymentCopy">浅金色格子是你的五艘舰船。可以反复随机布阵，确认后敌我双方才开始交火。</p>
+          </div>
+          <div class="battle-deployment-actions">
+            <button class="secondary-button" id="battleRandomize" data-i18n="randomizeFleet">重新随机布阵</button>
+            <button class="deal-button" id="battleStart" data-i18n="startBattle">确认布阵，开始战斗</button>
+          </div>
+        </section>
+
+        <section class="battle-arena">
+          <div class="battle-board-shell enemy-board-shell panel">
+            <div class="battle-board-title"><span data-i18n="enemyWaters">敌方海域</span><strong id="battleEnemyShips">5 SHIPS</strong></div>
+            <div class="battle-grid enemy-grid" id="battleEnemyBoard" aria-label="Enemy waters"></div>
+          </div>
+          <div class="battle-center panel">
+            <p class="eyebrow">PROBABILITY DENSITY AI</p>
+            <h2 id="battleHeadline">先完成布阵</h2>
+            <p id="battleInstruction">战斗开始后，点击敌方海域中的任意未知格开火。</p>
+            <div class="battle-legend"><span><i class="miss"></i>MISS</span><span><i class="hit"></i>HIT</span><span><i class="sunk"></i>SUNK</span></div>
+            <div class="battle-result hidden" id="battleResult"></div>
+          </div>
+          <div class="battle-board-shell player-board-shell panel">
+            <div class="battle-board-title"><span data-i18n="yourFleet">你的舰队</span><strong id="battleOwnShips">5 SHIPS</strong></div>
+            <div class="battle-grid player-grid" id="battlePlayerBoard" aria-label="Your fleet"></div>
+          </div>
+        </section>
+
+        <div class="battle-lower">
+          <section class="panel information-set">
+            <div class="panel-title"><span data-i18n="yourInformationSet">你的信息集</span><span>LEGAL FLEET WORLDS</span></div>
+            <p id="battleInformation"></p>
+            <p id="battleAiAnalysis"></p>
+          </section>
+          <section class="panel">
+            <div class="panel-title"><span data-i18n="battleHistory">交火记录</span><span>PUBLIC FEEDBACK</span></div>
+            <div class="battle-history" id="battleHistory"></div>
+          </section>
+        </div>
+      </section>
+
       <section id="mastermindView" class="view mastermind-view hidden">
         <div class="game-heading"><div><button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button><p class="eyebrow" data-i18n="mastermindEyebrow">CASE 04 · 候选集合与反馈学习 · 简单</p><h1 data-i18n="mastermindTitle">密码破解</h1></div><button class="secondary-button" id="mastermindNew" data-i18n="restart">重新开始</button></div>
         <div class="mastermind-score panel"><div><span data-i18n="mastermindAttempts">已用尝试</span><strong id="mastermindAttempts">0 / 10</strong></div><div><span data-i18n="mastermindCandidates">剩余候选</span><strong id="mastermindCandidates">360</strong></div><div><span data-i18n="mastermindSuggested">信息集建议</span><strong id="mastermindSuggestion">—</strong></div></div>
@@ -416,6 +476,6 @@
     </div>
 
     <div class="toast hidden" id="toast" role="status"></div>
-    <script type="module" src="bootstrap.js?v=6fdf8dc537d9"></script>
+    <script type="module" src="bootstrap.js?v=b5f600c223ea"></script>
   </body>
 </html>

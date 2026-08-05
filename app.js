@@ -7,6 +7,7 @@ let currentGameId = null;
 let lobbyGames = [];
 let pirateDraft = [];
 let openRulesGameId = null;
+let actionPending = false;
 
 const copy = {
   zh: {
@@ -15,14 +16,14 @@ const copy = {
     heroCopy: "选择一个实验。你做决定，系统隐藏信息、扮演对手，并在关键时刻揭示概率与代价。",
     backLobby: "← 返回大厅", restart: "重新开始", restartCouncil: "重新召开议会", playNow: "开始游戏 →", comingSoon: "后续开放",
     caseEyebrow: "CASE 01 · 风险与谈判 · 入门", caseTitle: "命运之箱",
-    wormEyebrow: "CASE 09 · 隐藏状态追踪 · 挑战", wormTitle: "移动虫穴",
-    pirateEyebrow: "CASE 06 · 逆向归纳与联盟 · 中等", pirateTitle: "海盗议会",
-    pokerEyebrow: "CASE 07 · 私有信息与诈唬 · 较难", pokerTitle: "库恩扑克",
+    wormEyebrow: "CASE 10 · 隐藏状态追踪 · 挑战", wormTitle: "移动虫穴",
+    pirateEyebrow: "CASE 07 · 逆向归纳与联盟 · 中等", pirateTitle: "海盗议会",
+    pokerEyebrow: "CASE 08 · 私有信息与诈唬 · 较难", pokerTitle: "库恩扑克",
     restartMatch: "重新开始比赛", handNumber: "当前牌局", yourScore: "你的净筹码",
     potSize: "底池", aiScore: "AI 净筹码", strategyAi: "策略型 AI", you: "你",
     yourInformationSet: "你的信息集", quickRules: "快速规则",
     pokerRules: "双方先各投入 1。下注为 1；跟注后比牌，弃牌则直接输。K 最大、J 最小。AI 会按概率诈唬，所以同一种动作不总代表同一张牌。",
-    eCardEyebrow: "CASE 05 · 非对称收益与混合策略 · 中等", eCardTitle: "E-Card 皇帝牌",
+    eCardEyebrow: "CASE 06 · 非对称收益与混合策略 · 中等", eCardTitle: "E-Card 皇帝牌",
     currentDuel: "本轮对决", emperor: "皇帝", citizen: "市民", slave: "奴隶",
     eCardYourScore: "你的得分", eCardAiScore: "AI 得分",
     duelHistory: "公开对局记录",
@@ -37,7 +38,7 @@ const copy = {
     strategyAccuracy: "基础策略吻合率", dealer: "庄家", basicStrategyAi: "基础策略 AI",
     letAiPlay: "让 AI 执行这一步", decisionAudit: "决策审计",
     blackjackScope: "此建议针对六副牌、软 17 停牌、不可分牌/投降/保险且不计牌的动作集合。改变规则或利用牌靴构成后，最优动作可能改变。",
-    liarEyebrow: "CASE 08 · 隐藏骰子与公开信号 · 较难", liarTitle: "骗子骰子", liarRound: "回合",
+    liarEyebrow: "CASE 09 · 隐藏骰子与公开信号 · 较难", liarTitle: "骗子骰子", liarRound: "回合",
     opponentDice: "对手隐藏骰子", yourDice: "你的骰子", aiHiddenDice: "AI 的隐藏骰子",
     currentBid: "当前公开叫价", quantity: "数量", face: "点数", raiseBid: "加注", challengeBid: "质疑叫价",
     liarInstruction: "你只能看见自己的骰子。1 点是万能牌；判断公开叫价是否值得相信。",
@@ -46,6 +47,9 @@ const copy = {
     mastermindAttempts: "已用尝试", mastermindCandidates: "剩余候选", mastermindGuess: "提交猜测",
     mastermindSuggested: "信息集建议", mastermindExact: "位置正确", mastermindPartial: "数字正确但位置不同",
     mastermindInstruction: "输入四个不重复的数字。黑色标记表示位置和数字都正确，白色标记表示数字正确但位置错误。",
+    battleshipEyebrow: "CASE 05 · 隐藏部署与概率搜索 · 中等", battleshipTitle: "海战棋",
+    yourFleet: "你的舰队", enemyWaters: "敌方海域", randomizeFleet: "重新随机布阵", startBattle: "确认布阵，开始战斗",
+    shipsRemaining: "剩余舰船", candidateWorlds: "候选部署", advisorShot: "概率建议", battleHistory: "交火记录",
     rulesEyebrow: "玩法说明", rulesTitle: "游戏规则", closeRules: "关闭",
     prizePool: "奖金池", round: "回合", decisionPanel: "决策仪表",
     emptyInsight: "银行家报价后，这里会显示期望值、风险和模型建议。",
@@ -64,14 +68,14 @@ const copy = {
     heroCopy: "Choose an experiment. You decide; the system hides information, plays the opposition, and reveals probability and cost at decisive moments.",
     backLobby: "← Back to lobby", restart: "New game", restartCouncil: "New council", playNow: "Play now →", comingSoon: "Coming later",
     caseEyebrow: "CASE 01 · RISK & NEGOTIATION · BEGINNER", caseTitle: "Cases of Fate",
-    wormEyebrow: "CASE 09 · HIDDEN-STATE TRACKING · CHALLENGE", wormTitle: "The Moving Worm",
-    pirateEyebrow: "CASE 06 · BACKWARD INDUCTION & COALITIONS · MEDIUM", pirateTitle: "Pirate Council",
-    pokerEyebrow: "CASE 07 · PRIVATE INFORMATION & BLUFFING · HARD", pokerTitle: "Kuhn Poker",
+    wormEyebrow: "CASE 10 · HIDDEN-STATE TRACKING · CHALLENGE", wormTitle: "The Moving Worm",
+    pirateEyebrow: "CASE 07 · BACKWARD INDUCTION & COALITIONS · MEDIUM", pirateTitle: "Pirate Council",
+    pokerEyebrow: "CASE 08 · PRIVATE INFORMATION & BLUFFING · HARD", pokerTitle: "Kuhn Poker",
     restartMatch: "Restart match", handNumber: "Current hand", yourScore: "Your net chips",
     potSize: "Pot", aiScore: "AI net chips", strategyAi: "Strategy AI", you: "You",
     yourInformationSet: "Your information set", quickRules: "Quick rules",
     pokerRules: "Both players ante 1. A bet costs 1; a call leads to showdown, while a fold loses immediately. K is high and J is low. The AI bluffs probabilistically, so one action never reveals one card with certainty.",
-    eCardEyebrow: "CASE 05 · ASYMMETRIC PAYOFFS & MIXED STRATEGY · MEDIUM", eCardTitle: "E-Card",
+    eCardEyebrow: "CASE 06 · ASYMMETRIC PAYOFFS & MIXED STRATEGY · MEDIUM", eCardTitle: "E-Card",
     currentDuel: "Duel", emperor: "Emperor", citizen: "Citizen", slave: "Slave",
     eCardYourScore: "Your score", eCardAiScore: "AI score",
     duelHistory: "Public duel history",
@@ -86,7 +90,7 @@ const copy = {
     strategyAccuracy: "Basic-strategy match", dealer: "Dealer", basicStrategyAi: "Basic-strategy AI",
     letAiPlay: "Let AI take this action", decisionAudit: "Decision audit",
     blackjackScope: "This advice is scoped to six decks, dealer standing on soft 17, no split/surrender/insurance, and no card counting. Change the rules or use shoe composition and the optimal action may change.",
-    liarEyebrow: "CASE 08 · HIDDEN DICE & PUBLIC SIGNALS · HARD", liarTitle: "Liar's Dice", liarRound: "Round",
+    liarEyebrow: "CASE 09 · HIDDEN DICE & PUBLIC SIGNALS · HARD", liarTitle: "Liar's Dice", liarRound: "Round",
     opponentDice: "Opponent hidden dice", yourDice: "Your dice", aiHiddenDice: "AI hidden dice",
     currentBid: "Current public bid", quantity: "Quantity", face: "Face", raiseBid: "Raise", challengeBid: "Challenge",
     liarInstruction: "You see only your own dice. Ones are wild; decide whether the public claim is worth believing.",
@@ -95,6 +99,9 @@ const copy = {
     mastermindAttempts: "Attempts", mastermindCandidates: "Candidates left", mastermindGuess: "Submit guess",
     mastermindSuggested: "Information-set suggestion", mastermindExact: "Exact position", mastermindPartial: "Right digit, wrong position",
     mastermindInstruction: "Enter four distinct digits. Black markers are exact matches; white markers are right digits in the wrong positions.",
+    battleshipEyebrow: "CASE 05 · HIDDEN DEPLOYMENT & PROBABILITY SEARCH · MEDIUM", battleshipTitle: "Battleship",
+    yourFleet: "Your fleet", enemyWaters: "Enemy waters", randomizeFleet: "Randomize fleet", startBattle: "Lock fleet and start",
+    shipsRemaining: "Ships remaining", candidateWorlds: "Candidate placements", advisorShot: "Probability hint", battleHistory: "Battle log",
     rulesEyebrow: "HOW TO PLAY", rulesTitle: "Rules", closeRules: "Close",
     prizePool: "Prize board", round: "Round", decisionPanel: "Decision dashboard",
     emptyInsight: "Expected value, risk, and model guidance appear after the banker's offer.",
@@ -120,6 +127,7 @@ const gamesCopy = {
     blackjack: ["21 点策略实验室", "对抗固定规则庄家，逐步比较你的行动与规则限定的最优基础策略。", "单人 · 概率决策与策略审计"],
     "liars-dice": ["骗子骰子", "隐藏骰子、公开叫价与质疑概率；判断何时加注，何时抓住 AI 的虚张声势。", "单人 · 隐藏骰子与公开信号"],
     mastermind: ["密码破解", "通过黑白反馈缩小隐藏密码的候选集合，并寻找最少尝试次数的解法。", "单人 · 信息集搜索"],
+    battleship: ["海战棋", "部署舰队，在未知海域中逐格搜索敌舰，对抗概率热力图 AI。", "单人 · 隐藏部署与概率搜索"],
     auction: ["百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放"],
   },
   en: {
@@ -132,13 +140,14 @@ const gamesCopy = {
     blackjack: ["Blackjack Strategy Lab", "Play against a fixed-rule dealer and audit every choice against the rule-scoped optimal basic strategy.", "Solo · Probability & strategy audit"],
     "liars-dice": ["Liar's Dice", "Private dice, public bids, and probability-guided challenges against a bluffing AI.", "Solo · Hidden dice & public signals"],
     mastermind: ["Mastermind", "Use exact and partial-match feedback to shrink a hidden code's candidate set.", "Solo · Information-set search"],
+    battleship: ["Battleship", "Deploy a fleet, search unknown waters cell by cell, and face a probability-density AI.", "Solo · Hidden deployment & search"],
     auction: ["100-Unit All-Pay Auction", "Fight for leadership through public prices, alliances, and defection.", "Local multiplayer · Coming soon"],
   },
 };
 
 const difficultyCopy = {
-  zh: { cases: "入门", blackjack: "入门", "restricted-rps": "简单", mastermind: "简单", "e-card": "中等", pirates: "中等", "kuhn-poker": "较难", "liars-dice": "较难", worm: "挑战", auction: "未开放" },
-  en: { cases: "Beginner", blackjack: "Beginner", "restricted-rps": "Easy", mastermind: "Easy", "e-card": "Medium", pirates: "Medium", "kuhn-poker": "Hard", "liars-dice": "Hard", worm: "Challenge", auction: "Coming soon" },
+  zh: { cases: "入门", blackjack: "入门", "restricted-rps": "简单", mastermind: "简单", battleship: "中等", "e-card": "中等", pirates: "中等", "kuhn-poker": "较难", "liars-dice": "较难", worm: "挑战", auction: "未开放" },
+  en: { cases: "Beginner", blackjack: "Beginner", "restricted-rps": "Easy", mastermind: "Easy", battleship: "Medium", "e-card": "Medium", pirates: "Medium", "kuhn-poker": "Hard", "liars-dice": "Hard", worm: "Challenge", auction: "Coming soon" },
 };
 
 const rulesCopy = {
@@ -152,6 +161,7 @@ const rulesCopy = {
     blackjack: ["目标：让自己的点数尽量接近 21，但超过 21 就爆牌并立即输。", "A 可算 1 或 11；J/Q/K 算 10。开始时你会看到两张手牌和庄家的一张明牌。", "点击“要牌”再拿一张；点击“停牌”结束行动；首轮可点击“加倍”并只再拿一张。", "庄家随后按固定规则补牌（软 17 停牌），最后比较点数；黑杰克按页面规则结算。右侧可让 AI 执行基础策略建议。"],
     "liars-dice": ["目标：判断公开叫价是真实还是虚张声势，并在质疑中赢下本轮。", "你能看到自己的骰子，但看不到 AI 的骰子。叫价“数量 × 点数”表示全桌至少有这么多个该点数。", "点击“加注”提交更高的数量，或在数量相同时提交更高点数；1 点对 2–6 点是万能牌。", "如果你认为上一口不可信，点击“质疑”。系统揭示全部骰子并根据实际数量判定胜负。"],
     mastermind: ["目标：在 10 次尝试内破解 AI 隐藏的四位密码。密码由 1–6 组成且数字不重复。", "在输入框输入恰好四个不同数字，例如 1234，然后点击“提交猜测”。", "黑色反馈表示数字和位置都正确；白色反馈表示数字正确但位置错误；没有反馈表示该数字不在密码中。", "每次反馈都会缩小候选数量。可以参考“信息集建议”，也可以自行设计下一次猜测；猜中四位即获胜。"],
+    battleship: ["目标：在概率 AI 击沉你的五艘舰船之前，先找到并击沉它的全部舰队。", "布阵阶段先观察“你的舰队”。可以反复点击“重新随机布阵”，满意后点击“确认布阵，开始战斗”。", "战斗阶段点击敌方 10×10 海域中的一个未知格。圆点表示命中，淡点表示落空，红色标记表示整艘船已被击沉。", "你每开一炮，AI 会立即根据你的舰队上仍合法的部署位置还击。已经射击过的格子不能重复选择。", "候选部署表示目前仍符合反馈的舰船位置数量；概率建议给出覆盖合法部署最多的格子，但你可以选择别处。"],
   },
   en: {
     cases: ["Goal: maximize your payout from 26 cases.", "Click one case to keep; never open it afterward.", "Open the number of other cases shown on screen. The banker then makes an offer.", "Choose Deal to end for the offer, or No Deal to continue. If you reach the end, you receive the kept case's value."],
@@ -163,6 +173,7 @@ const rulesCopy = {
     blackjack: ["Goal: approach 21 without going over.", "A counts as 1 or 11; face cards count as 10. You see your hand and the dealer upcard.", "Choose Hit, Stand, or Double (first decision only). The dealer then follows the fixed soft-17 rule.", "Compare the final totals; the strategy panel can execute the basic-strategy recommendation."],
     "liars-dice": ["Goal: identify a bluff and win the round.", "You see your dice only. A bid Quantity × Face claims at least that many matching dice across both hands.", "Raise quantity, or raise face at equal quantity; ones are wild for faces 2–6.", "Challenge the current bid to reveal all dice and settle the round."],
     mastermind: ["Goal: crack the hidden four-digit code within ten attempts. Digits 1–6 are distinct.", "Enter exactly four different digits and submit the guess.", "Black feedback means exact digit and position; white feedback means a right digit in the wrong position; no marker means absent.", "Use the candidate count and suggestion to choose your next experiment. Four exact matches win."],
+    battleship: ["Goal: sink all five enemy ships before the probability AI sinks yours.", "During deployment, inspect your fleet, randomize it as often as you like, then lock the layout and start.", "During battle, click one unknown cell in the enemy 10×10 grid. A dot is a miss, a bright marker is a hit, and red marks a sunk ship.", "The AI immediately returns fire after each shot. Previously fired cells cannot be selected again.", "Candidate placements count ship positions still consistent with your observations; the probability hint marks a high-density cell but does not force your move."],
   },
 };
 
@@ -177,6 +188,7 @@ const ruleDetails = {
     blackjack: { role: "你是玩家，与按固定规则行动的庄家比较点数。你看得到庄家一张明牌，但看不到他的底牌，因此每次要牌都在不完全信息下承担爆牌风险。", example: "例：你有 10+6=16 点，庄家明牌是 10。停牌很可能输给庄家较高点数；要牌可能改善手牌，也可能抽到 6 以上直接爆牌。页面的基础策略会告诉你在长期统计下哪种动作损失更小。", finish: "你爆牌时立即输；你停牌或加倍后庄家自动补牌，最后不爆牌且更接近 21 的一方获胜，同点为和局。每局结束后点击下一局。", terms: "要牌＝再抽一张；停牌＝不再抽；加倍＝赌注翻倍且只抽一张；软牌＝有 A 暂时按 11 计算的手牌；爆牌＝超过 21。" },
     "liars-dice": { role: "你和 AI 各有五颗隐藏骰子。双方看不到对方点数，只能通过越来越高的公开叫价传递信息或诈唬。", example: "例：你手里有两个 4 和一个 1。因为 1 是万能牌，你已知道全桌至少有三个可算作 4。叫“3×4”很安全；AI 若叫到“7×4”，你需要判断它真的有很多 4，还是在虚张声势。", finish: "当任一方质疑时揭开所有骰子。实际匹配数量达到叫价，质疑者输；数量不足，最后叫价者输。赢一轮得 1 分，可继续开始下一轮。", terms: "叫价 3×4＝声称全桌至少有三个 4（包括可作万能牌的 1）；加注＝提高数量，或数量不变时提高点数；质疑＝认为当前叫价不成立。" },
     mastermind: { role: "AI 先秘密选定一个四位密码，你看不到答案。你像侦探一样不断提交测试密码，再利用反馈排除不可能的答案。", example: "例：答案假设为 1-3-5-6，你猜 1-2-6-4。数字 1 的位置也正确，所以有 1 个黑色反馈；数字 6 存在但位置错误，所以有 1 个白色反馈；2 和 4 不在密码中。", finish: "十次之内得到 4 个位置正确即获胜；十次仍未破解则答案揭晓。建议猜测尝试让下一次反馈排除尽量多的候选，但你可以完全自行推理。", terms: "候选数量＝根据全部反馈仍可能是答案的密码个数；黑色反馈只表示正确数量，不告诉你具体是哪一位；白色反馈也不指出对应数字。" },
+    battleship: { role: "你和 AI 各自在 10×10 海域秘密部署长度为 5、4、3、3、2 的五艘舰船。你只能看到自己的舰队，敌方舰船只有在被命中或游戏结束后才会揭示。", example: "例：你向 B7 开火并命中，说明某艘敌舰经过 B7。下一炮打 B8：若再次命中，可继续沿同一方向搜索；若落空，就要考虑舰船可能纵向延伸。", finish: "一艘船的所有格子都被命中时即被击沉；任一方五艘船全部沉没，比赛立即结束。结束后敌方完整舰队会揭晓，便于复盘。", terms: "候选部署＝与全部命中、落空和击沉反馈相容的单艘舰船位置总数；未解决命中＝已经打中但所属舰船尚未击沉的格子；概率热力图＝统计每个未知格被多少个候选部署覆盖。" },
   },
   en: {
     cases: { role: "You are a TV-game contestant. Twenty-six cases hide prizes from tiny amounts to one million. You eliminate prizes and decide whether to accept the banker's cash offer.", example: "Example: you keep case 7 and open case 3, revealing $1. That prize leaves the board. After the required openings, an $80,000 offer means you can leave with $80,000 or reject it and keep risking your hidden case.", finish: "The game ends when you accept an offer, or when you reject every offer and receive the value in your kept case. There is no single correct risk preference.", terms: "Kept case: your unopened original choice. Expected value: the average of unrevealed prizes. A higher offer-to-EV ratio is usually more attractive." },
@@ -188,6 +200,7 @@ const ruleDetails = {
     blackjack: { role: "You compare your hand with a fixed-rule dealer. You see one dealer card but not the hole card, so Hit and Stand decisions trade improvement against bust risk.", example: "Example: you have 16 against a dealer 10. Standing often loses to a stronger dealer total; hitting may improve the hand or bust. Basic strategy identifies the better long-run action.", finish: "Bust loses immediately. After you stand or double, the dealer draws automatically; the higher non-bust total wins and equal totals push.", terms: "Hit: draw. Stand: stop. Double: double the stake and draw once. Soft hand: an Ace currently counted as 11. Bust: exceed 21." },
     "liars-dice": { role: "You and the AI each hold five hidden dice. Public bids rise while private dice stay secret, so every bid can be information or a bluff.", example: "Example: two 4s and one wild 1 give you three known matches for face 4. A bid of 3×4 is safe; after the AI raises to 7×4, decide whether its private hand supports that claim.", finish: "A challenge reveals all dice. If the bid's quantity exists, the challenger loses; otherwise the last bidder loses. The winner scores one point.", terms: "3×4 claims at least three 4-matches across both hands. Raise increases quantity or face. Challenge says the current claim is false." },
     mastermind: { role: "The AI secretly chooses a four-digit code. You act as a detective, testing codes and using feedback to eliminate impossible answers.", example: "Example: if the code is 1-3-5-6 and you guess 1-2-6-4, digit 1 earns one exact marker; digit 6 earns one wrong-position marker; 2 and 4 earn none.", finish: "Four exact matches within ten guesses wins; otherwise the answer is revealed. The suggestion aims to eliminate many candidates, but you may reason independently.", terms: "Candidate count is the number of codes consistent with every clue. Markers report counts only; they do not identify which digit produced each marker." },
+    battleship: { role: "You and the AI secretly deploy five ships of lengths 5, 4, 3, 3, and 2 on separate 10×10 grids. You see your fleet only; enemy ships appear only through hits, sinks, or the final reveal.", example: "Example: B7 is a hit, so an enemy ship crosses that cell. Fire at B8: another hit suggests continuing along that line; a miss makes a vertical extension more plausible.", finish: "A ship sinks when every one of its cells has been hit. The match ends as soon as one fleet is fully sunk, then the complete enemy layout is revealed for review.", terms: "Candidate placements are individual ship positions consistent with all feedback. An unresolved hit belongs to a ship not yet sunk. A probability heat map counts how many candidate placements cover each unknown cell." },
   },
 };
 
@@ -200,7 +213,7 @@ function installRulesButtons() {
   document.querySelectorAll(".game-heading").forEach((heading) => {
     if (heading.querySelector(".rules-button")) return;
     const view = heading.closest(".view");
-    const gameId = { gameView: "cases", wormView: "worm", pirateView: "pirates", pokerView: "kuhn-poker", eCardView: "e-card", rpsView: "restricted-rps", liarView: "liars-dice", blackjackView: "blackjack", mastermindView: "mastermind" }[view?.id];
+    const gameId = { gameView: "cases", wormView: "worm", pirateView: "pirates", pokerView: "kuhn-poker", eCardView: "e-card", rpsView: "restricted-rps", liarView: "liars-dice", blackjackView: "blackjack", mastermindView: "mastermind", battleshipView: "battleship" }[view?.id];
     if (!gameId) return;
     const button = document.createElement("button");
     button.className = "rules-button";
@@ -300,6 +313,9 @@ function renderLobby() {
 }
 
 async function startGame(gameId = "cases", options = {}) {
+  if (actionPending) return;
+  actionPending = true;
+  document.querySelector("main").setAttribute("aria-busy", "true");
   try {
     const gameOptions = gameId === "cases"
       ? { riskTolerance: 100000, ...options }
@@ -321,6 +337,7 @@ async function startGame(gameId = "cases", options = {}) {
     $("#rpsView").classList.toggle("hidden", gameId !== "restricted-rps");
     $("#liarView").classList.toggle("hidden", gameId !== "liars-dice");
     $("#mastermindView").classList.toggle("hidden", gameId !== "mastermind");
+    $("#battleshipView").classList.toggle("hidden", gameId !== "battleship");
     $("#blackjackView").classList.toggle("hidden", gameId !== "blackjack");
     window.scrollTo(0, 0);
     render();
@@ -331,10 +348,16 @@ async function startGame(gameId = "cases", options = {}) {
     }
   } catch (error) {
     showToast(error.message);
+  } finally {
+    actionPending = false;
+    document.querySelector("main").removeAttribute("aria-busy");
   }
 }
 
 async function act(action, payload = {}) {
+  if (actionPending) return;
+  actionPending = true;
+  document.querySelector("main").setAttribute("aria-busy", "true");
   try {
     const result = await request(`/api/sessions/${sessionId}/actions`, {
       method: "POST",
@@ -344,10 +367,17 @@ async function act(action, payload = {}) {
     render();
   } catch (error) {
     showToast(error.message);
+  } finally {
+    actionPending = false;
+    document.querySelector("main").removeAttribute("aria-busy");
   }
 }
 
 function render() {
+  if (currentState.gameId === "battleship") {
+    renderBattleship();
+    return;
+  }
   if (currentState.gameId === "blackjack") {
     renderBlackjack();
     return;
@@ -560,6 +590,86 @@ function renderLiarDice() {
     const winner = state.result.winner === "player" ? (language === "zh" ? "你赢下本轮" : "You win the round") : (language === "zh" ? "AI 赢下本轮" : "AI wins the round");
     $("#liarResult").textContent = `${winner} · ${state.result.claimTrue ? (language === "zh" ? "叫价成立" : "claim true") : (language === "zh" ? "叫价被揭穿" : "claim false")}`;
   }
+}
+
+function battleCoordinate(cell) {
+  if (!cell) return "—";
+  return `${String.fromCharCode(65 + cell[0])}${cell[1] + 1}`;
+}
+
+function renderBattleGrid(selector, cells, isEnemy, state) {
+  const suggested = state.suggestedShot?.join(",");
+  $(selector).innerHTML = cells.map((cell) => {
+    const key = `${cell.row},${cell.column}`;
+    const classes = ["battle-cell", cell.ship ? "ship" : "", cell.shot && !cell.hit ? "miss" : "", cell.hit ? "hit" : "", cell.sunk ? "sunk" : "", isEnemy && key === suggested ? "suggested" : ""].filter(Boolean).join(" ");
+    const marker = cell.sunk ? "×" : cell.hit ? "●" : cell.shot ? "·" : "";
+    const coordinate = battleCoordinate([cell.row, cell.column]);
+    if (!isEnemy) return `<div class="${classes}" title="${coordinate}">${marker}</div>`;
+    const disabled = state.phase !== "player_turn" || cell.shot;
+    return `<button class="${classes}" data-battle-row="${cell.row}" data-battle-column="${cell.column}" ${disabled ? "disabled" : ""} aria-label="${language === "zh" ? `向 ${coordinate} 开火` : `Fire at ${coordinate}`}">${marker}</button>`;
+  }).join("");
+  if (isEnemy) {
+    document.querySelectorAll("[data-battle-row]:not(:disabled)").forEach((button) => {
+      button.addEventListener("click", () => act("fire", {
+        row: Number(button.dataset.battleRow),
+        column: Number(button.dataset.battleColumn),
+      }));
+    });
+  }
+}
+
+function renderBattleship() {
+  const state = currentState;
+  $("#battleshipView").classList.toggle("placement-phase", state.phase === "placement");
+  $("#battleEnemyBoard").setAttribute("aria-label", language === "zh" ? "敌方海域" : "Enemy waters");
+  $("#battlePlayerBoard").setAttribute("aria-label", language === "zh" ? "你的舰队" : "Your fleet");
+  const playerShips = state.playerShipsRemaining.length;
+  const enemyShips = state.enemyShipsRemaining.length;
+  $("#battleTurn").textContent = state.turn;
+  $("#battlePlayerShips").textContent = `${playerShips} / 5`;
+  $("#battleCandidates").textContent = state.candidatePlacementCount;
+  $("#battleSuggestion").textContent = battleCoordinate(state.suggestedShot);
+  $("#battleOwnShips").textContent = `${playerShips} ${language === "zh" ? "艘" : "SHIPS"}`;
+  $("#battleEnemyShips").textContent = `${enemyShips} ${language === "zh" ? "艘" : "SHIPS"}`;
+  $("#battleDeployment").classList.toggle("hidden", state.phase !== "placement");
+  $("#battleDeploymentTitle").textContent = language === "zh" ? "先确认你的舰队布置" : "Confirm your fleet layout";
+  $("#battleDeploymentCopy").textContent = language === "zh"
+    ? "浅金色格子是你的五艘舰船。可以反复随机布阵，确认后敌我双方才开始交火。"
+    : "Gold cells are your five ships. Randomize until satisfied, then lock the fleet to begin firing.";
+  renderBattleGrid("#battleEnemyBoard", state.enemyBoard, true, state);
+  renderBattleGrid("#battlePlayerBoard", state.playerBoard, false, state);
+
+  $("#battleHeadline").textContent = state.phase === "placement"
+    ? (language === "zh" ? "先完成布阵" : "Deploy before battle")
+    : state.phase === "finished"
+      ? (state.winner === "player" ? (language === "zh" ? "你击沉了敌方舰队" : "You sank the enemy fleet") : (language === "zh" ? "AI 击沉了你的舰队" : "The AI sank your fleet"))
+      : (language === "zh" ? `第 ${state.turn + 1} 回合：选择攻击坐标` : `Turn ${state.turn + 1}: choose a target`);
+  $("#battleInstruction").textContent = state.phase === "placement"
+    ? (language === "zh" ? "查看自己的舰船位置；点击确认后布阵将锁定。" : "Review your ship positions. Locking the fleet makes the layout final.")
+    : state.phase === "finished"
+      ? (language === "zh" ? "敌方完整布阵已经揭示，可以对照交火记录复盘。" : "The complete enemy fleet is now revealed for review.")
+      : (language === "zh" ? "点击敌方未知格开火；AI 会依据概率热力图立即还击。" : "Fire at an unknown enemy cell; the probability AI immediately returns fire.");
+
+  const info = state.informationSet;
+  $("#battleInformation").textContent = language === "zh"
+    ? `敌方仍有 ${info.remainingShipLengths.length} 艘船；${info.unresolvedHits.length} 个命中尚未归入已击沉舰船。当前枚举到 ${info.candidatePlacementCount} 个合法单舰部署。`
+    : `${info.remainingShipLengths.length} enemy ships remain; ${info.unresolvedHits.length} hits are unresolved. The model counts ${info.candidatePlacementCount} legal single-ship placements.`;
+  $("#battleAiAnalysis").textContent = state.lastAiAnalysis
+    ? (language === "zh"
+      ? `AI 上一炮选择 ${battleCoordinate(state.lastAiAnalysis.chosenCell)}：该格被 ${state.lastAiAnalysis.peakDensity} 个候选部署覆盖，并列最佳格共有 ${state.lastAiAnalysis.tiedBestCells} 个。`
+      : `The AI chose ${battleCoordinate(state.lastAiAnalysis.chosenCell)}: ${state.lastAiAnalysis.peakDensity} candidate placements covered it, with ${state.lastAiAnalysis.tiedBestCells} cells tied for best.`)
+    : (language === "zh" ? "开战后，这里会解释 AI 为什么选择上一炮。" : "After battle starts, this panel explains the AI's previous shot.");
+
+  $("#battleHistory").innerHTML = state.history.length ? state.history.slice().reverse().map((item) => {
+    const player = item.playerShot;
+    const ai = item.aiShot;
+    const resultLabel = (shot) => shot.sunk ? (language === "zh" ? `击沉长度 ${shot.sunkLength}` : `sank length ${shot.sunkLength}`) : shot.hit ? (language === "zh" ? "命中" : "hit") : (language === "zh" ? "落空" : "miss");
+    return `<div><strong>${language === "zh" ? `回合 ${item.turn}` : `Turn ${item.turn}`}</strong><span>${language === "zh" ? "你" : "You"} ${battleCoordinate(player.cell)} · ${resultLabel(player)}</span>${ai ? `<span>AI ${battleCoordinate(ai.cell)} · ${resultLabel(ai)}</span>` : ""}</div>`;
+  }).join("") : `<p>${language === "zh" ? "战斗尚未开始。" : "The battle has not started."}</p>`;
+  $("#battleResult").classList.toggle("hidden", state.phase !== "finished");
+  if (state.phase === "finished") $("#battleResult").textContent = state.winner === "player"
+    ? (language === "zh" ? `胜利 · 共使用 ${state.turn} 炮` : `Victory in ${state.turn} shots`)
+    : (language === "zh" ? `失败 · 坚持了 ${state.turn} 回合` : `Defeat after ${state.turn} turns`);
 }
 
 function renderMastermind() {
@@ -876,6 +986,7 @@ function showLobby() {
   $("#rpsView").classList.add("hidden");
   $("#liarView").classList.add("hidden");
   $("#mastermindView").classList.add("hidden");
+  $("#battleshipView").classList.add("hidden");
   $("#blackjackView").classList.add("hidden");
   $("#lobbyView").classList.remove("hidden");
   window.scrollTo(0, 0);
@@ -894,6 +1005,9 @@ $("#newECardMatch").addEventListener("click", () => startGame("e-card"));
 $("#newRpsMatch").addEventListener("click", () => startGame("restricted-rps"));
 $("#newLiarMatch").addEventListener("click", () => startGame("liars-dice"));
 $("#newBlackjackMatch").addEventListener("click", () => startGame("blackjack"));
+$("#newBattleshipMatch").addEventListener("click", () => startGame("battleship"));
+$("#battleRandomize").addEventListener("click", () => act("randomize_fleet"));
+$("#battleStart").addEventListener("click", () => act("start_battle"));
 $("#blackjackAiPlay").addEventListener("click", () => act("ai_play"));
 $("#liarRaise").addEventListener("click", () => act("raise_bid", {
   quantity: Number($("#liarQuantity").value),
