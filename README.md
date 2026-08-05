@@ -7,6 +7,10 @@
 
 ## Updates 08/05/2026
 
+- **Scalable, colored Battleship fleets** — Enlarged the desktop boards, added
+  10×10, 12×12, and 15×15 seas with density-matched fleets, assigned every ship
+  a distinct color, added collision-safe 90° rotation controls, and preserved
+  usable cell sizes on mobile with board-local scrolling.
 - **Playable solo Battleship** — Promoted the Battleship research prototype into
   the bilingual web lobby with fleet randomization, hidden enemy deployment,
   alternating fire, sink detection, probability-density AI, decision explanations,

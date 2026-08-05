@@ -12,6 +12,13 @@ public observation that shrinks the opponent-fleet information set.
 4. Win by sinking all five opposing ships before the AI sinks yours.
 5. After the match, reveal both heat maps and explain which observations changed each decision.
 
+The implemented deployment now offers three scales: standard 10×10 with five
+ships, expanded 12×12 with six ships, and grand 15×15 with seven ships. Each ship
+has a stable color and a collision-safe 90° rotation control. Because a straight,
+undirected ship occupies identical cells after a 180° flip, horizontal/vertical
+rotation is the meaningful transformation and both orientations are included in
+the AI candidate enumeration.
+
 This has more repeated decisions than Mastermind or the pirate vote, while remaining
 easy to explain to a new player. It also offers visual tension without requiring a
 multiplayer server.

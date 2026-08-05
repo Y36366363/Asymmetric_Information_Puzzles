@@ -161,7 +161,7 @@ const rulesCopy = {
     blackjack: ["目标：让自己的点数尽量接近 21，但超过 21 就爆牌并立即输。", "A 可算 1 或 11；J/Q/K 算 10。开始时你会看到两张手牌和庄家的一张明牌。", "点击“要牌”再拿一张；点击“停牌”结束行动；首轮可点击“加倍”并只再拿一张。", "庄家随后按固定规则补牌（软 17 停牌），最后比较点数；黑杰克按页面规则结算。右侧可让 AI 执行基础策略建议。"],
     "liars-dice": ["目标：判断公开叫价是真实还是虚张声势，并在质疑中赢下本轮。", "你能看到自己的骰子，但看不到 AI 的骰子。叫价“数量 × 点数”表示全桌至少有这么多个该点数。", "点击“加注”提交更高的数量，或在数量相同时提交更高点数；1 点对 2–6 点是万能牌。", "如果你认为上一口不可信，点击“质疑”。系统揭示全部骰子并根据实际数量判定胜负。"],
     mastermind: ["目标：在 10 次尝试内破解 AI 隐藏的四位密码。密码由 1–6 组成且数字不重复。", "在输入框输入恰好四个不同数字，例如 1234，然后点击“提交猜测”。", "黑色反馈表示数字和位置都正确；白色反馈表示数字正确但位置错误；没有反馈表示该数字不在密码中。", "每次反馈都会缩小候选数量。可以参考“信息集建议”，也可以自行设计下一次猜测；猜中四位即获胜。"],
-    battleship: ["目标：在概率 AI 击沉你的五艘舰船之前，先找到并击沉它的全部舰队。", "布阵阶段先观察“你的舰队”。可以反复点击“重新随机布阵”，满意后点击“确认布阵，开始战斗”。", "战斗阶段点击敌方 10×10 海域中的一个未知格。圆点表示命中，淡点表示落空，红色标记表示整艘船已被击沉。", "你每开一炮，AI 会立即根据你的舰队上仍合法的部署位置还击。已经射击过的格子不能重复选择。", "候选部署表示目前仍符合反馈的舰船位置数量；概率建议给出覆盖合法部署最多的格子，但你可以选择别处。"],
+    battleship: ["目标：在概率 AI 击沉你的全部舰船之前，先找到并击沉它的舰队。", "布阵阶段先选择 10×10、12×12 或 15×15 海域；地图越大，双方舰船也越多。", "不同颜色表示不同舰船。点击舰船卡可旋转 90°，也可点击“重新随机布阵”；直线舰船翻转 180°占据的格子不变。", "满意后点击“确认布阵，开始战斗”。战斗阶段点击敌方未知格；淡点表示落空，红色表示命中，深红色表示击沉。", "你每开一炮，AI 会立即根据仍合法的水平与垂直部署还击。已经射击过的格子不能重复选择。", "候选部署表示目前仍符合反馈的舰船位置数量；概率建议给出覆盖合法部署最多的格子，但你可以选择别处。"],
   },
   en: {
     cases: ["Goal: maximize your payout from 26 cases.", "Click one case to keep; never open it afterward.", "Open the number of other cases shown on screen. The banker then makes an offer.", "Choose Deal to end for the offer, or No Deal to continue. If you reach the end, you receive the kept case's value."],
@@ -173,7 +173,7 @@ const rulesCopy = {
     blackjack: ["Goal: approach 21 without going over.", "A counts as 1 or 11; face cards count as 10. You see your hand and the dealer upcard.", "Choose Hit, Stand, or Double (first decision only). The dealer then follows the fixed soft-17 rule.", "Compare the final totals; the strategy panel can execute the basic-strategy recommendation."],
     "liars-dice": ["Goal: identify a bluff and win the round.", "You see your dice only. A bid Quantity × Face claims at least that many matching dice across both hands.", "Raise quantity, or raise face at equal quantity; ones are wild for faces 2–6.", "Challenge the current bid to reveal all dice and settle the round."],
     mastermind: ["Goal: crack the hidden four-digit code within ten attempts. Digits 1–6 are distinct.", "Enter exactly four different digits and submit the guess.", "Black feedback means exact digit and position; white feedback means a right digit in the wrong position; no marker means absent.", "Use the candidate count and suggestion to choose your next experiment. Four exact matches win."],
-    battleship: ["Goal: sink all five enemy ships before the probability AI sinks yours.", "During deployment, inspect your fleet, randomize it as often as you like, then lock the layout and start.", "During battle, click one unknown cell in the enemy 10×10 grid. A dot is a miss, a bright marker is a hit, and red marks a sunk ship.", "The AI immediately returns fire after each shot. Previously fired cells cannot be selected again.", "Candidate placements count ship positions still consistent with your observations; the probability hint marks a high-density cell but does not force your move."],
+    battleship: ["Goal: sink the enemy fleet before the probability AI sinks yours.", "Choose a 10×10, 12×12, or 15×15 sea during deployment; larger boards add ships to preserve action density.", "Each ship has its own color. Click a ship card to rotate it 90°, or randomize the fleet. A 180° flip of a straight ship occupies the same cells.", "Lock the layout, then click unknown enemy cells. A pale dot is a miss, red is a hit, and dark red is a sunk ship.", "The AI returns fire from legal horizontal and vertical placements after every shot. Fired cells cannot be selected again.", "Candidate placements count ship positions consistent with observations; the hint marks a high-density cell without forcing it."],
   },
 };
 
@@ -188,7 +188,7 @@ const ruleDetails = {
     blackjack: { role: "你是玩家，与按固定规则行动的庄家比较点数。你看得到庄家一张明牌，但看不到他的底牌，因此每次要牌都在不完全信息下承担爆牌风险。", example: "例：你有 10+6=16 点，庄家明牌是 10。停牌很可能输给庄家较高点数；要牌可能改善手牌，也可能抽到 6 以上直接爆牌。页面的基础策略会告诉你在长期统计下哪种动作损失更小。", finish: "你爆牌时立即输；你停牌或加倍后庄家自动补牌，最后不爆牌且更接近 21 的一方获胜，同点为和局。每局结束后点击下一局。", terms: "要牌＝再抽一张；停牌＝不再抽；加倍＝赌注翻倍且只抽一张；软牌＝有 A 暂时按 11 计算的手牌；爆牌＝超过 21。" },
     "liars-dice": { role: "你和 AI 各有五颗隐藏骰子。双方看不到对方点数，只能通过越来越高的公开叫价传递信息或诈唬。", example: "例：你手里有两个 4 和一个 1。因为 1 是万能牌，你已知道全桌至少有三个可算作 4。叫“3×4”很安全；AI 若叫到“7×4”，你需要判断它真的有很多 4，还是在虚张声势。", finish: "当任一方质疑时揭开所有骰子。实际匹配数量达到叫价，质疑者输；数量不足，最后叫价者输。赢一轮得 1 分，可继续开始下一轮。", terms: "叫价 3×4＝声称全桌至少有三个 4（包括可作万能牌的 1）；加注＝提高数量，或数量不变时提高点数；质疑＝认为当前叫价不成立。" },
     mastermind: { role: "AI 先秘密选定一个四位密码，你看不到答案。你像侦探一样不断提交测试密码，再利用反馈排除不可能的答案。", example: "例：答案假设为 1-3-5-6，你猜 1-2-6-4。数字 1 的位置也正确，所以有 1 个黑色反馈；数字 6 存在但位置错误，所以有 1 个白色反馈；2 和 4 不在密码中。", finish: "十次之内得到 4 个位置正确即获胜；十次仍未破解则答案揭晓。建议猜测尝试让下一次反馈排除尽量多的候选，但你可以完全自行推理。", terms: "候选数量＝根据全部反馈仍可能是答案的密码个数；黑色反馈只表示正确数量，不告诉你具体是哪一位；白色反馈也不指出对应数字。" },
-    battleship: { role: "你和 AI 各自在 10×10 海域秘密部署长度为 5、4、3、3、2 的五艘舰船。你只能看到自己的舰队，敌方舰船只有在被命中或游戏结束后才会揭示。", example: "例：你向 B7 开火并命中，说明某艘敌舰经过 B7。下一炮打 B8：若再次命中，可继续沿同一方向搜索；若落空，就要考虑舰船可能纵向延伸。", finish: "一艘船的所有格子都被命中时即被击沉；任一方五艘船全部沉没，比赛立即结束。结束后敌方完整舰队会揭晓，便于复盘。", terms: "候选部署＝与全部命中、落空和击沉反馈相容的单艘舰船位置总数；未解决命中＝已经打中但所属舰船尚未击沉的格子；概率热力图＝统计每个未知格被多少个候选部署覆盖。" },
+    battleship: { role: "你和 AI 在相互隔离的海域秘密部署舰队。标准、扩展和大型地图分别为 10×10、12×12、15×15；你只能看到自己的彩色舰船，敌舰通过命中反馈逐步暴露。", example: "例：你把蓝色长度 4 舰旋转为垂直方向，然后向敌方 B7 开火并命中。下一炮打 B8：若再次命中，可沿同一方向搜索；若落空，就要考虑舰船可能纵向延伸。", finish: "一艘船的所有格子都被命中时即被击沉；任一方全部舰船沉没时比赛结束。结束后敌方完整彩色舰队会揭晓，便于复盘。", terms: "旋转 90°＝在水平与垂直之间切换；180°翻转对没有首尾差异的直线舰船不产生新布局；候选部署＝与命中、落空和击沉反馈相容的水平或垂直位置总数。" },
   },
   en: {
     cases: { role: "You are a TV-game contestant. Twenty-six cases hide prizes from tiny amounts to one million. You eliminate prizes and decide whether to accept the banker's cash offer.", example: "Example: you keep case 7 and open case 3, revealing $1. That prize leaves the board. After the required openings, an $80,000 offer means you can leave with $80,000 or reject it and keep risking your hidden case.", finish: "The game ends when you accept an offer, or when you reject every offer and receive the value in your kept case. There is no single correct risk preference.", terms: "Kept case: your unopened original choice. Expected value: the average of unrevealed prizes. A higher offer-to-EV ratio is usually more attractive." },
@@ -200,7 +200,7 @@ const ruleDetails = {
     blackjack: { role: "You compare your hand with a fixed-rule dealer. You see one dealer card but not the hole card, so Hit and Stand decisions trade improvement against bust risk.", example: "Example: you have 16 against a dealer 10. Standing often loses to a stronger dealer total; hitting may improve the hand or bust. Basic strategy identifies the better long-run action.", finish: "Bust loses immediately. After you stand or double, the dealer draws automatically; the higher non-bust total wins and equal totals push.", terms: "Hit: draw. Stand: stop. Double: double the stake and draw once. Soft hand: an Ace currently counted as 11. Bust: exceed 21." },
     "liars-dice": { role: "You and the AI each hold five hidden dice. Public bids rise while private dice stay secret, so every bid can be information or a bluff.", example: "Example: two 4s and one wild 1 give you three known matches for face 4. A bid of 3×4 is safe; after the AI raises to 7×4, decide whether its private hand supports that claim.", finish: "A challenge reveals all dice. If the bid's quantity exists, the challenger loses; otherwise the last bidder loses. The winner scores one point.", terms: "3×4 claims at least three 4-matches across both hands. Raise increases quantity or face. Challenge says the current claim is false." },
     mastermind: { role: "The AI secretly chooses a four-digit code. You act as a detective, testing codes and using feedback to eliminate impossible answers.", example: "Example: if the code is 1-3-5-6 and you guess 1-2-6-4, digit 1 earns one exact marker; digit 6 earns one wrong-position marker; 2 and 4 earn none.", finish: "Four exact matches within ten guesses wins; otherwise the answer is revealed. The suggestion aims to eliminate many candidates, but you may reason independently.", terms: "Candidate count is the number of codes consistent with every clue. Markers report counts only; they do not identify which digit produced each marker." },
-    battleship: { role: "You and the AI secretly deploy five ships of lengths 5, 4, 3, 3, and 2 on separate 10×10 grids. You see your fleet only; enemy ships appear only through hits, sinks, or the final reveal.", example: "Example: B7 is a hit, so an enemy ship crosses that cell. Fire at B8: another hit suggests continuing along that line; a miss makes a vertical extension more plausible.", finish: "A ship sinks when every one of its cells has been hit. The match ends as soon as one fleet is fully sunk, then the complete enemy layout is revealed for review.", terms: "Candidate placements are individual ship positions consistent with all feedback. An unresolved hit belongs to a ship not yet sunk. A probability heat map counts how many candidate placements cover each unknown cell." },
+    battleship: { role: "You and the AI deploy private fleets on separate 10×10, 12×12, or 15×15 seas. You see your individually colored ships only; enemy ships emerge through hit feedback.", example: "Example: rotate the blue length-4 ship vertically, then hit B7. Firing at B8 tests a horizontal extension; a miss makes a vertical ship more plausible.", finish: "A ship sinks when every cell is hit. The match ends when either fleet is gone, then the complete colored enemy fleet is revealed for review.", terms: "Rotate 90° switches horizontal and vertical. A 180° flip creates no new layout for an undirected straight ship. Candidate placements count legal horizontal and vertical positions consistent with feedback." },
   },
 };
 
@@ -599,9 +599,11 @@ function battleCoordinate(cell) {
 
 function renderBattleGrid(selector, cells, isEnemy, state) {
   const suggested = state.suggestedShot?.join(",");
+  $(selector).style.gridTemplateColumns = `repeat(${state.boardSize}, 1fr)`;
+  $(selector).style.minWidth = `${state.boardSize * 30 + (state.boardSize - 1) * 2}px`;
   $(selector).innerHTML = cells.map((cell) => {
     const key = `${cell.row},${cell.column}`;
-    const classes = ["battle-cell", cell.ship ? "ship" : "", cell.shot && !cell.hit ? "miss" : "", cell.hit ? "hit" : "", cell.sunk ? "sunk" : "", isEnemy && key === suggested ? "suggested" : ""].filter(Boolean).join(" ");
+    const classes = ["battle-cell", cell.ship ? "ship" : "", cell.shipId != null ? `ship-${cell.shipId}` : "", cell.shot && !cell.hit ? "miss" : "", cell.hit ? "hit" : "", cell.sunk ? "sunk" : "", isEnemy && key === suggested ? "suggested" : ""].filter(Boolean).join(" ");
     const marker = cell.sunk ? "×" : cell.hit ? "●" : cell.shot ? "·" : "";
     const coordinate = battleCoordinate([cell.row, cell.column]);
     if (!isEnemy) return `<div class="${classes}" title="${coordinate}">${marker}</div>`;
@@ -626,18 +628,31 @@ function renderBattleship() {
   const playerShips = state.playerShipsRemaining.length;
   const enemyShips = state.enemyShipsRemaining.length;
   $("#battleTurn").textContent = state.turn;
-  $("#battlePlayerShips").textContent = `${playerShips} / 5`;
+  $("#battlePlayerShips").textContent = `${playerShips} / ${state.shipLengths.length}`;
   $("#battleCandidates").textContent = state.candidatePlacementCount;
   $("#battleSuggestion").textContent = battleCoordinate(state.suggestedShot);
   $("#battleOwnShips").textContent = `${playerShips} ${language === "zh" ? "艘" : "SHIPS"}`;
   $("#battleEnemyShips").textContent = `${enemyShips} ${language === "zh" ? "艘" : "SHIPS"}`;
   $("#battleDeployment").classList.toggle("hidden", state.phase !== "placement");
+  $("#battleFleetControls").classList.toggle("hidden", state.phase !== "placement");
+  $("#battleBoardSize").value = String(state.boardSize);
+  $("#battleBoardSize").disabled = state.phase !== "placement";
   $("#battleDeploymentTitle").textContent = language === "zh" ? "先确认你的舰队布置" : "Confirm your fleet layout";
   $("#battleDeploymentCopy").textContent = language === "zh"
-    ? "浅金色格子是你的五艘舰船。可以反复随机布阵，确认后敌我双方才开始交火。"
-    : "Gold cells are your five ships. Randomize until satisfied, then lock the fleet to begin firing.";
+    ? "选择海域规模；每种颜色是一艘舰船。点击下方舰船卡旋转 90°，也可以整体随机布阵。"
+    : "Choose a sea size; every color is one ship. Rotate individual ship cards 90°, or randomize the full fleet.";
   renderBattleGrid("#battleEnemyBoard", state.enemyBoard, true, state);
   renderBattleGrid("#battlePlayerBoard", state.playerBoard, false, state);
+  $("#battleFleetControls").innerHTML = state.fleet.map((ship) => `
+    <button class="battle-ship-control ship-${ship.id}" data-rotate-ship="${ship.id}">
+      <span>${language === "zh" ? `舰船 ${ship.id + 1}` : `Ship ${ship.id + 1}`}</span>
+      <strong>${language === "zh" ? `长度 ${ship.length}` : `Length ${ship.length}`}</strong>
+      <small>${ship.orientation === "horizontal" ? (language === "zh" ? "水平 ↔" : "Horizontal ↔") : (language === "zh" ? "垂直 ↕" : "Vertical ↕")}</small>
+      <b>${language === "zh" ? "旋转 90°" : "Rotate 90°"}</b>
+    </button>`).join("");
+  document.querySelectorAll("[data-rotate-ship]").forEach((button) => {
+    button.addEventListener("click", () => act("rotate_ship", { shipId: Number(button.dataset.rotateShip) }));
+  });
 
   $("#battleHeadline").textContent = state.phase === "placement"
     ? (language === "zh" ? "先完成布阵" : "Deploy before battle")
@@ -1008,6 +1023,7 @@ $("#newBlackjackMatch").addEventListener("click", () => startGame("blackjack"));
 $("#newBattleshipMatch").addEventListener("click", () => startGame("battleship"));
 $("#battleRandomize").addEventListener("click", () => act("randomize_fleet"));
 $("#battleStart").addEventListener("click", () => act("start_battle"));
+$("#battleBoardSize").addEventListener("change", (event) => act("set_board_size", { boardSize: Number(event.target.value) }));
 $("#blackjackAiPlay").addEventListener("click", () => act("ai_play"));
 $("#liarRaise").addEventListener("click", () => act("raise_bid", {
   quantity: Number($("#liarQuantity").value),

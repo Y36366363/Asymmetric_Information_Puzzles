@@ -414,10 +414,13 @@
             <p id="battleDeploymentCopy">浅金色格子是你的五艘舰船。可以反复随机布阵，确认后敌我双方才开始交火。</p>
           </div>
           <div class="battle-deployment-actions">
+            <label class="battle-size-control"><span>海域规模 / Board</span><select id="battleBoardSize"><option value="10">10 × 10</option><option value="12">12 × 12</option><option value="15">15 × 15</option></select></label>
             <button class="secondary-button" id="battleRandomize" data-i18n="randomizeFleet">重新随机布阵</button>
             <button class="deal-button" id="battleStart" data-i18n="startBattle">确认布阵，开始战斗</button>
           </div>
         </section>
+
+        <section class="battle-fleet-controls panel" id="battleFleetControls"></section>
 
         <section class="battle-arena">
           <div class="battle-board-shell enemy-board-shell panel">

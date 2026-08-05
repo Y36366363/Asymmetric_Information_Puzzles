@@ -453,8 +453,18 @@ input:focus-visible {
 .battle-deployment h2 { margin: 8px 0; font: 500 28px Georgia, "Songti SC", serif; }
 .battle-deployment p:last-child { margin-bottom: 0; color: var(--muted); line-height: 1.6; }
 .battle-deployment-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
-.battle-arena { display: grid; grid-template-columns: minmax(300px, 1fr) minmax(220px, .62fr) minmax(300px, 1fr); gap: 18px; }
-.battle-board-shell { min-width: 0; }
+.battle-size-control { display: grid; gap: 5px; color: var(--muted); font-size: 10px; letter-spacing: .08em; }
+.battle-size-control select { min-width: 110px; padding: 10px; color: var(--ink); border: 1px solid var(--line); background: #24241f; }
+.battle-fleet-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin-bottom: 18px; }
+.battle-ship-control { min-height: 92px; display: grid; gap: 3px; padding: 11px; color: #14130f; text-align: left; border: 2px solid transparent; cursor: pointer; }
+.battle-ship-control span { font-weight: 900; }
+.battle-ship-control strong, .battle-ship-control small { font-size: 11px; }
+.battle-ship-control b { margin-top: 4px; font-size: 11px; text-decoration: underline; }
+.battle-arena { display: grid; grid-template-columns: minmax(360px, 1fr) minmax(360px, 1fr); gap: 18px; }
+.battle-center { grid-column: 1 / -1; grid-row: 1; min-height: 160px; }
+.enemy-board-shell { grid-column: 1; grid-row: 2; }
+.player-board-shell { grid-column: 2; grid-row: 2; }
+.battle-board-shell { min-width: 0; overflow-x: auto; }
 .battle-board-title { display: flex; justify-content: space-between; margin-bottom: 14px; color: var(--gold-soft); font-size: 12px; letter-spacing: .08em; }
 .battle-board-title strong { color: var(--muted); }
 .battle-grid { width: 100%; display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; }
@@ -463,6 +473,13 @@ button.battle-cell { cursor: crosshair; transition: border-color .15s ease, back
 button.battle-cell:hover:not(:disabled) { transform: scale(1.07); border-color: var(--gold-soft); background: #285167; }
 button.battle-cell:disabled { cursor: default; }
 .battle-cell.ship { background: #967539; border-color: #e5c16f; }
+.battle-cell.ship-0, .battle-ship-control.ship-0 { background: #d6a849; border-color: #f3d48f; }
+.battle-cell.ship-1, .battle-ship-control.ship-1 { background: #5594c7; border-color: #8fc4ed; }
+.battle-cell.ship-2, .battle-ship-control.ship-2 { background: #5b9f76; border-color: #9cd6ae; }
+.battle-cell.ship-3, .battle-ship-control.ship-3 { background: #8a6bb6; border-color: #c6aae9; }
+.battle-cell.ship-4, .battle-ship-control.ship-4 { background: #c67c46; border-color: #efb180; }
+.battle-cell.ship-5, .battle-ship-control.ship-5 { background: #4d9b9b; border-color: #91d4d1; }
+.battle-cell.ship-6, .battle-ship-control.ship-6 { background: #bd6f91; border-color: #e7a6c1; }
 .enemy-grid .battle-cell.ship:not(.hit):not(.sunk) { background: #17303c; border-color: rgba(167, 197, 211, .22); }
 .battle-cell.miss { color: #91a8b3; background: #10242e; }
 .battle-cell.hit { color: #fff3d0; background: #a65136; border-color: #f2b079; }
@@ -541,9 +558,9 @@ button.battle-cell:disabled { cursor: default; }
   .battle-arena, .battle-lower { grid-template-columns: 1fr; }
   .battle-board-shell { padding: 10px; }
   .battle-grid { gap: 2px; }
-  .enemy-board-shell { order: 1; }
-  .battle-center { order: 2; }
-  .player-board-shell { order: 3; }
+  .enemy-board-shell { grid-column: auto; grid-row: auto; order: 1; }
+  .battle-center { grid-column: auto; grid-row: auto; order: 2; }
+  .player-board-shell { grid-column: auto; grid-row: auto; order: 3; }
   .battleship-view.placement-phase .player-board-shell { order: 1; }
   .battleship-view.placement-phase .enemy-board-shell { display: none; }
   .battle-history div { grid-template-columns: 62px 1fr; }

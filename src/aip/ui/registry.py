@@ -10,7 +10,7 @@ from typing import Callable, Protocol
 
 from aip.puzzles.cases.models import CLASSROOM_BANKER, CaseGameRules, RiskPreferences
 from aip.puzzles.cases.solver import CaseGameAnalyzer
-from aip.puzzles.battleship.models import FleetRules, ShotOutcome
+from aip.puzzles.battleship.models import FleetRules, ShipPlacement, ShotOutcome
 from aip.puzzles.battleship.solver import HiddenFleetBoard, ProbabilityDensityAI
 from aip.puzzles.pirates.models import PirateRules
 from aip.puzzles.pirates.solver import PirateSolver
@@ -1618,10 +1618,21 @@ class MastermindSession:
 class BattleshipGameSession:
     """Solo Battleship match with private fleets and probability-density AI."""
 
+    FLEETS = {
+        10: (5, 4, 3, 3, 2),
+        12: (6, 5, 4, 3, 3, 2),
+        15: (7, 6, 5, 4, 4, 3, 2),
+    }
+
     def __init__(self, options: dict[str, object]) -> None:
-        self.rules = FleetRules()
         self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
         self._rng = random.Random(self.seed)
+        self._configure(_whole_int(options.get("boardSize", 10), "boardSize"))
+
+    def _configure(self, board_size: int) -> None:
+        if board_size not in self.FLEETS:
+            raise ValueError("boardSize must be 10, 12, or 15")
+        self.rules = FleetRules(board_size, self.FLEETS[board_size])
         self._new_boards()
 
     def _new_boards(self) -> None:
@@ -1640,6 +1651,14 @@ class BattleshipGameSession:
             if self.phase != "placement":
                 raise ValueError("fleet placement is already locked")
             self.player_board = HiddenFleetBoard(self.rules, self._rng)
+        elif action == "set_board_size":
+            if self.phase != "placement":
+                raise ValueError("board size can only change during placement")
+            self._configure(_whole_int(payload.get("boardSize", 0), "boardSize"))
+        elif action == "rotate_ship":
+            if self.phase != "placement":
+                raise ValueError("ships can only rotate during placement")
+            self._rotate_ship(_whole_int(payload.get("shipId", -1), "shipId"))
         elif action == "start_battle":
             if self.phase != "placement":
                 raise ValueError("battle has already started")
@@ -1654,6 +1673,40 @@ class BattleshipGameSession:
         else:
             raise ValueError(f"unknown Battleship action: {action}")
         return self.snapshot()
+
+    def _rotate_ship(self, ship_id: int) -> None:
+        if ship_id < 0 or ship_id >= len(self.player_board.ships):
+            raise ValueError("unknown ship")
+        ship = self.player_board.ships[ship_id]
+        horizontal = len({row for row, _column in ship.cells}) == 1
+        anchor_row = min(row for row, _column in ship.cells)
+        anchor_column = min(column for _row, column in ship.cells)
+        occupied = set().union(
+            *(item.cells for index, item in enumerate(self.player_board.ships) if index != ship_id)
+        )
+        candidates: list[frozenset[tuple[int, int]]] = []
+        if horizontal:
+            for row in range(self.rules.board_size - ship.length + 1):
+                for column in range(self.rules.board_size):
+                    cells = frozenset((row + offset, column) for offset in range(ship.length))
+                    if cells.isdisjoint(occupied):
+                        candidates.append(cells)
+        else:
+            for row in range(self.rules.board_size):
+                for column in range(self.rules.board_size - ship.length + 1):
+                    cells = frozenset((row, column + offset) for offset in range(ship.length))
+                    if cells.isdisjoint(occupied):
+                        candidates.append(cells)
+        if not candidates:
+            raise ValueError("no collision-free rotation is available")
+        cells = min(
+            candidates,
+            key=lambda item: abs(min(row for row, _column in item) - anchor_row)
+            + abs(min(column for _row, column in item) - anchor_column),
+        )
+        ships = list(self.player_board.ships)
+        ships[ship_id] = ShipPlacement(ship.length, cells)
+        self.player_board.ships = tuple(ships)
 
     def _player_fire(self, cell: tuple[int, int]) -> None:
         if self.phase != "player_turn":
@@ -1704,7 +1757,8 @@ class BattleshipGameSession:
         for row in range(size):
             for column in range(size):
                 cell = (row, column)
-                ship = next((item for item in board.ships if cell in item.cells), None)
+                ship_id = next((index for index, item in enumerate(board.ships) if cell in item.cells), None)
+                ship = board.ships[ship_id] if ship_id is not None else None
                 sunk = bool(ship and ship.cells.issubset(board.hits))
                 cells.append(
                     {
@@ -1714,6 +1768,7 @@ class BattleshipGameSession:
                         "hit": cell in board.hits,
                         "sunk": sunk,
                         "ship": bool(ship) if reveal_fleet else bool(sunk),
+                        "shipId": ship_id if reveal_fleet or sunk else None,
                     }
                 )
         return cells
@@ -1730,7 +1785,18 @@ class BattleshipGameSession:
             "turn": self.turn,
             "winner": self.winner,
             "boardSize": self.rules.board_size,
+            "boardSizes": list(self.FLEETS),
             "shipLengths": list(self.rules.ship_lengths),
+            "fleet": [
+                {
+                    "id": index,
+                    "length": ship.length,
+                    "orientation": (
+                        "horizontal" if len({row for row, _column in ship.cells}) == 1 else "vertical"
+                    ),
+                }
+                for index, ship in enumerate(self.player_board.ships)
+            ],
             "playerBoard": self._board_payload(self.player_board, True),
             "enemyBoard": self._board_payload(self.enemy_board, finished),
             "playerShipsRemaining": self._remaining_ships(self.player_board),
@@ -1740,7 +1806,7 @@ class BattleshipGameSession:
             "lastAiAnalysis": dict(self.last_ai_analysis) if self.last_ai_analysis else None,
             "history": list(self.history),
             "legalActions": (
-                ["randomize_fleet", "start_battle"]
+                ["randomize_fleet", "set_board_size", "rotate_ship", "start_battle"]
                 if self.phase == "placement"
                 else ["fire"]
                 if self.phase == "player_turn"

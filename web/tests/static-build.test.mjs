@@ -30,6 +30,9 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /aip-rules-seen-/);
   assert.match(app, /actionPending/);
   assert.match(html, /id="battleEnemyBoard"/);
+  assert.match(html, /id="battleBoardSize"/);
+  assert.match(app, /rotate_ship/);
+  assert.match(app, /ship-\$\{cell\.shipId\}/);
 });
 
 test("browser engine intercepts API calls without a backend", async () => {

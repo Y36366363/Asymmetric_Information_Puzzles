@@ -66,6 +66,24 @@ class LocalGameUITests(unittest.TestCase):
                 created["sessionId"], "fire", {"row": 0, "column": 0}
             )
 
+    def test_battleship_supports_large_boards_and_ship_rotation(self) -> None:
+        created = self.service.create_session("battleship", {"seed": 29})
+        state = self.service.act(
+            created["sessionId"], "set_board_size", {"boardSize": 12}
+        )
+        self.assertEqual(state["boardSize"], 12)
+        self.assertEqual(len(state["playerBoard"]), 144)
+        self.assertEqual(len(state["fleet"]), 6)
+        self.assertEqual(sum(cell["ship"] for cell in state["playerBoard"]), 23)
+        before = state["fleet"][0]["orientation"]
+        state = self.service.act(
+            created["sessionId"], "rotate_ship", {"shipId": 0}
+        )
+        self.assertNotEqual(state["fleet"][0]["orientation"], before)
+        occupied = [cell for cell in state["playerBoard"] if cell["ship"]]
+        self.assertEqual(len(occupied), 23)
+        self.assertEqual(len({(cell["row"], cell["column"]) for cell in occupied}), 23)
+
     def test_blackjack_ace_totals_are_soft_until_ace_must_shrink(self) -> None:
         self.assertEqual(BlackjackSession._hand_value(["A", "6"]), (17, True))
         self.assertEqual(BlackjackSession._hand_value(["A", "6", "K"]), (17, False))

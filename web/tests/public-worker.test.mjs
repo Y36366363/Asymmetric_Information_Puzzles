@@ -144,4 +144,12 @@ test("single-player games survive complete decision loops", async () => {
   }
   assert.ok(["player", "ai"].includes(battleship.state.winner));
   assert.ok(battleship.state.enemyBoard.some((cell) => cell.ship));
+
+  const expanded = await create("battleship");
+  await act(expanded, "set_board_size", {boardSize:12});
+  assert.equal(expanded.state.playerBoard.length, 144);
+  assert.equal(expanded.state.fleet.length, 6);
+  const orientation = expanded.state.fleet[0].orientation;
+  await act(expanded, "rotate_ship", {shipId:0});
+  assert.notEqual(expanded.state.fleet[0].orientation, orientation);
 });
