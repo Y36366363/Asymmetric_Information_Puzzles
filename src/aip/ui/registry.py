@@ -98,8 +98,11 @@ class GameRegistry:
 class LocalGameService:
     """Thread-safe in-memory session facade used by the HTTP layer and tests."""
 
-    def __init__(self, registry: GameRegistry) -> None:
+    def __init__(self, registry: GameRegistry, max_sessions: int = 256) -> None:
+        if max_sessions < 1:
+            raise ValueError("max_sessions must be positive")
         self.registry = registry
+        self.max_sessions = max_sessions
         self._sessions: dict[str, PlayableSession] = {}
         self._lock = threading.RLock()
 
@@ -112,6 +115,8 @@ class LocalGameService:
         session = self.registry.create(game_id, options or {})
         session_id = uuid.uuid4().hex
         with self._lock:
+            while len(self._sessions) >= self.max_sessions:
+                self._sessions.pop(next(iter(self._sessions)))
             self._sessions[session_id] = session
         return {"sessionId": session_id, "state": session.snapshot()}
 
@@ -127,9 +132,11 @@ class LocalGameService:
 
     def _get(self, session_id: str) -> PlayableSession:
         try:
-            return self._sessions[session_id]
+            session = self._sessions.pop(session_id)
         except KeyError as error:
             raise ValueError("unknown or expired session") from error
+        self._sessions[session_id] = session
+        return session
 
 
 class CaseGameSession:

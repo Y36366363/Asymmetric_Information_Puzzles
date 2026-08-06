@@ -40,6 +40,26 @@ class LocalGameUITests(unittest.TestCase):
         )
         self.assertIn("liars-dice", [game["id"] for game in games])
 
+    def test_session_store_evicts_the_oldest_temporary_game(self) -> None:
+        service = LocalGameService(build_default_registry(), max_sessions=2)
+        first = service.create_session("worm")
+        second = service.create_session("worm")
+        third = service.create_session("worm")
+        with self.assertRaisesRegex(ValueError, "expired"):
+            service.snapshot(first["sessionId"])
+        self.assertEqual(service.snapshot(second["sessionId"])["gameId"], "worm")
+        self.assertEqual(service.snapshot(third["sessionId"])["gameId"], "worm")
+
+    def test_session_store_keeps_recently_active_games(self) -> None:
+        service = LocalGameService(build_default_registry(), max_sessions=2)
+        first = service.create_session("worm")
+        second = service.create_session("worm")
+        service.snapshot(first["sessionId"])
+        service.create_session("worm")
+        self.assertEqual(service.snapshot(first["sessionId"])["gameId"], "worm")
+        with self.assertRaisesRegex(ValueError, "expired"):
+            service.snapshot(second["sessionId"])
+
     def test_battleship_hides_enemy_fleet_and_completes_against_ai(self) -> None:
         created = self.service.create_session("battleship", {"seed": 41})
         state = created["state"]
@@ -377,7 +397,9 @@ class LocalGameUITests(unittest.TestCase):
         self.assertIn("https://github.com/Y36366363/Asymmetric_Information_Puzzles", html)
         self.assertIn('id="languageEn"', html)
         self.assertIn('en: {', script)
-        self.assertIn('localStorage.setItem("aip-language"', script)
+        self.assertIn('writePreference("aip-language"', script)
+        self.assertIn("try { return window.localStorage.getItem(key); }", script)
+        self.assertIn("new AbortController()", script)
 
     def test_worm_position_is_hidden_while_playing(self) -> None:
         created = self.service.create_session("worm", {"seed": 5})

@@ -2,11 +2,17 @@ from __future__ import annotations
 
 from collections import Counter
 from dataclasses import dataclass
+from functools import lru_cache
 from itertools import permutations
 
 from .models import CodeFeedback, CodeRules
 
 Code = tuple[int, ...]
+
+
+@lru_cache(maxsize=16)
+def _code_worlds(rules: CodeRules) -> tuple[Code, ...]:
+    return tuple(permutations(rules.symbols, rules.length))
 
 
 @dataclass(frozen=True, slots=True)
@@ -30,9 +36,7 @@ class MastermindSolver:
 
     def __init__(self, rules: CodeRules | None = None) -> None:
         self.rules = rules or CodeRules()
-        self.all_codes: tuple[Code, ...] = tuple(
-            permutations(self.rules.symbols, self.rules.length)
-        )
+        self.all_codes = _code_worlds(self.rules)
         self._suggestion_cache: dict[tuple[Code, ...], GuessAnalysis] = {}
 
     @staticmethod

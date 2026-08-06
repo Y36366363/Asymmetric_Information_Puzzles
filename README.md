@@ -7,6 +7,15 @@
 
 ## Updates 08/06/2026
 
+- **Stability and flow hardening** — Bounded temporary sessions to prevent
+  long-running memory growth, made preferences safe when browser storage is
+  unavailable, cancelled stale game requests when returning to the lobby,
+  stabilized consecutive toast messages, localized network/session failures,
+  and added full 15×15 Battleship and session-expiry regression coverage.
+- **Cross-game usability audit** — Repeated every playable game entry/exit flow,
+  verified language switching preserves active input, confirmed 390px mobile
+  layouts have no page-wide overflow, and completed ten repeated browser-engine
+  stress rounds without console warnings or errors.
 - **Bulls and Cows strategy lab** — Upgraded the small Mastermind prototype into
   a standard 0–9 four-digit deduction game with 5,040 hidden worlds, explicit
   candidate elimination, leading-zero support, optional minimax AI suggestions,

@@ -32,6 +32,11 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /renderBattleship/);
   assert.match(app, /aip-rules-seen-/);
   assert.match(app, /actionPending/);
+  assert.match(app, /new AbortController/);
+  assert.match(app, /readPreference/);
+  assert.match(app, /clearTimeout\(toastTimer\)/);
+  assert.match(app, /connectionFailed/);
+  assert.match(app, /activeOperation/);
   assert.match(html, /id="battleEnemyBoard"/);
   assert.match(html, /id="battleBoardSize"/);
   assert.match(app, /rotate_ship/);
@@ -61,6 +66,13 @@ test("browser engine intercepts API calls without a backend", async () => {
     const battleship = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "battleship" }) })).json();
     assert.equal(battleship.state.gameId, "battleship");
     assert.equal(battleship.state.enemyBoard.some((cell) => cell.ship), false);
+    const firstTemporary = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "worm" }) })).json();
+    for (let index = 0; index < 256; index += 1) {
+      const response = await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "worm" }) });
+      assert.equal(response.status, 201);
+    }
+    const expired = await fetch(`/api/sessions/${firstTemporary.sessionId}/actions`, { method: "POST", body: JSON.stringify({ action: "check_hole", payload: { holeId: 2 } }) });
+    assert.equal(expired.status, 400);
   } finally {
     globalThis.fetch = originalFetch;
     delete globalThis.location;

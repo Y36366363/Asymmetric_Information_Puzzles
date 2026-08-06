@@ -86,6 +86,25 @@ test("worm capture stays adversarial until the belief state is a singleton", asy
   assert.equal(session.state.phase, "finished");
 });
 
+test("temporary session storage stays bounded and expires the oldest game", async () => {
+  const first = await (await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId:"worm"})})).json();
+  let refreshed;
+  for (let index=0; index<256; index+=1) {
+    const response = await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId:"worm"})});
+    assert.equal(response.status, 201);
+    const created = await response.json();
+    if (index===0) refreshed=created;
+  }
+  const expired = await call(`/api/sessions/${first.sessionId}/actions`, {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"check_hole",payload:{holeId:2}})});
+  assert.equal(expired.status, 400);
+  assert.match((await expired.json()).error, /expired/);
+  const keepActive = await call(`/api/sessions/${refreshed.sessionId}/actions`, {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"check_hole",payload:{holeId:2}})});
+  assert.equal(keepActive.status, 200);
+  await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId:"worm"})});
+  const stillActive = await call(`/api/sessions/${refreshed.sessionId}/actions`, {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"check_hole",payload:{holeId:3}})});
+  assert.equal(stillActive.status, 200);
+});
+
 test("every public game creates a playable state", async () => {
   for (const gameId of ["cases", "kuhn-poker", "e-card", "restricted-rps", "blackjack", "liars-dice", "mastermind", "battleship"]) {
     const response = await call("/api/sessions", {
@@ -162,4 +181,14 @@ test("single-player games survive complete decision loops", async () => {
   const orientation = expanded.state.fleet[0].orientation;
   await act(expanded, "rotate_ship", {shipId:0});
   assert.notEqual(expanded.state.fleet[0].orientation, orientation);
+
+  const grand = await create("battleship");
+  await act(grand, "set_board_size", {boardSize:15});
+  await act(grand, "start_battle");
+  while (grand.state.phase === "player_turn") {
+    const [row, column] = grand.state.suggestedShot;
+    await act(grand, "fire", {row,column});
+  }
+  assert.ok(["player","ai"].includes(grand.state.winner));
+  assert.ok(grand.state.turn <= 225);
 });

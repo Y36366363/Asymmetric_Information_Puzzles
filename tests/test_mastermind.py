@@ -12,6 +12,7 @@ class MastermindSolverTests(unittest.TestCase):
         self.assertEqual(self.rules.world_count, 5040)
         self.assertEqual(len(self.solver.all_codes), 5040)
         self.assertIn((0, 1, 2, 3), self.solver.all_codes)
+        self.assertIs(self.solver.all_codes, MastermindSolver(self.rules).all_codes)
 
     def test_feedback_separates_exact_and_misplaced_digits(self) -> None:
         feedback = self.solver.feedback((0, 1, 2, 3), (0, 3, 5, 2))

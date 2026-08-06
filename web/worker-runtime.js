@@ -1,4 +1,9 @@
 const sessions = new Map();
+const MAX_SESSIONS = 256;
+function storeSession(sessionId, session) {
+  while (sessions.size >= MAX_SESSIONS) sessions.delete(sessions.keys().next().value);
+  sessions.set(sessionId, session);
+}
 const GAMES = [
   ["cases", "命运之箱", "从 26 个密封箱中保留一个，在不断缩小的风险中与银行家谈判。", "单人 · 决策与风险", true],
   ["blackjack", "21 点策略实验室", "在透明规则下对抗庄家，比较自己的决策与规则限定的最优基础策略。", "单人 · 概率决策与策略审计", true],
@@ -187,8 +192,11 @@ class BattleshipSession {
   snapshot(){const density=battleDensity(this.advisor,this.size),suggestion=this.phase==="player_turn"?chooseBattleShot(this.advisor,this.size,false).cell:null,finished=this.phase==="finished";return{gameId:"battleship",phase:this.phase,turn:this.turn,winner:this.winner,boardSize:this.size,boardSizes:Object.keys(BATTLE_FLEETS).map(Number),shipLengths:this.lengths,fleet:this.player.ships.map((ship,id)=>({id,length:ship.length,orientation:battleOrientation(ship)})),playerBoard:this.boardPayload(this.player,true),enemyBoard:this.boardPayload(this.enemy,finished),playerShipsRemaining:this.remaining(this.player),enemyShipsRemaining:this.remaining(this.enemy),suggestedShot:suggestion,candidatePlacementCount:density.candidatePlacements,lastAiAnalysis:this.lastAiAnalysis,history:this.history,legalActions:this.phase==="placement"?["randomize_fleet","set_board_size","rotate_ship","start_battle"]:this.phase==="player_turn"?["fire"]:[],informationSet:{misses:[...this.advisor.misses].map(battleCell),unresolvedHits:[...this.advisor.hits].map(battleCell),sunkCells:[...this.advisor.sunk].map(battleCell),remainingShipLengths:this.advisor.remaining,candidatePlacementCount:density.candidatePlacements}};}
 }
 
+const MASTERMIND_SYMBOLS=[0,1,2,3,4,5,6,7,8,9];
+const MASTERMIND_CODES=[];
+for(const a of MASTERMIND_SYMBOLS)for(const b of MASTERMIND_SYMBOLS)for(const c of MASTERMIND_SYMBOLS)for(const d of MASTERMIND_SYMBOLS)if(new Set([a,b,c,d]).size===4)MASTERMIND_CODES.push([a,b,c,d]);
 class MastermindSession {
-  constructor(options = {}) { this.length=4; this.symbols=[0,1,2,3,4,5,6,7,8,9]; this.maxAttempts=10; this.allCodes=[]; for(const a of this.symbols)for(const b of this.symbols)for(const c of this.symbols)for(const d of this.symbols)if(new Set([a,b,c,d]).size===4)this.allCodes.push([a,b,c,d]); this.gamesCompleted=0;this.gamesSolved=0;this.totalSolvedAttempts=0;this.bestAttempts=null;this.start(); }
+  constructor(options = {}) { this.length=4; this.symbols=MASTERMIND_SYMBOLS; this.maxAttempts=10; this.allCodes=MASTERMIND_CODES; this.gamesCompleted=0;this.gamesSolved=0;this.totalSolvedAttempts=0;this.bestAttempts=null;this.start(); }
   start() { this.secret=[...this.allCodes[Math.floor(Math.random()*this.allCodes.length)]]; this.candidates=[...this.allCodes]; this.attempts=[]; this.phase="playing"; this.result=null; }
   feedback(guess, secret) { const exact=guess.reduce((n,v,i)=>n+(v===secret[i]?1:0),0); const shared=guess.filter(v=>secret.includes(v)).length; return [exact,shared-exact]; }
   sample(values,limit){if(values.length<=limit)return values;return Array.from({length:limit},(_,index)=>values[Math.floor(index*values.length/limit)]);}
@@ -206,10 +214,10 @@ async function api(request, url) {
   if (request.method === "GET" && url.pathname === "/api/health") return json({status:"ok",service:"aip-public"});
   if (request.method === "GET" && url.pathname === "/api/games") return json({games:GAMES});
   if (request.method === "POST" && url.pathname === "/api/sessions") {
-    const {gameId,options} = await request.json(); const session=createSession(gameId,options); const sessionId=crypto.randomUUID(); sessions.set(sessionId,session); return json({sessionId,state:session.snapshot()},201);
+    const {gameId,options} = await request.json(); const session=createSession(gameId,options); const sessionId=crypto.randomUUID(); storeSession(sessionId,session); return json({sessionId,state:session.snapshot()},201);
   }
   const match=url.pathname.match(/^\/api\/sessions\/([^/]+)\/actions$/);
-  if(request.method==="POST"&&match){const session=sessions.get(match[1]);if(!session)throw new Error("unknown or expired session; restart the game");const{action,payload}=await request.json();session.act(action,payload||{});return json({state:session.snapshot()});}
+  if(request.method==="POST"&&match){const session=sessions.get(match[1]);if(!session)throw new Error("unknown or expired session; restart the game");sessions.delete(match[1]);sessions.set(match[1],session);const{action,payload}=await request.json();session.act(action,payload||{});return json({state:session.snapshot()});}
   return json({error:"not found"},404);
 }
 

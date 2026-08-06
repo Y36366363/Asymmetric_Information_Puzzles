@@ -42,13 +42,15 @@ globalThis.fetch = async (input, init = {}) => {
       const body = JSON.parse(String(init.body || "{}"));
       const session = createSession(body.gameId, body.options || {});
       const sessionId = crypto.randomUUID();
-      sessions.set(sessionId, session);
+      storeSession(sessionId, session);
       return json({ sessionId, state: session.snapshot() }, 201);
     }
     const match = target.pathname.match(/^\\/api\\/sessions\\/([^/]+)\\/actions$/);
     if (method === "POST" && match) {
       const session = sessions.get(match[1]);
       if (!session) throw new Error("unknown or expired session; restart the game");
+      sessions.delete(match[1]);
+      sessions.set(match[1], session);
       const body = JSON.parse(String(init.body || "{}"));
       session.act(body.action, body.payload || {});
       return json({ state: session.snapshot() });
