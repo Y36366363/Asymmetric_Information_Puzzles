@@ -70,6 +70,9 @@ test("rejects malformed options and fractional pirate coins", async () => {
   const liar = await (await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId:"liars-dice",options:{dice:5}})})).json();
   const fractionalBid = await call(`/api/sessions/${liar.sessionId}/actions`, {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"raise_bid",payload:{quantity:1.5,face:2}})});
   assert.equal(fractionalBid.status, 400);
+  const mastermind = await (await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId:"mastermind"})})).json();
+  const repeatedCode = await call(`/api/sessions/${mastermind.sessionId}/actions`, {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"submit_guess",payload:{guess:[0,1,1,2]}})});
+  assert.equal(repeatedCode.status, 400);
 });
 
 test("worm capture stays adversarial until the belief state is a singleton", async () => {
@@ -116,8 +119,15 @@ test("single-player games survive complete decision loops", async () => {
   assert.equal(rps.state.roundNumber, rps.state.roundsTotal);
 
   const mastermind = await create("mastermind");
+  assert.equal(mastermind.state.candidateCount, 5040);
+  assert.deepEqual(mastermind.state.suggestedGuess, [0,1,2,3]);
   while (mastermind.state.phase === "playing") await act(mastermind, "submit_guess", {guess:mastermind.state.suggestedGuess});
   assert.equal(mastermind.state.result.won, true);
+  assert.ok(mastermind.state.attempts.every((item) => item.beforeCandidates-item.afterCandidates===item.eliminated));
+  const solvedAttempts = mastermind.state.result.attempts;
+  await act(mastermind, "new_game");
+  assert.equal(mastermind.state.candidateCount, 5040);
+  assert.equal(mastermind.state.sessionStats.averageSolvedAttempts, solvedAttempts);
 
   const ecard = await create("e-card");
   while (ecard.state.phase === "playing") await act(ecard, "play_card", {card:ecard.state.playerHand[0].card});

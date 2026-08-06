@@ -454,10 +454,18 @@
       </section>
 
       <section id="mastermindView" class="view mastermind-view hidden">
-        <div class="game-heading"><div><button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button><p class="eyebrow" data-i18n="mastermindEyebrow">CASE 04 · 候选集合与反馈学习 · 简单</p><h1 data-i18n="mastermindTitle">密码破解</h1></div><button class="secondary-button" id="mastermindNew" data-i18n="restart">重新开始</button></div>
-        <div class="mastermind-score panel"><div><span data-i18n="mastermindAttempts">已用尝试</span><strong id="mastermindAttempts">0 / 10</strong></div><div><span data-i18n="mastermindCandidates">剩余候选</span><strong id="mastermindCandidates">360</strong></div><div><span data-i18n="mastermindSuggested">信息集建议</span><strong id="mastermindSuggestion">—</strong></div></div>
-        <section class="mastermind-board panel"><p id="mastermindInstruction" class="mastermind-instruction" data-i18n="mastermindInstruction">输入四个不重复的数字。</p><div class="mastermind-input-row"><input id="mastermindInput" maxlength="4" inputmode="numeric" placeholder="1234" aria-label="Mastermind guess" /><button class="deal-button" id="mastermindSubmit" data-i18n="mastermindGuess">提交猜测</button></div><div class="mastermind-result hidden" id="mastermindResult"></div></section>
-        <div class="mastermind-lower"><section class="panel"><div class="panel-title"><span data-i18n="gameHistory">博弈记录</span><span>FEEDBACK</span></div><div class="mastermind-history" id="mastermindHistory"></div></section><section class="panel information-set"><div class="panel-title"><span data-i18n="yourInformationSet">你的信息集</span><span>CANDIDATE SEARCH</span></div><p data-i18n="mastermindSuggested">信息集建议</p><p id="mastermindInformation">每次反馈都会剔除不可能的密码；建议值来自最小化最坏候选分割的启发式。</p></section></div>
+        <div class="game-heading"><div><button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button><p class="eyebrow" data-i18n="mastermindEyebrow">CASE 04 · 候选集合与反馈学习 · 简单</p><h1 data-i18n="mastermindTitle">猜数字 · 密码破解</h1></div><button class="secondary-button" id="mastermindNew" data-i18n="restart">重新开始</button></div>
+        <div class="mastermind-score panel"><div><span data-i18n="mastermindAttempts">已用尝试</span><strong id="mastermindAttempts">0 / 10</strong></div><div><span data-i18n="mastermindCandidates">剩余候选</span><strong id="mastermindCandidates">5,040</strong></div><div><span data-i18n="mastermindSuggested">AI 建议</span><strong id="mastermindSuggestion">0 · 1 · 2 · 3</strong></div><div><span data-i18n="mastermindAverage">你的平均步数</span><strong id="mastermindAverage">—</strong></div></div>
+        <section class="mastermind-board panel">
+          <p id="mastermindInstruction" class="mastermind-instruction" data-i18n="mastermindInstruction">AI 已藏好一个由 0–9 组成、数字不重复的四位密码。输入猜测并利用两类反馈排除候选。</p>
+          <div class="mastermind-input-row"><input id="mastermindInput" maxlength="4" inputmode="numeric" pattern="[0-9]{4}" autocomplete="off" placeholder="0123" aria-label="Mastermind guess" /><button class="deal-button" id="mastermindSubmit" data-i18n="mastermindGuess">提交猜测</button><button class="secondary-button" id="mastermindUseSuggestion" data-i18n="mastermindUseSuggestion">采用 AI 建议</button></div>
+          <p class="mastermind-input-help" data-i18n="mastermindLeadingZero">这是密码而非整数，因此 0 可以放在第一位；四个数字不能重复。</p>
+          <div class="mastermind-result hidden" id="mastermindResult"></div>
+        </section>
+        <div class="mastermind-lower">
+          <section class="panel"><div class="panel-title"><span data-i18n="gameHistory">博弈记录</span><span>EXACT / MISPLACED</span></div><div class="mastermind-history" id="mastermindHistory"></div></section>
+          <section class="panel information-set"><div class="panel-title"><span data-i18n="yourInformationSet">你的信息集</span><span>5,040 HIDDEN WORLDS</span></div><p id="mastermindInformation"></p><div class="candidate-preview" id="mastermindCandidatePreview"></div><p class="strategy-scope" id="mastermindStrategy"></p></section>
+        </div>
       </section>
     </main>
 

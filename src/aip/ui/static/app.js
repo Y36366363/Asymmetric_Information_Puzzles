@@ -43,10 +43,12 @@ const copy = {
     currentBid: "当前公开叫价", quantity: "数量", face: "点数", raiseBid: "加注", challengeBid: "质疑叫价",
     liarInstruction: "你只能看见自己的骰子。1 点是万能牌；判断公开叫价是否值得相信。",
     liarHistory: "公开叫价记录", liarInformation: "你的信息集", liarProbability: "模型认为该叫价为真的概率",
-    mastermindEyebrow: "CASE 04 · 候选集合与反馈学习 · 简单", mastermindTitle: "密码破解",
+    mastermindEyebrow: "CASE 04 · 候选集合与反馈学习 · 简单", mastermindTitle: "猜数字 · 密码破解",
     mastermindAttempts: "已用尝试", mastermindCandidates: "剩余候选", mastermindGuess: "提交猜测",
-    mastermindSuggested: "信息集建议", mastermindExact: "位置正确", mastermindPartial: "数字正确但位置不同",
-    mastermindInstruction: "输入四个不重复的数字。黑色标记表示位置和数字都正确，白色标记表示数字正确但位置错误。",
+    mastermindSuggested: "AI 建议", mastermindExact: "位置正确", mastermindPartial: "数字正确但位置不同",
+    mastermindAverage: "你的平均步数", mastermindUseSuggestion: "采用 AI 建议",
+    mastermindLeadingZero: "这是密码而非整数，因此 0 可以放在第一位；四个数字不能重复。",
+    mastermindInstruction: "AI 已藏好一个由 0–9 组成、数字不重复的四位密码。输入猜测并利用两类反馈排除候选。",
     battleshipEyebrow: "CASE 05 · 隐藏部署与概率搜索 · 中等", battleshipTitle: "海战棋",
     yourFleet: "你的舰队", enemyWaters: "敌方海域", randomizeFleet: "重新随机布阵", startBattle: "确认布阵，开始战斗",
     shipsRemaining: "剩余舰船", candidateWorlds: "候选部署", advisorShot: "概率建议", battleHistory: "交火记录",
@@ -95,10 +97,12 @@ const copy = {
     currentBid: "Current public bid", quantity: "Quantity", face: "Face", raiseBid: "Raise", challengeBid: "Challenge",
     liarInstruction: "You see only your own dice. Ones are wild; decide whether the public claim is worth believing.",
     liarHistory: "Public bid history", liarInformation: "Your information set", liarProbability: "Model probability the bid is true",
-    mastermindEyebrow: "CASE 04 · CANDIDATE SETS & FEEDBACK · EASY", mastermindTitle: "Mastermind",
+    mastermindEyebrow: "CASE 04 · CANDIDATE SETS & FEEDBACK · EASY", mastermindTitle: "Bulls & Cows Lab",
     mastermindAttempts: "Attempts", mastermindCandidates: "Candidates left", mastermindGuess: "Submit guess",
-    mastermindSuggested: "Information-set suggestion", mastermindExact: "Exact position", mastermindPartial: "Right digit, wrong position",
-    mastermindInstruction: "Enter four distinct digits. Black markers are exact matches; white markers are right digits in the wrong positions.",
+    mastermindSuggested: "AI suggestion", mastermindExact: "Exact position", mastermindPartial: "Right digit, wrong position",
+    mastermindAverage: "Your average", mastermindUseSuggestion: "Use AI suggestion",
+    mastermindLeadingZero: "This is a code, not an integer, so zero may come first; all four digits must be distinct.",
+    mastermindInstruction: "The AI has hidden four distinct digits from 0–9. Submit experiments and use both feedback counts to eliminate candidates.",
     battleshipEyebrow: "CASE 05 · HIDDEN DEPLOYMENT & PROBABILITY SEARCH · MEDIUM", battleshipTitle: "Battleship",
     yourFleet: "Your fleet", enemyWaters: "Enemy waters", randomizeFleet: "Randomize fleet", startBattle: "Lock fleet and start",
     shipsRemaining: "Ships remaining", candidateWorlds: "Candidate placements", advisorShot: "Probability hint", battleHistory: "Battle log",
@@ -126,7 +130,7 @@ const gamesCopy = {
     "restricted-rps": ["限定猜拳实验室", "管理公开的有限手势库存，对抗以均衡随机化为底线、同时学习你偏好的 AI。", "单人 · 资源约束与机制设计"],
     blackjack: ["21 点策略实验室", "对抗固定规则庄家，逐步比较你的行动与规则限定的最优基础策略。", "单人 · 概率决策与策略审计"],
     "liars-dice": ["骗子骰子", "隐藏骰子、公开叫价与质疑概率；判断何时加注，何时抓住 AI 的虚张声势。", "单人 · 隐藏骰子与公开信号"],
-    mastermind: ["密码破解", "通过黑白反馈缩小隐藏密码的候选集合，并寻找最少尝试次数的解法。", "单人 · 信息集搜索"],
+    mastermind: ["猜数字 · 密码破解", "从 5,040 个隐藏密码中推理答案，比较自己的步数与 minimax 信息策略。", "单人 · 信息集搜索"],
     battleship: ["海战棋", "部署舰队，在未知海域中逐格搜索敌舰，对抗概率热力图 AI。", "单人 · 隐藏部署与概率搜索"],
     auction: ["百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放"],
   },
@@ -139,7 +143,7 @@ const gamesCopy = {
     "restricted-rps": ["Restricted RPS Lab", "Manage a public finite move inventory against an AI that combines equilibrium randomization with learning.", "Solo · Resource constraints & mechanism design"],
     blackjack: ["Blackjack Strategy Lab", "Play against a fixed-rule dealer and audit every choice against the rule-scoped optimal basic strategy.", "Solo · Probability & strategy audit"],
     "liars-dice": ["Liar's Dice", "Private dice, public bids, and probability-guided challenges against a bluffing AI.", "Solo · Hidden dice & public signals"],
-    mastermind: ["Mastermind", "Use exact and partial-match feedback to shrink a hidden code's candidate set.", "Solo · Information-set search"],
+    mastermind: ["Bulls & Cows Lab", "Reason through 5,040 hidden codes and compare your attempts with a minimax information strategy.", "Solo · Information-set search"],
     battleship: ["Battleship", "Deploy a fleet, search unknown waters cell by cell, and face a probability-density AI.", "Solo · Hidden deployment & search"],
     auction: ["100-Unit All-Pay Auction", "Fight for leadership through public prices, alliances, and defection.", "Local multiplayer · Coming soon"],
   },
@@ -160,7 +164,7 @@ const rulesCopy = {
     "restricted-rps": ["目标：在有限库存耗尽前赢得更多回合。你和 AI 各有相同数量的石头、剪刀、布。", "点击一张仍有库存的手势牌；双方同时出牌，使用过的牌永久减少。", "石头胜剪刀，剪刀胜布，布胜石头；相同手势为平局。双方库存和历史都会公开。", "库存全部用完后比赛结束。页面显示均衡建议，以及 AI 是否根据你的历史偏好进行了有限度适应。"],
     blackjack: ["目标：让自己的点数尽量接近 21，但超过 21 就爆牌并立即输。", "A 可算 1 或 11；J/Q/K 算 10。开始时你会看到两张手牌和庄家的一张明牌。", "点击“要牌”再拿一张；点击“停牌”结束行动；首轮可点击“加倍”并只再拿一张。", "庄家随后按固定规则补牌（软 17 停牌），最后比较点数；黑杰克按页面规则结算。右侧可让 AI 执行基础策略建议。"],
     "liars-dice": ["目标：判断公开叫价是真实还是虚张声势，并在质疑中赢下本轮。", "你能看到自己的骰子，但看不到 AI 的骰子。叫价“数量 × 点数”表示全桌至少有这么多个该点数。", "点击“加注”提交更高的数量，或在数量相同时提交更高点数；1 点对 2–6 点是万能牌。", "如果你认为上一口不可信，点击“质疑”。系统揭示全部骰子并根据实际数量判定胜负。"],
-    mastermind: ["目标：在 10 次尝试内破解 AI 隐藏的四位密码。密码由 1–6 组成且数字不重复。", "在输入框输入恰好四个不同数字，例如 1234，然后点击“提交猜测”。", "黑色反馈表示数字和位置都正确；白色反馈表示数字正确但位置错误；没有反馈表示该数字不在密码中。", "每次反馈都会缩小候选数量。可以参考“信息集建议”，也可以自行设计下一次猜测；猜中四位即获胜。"],
+    mastermind: ["目标：在 10 次尝试内破解 AI 隐藏的四位密码。密码从 0–9 中选择四个不同数字，共有 5,040 种可能。", "输入恰好四个不同数字，例如 0123；首位可以是 0。点击“提交猜测”后才能得到反馈。", "“位置正确”表示数字和位置都对；“数字正确但位置不同”表示数字存在但放错位置。反馈只给数量，不指出具体是哪一位。", "观察每轮排除的候选数并继续推理。你可以完全自己猜，也可以点击“采用 AI 建议”复制 minimax 建议，再提交。", "得到 4 个位置正确即获胜。连续完成多局后，页面会计算你的成功局平均步数与最佳成绩。"],
     battleship: ["目标：在概率 AI 击沉你的全部舰船之前，先找到并击沉它的舰队。", "布阵阶段先选择 10×10、12×12 或 15×15 海域；地图越大，双方舰船也越多。", "不同颜色表示不同舰船。点击舰船卡可旋转 90°，也可点击“重新随机布阵”；直线舰船翻转 180°占据的格子不变。", "满意后点击“确认布阵，开始战斗”。战斗阶段点击敌方未知格；淡点表示落空，红色表示命中，深红色表示击沉。", "你每开一炮，AI 会立即根据仍合法的水平与垂直部署还击。已经射击过的格子不能重复选择。", "候选部署表示目前仍符合反馈的舰船位置数量；概率建议给出覆盖合法部署最多的格子，但你可以选择别处。"],
   },
   en: {
@@ -172,7 +176,7 @@ const rulesCopy = {
     "restricted-rps": ["Goal: win more rounds before your finite inventory runs out.", "Click an available Rock, Paper, or Scissors card; both choices are simultaneous and the card is consumed.", "Rock beats Scissors, Scissors beats Paper, and Paper beats Rock. Equal moves draw.", "The match ends when the inventory is exhausted; equilibrium and adaptation diagnostics remain visible."],
     blackjack: ["Goal: approach 21 without going over.", "A counts as 1 or 11; face cards count as 10. You see your hand and the dealer upcard.", "Choose Hit, Stand, or Double (first decision only). The dealer then follows the fixed soft-17 rule.", "Compare the final totals; the strategy panel can execute the basic-strategy recommendation."],
     "liars-dice": ["Goal: identify a bluff and win the round.", "You see your dice only. A bid Quantity × Face claims at least that many matching dice across both hands.", "Raise quantity, or raise face at equal quantity; ones are wild for faces 2–6.", "Challenge the current bid to reveal all dice and settle the round."],
-    mastermind: ["Goal: crack the hidden four-digit code within ten attempts. Digits 1–6 are distinct.", "Enter exactly four different digits and submit the guess.", "Black feedback means exact digit and position; white feedback means a right digit in the wrong position; no marker means absent.", "Use the candidate count and suggestion to choose your next experiment. Four exact matches win."],
+    mastermind: ["Goal: crack a four-digit hidden code in ten attempts. It uses four distinct digits from 0–9, creating 5,040 possible worlds.", "Enter exactly four different digits, such as 0123. A leading zero is valid, then submit.", "Exact means right digit and position; misplaced means a right digit in the wrong position. Counts never identify the individual digits.", "Reason independently or copy the bounded-minimax AI suggestion. Each history row shows how many candidates that experiment removed.", "Four exact positions win. Across solved rounds, the page tracks your average and best attempt count."],
     battleship: ["Goal: sink the enemy fleet before the probability AI sinks yours.", "Choose a 10×10, 12×12, or 15×15 sea during deployment; larger boards add ships to preserve action density.", "Each ship has its own color. Click a ship card to rotate it 90°, or randomize the fleet. A 180° flip of a straight ship occupies the same cells.", "Lock the layout, then click unknown enemy cells. A pale dot is a miss, red is a hit, and dark red is a sunk ship.", "The AI returns fire from legal horizontal and vertical placements after every shot. Fired cells cannot be selected again.", "Candidate placements count ship positions consistent with observations; the hint marks a high-density cell without forcing it."],
   },
 };
@@ -187,7 +191,7 @@ const ruleDetails = {
     "restricted-rps": { role: "这是有库存的猜拳。普通猜拳每轮都能随便出，但这里每种手势只有有限张；你刚才用掉什么，会改变后面还能怎么出。", example: "例：你只剩 1 石头、0 剪刀、2 布，AI 能看到这个库存，所以知道你不可能出剪刀。你仍需在石头和布之间随机选择，避免行为过于容易预测。", finish: "双方所有手势卡用完后结束，胜局多的一方获胜。每轮后可以看公开库存、均衡建议和 AI 对你历史偏好的分析。", terms: "库存＝每种手势还可使用几次；均衡建议＝即使对手知道你的概率，也难以稳定利用你的随机方案；适应＝AI 根据你过去偏爱哪种手势调整。" },
     blackjack: { role: "你是玩家，与按固定规则行动的庄家比较点数。你看得到庄家一张明牌，但看不到他的底牌，因此每次要牌都在不完全信息下承担爆牌风险。", example: "例：你有 10+6=16 点，庄家明牌是 10。停牌很可能输给庄家较高点数；要牌可能改善手牌，也可能抽到 6 以上直接爆牌。页面的基础策略会告诉你在长期统计下哪种动作损失更小。", finish: "你爆牌时立即输；你停牌或加倍后庄家自动补牌，最后不爆牌且更接近 21 的一方获胜，同点为和局。每局结束后点击下一局。", terms: "要牌＝再抽一张；停牌＝不再抽；加倍＝赌注翻倍且只抽一张；软牌＝有 A 暂时按 11 计算的手牌；爆牌＝超过 21。" },
     "liars-dice": { role: "你和 AI 各有五颗隐藏骰子。双方看不到对方点数，只能通过越来越高的公开叫价传递信息或诈唬。", example: "例：你手里有两个 4 和一个 1。因为 1 是万能牌，你已知道全桌至少有三个可算作 4。叫“3×4”很安全；AI 若叫到“7×4”，你需要判断它真的有很多 4，还是在虚张声势。", finish: "当任一方质疑时揭开所有骰子。实际匹配数量达到叫价，质疑者输；数量不足，最后叫价者输。赢一轮得 1 分，可继续开始下一轮。", terms: "叫价 3×4＝声称全桌至少有三个 4（包括可作万能牌的 1）；加注＝提高数量，或数量不变时提高点数；质疑＝认为当前叫价不成立。" },
-    mastermind: { role: "AI 先秘密选定一个四位密码，你看不到答案。你像侦探一样不断提交测试密码，再利用反馈排除不可能的答案。", example: "例：答案假设为 1-3-5-6，你猜 1-2-6-4。数字 1 的位置也正确，所以有 1 个黑色反馈；数字 6 存在但位置错误，所以有 1 个白色反馈；2 和 4 不在密码中。", finish: "十次之内得到 4 个位置正确即获胜；十次仍未破解则答案揭晓。建议猜测尝试让下一次反馈排除尽量多的候选，但你可以完全自行推理。", terms: "候选数量＝根据全部反馈仍可能是答案的密码个数；黑色反馈只表示正确数量，不告诉你具体是哪一位；白色反馈也不指出对应数字。" },
+    mastermind: { role: "这是经典 Bulls and Cows（几A几B）数字推理。AI 从 0–9 中秘密选择四个不重复数字，包括 0123 这样的前导零密码。你看到的不是答案，而是逐轮反馈形成的信息集。", example: "例：答案假设为 0-3-5-6，你猜 0-2-6-4。数字 0 的位置也正确，因此位置正确为 1；数字 6 存在但位置错误，因此错位正确为 1；2 和 4 不在密码中。", finish: "十次之内得到 4 个位置正确即获胜；十次仍未破解则答案揭晓。建议策略最小化下一轮最大的反馈分组，再比较平均剩余候选；它是强而快速的单步 minimax 启发式，不是已经证明的全局最少平均步数策略。", terms: "候选数量＝与全部历史反馈一致的密码数；信息集＝你当前无法区分的所有候选；最坏剩余＝采用该建议后，无论收到哪种反馈，最大反馈分组的大小。" },
     battleship: { role: "你和 AI 在相互隔离的海域秘密部署舰队。标准、扩展和大型地图分别为 10×10、12×12、15×15；你只能看到自己的彩色舰船，敌舰通过命中反馈逐步暴露。", example: "例：你把蓝色长度 4 舰旋转为垂直方向，然后向敌方 B7 开火并命中。下一炮打 B8：若再次命中，可沿同一方向搜索；若落空，就要考虑舰船可能纵向延伸。", finish: "一艘船的所有格子都被命中时即被击沉；任一方全部舰船沉没时比赛结束。结束后敌方完整彩色舰队会揭晓，便于复盘。", terms: "旋转 90°＝在水平与垂直之间切换；180°翻转对没有首尾差异的直线舰船不产生新布局；候选部署＝与命中、落空和击沉反馈相容的水平或垂直位置总数。" },
   },
   en: {
@@ -199,7 +203,7 @@ const ruleDetails = {
     "restricted-rps": { role: "This is Rock-Paper-Scissors with limited cards. Every move you spend changes what remains possible later, and both inventories are public.", example: "Example: with 1 Rock, 0 Scissors, and 2 Paper left, the AI knows Scissors is impossible. Randomizing between Rock and Paper keeps your choice less predictable.", finish: "The match ends when all cards are used; more round wins takes the match. Review inventory, equilibrium guidance, and AI adaptation after each reveal.", terms: "Inventory is remaining uses. Equilibrium guidance is a mixture that is hard to exploit. Adaptation is the AI reacting to your historical bias." },
     blackjack: { role: "You compare your hand with a fixed-rule dealer. You see one dealer card but not the hole card, so Hit and Stand decisions trade improvement against bust risk.", example: "Example: you have 16 against a dealer 10. Standing often loses to a stronger dealer total; hitting may improve the hand or bust. Basic strategy identifies the better long-run action.", finish: "Bust loses immediately. After you stand or double, the dealer draws automatically; the higher non-bust total wins and equal totals push.", terms: "Hit: draw. Stand: stop. Double: double the stake and draw once. Soft hand: an Ace currently counted as 11. Bust: exceed 21." },
     "liars-dice": { role: "You and the AI each hold five hidden dice. Public bids rise while private dice stay secret, so every bid can be information or a bluff.", example: "Example: two 4s and one wild 1 give you three known matches for face 4. A bid of 3×4 is safe; after the AI raises to 7×4, decide whether its private hand supports that claim.", finish: "A challenge reveals all dice. If the bid's quantity exists, the challenger loses; otherwise the last bidder loses. The winner scores one point.", terms: "3×4 claims at least three 4-matches across both hands. Raise increases quantity or face. Challenge says the current claim is false." },
-    mastermind: { role: "The AI secretly chooses a four-digit code. You act as a detective, testing codes and using feedback to eliminate impossible answers.", example: "Example: if the code is 1-3-5-6 and you guess 1-2-6-4, digit 1 earns one exact marker; digit 6 earns one wrong-position marker; 2 and 4 earn none.", finish: "Four exact matches within ten guesses wins; otherwise the answer is revealed. The suggestion aims to eliminate many candidates, but you may reason independently.", terms: "Candidate count is the number of codes consistent with every clue. Markers report counts only; they do not identify which digit produced each marker." },
+    mastermind: { role: "This is classic Bulls and Cows. The AI secretly chooses four distinct digits from 0–9, including leading-zero codes such as 0123. Public feedback transforms the set of hidden worlds after every guess.", example: "If the code is 0-3-5-6 and you guess 0-2-6-4, digit 0 gives one exact match and digit 6 gives one misplaced match; 2 and 4 are absent.", finish: "Four exact matches within ten guesses wins; otherwise the code is revealed. The adviser minimizes the largest next feedback bucket, then expected survivors. It is a strong, responsive one-step minimax heuristic, not a proof of globally minimal average guesses.", terms: "Candidate count is the number of codes consistent with every clue. The information set is the candidates you cannot yet distinguish. Worst-case remaining is the largest possible feedback bucket after the suggested guess." },
     battleship: { role: "You and the AI deploy private fleets on separate 10×10, 12×12, or 15×15 seas. You see your individually colored ships only; enemy ships emerge through hit feedback.", example: "Example: rotate the blue length-4 ship vertically, then hit B7. Firing at B8 tests a horizontal extension; a miss makes a vertical ship more plausible.", finish: "A ship sinks when every cell is hit. The match ends when either fleet is gone, then the complete colored enemy fleet is revealed for review.", terms: "Rotate 90° switches horizontal and vertical. A 180° flip creates no new layout for an undirected straight ship. Candidate placements count legal horizontal and vertical positions consistent with feedback." },
   },
 };
@@ -365,6 +369,9 @@ async function act(action, payload = {}) {
     });
     currentState = result.state;
     render();
+    if (currentState.gameId === "mastermind" && ["submit_guess", "new_game"].includes(action)) {
+      $("#mastermindInput").value = "";
+    }
   } catch (error) {
     showToast(error.message);
   } finally {
@@ -689,18 +696,35 @@ function renderBattleship() {
 
 function renderMastermind() {
   const state = currentState;
+  const stats = state.sessionStats;
+  const analysis = state.suggestionAnalysis;
   $("#mastermindAttempts").textContent = `${state.attemptsUsed} / ${state.maxAttempts}`;
-  $("#mastermindCandidates").textContent = state.candidateCount;
+  $("#mastermindCandidates").textContent = money.format(state.candidateCount);
   $("#mastermindSuggestion").textContent = state.suggestedGuess ? state.suggestedGuess.join(" · ") : "—";
-  $("#mastermindInput").value = state.suggestedGuess ? state.suggestedGuess.join("") : "";
+  $("#mastermindAverage").textContent = stats.averageSolvedAttempts === null
+    ? "—"
+    : `${stats.averageSolvedAttempts.toFixed(2)} ${language === "zh" ? "步" : "guesses"}`;
   $("#mastermindSubmit").disabled = state.phase !== "playing";
+  $("#mastermindUseSuggestion").disabled = state.phase !== "playing" || !state.suggestedGuess;
   $("#mastermindInput").disabled = state.phase !== "playing";
   $("#mastermindInstruction").textContent = state.phase === "finished"
     ? (state.result.won ? (language === "zh" ? `破解成功！用了 ${state.result.attempts} 次。` : `Cracked in ${state.result.attempts} attempts.`) : (language === "zh" ? `本轮结束，密码是 ${state.result.secret.join(" · ")}。` : `Out of attempts. The code was ${state.result.secret.join(" · ")}.`))
     : tr("mastermindInstruction");
-  $("#mastermindHistory").innerHTML = state.attempts.length ? state.attempts.map((item) => `<div><b>${item.guess.join(" · ")}</b><span>${item.exact} ${tr("mastermindExact")} · ${item.partial} ${tr("mastermindPartial")}</span></div>`).join("") : `<p>${language === "zh" ? "还没有提交猜测。" : "No guesses yet."}</p>`;
+  $("#mastermindHistory").innerHTML = state.attempts.length ? state.attempts.map((item, index) => `<div class="mastermind-attempt"><span class="attempt-number">${index + 1}</span><b>${item.guess.join(" · ")}</b><span class="feedback-chip exact">${item.exact} ${tr("mastermindExact")}</span><span class="feedback-chip partial">${item.partial} ${tr("mastermindPartial")}</span><small>${language === "zh" ? `排除 ${money.format(item.eliminated)} 个，剩余 ${money.format(item.afterCandidates)}` : `Eliminated ${money.format(item.eliminated)}; ${money.format(item.afterCandidates)} remain`}</small></div>`).join("") : `<p>${language === "zh" ? "还没有提交猜测。先输入四位不同数字；若不知从哪里开始，可以采用 AI 建议 0123。" : "No guesses yet. Enter four distinct digits, or use the AI's 0123 opening."}</p>`;
+  const eliminatedShare = 1 - state.candidateCount / state.initialCandidateCount;
+  $("#mastermindInformation").textContent = language === "zh"
+    ? `公开反馈已排除 ${(eliminatedShare * 100).toFixed(1)}% 的初始密码；仍有 ${money.format(state.candidateCount)} 个隐藏世界与你看到的记录完全一致。`
+    : `Public feedback has eliminated ${(eliminatedShare * 100).toFixed(1)}% of the original codes; ${money.format(state.candidateCount)} hidden worlds still match every clue.`;
+  $("#mastermindCandidatePreview").innerHTML = state.informationSet.candidatePreview.map((code) => `<span>${code.join("")}</span>`).join("");
+  $("#mastermindStrategy").textContent = analysis
+    ? (language === "zh"
+      ? `建议 ${analysis.exactSearch ? "来自完整猜测空间搜索" : "来自受限计算池"}：评估 ${money.format(analysis.evaluatedGuesses)} 个猜法；下一次反馈的最坏分支不超过 ${money.format(analysis.worstCaseRemaining)} 个候选，平均预计剩余 ${analysis.expectedRemaining.toFixed(1)} 个。它优化下一步的信息分割，但不等于已证明的全局最优总步数。`
+      : `The suggestion ${analysis.exactSearch ? "searched the full guess space" : "used a bounded search pool"}: ${money.format(analysis.evaluatedGuesses)} guesses evaluated, at most ${money.format(analysis.worstCaseRemaining)} candidates in the worst next bucket, and ${analysis.expectedRemaining.toFixed(1)} expected survivors. It optimizes the next split, not a proven global minimum total.`)
+    : (language === "zh" ? `本次会话完成 ${stats.gamesCompleted} 局，成功 ${stats.gamesSolved} 局，最佳 ${stats.bestAttempts ?? "—"} 步。` : `${stats.gamesCompleted} games completed, ${stats.gamesSolved} solved, best ${stats.bestAttempts ?? "—"} guesses.`);
   $("#mastermindResult").classList.toggle("hidden", state.phase !== "finished");
-  if (state.phase === "finished") $("#mastermindResult").textContent = state.result.won ? (language === "zh" ? "成功破解" : "Code cracked") : (language === "zh" ? "机会用尽" : "Attempts exhausted");
+  if (state.phase === "finished") $("#mastermindResult").textContent = state.result.won
+    ? (language === "zh" ? `成功破解 · 密码 ${state.result.secret.join("")}` : `Code cracked · ${state.result.secret.join("")}`)
+    : (language === "zh" ? `机会用尽 · 密码 ${state.result.secret.join("")}` : `Attempts exhausted · ${state.result.secret.join("")}`);
 }
 
 function renderECard() {
@@ -1032,9 +1056,19 @@ $("#liarRaise").addEventListener("click", () => act("raise_bid", {
 $("#liarChallenge").addEventListener("click", () => act("challenge"));
 $("#mastermindNew").addEventListener("click", () => act("new_game"));
 function submitMastermindGuess() {
-  act("submit_guess", { guess: [...$("#mastermindInput").value].map(Number) });
+  const raw = $("#mastermindInput").value.trim();
+  if (!/^\d{4}$/.test(raw) || new Set(raw).size !== 4) {
+    showToast(language === "zh" ? "请输入四个不重复的数字，例如 0123。" : "Enter four distinct digits, such as 0123.");
+    return;
+  }
+  act("submit_guess", { guess: [...raw].map(Number) });
 }
 $("#mastermindSubmit").addEventListener("click", submitMastermindGuess);
+$("#mastermindUseSuggestion").addEventListener("click", () => {
+  if (!currentState?.suggestedGuess) return;
+  $("#mastermindInput").value = currentState.suggestedGuess.join("");
+  $("#mastermindInput").focus();
+});
 $("#mastermindInput").addEventListener("keydown", (event) => {
   if (event.key === "Enter" && !event.repeat) submitMastermindGuess();
 });

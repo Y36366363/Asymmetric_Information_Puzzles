@@ -4,12 +4,14 @@ import random
 import threading
 import uuid
 from dataclasses import dataclass
-from itertools import combinations, permutations
+from itertools import combinations
 from math import comb
 from typing import Callable, Protocol
 
 from aip.puzzles.cases.models import CLASSROOM_BANKER, CaseGameRules, RiskPreferences
 from aip.puzzles.cases.solver import CaseGameAnalyzer
+from aip.puzzles.mastermind.models import CodeRules
+from aip.puzzles.mastermind.solver import MastermindSolver
 from aip.puzzles.battleship.models import FleetRules, ShipPlacement, ShotOutcome
 from aip.puzzles.battleship.solver import HiddenFleetBoard, ProbabilityDensityAI
 from aip.puzzles.pirates.models import PirateRules
@@ -1551,67 +1553,109 @@ class LiarDiceSession:
 
 
 class MastermindSession:
-    """Single-player code-breaking game with an explicit candidate information set."""
+    """Standard decimal Bulls and Cows with an explicit candidate information set."""
 
     def __init__(self, options: dict[str, object]) -> None:
-        self.length = 4
-        self.symbols = tuple(range(1, 7))
-        self.max_attempts = 10
+        self.rules = CodeRules()
+        self.solver = MastermindSolver(self.rules)
         self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
         self._rng = random.Random(self.seed)
-        self.secret = self._rng.choice(list(permutations(self.symbols, self.length)))
-        self.candidates = list(permutations(self.symbols, self.length))
+        self.games_completed = 0
+        self.games_solved = 0
+        self.total_solved_attempts = 0
+        self.best_attempts: int | None = None
+        self._start_game()
+
+    def _start_game(self) -> None:
+        self.secret = self._rng.choice(self.solver.all_codes)
+        self.candidates = self.solver.all_codes
         self.attempts: list[dict[str, object]] = []
         self.phase = "playing"
         self.result: dict[str, object] | None = None
 
-    @staticmethod
-    def _feedback(guess: tuple[int, ...], secret: tuple[int, ...]) -> tuple[int, int]:
-        exact = sum(a == b for a, b in zip(guess, secret))
-        shared = len(set(guess) & set(secret))
-        return exact, shared - exact
-
-    def _suggestion(self) -> tuple[int, ...] | None:
-        if not self.candidates:
-            return None
-        pool = self.candidates[:120]
-        best = min(pool, key=lambda guess: max(
-            sum(1 for candidate in self.candidates if self._feedback(guess, candidate) == feedback)
-            for feedback in {(e, p) for e in range(self.length + 1) for p in range(self.length + 1 - e)}
-        ))
-        return best
-
     def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
         if action == "new_game":
-            self.__init__({"seed": self._rng.randrange(2**32)})
+            self._start_game()
             return self.snapshot()
         if action != "submit_guess" or self.phase != "playing":
             raise ValueError("submit a guess while the game is active")
         raw = payload.get("guess", [])
-        guess = tuple(int(value) for value in raw) if isinstance(raw, list) else ()
-        if len(guess) != self.length or len(set(guess)) != self.length or any(value not in self.symbols for value in guess):
-            raise ValueError("guess must contain four distinct digits from 1 to 6")
-        exact, partial = self._feedback(guess, self.secret)
-        self.attempts.append({"guess": list(guess), "exact": exact, "partial": partial})
-        self.candidates = [candidate for candidate in self.candidates if self._feedback(guess, candidate) == (exact, partial)]
-        if exact == self.length:
+        guess = (
+            tuple(_whole_int(value, "guess digit") for value in raw)
+            if isinstance(raw, list)
+            else ()
+        )
+        self.rules.validate_guess(guess)
+        before = len(self.candidates)
+        feedback = self.solver.feedback(guess, self.secret)
+        self.candidates = self.solver.filter_candidates(
+            self.candidates, guess, feedback
+        )
+        after = len(self.candidates)
+        self.attempts.append(
+            {
+                "guess": list(guess),
+                "exact": feedback.exact,
+                "partial": feedback.misplaced,
+                "beforeCandidates": before,
+                "afterCandidates": after,
+                "eliminated": before - after,
+            }
+        )
+        if feedback.exact == self.rules.length:
             self.phase = "finished"
             self.result = {"won": True, "secret": list(self.secret), "attempts": len(self.attempts)}
-        elif len(self.attempts) >= self.max_attempts:
+            self.games_completed += 1
+            self.games_solved += 1
+            self.total_solved_attempts += len(self.attempts)
+            self.best_attempts = (
+                len(self.attempts)
+                if self.best_attempts is None
+                else min(self.best_attempts, len(self.attempts))
+            )
+        elif len(self.attempts) >= self.rules.max_attempts:
             self.phase = "finished"
             self.result = {"won": False, "secret": list(self.secret), "attempts": len(self.attempts)}
+            self.games_completed += 1
         return self.snapshot()
 
     def snapshot(self) -> dict[str, object]:
-        suggestion = self._suggestion() if self.phase == "playing" else None
+        analysis = self.solver.suggest(self.candidates) if self.phase == "playing" else None
         return {
-            "gameId": "mastermind", "phase": self.phase, "length": self.length,
-            "symbols": list(self.symbols), "maxAttempts": self.max_attempts,
+            "gameId": "mastermind", "phase": self.phase, "length": self.rules.length,
+            "symbols": list(self.rules.symbols), "maxAttempts": self.rules.max_attempts,
             "attemptsUsed": len(self.attempts), "attempts": list(self.attempts),
-            "candidateCount": len(self.candidates), "suggestedGuess": list(suggestion) if suggestion else None,
+            "candidateCount": len(self.candidates),
+            "initialCandidateCount": self.rules.world_count,
+            "suggestedGuess": list(analysis.guess) if analysis else None,
+            "suggestionAnalysis": (
+                {
+                    "worstCaseRemaining": analysis.worst_case_remaining,
+                    "expectedRemaining": analysis.expected_remaining,
+                    "evaluatedGuesses": analysis.evaluated_guesses,
+                    "exactSearch": analysis.exact_search,
+                }
+                if analysis
+                else None
+            ),
             "result": dict(self.result) if self.result else None,
             "legalActions": ["submit_guess"] if self.phase == "playing" else ["new_game"],
-            "informationSet": {"candidateCount": len(self.candidates), "feedbackHistory": list(self.attempts)},
+            "sessionStats": {
+                "gamesCompleted": self.games_completed,
+                "gamesSolved": self.games_solved,
+                "averageSolvedAttempts": (
+                    self.total_solved_attempts / self.games_solved
+                    if self.games_solved
+                    else None
+                ),
+                "bestAttempts": self.best_attempts,
+            },
+            "strategyScope": "bounded_one_step_minimax_then_expected_partition",
+            "informationSet": {
+                "candidateCount": len(self.candidates),
+                "candidatePreview": [list(code) for code in self.candidates[:8]],
+                "feedbackHistory": list(self.attempts),
+            },
         }
 
 
@@ -1899,8 +1943,8 @@ def build_default_registry() -> GameRegistry:
     registry.register(
         GameDescriptor(
             "mastermind",
-            "密码破解",
-            "对隐藏的四位密码反复猜测；用黑白反馈缩小候选信息集，并寻找最少尝试次数的解法。",
+            "猜数字 · 密码破解",
+            "从 5,040 个隐藏密码中推理答案，并比较自己的步数与 minimax 信息策略。",
             "单人 · 信息集搜索",
         ),
         MastermindSession,

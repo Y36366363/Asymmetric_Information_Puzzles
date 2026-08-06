@@ -5,6 +5,18 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/06/2026
+
+- **Bulls and Cows strategy lab** — Upgraded the small Mastermind prototype into
+  a standard 0–9 four-digit deduction game with 5,040 hidden worlds, explicit
+  candidate elimination, leading-zero support, optional minimax AI suggestions,
+  worst/expected partition analysis, per-guess information gain, and session averages.
+- **AI benchmark and next-game review** — Added a repeatable browser-engine
+  simulation and documented the bounded minimax strategy, its non-optimality caveat,
+  a 100-game 5.29-attempt benchmark, and Scotland Yard as the leading next solo game.
+- **Regression review** — Expanded Python and public-browser tests around hidden-code
+  feedback, malformed input, candidate accounting, complete AI play, and static UI wiring.
+
 ## Updates 08/05/2026
 
 - **Scalable, colored Battleship fleets** — Enlarged the desktop boards, added

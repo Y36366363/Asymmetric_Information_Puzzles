@@ -8,6 +8,7 @@
   "scripts": {
     "build": "node build.mjs",
     "build:static": "node build-static.mjs",
+    "analyze:mastermind": "node simulate-mastermind.mjs 200",
     "test": "node --test tests/public-worker.test.mjs tests/static-build.test.mjs"
   },
   "type": "module"

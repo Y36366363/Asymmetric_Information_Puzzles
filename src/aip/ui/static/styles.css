@@ -22,6 +22,8 @@ body {
     radial-gradient(circle at 80% -10%, rgba(216, 170, 76, 0.16), transparent 34rem),
     linear-gradient(145deg, #11110f 0%, #181713 52%, #0d0d0c 100%);
 }
+main[aria-busy="true"] { cursor: progress; }
+main[aria-busy="true"] button { pointer-events: none; }
 
 button { font: inherit; }
 
@@ -428,20 +430,29 @@ input:focus-visible {
 .liar-history { max-height: 220px; overflow: auto; margin-top: 18px; }
 .liar-history div { display: flex; justify-content: space-between; gap: 14px; padding: 9px 0; border-bottom: 1px solid var(--line); color: var(--muted); }
 .liar-result { margin: 18px auto 0; padding: 13px 20px; border: 1px solid var(--line); text-align: center; font: 500 21px Georgia, serif; }
-.mastermind-score { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 18px; }
+.mastermind-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
 .mastermind-score div { padding: 12px 18px; text-align: center; border-right: 1px solid var(--line); }
 .mastermind-score div:last-child { border-right: 0; }
 .mastermind-score span { color: var(--muted); font-size: 11px; letter-spacing: .08em; }
 .mastermind-score strong { display: block; margin-top: 8px; color: var(--gold-soft); font: 500 24px Georgia, serif; }
 .mastermind-board { padding: clamp(30px, 6vw, 72px); text-align: center; background: radial-gradient(ellipse at center, #173b52 0, #112633 58%, #101820 100%); }
 .mastermind-instruction { max-width: 680px; margin: 0 auto 24px; color: var(--muted); line-height: 1.7; }
-.mastermind-input-row { display: flex; justify-content: center; gap: 12px; }
+.mastermind-input-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 .mastermind-input-row input { width: 170px; padding: 13px; color: var(--ink); border: 1px solid var(--gold); background: #f1e7cc; text-align: center; letter-spacing: .35em; font: 700 23px Georgia, serif; }
 .mastermind-input-row button { padding: 13px 20px; }
+.mastermind-input-help { margin: 16px auto 0; color: #9fb8c5; font-size: 13px; }
 .mastermind-result { width: fit-content; margin: 20px auto 0; padding: 12px 22px; border: 1px solid var(--gold); color: var(--gold-soft); font: 500 22px Georgia, serif; }
-.mastermind-history { max-height: 260px; overflow: auto; }
-.mastermind-history div { display: flex; justify-content: space-between; gap: 14px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.mastermind-history { max-height: 360px; overflow: auto; }
+.mastermind-history .mastermind-attempt { display: grid; grid-template-columns: 28px minmax(105px, 1fr) auto auto; align-items: center; gap: 9px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.mastermind-history .attempt-number { display: grid; width: 24px; height: 24px; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--muted); font-size: 11px; }
+.mastermind-history .feedback-chip { padding: 5px 8px; border-radius: 999px; white-space: nowrap; font-size: 11px; }
+.mastermind-history .feedback-chip.exact { background: #822f2b; color: #fff1e3; }
+.mastermind-history .feedback-chip.partial { background: #e8ddc2; color: #28231c; }
+.mastermind-history small { grid-column: 2 / -1; color: var(--muted); }
 .mastermind-history span { color: var(--muted); }
+.candidate-preview { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.candidate-preview span { padding: 7px 9px; border: 1px solid #36566b; background: #112b3b; color: #b9d8e8; font: 600 13px ui-monospace, monospace; letter-spacing: .12em; }
+.strategy-scope { padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.65; }
 
 .battle-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
 .battle-score div { padding: 12px 18px; text-align: center; border-right: 1px solid var(--line); }
@@ -550,6 +561,9 @@ button.battle-cell:disabled { cursor: default; }
   .mastermind-score { grid-template-columns: 1fr; }
   .mastermind-score div { border-right: 0; border-bottom: 1px solid var(--line); }
   .mastermind-input-row { flex-direction: column; align-items: center; }
+  .mastermind-input-row button { width: min(100%, 240px); }
+  .mastermind-history .mastermind-attempt { grid-template-columns: 28px 1fr auto; }
+  .mastermind-history .feedback-chip.partial { grid-column: 3; }
   .battle-score { grid-template-columns: 1fr 1fr; }
   .battle-score div:nth-child(2) { border-right: 0; }
   .battle-score div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }

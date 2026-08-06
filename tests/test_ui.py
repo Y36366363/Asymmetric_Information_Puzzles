@@ -57,6 +57,24 @@ class LocalGameUITests(unittest.TestCase):
         self.assertLessEqual(state["turn"], 100)
         self.assertTrue(any(cell["ship"] for cell in state["enemyBoard"]))
 
+    def test_mastermind_uses_decimal_candidates_and_tracks_elimination(self) -> None:
+        created = self.service.create_session("mastermind", {"seed": 23})
+        state = created["state"]
+        self.assertEqual(state["candidateCount"], 5040)
+        self.assertEqual(state["suggestedGuess"], [0, 1, 2, 3])
+        state = self.service.act(
+            created["sessionId"],
+            "submit_guess",
+            {"guess": state["suggestedGuess"]},
+        )
+        attempt = state["attempts"][0]
+        self.assertEqual(attempt["beforeCandidates"], 5040)
+        self.assertEqual(
+            attempt["eliminated"],
+            attempt["beforeCandidates"] - attempt["afterCandidates"],
+        )
+        self.assertGreater(attempt["eliminated"], 0)
+
     def test_battleship_rejects_repeat_shots(self) -> None:
         created = self.service.create_session("battleship", {"seed": 17})
         self.service.act(created["sessionId"], "start_battle")

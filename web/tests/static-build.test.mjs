@@ -23,6 +23,9 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /padStart\(2, "0"\)/);
   assert.match(app, /openRulesGameId/);
   assert.match(app, /submitMastermindGuess/);
+  assert.match(app, /mastermindUseSuggestion/);
+  assert.match(app, /5,040/);
+  assert.match(html, /id="mastermindCandidatePreview"/);
   assert.match(app, /event\.key === "Enter"/);
   assert.match(app, /aip-rules-seen-/);
   assert.match(app, /playNow/);
@@ -53,7 +56,8 @@ test("browser engine intercepts API calls without a backend", async () => {
     assert.deepEqual(liar.state.playerDice.length, 5);
     const mastermind = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "mastermind" }) })).json();
     assert.equal(mastermind.state.gameId, "mastermind");
-    assert.equal(mastermind.state.candidateCount, 360);
+    assert.equal(mastermind.state.candidateCount, 5040);
+    assert.deepEqual(mastermind.state.suggestedGuess, [0, 1, 2, 3]);
     const battleship = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "battleship" }) })).json();
     assert.equal(battleship.state.gameId, "battleship");
     assert.equal(battleship.state.enemyBoard.some((cell) => cell.ship), false);
