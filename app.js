@@ -1,5 +1,12 @@
 const $ = (selector) => document.querySelector(selector);
-let language = localStorage.getItem("aip-language") || "zh";
+function readPreference(key) {
+  try { return window.localStorage.getItem(key); } catch (_error) { return null; }
+}
+function writePreference(key, value) {
+  try { window.localStorage.setItem(key, value); return true; } catch (_error) { return false; }
+}
+const savedLanguage = readPreference("aip-language");
+let language = ["zh", "en"].includes(savedLanguage) ? savedLanguage : "zh";
 let money = new Intl.NumberFormat(language === "zh" ? "zh-CN" : "en-US", { maximumFractionDigits: 2 });
 let sessionId = null;
 let currentState = null;
@@ -8,6 +15,8 @@ let lobbyGames = [];
 let pirateDraft = [];
 let openRulesGameId = null;
 let actionPending = false;
+let activeOperation = null;
+let toastTimer = null;
 
 const copy = {
   zh: {
@@ -63,6 +72,8 @@ const copy = {
     pirateInstruction: "你是最资深的 A。为每名海盗分配金币，然后让所有人同时投票。",
     backwardBenchmark: "逆向归纳基准", bankerOffer: "银行家报价", acceptOffer: "接受报价",
     rejectOffer: "拒绝，继续开箱", operationFailed: "操作失败",
+    connectionFailed: "连接暂时失败，请检查网络后重试。", invalidResponse: "页面收到异常响应，请刷新后重试。",
+    sessionExpired: "这局临时游戏已经过期，请重新开始。",
   },
   en: {
     brandName: "Asymmetric Games Lab", localOnly: "Browser session",
@@ -117,6 +128,8 @@ const copy = {
     pirateInstruction: "You are A, the most senior pirate. Allocate gold to every pirate, then call a simultaneous vote.",
     backwardBenchmark: "Backward-induction benchmark", bankerOffer: "Banker's offer", acceptOffer: "Deal",
     rejectOffer: "No deal — keep opening", operationFailed: "Action failed",
+    connectionFailed: "Connection failed. Check your network and try again.", invalidResponse: "The page received an invalid response. Refresh and try again.",
+    sessionExpired: "This temporary game has expired. Please start a new game.",
   },
 };
 
@@ -270,25 +283,42 @@ function applyLanguage() {
 
 function setLanguage(nextLanguage) {
   language = nextLanguage;
-  localStorage.setItem("aip-language", language);
+  writePreference("aip-language", language);
   applyLanguage();
 }
 
 async function request(path, options = {}) {
-  const response = await fetch(path, {
-    headers: { "Content-Type": "application/json" },
-    ...options,
-  });
-  const data = await response.json();
-  if (!response.ok) throw new Error(data.error || tr("operationFailed"));
+  let response;
+  try {
+    response = await fetch(path, {
+      headers: { "Content-Type": "application/json" },
+      ...options,
+    });
+  } catch (error) {
+    if (error.name === "AbortError") throw error;
+    throw new Error(tr("connectionFailed"));
+  }
+  const raw = await response.text();
+  let data;
+  try { data = raw ? JSON.parse(raw) : {}; } catch (_error) {
+    throw new Error(tr("invalidResponse"));
+  }
+  if (!response.ok) {
+    const message = String(data.error || "");
+    throw new Error(/expired session|unknown or expired/i.test(message) ? tr("sessionExpired") : message || tr("operationFailed"));
+  }
   return data;
 }
 
 function showToast(message) {
   const toast = $("#toast");
+  if (toastTimer !== null) window.clearTimeout(toastTimer);
   toast.textContent = message;
   toast.classList.remove("hidden");
-  window.setTimeout(() => toast.classList.add("hidden"), 2400);
+  toastTimer = window.setTimeout(() => {
+    toast.classList.add("hidden");
+    toastTimer = null;
+  }, 2400);
 }
 
 async function loadLobby() {
@@ -318,6 +348,8 @@ function renderLobby() {
 
 async function startGame(gameId = "cases", options = {}) {
   if (actionPending) return;
+  const controller = new AbortController();
+  activeOperation = controller;
   actionPending = true;
   document.querySelector("main").setAttribute("aria-busy", "true");
   try {
@@ -326,8 +358,10 @@ async function startGame(gameId = "cases", options = {}) {
       : options;
     const result = await request("/api/sessions", {
       method: "POST",
+      signal: controller.signal,
       body: JSON.stringify({ gameId, options: gameOptions }),
     });
+    if (controller.signal.aborted) return;
     sessionId = result.sessionId;
     currentState = result.state;
     currentGameId = gameId;
@@ -346,37 +380,47 @@ async function startGame(gameId = "cases", options = {}) {
     window.scrollTo(0, 0);
     render();
     const rulesSeenKey = `aip-rules-seen-${gameId}`;
-    if (!localStorage.getItem(rulesSeenKey)) {
-      localStorage.setItem(rulesSeenKey, "1");
+    if (!readPreference(rulesSeenKey)) {
+      writePreference(rulesSeenKey, "1");
       openRules(gameId);
     }
   } catch (error) {
-    showToast(error.message);
+    if (error.name !== "AbortError") showToast(error.message);
   } finally {
-    actionPending = false;
-    document.querySelector("main").removeAttribute("aria-busy");
+    if (activeOperation === controller) {
+      activeOperation = null;
+      actionPending = false;
+      document.querySelector("main").removeAttribute("aria-busy");
+    }
   }
 }
 
 async function act(action, payload = {}) {
   if (actionPending) return;
+  const controller = new AbortController();
+  activeOperation = controller;
   actionPending = true;
   document.querySelector("main").setAttribute("aria-busy", "true");
   try {
     const result = await request(`/api/sessions/${sessionId}/actions`, {
       method: "POST",
+      signal: controller.signal,
       body: JSON.stringify({ action, payload }),
     });
+    if (controller.signal.aborted) return;
     currentState = result.state;
     render();
     if (currentState.gameId === "mastermind" && ["submit_guess", "new_game"].includes(action)) {
       $("#mastermindInput").value = "";
     }
   } catch (error) {
-    showToast(error.message);
+    if (error.name !== "AbortError") showToast(error.message);
   } finally {
-    actionPending = false;
-    document.querySelector("main").removeAttribute("aria-busy");
+    if (activeOperation === controller) {
+      activeOperation = null;
+      actionPending = false;
+      document.querySelector("main").removeAttribute("aria-busy");
+    }
   }
 }
 
@@ -1016,6 +1060,11 @@ function findCase(caseId) {
 }
 
 function showLobby() {
+  if (activeOperation) activeOperation.abort();
+  activeOperation = null;
+  actionPending = false;
+  document.querySelector("main").removeAttribute("aria-busy");
+  if (openRulesGameId) closeRules();
   $("#offerModal").classList.add("hidden");
   $("#gameView").classList.add("hidden");
   $("#wormView").classList.add("hidden");
