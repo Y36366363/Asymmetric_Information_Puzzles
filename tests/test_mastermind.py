@@ -1,6 +1,7 @@
 import unittest
 
 from aip.puzzles.mastermind import CodeFeedback, CodeRules, MastermindSolver
+from aip.puzzles.mastermind.solver import MAX_SUGGESTION_CACHE
 
 
 class MastermindSolverTests(unittest.TestCase):
@@ -34,6 +35,17 @@ class MastermindSolverTests(unittest.TestCase):
     def test_repeated_digits_are_rejected(self) -> None:
         with self.assertRaisesRegex(ValueError, "may not repeat"):
             self.rules.validate_guess((1, 1, 2, 3))
+
+    def test_adviser_cache_is_bounded_during_long_sessions(self) -> None:
+        for code in self.solver.all_codes[: MAX_SUGGESTION_CACHE + 40]:
+            self.solver.suggest((code,))
+
+        self.assertEqual(self.solver.suggestion_cache_size, MAX_SUGGESTION_CACHE)
+        self.assertNotIn((self.solver.all_codes[0],), self.solver._suggestion_cache)
+        self.assertIn(
+            (self.solver.all_codes[MAX_SUGGESTION_CACHE + 39],),
+            self.solver._suggestion_cache,
+        )
 
 
 if __name__ == "__main__":

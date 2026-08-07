@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from collections import Counter
+from collections import Counter, OrderedDict
 from dataclasses import dataclass
 from functools import lru_cache
 from itertools import permutations
@@ -8,6 +8,7 @@ from itertools import permutations
 from .models import CodeFeedback, CodeRules
 
 Code = tuple[int, ...]
+MAX_SUGGESTION_CACHE = 256
 
 
 @lru_cache(maxsize=16)
@@ -37,7 +38,19 @@ class MastermindSolver:
     def __init__(self, rules: CodeRules | None = None) -> None:
         self.rules = rules or CodeRules()
         self.all_codes = _code_worlds(self.rules)
-        self._suggestion_cache: dict[tuple[Code, ...], GuessAnalysis] = {}
+        self._suggestion_cache: OrderedDict[tuple[Code, ...], GuessAnalysis] = OrderedDict()
+
+    @property
+    def suggestion_cache_size(self) -> int:
+        """Number of cached information sets retained by this solver."""
+
+        return len(self._suggestion_cache)
+
+    def _remember(self, candidates: tuple[Code, ...], analysis: GuessAnalysis) -> None:
+        self._suggestion_cache[candidates] = analysis
+        self._suggestion_cache.move_to_end(candidates)
+        if len(self._suggestion_cache) > MAX_SUGGESTION_CACHE:
+            self._suggestion_cache.popitem(last=False)
 
     @staticmethod
     def feedback(guess: Code, secret: Code) -> CodeFeedback:
@@ -76,10 +89,11 @@ class MastermindSolver:
             return None
         cached = self._suggestion_cache.get(candidates)
         if cached is not None:
+            self._suggestion_cache.move_to_end(candidates)
             return cached
         if len(candidates) == 1:
             result = GuessAnalysis(candidates[0], 1, 1.0, 1, True)
-            self._suggestion_cache[candidates] = result
+            self._remember(candidates, result)
             return result
         if len(candidates) == len(self.all_codes):
             opening = tuple(self.rules.symbols[: self.rules.length])
@@ -93,7 +107,7 @@ class MastermindSolver:
                 1,
                 False,
             )
-            self._suggestion_cache[candidates] = result
+            self._remember(candidates, result)
             return result
 
         pool = self._guess_pool(candidates)
@@ -117,7 +131,7 @@ class MastermindSolver:
                     len(pool) == len(self.all_codes),
                 )
         if best is not None:
-            self._suggestion_cache[candidates] = best
+            self._remember(candidates, best)
         return best
 
     def solve(self, secret: Code, max_attempts: int | None = None) -> tuple[Code, ...]:

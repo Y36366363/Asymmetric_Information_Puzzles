@@ -5,6 +5,19 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/07/2026
+
+- **Daily reliability audit** — Re-ran the complete Python and zero-backend
+  browser-engine suites, repeated full game loops, and checked build and public
+  entry behavior before release.
+- **Bounded AI memory** — Converted the Bulls and Cows adviser cache to a
+  256-state least-recently-used window, preventing one long-running local
+  session or research process from accumulating information sets without limit.
+- **Backend Battleship strategy audit** — Added a repeatable Python-only
+  experiment across 10×10, 12×12, and 15×15 fleets, including paired tail-risk
+  comparisons so probability density is measured as a strong heuristic rather
+  than incorrectly presented as a per-game optimum.
+
 ## Updates 08/06/2026
 
 - **Stability and flow hardening** — Bounded temporary sessions to prevent
