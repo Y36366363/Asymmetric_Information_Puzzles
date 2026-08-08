@@ -390,6 +390,48 @@
         </div>
       </section>
 
+      <section id="pursuitView" class="view pursuit-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="pursuitEyebrow">CASE 05 · 隐藏移动与公共信号 · 中等</p>
+            <h1 data-i18n="pursuitTitle">隐形追踪</h1>
+          </div>
+          <button class="secondary-button" id="newPursuitMatch" data-i18n="restartMatch">重新开始比赛</button>
+        </div>
+
+        <div class="pursuit-score panel">
+          <div><span data-i18n="currentRound">当前轮次</span><strong id="pursuitRound">1 / 12</strong></div>
+          <div><span data-i18n="possibleLocations">可能位置</span><strong id="pursuitCandidates">16</strong></div>
+          <div><span data-i18n="nextReveal">下次现身</span><strong id="pursuitNextReveal">第 3 回合</strong></div>
+          <div><span data-i18n="pursuitRecord">侦探战绩</span><strong id="pursuitRecord">0 / 0</strong></div>
+        </div>
+
+        <section class="pursuit-arena panel">
+          <div class="pursuit-map" id="pursuitMap" aria-label="Hidden pursuit map"></div>
+          <aside class="pursuit-briefing">
+            <p class="eyebrow">PUBLIC SIGNALS · PRIVATE LOCATION</p>
+            <h2 id="pursuitHeadline">移动侦探 A</h2>
+            <p id="pursuitInstruction">点击与蓝色侦探相邻的节点。两名侦探行动后，隐藏目标才会移动。</p>
+            <div class="pursuit-signal"><span data-i18n="lastTransport">最近交通信号</span><strong id="pursuitTransport">—</strong></div>
+            <div class="pursuit-legend"><span><i class="detective-a"></i>A</span><span><i class="detective-b"></i>B</span><span><i class="possible"></i>?</span><span><i class="last-seen"></i>X</span></div>
+            <div class="pursuit-result hidden" id="pursuitResult"></div>
+          </aside>
+        </section>
+
+        <div class="pursuit-lower">
+          <section class="panel information-set">
+            <div class="panel-title"><span data-i18n="yourInformationSet">你的信息集</span><span>CONSISTENT NODES</span></div>
+            <p id="pursuitInformation"></p>
+            <div class="pursuit-belief" id="pursuitBelief"></div>
+          </section>
+          <section class="panel">
+            <div class="panel-title"><span data-i18n="publicMoveLog">公开移动记录</span><span>TRANSPORT / REVEAL</span></div>
+            <div class="pursuit-history" id="pursuitHistory"></div>
+          </section>
+        </div>
+      </section>
+
       <section id="battleshipView" class="view battleship-view hidden">
         <div class="game-heading">
           <div>

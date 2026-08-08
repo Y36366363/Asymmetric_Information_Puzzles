@@ -454,6 +454,46 @@ input:focus-visible {
 .candidate-preview span { padding: 7px 9px; border: 1px solid #36566b; background: #112b3b; color: #b9d8e8; font: 600 13px ui-monospace, monospace; letter-spacing: .12em; }
 .strategy-scope { padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.65; }
 
+.pursuit-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
+.pursuit-score div { padding: 12px 18px; text-align: center; border-right: 1px solid var(--line); }
+.pursuit-score div:last-child { border-right: 0; }
+.pursuit-score span { color: var(--muted); font-size: 11px; letter-spacing: .08em; }
+.pursuit-score strong { display: block; margin-top: 8px; color: var(--gold-soft); font: 500 24px Georgia, serif; }
+.pursuit-arena { min-height: 650px; display: grid; grid-template-columns: minmax(580px, 1.6fr) minmax(260px, .65fr); gap: 24px; padding: 24px; background: radial-gradient(circle at 35% 45%, #263b3b 0, #172526 50%, #11191a 100%); }
+.pursuit-map { position: relative; min-height: 600px; overflow: hidden; border: 1px solid rgba(240,207,131,.17); background: radial-gradient(circle at 50% 45%, rgba(81,118,113,.18), transparent 55%), linear-gradient(145deg, rgba(255,255,255,.025), rgba(0,0,0,.16)); }
+.pursuit-edge { position: absolute; z-index: 1; height: 3px; transform-origin: 0 50%; opacity: .48; pointer-events: none; }
+.pursuit-edge.taxi { background: #d5a83f; }
+.pursuit-edge.bus { height: 5px; background: #8762b5; opacity: .62; }
+.pursuit-node { position: absolute; z-index: 3; width: 42px; height: 42px; display: grid; place-items: center; padding: 0; transform: translate(-50%, -50%); color: #c9d0cb; border: 2px solid #566565; border-radius: 50%; background: #172221; box-shadow: 0 5px 14px rgba(0,0,0,.42); font: 800 13px ui-monospace, monospace; }
+.pursuit-node small { position: absolute; top: 43px; color: #9aa6a2; font-size: 9px; }
+.pursuit-node.possible:not(.detective-a):not(.detective-b) { color: #e9d9a9; border-color: #c1a761; background: #393222; }
+.pursuit-node.last-seen:not(.detective-a):not(.detective-b) { box-shadow: 0 0 0 4px rgba(182,75,61,.25), 0 0 20px rgba(182,75,61,.5); }
+.pursuit-node.detective-a, .pursuit-legend i.detective-a { color: white; border-color: #9bc9ed; background: #397aa8; }
+.pursuit-node.detective-b, .pursuit-legend i.detective-b { color: white; border-color: #9be5db; background: #2e8c80; }
+.pursuit-node.fugitive { color: white; border-color: #ff9e8f; background: #9c3b32; }
+.pursuit-node.legal { cursor: pointer; animation: pursuit-pulse 1.25s ease-in-out infinite alternate; }
+.pursuit-node:disabled { opacity: 1; cursor: default; }
+@keyframes pursuit-pulse { from { box-shadow: 0 0 0 2px rgba(240,207,131,.18), 0 5px 14px rgba(0,0,0,.42); } to { box-shadow: 0 0 0 7px rgba(240,207,131,.33), 0 5px 20px rgba(0,0,0,.55); } }
+.pursuit-briefing { align-self: center; padding: 20px; }
+.pursuit-briefing h2 { margin: 14px 0; font: 500 clamp(28px, 3vw, 42px) Georgia, "Songti SC", serif; }
+.pursuit-briefing > p:not(.eyebrow) { color: var(--muted); line-height: 1.75; }
+.pursuit-signal { margin: 28px 0; padding: 17px; border: 1px solid var(--line); background: rgba(0,0,0,.2); }
+.pursuit-signal span { display: block; color: var(--muted); font-size: 10px; letter-spacing: .1em; }
+.pursuit-signal strong { display: block; margin-top: 8px; color: var(--gold-soft); }
+.pursuit-legend { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 11px; }
+.pursuit-legend span { display: flex; align-items: center; gap: 5px; }
+.pursuit-legend i { width: 14px; height: 14px; display: grid; place-items: center; border-radius: 50%; background: #393222; }
+.pursuit-legend i.possible { border: 1px solid #c1a761; }
+.pursuit-legend i.last-seen { border: 2px solid #b64b3d; background: transparent; }
+.pursuit-result { margin-top: 22px; padding: 13px; color: var(--gold-soft); border: 1px solid var(--gold); text-align: center; font-weight: 800; }
+.pursuit-lower { display: grid; grid-template-columns: .9fr 1.1fr; gap: 18px; margin-top: 18px; }
+.pursuit-lower p { color: var(--muted); line-height: 1.7; }
+.pursuit-belief { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 15px; }
+.pursuit-belief span { min-width: 32px; padding: 7px; color: #e9d9a9; border: 1px solid #74653d; background: #29251b; text-align: center; font: 700 12px ui-monospace, monospace; }
+.pursuit-history { max-height: 280px; overflow: auto; }
+.pursuit-history div { display: grid; grid-template-columns: minmax(120px, .65fr) 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.pursuit-history span { color: var(--muted); }
+
 .battle-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
 .battle-score div { padding: 12px 18px; text-align: center; border-right: 1px solid var(--line); }
 .battle-score div:last-child { border-right: 0; }
@@ -564,6 +604,15 @@ button.battle-cell:disabled { cursor: default; }
   .mastermind-input-row button { width: min(100%, 240px); }
   .mastermind-history .mastermind-attempt { grid-template-columns: 28px 1fr auto; }
   .mastermind-history .feedback-chip.partial { grid-column: 3; }
+  .pursuit-score { grid-template-columns: 1fr 1fr; }
+  .pursuit-score div:nth-child(2) { border-right: 0; }
+  .pursuit-score div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .pursuit-arena { min-height: auto; grid-template-columns: 1fr; padding: 10px; }
+  .pursuit-map { min-width: 600px; min-height: 540px; }
+  .pursuit-arena { overflow-x: auto; }
+  .pursuit-briefing { min-width: 0; }
+  .pursuit-lower { grid-template-columns: 1fr; }
+  .pursuit-history div { grid-template-columns: 1fr; }
   .battle-score { grid-template-columns: 1fr 1fr; }
   .battle-score div:nth-child(2) { border-right: 0; }
   .battle-score div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }

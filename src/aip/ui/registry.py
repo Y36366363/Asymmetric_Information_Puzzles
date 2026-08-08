@@ -14,6 +14,8 @@ from aip.puzzles.mastermind.models import CodeRules
 from aip.puzzles.mastermind.solver import MastermindSolver
 from aip.puzzles.battleship.models import FleetRules, ShipPlacement, ShotOutcome
 from aip.puzzles.battleship.solver import HiddenFleetBoard, ProbabilityDensityAI
+from aip.puzzles.hidden_pursuit.models import EDGES, NODE_POSITIONS, HiddenPursuitRules
+from aip.puzzles.hidden_pursuit.solver import PursuitState
 from aip.puzzles.pirates.models import PirateRules
 from aip.puzzles.pirates.solver import PirateSolver
 from aip.puzzles.worm.solver import WormSolver
@@ -60,13 +62,14 @@ GAME_DISPLAY_ORDER = {
     "blackjack": 2,
     "restricted-rps": 3,
     "mastermind": 4,
-    "battleship": 5,
-    "e-card": 6,
-    "pirates": 7,
-    "kuhn-poker": 8,
-    "liars-dice": 9,
-    "worm": 10,
-    "auction": 11,
+    "hidden-pursuit": 5,
+    "battleship": 6,
+    "e-card": 7,
+    "pirates": 8,
+    "kuhn-poker": 9,
+    "liars-dice": 10,
+    "worm": 11,
+    "auction": 12,
 }
 
 
@@ -1873,6 +1876,76 @@ class BattleshipGameSession:
         }
 
 
+class HiddenPursuitGameSession:
+    """Two-detective pursuit of a hidden, belief-aware fugitive."""
+
+    def __init__(self, options: dict[str, object]) -> None:
+        self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
+        self._rng = random.Random(self.seed)
+        self.rules = HiddenPursuitRules()
+        self.games_completed = 0
+        self.detective_wins = 0
+        self._start()
+
+    def _start(self) -> None:
+        self.state = PursuitState(self.rules, self._rng, "evasive-information")
+        self._recorded = False
+
+    def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
+        if action == "new_game":
+            self._start()
+            return self.snapshot()
+        if action != "move_detective":
+            raise ValueError(f"unknown Hidden Pursuit action: {action}")
+        destination = _whole_int(payload.get("node", 0), "node")
+        self.state.move_detective(destination)
+        if self.state.phase == "finished" and not self._recorded:
+            self.games_completed += 1
+            if self.state.winner == "detectives":
+                self.detective_wins += 1
+            self._recorded = True
+        return self.snapshot()
+
+    def snapshot(self) -> dict[str, object]:
+        state = self.state
+        finished = state.phase == "finished"
+        return {
+            "gameId": "hidden-pursuit",
+            "phase": state.phase,
+            "round": state.round_number,
+            "maxRounds": self.rules.max_rounds,
+            "revealRounds": list(self.rules.reveal_rounds),
+            "detectives": list(state.detectives),
+            "currentDetective": state.detective_index,
+            "legalMoves": list(state.legal_detective_moves()) if not finished else [],
+            "belief": sorted(state.belief),
+            "lastTransport": state.last_transport.value if state.last_transport else None,
+            "lastReveal": state.last_reveal,
+            "fugitivePosition": state.fugitive if finished else None,
+            "winner": state.winner,
+            "nodes": [
+                {"id": node, "x": position[0], "y": position[1]}
+                for node, position in NODE_POSITIONS.items()
+            ],
+            "edges": [
+                {"from": left, "to": right, "transport": mode.value}
+                for left, right, mode in EDGES
+            ],
+            "history": list(state.history),
+            "legalActions": ["move_detective"] if not finished else ["new_game"],
+            "sessionStats": {
+                "gamesCompleted": self.games_completed,
+                "detectiveWins": self.detective_wins,
+            },
+            "informationSet": {
+                "possibleNodes": sorted(state.belief),
+                "possibleCount": len(state.belief),
+                "lastPublicTransport": state.last_transport.value if state.last_transport else None,
+                "lastRevealedNode": state.last_reveal,
+            },
+        }
+
+
 def build_default_registry() -> GameRegistry:
     registry = GameRegistry()
     registry.register(
@@ -1964,6 +2037,15 @@ def build_default_registry() -> GameRegistry:
             "单人 · 隐藏部署与概率搜索",
         ),
         BattleshipGameSession,
+    )
+    registry.register(
+        GameDescriptor(
+            "hidden-pursuit",
+            "隐形追踪",
+            "控制两名侦探围捕隐藏移动的目标；交通信号公开，但位置只会间歇暴露。",
+            "单人 · 隐藏移动与信念追踪",
+        ),
+        HiddenPursuitGameSession,
     )
     for descriptor in (
         GameDescriptor(

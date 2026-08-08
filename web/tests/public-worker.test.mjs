@@ -10,8 +10,8 @@ test("serves the bilingual lobby and all playable descriptors", async () => {
   assert.match(await page.text(), /ASYMMETRIC INFORMATION PUZZLES/);
   const response = await call("/api/games");
   const { games } = await response.json();
-  assert.equal(games.filter((game) => game.available).length, 10);
-  assert.deepEqual(games.filter((game) => game.available).map((game) => game.id), ["cases", "blackjack", "restricted-rps", "mastermind", "battleship", "e-card", "pirates", "kuhn-poker", "liars-dice", "worm"]);
+  assert.equal(games.filter((game) => game.available).length, 11);
+  assert.deepEqual(games.filter((game) => game.available).map((game) => game.id), ["cases", "blackjack", "restricted-rps", "mastermind", "hidden-pursuit", "battleship", "e-card", "pirates", "kuhn-poker", "liars-dice", "worm"]);
 });
 
 test("case game reaches a clear non-null final reveal", async () => {
@@ -106,7 +106,7 @@ test("temporary session storage stays bounded and expires the oldest game", asyn
 });
 
 test("every public game creates a playable state", async () => {
-  for (const gameId of ["cases", "kuhn-poker", "e-card", "restricted-rps", "blackjack", "liars-dice", "mastermind", "battleship"]) {
+  for (const gameId of ["cases", "kuhn-poker", "e-card", "restricted-rps", "blackjack", "liars-dice", "mastermind", "hidden-pursuit", "battleship"]) {
     const response = await call("/api/sessions", {
       method:"POST", headers:{"content-type":"application/json"},
       body:JSON.stringify({gameId}),
@@ -173,6 +173,15 @@ test("single-player games survive complete decision loops", async () => {
   }
   assert.ok(["player", "ai"].includes(battleship.state.winner));
   assert.ok(battleship.state.enemyBoard.some((cell) => cell.ship));
+
+  const pursuit = await create("hidden-pursuit");
+  assert.equal(pursuit.state.fugitivePosition, null);
+  assert.equal(pursuit.state.belief.length, 16);
+  while (pursuit.state.phase !== "finished") {
+    await act(pursuit, "move_detective", {node:pursuit.state.legalMoves[0]});
+  }
+  assert.ok(["detectives", "fugitive"].includes(pursuit.state.winner));
+  assert.ok(Number.isInteger(pursuit.state.fugitivePosition));
 
   const expanded = await create("battleship");
   await act(expanded, "set_board_size", {boardSize:12});

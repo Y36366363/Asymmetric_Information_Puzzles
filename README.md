@@ -5,6 +5,20 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/08/2026
+
+- **Playable Hidden Pursuit** — Added an 18-node, two-detective hidden-movement
+  game with Taxi/Bus signals, scheduled reveals, live belief-set elimination,
+  an evasive-information AI, bilingual rules, responsive map controls, match
+  history, and ephemeral browser-only sessions.
+- **AI exploration before integration** — Built the Python model first and ran
+  1,000-game policy comparisons. Random detectives captured the information-aware
+  fugitive in 38.2% of games, while belief-pursuit captured it consistently,
+  confirming that public-signal reasoning materially changes results.
+- **Cross-runtime parity** — Added equivalent Python, local-service, public-worker,
+  complete-game-loop, hidden-information, and static-build tests so the new game
+  follows the same modular session boundary as the existing lobby.
+
 ## Updates 08/07/2026
 
 - **Daily reliability audit** — Re-ran the complete Python and zero-backend

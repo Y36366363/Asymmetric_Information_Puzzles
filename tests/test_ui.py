@@ -30,6 +30,7 @@ class LocalGameUITests(unittest.TestCase):
                 "blackjack",
                 "restricted-rps",
                 "mastermind",
+                "hidden-pursuit",
                 "battleship",
                 "e-card",
                 "pirates",
@@ -39,6 +40,31 @@ class LocalGameUITests(unittest.TestCase):
             ],
         )
         self.assertIn("liars-dice", [game["id"] for game in games])
+
+    def test_hidden_pursuit_exposes_only_public_information(self) -> None:
+        created = self.service.create_session("hidden-pursuit", {"seed": 11})
+        state = created["state"]
+        self.assertIsNone(state["fugitivePosition"])
+        self.assertEqual(len(state["belief"]), 16)
+        destination = state["legalMoves"][0]
+        state = self.service.act(
+            created["sessionId"], "move_detective", {"node": destination}
+        )
+        self.assertIsNone(state["fugitivePosition"])
+        self.assertEqual(state["currentDetective"], 1)
+
+    def test_hidden_pursuit_completes_with_legal_player_moves(self) -> None:
+        created = self.service.create_session("hidden-pursuit", {"seed": 31})
+        state = created["state"]
+        while state["phase"] != "finished":
+            state = self.service.act(
+                created["sessionId"],
+                "move_detective",
+                {"node": state["legalMoves"][0]},
+            )
+        self.assertIn(state["winner"], {"detectives", "fugitive"})
+        self.assertIsNotNone(state["fugitivePosition"])
+        self.assertLessEqual(state["round"], state["maxRounds"])
 
     def test_session_store_evicts_the_oldest_temporary_game(self) -> None:
         service = LocalGameService(build_default_registry(), max_sessions=2)

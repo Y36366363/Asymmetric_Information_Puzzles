@@ -30,6 +30,7 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /aip-rules-seen-/);
   assert.match(app, /playNow/);
   assert.match(app, /renderBattleship/);
+  assert.match(app, /renderHiddenPursuit/);
   assert.match(app, /aip-rules-seen-/);
   assert.match(app, /actionPending/);
   assert.match(app, /new AbortController/);
@@ -39,6 +40,7 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /activeOperation/);
   assert.match(html, /id="battleEnemyBoard"/);
   assert.match(html, /id="battleBoardSize"/);
+  assert.match(html, /id="pursuitMap"/);
   assert.match(app, /rotate_ship/);
   assert.match(app, /ship-\$\{cell\.shipId\}/);
 });
@@ -49,7 +51,7 @@ test("browser engine intercepts API calls without a backend", async () => {
   await import(`../../docs/game-engine.js?test=${Date.now()}`);
   try {
     const games = await (await fetch("/api/games")).json();
-    assert.equal(games.games.filter((game) => game.available).length, 10);
+    assert.equal(games.games.filter((game) => game.available).length, 11);
     const created = await (await fetch("/api/sessions", {
       method: "POST",
       body: JSON.stringify({ gameId: "pirates", options: { pirates: 5, gold: 100 } }),
@@ -66,6 +68,10 @@ test("browser engine intercepts API calls without a backend", async () => {
     const battleship = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "battleship" }) })).json();
     assert.equal(battleship.state.gameId, "battleship");
     assert.equal(battleship.state.enemyBoard.some((cell) => cell.ship), false);
+    const pursuit = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "hidden-pursuit" }) })).json();
+    assert.equal(pursuit.state.gameId, "hidden-pursuit");
+    assert.equal(pursuit.state.fugitivePosition, null);
+    assert.equal(pursuit.state.belief.length, 16);
     const firstTemporary = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "worm" }) })).json();
     for (let index = 0; index < 256; index += 1) {
       const response = await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "worm" }) });
