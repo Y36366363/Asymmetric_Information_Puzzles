@@ -595,6 +595,9 @@ button.battle-cell:disabled { cursor: default; }
   .rps-move { min-height: 150px; padding: 16px 6px; }
   .blackjack-score { grid-template-columns: 1fr 1fr; }
   .blackjack-lower { grid-template-columns: 1fr; }
+  .blackjack-actions { flex-wrap: wrap; }
+  .blackjack-actions button { min-width: min(110px, 100%); flex: 1 1 90px; }
+  .blackjack-cards { flex-wrap: wrap; }
   .blackjack-card { width: 62px; }
   .liar-score { grid-template-columns: 1fr 1fr; }
   .liar-hands { grid-template-columns: 1fr; }

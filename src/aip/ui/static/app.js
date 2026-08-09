@@ -636,7 +636,9 @@ function renderLiarDice() {
   $("#liarActions").classList.toggle("hidden", !playerTurn);
   $("#liarChallenge").disabled = !state.currentBid;
   if (state.minimumBid) {
-    $("#liarQuantity").min = state.minimumBid.quantity;
+    const minimumQuantity = state.minimumBid.quantity;
+    $("#liarQuantity").min = minimumQuantity;
+    $("#liarQuantity").value = String(Math.max(minimumQuantity, Number($("#liarQuantity").value) || minimumQuantity));
     $("#liarFace").value = String(Math.min(6, state.minimumBid.face));
   }
   $("#liarInstruction").textContent = state.phase === "finished"
@@ -1024,6 +1026,19 @@ function updatePirateBudget() {
   $("#pirateGoldLeft").textContent = left;
   $("#pirateGoldLeft").style.color = left === 0 ? "var(--gold-soft)" : "#efb0aa";
   $("#submitPirateProposal").disabled = currentState.phase !== "proposing" || left !== 0;
+  if (currentState.phase === "proposing") {
+    $("#pirateInstruction").textContent = language === "zh"
+      ? left === 0
+        ? "100 枚金币已经全部分配。现在可以提交提案，让所有海盗同时投票。"
+        : left > 0
+          ? `必须先分完全部 100 枚金币；目前还有 ${left} 枚未分配，归零后提交按钮才会启用。`
+          : `当前超出预算 ${Math.abs(left)} 枚；请减少分配，直到“尚未分配”恰好为 0。`
+      : left === 0
+        ? "All 100 coins are allocated. You can now submit the proposal for a simultaneous vote."
+        : left > 0
+          ? `Allocate all 100 coins first. ${left} remain; Submit unlocks when this reaches zero.`
+          : `The proposal is ${Math.abs(left)} coins over budget. Reduce allocations until Unallocated is exactly zero.`;
+  }
 }
 
 function pirateVoteReason(vote) {

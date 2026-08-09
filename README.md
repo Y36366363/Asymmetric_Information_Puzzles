@@ -5,6 +5,19 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/09/2026
+
+- **Eleven-game user journey audit** — Tested every playable game as a new
+  desktop and 390px mobile user, including rules, first decisions, feedback,
+  lobby returns, responsive overflow, and browser error logs.
+- **Clarity and mobile fixes** — Removed Blackjack's narrow-screen overflow,
+  synchronized Liar's Dice inputs with each new legal bid floor, and made the
+  Pirate Council explain exactly why Submit is locked.
+- **Guess Who optimal-policy laboratory** — Added a local-only 24-character
+  information-set model and compared random, fixed-order, entropy, minimax, and
+  exact dynamic-programming agents. The proven model-scoped optimum averages
+  5.667 turns including the final guess and needs at most 6.
+
 ## Updates 08/08/2026
 
 - **Playable Hidden Pursuit** — Added an 18-node, two-detective hidden-movement

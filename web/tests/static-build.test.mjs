@@ -43,6 +43,10 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(html, /id="pursuitMap"/);
   assert.match(app, /rotate_ship/);
   assert.match(app, /ship-\$\{cell\.shipId\}/);
+  assert.match(app, /Submit unlocks when this reaches zero/);
+  assert.match(app, /Math\.max\(minimumQuantity/);
+  const styles = await readFile(new URL("styles.css", publicRoot), "utf8");
+  assert.match(styles, /\.blackjack-actions \{ flex-wrap: wrap; \}/);
 });
 
 test("browser engine intercepts API calls without a backend", async () => {
