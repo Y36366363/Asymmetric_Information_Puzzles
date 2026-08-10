@@ -30,6 +30,7 @@ class LocalGameUITests(unittest.TestCase):
                 "blackjack",
                 "restricted-rps",
                 "mastermind",
+                "guess-who",
                 "hidden-pursuit",
                 "battleship",
                 "e-card",
@@ -40,6 +41,48 @@ class LocalGameUITests(unittest.TestCase):
             ],
         )
         self.assertIn("liars-dice", [game["id"] for game in games])
+
+    def test_guess_who_hides_identity_and_exposes_exact_information_set(self) -> None:
+        created = self.service.create_session("guess-who", {"seed": 19})
+        state = created["state"]
+        self.assertEqual(state["informationSet"]["possibleCount"], 24)
+        self.assertFalse(any(character["secret"] for character in state["characters"]))
+        self.assertIsNone(state["result"])
+        self.assertEqual(state["suggestion"]["modelScope"], "exact_fixed_roster_question_bank")
+        self.assertEqual(state["suggestion"]["yesCount"], 12)
+        self.assertEqual(state["suggestion"]["noCount"], 12)
+
+    def test_guess_who_exact_advisor_completes_within_proven_bound(self) -> None:
+        created = self.service.create_session("guess-who", {"seed": 23})
+        state = created["state"]
+        while state["phase"] == "playing":
+            suggestion = state["suggestion"]
+            if suggestion["type"] == "question":
+                state = self.service.act(
+                    created["sessionId"],
+                    "ask_question",
+                    {"questionId": suggestion["questionId"]},
+                )
+            else:
+                state = self.service.act(
+                    created["sessionId"],
+                    "guess_character",
+                    {"name": suggestion["character"]},
+                )
+        self.assertTrue(state["result"]["won"])
+        self.assertLessEqual(state["turnsUsed"], 6)
+        self.assertEqual(state["informationSet"]["possibleCount"], 1)
+
+    def test_guess_who_rejects_repeated_questions(self) -> None:
+        created = self.service.create_session("guess-who", {"seed": 29})
+        question_id = created["state"]["suggestion"]["questionId"]
+        self.service.act(
+            created["sessionId"], "ask_question", {"questionId": question_id}
+        )
+        with self.assertRaisesRegex(ValueError, "already been asked"):
+            self.service.act(
+                created["sessionId"], "ask_question", {"questionId": question_id}
+            )
 
     def test_hidden_pursuit_exposes_only_public_information(self) -> None:
         created = self.service.create_session("hidden-pursuit", {"seed": 11})

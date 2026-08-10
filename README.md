@@ -5,6 +5,22 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/10/2026
+
+- **Playable Guess Who identity lab** — Promoted the researched 24-character
+  model into the public bilingual lobby with eight public yes/no questions,
+  clickable character guesses, live eliminations, explicit information sets,
+  session scores, and complete beginner rules.
+- **Exact strategy adviser** — Added a one-click dynamic-programming adviser
+  that minimizes expected questions for the fixed roster and question bank. It
+  averages 5.667 turns including the final guess and has a proven six-turn
+  worst case; the UI labels this model-specific scope instead of claiming a
+  universal Guess Who optimum.
+- **Cross-runtime and user-journey verification** — Kept the Python server and
+  zero-backend public engine behavior aligned, completed a browser-played optimal
+  round, exercised wrong guesses and bilingual state retention, checked 390px
+  mobile overflow, and passed all 126 Python plus 10 web tests.
+
 ## Updates 08/09/2026
 
 - **Eleven-game user journey audit** — Tested every playable game as a new
@@ -294,8 +310,8 @@ local server or lobby shell.
 
 ## Mastermind: a single-player information-set game
 
-The new **密码破解 / Mastermind** game hides a four-digit code made of four
-distinct symbols from 1–6. Each guess returns two public signals: exact matches
+The **猜数字 / Mastermind** game hides a four-digit code made of four distinct
+decimal digits from 0–9, including possible leading zeroes. Each guess returns two public signals: exact matches
 (right symbol, right position) and partial matches (right symbol, wrong
 position). The secret itself remains private until the player solves the code or
 uses all ten attempts.
@@ -305,6 +321,22 @@ while the player only observes feedback. The live candidate count is the size
 of the player's information set. A suggested guess is chosen by a minimax-style
 partition heuristic that tries to minimize the largest surviving candidate
 bucket, so the player can compare intuition with systematic experimentation.
+
+## Guess Who: exact identity deduction
+
+**猜猜我是谁 / Guess Who?** presents all 24 public character cards while the
+AI privately selects one identity. A turn can ask one unused yes/no question or
+submit a direct character guess. Every answer eliminates inconsistent cards and
+updates the player's information set; the secret is revealed only when the
+round ends.
+
+The adviser solves the fixed roster and eight-question bank by exact dynamic
+programming. It chooses the policy with the lowest expected remaining number of
+questions, then spends one final turn naming the unique candidate. Under the
+uniform-secret assumption this takes 5.667 turns on average and no more than
+six. These guarantees belong to this explicit model: changing the roster,
+question bank, secret prior, or guess cost creates a different optimization
+problem.
 
 ## Project layout
 
@@ -328,6 +360,7 @@ bucket, so the player can compare intuition with systematic experimentation.
 │       ├── prisoners/             # one-bit distributed coordination
 │       ├── auctions/              # repeated all-pay auction analysis
 │       ├── cases/                 # sequential case opening and banker signals
+│       ├── guess_who/             # exact identity-question policy and roster
 │       ├── liars_dice/            # private dice, bluff odds, and challenges
 │       ├── beans/                 # interval minimax and robust strategies
 │       └── worm/                  # shortest adversarial search strategy

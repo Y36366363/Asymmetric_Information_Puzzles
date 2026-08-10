@@ -78,7 +78,7 @@
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="wormEyebrow">CASE 10 · 隐藏状态追踪 · 挑战</p>
+            <p class="eyebrow" data-i18n="wormEyebrow">CASE 12 · 隐藏状态追踪 · 挑战</p>
             <h1 data-i18n="wormTitle">移动虫穴</h1>
           </div>
           <button class="secondary-button" id="newWormButton" data-i18n="restart">重新开始</button>
@@ -115,7 +115,7 @@
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="pirateEyebrow">CASE 07 · 逆向归纳与联盟 · 中等</p>
+            <p class="eyebrow" data-i18n="pirateEyebrow">CASE 09 · 逆向归纳与联盟 · 中等</p>
             <h1 data-i18n="pirateTitle">海盗议会</h1>
           </div>
           <button class="secondary-button" id="newPirateButton" data-i18n="restartCouncil">重新召开议会</button>
@@ -148,7 +148,7 @@
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="pokerEyebrow">CASE 08 · 私有信息与诈唬 · 较难</p>
+            <p class="eyebrow" data-i18n="pokerEyebrow">CASE 10 · 私有信息与诈唬 · 较难</p>
             <h1 data-i18n="pokerTitle">库恩扑克</h1>
           </div>
           <button class="secondary-button" id="newPokerMatch" data-i18n="restartMatch">重新开始比赛</button>
@@ -197,7 +197,7 @@
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="eCardEyebrow">CASE 06 · 非对称收益与混合策略 · 中等</p>
+            <p class="eyebrow" data-i18n="eCardEyebrow">CASE 08 · 非对称收益与混合策略 · 中等</p>
             <h1 data-i18n="eCardTitle">E-Card 皇帝牌</h1>
           </div>
           <button class="secondary-button" id="newECardMatch" data-i18n="restartMatch">重新开始比赛</button>
@@ -298,7 +298,7 @@
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="liarEyebrow">CASE 09 · 隐藏骰子与公开信号 · 较难</p>
+            <p class="eyebrow" data-i18n="liarEyebrow">CASE 11 · 隐藏骰子与公开信号 · 较难</p>
             <h1 data-i18n="liarTitle">骗子骰子</h1>
           </div>
           <button class="secondary-button" id="newLiarMatch" data-i18n="restartMatch">重新开始比赛</button>
@@ -390,11 +390,67 @@
         </div>
       </section>
 
+      <section id="guessWhoView" class="view guess-who-view hidden">
+        <div class="game-heading">
+          <div>
+            <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
+            <p class="eyebrow" data-i18n="guessWhoEyebrow">CASE 05 · 身份推理与信息分割 · 简单</p>
+            <h1 data-i18n="guessWhoTitle">猜猜我是谁</h1>
+          </div>
+          <button class="secondary-button" id="guessWhoNew" data-i18n="restart">重新开始</button>
+        </div>
+
+        <div class="guess-who-score panel">
+          <div><span data-i18n="guessWhoTurns">已用回合</span><strong id="guessWhoTurns">0 / 8</strong></div>
+          <div><span data-i18n="guessWhoCandidates">剩余候选</span><strong id="guessWhoCandidates">24</strong></div>
+          <div><span data-i18n="guessWhoOptimal">最优预计总步数</span><strong id="guessWhoOptimal">5.667</strong></div>
+          <div><span data-i18n="guessWhoBest">你的最佳成绩</span><strong id="guessWhoBest">—</strong></div>
+        </div>
+
+        <section class="guess-who-controls panel">
+          <div>
+            <p class="eyebrow">YES / NO QUESTIONS</p>
+            <h2 id="guessWhoHeadline">先提出一个能切分候选人的问题</h2>
+            <p id="guessWhoInstruction">AI 已从 24 人中秘密选择一人。每次回答都会公开，并实时排除不符合的角色。</p>
+          </div>
+          <div class="guess-who-question-grid" id="guessWhoQuestions"></div>
+          <aside class="guess-who-advisor">
+            <span data-i18n="guessWhoAdvisor">精确策略建议</span>
+            <strong id="guessWhoSuggestion">是否戴眼镜？</strong>
+            <p id="guessWhoSuggestionDetail">这个问题把候选分成 12 / 12。</p>
+            <button class="deal-button" id="guessWhoUseSuggestion" data-i18n="guessWhoUseSuggestion">执行 AI 建议</button>
+          </aside>
+          <div class="guess-who-result hidden" id="guessWhoResult"></div>
+        </section>
+
+        <section class="panel guess-who-board-panel">
+          <div class="panel-title"><span data-i18n="guessWhoRoster">角色候选板</span><span>24 IDENTITIES</span></div>
+          <p class="guess-who-board-help" id="guessWhoBoardHelp">点击仍亮起的角色进行选择，再点击确认；错误猜测会消耗一回合并排除该角色。</p>
+          <div class="guess-who-grid" id="guessWhoGrid"></div>
+          <div class="guess-who-confirm-row">
+            <span id="guessWhoSelected">尚未选择要猜的角色</span>
+            <button class="secondary-button" id="guessWhoConfirm" disabled data-i18n="guessWhoConfirm">确认猜测</button>
+          </div>
+        </section>
+
+        <div class="guess-who-lower">
+          <section class="panel information-set">
+            <div class="panel-title"><span data-i18n="yourInformationSet">你的信息集</span><span>CONSISTENT IDENTITIES</span></div>
+            <p id="guessWhoInformation"></p>
+            <div class="guess-who-possible" id="guessWhoPossible"></div>
+          </section>
+          <section class="panel">
+            <div class="panel-title"><span data-i18n="gameHistory">博弈记录</span><span>PUBLIC ANSWERS</span></div>
+            <div class="guess-who-history" id="guessWhoHistory"></div>
+          </section>
+        </div>
+      </section>
+
       <section id="pursuitView" class="view pursuit-view hidden">
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="pursuitEyebrow">CASE 05 · 隐藏移动与公共信号 · 中等</p>
+            <p class="eyebrow" data-i18n="pursuitEyebrow">CASE 06 · 隐藏移动与公共信号 · 中等</p>
             <h1 data-i18n="pursuitTitle">隐形追踪</h1>
           </div>
           <button class="secondary-button" id="newPursuitMatch" data-i18n="restartMatch">重新开始比赛</button>
@@ -436,7 +492,7 @@
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="battleshipEyebrow">CASE 05 · 隐藏部署与概率搜索 · 中等</p>
+            <p class="eyebrow" data-i18n="battleshipEyebrow">CASE 07 · 隐藏部署与概率搜索 · 中等</p>
             <h1 data-i18n="battleshipTitle">海战棋</h1>
           </div>
           <button class="secondary-button" id="newBattleshipMatch" data-i18n="restartMatch">重新开始比赛</button>

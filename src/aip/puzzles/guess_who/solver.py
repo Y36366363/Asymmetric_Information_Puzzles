@@ -92,6 +92,23 @@ class GuessWhoSolver:
             beliefs={character: probability for character in self.roster},
         )
 
+    def candidate_mask(self, names: set[str] | tuple[str, ...] | list[str]) -> int:
+        unknown = set(names).difference(self._name_to_index)
+        if unknown:
+            raise ValueError(f"unknown candidate characters: {sorted(unknown)}")
+        return sum(1 << self._name_to_index[name] for name in names)
+
+    def remaining_question_mask(self, used_question_ids: set[str]) -> int:
+        known_ids = {question.id for question in self.questions}
+        unknown = used_question_ids.difference(known_ids)
+        if unknown:
+            raise ValueError(f"unknown question ids: {sorted(unknown)}")
+        return sum(
+            1 << index
+            for index, question in enumerate(self.questions)
+            if question.id not in used_question_ids
+        )
+
     def update_information(
         self,
         information: InformationSet[Character],

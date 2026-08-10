@@ -16,6 +16,7 @@ from aip.puzzles.battleship.models import FleetRules, ShipPlacement, ShotOutcome
 from aip.puzzles.battleship.solver import HiddenFleetBoard, ProbabilityDensityAI
 from aip.puzzles.hidden_pursuit.models import EDGES, NODE_POSITIONS, HiddenPursuitRules
 from aip.puzzles.hidden_pursuit.solver import PursuitState
+from aip.puzzles.guess_who import DEFAULT_QUESTIONS, DEFAULT_ROSTER, GuessWhoSolver
 from aip.puzzles.pirates.models import PirateRules
 from aip.puzzles.pirates.solver import PirateSolver
 from aip.puzzles.worm.solver import WormSolver
@@ -62,14 +63,15 @@ GAME_DISPLAY_ORDER = {
     "blackjack": 2,
     "restricted-rps": 3,
     "mastermind": 4,
-    "hidden-pursuit": 5,
-    "battleship": 6,
-    "e-card": 7,
-    "pirates": 8,
-    "kuhn-poker": 9,
-    "liars-dice": 10,
-    "worm": 11,
-    "auction": 12,
+    "guess-who": 5,
+    "hidden-pursuit": 6,
+    "battleship": 7,
+    "e-card": 8,
+    "pirates": 9,
+    "kuhn-poker": 10,
+    "liars-dice": 11,
+    "worm": 12,
+    "auction": 13,
 }
 
 
@@ -1876,6 +1878,210 @@ class BattleshipGameSession:
         }
 
 
+class GuessWhoGameSession:
+    """Single-player identity deduction with an exact strategy oracle."""
+
+    def __init__(self, options: dict[str, object]) -> None:
+        self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
+        self._rng = random.Random(self.seed)
+        self.solver = GuessWhoSolver()
+        self.max_turns = 8
+        self.games_completed = 0
+        self.games_won = 0
+        self.total_winning_turns = 0
+        self.best_turns: int | None = None
+        self._questions = {question.id: question for question in DEFAULT_QUESTIONS}
+        self._characters = {character.name: character for character in DEFAULT_ROSTER}
+        self._start()
+
+    def _start(self) -> None:
+        self.secret = self._rng.choice(DEFAULT_ROSTER)
+        self.candidates = list(DEFAULT_ROSTER)
+        self.used_questions: set[str] = set()
+        self.turns = 0
+        self.phase = "playing"
+        self.history: list[dict[str, object]] = []
+        self.result: dict[str, object] | None = None
+
+    def _finish(self, won: bool, reason: str) -> None:
+        # The identity is revealed when the round ends, so the final public
+        # information set contains exactly the secret character even on a loss.
+        self.candidates = [self.secret]
+        self.phase = "finished"
+        self.result = {
+            "won": won,
+            "reason": reason,
+            "secret": self.secret.name,
+            "turns": self.turns,
+        }
+        self.games_completed += 1
+        if won:
+            self.games_won += 1
+            self.total_winning_turns += self.turns
+            self.best_turns = self.turns if self.best_turns is None else min(self.best_turns, self.turns)
+
+    def _ask(self, question_id: str) -> None:
+        if question_id not in self._questions:
+            raise ValueError("unknown Guess Who question")
+        if question_id in self.used_questions:
+            raise ValueError("that question has already been asked")
+        question = self._questions[question_id]
+        yes_candidates = [character for character in self.candidates if question.matches(character)]
+        no_candidates = [character for character in self.candidates if not question.matches(character)]
+        if not yes_candidates or not no_candidates:
+            raise ValueError("that question no longer separates the remaining characters")
+        before = len(self.candidates)
+        answer = question.matches(self.secret)
+        self.candidates = yes_candidates if answer else no_candidates
+        self.used_questions.add(question_id)
+        self.turns += 1
+        self.history.append(
+            {
+                "turn": self.turns,
+                "action": "question",
+                "questionId": question_id,
+                "label": question.label,
+                "answer": answer,
+                "beforeCandidates": before,
+                "afterCandidates": len(self.candidates),
+            }
+        )
+        if self.turns >= self.max_turns:
+            self._finish(False, "turn_limit")
+
+    def _guess(self, name: str) -> None:
+        character = self._characters.get(name)
+        if character is None:
+            raise ValueError("unknown Guess Who character")
+        if character not in self.candidates:
+            raise ValueError("that character has already been eliminated")
+        before = len(self.candidates)
+        correct = character == self.secret
+        self.turns += 1
+        if not correct:
+            self.candidates.remove(character)
+        self.history.append(
+            {
+                "turn": self.turns,
+                "action": "guess",
+                "character": name,
+                "correct": correct,
+                "beforeCandidates": before,
+                "afterCandidates": len(self.candidates),
+            }
+        )
+        if correct:
+            self.candidates = [self.secret]
+            self._finish(True, "correct_guess")
+        elif self.turns >= self.max_turns:
+            self._finish(False, "turn_limit")
+
+    def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
+        if action == "new_game":
+            self._start()
+            return self.snapshot()
+        if self.phase != "playing":
+            raise ValueError("start a new Guess Who game first")
+        if action == "ask_question":
+            self._ask(str(payload.get("questionId", "")))
+        elif action == "guess_character":
+            self._guess(str(payload.get("name", "")))
+        else:
+            raise ValueError(f"unknown Guess Who action: {action}")
+        return self.snapshot()
+
+    def _suggestion(self) -> dict[str, object] | None:
+        if self.phase != "playing":
+            return None
+        if len(self.candidates) == 1:
+            return {
+                "type": "guess",
+                "character": self.candidates[0].name,
+                "projectedExpectedTurns": 1.0,
+                "modelScope": "exact_fixed_roster_question_bank",
+            }
+        candidate_mask = self.solver.candidate_mask([character.name for character in self.candidates])
+        remaining_mask = self.solver.remaining_question_mask(self.used_questions)
+        question_index = self.solver.choose_question(
+            "optimal_expected", candidate_mask, remaining_mask
+        )
+        question = self.solver.questions[question_index]
+        score = next(
+            item
+            for item in self.solver.score_questions(candidate_mask, remaining_mask)
+            if item.question.id == question.id
+        )
+        return {
+            "type": "question",
+            "questionId": question.id,
+            "label": question.label,
+            "yesCount": score.yes_count,
+            "noCount": score.no_count,
+            "worstRemaining": score.worst_remaining,
+            "expectedRemaining": round(score.expected_remaining, 3),
+            "projectedExpectedTurns": round(
+                self.solver.exact_expected_questions(candidate_mask, remaining_mask) + 1,
+                3,
+            ),
+            "modelScope": "exact_fixed_roster_question_bank",
+        }
+
+    def snapshot(self) -> dict[str, object]:
+        candidate_names = {character.name for character in self.candidates}
+        candidate_mask = self.solver.candidate_mask(list(candidate_names))
+        remaining_mask = self.solver.remaining_question_mask(self.used_questions)
+        scores = {item.question.id: item for item in self.solver.score_questions(candidate_mask, remaining_mask)}
+        finished = self.phase == "finished"
+        return {
+            "gameId": "guess-who",
+            "phase": self.phase,
+            "turnsUsed": self.turns,
+            "maxTurns": self.max_turns,
+            "characters": [
+                {
+                    "name": character.name,
+                    "hair": character.hair,
+                    "glasses": character.glasses,
+                    "hat": character.hat,
+                    "facialHair": character.facial_hair,
+                    "smiling": character.smiling,
+                    "possible": character.name in candidate_names,
+                    "secret": finished and character == self.secret,
+                }
+                for character in DEFAULT_ROSTER
+            ],
+            "questions": [
+                {
+                    "id": question.id,
+                    "label": question.label,
+                    "used": question.id in self.used_questions,
+                    "informative": question.id in scores,
+                    "yesCount": scores[question.id].yes_count if question.id in scores else 0,
+                    "noCount": scores[question.id].no_count if question.id in scores else 0,
+                }
+                for question in DEFAULT_QUESTIONS
+            ],
+            "suggestion": self._suggestion(),
+            "history": list(self.history),
+            "result": dict(self.result) if self.result else None,
+            "legalActions": ["ask_question", "guess_character"] if not finished else ["new_game"],
+            "sessionStats": {
+                "gamesCompleted": self.games_completed,
+                "gamesWon": self.games_won,
+                "averageWinningTurns": (
+                    self.total_winning_turns / self.games_won if self.games_won else None
+                ),
+                "bestTurns": self.best_turns,
+            },
+            "informationSet": {
+                "possibleNames": sorted(candidate_names),
+                "possibleCount": len(candidate_names),
+                "usedQuestionIds": sorted(self.used_questions),
+                "publicHistory": list(self.history),
+            },
+        }
+
+
 class HiddenPursuitGameSession:
     """Two-detective pursuit of a hidden, belief-aware fugitive."""
 
@@ -2037,6 +2243,15 @@ def build_default_registry() -> GameRegistry:
             "单人 · 隐藏部署与概率搜索",
         ),
         BattleshipGameSession,
+    )
+    registry.register(
+        GameDescriptor(
+            "guess-who",
+            "猜猜我是谁",
+            "通过公开的是非问题缩小 24 人候选集合，并与精确最优提问策略比较步数。",
+            "单人 · 身份推理与信息分割",
+        ),
+        GuessWhoGameSession,
     )
     registry.register(
         GameDescriptor(

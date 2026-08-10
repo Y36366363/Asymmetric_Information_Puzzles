@@ -31,6 +31,8 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /playNow/);
   assert.match(app, /renderBattleship/);
   assert.match(app, /renderHiddenPursuit/);
+  assert.match(app, /function renderGuessWho\(\)/);
+  assert.match(app, /A wrong guess costs one turn/);
   assert.match(app, /aip-rules-seen-/);
   assert.match(app, /actionPending/);
   assert.match(app, /new AbortController/);
@@ -55,7 +57,7 @@ test("browser engine intercepts API calls without a backend", async () => {
   await import(`../../docs/game-engine.js?test=${Date.now()}`);
   try {
     const games = await (await fetch("/api/games")).json();
-    assert.equal(games.games.filter((game) => game.available).length, 11);
+    assert.equal(games.games.filter((game) => game.available).length, 12);
     const created = await (await fetch("/api/sessions", {
       method: "POST",
       body: JSON.stringify({ gameId: "pirates", options: { pirates: 5, gold: 100 } }),
@@ -76,6 +78,10 @@ test("browser engine intercepts API calls without a backend", async () => {
     assert.equal(pursuit.state.gameId, "hidden-pursuit");
     assert.equal(pursuit.state.fugitivePosition, null);
     assert.equal(pursuit.state.belief.length, 16);
+    const guessWho = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "guess-who" }) })).json();
+    assert.equal(guessWho.state.gameId, "guess-who");
+    assert.equal(guessWho.state.informationSet.possibleCount, 24);
+    assert.equal(guessWho.state.characters.some((character) => character.secret), false);
     const firstTemporary = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "worm" }) })).json();
     for (let index = 0; index < 256; index += 1) {
       const response = await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "worm" }) });

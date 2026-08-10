@@ -10,8 +10,8 @@ test("serves the bilingual lobby and all playable descriptors", async () => {
   assert.match(await page.text(), /ASYMMETRIC INFORMATION PUZZLES/);
   const response = await call("/api/games");
   const { games } = await response.json();
-  assert.equal(games.filter((game) => game.available).length, 11);
-  assert.deepEqual(games.filter((game) => game.available).map((game) => game.id), ["cases", "blackjack", "restricted-rps", "mastermind", "hidden-pursuit", "battleship", "e-card", "pirates", "kuhn-poker", "liars-dice", "worm"]);
+  assert.equal(games.filter((game) => game.available).length, 12);
+  assert.deepEqual(games.filter((game) => game.available).map((game) => game.id), ["cases", "blackjack", "restricted-rps", "mastermind", "guess-who", "hidden-pursuit", "battleship", "e-card", "pirates", "kuhn-poker", "liars-dice", "worm"]);
 });
 
 test("case game reaches a clear non-null final reveal", async () => {
@@ -106,7 +106,7 @@ test("temporary session storage stays bounded and expires the oldest game", asyn
 });
 
 test("every public game creates a playable state", async () => {
-  for (const gameId of ["cases", "kuhn-poker", "e-card", "restricted-rps", "blackjack", "liars-dice", "mastermind", "hidden-pursuit", "battleship"]) {
+  for (const gameId of ["cases", "kuhn-poker", "e-card", "restricted-rps", "blackjack", "liars-dice", "mastermind", "guess-who", "hidden-pursuit", "battleship"]) {
     const response = await call("/api/sessions", {
       method:"POST", headers:{"content-type":"application/json"},
       body:JSON.stringify({gameId}),
@@ -147,6 +147,21 @@ test("single-player games survive complete decision loops", async () => {
   await act(mastermind, "new_game");
   assert.equal(mastermind.state.candidateCount, 5040);
   assert.equal(mastermind.state.sessionStats.averageSolvedAttempts, solvedAttempts);
+
+  const guessWho = await create("guess-who");
+  assert.equal(guessWho.state.informationSet.possibleCount, 24);
+  assert.equal(guessWho.state.characters.some((character) => character.secret), false);
+  assert.deepEqual([guessWho.state.suggestion.yesCount, guessWho.state.suggestion.noCount], [12,12]);
+  while (guessWho.state.phase === "playing") {
+    if (guessWho.state.suggestion.type === "question") {
+      await act(guessWho, "ask_question", {questionId:guessWho.state.suggestion.questionId});
+    } else {
+      await act(guessWho, "guess_character", {name:guessWho.state.suggestion.character});
+    }
+  }
+  assert.equal(guessWho.state.result.won, true);
+  assert.ok(guessWho.state.turnsUsed <= 6);
+  assert.equal(guessWho.state.informationSet.possibleCount, 1);
 
   const ecard = await create("e-card");
   while (ecard.state.phase === "playing") await act(ecard, "play_card", {card:ecard.state.playerHand[0].card});
