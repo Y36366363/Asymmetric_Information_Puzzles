@@ -13,6 +13,7 @@ let currentState = null;
 let currentGameId = null;
 let lobbyGames = [];
 let pirateDraft = [];
+let guessWhoSelected = null;
 let openRulesGameId = null;
 let actionPending = false;
 let activeOperation = null;
@@ -25,14 +26,14 @@ const copy = {
     heroCopy: "选择一个实验。你做决定，系统隐藏信息、扮演对手，并在关键时刻揭示概率与代价。",
     backLobby: "← 返回大厅", restart: "重新开始", restartCouncil: "重新召开议会", playNow: "开始游戏 →", comingSoon: "后续开放",
     caseEyebrow: "CASE 01 · 风险与谈判 · 入门", caseTitle: "命运之箱",
-    wormEyebrow: "CASE 11 · 隐藏状态追踪 · 挑战", wormTitle: "移动虫穴",
-    pirateEyebrow: "CASE 08 · 逆向归纳与联盟 · 中等", pirateTitle: "海盗议会",
-    pokerEyebrow: "CASE 09 · 私有信息与诈唬 · 较难", pokerTitle: "库恩扑克",
+    wormEyebrow: "CASE 12 · 隐藏状态追踪 · 挑战", wormTitle: "移动虫穴",
+    pirateEyebrow: "CASE 09 · 逆向归纳与联盟 · 中等", pirateTitle: "海盗议会",
+    pokerEyebrow: "CASE 10 · 私有信息与诈唬 · 较难", pokerTitle: "库恩扑克",
     restartMatch: "重新开始比赛", handNumber: "当前牌局", yourScore: "你的净筹码",
     potSize: "底池", aiScore: "AI 净筹码", strategyAi: "策略型 AI", you: "你",
     yourInformationSet: "你的信息集", quickRules: "快速规则",
     pokerRules: "双方先各投入 1。下注为 1；跟注后比牌，弃牌则直接输。K 最大、J 最小。AI 会按概率诈唬，所以同一种动作不总代表同一张牌。",
-    eCardEyebrow: "CASE 07 · 非对称收益与混合策略 · 中等", eCardTitle: "E-Card 皇帝牌",
+    eCardEyebrow: "CASE 08 · 非对称收益与混合策略 · 中等", eCardTitle: "E-Card 皇帝牌",
     currentDuel: "本轮对决", emperor: "皇帝", citizen: "市民", slave: "奴隶",
     eCardYourScore: "你的得分", eCardAiScore: "AI 得分",
     duelHistory: "公开对局记录",
@@ -47,7 +48,7 @@ const copy = {
     strategyAccuracy: "基础策略吻合率", dealer: "庄家", basicStrategyAi: "基础策略 AI",
     letAiPlay: "让 AI 执行这一步", decisionAudit: "决策审计",
     blackjackScope: "此建议针对六副牌、软 17 停牌、不可分牌/投降/保险且不计牌的动作集合。改变规则或利用牌靴构成后，最优动作可能改变。",
-    liarEyebrow: "CASE 10 · 隐藏骰子与公开信号 · 较难", liarTitle: "骗子骰子", liarRound: "回合",
+    liarEyebrow: "CASE 11 · 隐藏骰子与公开信号 · 较难", liarTitle: "骗子骰子", liarRound: "回合",
     opponentDice: "对手隐藏骰子", yourDice: "你的骰子", aiHiddenDice: "AI 的隐藏骰子",
     currentBid: "当前公开叫价", quantity: "数量", face: "点数", raiseBid: "加注", challengeBid: "质疑叫价",
     liarInstruction: "你只能看见自己的骰子。1 点是万能牌；判断公开叫价是否值得相信。",
@@ -58,10 +59,14 @@ const copy = {
     mastermindAverage: "你的平均步数", mastermindUseSuggestion: "采用 AI 建议",
     mastermindLeadingZero: "这是密码而非整数，因此 0 可以放在第一位；四个数字不能重复。",
     mastermindInstruction: "AI 已藏好一个由 0–9 组成、数字不重复的四位密码。输入猜测并利用两类反馈排除候选。",
-    pursuitEyebrow: "CASE 05 · 隐藏移动与公共信号 · 中等", pursuitTitle: "隐形追踪",
+    guessWhoEyebrow: "CASE 05 · 身份推理与信息分割 · 简单", guessWhoTitle: "猜猜我是谁",
+    guessWhoTurns: "已用回合", guessWhoCandidates: "剩余候选", guessWhoOptimal: "最优预计总步数",
+    guessWhoBest: "你的最佳成绩", guessWhoAdvisor: "精确策略建议", guessWhoUseSuggestion: "执行 AI 建议",
+    guessWhoRoster: "角色候选板", guessWhoConfirm: "确认猜测",
+    pursuitEyebrow: "CASE 06 · 隐藏移动与公共信号 · 中等", pursuitTitle: "隐形追踪",
     possibleLocations: "可能位置", nextReveal: "下次现身", pursuitRecord: "侦探战绩",
     lastTransport: "最近交通信号", publicMoveLog: "公开移动记录",
-    battleshipEyebrow: "CASE 06 · 隐藏部署与概率搜索 · 中等", battleshipTitle: "海战棋",
+    battleshipEyebrow: "CASE 07 · 隐藏部署与概率搜索 · 中等", battleshipTitle: "海战棋",
     yourFleet: "你的舰队", enemyWaters: "敌方海域", randomizeFleet: "重新随机布阵", startBattle: "确认布阵，开始战斗",
     shipsRemaining: "剩余舰船", candidateWorlds: "候选部署", advisorShot: "概率建议", battleHistory: "交火记录",
     rulesEyebrow: "玩法说明", rulesTitle: "游戏规则", closeRules: "关闭",
@@ -84,14 +89,14 @@ const copy = {
     heroCopy: "Choose an experiment. You decide; the system hides information, plays the opposition, and reveals probability and cost at decisive moments.",
     backLobby: "← Back to lobby", restart: "New game", restartCouncil: "New council", playNow: "Play now →", comingSoon: "Coming later",
     caseEyebrow: "CASE 01 · RISK & NEGOTIATION · BEGINNER", caseTitle: "Cases of Fate",
-    wormEyebrow: "CASE 11 · HIDDEN-STATE TRACKING · CHALLENGE", wormTitle: "The Moving Worm",
-    pirateEyebrow: "CASE 08 · BACKWARD INDUCTION & COALITIONS · MEDIUM", pirateTitle: "Pirate Council",
-    pokerEyebrow: "CASE 09 · PRIVATE INFORMATION & BLUFFING · HARD", pokerTitle: "Kuhn Poker",
+    wormEyebrow: "CASE 12 · HIDDEN-STATE TRACKING · CHALLENGE", wormTitle: "The Moving Worm",
+    pirateEyebrow: "CASE 09 · BACKWARD INDUCTION & COALITIONS · MEDIUM", pirateTitle: "Pirate Council",
+    pokerEyebrow: "CASE 10 · PRIVATE INFORMATION & BLUFFING · HARD", pokerTitle: "Kuhn Poker",
     restartMatch: "Restart match", handNumber: "Current hand", yourScore: "Your net chips",
     potSize: "Pot", aiScore: "AI net chips", strategyAi: "Strategy AI", you: "You",
     yourInformationSet: "Your information set", quickRules: "Quick rules",
     pokerRules: "Both players ante 1. A bet costs 1; a call leads to showdown, while a fold loses immediately. K is high and J is low. The AI bluffs probabilistically, so one action never reveals one card with certainty.",
-    eCardEyebrow: "CASE 07 · ASYMMETRIC PAYOFFS & MIXED STRATEGY · MEDIUM", eCardTitle: "E-Card",
+    eCardEyebrow: "CASE 08 · ASYMMETRIC PAYOFFS & MIXED STRATEGY · MEDIUM", eCardTitle: "E-Card",
     currentDuel: "Duel", emperor: "Emperor", citizen: "Citizen", slave: "Slave",
     eCardYourScore: "Your score", eCardAiScore: "AI score",
     duelHistory: "Public duel history",
@@ -106,7 +111,7 @@ const copy = {
     strategyAccuracy: "Basic-strategy match", dealer: "Dealer", basicStrategyAi: "Basic-strategy AI",
     letAiPlay: "Let AI take this action", decisionAudit: "Decision audit",
     blackjackScope: "This advice is scoped to six decks, dealer standing on soft 17, no split/surrender/insurance, and no card counting. Change the rules or use shoe composition and the optimal action may change.",
-    liarEyebrow: "CASE 10 · HIDDEN DICE & PUBLIC SIGNALS · HARD", liarTitle: "Liar's Dice", liarRound: "Round",
+    liarEyebrow: "CASE 11 · HIDDEN DICE & PUBLIC SIGNALS · HARD", liarTitle: "Liar's Dice", liarRound: "Round",
     opponentDice: "Opponent hidden dice", yourDice: "Your dice", aiHiddenDice: "AI hidden dice",
     currentBid: "Current public bid", quantity: "Quantity", face: "Face", raiseBid: "Raise", challengeBid: "Challenge",
     liarInstruction: "You see only your own dice. Ones are wild; decide whether the public claim is worth believing.",
@@ -117,10 +122,14 @@ const copy = {
     mastermindAverage: "Your average", mastermindUseSuggestion: "Use AI suggestion",
     mastermindLeadingZero: "This is a code, not an integer, so zero may come first; all four digits must be distinct.",
     mastermindInstruction: "The AI has hidden four distinct digits from 0–9. Submit experiments and use both feedback counts to eliminate candidates.",
-    pursuitEyebrow: "CASE 05 · HIDDEN MOVEMENT & PUBLIC SIGNALS · MEDIUM", pursuitTitle: "Hidden Pursuit",
+    guessWhoEyebrow: "CASE 05 · IDENTITY DEDUCTION & INFORMATION SPLITS · EASY", guessWhoTitle: "Guess Who?",
+    guessWhoTurns: "Turns used", guessWhoCandidates: "Candidates left", guessWhoOptimal: "Optimal expected total",
+    guessWhoBest: "Your best", guessWhoAdvisor: "Exact-strategy advice", guessWhoUseSuggestion: "Take AI advice",
+    guessWhoRoster: "Character board", guessWhoConfirm: "Confirm guess",
+    pursuitEyebrow: "CASE 06 · HIDDEN MOVEMENT & PUBLIC SIGNALS · MEDIUM", pursuitTitle: "Hidden Pursuit",
     possibleLocations: "Possible locations", nextReveal: "Next reveal", pursuitRecord: "Detective record",
     lastTransport: "Latest transport signal", publicMoveLog: "Public move log",
-    battleshipEyebrow: "CASE 06 · HIDDEN DEPLOYMENT & PROBABILITY SEARCH · MEDIUM", battleshipTitle: "Battleship",
+    battleshipEyebrow: "CASE 07 · HIDDEN DEPLOYMENT & PROBABILITY SEARCH · MEDIUM", battleshipTitle: "Battleship",
     yourFleet: "Your fleet", enemyWaters: "Enemy waters", randomizeFleet: "Randomize fleet", startBattle: "Lock fleet and start",
     shipsRemaining: "Ships remaining", candidateWorlds: "Candidate placements", advisorShot: "Probability hint", battleHistory: "Battle log",
     rulesEyebrow: "HOW TO PLAY", rulesTitle: "Rules", closeRules: "Close",
@@ -150,6 +159,7 @@ const gamesCopy = {
     blackjack: ["21 点策略实验室", "对抗固定规则庄家，逐步比较你的行动与规则限定的最优基础策略。", "单人 · 概率决策与策略审计"],
     "liars-dice": ["骗子骰子", "隐藏骰子、公开叫价与质疑概率；判断何时加注，何时抓住 AI 的虚张声势。", "单人 · 隐藏骰子与公开信号"],
     mastermind: ["猜数字 · 密码破解", "从 5,040 个隐藏密码中推理答案，比较自己的步数与 minimax 信息策略。", "单人 · 信息集搜索"],
+    "guess-who": ["猜猜我是谁", "通过公开的是非问题缩小 24 人候选集合，并与精确最优提问策略比较步数。", "单人 · 身份推理与信息分割"],
     "hidden-pursuit": ["隐形追踪", "控制两名侦探封锁交通网络，从公开的出行方式和间歇现身中推断隐藏目标。", "单人 · 隐藏移动与信念追踪"],
     battleship: ["海战棋", "部署舰队，在未知海域中逐格搜索敌舰，对抗概率热力图 AI。", "单人 · 隐藏部署与概率搜索"],
     auction: ["百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放"],
@@ -164,6 +174,7 @@ const gamesCopy = {
     blackjack: ["Blackjack Strategy Lab", "Play against a fixed-rule dealer and audit every choice against the rule-scoped optimal basic strategy.", "Solo · Probability & strategy audit"],
     "liars-dice": ["Liar's Dice", "Private dice, public bids, and probability-guided challenges against a bluffing AI.", "Solo · Hidden dice & public signals"],
     mastermind: ["Bulls & Cows Lab", "Reason through 5,040 hidden codes and compare your attempts with a minimax information strategy.", "Solo · Information-set search"],
+    "guess-who": ["Guess Who?", "Narrow 24 identities with public yes/no questions and compare your choices with an exact optimal policy.", "Solo · Identity deduction & information splits"],
     "hidden-pursuit": ["Hidden Pursuit", "Control two detectives and infer an evasive target from public transport signals and scheduled reveals.", "Solo · Hidden movement & belief tracking"],
     battleship: ["Battleship", "Deploy a fleet, search unknown waters cell by cell, and face a probability-density AI.", "Solo · Hidden deployment & search"],
     auction: ["100-Unit All-Pay Auction", "Fight for leadership through public prices, alliances, and defection.", "Local multiplayer · Coming soon"],
@@ -171,8 +182,8 @@ const gamesCopy = {
 };
 
 const difficultyCopy = {
-  zh: { cases: "入门", blackjack: "入门", "restricted-rps": "简单", mastermind: "简单", "hidden-pursuit": "中等", battleship: "中等", "e-card": "中等", pirates: "中等", "kuhn-poker": "较难", "liars-dice": "较难", worm: "挑战", auction: "未开放" },
-  en: { cases: "Beginner", blackjack: "Beginner", "restricted-rps": "Easy", mastermind: "Easy", "hidden-pursuit": "Medium", battleship: "Medium", "e-card": "Medium", pirates: "Medium", "kuhn-poker": "Hard", "liars-dice": "Hard", worm: "Challenge", auction: "Coming soon" },
+  zh: { cases: "入门", blackjack: "入门", "restricted-rps": "简单", mastermind: "简单", "guess-who": "简单", "hidden-pursuit": "中等", battleship: "中等", "e-card": "中等", pirates: "中等", "kuhn-poker": "较难", "liars-dice": "较难", worm: "挑战", auction: "未开放" },
+  en: { cases: "Beginner", blackjack: "Beginner", "restricted-rps": "Easy", mastermind: "Easy", "guess-who": "Easy", "hidden-pursuit": "Medium", battleship: "Medium", "e-card": "Medium", pirates: "Medium", "kuhn-poker": "Hard", "liars-dice": "Hard", worm: "Challenge", auction: "Coming soon" },
 };
 
 const rulesCopy = {
@@ -186,6 +197,7 @@ const rulesCopy = {
     blackjack: ["目标：让自己的点数尽量接近 21，但超过 21 就爆牌并立即输。", "A 可算 1 或 11；J/Q/K 算 10。开始时你会看到两张手牌和庄家的一张明牌。", "点击“要牌”再拿一张；点击“停牌”结束行动；首轮可点击“加倍”并只再拿一张。", "庄家随后按固定规则补牌（软 17 停牌），最后比较点数；黑杰克按页面规则结算。右侧可让 AI 执行基础策略建议。"],
     "liars-dice": ["目标：判断公开叫价是真实还是虚张声势，并在质疑中赢下本轮。", "你能看到自己的骰子，但看不到 AI 的骰子。叫价“数量 × 点数”表示全桌至少有这么多个该点数。", "点击“加注”提交更高的数量，或在数量相同时提交更高点数；1 点对 2–6 点是万能牌。", "如果你认为上一口不可信，点击“质疑”。系统揭示全部骰子并根据实际数量判定胜负。"],
     mastermind: ["目标：在 10 次尝试内破解 AI 隐藏的四位密码。密码从 0–9 中选择四个不同数字，共有 5,040 种可能。", "输入恰好四个不同数字，例如 0123；首位可以是 0。点击“提交猜测”后才能得到反馈。", "“位置正确”表示数字和位置都对；“数字正确但位置不同”表示数字存在但放错位置。反馈只给数量，不指出具体是哪一位。", "观察每轮排除的候选数并继续推理。你可以完全自己猜，也可以点击“采用 AI 建议”复制 minimax 建议，再提交。", "得到 4 个位置正确即获胜。连续完成多局后，页面会计算你的成功局平均步数与最佳成绩。"],
+    "guess-who": ["目标：在 8 回合内找出 AI 从 24 张公开角色卡中秘密选中的人。", "先查看角色特征，再点击一个仍能切分候选集的是非问题；按钮会预告回答“是”和“否”各剩多少人。", "AI 只回答“是”或“否”。不符合答案的角色会变暗，信息集和最优建议会立即更新。", "要猜身份时，先点击一张仍亮起的角色卡，再点击“确认猜测”。猜错会消耗一回合并排除该角色，猜对即获胜。", "“执行 AI 建议”会采用固定角色表与问题库下经过动态规划证明的最小期望策略；候选唯一时，它会执行最终猜测。"],
     "hidden-pursuit": ["目标：在第 12 回合结束前，让任一侦探移动到隐藏目标当前所在的节点。", "地图上蓝色 A、青色 B 是你的两名侦探。每回合先移动 A，再移动 B；只能点击当前侦探通过线路直接相连的节点。", "两名侦探都行动后，目标会沿黄色出租车线或紫色公交线移动一次，并公开所用交通方式，但通常不公开终点。", "带问号的节点是仍符合全部公开信息的位置。你移动到其中一个节点却没有抓到人，也会排除该位置。", "目标会在第 3、6、9 回合移动后强制现身；利用现身位置、之后的交通信号和两名侦探的封锁完成包围。", "抓到目标即获胜；撑过 12 回合则目标逃脱。AI 根据距离、出口和移动后的候选数量规避，但不是已证明的全局最优逃跑策略。"],
     battleship: ["目标：在概率 AI 击沉你的全部舰船之前，先找到并击沉它的舰队。", "布阵阶段先选择 10×10、12×12 或 15×15 海域；地图越大，双方舰船也越多。", "不同颜色表示不同舰船。点击舰船卡可旋转 90°，也可点击“重新随机布阵”；直线舰船翻转 180°占据的格子不变。", "满意后点击“确认布阵，开始战斗”。战斗阶段点击敌方未知格；淡点表示落空，红色表示命中，深红色表示击沉。", "你每开一炮，AI 会立即根据仍合法的水平与垂直部署还击。已经射击过的格子不能重复选择。", "候选部署表示目前仍符合反馈的舰船位置数量；概率建议给出覆盖合法部署最多的格子，但你可以选择别处。"],
   },
@@ -199,6 +211,7 @@ const rulesCopy = {
     blackjack: ["Goal: approach 21 without going over.", "A counts as 1 or 11; face cards count as 10. You see your hand and the dealer upcard.", "Choose Hit, Stand, or Double (first decision only). The dealer then follows the fixed soft-17 rule.", "Compare the final totals; the strategy panel can execute the basic-strategy recommendation."],
     "liars-dice": ["Goal: identify a bluff and win the round.", "You see your dice only. A bid Quantity × Face claims at least that many matching dice across both hands.", "Raise quantity, or raise face at equal quantity; ones are wild for faces 2–6.", "Challenge the current bid to reveal all dice and settle the round."],
     mastermind: ["Goal: crack a four-digit hidden code in ten attempts. It uses four distinct digits from 0–9, creating 5,040 possible worlds.", "Enter exactly four different digits, such as 0123. A leading zero is valid, then submit.", "Exact means right digit and position; misplaced means a right digit in the wrong position. Counts never identify the individual digits.", "Reason independently or copy the bounded-minimax AI suggestion. Each history row shows how many candidates that experiment removed.", "Four exact positions win. Across solved rounds, the page tracks your average and best attempt count."],
+    "guess-who": ["Goal: identify the AI's secret person from 24 public character cards within eight turns.", "Inspect the traits, then ask a yes/no question that still splits the candidate set. Each button previews how many people remain after Yes and No.", "The AI answers truthfully. Inconsistent cards dim immediately, and both the information set and exact recommendation update.", "To name the person, select a bright card and press Confirm guess. A wrong guess costs one turn and eliminates that card; a correct guess wins.", "Take AI advice uses a dynamic-programming policy proven to minimize expected turns for this fixed roster and question bank. When one candidate remains, it makes the final guess."],
     "hidden-pursuit": ["Goal: move either detective onto the hidden fugitive before round 12 ends.", "Blue A and cyan B are your detectives. Move A, then B each round by clicking a directly connected node.", "After both moves, the fugitive takes one yellow Taxi or purple Bus edge. The transport is public; the destination usually remains hidden.", "Question-mark nodes form the current information set. Visiting one without a capture also eliminates it.", "The fugitive must reveal after moves 3, 6, and 9. Combine that sighting with later transport signals and two-token blocking.", "Capture wins; surviving round 12 lets the fugitive escape. The AI is a distance-and-ambiguity heuristic, not a proven globally optimal evader."],
     battleship: ["Goal: sink the enemy fleet before the probability AI sinks yours.", "Choose a 10×10, 12×12, or 15×15 sea during deployment; larger boards add ships to preserve action density.", "Each ship has its own color. Click a ship card to rotate it 90°, or randomize the fleet. A 180° flip of a straight ship occupies the same cells.", "Lock the layout, then click unknown enemy cells. A pale dot is a miss, red is a hit, and dark red is a sunk ship.", "The AI returns fire from legal horizontal and vertical placements after every shot. Fired cells cannot be selected again.", "Candidate placements count ship positions consistent with observations; the hint marks a high-density cell without forcing it."],
   },
@@ -215,6 +228,7 @@ const ruleDetails = {
     blackjack: { role: "你是玩家，与按固定规则行动的庄家比较点数。你看得到庄家一张明牌，但看不到他的底牌，因此每次要牌都在不完全信息下承担爆牌风险。", example: "例：你有 10+6=16 点，庄家明牌是 10。停牌很可能输给庄家较高点数；要牌可能改善手牌，也可能抽到 6 以上直接爆牌。页面的基础策略会告诉你在长期统计下哪种动作损失更小。", finish: "你爆牌时立即输；你停牌或加倍后庄家自动补牌，最后不爆牌且更接近 21 的一方获胜，同点为和局。每局结束后点击下一局。", terms: "要牌＝再抽一张；停牌＝不再抽；加倍＝赌注翻倍且只抽一张；软牌＝有 A 暂时按 11 计算的手牌；爆牌＝超过 21。" },
     "liars-dice": { role: "你和 AI 各有五颗隐藏骰子。双方看不到对方点数，只能通过越来越高的公开叫价传递信息或诈唬。", example: "例：你手里有两个 4 和一个 1。因为 1 是万能牌，你已知道全桌至少有三个可算作 4。叫“3×4”很安全；AI 若叫到“7×4”，你需要判断它真的有很多 4，还是在虚张声势。", finish: "当任一方质疑时揭开所有骰子。实际匹配数量达到叫价，质疑者输；数量不足，最后叫价者输。赢一轮得 1 分，可继续开始下一轮。", terms: "叫价 3×4＝声称全桌至少有三个 4（包括可作万能牌的 1）；加注＝提高数量，或数量不变时提高点数；质疑＝认为当前叫价不成立。" },
     mastermind: { role: "这是经典 Bulls and Cows（几A几B）数字推理。AI 从 0–9 中秘密选择四个不重复数字，包括 0123 这样的前导零密码。你看到的不是答案，而是逐轮反馈形成的信息集。", example: "例：答案假设为 0-3-5-6，你猜 0-2-6-4。数字 0 的位置也正确，因此位置正确为 1；数字 6 存在但位置错误，因此错位正确为 1；2 和 4 不在密码中。", finish: "十次之内得到 4 个位置正确即获胜；十次仍未破解则答案揭晓。建议策略最小化下一轮最大的反馈分组，再比较平均剩余候选；它是强而快速的单步 minimax 启发式，不是已经证明的全局最少平均步数策略。", terms: "候选数量＝与全部历史反馈一致的密码数；信息集＝你当前无法区分的所有候选；最坏剩余＝采用该建议后，无论收到哪种反馈，最大反馈分组的大小。" },
+    "guess-who": { role: "AI 秘密选择一张身份卡，但所有人的外貌属性和全部问题都公开。你的任务不是靠运气点人，而是利用每次公开的是非答案系统地缩小信息集。", example: "例：还剩 Ada、Bruno、Cleo、Dante 四人，其中两人戴眼镜。提问“是否戴眼镜？”无论答案是什么都只剩两人，因此是 2/2 的平衡切分；4/0 的问题则完全没有信息。", finish: "确认正确身份立即获胜；错误身份会被排除但消耗一回合。第 8 回合仍未猜中则失败并揭晓答案。精确策略在当前固定模型中平均 5.667 回合、最坏 6 回合。", terms: "候选＝与所有公开答案一致的人；信息分割＝问题把候选分成“是/否”两组；期望剩余＝按两种回答概率加权后的平均候选数；精确最优只针对本页固定角色与问题库。" },
     "hidden-pursuit": { role: "你控制两名公开位置的侦探，AI 控制一名隐藏目标。目标每回合必须移动，并公开乘坐出租车还是公交车；只有规定回合才公开实际位置。", example: "例：目标第 3 回合在 8 号节点现身，下一回合公开乘坐公交。你应把候选缩小到所有从 8 号经公交可达、且未被侦探占据的节点，再用 A、B 分别封锁出口。", finish: "任一侦探落到目标所在节点时立即抓捕；如果目标没有合法出口也算被包围。目标完成第 12 次移动仍未被抓则逃脱。", terms: "候选节点＝与所有交通信号、现身记录和落空搜查相容的位置；交通信号＝只公开线路类型，不公开终点；最后现身＝最近一次强制公开的位置，不保证目标现在仍在那里。" },
     battleship: { role: "你和 AI 在相互隔离的海域秘密部署舰队。标准、扩展和大型地图分别为 10×10、12×12、15×15；你只能看到自己的彩色舰船，敌舰通过命中反馈逐步暴露。", example: "例：你把蓝色长度 4 舰旋转为垂直方向，然后向敌方 B7 开火并命中。下一炮打 B8：若再次命中，可沿同一方向搜索；若落空，就要考虑舰船可能纵向延伸。", finish: "一艘船的所有格子都被命中时即被击沉；任一方全部舰船沉没时比赛结束。结束后敌方完整彩色舰队会揭晓，便于复盘。", terms: "旋转 90°＝在水平与垂直之间切换；180°翻转对没有首尾差异的直线舰船不产生新布局；候选部署＝与命中、落空和击沉反馈相容的水平或垂直位置总数。" },
   },
@@ -228,6 +242,7 @@ const ruleDetails = {
     blackjack: { role: "You compare your hand with a fixed-rule dealer. You see one dealer card but not the hole card, so Hit and Stand decisions trade improvement against bust risk.", example: "Example: you have 16 against a dealer 10. Standing often loses to a stronger dealer total; hitting may improve the hand or bust. Basic strategy identifies the better long-run action.", finish: "Bust loses immediately. After you stand or double, the dealer draws automatically; the higher non-bust total wins and equal totals push.", terms: "Hit: draw. Stand: stop. Double: double the stake and draw once. Soft hand: an Ace currently counted as 11. Bust: exceed 21." },
     "liars-dice": { role: "You and the AI each hold five hidden dice. Public bids rise while private dice stay secret, so every bid can be information or a bluff.", example: "Example: two 4s and one wild 1 give you three known matches for face 4. A bid of 3×4 is safe; after the AI raises to 7×4, decide whether its private hand supports that claim.", finish: "A challenge reveals all dice. If the bid's quantity exists, the challenger loses; otherwise the last bidder loses. The winner scores one point.", terms: "3×4 claims at least three 4-matches across both hands. Raise increases quantity or face. Challenge says the current claim is false." },
     mastermind: { role: "This is classic Bulls and Cows. The AI secretly chooses four distinct digits from 0–9, including leading-zero codes such as 0123. Public feedback transforms the set of hidden worlds after every guess.", example: "If the code is 0-3-5-6 and you guess 0-2-6-4, digit 0 gives one exact match and digit 6 gives one misplaced match; 2 and 4 are absent.", finish: "Four exact matches within ten guesses wins; otherwise the code is revealed. The adviser minimizes the largest next feedback bucket, then expected survivors. It is a strong, responsive one-step minimax heuristic, not a proof of globally minimal average guesses.", terms: "Candidate count is the number of codes consistent with every clue. The information set is the candidates you cannot yet distinguish. Worst-case remaining is the largest possible feedback bucket after the suggested guess." },
+    "guess-who": { role: "The AI secretly selects one identity card, while every visible trait and every permitted question is public. Use truthful yes/no answers to shrink your information set instead of guessing blindly.", example: "Suppose Ada, Bruno, Cleo, and Dante remain and exactly two wear glasses. Asking about glasses creates a 2/2 split, so either answer leaves two candidates. A 4/0 question provides no information and is disabled.", finish: "A correct confirmed identity wins. A wrong identity is eliminated but costs a turn. Failing to identify the person by turn eight reveals the answer. The exact fixed-model policy averages 5.667 turns and needs at most six.", terms: "Candidate means consistent with every public answer. Information split is the Yes/No partition. Expected remaining is the probability-weighted next candidate count. Exact optimality applies only to this roster and question bank." },
     "hidden-pursuit": { role: "You control two visible detectives while the AI controls a hidden fugitive. Every fugitive move publicly reveals Taxi or Bus, but the destination appears only on scheduled reveal rounds.", example: "Example: the fugitive appears at node 8 after round 3, then reports Bus. The next information set is every unblocked node reachable from 8 by a Bus edge; position A and B to cover separate exits.", finish: "Landing on the fugitive captures immediately; leaving no legal escape also counts as containment. The fugitive wins by completing move 12.", terms: "Candidate nodes fit every signal, reveal, and failed search. A transport signal reveals edge type only. Last seen is historical and may not be the current location." },
     battleship: { role: "You and the AI deploy private fleets on separate 10×10, 12×12, or 15×15 seas. You see your individually colored ships only; enemy ships emerge through hit feedback.", example: "Example: rotate the blue length-4 ship vertically, then hit B7. Firing at B8 tests a horizontal extension; a miss makes a vertical ship more plausible.", finish: "A ship sinks when every cell is hit. The match ends when either fleet is gone, then the complete colored enemy fleet is revealed for review.", terms: "Rotate 90° switches horizontal and vertical. A 180° flip creates no new layout for an undirected straight ship. Candidate placements count legal horizontal and vertical positions consistent with feedback." },
   },
@@ -242,7 +257,7 @@ function installRulesButtons() {
   document.querySelectorAll(".game-heading").forEach((heading) => {
     if (heading.querySelector(".rules-button")) return;
     const view = heading.closest(".view");
-    const gameId = { gameView: "cases", wormView: "worm", pirateView: "pirates", pokerView: "kuhn-poker", eCardView: "e-card", rpsView: "restricted-rps", liarView: "liars-dice", blackjackView: "blackjack", mastermindView: "mastermind", pursuitView: "hidden-pursuit", battleshipView: "battleship" }[view?.id];
+    const gameId = { gameView: "cases", wormView: "worm", pirateView: "pirates", pokerView: "kuhn-poker", eCardView: "e-card", rpsView: "restricted-rps", liarView: "liars-dice", blackjackView: "blackjack", mastermindView: "mastermind", guessWhoView: "guess-who", pursuitView: "hidden-pursuit", battleshipView: "battleship" }[view?.id];
     if (!gameId) return;
     const button = document.createElement("button");
     button.className = "rules-button";
@@ -378,6 +393,7 @@ async function startGame(gameId = "cases", options = {}) {
     currentState = result.state;
     currentGameId = gameId;
     if (gameId === "pirates") pirateDraft = currentState.pirates.map(() => 0);
+    if (gameId === "guess-who") guessWhoSelected = null;
     $("#lobbyView").classList.add("hidden");
     $("#gameView").classList.toggle("hidden", gameId !== "cases");
     $("#wormView").classList.toggle("hidden", gameId !== "worm");
@@ -387,6 +403,7 @@ async function startGame(gameId = "cases", options = {}) {
     $("#rpsView").classList.toggle("hidden", gameId !== "restricted-rps");
     $("#liarView").classList.toggle("hidden", gameId !== "liars-dice");
     $("#mastermindView").classList.toggle("hidden", gameId !== "mastermind");
+    $("#guessWhoView").classList.toggle("hidden", gameId !== "guess-who");
     $("#pursuitView").classList.toggle("hidden", gameId !== "hidden-pursuit");
     $("#battleshipView").classList.toggle("hidden", gameId !== "battleship");
     $("#blackjackView").classList.toggle("hidden", gameId !== "blackjack");
@@ -422,6 +439,9 @@ async function act(action, payload = {}) {
     });
     if (controller.signal.aborted) return;
     currentState = result.state;
+    if (currentState.gameId === "guess-who" && ["ask_question", "guess_character", "new_game"].includes(action)) {
+      guessWhoSelected = null;
+    }
     render();
     if (currentState.gameId === "mastermind" && ["submit_guess", "new_game"].includes(action)) {
       $("#mastermindInput").value = "";
@@ -438,6 +458,10 @@ async function act(action, payload = {}) {
 }
 
 function render() {
+  if (currentState.gameId === "guess-who") {
+    renderGuessWho();
+    return;
+  }
   if (currentState.gameId === "hidden-pursuit") {
     renderHiddenPursuit();
     return;
@@ -857,6 +881,128 @@ function renderMastermind() {
     : (language === "zh" ? `机会用尽 · 密码 ${state.result.secret.join("")}` : `Attempts exhausted · ${state.result.secret.join("")}`);
 }
 
+function renderGuessWho() {
+  const state = currentState;
+  const info = state.informationSet;
+  const stats = state.sessionStats;
+  const suggestion = state.suggestion;
+  const finished = state.phase === "finished";
+  const questionLabels = language === "zh" ? {
+    hair_black: "这个人是黑发吗？", hair_brown: "这个人是棕发吗？",
+    hair_blond: "这个人是金发吗？", hair_red: "这个人是红发吗？",
+    glasses: "这个人戴眼镜吗？", hat: "这个人戴帽子吗？",
+    facial_hair: "这个人有胡须吗？", smiling: "这个人在微笑吗？",
+  } : Object.fromEntries(state.questions.map((question) => [question.id, question.label]));
+  const hairLabels = language === "zh"
+    ? { black: "黑发", brown: "棕发", blond: "金发", red: "红发" }
+    : { black: "black hair", brown: "brown hair", blond: "blond hair", red: "red hair" };
+  const traitLabels = language === "zh"
+    ? { glasses: "眼镜", hat: "帽子", facialHair: "胡须", smiling: "微笑" }
+    : { glasses: "glasses", hat: "hat", facialHair: "facial hair", smiling: "smiling" };
+
+  if (guessWhoSelected && !info.possibleNames.includes(guessWhoSelected)) guessWhoSelected = null;
+  $("#guessWhoBoardHelp").textContent = language === "zh"
+    ? "点击仍亮起的角色进行选择，再点击确认；错误猜测会消耗一回合并排除该角色。"
+    : "Select any highlighted character, then confirm your guess. A wrong guess costs one turn and eliminates that character.";
+  $("#guessWhoTurns").textContent = `${state.turnsUsed} / ${state.maxTurns}`;
+  $("#guessWhoCandidates").textContent = info.possibleCount;
+  $("#guessWhoOptimal").textContent = suggestion?.projectedExpectedTurns?.toFixed(3) ?? "—";
+  $("#guessWhoBest").textContent = stats.bestTurns === null
+    ? "—"
+    : `${stats.bestTurns} ${language === "zh" ? "步" : "turns"}`;
+
+  if (finished) {
+    $("#guessWhoHeadline").textContent = state.result.won
+      ? (language === "zh" ? "身份锁定，推理成功" : "Identity locked — case solved")
+      : (language === "zh" ? "回合用尽，身份已经揭晓" : "Out of turns — identity revealed");
+    $("#guessWhoInstruction").textContent = language === "zh"
+      ? `秘密角色是 ${state.result.secret}。查看记录，比较每个问题排除了多少候选人。`
+      : `The secret character was ${state.result.secret}. Review how many candidates each clue removed.`;
+  } else if (info.possibleCount === 1) {
+    $("#guessWhoHeadline").textContent = language === "zh" ? "只剩一人：完成最终猜测" : "One candidate remains: make the final guess";
+    $("#guessWhoInstruction").textContent = language === "zh"
+      ? "问题只负责缩小范围；最后仍需猜中角色才算获胜。"
+      : "Questions narrow the field, but you must still name the character to win.";
+  } else {
+    $("#guessWhoHeadline").textContent = language === "zh" ? "提出问题，逐步排除角色" : "Ask a question and eliminate characters";
+    $("#guessWhoInstruction").textContent = language === "zh"
+      ? `AI 的身份始终隐藏。你还有 ${state.maxTurns - state.turnsUsed} 步，可以提问或直接猜人。`
+      : `The AI's identity stays hidden. You have ${state.maxTurns - state.turnsUsed} turns left to ask or guess.`;
+  }
+
+  $("#guessWhoQuestions").innerHTML = state.questions.map((question) => {
+    const disabled = finished || question.used || !question.informative;
+    const status = question.used
+      ? (language === "zh" ? "已经问过" : "Already asked")
+      : !question.informative
+        ? (language === "zh" ? "无法继续区分" : "No longer informative")
+        : (language === "zh" ? `是 ${question.yesCount} 人 · 否 ${question.noCount} 人` : `Yes ${question.yesCount} · No ${question.noCount}`);
+    return `<button class="guess-question ${suggestion?.questionId === question.id ? "recommended" : ""}" data-guess-question="${question.id}" ${disabled ? "disabled" : ""}>
+      <strong>${questionLabels[question.id]}</strong>
+      <span class="split">${question.informative ? `${question.yesCount}/${question.noCount}` : "—"}</span>
+      <small>${status}</small>
+    </button>`;
+  }).join("");
+  document.querySelectorAll("[data-guess-question]:not(:disabled)").forEach((button) => {
+    button.addEventListener("click", () => act("ask_question", { questionId: button.dataset.guessQuestion }));
+  });
+
+  if (!suggestion) {
+    $("#guessWhoSuggestion").textContent = language === "zh" ? "本局已经结束" : "Round complete";
+    $("#guessWhoSuggestionDetail").textContent = language === "zh" ? "重新开始即可生成新的秘密身份。" : "Start again for a new secret identity.";
+  } else if (suggestion.type === "guess") {
+    $("#guessWhoSuggestion").textContent = language === "zh" ? `猜 ${suggestion.character}` : `Guess ${suggestion.character}`;
+    $("#guessWhoSuggestionDetail").textContent = language === "zh"
+      ? "公开答案只与这一名角色一致；再用一步提交最终猜测。"
+      : "Only this character matches every public answer; spend one turn to submit the final guess.";
+  } else {
+    $("#guessWhoSuggestion").textContent = questionLabels[suggestion.questionId];
+    $("#guessWhoSuggestionDetail").textContent = language === "zh"
+      ? `精确动态规划建议把候选分成 ${suggestion.yesCount} / ${suggestion.noCount}；最坏剩 ${suggestion.worstRemaining} 人，预计从现在到猜中共 ${suggestion.projectedExpectedTurns.toFixed(3)} 步。`
+      : `Exact dynamic programming splits the field ${suggestion.yesCount}/${suggestion.noCount}; at worst ${suggestion.worstRemaining} remain, with ${suggestion.projectedExpectedTurns.toFixed(3)} expected turns to a final guess.`;
+  }
+  $("#guessWhoUseSuggestion").disabled = finished || !suggestion;
+  $("#guessWhoUseSuggestion").onclick = () => {
+    if (!currentState?.suggestion || currentState.phase !== "playing") return;
+    const advice = currentState.suggestion;
+    if (advice.type === "guess") act("guess_character", { name: advice.character });
+    else act("ask_question", { questionId: advice.questionId });
+  };
+
+  $("#guessWhoGrid").innerHTML = state.characters.map((character) => {
+    const traits = [hairLabels[character.hair]];
+    Object.keys(traitLabels).forEach((trait) => { if (character[trait]) traits.push(traitLabels[trait]); });
+    const classes = [!character.possible ? "eliminated" : "", guessWhoSelected === character.name ? "selected" : "", character.secret ? "secret" : ""].filter(Boolean).join(" ");
+    const aria = language === "zh" ? `选择 ${character.name} 作为最终猜测` : `Select ${character.name} as the final guess`;
+    return `<button class="guess-character ${classes}" data-guess-character="${character.name}" ${!character.possible || finished ? "disabled" : ""} aria-label="${aria}">
+      <span class="guess-avatar hair-${character.hair}"><b>${character.name.slice(0, 1)}</b></span>
+      <strong>${character.name}</strong>
+      <span class="guess-traits">${traits.map((trait) => `<span>${trait}</span>`).join("")}</span>
+    </button>`;
+  }).join("");
+  document.querySelectorAll("[data-guess-character]:not(:disabled)").forEach((button) => {
+    button.addEventListener("click", () => { guessWhoSelected = button.dataset.guessCharacter; renderGuessWho(); });
+  });
+  $("#guessWhoSelected").textContent = guessWhoSelected
+    ? (language === "zh" ? `准备猜：${guessWhoSelected}` : `Ready to guess: ${guessWhoSelected}`)
+    : (finished ? (language === "zh" ? `答案：${state.result.secret}` : `Answer: ${state.result.secret}`) : (language === "zh" ? "尚未选择要猜的角色" : "No character selected"));
+  $("#guessWhoConfirm").disabled = finished || !guessWhoSelected;
+
+  $("#guessWhoInformation").textContent = language === "zh"
+    ? `根据 ${state.history.filter((item) => item.action === "question").length} 个公开答案，目前 ${info.possibleCount} 个身份仍有可能。被划掉的角色与至少一条答案矛盾。`
+    : `After ${state.history.filter((item) => item.action === "question").length} public answers, ${info.possibleCount} identities remain possible. Every crossed-out character contradicts at least one answer.`;
+  $("#guessWhoPossible").innerHTML = info.possibleNames.map((name) => `<span>${name}</span>`).join("");
+  $("#guessWhoHistory").innerHTML = state.history.length ? state.history.slice().reverse().map((item) => {
+    if (item.action === "question") return `<div><small>${language === "zh" ? `第 ${item.turn} 步` : `Turn ${item.turn}`}</small><span>${questionLabels[item.questionId]}</span><strong>${item.answer ? (language === "zh" ? "是" : "YES") : (language === "zh" ? "否" : "NO")}</strong><small></small><small>${item.beforeCandidates} → ${item.afterCandidates}</small></div>`;
+    return `<div><small>${language === "zh" ? `第 ${item.turn} 步` : `Turn ${item.turn}`}</small><span>${language === "zh" ? `猜 ${item.character}` : `Guessed ${item.character}`}</span><strong>${item.correct ? (language === "zh" ? "正确" : "CORRECT") : (language === "zh" ? "错误" : "WRONG")}</strong><small></small><small>${item.beforeCandidates} → ${item.afterCandidates}</small></div>`;
+  }).join("") : `<p>${language === "zh" ? "还没有公开记录。先选择一个问题；标出的数字表示回答“是/否”各会剩多少人。" : "No public record yet. Ask a question first; its two numbers show how many candidates survive Yes versus No."}</p>`;
+
+  $("#guessWhoResult").classList.toggle("hidden", !finished);
+  if (finished) $("#guessWhoResult").textContent = state.result.won
+    ? (language === "zh" ? `推理成功 · ${state.result.secret} · ${state.result.turns} 步` : `Solved · ${state.result.secret} · ${state.result.turns} turns`)
+    : (language === "zh" ? `本局结束 · 答案是 ${state.result.secret}` : `Round over · The answer was ${state.result.secret}`);
+}
+
 function renderECard() {
   const state = currentState;
   const cardNames = language === "zh"
@@ -1173,6 +1319,7 @@ function showLobby() {
   $("#rpsView").classList.add("hidden");
   $("#liarView").classList.add("hidden");
   $("#mastermindView").classList.add("hidden");
+  $("#guessWhoView").classList.add("hidden");
   $("#pursuitView").classList.add("hidden");
   $("#battleshipView").classList.add("hidden");
   $("#blackjackView").classList.add("hidden");
@@ -1193,6 +1340,10 @@ $("#newECardMatch").addEventListener("click", () => startGame("e-card"));
 $("#newRpsMatch").addEventListener("click", () => startGame("restricted-rps"));
 $("#newLiarMatch").addEventListener("click", () => startGame("liars-dice"));
 $("#newBlackjackMatch").addEventListener("click", () => startGame("blackjack"));
+$("#guessWhoNew").addEventListener("click", () => startGame("guess-who"));
+$("#guessWhoConfirm").addEventListener("click", () => {
+  if (guessWhoSelected) act("guess_character", { name: guessWhoSelected });
+});
 $("#newPursuitMatch").addEventListener("click", () => startGame("hidden-pursuit"));
 $("#newBattleshipMatch").addEventListener("click", () => startGame("battleship"));
 $("#battleRandomize").addEventListener("click", () => act("randomize_fleet"));

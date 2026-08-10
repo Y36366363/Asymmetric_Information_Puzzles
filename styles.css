@@ -454,6 +454,55 @@ input:focus-visible {
 .candidate-preview span { padding: 7px 9px; border: 1px solid #36566b; background: #112b3b; color: #b9d8e8; font: 600 13px ui-monospace, monospace; letter-spacing: .12em; }
 .strategy-scope { padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.65; }
 
+.guess-who-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
+.guess-who-score div { padding: 12px 18px; text-align: center; border-right: 1px solid var(--line); }
+.guess-who-score div:last-child { border-right: 0; }
+.guess-who-score span { color: var(--muted); font-size: 11px; letter-spacing: .08em; }
+.guess-who-score strong { display: block; margin-top: 8px; color: var(--gold-soft); font: 500 24px Georgia, serif; }
+.guess-who-controls { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(270px, .65fr); gap: 22px; padding: clamp(24px, 4vw, 44px); background: radial-gradient(circle at 20% 20%, #3e2d47 0, #211b2a 45%, #15151a 100%); }
+.guess-who-controls > div:first-child { grid-column: 1; }
+.guess-who-controls h2 { margin: 5px 0 10px; font: 500 clamp(24px, 3vw, 36px) Georgia, "Songti SC", serif; }
+.guess-who-controls h2 + p { color: #bbb1c4; line-height: 1.65; }
+.guess-who-question-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.guess-question { min-width: 0; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; padding: 13px 14px; color: var(--ink); border: 1px solid #695478; background: rgba(31,24,38,.84); text-align: left; cursor: pointer; }
+.guess-question strong { font-size: 13px; }
+.guess-question small { grid-column: 1 / -1; color: #b6a7bf; }
+.guess-question .split { align-self: center; color: var(--gold-soft); font: 700 12px ui-monospace, monospace; }
+.guess-question:disabled { opacity: .34; cursor: not-allowed; }
+.guess-question.recommended { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(211,168,77,.14); }
+.guess-who-advisor { grid-column: 2; grid-row: 1 / span 2; padding: 22px; border: 1px solid rgba(233,206,137,.33); background: rgba(11,10,14,.4); }
+.guess-who-advisor > span { color: var(--muted); font-size: 11px; letter-spacing: .1em; }
+.guess-who-advisor strong { display: block; margin: 16px 0 10px; color: var(--gold-soft); font: 500 24px Georgia, serif; }
+.guess-who-advisor p { min-height: 70px; color: #b9b0bf; line-height: 1.65; }
+.guess-who-advisor button { width: 100%; margin-top: 10px; }
+.guess-who-result { grid-column: 1 / -1; padding: 16px 20px; border: 1px solid var(--gold); color: var(--gold-soft); text-align: center; font: 500 21px Georgia, serif; }
+.guess-who-board-panel { margin-top: 18px; }
+.guess-who-board-help { margin: 12px 0 18px; color: var(--muted); line-height: 1.6; }
+.guess-who-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+.guess-character { min-width: 0; padding: 12px 8px; color: var(--ink); border: 1px solid #5c5063; background: linear-gradient(160deg, #332b38, #211e24); cursor: pointer; transition: transform .15s ease, opacity .15s ease; }
+.guess-character:hover:not(:disabled) { transform: translateY(-2px); border-color: var(--gold); }
+.guess-character.eliminated { opacity: .25; filter: grayscale(1); cursor: not-allowed; }
+.guess-character.selected { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(211,168,77,.2); }
+.guess-character.secret { border-color: #70bd80; box-shadow: 0 0 0 3px rgba(81,151,96,.2); }
+.guess-avatar { --hair: #3d2a22; position: relative; width: 58px; height: 58px; display: grid; place-items: center; margin: 0 auto 10px; overflow: hidden; border: 2px solid #dbc899; border-radius: 50%; background: #d7ad83; color: #342218; font: 700 21px Georgia, serif; }
+.guess-avatar::before { content: ""; position: absolute; inset: 0 0 58% 0; background: var(--hair); }
+.guess-avatar.hair-black { --hair: #161619; }
+.guess-avatar.hair-brown { --hair: #60412d; }
+.guess-avatar.hair-blond { --hair: #d8b85c; }
+.guess-avatar.hair-red { --hair: #a54a32; }
+.guess-avatar b { position: relative; z-index: 1; margin-top: 12px; }
+.guess-character > strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 500 16px Georgia, serif; }
+.guess-traits { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; min-height: 38px; margin-top: 8px; }
+.guess-traits span { padding: 3px 5px; border-radius: 999px; background: #18161a; color: #bcb1c2; font-size: 9px; }
+.guess-who-confirm-row { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.guess-who-confirm-row span { color: var(--muted); }
+.guess-who-lower { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+.guess-who-possible { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+.guess-who-possible span { padding: 6px 8px; border: 1px solid #66536e; color: #d9cde0; background: #261f2b; font-size: 11px; }
+.guess-who-history { max-height: 340px; overflow: auto; }
+.guess-who-history div { display: grid; grid-template-columns: 55px 1fr auto; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.guess-who-history span, .guess-who-history small { color: var(--muted); }
+
 .pursuit-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
 .pursuit-score div { padding: 12px 18px; text-align: center; border-right: 1px solid var(--line); }
 .pursuit-score div:last-child { border-right: 0; }
@@ -607,6 +656,16 @@ button.battle-cell:disabled { cursor: default; }
   .mastermind-input-row button { width: min(100%, 240px); }
   .mastermind-history .mastermind-attempt { grid-template-columns: 28px 1fr auto; }
   .mastermind-history .feedback-chip.partial { grid-column: 3; }
+  .guess-who-score { grid-template-columns: 1fr 1fr; }
+  .guess-who-score div:nth-child(2) { border-right: 0; }
+  .guess-who-score div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .guess-who-controls { grid-template-columns: 1fr; }
+  .guess-who-advisor { grid-column: auto; grid-row: auto; }
+  .guess-who-question-grid { grid-template-columns: 1fr; }
+  .guess-who-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .guess-who-lower { grid-template-columns: 1fr; }
+  .guess-who-confirm-row { align-items: stretch; flex-direction: column; }
+  .guess-who-confirm-row button { width: 100%; }
   .pursuit-score { grid-template-columns: 1fr 1fr; }
   .pursuit-score div:nth-child(2) { border-right: 0; }
   .pursuit-score div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
