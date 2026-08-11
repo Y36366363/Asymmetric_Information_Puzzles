@@ -214,6 +214,33 @@ input:focus-visible {
 .deal-button { color: #17130c; border: 1px solid var(--gold); background: var(--gold); font-weight: 800; }
 .no-deal-button { color: var(--ink); border: 1px solid #605d54; background: transparent; }
 .toast { position: fixed; left: 50%; bottom: 28px; z-index: 20; transform: translateX(-50%); padding: 12px 18px; color: #fff; background: var(--red); box-shadow: var(--shadow); }
+.operation-status {
+  position: fixed;
+  top: 84px;
+  right: clamp(18px, 4vw, 64px);
+  z-index: 18;
+  padding: 9px 13px 9px 31px;
+  color: #17130c;
+  border-radius: 999px;
+  background: var(--gold-soft);
+  box-shadow: var(--shadow);
+  font-size: 12px;
+  font-weight: 800;
+}
+.operation-status::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin-top: -5px;
+  border: 2px solid rgba(23, 19, 12, .28);
+  border-top-color: #17130c;
+  border-radius: 50%;
+  animation: operation-spin .7s linear infinite;
+}
+@keyframes operation-spin { to { transform: rotate(360deg); } }
 
 .worm-stage { padding: clamp(26px, 5vw, 64px); text-align: center; }
 .worm-copy h2 { margin: 14px 0 8px; font: 500 clamp(28px, 4vw, 46px) Georgia, "Songti SC", serif; }

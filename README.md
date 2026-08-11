@@ -7,6 +7,15 @@
 
 ## Updates 08/12/2026
 
+- **Clear cross-game operation feedback** — Added one bilingual, accessible
+  processing indicator shared by session creation, restarts, and every game
+  action, so clicks never appear to be silently ignored while the UI is locked.
+- **Safer local-service boundaries** — Prevented oversized or invalid-length
+  JSON bodies from being read, disabled stale caching for local UI assets, and
+  added regression coverage around the request boundary.
+- **One-command architecture verification** — Added `scripts/verify.py` to run
+  the Python suite, rebuild the zero-backend public mirror, and test the browser
+  engine with an explicit Node fallback for environments without global `npm`.
 - **History-aware game navigation** — Added stable `#lobby` and `#game/<id>`
   routes so browser Back and Forward move between the lobby and an active game
   instead of unexpectedly leaving the site. Direct game routes also recover
@@ -17,7 +26,7 @@
   first-visit tutorial).
 - **Daily cross-runtime verification** — Rebuilt the zero-backend public mirror,
   exercised the local lobby and Pirate Council in a real browser, checked clean
-  browser logs and route/focus behavior, and passed all 126 Python plus 10 web
+  browser logs and route/focus behavior, and passed all 129 Python plus 10 web
   engine/build tests.
 
 ## Updates 08/10/2026
@@ -863,5 +872,8 @@ transition, and information abstractions stay dependency-free in `core`.
 ## Tests
 
 ```bash
-PYTHONPATH=src python -m unittest discover -s tests -v
+python scripts/verify.py
 ```
+
+If Node.js is not on `PATH`, pass it explicitly with
+`python scripts/verify.py --node /path/to/node` or set `AIP_NODE`.

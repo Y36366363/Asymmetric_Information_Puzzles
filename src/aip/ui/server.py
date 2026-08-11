@@ -17,6 +17,7 @@ from aip.ui.registry import LocalGameService, build_default_registry
 
 
 STATIC_ROOT = files("aip.ui").joinpath("static")
+MAX_REQUEST_BYTES = 1_000_000
 
 
 class AIPRequestHandler(BaseHTTPRequestHandler):
@@ -74,6 +75,13 @@ class AIPRequestHandler(BaseHTTPRequestHandler):
     def _read_json(self) -> dict[str, object]:
         try:
             length = int(self.headers.get("Content-Length", "0"))
+        except ValueError as error:
+            raise ValueError("request body must be valid JSON") from error
+        if length < 0 or length > MAX_REQUEST_BYTES:
+            raise ValueError(
+                f"request body must be between 0 and {MAX_REQUEST_BYTES} bytes"
+            )
+        try:
             payload = json.loads(self.rfile.read(length) or b"{}")
         except (ValueError, json.JSONDecodeError) as error:
             raise ValueError("request body must be valid JSON") from error
@@ -103,6 +111,7 @@ class AIPRequestHandler(BaseHTTPRequestHandler):
         self.send_response(HTTPStatus.OK)
         self.send_header("Content-Type", f"{content_type}; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-cache")
         self.end_headers()
         self.wfile.write(body)
 

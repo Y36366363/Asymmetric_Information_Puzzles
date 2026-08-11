@@ -1,3 +1,4 @@
+import io
 import unittest
 import json
 import threading
@@ -13,7 +14,7 @@ from aip.ui.registry import (
     RestrictedRPSSession,
     build_default_registry,
 )
-from aip.ui.server import AIPRequestHandler
+from aip.ui.server import AIPRequestHandler, MAX_REQUEST_BYTES
 
 
 class LocalGameUITests(unittest.TestCase):
@@ -460,6 +461,32 @@ class LocalGameUITests(unittest.TestCase):
             server.server_close()
             thread.join(timeout=2)
 
+    def test_request_reader_accepts_a_small_json_object(self) -> None:
+        body = b'{"gameId":"worm"}'
+        handler = object.__new__(AIPRequestHandler)
+        handler.headers = {"Content-Length": str(len(body))}
+        handler.rfile = io.BytesIO(body)
+        self.assertEqual(handler._read_json(), {"gameId": "worm"})
+
+    def test_request_reader_rejects_invalid_body_sizes_before_reading(self) -> None:
+        for length in (-1, MAX_REQUEST_BYTES + 1):
+            with self.subTest(length=length):
+                handler = object.__new__(AIPRequestHandler)
+                handler.headers = {"Content-Length": str(length)}
+                handler.rfile = io.BytesIO(b"{}")
+                with self.assertRaisesRegex(ValueError, "between 0"):
+                    handler._read_json()
+
+    def test_local_static_assets_are_always_revalidated(self) -> None:
+        headers = []
+        handler = object.__new__(AIPRequestHandler)
+        handler.send_response = lambda status: None
+        handler.send_header = lambda name, value: headers.append((name, value))
+        handler.end_headers = lambda: None
+        handler.wfile = io.BytesIO()
+        handler._static("app.js")
+        self.assertIn(("Cache-Control", "no-cache"), headers)
+
     def test_lobby_assets_include_language_and_github_navigation(self) -> None:
         html = files("aip.ui").joinpath("static/index.html").read_text()
         script = files("aip.ui").joinpath("static/app.js").read_text()
@@ -473,6 +500,8 @@ class LocalGameUITests(unittest.TestCase):
         self.assertIn('window.history.replaceState(null, "", "#lobby")', script)
         self.assertIn('window.requestAnimationFrame(() => $("#rulesClose").focus())', script)
         self.assertIn('event.key !== "Tab"', script)
+        self.assertIn("setOperationPending", script)
+        self.assertIn('id="operationStatus"', html)
 
     def test_worm_position_is_hidden_while_playing(self) -> None:
         created = self.service.create_session("worm", {"seed": 5})

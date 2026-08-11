@@ -35,6 +35,8 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /A wrong guess costs one turn/);
   assert.match(app, /aip-rules-seen-/);
   assert.match(app, /actionPending/);
+  assert.match(app, /setOperationPending/);
+  assert.match(html, /id="operationStatus"[^>]*aria-live="polite"/);
   assert.match(app, /new AbortController/);
   assert.match(app, /readPreference/);
   assert.match(app, /clearTimeout\(toastTimer\)/);

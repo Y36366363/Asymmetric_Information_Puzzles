@@ -96,7 +96,7 @@ const copy = {
     unallocated: "尚未分配", yourProposal: "你的提案", submitProposal: "提交提案并投票",
     pirateInstruction: "你是最资深的 A。为每名海盗分配金币，然后让所有人同时投票。",
     backwardBenchmark: "逆向归纳基准", bankerOffer: "银行家报价", acceptOffer: "接受报价",
-    rejectOffer: "拒绝，继续开箱", operationFailed: "操作失败",
+    rejectOffer: "拒绝，继续开箱", operationFailed: "操作失败", operationPending: "正在处理，请稍候…",
     connectionFailed: "连接暂时失败，请检查网络后重试。", invalidResponse: "页面收到异常响应，请刷新后重试。",
     sessionExpired: "这局临时游戏已经过期，请重新开始。",
   },
@@ -159,7 +159,7 @@ const copy = {
     unallocated: "Unallocated", yourProposal: "Your proposal", submitProposal: "Submit proposal and vote",
     pirateInstruction: "You are A, the most senior pirate. Allocate gold to every pirate, then call a simultaneous vote.",
     backwardBenchmark: "Backward-induction benchmark", bankerOffer: "Banker's offer", acceptOffer: "Deal",
-    rejectOffer: "No deal — keep opening", operationFailed: "Action failed",
+    rejectOffer: "No deal — keep opening", operationFailed: "Action failed", operationPending: "Working…",
     connectionFailed: "Connection failed. Check your network and try again.", invalidResponse: "The page received an invalid response. Refresh and try again.",
     sessionExpired: "This temporary game has expired. Please start a new game.",
   },
@@ -319,11 +319,20 @@ function closeRules() {
 
 function tr(key) { return copy[language][key] ?? key; }
 
+function setOperationPending(pending) {
+  actionPending = pending;
+  document.querySelector("main").toggleAttribute("aria-busy", pending);
+  const status = $("#operationStatus");
+  status.textContent = tr("operationPending");
+  status.classList.toggle("hidden", !pending);
+}
+
 function applyLanguage() {
   document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
   document.title = language === "zh" ? "AIP · 非对称博弈实验室" : "AIP · Asymmetric Games Lab";
   $("#homeButton").setAttribute("aria-label", language === "zh" ? "返回游戏大厅" : "Return to game lobby");
   $("#rulesClose").setAttribute("aria-label", tr("closeRules"));
+  $("#operationStatus").textContent = tr("operationPending");
   money = new Intl.NumberFormat(language === "zh" ? "zh-CN" : "en-US", { maximumFractionDigits: 2 });
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     element.textContent = tr(element.dataset.i18n);
@@ -449,8 +458,7 @@ async function startGame(gameId = "cases", options = {}) {
   if (actionPending) return;
   const controller = new AbortController();
   activeOperation = controller;
-  actionPending = true;
-  document.querySelector("main").setAttribute("aria-busy", "true");
+  setOperationPending(true);
   try {
     const gameOptions = gameId === "cases"
       ? { riskTolerance: 100000, ...options }
@@ -477,8 +485,7 @@ async function startGame(gameId = "cases", options = {}) {
   } finally {
     if (activeOperation === controller) {
       activeOperation = null;
-      actionPending = false;
-      document.querySelector("main").removeAttribute("aria-busy");
+      setOperationPending(false);
     }
   }
 }
@@ -487,8 +494,7 @@ async function act(action, payload = {}) {
   if (actionPending) return;
   const controller = new AbortController();
   activeOperation = controller;
-  actionPending = true;
-  document.querySelector("main").setAttribute("aria-busy", "true");
+  setOperationPending(true);
   try {
     const result = await request(`/api/sessions/${sessionId}/actions`, {
       method: "POST",
@@ -509,8 +515,7 @@ async function act(action, payload = {}) {
   } finally {
     if (activeOperation === controller) {
       activeOperation = null;
-      actionPending = false;
-      document.querySelector("main").removeAttribute("aria-busy");
+      setOperationPending(false);
     }
   }
 }
@@ -1365,8 +1370,7 @@ function findCase(caseId) {
 function showLobby() {
   if (activeOperation) activeOperation.abort();
   activeOperation = null;
-  actionPending = false;
-  document.querySelector("main").removeAttribute("aria-busy");
+  setOperationPending(false);
   if (openRulesGameId) closeRules();
   $("#offerModal").classList.add("hidden");
   $("#gameView").classList.add("hidden");
