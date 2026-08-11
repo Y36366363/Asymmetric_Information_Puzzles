@@ -5,6 +5,21 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/12/2026
+
+- **History-aware game navigation** — Added stable `#lobby` and `#game/<id>`
+  routes so browser Back and Forward move between the lobby and an active game
+  instead of unexpectedly leaving the site. Direct game routes also recover
+  safely, while invalid routes return to the lobby.
+- **Keyboard-safe rule dialogs** — Rules now receive focus when opened, keep
+  keyboard focus inside the modal, close with Escape, and return focus to the
+  control that opened them (or the visible Rules button after an automatic
+  first-visit tutorial).
+- **Daily cross-runtime verification** — Rebuilt the zero-backend public mirror,
+  exercised the local lobby and Pirate Council in a real browser, checked clean
+  browser logs and route/focus behavior, and passed all 126 Python plus 10 web
+  engine/build tests.
+
 ## Updates 08/10/2026
 
 - **Playable Guess Who identity lab** — Promoted the researched 24-character

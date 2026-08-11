@@ -15,9 +15,26 @@ let lobbyGames = [];
 let pirateDraft = [];
 let guessWhoSelected = null;
 let openRulesGameId = null;
+let rulesReturnFocus = null;
 let actionPending = false;
 let activeOperation = null;
 let toastTimer = null;
+let routeReady = false;
+
+const gameViews = {
+  cases: "gameView",
+  worm: "wormView",
+  pirates: "pirateView",
+  "kuhn-poker": "pokerView",
+  "e-card": "eCardView",
+  "restricted-rps": "rpsView",
+  "liars-dice": "liarView",
+  mastermind: "mastermindView",
+  "guess-who": "guessWhoView",
+  "hidden-pursuit": "pursuitView",
+  battleship: "battleshipView",
+  blackjack: "blackjackView",
+};
 
 const copy = {
   zh: {
@@ -269,6 +286,7 @@ function installRulesButtons() {
 }
 
 function openRules(gameId) {
+  if (!openRulesGameId) rulesReturnFocus = document.activeElement;
   openRulesGameId = gameId;
   const lines = rulesCopy[language][gameId] || [];
   const details = ruleDetails[language][gameId] || {};
@@ -284,9 +302,20 @@ function openRules(gameId) {
     <section class="rules-terms"><h3>${labels.terms}</h3><p>${details.terms || ""}</p></section>`;
   $("#rulesModal").classList.remove("hidden");
   $("#rulesModal .rules-card").scrollTop = 0;
+  window.requestAnimationFrame(() => $("#rulesClose").focus());
 }
 
-function closeRules() { openRulesGameId = null; $("#rulesModal").classList.add("hidden"); }
+function closeRules() {
+  if (!openRulesGameId) return;
+  const gameId = openRulesGameId;
+  const returnFocus = rulesReturnFocus;
+  openRulesGameId = null;
+  rulesReturnFocus = null;
+  $("#rulesModal").classList.add("hidden");
+  const fallback = document.querySelector(`[data-rules-game="${gameId}"]`);
+  const target = returnFocus?.getClientRects().length ? returnFocus : fallback;
+  target?.focus();
+}
 
 function tr(key) { return copy[language][key] ?? key; }
 
@@ -352,6 +381,8 @@ async function loadLobby() {
   const { games } = await request("/api/games");
   lobbyGames = games;
   renderLobby();
+  routeReady = true;
+  await applyRoute();
 }
 
 function renderLobby() {
@@ -369,8 +400,49 @@ function renderLobby() {
     </button>
   `; }).join("");
   document.querySelectorAll(".game-card:not(:disabled)").forEach((button) => {
-    button.addEventListener("click", () => startGame(button.dataset.game));
+    button.addEventListener("click", () => navigateToGame(button.dataset.game));
   });
+}
+
+function routeGameId() {
+  const match = window.location.hash.match(/^#game\/([^/]+)$/);
+  if (!match) return null;
+  try { return decodeURIComponent(match[1]); } catch (_error) { return null; }
+}
+
+function navigateToGame(gameId) {
+  const hash = `#game/${encodeURIComponent(gameId)}`;
+  if (window.location.hash === hash) startGame(gameId);
+  else window.location.hash = hash;
+}
+
+function navigateToLobby() {
+  if (window.location.hash === "#lobby") showLobby();
+  else window.location.hash = "#lobby";
+}
+
+async function applyRoute() {
+  if (!routeReady) return;
+  const gameId = routeGameId();
+  const available = lobbyGames.some((game) => game.id === gameId && game.available);
+  if (gameId && available) {
+    if (currentGameId === gameId && currentState) showGameView(gameId);
+    else await startGame(gameId);
+    return;
+  }
+  if (window.location.hash !== "#lobby") {
+    window.history.replaceState(null, "", "#lobby");
+  }
+  showLobby();
+}
+
+function showGameView(gameId) {
+  $("#lobbyView").classList.add("hidden");
+  Object.entries(gameViews).forEach(([id, viewId]) => {
+    $(`#${viewId}`).classList.toggle("hidden", id !== gameId);
+  });
+  window.scrollTo(0, 0);
+  render();
 }
 
 async function startGame(gameId = "cases", options = {}) {
@@ -394,21 +466,7 @@ async function startGame(gameId = "cases", options = {}) {
     currentGameId = gameId;
     if (gameId === "pirates") pirateDraft = currentState.pirates.map(() => 0);
     if (gameId === "guess-who") guessWhoSelected = null;
-    $("#lobbyView").classList.add("hidden");
-    $("#gameView").classList.toggle("hidden", gameId !== "cases");
-    $("#wormView").classList.toggle("hidden", gameId !== "worm");
-    $("#pirateView").classList.toggle("hidden", gameId !== "pirates");
-    $("#pokerView").classList.toggle("hidden", gameId !== "kuhn-poker");
-    $("#eCardView").classList.toggle("hidden", gameId !== "e-card");
-    $("#rpsView").classList.toggle("hidden", gameId !== "restricted-rps");
-    $("#liarView").classList.toggle("hidden", gameId !== "liars-dice");
-    $("#mastermindView").classList.toggle("hidden", gameId !== "mastermind");
-    $("#guessWhoView").classList.toggle("hidden", gameId !== "guess-who");
-    $("#pursuitView").classList.toggle("hidden", gameId !== "hidden-pursuit");
-    $("#battleshipView").classList.toggle("hidden", gameId !== "battleship");
-    $("#blackjackView").classList.toggle("hidden", gameId !== "blackjack");
-    window.scrollTo(0, 0);
-    render();
+    showGameView(gameId);
     const rulesSeenKey = `aip-rules-seen-${gameId}`;
     if (!readPreference(rulesSeenKey)) {
       writePreference(rulesSeenKey, "1");
@@ -1327,11 +1385,11 @@ function showLobby() {
   window.scrollTo(0, 0);
 }
 
-$("#homeButton").addEventListener("click", showLobby);
+$("#homeButton").addEventListener("click", navigateToLobby);
 $("#languageZh").addEventListener("click", () => setLanguage("zh"));
 $("#languageEn").addEventListener("click", () => setLanguage("en"));
-$("#backButton").addEventListener("click", showLobby);
-document.querySelectorAll(".back-to-lobby").forEach((button) => button.addEventListener("click", showLobby));
+$("#backButton").addEventListener("click", navigateToLobby);
+document.querySelectorAll(".back-to-lobby").forEach((button) => button.addEventListener("click", navigateToLobby));
 $("#newGameButton").addEventListener("click", () => startGame("cases"));
 $("#newWormButton").addEventListener("click", () => startGame("worm"));
 $("#newPirateButton").addEventListener("click", () => startGame("pirates"));
@@ -1381,6 +1439,18 @@ $("#dealButton").addEventListener("click", () => act("deal"));
 $("#noDealButton").addEventListener("click", () => act("no_deal"));
 $("#rulesClose").addEventListener("click", closeRules);
 $("#rulesModal").addEventListener("click", (event) => { if (event.target.id === "rulesModal") closeRules(); });
-document.addEventListener("keydown", (event) => { if (event.key === "Escape" && openRulesGameId) closeRules(); });
+document.addEventListener("keydown", (event) => {
+  if (!openRulesGameId) return;
+  if (event.key === "Escape") closeRules();
+  if (event.key !== "Tab") return;
+  const focusable = [...$("#rulesModal").querySelectorAll("button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])")]
+    .filter((element) => !element.disabled && element.getClientRects().length);
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last = focusable.at(-1);
+  if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+  else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+});
+window.addEventListener("hashchange", () => applyRoute().catch((error) => showToast(error.message)));
 applyLanguage();
 loadLobby().catch((error) => showToast(error.message));

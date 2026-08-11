@@ -40,6 +40,10 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /clearTimeout\(toastTimer\)/);
   assert.match(app, /connectionFailed/);
   assert.match(app, /activeOperation/);
+  assert.match(app, /window\.addEventListener\("hashchange"/);
+  assert.match(app, /window\.history\.replaceState\(null, "", "#lobby"\)/);
+  assert.match(app, /requestAnimationFrame\(\(\) => \$\("#rulesClose"\)\.focus\(\)\)/);
+  assert.match(app, /event\.key !== "Tab"/);
   assert.match(html, /id="battleEnemyBoard"/);
   assert.match(html, /id="battleBoardSize"/);
   assert.match(html, /id="pursuitMap"/);

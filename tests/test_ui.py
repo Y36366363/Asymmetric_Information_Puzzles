@@ -469,6 +469,10 @@ class LocalGameUITests(unittest.TestCase):
         self.assertIn('writePreference("aip-language"', script)
         self.assertIn("try { return window.localStorage.getItem(key); }", script)
         self.assertIn("new AbortController()", script)
+        self.assertIn('window.addEventListener("hashchange"', script)
+        self.assertIn('window.history.replaceState(null, "", "#lobby")', script)
+        self.assertIn('window.requestAnimationFrame(() => $("#rulesClose").focus())', script)
+        self.assertIn('event.key !== "Tab"', script)
 
     def test_worm_position_is_hidden_while_playing(self) -> None:
         created = self.service.create_session("worm", {"seed": 5})
