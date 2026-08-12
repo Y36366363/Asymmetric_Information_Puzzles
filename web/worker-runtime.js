@@ -12,6 +12,7 @@ const GAMES = [
   ["guess-who", "猜猜我是谁", "通过公开的是非问题缩小 24 人候选集合，并与精确最优提问策略比较步数。", "单人 · 身份推理与信息分割", true],
   ["hidden-pursuit", "隐形追踪", "控制两名侦探围捕隐藏移动的目标；交通信号公开，但位置只会间歇暴露。", "单人 · 隐藏移动与信念追踪", true],
   ["battleship", "海战棋", "部署自己的舰队，在未知海域中搜索敌舰，并对抗概率热力图 AI。", "单人 · 隐藏部署与概率搜索", true],
+  ["love-letter", "情书决斗", "读取公开弃牌与隐藏手牌，在保护、换牌、试探和点杀之间先赢得四轮。", "单人 · 手牌推断与风险控制", true],
   ["e-card", "E-Card 皇帝牌", "皇帝、市民与奴隶构成不对称循环；用隐藏出牌和高额弱者收益击败策略型 AI。", "单人 · 非对称混合策略", true],
   ["pirates", "海盗议会", "亲自分配 100 枚金币，面对会做逆向归纳的理性海盗投票。", "单人 · 人机投票", true],
   ["kuhn-poker", "库恩扑克", "只用三张牌与策略型 AI 对决：读取下注信号，决定诈唬、跟注或弃牌。", "单人 · 隐藏手牌与诈唬", true],
@@ -258,8 +259,95 @@ class GuessWhoSession{
   snapshot(){const finished=this.phase==="finished",scores={};for(let index=0;index<GUESS_WHO_QUESTIONS.length;index+=1){const bit=1<<index;if(!(this.remaining&bit))continue;const[yes,no]=guessWhoSplit(this.candidates,index);if(yes&&no)scores[GUESS_WHO_QUESTIONS[index].id]=[guessWhoCount(yes),guessWhoCount(no)];}const possibleNames=GUESS_WHO_CHARACTERS.filter((_,index)=>this.candidates&(1<<index)).map(character=>character.name);return{gameId:"guess-who",phase:this.phase,turnsUsed:this.turns,maxTurns:this.maxTurns,characters:GUESS_WHO_CHARACTERS.map((character,index)=>({...character,possible:Boolean(this.candidates&(1<<index)),secret:finished&&index===this.secret})),questions:GUESS_WHO_QUESTIONS.map((question,index)=>({id:question.id,label:question.label,used:!(this.remaining&(1<<index)),informative:Boolean(scores[question.id]),yesCount:scores[question.id]?.[0]||0,noCount:scores[question.id]?.[1]||0})),suggestion:finished?null:guessWhoRecommendation(this.candidates,this.remaining),history:this.history,result:this.result,legalActions:finished?["new_game"]:["ask_question","guess_character"],sessionStats:{gamesCompleted:this.gamesCompleted,gamesWon:this.gamesWon,averageWinningTurns:this.gamesWon?this.totalWinningTurns/this.gamesWon:null,bestTurns:this.bestTurns},informationSet:{possibleNames:[...possibleNames].sort(),possibleCount:possibleNames.length,usedQuestionIds:GUESS_WHO_QUESTIONS.filter((_,index)=>!(this.remaining&(1<<index))).map(question=>question.id).sort(),publicHistory:this.history}};}
 }
 
+const LOVE_NAMES={1:"Guard",2:"Priest",3:"Baron",4:"Handmaid",5:"Prince",6:"King",7:"Countess",8:"Princess"};
+const LOVE_COUNTS={1:5,2:2,3:2,4:2,5:2,6:1,7:1,8:1};
+class LoveLetterSession{
+  constructor(){this.targetScore=4;this.scores={player:0,ai:0};this.round=0;this.startRound();}
+  other(actor){return actor==="player"?"ai":"player";}
+  startRound(){
+    this.round+=1;const deck=[];
+    for(const[value,count]of Object.entries(LOVE_COUNTS))for(let index=0;index<count;index+=1)deck.push(Number(value));
+    this.deck=shuffle(deck);this.burned=this.deck.pop();this.faceUp=[this.deck.pop(),this.deck.pop(),this.deck.pop()];
+    this.hands={player:[this.deck.pop()],ai:[this.deck.pop()]};this.discards={player:[],ai:[]};
+    this.protected={player:false,ai:false};this.known={player:null,ai:null};this.roundWinner=null;this.roundReason=null;this.history=[];
+    this.phase="player_turn";this.beginTurn("player");
+  }
+  beginTurn(actor){this.protected[actor]=false;if(!this.deck.length){this.showdown();return;}this.hands[actor].push(this.deck.pop());this.phase=`${actor}_turn`;}
+  legalCards(actor){const hand=this.hands[actor];if(hand.includes(7)&&(hand.includes(5)||hand.includes(6)))return[7];return[...new Set(hand)].sort((a,b)=>a-b);}
+  legalPlays(actor){
+    const opponent=this.other(actor),plays=[];
+    for(const card of this.legalCards(actor)){
+      if(card===1)for(let guess=2;guess<=8;guess+=1)plays.push({card,target:opponent,guess});
+      else if([2,3,6].includes(card))plays.push({card,target:opponent,guess:null});
+      else if(card===5){plays.push({card,target:actor,guess:null});if(!this.protected[opponent])plays.push({card,target:opponent,guess:null});}
+      else plays.push({card,target:null,guess:null});
+    }
+    return plays;
+  }
+  belief(observer){
+    const opponent=this.other(observer);
+    if(this.known[observer]!==null&&this.hands[opponent].includes(this.known[observer]))return{[this.known[observer]]:1};
+    const counts={...LOVE_COUNTS};
+    for(const card of[...this.faceUp,...this.discards.player,...this.discards.ai,...this.hands[observer]])counts[card]-=1;
+    return Object.fromEntries(Object.entries(counts).filter(([,count])=>count>0));
+  }
+  choose(actor){
+    const plays=this.legalPlays(actor),belief=this.belief(actor),total=Object.values(belief).reduce((a,b)=>a+b,0)||1,opponent=this.other(actor);
+    const kept=play=>this.hands[actor].find(card=>card!==play.card)??this.hands[actor][0];
+    const probability=value=>(belief[value]||0)/total;
+    const score=play=>{
+      const keep=kept(play);let value=keep*.62;
+      if(play.card===1)value+=10.5*probability(play.guess);
+      else if(play.card===2)value+=this.known[actor]===null?2.1:.4;
+      else if(play.card===3){let win=0,lose=0;for(const[card,count]of Object.entries(belief)){if(keep>Number(card))win+=count/total;if(keep<Number(card))lose+=count/total;}value+=9*win-10*lose;}
+      else if(play.card===4)value+=3.2+(keep>=6?1.2:0);
+      else if(play.card===5)value+=play.target===opponent?10.5*probability(8)+1.5*probability(7):-3-keep;
+      else if(play.card===6)value+=Object.entries(belief).reduce((sum,[card,count])=>sum+Number(card)*count,0)/total-keep;
+      else if(play.card===7)value-=.3;
+      else if(play.card===8)value=-100;
+      return value;
+    };
+    return plays.map(play=>({play,value:score(play)})).sort((a,b)=>b.value-a.value||a.play.card-b.play.card||(b.play.guess||0)-(a.play.guess||0))[0].play;
+  }
+  validPlay(actor,play){return this.legalPlays(actor).some(item=>item.card===play.card&&item.target===play.target&&item.guess===play.guess);}
+  play(actor,play){
+    if(this.phase!==`${actor}_turn`)throw new Error("it is not that player's turn");
+    if(!this.validPlay(actor,play))throw new Error("illegal Love Letter play");
+    this.hands[actor].splice(this.hands[actor].indexOf(play.card),1);this.discards[actor].push(play.card);
+    const opponent=this.other(actor),event={actor,card:play.card,target:play.target,guess:play.guess,effect:"none"};
+    if(play.card===1&&!this.protected[opponent]){if(this.hands[opponent][0]===play.guess){event.effect="guard_hit";this.finishRound(actor,"guard");}else event.effect="guard_miss";}
+    else if(play.card===2&&!this.protected[opponent]){this.known[actor]=this.hands[opponent][0];event.effect="priest_seen";}
+    else if(play.card===3&&!this.protected[opponent]){const mine=this.hands[actor][0],theirs=this.hands[opponent][0];if(mine!==theirs){const loser=mine<theirs?actor:opponent;event.effect="baron_loss";this.finishRound(this.other(loser),"baron");}else event.effect="baron_tie";}
+    else if(play.card===4){this.protected[actor]=true;event.effect="protected";}
+    else if(play.card===5){const target=play.target,discarded=this.hands[target].pop();this.discards[target].push(discarded);event.effect="prince_discard";event.discarded=discarded;this.known={player:null,ai:null};if(discarded===8)this.finishRound(this.other(target),"princess");else this.hands[target].push(this.deck.length?this.deck.pop():this.burned);}
+    else if(play.card===6&&!this.protected[opponent]){[this.hands[actor],this.hands[opponent]]=[this.hands[opponent],this.hands[actor]];this.known[actor]=this.hands[opponent][0];this.known[opponent]=this.hands[actor][0];event.effect="traded";}
+    else if(play.card===8)this.finishRound(opponent,"princess");
+    this.history.push(event);
+    if(["round_finished","match_finished"].includes(this.phase))return;
+    this.known[opponent]=null;if(!this.deck.length){this.showdown();return;}this.beginTurn(opponent);
+  }
+  showdown(){
+    const player=this.hands.player[0],ai=this.hands.ai[0];let winner,reason="showdown";
+    if(player===ai){const playerTotal=this.discards.player.reduce((a,b)=>a+b,0),aiTotal=this.discards.ai.reduce((a,b)=>a+b,0);winner=playerTotal===aiTotal?randomChoice(["player","ai"]):(playerTotal>aiTotal?"player":"ai");reason="discard_tiebreak";}
+    else winner=player>ai?"player":"ai";
+    this.finishRound(winner,reason);
+  }
+  finishRound(winner,reason){this.roundWinner=winner;this.roundReason=reason;this.scores[winner]+=1;this.phase=this.scores[winner]>=this.targetScore?"match_finished":"round_finished";}
+  act(action,payload={}){
+    if(action==="next_round"){if(this.phase!=="round_finished")throw new Error("the current round is not finished");this.startRound();return;}
+    if(action==="new_match"){this.scores={player:0,ai:0};this.round=0;this.startRound();return;}
+    if(action!=="play_card"||this.phase!=="player_turn")throw new Error("play a card during your turn");
+    const card=boundedInteger(payload.card,0,1,8,"card"),target=payload.target??null,guess=payload.guess===null||payload.guess===undefined||payload.guess===""?null:boundedInteger(payload.guess,0,2,8,"guess");
+    this.play("player",{card,target,guess});if(this.phase==="ai_turn")this.play("ai",this.choose("ai"));
+  }
+  snapshot(){
+    const finished=["round_finished","match_finished"].includes(this.phase),belief=this.belief("player"),total=Object.values(belief).reduce((a,b)=>a+b,0),suggestion=this.phase==="player_turn"?this.choose("player"):null;
+    return{gameId:"love-letter",phase:this.phase,roundNumber:this.round,targetScore:this.targetScore,scores:this.scores,playerHand:this.hands.player,opponentCardCount:this.hands.ai.length,opponentHand:finished?this.hands.ai:null,deckRemaining:this.deck.length,faceUpRemoved:this.faceUp,discards:this.discards,protected:this.protected,cardCatalog:Object.entries(LOVE_NAMES).map(([value,name])=>({value:Number(value),name,count:LOVE_COUNTS[value]})),legalCards:this.phase==="player_turn"?this.legalCards("player"):[],suggestedPlay:suggestion,history:this.history,roundResult:finished?{winner:this.roundWinner,reason:this.roundReason}:null,matchWinner:this.phase==="match_finished"?this.roundWinner:null,legalActions:this.phase==="player_turn"?["play_card"]:(this.phase==="round_finished"?["next_round"]:["new_match"]),strategyScope:"remaining-card belief heuristic without hidden-hand access",informationSet:{possibleCards:Object.entries(belief).map(([value,count])=>({value:Number(value),count,probability:total?count/total:0})),knownOpponentCard:this.known.player,publicHistory:this.history}};
+  }
+}
+
 function createSession(gameId, options={}) {
-  const factories={cases:CaseSession,worm:WormSession,pirates:PirateSession,"kuhn-poker":PokerSession,"e-card":ECardSession,"restricted-rps":RPSSession,blackjack:BlackjackSession,"liars-dice":LiarDiceSession,mastermind:MastermindSession,"guess-who":GuessWhoSession,battleship:BattleshipSession,"hidden-pursuit":HiddenPursuitSession};
+  const factories={cases:CaseSession,worm:WormSession,pirates:PirateSession,"kuhn-poker":PokerSession,"e-card":ECardSession,"restricted-rps":RPSSession,blackjack:BlackjackSession,"liars-dice":LiarDiceSession,mastermind:MastermindSession,"guess-who":GuessWhoSession,battleship:BattleshipSession,"hidden-pursuit":HiddenPursuitSession,"love-letter":LoveLetterSession};
   const Factory=factories[gameId]; if(!Factory)throw new Error("unknown or unavailable game"); const session=new Factory(options);session.gameId=gameId;return session;
 }
 

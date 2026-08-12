@@ -7,6 +7,16 @@
 
 ## Updates 08/12/2026
 
+- **Love Letter duel shipped locally** — Added a complete two-player 16-card
+  deduction match with all eight role effects, bilingual rules, responsive UI,
+  public discard beliefs, and first-to-four scoring.
+- **Belief-aware opponent** — The new AI estimates the player's card only from
+  information it is legally allowed to observe; a 2,000-match seeded audit found
+  a 92.00% win rate against random play. [Read the strategy scope and results](research/love_letter_ai.md).
+- **Full-match regression coverage** — Python and browser tests now play entire
+  Love Letter matches, verify hidden-hand boundaries, forced Countess play, and
+  repeatable advice before rebuilding the zero-backend lobby; all 137 Python
+  and 10 web tests pass.
 - **Cross-project architecture audit** — Compared AIP with OpenSpiel,
   PettingZoo, and Gambit, then [recorded which ideas fit this lightweight lobby](research/platform_comparison_2026-08-12.md)
   and which would add unnecessary research-framework complexity.

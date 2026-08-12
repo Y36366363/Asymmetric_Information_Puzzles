@@ -36,6 +36,7 @@ class LocalGameUITests(unittest.TestCase):
                 "guess-who",
                 "hidden-pursuit",
                 "battleship",
+                "love-letter",
                 "e-card",
                 "pirates",
                 "kuhn-poker",
@@ -141,6 +142,23 @@ class LocalGameUITests(unittest.TestCase):
         self.assertIn(state["winner"], {"detectives", "fugitive"})
         self.assertIsNotNone(state["fugitivePosition"])
         self.assertLessEqual(state["round"], state["maxRounds"])
+
+    def test_love_letter_hides_ai_hand_and_completes_a_match(self) -> None:
+        created = self.service.create_session("love-letter", {"seed": 37})
+        state = created["state"]
+        self.assertIsNone(state["opponentHand"])
+        for _step in range(100):
+            if state["phase"] == "match_finished":
+                break
+            if state["phase"] == "round_finished":
+                state = self.service.act(created["sessionId"], "next_round")
+            else:
+                state = self.service.act(
+                    created["sessionId"], "play_card", state["suggestedPlay"]
+                )
+        self.assertEqual(state["phase"], "match_finished")
+        self.assertIn(4, state["scores"].values())
+        self.assertIsNotNone(state["opponentHand"])
 
     def test_session_store_evicts_the_oldest_temporary_game(self) -> None:
         service = LocalGameService(build_default_registry(), max_sessions=2)

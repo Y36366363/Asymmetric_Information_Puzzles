@@ -16,6 +16,7 @@ from aip.puzzles.battleship.models import FleetRules, ShipPlacement, ShotOutcome
 from aip.puzzles.battleship.solver import HiddenFleetBoard, ProbabilityDensityAI
 from aip.puzzles.hidden_pursuit.models import EDGES, NODE_POSITIONS, HiddenPursuitRules
 from aip.puzzles.hidden_pursuit.solver import PursuitState
+from aip.puzzles.love_letter.solver import CARD_COUNTS, CARD_NAMES, LoveLetterGame
 from aip.puzzles.guess_who import DEFAULT_QUESTIONS, DEFAULT_ROSTER, GuessWhoSolver
 from aip.puzzles.pirates.models import PirateRules
 from aip.puzzles.pirates.solver import PirateSolver
@@ -93,12 +94,13 @@ GAME_DISPLAY_ORDER = {
     "guess-who": 5,
     "hidden-pursuit": 6,
     "battleship": 7,
-    "e-card": 8,
-    "pirates": 9,
-    "kuhn-poker": 10,
-    "liars-dice": 11,
-    "worm": 12,
-    "auction": 13,
+    "love-letter": 8,
+    "e-card": 9,
+    "pirates": 10,
+    "kuhn-poker": 11,
+    "liars-dice": 12,
+    "worm": 13,
+    "auction": 14,
 }
 
 
@@ -2192,6 +2194,90 @@ class HiddenPursuitGameSession:
         }
 
 
+class LoveLetterGameSession:
+    """Player-facing two-player Love Letter match with a belief-only AI."""
+
+    def __init__(self, options: dict[str, object]) -> None:
+        seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
+        self.game = LoveLetterGame(random.Random(seed))
+
+    def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
+        if action == "play_card":
+            card = _whole_int(payload.get("card", 0), "card")
+            guess_value = payload.get("guess")
+            guess = None if guess_value in {None, ""} else _whole_int(guess_value, "guess")
+            self.game.player_action(card, str(payload.get("target", "ai")), guess)
+        elif action == "next_round":
+            if self.game.phase != "round_finished":
+                raise ValueError("the current round is not finished")
+            self.game.start_round()
+        elif action == "new_match":
+            self.game = LoveLetterGame(self.game.rng)
+        else:
+            raise ValueError(f"unknown Love Letter action: {action}")
+        return self.snapshot()
+
+    def _play_dict(self, play: object) -> dict[str, object]:
+        return {
+            "card": play.card,  # type: ignore[attr-defined]
+            "target": play.target,  # type: ignore[attr-defined]
+            "guess": play.guess,  # type: ignore[attr-defined]
+        }
+
+    def snapshot(self) -> dict[str, object]:
+        game = self.game
+        finished = game.phase in {"round_finished", "match_finished"}
+        belief = game.belief("player")
+        total = sum(belief.values())
+        suggestion = game.choose_play("player") if game.phase == "player_turn" else None
+        legal_actions = (
+            ["play_card"]
+            if game.phase == "player_turn"
+            else (["next_round"] if game.phase == "round_finished" else ["new_match"])
+        )
+        return {
+            "gameId": "love-letter",
+            "phase": game.phase,
+            "roundNumber": game.round_number,
+            "targetScore": game.target_score,
+            "scores": dict(game.scores),
+            "playerHand": list(game.hands["player"]),
+            "opponentCardCount": len(game.hands["ai"]),
+            "opponentHand": list(game.hands["ai"]) if finished else None,
+            "deckRemaining": len(game.deck),
+            "faceUpRemoved": list(game.face_up_removed),
+            "discards": {actor: list(cards) for actor, cards in game.discards.items()},
+            "protected": dict(game.protected),
+            "cardCatalog": [
+                {"value": value, "name": CARD_NAMES[value], "count": CARD_COUNTS[value]}
+                for value in CARD_NAMES
+            ],
+            "legalCards": game.legal_cards("player") if game.phase == "player_turn" else [],
+            "suggestedPlay": self._play_dict(suggestion) if suggestion else None,
+            "history": [dict(item) for item in game.history],
+            "roundResult": (
+                {"winner": game.round_winner, "reason": game.round_reason}
+                if finished
+                else None
+            ),
+            "matchWinner": game.round_winner if game.phase == "match_finished" else None,
+            "legalActions": legal_actions,
+            "strategyScope": "remaining-card belief heuristic without hidden-hand access",
+            "informationSet": {
+                "possibleCards": [
+                    {
+                        "value": value,
+                        "count": count,
+                        "probability": count / total if total else 0.0,
+                    }
+                    for value, count in sorted(belief.items())
+                ],
+                "knownOpponentCard": game.known_hand["player"],
+                "publicHistory": [dict(item) for item in game.history],
+            },
+        }
+
+
 def build_default_registry() -> GameRegistry:
     registry = GameRegistry()
     registry.register(
@@ -2301,6 +2387,15 @@ def build_default_registry() -> GameRegistry:
             "单人 · 隐藏移动与信念追踪",
         ),
         HiddenPursuitGameSession,
+    )
+    registry.register(
+        GameDescriptor(
+            "love-letter",
+            "情书决斗",
+            "在 16 张角色牌中读取公开弃牌与隐蔽手牌，用推理、保护和点杀先赢得四轮。",
+            "单人 · 手牌推断与风险控制",
+        ),
+        LoveLetterGameSession,
     )
     for descriptor in (
         GameDescriptor(

@@ -627,6 +627,35 @@ button.battle-cell:disabled { cursor: default; }
 .battle-history div { display: grid; grid-template-columns: 80px 1fr 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .battle-history span { color: var(--muted); }
 
+.love-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; padding: 0; }
+.love-score div { padding: 18px; text-align: center; border-right: 1px solid var(--line); }
+.love-score div:last-child { border-right: 0; }
+.love-score span, .love-opponent small, .love-player small { display: block; color: var(--muted); font-size: 11px; }
+.love-score strong { display: block; margin-top: 7px; color: var(--gold-soft); font-size: 24px; }
+.love-table { display: grid; grid-template-columns: minmax(150px,.7fr) minmax(280px,1.15fr) minmax(260px,1fr); gap: 24px; align-items: center; min-height: 430px; }
+.love-opponent, .love-player, .love-center { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+.love-center h2 { margin: 0; max-width: 430px; font: 500 28px Georgia, "Songti SC", serif; }
+.love-card { position: relative; width: 118px; min-height: 174px; padding: 18px 10px; border: 1px solid #b98b47; border-radius: 10px; color: #f7e9c3; background: linear-gradient(145deg,#5e2739,#281927); box-shadow: 0 10px 26px rgba(0,0,0,.28); }
+.love-card span { display: block; color: var(--gold-soft); font: 700 34px Georgia,serif; }
+.love-card strong { display: block; margin-top: 48px; font-size: 14px; }
+button.love-card:not(:disabled):hover { transform: translateY(-7px); border-color: var(--gold-soft); }
+button.love-card:disabled { opacity: .43; cursor: not-allowed; }
+.love-card.card-back { display: grid; place-items: center; font: 700 44px Georgia,serif; background: repeating-linear-gradient(45deg,#472333,#472333 8px,#2d1b28 8px,#2d1b28 16px); }
+.love-hand { display: flex; gap: 14px; min-height: 174px; }
+.love-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: min(100%,440px); }
+.love-options label { color: var(--muted); font-size: 10px; text-align: left; }
+.love-options select { width: 100%; margin-top: 6px; padding: 10px; border: 1px solid var(--line); color: var(--paper); background: #171514; }
+.love-result { padding: 12px 15px; border: 1px solid var(--gold); color: var(--gold-soft); font-weight: 800; }
+.love-lower { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+.love-beliefs { display: grid; gap: 7px; }
+.love-beliefs div { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; font-size: 12px; }
+.love-beliefs i { grid-column: 1 / -1; width: calc(var(--belief) * 100%); min-width: 2px; height: 4px; background: var(--gold); }
+.love-history { max-height: 260px; overflow: auto; }
+.love-history div { display: grid; grid-template-columns: 60px 1fr; gap: 6px 12px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.love-history small { grid-column: 2; color: var(--muted); }
+.love-removed { display: flex; justify-content: space-between; gap: 14px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+.love-removed strong { color: var(--paper); text-align: right; }
+
 @media (max-width: 1100px) {
   .game-layout { grid-template-columns: 180px 1fr; }
   .insight-panel { grid-column: 1 / -1; }
@@ -717,5 +746,13 @@ button.battle-cell:disabled { cursor: default; }
   .battleship-view.placement-phase .enemy-board-shell { display: none; }
   .battle-history div { grid-template-columns: 62px 1fr; }
   .battle-history div span:last-child { grid-column: 2; }
+  .love-score { grid-template-columns: 1fr 1fr; }
+  .love-score div:nth-child(2) { border-right: 0; }
+  .love-score div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .love-table { grid-template-columns: 1fr; }
+  .love-center { grid-row: 2; }
+  .love-lower { grid-template-columns: 1fr; }
+  .love-hand { flex-wrap: wrap; justify-content: center; }
+  .love-card { width: 105px; min-height: 154px; }
   .hole-row { gap: 5px; }
 }
