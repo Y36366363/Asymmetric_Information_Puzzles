@@ -60,6 +60,9 @@ test("creates a pirate session and completes a rational vote", async () => {
 test("rejects malformed options and fractional pirate coins", async () => {
   const invalidWorm = await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId:"worm",options:{holes:"not-a-number"}})});
   assert.equal(invalidWorm.status, 400);
+  const twoHoleWorm = await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId:"worm",options:{holes:2}})});
+  assert.equal(twoHoleWorm.status, 201);
+  assert.deepEqual((await twoHoleWorm.json()).state.strategy, [1,1]);
   const created = await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId:"pirates",options:{pirates:5,gold:100}})});
   const session = await created.json();
   const fractional = await call(`/api/sessions/${session.sessionId}/actions`, {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"submit_proposal",payload:{allocation:[97.5,1.5,1,0,0]}})});
@@ -106,7 +109,8 @@ test("temporary session storage stays bounded and expires the oldest game", asyn
 });
 
 test("every public game creates a playable state", async () => {
-  for (const gameId of ["cases", "kuhn-poker", "e-card", "restricted-rps", "blackjack", "liars-dice", "mastermind", "guess-who", "hidden-pursuit", "battleship"]) {
+  const listed = await (await call("/api/games")).json();
+  for (const gameId of listed.games.filter((game) => game.available).map((game) => game.id)) {
     const response = await call("/api/sessions", {
       method:"POST", headers:{"content-type":"application/json"},
       body:JSON.stringify({gameId}),
@@ -114,6 +118,9 @@ test("every public game creates a playable state", async () => {
     assert.equal(response.status, 201, gameId);
     const created = await response.json();
     assert.equal(created.state.gameId, gameId);
+    assert.equal(typeof created.state.phase, "string");
+    assert.ok(Array.isArray(created.state.legalActions));
+    assert.equal(new Set(created.state.legalActions).size, created.state.legalActions.length);
     assert.ok(created.sessionId);
   }
 });

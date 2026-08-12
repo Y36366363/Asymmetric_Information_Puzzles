@@ -42,8 +42,9 @@ globalThis.fetch = async (input, init = {}) => {
       const body = JSON.parse(String(init.body || "{}"));
       const session = createSession(body.gameId, body.options || {});
       const sessionId = crypto.randomUUID();
+      const state = validateState(session.snapshot(), body.gameId);
       storeSession(sessionId, session);
-      return json({ sessionId, state: session.snapshot() }, 201);
+      return json({ sessionId, state }, 201);
     }
     const match = target.pathname.match(/^\\/api\\/sessions\\/([^/]+)\\/actions$/);
     if (method === "POST" && match) {
@@ -53,7 +54,7 @@ globalThis.fetch = async (input, init = {}) => {
       sessions.set(match[1], session);
       const body = JSON.parse(String(init.body || "{}"));
       session.act(body.action, body.payload || {});
-      return json({ state: session.snapshot() });
+      return json({ state: validateState(session.snapshot(), session.gameId) });
     }
     return json({ error: "not found" }, 404);
   } catch (error) {

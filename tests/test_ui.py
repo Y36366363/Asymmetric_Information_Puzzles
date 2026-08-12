@@ -9,6 +9,8 @@ from http.server import ThreadingHTTPServer
 from aip.ui.registry import (
     BlackjackSession,
     ECardSession,
+    GameDescriptor,
+    GameRegistry,
     LiarDiceSession,
     LocalGameService,
     RestrictedRPSSession,
@@ -42,6 +44,36 @@ class LocalGameUITests(unittest.TestCase):
             ],
         )
         self.assertIn("liars-dice", [game["id"] for game in games])
+
+    def test_every_playable_session_exposes_the_shared_state_contract(self) -> None:
+        for game in self.service.games():
+            if not game["available"]:
+                continue
+            with self.subTest(game_id=game["id"]):
+                state = self.service.create_session(game["id"])["state"]
+                self.assertEqual(state["gameId"], game["id"])
+                self.assertIsInstance(state["phase"], str)
+                self.assertIsInstance(state["legalActions"], list)
+                self.assertEqual(
+                    len(state["legalActions"]), len(set(state["legalActions"]))
+                )
+
+    def test_service_rejects_a_plugin_that_breaks_the_state_contract(self) -> None:
+        class BrokenSession:
+            def snapshot(self):
+                return {"gameId": "wrong", "phase": "playing", "legalActions": []}
+
+            def act(self, action, payload):
+                return self.snapshot()
+
+        registry = GameRegistry()
+        registry.register(
+            GameDescriptor("broken", "Broken", "Broken", "Test"),
+            lambda _options: BrokenSession(),
+        )
+        service = LocalGameService(registry)
+        with self.assertRaisesRegex(ValueError, "expected 'broken'"):
+            service.create_session("broken")
 
     def test_guess_who_hides_identity_and_exposes_exact_information_set(self) -> None:
         created = self.service.create_session("guess-who", {"seed": 19})
@@ -370,6 +402,7 @@ class LocalGameUITests(unittest.TestCase):
         for case_id in range(2, 8):
             state = self.service.act(session_id, "open_case", {"caseId": case_id})
         self.assertEqual(state["phase"], "offer")
+        self.assertEqual(state["legalActions"], ["deal", "no_deal"])
         self.assertIsNotNone(state["offer"])
         self.assertIsNotNone(state["metrics"])
         self.assertEqual(
@@ -385,6 +418,7 @@ class LocalGameUITests(unittest.TestCase):
         offer = state["offer"]
         finished = self.service.act(session_id, "deal")
         self.assertEqual(finished["phase"], "finished")
+        self.assertEqual(finished["legalActions"], [])
         self.assertEqual(finished["payout"], offer)
 
     def test_rejecting_every_offer_reaches_chosen_case_payout(self) -> None:
@@ -525,6 +559,7 @@ class LocalGameUITests(unittest.TestCase):
         self.assertTrue(any(hole["worm"] for hole in state["holes"]))
         self.assertTrue(state["history"][-1]["guaranteed"])
         self.assertIsNone(state["suggestedHole"])
+        self.assertEqual(state["legalActions"], [])
 
     def test_repeated_wrong_check_never_catches_smart_worm(self) -> None:
         created = self.service.create_session("worm")
@@ -547,6 +582,7 @@ class LocalGameUITests(unittest.TestCase):
         self.assertTrue(result["passed"])
         self.assertEqual(result["yesVotes"], 3)
         self.assertTrue(result["matchesOptimal"])
+        self.assertEqual(result["legalActions"], [])
 
     def test_greedy_pirate_proposal_is_rejected_and_proposer_dies(self) -> None:
         created = self.service.create_session("pirates")

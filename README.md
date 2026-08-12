@@ -7,6 +7,15 @@
 
 ## Updates 08/12/2026
 
+- **Cross-project architecture audit** — Compared AIP with OpenSpiel,
+  PettingZoo, and Gambit, then [recorded which ideas fit this lightweight lobby](research/platform_comparison_2026-08-12.md)
+  and which would add unnecessary research-framework complexity.
+- **Enforced playable-state contract** — Every game now publishes `gameId`,
+  `phase`, and unique `legalActions`; the Python service and both JavaScript
+  runtimes reject malformed future game plugins at their shared boundary.
+- **Dynamic conformance coverage and parity fix** — Registry-wide tests now
+  audit every playable game automatically, and the public Moving Worm engine
+  now matches Python's valid 2–12-hole range instead of rejecting two holes.
 - **Clear cross-game operation feedback** — Added one bilingual, accessible
   processing indicator shared by session creation, restarts, and every game
   action, so clicks never appear to be silently ignored while the UI is locked.
@@ -26,7 +35,7 @@
   first-visit tutorial).
 - **Daily cross-runtime verification** — Rebuilt the zero-backend public mirror,
   exercised the local lobby and Pirate Council in a real browser, checked clean
-  browser logs and route/focus behavior, and passed all 129 Python plus 10 web
+  browser logs and route/focus behavior, and passed all 131 Python plus 10 web
   engine/build tests.
 
 ## Updates 08/10/2026

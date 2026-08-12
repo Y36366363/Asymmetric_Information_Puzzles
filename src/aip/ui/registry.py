@@ -58,6 +58,33 @@ class GameDescriptor:
 
 SessionFactory = Callable[[dict[str, object]], PlayableSession]
 
+
+def validate_public_state(
+    state: object, *, expected_game_id: str | None = None
+) -> dict[str, object]:
+    """Validate the small cross-game contract consumed by every UI runtime."""
+
+    if not isinstance(state, dict):
+        raise ValueError("playable session snapshots must be objects")
+    game_id = state.get("gameId")
+    if not isinstance(game_id, str) or not game_id:
+        raise ValueError("playable session snapshots need a non-empty gameId")
+    if expected_game_id is not None and game_id != expected_game_id:
+        raise ValueError(
+            f"session returned gameId {game_id!r}; expected {expected_game_id!r}"
+        )
+    phase = state.get("phase")
+    if not isinstance(phase, str) or not phase:
+        raise ValueError("playable session snapshots need a non-empty phase")
+    legal_actions = state.get("legalActions")
+    if (
+        not isinstance(legal_actions, list)
+        or any(not isinstance(action, str) or not action for action in legal_actions)
+        or len(legal_actions) != len(set(legal_actions))
+    ):
+        raise ValueError("playable session snapshots need unique string legalActions")
+    return state
+
 GAME_DISPLAY_ORDER = {
     "cases": 1,
     "blackjack": 2,
@@ -108,7 +135,7 @@ class LocalGameService:
             raise ValueError("max_sessions must be positive")
         self.registry = registry
         self.max_sessions = max_sessions
-        self._sessions: dict[str, PlayableSession] = {}
+        self._sessions: dict[str, tuple[str, PlayableSession]] = {}
         self._lock = threading.RLock()
 
     def games(self) -> list[dict[str, object]]:
@@ -118,30 +145,35 @@ class LocalGameService:
         self, game_id: str, options: dict[str, object] | None = None
     ) -> dict[str, object]:
         session = self.registry.create(game_id, options or {})
+        state = validate_public_state(session.snapshot(), expected_game_id=game_id)
         session_id = uuid.uuid4().hex
         with self._lock:
             while len(self._sessions) >= self.max_sessions:
                 self._sessions.pop(next(iter(self._sessions)))
-            self._sessions[session_id] = session
-        return {"sessionId": session_id, "state": session.snapshot()}
+            self._sessions[session_id] = (game_id, session)
+        return {"sessionId": session_id, "state": state}
 
     def snapshot(self, session_id: str) -> dict[str, object]:
         with self._lock:
-            return self._get(session_id).snapshot()
+            game_id, session = self._get(session_id)
+            return validate_public_state(session.snapshot(), expected_game_id=game_id)
 
     def act(
         self, session_id: str, action: str, payload: dict[str, object] | None = None
     ) -> dict[str, object]:
         with self._lock:
-            return self._get(session_id).act(action, payload or {})
+            game_id, session = self._get(session_id)
+            return validate_public_state(
+                session.act(action, payload or {}), expected_game_id=game_id
+            )
 
-    def _get(self, session_id: str) -> PlayableSession:
+    def _get(self, session_id: str) -> tuple[str, PlayableSession]:
         try:
-            session = self._sessions.pop(session_id)
+            entry = self._sessions.pop(session_id)
         except KeyError as error:
             raise ValueError("unknown or expired session") from error
-        self._sessions[session_id] = session
-        return session
+        self._sessions[session_id] = entry
+        return entry
 
 
 class CaseGameSession:
@@ -298,6 +330,12 @@ class CaseGameSession:
             "result": dict(self.result) if self.result else None,
             "history": list(self.history),
             "riskTolerance": self.risk.risk_tolerance,
+            "legalActions": {
+                "choose": ["choose_case"],
+                "opening": ["open_case"],
+                "offer": ["deal", "no_deal"],
+                "finished": [],
+            }[self.phase],
         }
 
 
@@ -388,6 +426,7 @@ class WormGameSession:
             "followedStrategy": self.followed_strategy,
             "suggestedHole": next_suggestion,
             "history": list(self.history),
+            "legalActions": ["check_hole"] if self.phase == "playing" else [],
         }
 
 
@@ -519,6 +558,7 @@ class PirateGameSession:
             ),
             "optimalAllocation": list(optimal) if self.phase == "finished" else None,
             "matchesOptimal": self.proposal == optimal if self.proposal is not None else None,
+            "legalActions": ["submit_proposal"] if self.phase == "proposing" else [],
         }
 
 

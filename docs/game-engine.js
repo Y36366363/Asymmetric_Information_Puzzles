@@ -83,7 +83,7 @@ class CaseSession {
     const target = ["opening","offer"].includes(this.phase) ? this.schedule[this.round] : 0;
     return {gameId:"cases", phase:this.phase, round:this.round+1, chosenCase:this.chosen,
       cases:Object.keys(this.values).map(Number).map(id=>({id,status:id===this.chosen?"chosen":id in this.opened?"opened":"closed", ...((id in this.opened || (this.phase==="finished"&&id===this.chosen))?{value:this.values[id]}:{})})),
-      prizeBoard:this.prizes.map(value=>({value,remaining:remaining.includes(value)})), openTarget:target, openedThisRound:this.openedRound, opensRemaining:Math.max(0,target-this.openedRound), offer:this.offer, isFinalOffer:this.phase==="offer"&&remaining.length===1, metrics, payout:this.payout, result:this.result, history:this.history, riskTolerance:this.riskTolerance};
+      prizeBoard:this.prizes.map(value=>({value,remaining:remaining.includes(value)})), openTarget:target, openedThisRound:this.openedRound, opensRemaining:Math.max(0,target-this.openedRound), offer:this.offer, isFinalOffer:this.phase==="offer"&&remaining.length===1, metrics, payout:this.payout, result:this.result, history:this.history, riskTolerance:this.riskTolerance,legalActions:{choose:["choose_case"],opening:["open_case"],offer:["deal","no_deal"],finished:[]}[this.phase]};
   }
 }
 
@@ -96,16 +96,16 @@ function wormStrategy(count) {
   }} throw new Error("no capture strategy");
 }
 class WormSession {
-  constructor(options){this.count=boundedInteger(options.holes,5,3,12,"holes");this.positions=Array.from({length:this.count},(_,i)=>i+1);this.strategy=wormStrategy(this.count);this.turn=0;this.phase="playing";this.history=[];this.followed=true;this.caught=null;}
+  constructor(options){this.count=boundedInteger(options.holes,5,2,12,"holes");this.positions=Array.from({length:this.count},(_,i)=>i+1);this.strategy=wormStrategy(this.count);this.turn=0;this.phase="playing";this.history=[];this.followed=true;this.caught=null;}
   act(action,payload){if(action!=="check_hole"||this.phase!=="playing")throw new Error("illegal worm action");const hole=boundedInteger(payload.holeId,0,1,this.count,"hole");this.followed=this.followed&&hole===this.strategy[this.turn];this.turn+=1;if(this.positions.every(p=>p===hole)){this.phase="finished";this.caught=hole;this.positions=[hole];this.history.push({turn:this.turn,holeId:hole,result:"caught",guaranteed:true});}else{this.history.push({turn:this.turn,holeId:hole,result:"miss"});this.positions=afterMiss(this.positions,hole,this.count);}}
-  snapshot(){return{gameId:"worm",mode:"adversarial",phase:this.phase,turn:this.turn,holes:Array.from({length:this.count},(_,i)=>({id:i+1,possible:this.positions.includes(i+1),worm:this.caught===i+1})),possiblePositions:this.positions,strategy:this.strategy,followedStrategy:this.followed,suggestedHole:this.phase==="playing"&&this.followed?this.strategy[this.turn]??null:null,history:this.history};}
+  snapshot(){return{gameId:"worm",mode:"adversarial",phase:this.phase,turn:this.turn,holes:Array.from({length:this.count},(_,i)=>({id:i+1,possible:this.positions.includes(i+1),worm:this.caught===i+1})),possiblePositions:this.positions,strategy:this.strategy,followedStrategy:this.followed,suggestedHole:this.phase==="playing"&&this.followed?this.strategy[this.turn]??null:null,history:this.history,legalActions:this.phase==="playing"?["check_hole"]:[]};}
 }
 
 function pirateSolution(count,gold){const names=Array.from({length:count},(_,i)=>String.fromCharCode(65+i));const rounds=[];for(let active=1;active<=count;active+=1){const activeNames=names.slice(count-active),previous=rounds.at(-1),required=Math.ceil(active/2),candidates=[];for(let i=1;i<active;i+=1){const alive=previous.alive[i-1],outside=previous.allocation[i-1];candidates.push({cost:alive?outside+1:0,index:i});}candidates.sort((a,b)=>a.cost-b.cost||a.index-b.index);const chosen=candidates.slice(0,Math.max(0,required-1)),affordable=chosen.length===Math.max(0,required-1)&&chosen.reduce((a,b)=>a+b.cost,0)<=gold;let allocation,alive;if(affordable){allocation=Array(active).fill(0);chosen.forEach(x=>allocation[x.index]=x.cost);allocation[0]=gold-allocation.reduce((a,b)=>a+b,0);alive=Array(active).fill(true);}else{allocation=[0,...(previous?.allocation||[])];alive=[false,...(previous?.alive||[])];}rounds.push({names:activeNames,allocation,alive});}return{names,rounds,final:rounds.at(-1)};}
 class PirateSession {
   constructor(options){this.count=boundedInteger(options.pirates,5,1,12,"pirates");this.gold=boundedInteger(options.gold,100,0,10000,"gold");this.solution=pirateSolution(this.count,this.gold);this.phase="proposing";this.proposal=null;this.votes=[];this.passed=null;this.realized=null;this.alive=null;}
   act(action,payload){if(action!=="submit_proposal"||this.phase!=="proposing")throw new Error("illegal pirate action");if(!Array.isArray(payload.allocation))throw new Error("allocation must be a list");const a=payload.allocation.map(Number);if(a.length!==this.count||a.some(x=>!Number.isInteger(x)||x<0)||a.reduce((x,y)=>x+y,0)!==this.gold)throw new Error("proposal must allocate every coin as whole numbers");const previous=this.solution.rounds.at(-2);this.votes=a.map((offered,i)=>{if(i===0)return{pirate:this.solution.names[i],offered,supports:true,rejectionAlive:false,rejectionGold:0,reasonCode:"proposer"};const rejectionAlive=previous.alive[i-1],rejectionGold=previous.allocation[i-1];const supports=!rejectionAlive||offered>rejectionGold;return{pirate:this.solution.names[i],offered,supports,rejectionAlive,rejectionGold,reasonCode:!rejectionAlive?"survival":offered>rejectionGold?"more_gold":offered===rejectionGold?"equal_rejected":"less_gold"};});this.proposal=a;this.passed=this.votes.filter(v=>v.supports).length>=Math.ceil(this.count/2);this.realized=this.passed?a:[0,...(previous?.allocation||[])];this.alive=this.passed?Array(this.count).fill(true):[false,...(previous?.alive||[])];this.phase="finished";}
-  snapshot(){return{gameId:"pirates",phase:this.phase,pirateCount:this.count,totalGold:this.gold,votesRequired:Math.ceil(this.count/2),pirates:this.solution.names.map((name,id)=>({id,name,isProposer:id===0})),proposal:this.proposal,votes:this.votes,yesVotes:this.votes.filter(v=>v.supports).length,passed:this.passed,realizedAllocation:this.realized,realizedAlive:this.alive,optimalAllocation:this.phase==="finished"?this.solution.final.allocation:null,matchesOptimal:this.proposal?this.proposal.every((v,i)=>v===this.solution.final.allocation[i]):null};}
+  snapshot(){return{gameId:"pirates",phase:this.phase,pirateCount:this.count,totalGold:this.gold,votesRequired:Math.ceil(this.count/2),pirates:this.solution.names.map((name,id)=>({id,name,isProposer:id===0})),proposal:this.proposal,votes:this.votes,yesVotes:this.votes.filter(v=>v.supports).length,passed:this.passed,realizedAllocation:this.realized,realizedAlive:this.alive,optimalAllocation:this.phase==="finished"?this.solution.final.allocation:null,matchesOptimal:this.proposal?this.proposal.every((v,i)=>v===this.solution.final.allocation[i]):null,legalActions:this.phase==="proposing"?["submit_proposal"]:[]};}
 }
 
 class PokerSession {
@@ -260,7 +260,16 @@ class GuessWhoSession{
 
 function createSession(gameId, options={}) {
   const factories={cases:CaseSession,worm:WormSession,pirates:PirateSession,"kuhn-poker":PokerSession,"e-card":ECardSession,"restricted-rps":RPSSession,blackjack:BlackjackSession,"liars-dice":LiarDiceSession,mastermind:MastermindSession,"guess-who":GuessWhoSession,battleship:BattleshipSession,"hidden-pursuit":HiddenPursuitSession};
-  const Factory=factories[gameId]; if(!Factory)throw new Error("unknown or unavailable game"); return new Factory(options);
+  const Factory=factories[gameId]; if(!Factory)throw new Error("unknown or unavailable game"); const session=new Factory(options);session.gameId=gameId;return session;
+}
+
+function validateState(state, expectedGameId) {
+  if (!state || typeof state !== "object" || Array.isArray(state)) throw new Error("playable session snapshots must be objects");
+  if (typeof state.gameId !== "string" || !state.gameId) throw new Error("playable session snapshots need a non-empty gameId");
+  if (state.gameId !== expectedGameId) throw new Error(`session returned gameId ${state.gameId}; expected ${expectedGameId}`);
+  if (typeof state.phase !== "string" || !state.phase) throw new Error("playable session snapshots need a non-empty phase");
+  if (!Array.isArray(state.legalActions) || state.legalActions.some(action=>typeof action!=="string"||!action) || new Set(state.legalActions).size!==state.legalActions.length) throw new Error("playable session snapshots need unique string legalActions");
+  return state;
 }
 
 
@@ -280,8 +289,9 @@ globalThis.fetch = async (input, init = {}) => {
       const body = JSON.parse(String(init.body || "{}"));
       const session = createSession(body.gameId, body.options || {});
       const sessionId = crypto.randomUUID();
+      const state = validateState(session.snapshot(), body.gameId);
       storeSession(sessionId, session);
-      return json({ sessionId, state: session.snapshot() }, 201);
+      return json({ sessionId, state }, 201);
     }
     const match = target.pathname.match(/^\/api\/sessions\/([^/]+)\/actions$/);
     if (method === "POST" && match) {
@@ -291,7 +301,7 @@ globalThis.fetch = async (input, init = {}) => {
       sessions.set(match[1], session);
       const body = JSON.parse(String(init.body || "{}"));
       session.act(body.action, body.payload || {});
-      return json({ state: session.snapshot() });
+      return json({ state: validateState(session.snapshot(), session.gameId) });
     }
     return json({ error: "not found" }, 404);
   } catch (error) {
