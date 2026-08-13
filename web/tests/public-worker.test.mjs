@@ -11,7 +11,7 @@ test("serves the bilingual lobby and all playable descriptors", async () => {
   const response = await call("/api/games");
   const { games } = await response.json();
   assert.equal(games.filter((game) => game.available).length, 14);
-  assert.deepEqual(games.filter((game) => game.available).map((game) => game.id), ["cases", "blackjack", "restricted-rps", "mastermind", "guess-who", "hidden-pursuit", "battleship", "love-letter", "investment", "e-card", "pirates", "kuhn-poker", "liars-dice", "worm"]);
+  assert.deepEqual(games.filter((game) => game.available).map((game) => game.id), ["cases", "blackjack", "restricted-rps", "mastermind", "guess-who", "hidden-pursuit", "battleship", "e-card", "pirates", "love-letter", "investment", "kuhn-poker", "liars-dice", "worm"]);
 });
 
 test("case game reaches a clear non-null final reveal", async () => {

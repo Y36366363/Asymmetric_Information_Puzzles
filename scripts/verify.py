@@ -40,6 +40,7 @@ def main() -> int:
         [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"],
         env=python_env,
     )
+    run("Build deployable worker bundle", [args.node, "web/build.mjs"])
     run("Build zero-backend public lobby", [args.node, "web/build-static.mjs"])
     run(
         "Public browser engine and build tests",

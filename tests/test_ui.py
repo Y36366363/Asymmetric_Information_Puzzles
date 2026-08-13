@@ -36,10 +36,10 @@ class LocalGameUITests(unittest.TestCase):
                 "guess-who",
                 "hidden-pursuit",
                 "battleship",
-                "love-letter",
-                "investment",
                 "e-card",
                 "pirates",
+                "love-letter",
+                "investment",
                 "kuhn-poker",
                 "liars-dice",
                 "worm",
@@ -568,6 +568,31 @@ class LocalGameUITests(unittest.TestCase):
         self.assertIn('event.key !== "Tab"', script)
         self.assertIn("setOperationPending", script)
         self.assertIn('id="operationStatus"', html)
+
+    def test_detail_case_numbers_follow_the_difficulty_order(self) -> None:
+        html = files("aip.ui").joinpath("static/index.html").read_text()
+        script = files("aip.ui").joinpath("static/app.js").read_text()
+        case_keys = [
+            "caseEyebrow",
+            "blackjackEyebrow",
+            "rpsEyebrow",
+            "mastermindEyebrow",
+            "guessWhoEyebrow",
+            "pursuitEyebrow",
+            "battleshipEyebrow",
+            "eCardEyebrow",
+            "pirateEyebrow",
+            "loveLetterEyebrow",
+            "investmentEyebrow",
+            "pokerEyebrow",
+            "liarEyebrow",
+            "wormEyebrow",
+        ]
+        for number, key in enumerate(case_keys, start=1):
+            with self.subTest(key=key):
+                case_number = f"CASE {number:02d}"
+                self.assertIn(f'data-i18n="{key}">{case_number}', html)
+                self.assertEqual(script.count(f'{key}: "{case_number}'), 2)
 
     def test_worm_position_is_hidden_while_playing(self) -> None:
         created = self.service.create_session("worm", {"seed": 5})

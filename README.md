@@ -7,6 +7,18 @@
 
 ## Updates 08/13/2026
 
+- **Player-journey hierarchy cleanup** — Restored the lobby's beginner-to-
+  challenge progression, moved the two medium games ahead of the hard tier,
+  and synchronized every bilingual detail page to unique CASE 01–14 labels.
+- **Case-order regression guard** — Added an asset-level test that fails when
+  the lobby order, Chinese detail label, or English detail label drifts again.
+- **Honest multi-target verification** — Fixed the one-command verifier so it
+  rebuilds both the deployable Worker bundle and the zero-backend GitHub Pages
+  lobby before testing them, eliminating stale-build false failures.
+- **Full player-facing regression pass** — Rechecked first-entry rules, top-of-
+  page entry, visible lobby return, console output, all complete single-player
+  decision loops, and the shared service contract; all 143 Python and 10 web
+  tests pass.
 - **Kelly survival tournament** — Added a virtual-capital single-player game
   with a permanent 1:1 / 50% baseline, dynamic odds-probability tradeoffs,
   five skill-based AI rivals, periodic eliminations, and a 12-round title race.
