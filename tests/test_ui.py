@@ -211,6 +211,11 @@ class LocalGameUITests(unittest.TestCase):
         self.assertLessEqual(state["turn"], 100)
         self.assertTrue(any(cell["ship"] for cell in state["enemyBoard"]))
 
+    def test_battleship_declares_the_scope_of_its_strategy(self) -> None:
+        state = self.service.create_session("battleship", {"seed": 83})["state"]
+        self.assertIn("cluster-consistent", state["strategyScope"])
+        self.assertIn("not a full-fleet posterior optimum", state["strategyScope"])
+
     def test_mastermind_uses_decimal_candidates_and_tracks_elimination(self) -> None:
         created = self.service.create_session("mastermind", {"seed": 23})
         state = created["state"]

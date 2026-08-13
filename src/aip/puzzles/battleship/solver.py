@@ -151,6 +151,35 @@ class HuntTargetAI(_KnowledgePolicy):
 class ProbabilityDensityAI(_KnowledgePolicy):
     name = "probability-density"
 
+    def _hit_clusters(self) -> tuple[frozenset[Cell], ...]:
+        """Group orthogonally connected hits that a legal straight ship can explain."""
+
+        remaining = set(self.unresolved_hits)
+        clusters: list[frozenset[Cell]] = []
+        while remaining:
+            seed = remaining.pop()
+            cluster = {seed}
+            frontier = [seed]
+            while frontier:
+                row, column = frontier.pop()
+                for neighbor in (
+                    (row - 1, column),
+                    (row + 1, column),
+                    (row, column - 1),
+                    (row, column + 1),
+                ):
+                    if neighbor in remaining:
+                        remaining.remove(neighbor)
+                        cluster.add(neighbor)
+                        frontier.append(neighbor)
+            rows = {row for row, _column in cluster}
+            columns = {column for _row, column in cluster}
+            if len(rows) == 1 or len(columns) == 1:
+                clusters.append(frozenset(cluster))
+            else:
+                clusters.extend(frozenset((cell,)) for cell in sorted(cluster))
+        return tuple(clusters)
+
     def density_scores(self) -> tuple[dict[Cell, int], int]:
         scores = {cell: 0 for cell in self.available()}
         candidate_count = 0
@@ -160,7 +189,17 @@ class ProbabilityDensityAI(_KnowledgePolicy):
                 for cells in _placements(self.rules.board_size, length)
                 if cells.isdisjoint(self.misses | self.sunk_cells)
             ]
-            if self.unresolved_hits:
+            # The paired audit supports the stricter cluster model on 10x10 and
+            # 12x12.  On 15x15 its P90 regressed, so the large board deliberately
+            # keeps the legacy focus rule until a stronger tail result exists.
+            if self.unresolved_hits and self.rules.board_size <= 12:
+                clusters = self._hit_clusters()
+                focused = [
+                    cells for cells in candidates
+                    if any(cluster.issubset(cells) for cluster in clusters)
+                ]
+                candidates = focused or candidates
+            elif self.unresolved_hits:
                 focused = [cells for cells in candidates if cells & self.unresolved_hits]
                 candidates = focused or candidates
             candidate_count += len(candidates)
@@ -184,9 +223,35 @@ class ProbabilityDensityAI(_KnowledgePolicy):
         return choice
 
 
+class LegacyProbabilityDensityAI(ProbabilityDensityAI):
+    """Pre-2026-08-14 baseline that only required touching one unresolved hit."""
+
+    name = "legacy-density"
+
+    def density_scores(self) -> tuple[dict[Cell, int], int]:
+        scores = {cell: 0 for cell in self.available()}
+        candidate_count = 0
+        for length in self.remaining_lengths:
+            candidates = [
+                cells
+                for cells in _placements(self.rules.board_size, length)
+                if cells.isdisjoint(self.misses | self.sunk_cells)
+            ]
+            if self.unresolved_hits:
+                focused = [cells for cells in candidates if cells & self.unresolved_hits]
+                candidates = focused or candidates
+            candidate_count += len(candidates)
+            for cells in candidates:
+                for cell in cells:
+                    if cell in scores:
+                        scores[cell] += 1
+        return scores, candidate_count
+
+
 POLICIES = {
     RandomTargetingAI.name: RandomTargetingAI,
     HuntTargetAI.name: HuntTargetAI,
+    LegacyProbabilityDensityAI.name: LegacyProbabilityDensityAI,
     ProbabilityDensityAI.name: ProbabilityDensityAI,
 }
 

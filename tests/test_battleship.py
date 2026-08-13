@@ -48,6 +48,13 @@ class BattleshipResearchTests(unittest.TestCase):
         self.assertGreater(ai.last_analysis["candidatePlacements"], 0)
         self.assertGreater(ai.last_analysis["peakDensity"], 0)
 
+    def test_probability_ai_requires_a_placement_to_explain_the_full_hit_line(self) -> None:
+        ai = ProbabilityDensityAI(FleetRules(), random.Random(9))
+        ai.unresolved_hits.update({(4, 4), (4, 5)})
+        scores, _candidate_count = ai.density_scores()
+        self.assertGreater(scores[(4, 3)], scores[(3, 4)])
+        self.assertGreater(scores[(4, 6)], scores[(3, 5)])
+
 
 if __name__ == "__main__":
     unittest.main()

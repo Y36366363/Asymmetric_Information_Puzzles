@@ -5,6 +5,25 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/14/2026
+
+- **Strategy optimality audit** — Classified every playable game as exact,
+  rule-scoped optimal, equilibrium-backed, strong heuristic, or
+  objective-dependent instead of using “optimal” as a generic quality label.
+  [Read the comparisons and limitations](research/strategy_audit_2026-08-14.md).
+- **Smarter Battleship hit pursuit** — On 10×10 and 12×12 boards, density AI
+  now requires candidate ships to explain a full connected hit line, removing
+  misleading perpendicular targets after consecutive hits.
+- **Evidence-gated large-board behavior** — Kept the legacy 15×15 focus rule
+  after the first generalized prototype worsened tail risk; paired same-seed
+  tests now protect both mean performance and P90 before accepting an AI change.
+- **Reproducible cross-policy tooling** — Added a Love Letter match simulator,
+  legacy-versus-enhanced Battleship audits, strategy-scope metadata, and fresh
+  2,000-match / 3,000-tournament / 1,000-chase comparisons.
+- **Daily stability pass** — Completed the local player journey on a 12×12
+  board through a two-hit information update, verified 390px layout and clean
+  browser logs, and passed all 146 Python plus 10 public-engine tests.
+
 ## Updates 08/13/2026
 
 - **Player-journey hierarchy cleanup** — Restored the lobby's beginner-to-

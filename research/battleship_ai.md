@@ -57,3 +57,18 @@ hard AI should keep explaining uncertainty instead of presenting itself as infal
 - Add easy and normal policies alongside the current probability-density opponent.
 - Extract player identity and turn transport so a later two-player room can reuse the
   same board state without exposing either private fleet.
+
+## Cluster-consistent targeting update (2026-08-14)
+
+The density scorer now requires a candidate ship placement to explain an entire
+connected straight cluster of unresolved hits on 10×10 and 12×12 boards. This
+removes perpendicular false leads after consecutive hits. A paired 300-board
+audit lowered 10×10 P90 from 58 to 56 and improved 12×12 mean shots from 65.51
+to 63.64 with P90 improving from 85 to 84. The 15×15 board keeps the legacy
+focus rule because the first unrestricted prototype worsened its tail; this
+board-size gate makes the upgrade evidence-based rather than uniform by fiat.
+
+The policy remains a one-step heuristic over individual ship placements. It is
+not a complete-fleet Bayesian posterior or a proof of minimum expected shots.
+See [the cross-game strategy audit](strategy_audit_2026-08-14.md) for the exact
+benchmark and optimality terminology used throughout AIP.

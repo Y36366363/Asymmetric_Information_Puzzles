@@ -1905,6 +1905,10 @@ class BattleshipGameSession:
             "candidatePlacementCount": candidate_count,
             "lastAiAnalysis": dict(self.last_ai_analysis) if self.last_ai_analysis else None,
             "history": list(self.history),
+            "strategyScope": (
+                "cluster-consistent one-step placement density on 10x10/12x12; "
+                "tail-protected legacy density on 15x15; not a full-fleet posterior optimum"
+            ),
             "legalActions": (
                 ["randomize_fleet", "set_board_size", "rotate_ship", "start_battle"]
                 if self.phase == "placement"
