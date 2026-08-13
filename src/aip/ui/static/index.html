@@ -604,6 +604,22 @@
           <section class="panel"><div class="panel-title"><span data-i18n="gameHistory">博弈记录</span><span>PUBLIC ACTIONS</span></div><div class="love-history" id="loveHistory"></div><div class="love-removed"><span data-i18n="loveRemoved">开局公开移除</span><strong id="loveRemoved"></strong></div></section>
         </div>
       </section>
+
+      <section id="investmentView" class="view investment-view hidden">
+        <div class="game-heading"><div><button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button><p class="eyebrow" data-i18n="investmentEyebrow">CASE 09 · 增长率与淘汰压力 · 较难</p><h1 data-i18n="investmentTitle">Kelly 生存投资赛</h1></div><button class="secondary-button" id="investmentNew" data-i18n="restartMatch">重新开始比赛</button></div>
+        <div class="investment-score panel"><div><span data-i18n="round">回合</span><strong id="investmentRound">1 / 12</strong></div><div><span data-i18n="investmentCapital">虚拟资金</span><strong id="investmentCapital">1,000</strong></div><div><span data-i18n="investmentRank">当前排名</span><strong id="investmentRank">1 / 6</strong></div><div><span data-i18n="investmentNextCut">下次淘汰</span><strong id="investmentNextCut">第 4 轮</strong></div></div>
+        <section class="investment-market panel">
+          <p class="eyebrow">VIRTUAL CAPITAL · NO REAL-MONEY BETTING</p>
+          <h2 id="investmentInstruction">选择一个赔率方案，再决定投入多少资金</h2>
+          <div class="investment-offers" id="investmentOffers"></div>
+          <div class="stake-control"><span data-i18n="investmentStake">仓位比例</span><div id="investmentFractions"></div><button class="deal-button" id="investmentSubmit" data-i18n="investmentConfirm">确认本轮决策</button></div>
+          <div class="investment-result hidden" id="investmentResult"></div>
+        </section>
+        <div class="investment-lower">
+          <section class="panel"><div class="panel-title"><span data-i18n="investmentLeaderboard">生存榜</span><span>LOWEST IS ELIMINATED</span></div><div class="investment-ranking" id="investmentRanking"></div></section>
+          <section class="panel information-set"><div class="panel-title"><span data-i18n="investmentAnalysis">赔率分析师面板</span><span>EXPECTED GROWTH</span></div><p id="investmentAdvice"></p><div class="investment-history" id="investmentHistory"></div></section>
+        </div>
+      </section>
     </main>
 
     <div class="modal-backdrop hidden" id="offerModal" role="dialog" aria-modal="true" aria-labelledby="offerTitle">

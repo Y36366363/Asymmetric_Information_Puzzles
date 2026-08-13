@@ -656,6 +656,32 @@ button.love-card:disabled { opacity: .43; cursor: not-allowed; }
 .love-removed { display: flex; justify-content: space-between; gap: 14px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
 .love-removed strong { color: var(--paper); text-align: right; }
 
+.investment-score { display:grid; grid-template-columns:repeat(4,1fr); margin-bottom:18px; padding:0; }
+.investment-score div { padding:18px; text-align:center; border-right:1px solid var(--line); }
+.investment-score div:last-child { border-right:0; }
+.investment-score span { display:block; color:var(--muted); font-size:11px; }
+.investment-score strong { display:block; margin-top:7px; color:var(--gold-soft); font-size:23px; }
+.investment-market { text-align:center; }
+.investment-market h2 { margin:8px 0 22px; font:500 29px Georgia,"Songti SC",serif; }
+.investment-offers { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.investment-offer { display:flex; flex-direction:column; gap:9px; min-height:210px; padding:20px; border:1px solid var(--line); color:var(--paper); background:#171514; text-align:left; }
+.investment-offer.selected { border-color:var(--gold); box-shadow:inset 0 0 0 1px var(--gold); background:#211d17; }
+.investment-offer > span,.investment-offer small { color:var(--muted); }
+.investment-offer strong { color:var(--gold-soft); font:700 36px Georgia,serif; }
+.investment-offer em { margin-top:auto; color:var(--paper); font-style:normal; }
+.positive { color:#83c99a !important; }.negative { color:#e28a7b !important; }
+.stake-control { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:14px; margin-top:22px; }
+.stake-control > span { color:var(--muted); }
+.stake-control > div { display:flex; gap:6px; flex-wrap:wrap; }
+.fraction-button { padding:10px 13px; border:1px solid var(--line); color:var(--paper); background:#171514; }
+.fraction-button.selected { border-color:var(--gold); color:var(--gold-soft); }
+.investment-result { margin-top:18px; padding:14px; border:1px solid var(--gold); color:var(--gold-soft); font-weight:800; }
+.investment-lower { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:18px; }
+.investment-ranking div { display:grid; grid-template-columns:28px 1fr auto auto; gap:12px; align-items:center; padding:11px 0; border-bottom:1px solid var(--line); }
+.investment-ranking span strong,.investment-ranking span small { display:block; }.investment-ranking span small { color:var(--muted); margin-top:3px; }
+.investment-ranking em { color:var(--gold-soft); font-style:normal; }.investment-ranking i { color:#e28a7b; font-size:10px; }.investment-ranking .eliminated { opacity:.48; }
+.investment-history { margin-top:16px; }.investment-history div { display:grid; grid-template-columns:1fr auto auto; gap:12px; padding:8px 0; border-bottom:1px solid var(--line); }.investment-history span { color:var(--muted); }.investment-history em { font-style:normal; }
+
 @media (max-width: 1100px) {
   .game-layout { grid-template-columns: 180px 1fr; }
   .insight-panel { grid-column: 1 / -1; }
@@ -754,5 +780,10 @@ button.love-card:disabled { opacity: .43; cursor: not-allowed; }
   .love-lower { grid-template-columns: 1fr; }
   .love-hand { flex-wrap: wrap; justify-content: center; }
   .love-card { width: 105px; min-height: 154px; }
+  .investment-score { grid-template-columns:1fr 1fr; }
+  .investment-score div:nth-child(2) { border-right:0; }.investment-score div:nth-child(-n+2) { border-bottom:1px solid var(--line); }
+  .investment-offers,.investment-lower { grid-template-columns:1fr; }
+  .investment-offer { min-height:155px; }
+  .stake-control { align-items:stretch; flex-direction:column; }.stake-control > div { justify-content:center; }
   .hole-row { gap: 5px; }
 }

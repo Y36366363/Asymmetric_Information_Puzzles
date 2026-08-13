@@ -17,6 +17,8 @@ let guessWhoSelected = null;
 let openRulesGameId = null;
 let rulesReturnFocus = null;
 let actionPending = false;
+let investmentOffer = null;
+let investmentFraction = 0.25;
 let activeOperation = null;
 let toastTimer = null;
 let routeReady = false;
@@ -34,6 +36,7 @@ const gameViews = {
   "hidden-pursuit": "pursuitView",
   battleship: "battleshipView",
   "love-letter": "loveLetterView",
+  investment: "investmentView",
   blackjack: "blackjackView",
 };
 
@@ -88,6 +91,8 @@ const copy = {
     loveLetterEyebrow: "CASE 08 · 手牌推断与风险控制 · 较难", loveLetterTitle: "情书决斗",
     loveDeck: "牌堆剩余", lovePrinceTarget: "王子目标", loveGuardGuess: "卫兵猜测",
     loveUseSuggestion: "执行 AI 建议", loveChooseCard: "点击一张合法手牌将它打出", loveRemoved: "开局公开移除", loveYourScore: "你的得分", loveAiScore: "AI 得分", loveSelf: "自己",
+    investmentEyebrow: "CASE 09 · 增长率与淘汰压力 · 较难", investmentTitle: "Kelly 生存投资赛",
+    investmentCapital: "虚拟资金", investmentRank: "当前排名", investmentNextCut: "下次淘汰", investmentStake: "仓位比例", investmentConfirm: "确认本轮决策", investmentLeaderboard: "生存榜", investmentAnalysis: "赔率分析师面板",
     yourFleet: "你的舰队", enemyWaters: "敌方海域", randomizeFleet: "重新随机布阵", startBattle: "确认布阵，开始战斗",
     shipsRemaining: "剩余舰船", candidateWorlds: "候选部署", advisorShot: "概率建议", battleHistory: "交火记录",
     rulesEyebrow: "玩法说明", rulesTitle: "游戏规则", closeRules: "关闭",
@@ -154,6 +159,8 @@ const copy = {
     loveLetterEyebrow: "CASE 08 · HAND INFERENCE & RISK CONTROL · HARD", loveLetterTitle: "Love Letter Duel",
     loveDeck: "Deck remaining", lovePrinceTarget: "Prince target", loveGuardGuess: "Guard guess",
     loveUseSuggestion: "Take AI advice", loveChooseCard: "Click a legal card to play it", loveRemoved: "Face-up removals", loveYourScore: "Your score", loveAiScore: "AI score", loveSelf: "Yourself",
+    investmentEyebrow: "CASE 09 · GROWTH & ELIMINATION PRESSURE · HARD", investmentTitle: "Kelly Survival Tournament",
+    investmentCapital: "Virtual capital", investmentRank: "Current rank", investmentNextCut: "Next elimination", investmentStake: "Stake fraction", investmentConfirm: "Lock this decision", investmentLeaderboard: "Survival table", investmentAnalysis: "Odds analyst panel",
     yourFleet: "Your fleet", enemyWaters: "Enemy waters", randomizeFleet: "Randomize fleet", startBattle: "Lock fleet and start",
     shipsRemaining: "Ships remaining", candidateWorlds: "Candidate placements", advisorShot: "Probability hint", battleHistory: "Battle log",
     rulesEyebrow: "HOW TO PLAY", rulesTitle: "Rules", closeRules: "Close",
@@ -187,6 +194,7 @@ const gamesCopy = {
     "hidden-pursuit": ["隐形追踪", "控制两名侦探封锁交通网络，从公开的出行方式和间歇现身中推断隐藏目标。", "单人 · 隐藏移动与信念追踪"],
     battleship: ["海战棋", "部署舰队，在未知海域中逐格搜索敌舰，对抗概率热力图 AI。", "单人 · 隐藏部署与概率搜索"],
     "love-letter": ["情书决斗", "读取公开弃牌与隐藏手牌，在保护、换牌、试探和点杀之间先赢得四轮。", "单人 · 手牌推断与风险控制"],
+    investment: ["Kelly 生存投资赛", "比较赔率、胜率和仓位，在周期淘汰制下兼顾资金增长与存活。", "单人 · 增长率、风险与相对排名"],
     auction: ["百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放"],
   },
   en: {
@@ -203,13 +211,14 @@ const gamesCopy = {
     "hidden-pursuit": ["Hidden Pursuit", "Control two detectives and infer an evasive target from public transport signals and scheduled reveals.", "Solo · Hidden movement & belief tracking"],
     battleship: ["Battleship", "Deploy a fleet, search unknown waters cell by cell, and face a probability-density AI.", "Solo · Hidden deployment & search"],
     "love-letter": ["Love Letter Duel", "Read public discards and a hidden hand while balancing protection, trades, probes, and elimination.", "Solo · Hand inference & risk control"],
+    investment: ["Kelly Survival Tournament", "Trade odds, probability, and position size while periodic eliminations reward both growth and survival.", "Solo · Growth, risk & relative rank"],
     auction: ["100-Unit All-Pay Auction", "Fight for leadership through public prices, alliances, and defection.", "Local multiplayer · Coming soon"],
   },
 };
 
 const difficultyCopy = {
-  zh: { cases: "入门", blackjack: "入门", "restricted-rps": "简单", mastermind: "简单", "guess-who": "简单", "hidden-pursuit": "中等", battleship: "中等", "love-letter": "较难", "e-card": "中等", pirates: "中等", "kuhn-poker": "较难", "liars-dice": "较难", worm: "挑战", auction: "未开放" },
-  en: { cases: "Beginner", blackjack: "Beginner", "restricted-rps": "Easy", mastermind: "Easy", "guess-who": "Easy", "hidden-pursuit": "Medium", battleship: "Medium", "love-letter": "Hard", "e-card": "Medium", pirates: "Medium", "kuhn-poker": "Hard", "liars-dice": "Hard", worm: "Challenge", auction: "Coming soon" },
+  zh: { cases: "入门", blackjack: "入门", "restricted-rps": "简单", mastermind: "简单", "guess-who": "简单", "hidden-pursuit": "中等", battleship: "中等", "love-letter": "较难", investment: "较难", "e-card": "中等", pirates: "中等", "kuhn-poker": "较难", "liars-dice": "较难", worm: "挑战", auction: "未开放" },
+  en: { cases: "Beginner", blackjack: "Beginner", "restricted-rps": "Easy", mastermind: "Easy", "guess-who": "Easy", "hidden-pursuit": "Medium", battleship: "Medium", "love-letter": "Hard", investment: "Hard", "e-card": "Medium", pirates: "Medium", "kuhn-poker": "Hard", "liars-dice": "Hard", worm: "Challenge", auction: "Coming soon" },
 };
 
 const rulesCopy = {
@@ -227,6 +236,7 @@ const rulesCopy = {
     "hidden-pursuit": ["目标：在第 12 回合结束前，让任一侦探移动到隐藏目标当前所在的节点。", "地图上蓝色 A、青色 B 是你的两名侦探。每回合先移动 A，再移动 B；只能点击当前侦探通过线路直接相连的节点。", "两名侦探都行动后，目标会沿黄色出租车线或紫色公交线移动一次，并公开所用交通方式，但通常不公开终点。", "带问号的节点是仍符合全部公开信息的位置。你移动到其中一个节点却没有抓到人，也会排除该位置。", "目标会在第 3、6、9 回合移动后强制现身；利用现身位置、之后的交通信号和两名侦探的封锁完成包围。", "抓到目标即获胜；撑过 12 回合则目标逃脱。AI 根据距离、出口和移动后的候选数量规避，但不是已证明的全局最优逃跑策略。"],
     battleship: ["目标：在概率 AI 击沉你的全部舰船之前，先找到并击沉它的舰队。", "布阵阶段先选择 10×10、12×12 或 15×15 海域；地图越大，双方舰船也越多。", "不同颜色表示不同舰船。点击舰船卡可旋转 90°，也可点击“重新随机布阵”；直线舰船翻转 180°占据的格子不变。", "满意后点击“确认布阵，开始战斗”。战斗阶段点击敌方未知格；淡点表示落空，红色表示命中，深红色表示击沉。", "你每开一炮，AI 会立即根据仍合法的水平与垂直部署还击。已经射击过的格子不能重复选择。", "候选部署表示目前仍符合反馈的舰船位置数量；概率建议给出覆盖合法部署最多的格子，但你可以选择别处。"],
     "love-letter": ["目标：比 AI 更早获得 4 枚胜利标记。每轮只有 16 张牌，你必须从公开弃牌推测 AI 留在手里的角色。", "开局双方各持一张牌；轮到你时再摸一张，然后点击两张手牌中的一张打出。牌面效果会立即执行。", "卫兵需要在右侧选择一个 2–8 的角色进行猜测；王子需要选择让 AI 或自己弃掉手牌。其他牌的目标由规则自动决定。", "侍女会保护你直到下次行动；男爵比较双方手牌；国王交换手牌；若同时持有伯爵夫人与国王或王子，必须打出伯爵夫人。", "打出公主或因卫兵、男爵、王子效果被淘汰会立刻输掉本轮；牌堆用完则比较手牌点数。点击“执行 AI 建议”可查看并采用信念策略。"],
+    investment: ["目标：用 1,000 单位虚拟资金完成 12 轮并最终排名第一；第 4、7、10 轮资金最低者会被淘汰。", "每轮比较三张机会卡。1:1 表示投入 100、成功净赚 100；3:1 表示成功净赚 300，失败都损失投入的 100。", "成功率×净赔率−失败率得到期望回报。正值只表示大量重复后的平均优势，不保证本轮获利。", "选择机会，再选 0%、10%、25%、50% 或 75% 仓位。0% 能保本，但可能被增长型对手超过。", "Kelly 最大化长期对数增长，不保证淘汰赛夺冠；AI 分别使用全 Kelly、半 Kelly、追赶、长赔率和保本技能。所有金额均为虚拟数值。"],
   },
   en: {
     cases: ["Goal: maximize your payout from 26 cases.", "Click one case to keep; never open it afterward.", "Open the number of other cases shown on screen. The banker then makes an offer.", "Choose Deal to end for the offer, or No Deal to continue. If you reach the end, you receive the kept case's value."],
@@ -242,6 +252,7 @@ const rulesCopy = {
     "hidden-pursuit": ["Goal: move either detective onto the hidden fugitive before round 12 ends.", "Blue A and cyan B are your detectives. Move A, then B each round by clicking a directly connected node.", "After both moves, the fugitive takes one yellow Taxi or purple Bus edge. The transport is public; the destination usually remains hidden.", "Question-mark nodes form the current information set. Visiting one without a capture also eliminates it.", "The fugitive must reveal after moves 3, 6, and 9. Combine that sighting with later transport signals and two-token blocking.", "Capture wins; surviving round 12 lets the fugitive escape. The AI is a distance-and-ambiguity heuristic, not a proven globally optimal evader."],
     battleship: ["Goal: sink the enemy fleet before the probability AI sinks yours.", "Choose a 10×10, 12×12, or 15×15 sea during deployment; larger boards add ships to preserve action density.", "Each ship has its own color. Click a ship card to rotate it 90°, or randomize the fleet. A 180° flip of a straight ship occupies the same cells.", "Lock the layout, then click unknown enemy cells. A pale dot is a miss, red is a hit, and dark red is a sunk ship.", "The AI returns fire from legal horizontal and vertical placements after every shot. Fired cells cannot be selected again.", "Candidate placements count ship positions consistent with observations; the hint marks a high-density cell without forcing it."],
     "love-letter": ["Goal: earn four tokens before the AI. Only 16 cards exist, so public discards let you infer the hidden opposing hand.", "Each side begins with one card. On your turn you draw a second card, then click one of the two cards to play it and resolve its effect.", "A Guard needs a 2–8 character guess; a Prince needs a target. Choose those controls before clicking the card. Other targets are automatic.", "Handmaid protects until your next turn; Baron compares hands; King trades hands. Countess must be played while held with King or Prince.", "Discarding Princess or losing to Guard, Baron, or Prince ends the round. An empty deck triggers a high-card showdown. Take AI advice uses public-card beliefs, not the hidden hand."],
+    investment: ["Goal: finish first after 12 rounds with 1,000 units of virtual capital. The lowest bankroll leaves after rounds 4, 7, and 10.", "Compare three opportunities. Net odds 1:1 mean a 100 stake wins 100 profit; 3:1 wins 300, while failure loses the 100 stake.", "Expected return is probability × odds − failure probability. A positive value is a long-run average edge, never a guarantee this round.", "Choose an opportunity and a 0%, 10%, 25%, 50%, or 75% stake. Cash preserves capital but may lose relative rank.", "Kelly maximizes asymptotic log growth, not tournament title probability. Rivals use full-Kelly, half-Kelly, chasing, longshot, and capital-preserving skills. All capital is virtual."],
   },
 };
 
@@ -260,6 +271,7 @@ const ruleDetails = {
     "hidden-pursuit": { role: "你控制两名公开位置的侦探，AI 控制一名隐藏目标。目标每回合必须移动，并公开乘坐出租车还是公交车；只有规定回合才公开实际位置。", example: "例：目标第 3 回合在 8 号节点现身，下一回合公开乘坐公交。你应把候选缩小到所有从 8 号经公交可达、且未被侦探占据的节点，再用 A、B 分别封锁出口。", finish: "任一侦探落到目标所在节点时立即抓捕；如果目标没有合法出口也算被包围。目标完成第 12 次移动仍未被抓则逃脱。", terms: "候选节点＝与所有交通信号、现身记录和落空搜查相容的位置；交通信号＝只公开线路类型，不公开终点；最后现身＝最近一次强制公开的位置，不保证目标现在仍在那里。" },
     battleship: { role: "你和 AI 在相互隔离的海域秘密部署舰队。标准、扩展和大型地图分别为 10×10、12×12、15×15；你只能看到自己的彩色舰船，敌舰通过命中反馈逐步暴露。", example: "例：你把蓝色长度 4 舰旋转为垂直方向，然后向敌方 B7 开火并命中。下一炮打 B8：若再次命中，可沿同一方向搜索；若落空，就要考虑舰船可能纵向延伸。", finish: "一艘船的所有格子都被命中时即被击沉；任一方全部舰船沉没时比赛结束。结束后敌方完整彩色舰队会揭晓，便于复盘。", terms: "旋转 90°＝在水平与垂直之间切换；180°翻转对没有首尾差异的直线舰船不产生新布局；候选部署＝与命中、落空和击沉反馈相容的水平或垂直位置总数。" },
     "love-letter": { role: "你和 AI 都只有一张隐藏手牌。牌很少且弃牌完全公开，因此每次行动既会触发角色能力，也会改变对手对你手牌的判断。AI 只能使用它应当知道的信息。", example: "例：5 张卫兵已有 4 张公开离场，而 AI 没有保护。此时 AI 手牌是卫兵的概率很低；若你打出卫兵，应根据剩余牌数猜最可能的高价值角色，而不是平均随机。", finish: "任何一方被角色能力淘汰，该轮立即结束并让胜者得 1 分；牌堆耗尽则比较手牌，较高者获胜。先到 4 分赢得整场比赛。", terms: "公开移除＝双人开局额外翻开的三张牌；信念概率＝根据你的手牌、公开移除和双方弃牌估计的对手手牌分布；保护＝对手效果不能以你为目标，直到你下一回合开始。" },
+    investment: { role: "你是赔率分析师，与五种风格的 AI 管理人参加虚拟资金淘汰赛。你能看到校准成功率，但对手本轮的选择在结算前保密。", example: "1:1、55% 成功率的期望回报是 +10%，Kelly 仓位为 10%。投入 25% 能更快抢排名，但失败也会损失 25%。", finish: "第 4、7、10 轮淘汰资金最低者；你出局即失败。活到第 12 轮后，资金第一才获胜。", terms: "净赔率＝成功时相对本金的净利润；期望回报＝平均收益率；Kelly＝最大化长期对数增长的理论仓位；存活率与夺冠率并非同一目标。" },
   },
   en: {
     cases: { role: "You are a TV-game contestant. Twenty-six cases hide prizes from tiny amounts to one million. You eliminate prizes and decide whether to accept the banker's cash offer.", example: "Example: you keep case 7 and open case 3, revealing $1. That prize leaves the board. After the required openings, an $80,000 offer means you can leave with $80,000 or reject it and keep risking your hidden case.", finish: "The game ends when you accept an offer, or when you reject every offer and receive the value in your kept case. There is no single correct risk preference.", terms: "Kept case: your unopened original choice. Expected value: the average of unrevealed prizes. A higher offer-to-EV ratio is usually more attractive." },
@@ -275,6 +287,7 @@ const ruleDetails = {
     "hidden-pursuit": { role: "You control two visible detectives while the AI controls a hidden fugitive. Every fugitive move publicly reveals Taxi or Bus, but the destination appears only on scheduled reveal rounds.", example: "Example: the fugitive appears at node 8 after round 3, then reports Bus. The next information set is every unblocked node reachable from 8 by a Bus edge; position A and B to cover separate exits.", finish: "Landing on the fugitive captures immediately; leaving no legal escape also counts as containment. The fugitive wins by completing move 12.", terms: "Candidate nodes fit every signal, reveal, and failed search. A transport signal reveals edge type only. Last seen is historical and may not be the current location." },
     battleship: { role: "You and the AI deploy private fleets on separate 10×10, 12×12, or 15×15 seas. You see your individually colored ships only; enemy ships emerge through hit feedback.", example: "Example: rotate the blue length-4 ship vertically, then hit B7. Firing at B8 tests a horizontal extension; a miss makes a vertical ship more plausible.", finish: "A ship sinks when every cell is hit. The match ends when either fleet is gone, then the complete colored enemy fleet is revealed for review.", terms: "Rotate 90° switches horizontal and vertical. A 180° flip creates no new layout for an undirected straight ship. Candidate placements count legal horizontal and vertical positions consistent with feedback." },
     "love-letter": { role: "You and the AI each keep one hidden card. The tiny deck and public discards make every role effect both an action and a signal. The AI uses only information it is entitled to know.", example: "If four of five Guards are already public, the opposing hand is unlikely to be a Guard. Playing your Guard should target the most frequent remaining non-Guard role rather than guessing uniformly.", finish: "An effect that eliminates a player ends the round for one point. If the deck empties, the higher hand wins. The first player to four points wins the match.", terms: "Face-up removals are the three extra cards revealed in a two-player setup. Belief probability is estimated from your hand and all public cards. Protection prevents opposing effects until your next turn." },
+    investment: { role: "You are the odds analyst facing five AI managers in a virtual-capital elimination tournament. You see calibrated probabilities; rival choices remain private until settlement.", example: "At 1:1 and 55% success, expected return is +10% and Kelly is 10%. Staking 25% gains rank faster but loses 25% on failure.", finish: "The lowest bankroll leaves after rounds 4, 7, and 10. Your elimination ends the game; after round 12, only first place wins.", terms: "Net odds are profit relative to stake. Expected return is average profit per staked unit. Kelly maximizes long-run log growth. Survival and title probability are different objectives." },
   },
 };
 
@@ -287,7 +300,7 @@ function installRulesButtons() {
   document.querySelectorAll(".game-heading").forEach((heading) => {
     if (heading.querySelector(".rules-button")) return;
     const view = heading.closest(".view");
-    const gameId = { gameView: "cases", wormView: "worm", pirateView: "pirates", pokerView: "kuhn-poker", eCardView: "e-card", rpsView: "restricted-rps", liarView: "liars-dice", blackjackView: "blackjack", mastermindView: "mastermind", guessWhoView: "guess-who", pursuitView: "hidden-pursuit", battleshipView: "battleship", loveLetterView: "love-letter" }[view?.id];
+    const gameId = { gameView: "cases", wormView: "worm", pirateView: "pirates", pokerView: "kuhn-poker", eCardView: "e-card", rpsView: "restricted-rps", liarView: "liars-dice", blackjackView: "blackjack", mastermindView: "mastermind", guessWhoView: "guess-who", pursuitView: "hidden-pursuit", battleshipView: "battleship", loveLetterView: "love-letter", investmentView: "investment" }[view?.id];
     if (!gameId) return;
     const button = document.createElement("button");
     button.className = "rules-button";
@@ -487,6 +500,7 @@ async function startGame(gameId = "cases", options = {}) {
     currentGameId = gameId;
     if (gameId === "pirates") pirateDraft = currentState.pirates.map(() => 0);
     if (gameId === "guess-who") guessWhoSelected = null;
+    if (gameId === "investment") { investmentOffer = currentState.suggestion?.offerId || "A"; investmentFraction = 0.25; }
     showGameView(gameId);
     const rulesSeenKey = `aip-rules-seen-${gameId}`;
     if (!readPreference(rulesSeenKey)) {
@@ -548,6 +562,10 @@ function render() {
   }
   if (currentState.gameId === "love-letter") {
     renderLoveLetter();
+    return;
+  }
+  if (currentState.gameId === "investment") {
+    renderInvestment();
     return;
   }
   if (currentState.gameId === "blackjack") {
@@ -1027,6 +1045,35 @@ function renderLoveLetter() {
     : (language === "zh" ? "本轮结束；检查公开记录后进入下一轮。" : "Round over; review the public log, then continue.");
 }
 
+function renderInvestment() {
+  const state = currentState;
+  const active = state.phase === "decision";
+  const nextCut = state.eliminationRounds.find((round) => round >= state.roundNumber);
+  $("#investmentRound").textContent = `${state.roundNumber} / ${state.maxRounds}`;
+  $("#investmentCapital").textContent = money.format(state.playerBankroll);
+  const playerAlive = state.rankings.find((item) => item.id === "player").alive;
+  $("#investmentRank").textContent = playerAlive ? `${state.playerRank} / ${state.rankings.length}` : (language === "zh" ? "已淘汰" : "Eliminated");
+  $("#investmentNextCut").textContent = !active ? "—" : nextCut ? (language === "zh" ? `第 ${nextCut} 轮` : `Round ${nextCut}`) : (language === "zh" ? "最终结算" : "Final ranking");
+  if (active && !state.offers.some((offer) => offer.id === investmentOffer)) investmentOffer = state.suggestion.offerId;
+  $("#investmentOffers").innerHTML = active ? state.offers.map((offer) => `<button class="investment-offer ${offer.id === investmentOffer ? "selected" : ""}" data-investment-offer="${offer.id}"><span>${language === "zh" ? "方案" : "Offer"} ${offer.id}</span><strong>${offer.netOdds}:1</strong><small>${language === "zh" ? "成功率" : "Success"} ${(offer.probability * 100).toFixed(1)}%</small><small class="${offer.expectedReturn >= 0 ? "positive" : "negative"}">${language === "zh" ? "期望回报" : "Expected return"} ${(offer.expectedReturn * 100).toFixed(1)}%</small><em>Kelly ${(offer.kellyFraction * 100).toFixed(1)}%</em></button>`).join("") : "";
+  document.querySelectorAll("[data-investment-offer]").forEach((button) => button.addEventListener("click", () => { investmentOffer = button.dataset.investmentOffer; renderInvestment(); }));
+  const fractions = [0, .1, .25, .5, .75];
+  $("#investmentFractions").innerHTML = fractions.map((fraction) => `<button class="fraction-button ${fraction === investmentFraction ? "selected" : ""}" data-investment-fraction="${fraction}">${fraction * 100}%</button>`).join("");
+  document.querySelectorAll("[data-investment-fraction]").forEach((button) => button.addEventListener("click", () => { investmentFraction = Number(button.dataset.investmentFraction); renderInvestment(); }));
+  $("#investmentSubmit").disabled = !active;
+  $("#investmentInstruction").textContent = active
+    ? (language === "zh" ? "选择一个赔率方案，再决定投入多少虚拟资金；对手选择在结算后公开。" : "Choose an odds profile and stake; rival decisions appear only after settlement.")
+    : (state.winner === "player" ? (language === "zh" ? "你以最高资金赢得锦标赛" : "You finished with the highest bankroll") : (language === "zh" ? "比赛结束：复盘增长与存活之间的取舍" : "Tournament over: review the growth-survival tradeoff"));
+  const skillNames = language === "zh" ? {odds_analyst:"赔率分析师",full_kelly:"全 Kelly",half_kelly:"半 Kelly",rank_chaser:"落后追赶",longshot:"长赔率偏好",capital_preserver:"保本优先"} : {odds_analyst:"Odds analyst",full_kelly:"Full Kelly",half_kelly:"Half Kelly",rank_chaser:"Rank chaser",longshot:"Longshot",capital_preserver:"Capital preserver"};
+  $("#investmentRanking").innerHTML = state.rankings.map((item, index) => `<div class="${!item.alive ? "eliminated" : ""}"><b>${index + 1}</b><span><strong>${item.id === "player" ? tr("you") : item.name}</strong><small>${skillNames[item.skill]}</small></span><em>${money.format(item.bankroll)}</em>${!item.alive ? `<i>${language === "zh" ? "已淘汰" : "Eliminated"}</i>` : ""}</div>`).join("");
+  const suggestion = state.suggestion;
+  $("#investmentAdvice").textContent = suggestion ? (language === "zh" ? `算术优势最高的是方案 ${suggestion.offerId}，Kelly 仓位 ${(suggestion.kellyFraction * 100).toFixed(1)}%。Kelly 只优化长期对数增长；临近淘汰时，你可能为了排名选择更低或更高仓位。` : `Offer ${suggestion.offerId} has the strongest arithmetic edge; Kelly is ${(suggestion.kellyFraction * 100).toFixed(1)}%. Kelly optimizes long-run log growth only; elimination pressure can justify less or more risk.`) : state.strategyScope;
+  const last = state.lastRound;
+  $("#investmentHistory").innerHTML = last ? last.results.map((result) => `<div><strong>${result.id === "player" ? tr("you") : state.rankings.find((item) => item.id === result.id)?.name}</strong><span>${result.offer} · ${(result.fraction * 100).toFixed(0)}%</span><em class="${result.won ? "positive" : "negative"}">${result.won ? "+" : ""}${money.format(result.after - result.before)}</em></div>`).join("") : `<p>${language === "zh" ? "首轮尚未结算。" : "Round one has not settled."}</p>`;
+  $("#investmentResult").classList.toggle("hidden", active);
+  if (!active) $("#investmentResult").textContent = state.winner === "player" ? (language === "zh" ? "锦标赛胜利" : "Tournament victory") : state.winner ? (language === "zh" ? `冠军：${state.rankings.find((item) => item.id === state.winner).name}` : `Champion: ${state.rankings.find((item) => item.id === state.winner).name}`) : (language === "zh" ? "你在淘汰点出局；其余经理继续比赛。" : "You were eliminated; the remaining managers continue.");
+}
+
 function renderGuessWho() {
   const state = currentState;
   const info = state.informationSet;
@@ -1469,6 +1516,7 @@ function showLobby() {
   $("#battleshipView").classList.add("hidden");
   $("#blackjackView").classList.add("hidden");
   $("#loveLetterView").classList.add("hidden");
+  $("#investmentView").classList.add("hidden");
   $("#lobbyView").classList.remove("hidden");
   window.scrollTo(0, 0);
 }
@@ -1493,6 +1541,8 @@ $("#guessWhoConfirm").addEventListener("click", () => {
 $("#newPursuitMatch").addEventListener("click", () => startGame("hidden-pursuit"));
 $("#newBattleshipMatch").addEventListener("click", () => startGame("battleship"));
 $("#loveNewMatch").addEventListener("click", () => act("new_match"));
+$("#investmentNew").addEventListener("click", () => startGame("investment"));
+$("#investmentSubmit").addEventListener("click", () => act("invest", { offerId: investmentOffer, fraction: investmentFraction }));
 $("#loveUseSuggestion").addEventListener("click", () => {
   if (currentState.phase === "round_finished") { act("next_round"); return; }
   if (currentState.phase === "match_finished") { act("new_match"); return; }

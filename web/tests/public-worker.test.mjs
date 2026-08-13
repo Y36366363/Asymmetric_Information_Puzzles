@@ -10,8 +10,8 @@ test("serves the bilingual lobby and all playable descriptors", async () => {
   assert.match(await page.text(), /ASYMMETRIC INFORMATION PUZZLES/);
   const response = await call("/api/games");
   const { games } = await response.json();
-  assert.equal(games.filter((game) => game.available).length, 13);
-  assert.deepEqual(games.filter((game) => game.available).map((game) => game.id), ["cases", "blackjack", "restricted-rps", "mastermind", "guess-who", "hidden-pursuit", "battleship", "love-letter", "e-card", "pirates", "kuhn-poker", "liars-dice", "worm"]);
+  assert.equal(games.filter((game) => game.available).length, 14);
+  assert.deepEqual(games.filter((game) => game.available).map((game) => game.id), ["cases", "blackjack", "restricted-rps", "mastermind", "guess-who", "hidden-pursuit", "battleship", "love-letter", "investment", "e-card", "pirates", "kuhn-poker", "liars-dice", "worm"]);
 });
 
 test("case game reaches a clear non-null final reveal", async () => {
@@ -215,6 +215,13 @@ test("single-player games survive complete decision loops", async () => {
   assert.equal(love.state.phase, "match_finished");
   assert.ok([love.state.scores.player, love.state.scores.ai].includes(4));
   assert.ok(Array.isArray(love.state.opponentHand));
+
+  const investment = await create("investment");
+  while (investment.state.phase === "decision") {
+    await act(investment, "invest", {offerId:investment.state.suggestion.offerId,fraction:.25});
+  }
+  assert.ok(investment.state.winner || !investment.state.rankings.find((item) => item.id === "player").alive);
+  assert.ok(investment.state.rankings.some((item) => !item.alive));
 
   const expanded = await create("battleship");
   await act(expanded, "set_board_size", {boardSize:12});

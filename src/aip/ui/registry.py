@@ -17,6 +17,7 @@ from aip.puzzles.battleship.solver import HiddenFleetBoard, ProbabilityDensityAI
 from aip.puzzles.hidden_pursuit.models import EDGES, NODE_POSITIONS, HiddenPursuitRules
 from aip.puzzles.hidden_pursuit.solver import PursuitState
 from aip.puzzles.love_letter.solver import CARD_COUNTS, CARD_NAMES, LoveLetterGame
+from aip.puzzles.investment import InvestmentTournament
 from aip.puzzles.guess_who import DEFAULT_QUESTIONS, DEFAULT_ROSTER, GuessWhoSolver
 from aip.puzzles.pirates.models import PirateRules
 from aip.puzzles.pirates.solver import PirateSolver
@@ -95,12 +96,13 @@ GAME_DISPLAY_ORDER = {
     "hidden-pursuit": 6,
     "battleship": 7,
     "love-letter": 8,
-    "e-card": 9,
-    "pirates": 10,
-    "kuhn-poker": 11,
-    "liars-dice": 12,
-    "worm": 13,
-    "auction": 14,
+    "investment": 9,
+    "e-card": 10,
+    "pirates": 11,
+    "kuhn-poker": 12,
+    "liars-dice": 13,
+    "worm": 14,
+    "auction": 15,
 }
 
 
@@ -2230,53 +2232,97 @@ class LoveLetterGameSession:
         belief = game.belief("player")
         total = sum(belief.values())
         suggestion = game.choose_play("player") if game.phase == "player_turn" else None
-        legal_actions = (
-            ["play_card"]
-            if game.phase == "player_turn"
-            else (["next_round"] if game.phase == "round_finished" else ["new_match"])
-        )
+        legal_actions = ["play_card"] if game.phase == "player_turn" else (["next_round"] if game.phase == "round_finished" else ["new_match"])
         return {
-            "gameId": "love-letter",
-            "phase": game.phase,
-            "roundNumber": game.round_number,
-            "targetScore": game.target_score,
-            "scores": dict(game.scores),
-            "playerHand": list(game.hands["player"]),
+            "gameId": "love-letter", "phase": game.phase,
+            "roundNumber": game.round_number, "targetScore": game.target_score,
+            "scores": dict(game.scores), "playerHand": list(game.hands["player"]),
             "opponentCardCount": len(game.hands["ai"]),
             "opponentHand": list(game.hands["ai"]) if finished else None,
-            "deckRemaining": len(game.deck),
-            "faceUpRemoved": list(game.face_up_removed),
+            "deckRemaining": len(game.deck), "faceUpRemoved": list(game.face_up_removed),
             "discards": {actor: list(cards) for actor, cards in game.discards.items()},
             "protected": dict(game.protected),
-            "cardCatalog": [
-                {"value": value, "name": CARD_NAMES[value], "count": CARD_COUNTS[value]}
-                for value in CARD_NAMES
-            ],
+            "cardCatalog": [{"value": value, "name": CARD_NAMES[value], "count": CARD_COUNTS[value]} for value in CARD_NAMES],
             "legalCards": game.legal_cards("player") if game.phase == "player_turn" else [],
             "suggestedPlay": self._play_dict(suggestion) if suggestion else None,
             "history": [dict(item) for item in game.history],
-            "roundResult": (
-                {"winner": game.round_winner, "reason": game.round_reason}
-                if finished
-                else None
-            ),
+            "roundResult": {"winner": game.round_winner, "reason": game.round_reason} if finished else None,
             "matchWinner": game.round_winner if game.phase == "match_finished" else None,
             "legalActions": legal_actions,
             "strategyScope": "remaining-card belief heuristic without hidden-hand access",
             "informationSet": {
-                "possibleCards": [
-                    {
-                        "value": value,
-                        "count": count,
-                        "probability": count / total if total else 0.0,
-                    }
-                    for value, count in sorted(belief.items())
-                ],
+                "possibleCards": [{"value": value, "count": count, "probability": count / total if total else 0.0} for value, count in sorted(belief.items())],
                 "knownOpponentCard": game.known_hand["player"],
                 "publicHistory": [dict(item) for item in game.history],
             },
         }
 
+
+class InvestmentGameSession:
+    """Virtual-money elimination tournament with visible odds and calibrated probabilities."""
+
+    def __init__(self, options: dict[str, object]) -> None:
+        seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
+        self.rng = random.Random(seed)
+        self.game = InvestmentTournament(self.rng)
+
+    def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
+        if action == "invest":
+            fraction = float(payload.get("fraction", 0))
+            if not fraction.is_integer() and fraction not in {0.1, 0.25, 0.5, 0.75}:
+                raise ValueError("choose one of the displayed stake fractions")
+            if fraction not in {0.0, 0.1, 0.25, 0.5, 0.75}:
+                raise ValueError("choose one of the displayed stake fractions")
+            self.game.invest(str(payload.get("offerId", "")), fraction)
+        elif action == "new_game":
+            self.game = InvestmentTournament(self.rng)
+        else:
+            raise ValueError(f"unknown investment action: {action}")
+        return self.snapshot()
+
+    def snapshot(self) -> dict[str, object]:
+        game = self.game
+        player = next(item for item in game.contestants if item.id == "player")
+        best = max(game.offers, key=lambda item: (item.expected_return, item.kelly))
+        rank = next(index for index, item in enumerate(game.rankings, 1) if item.id == "player")
+        return {
+            "gameId": "investment",
+            "phase": game.phase,
+            "roundNumber": game.round_number,
+            "maxRounds": game.max_rounds,
+            "eliminationRounds": list(game.elimination_rounds),
+            "playerRank": rank,
+            "playerBankroll": player.bankroll,
+            "offers": [
+                {
+                    "id": offer.id,
+                    "netOdds": offer.net_odds,
+                    "probability": offer.probability,
+                    "expectedReturn": offer.expected_return,
+                    "kellyFraction": offer.kelly,
+                }
+                for offer in game.offers
+            ] if game.phase == "decision" else [],
+            "rankings": [
+                {"id": item.id, "name": item.name, "skill": item.skill, "bankroll": item.bankroll, "alive": item.alive}
+                for item in game.rankings
+            ],
+            "lastRound": dict(game.history[-1]) if game.history else None,
+            "winner": game.winner,
+            "suggestion": {
+                "offerId": best.id,
+                "kellyFraction": best.kelly,
+                "reason": "highest_expected_edge_then_log_growth",
+            } if game.phase == "decision" else None,
+            "legalActions": ["invest"] if game.phase == "decision" else ["new_game"],
+            "strategyScope": "virtual bankroll; Kelly maximizes asymptotic log growth, not tournament survival or title probability",
+            "informationSet": {
+                "analystProbabilities": {offer.id: offer.probability for offer in game.offers},
+                "opponentSkills": {item.id: item.skill for item in game.contestants if item.id != "player"},
+                "privateOpponentChoices": True,
+                "publicHistory": list(game.history),
+            },
+        }
 
 def build_default_registry() -> GameRegistry:
     registry = GameRegistry()
@@ -2396,6 +2442,15 @@ def build_default_registry() -> GameRegistry:
             "单人 · 手牌推断与风险控制",
         ),
         LoveLetterGameSession,
+    )
+    registry.register(
+        GameDescriptor(
+            "investment",
+            "Kelly 生存投资赛",
+            "在赔率与胜率之间选择，并管理仓位；每个淘汰点资金最低者离场，最终争夺第一。",
+            "单人 · 增长率、风险与相对排名",
+        ),
+        InvestmentGameSession,
     )
     for descriptor in (
         GameDescriptor(

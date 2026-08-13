@@ -5,6 +5,22 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/13/2026
+
+- **Kelly survival tournament** — Added a virtual-capital single-player game
+  with a permanent 1:1 / 50% baseline, dynamic odds-probability tradeoffs,
+  five skill-based AI rivals, periodic eliminations, and a 12-round title race.
+- **Growth versus survival audit** — A repeatable 3,000-game comparison found
+  Kelly won 22.93% with 54.03% survival, while double Kelly raised title rate
+  to 28.73% but cut survival to 46.70%. [Read the model and results](research/investment_tournament_ai.md).
+- **Risk-literate interface** — Added bilingual beginner rules, expected-return
+  and Kelly calculations, selectable 0–75% virtual positions, hidden rival
+  decisions, responsive rankings, and explicit no-real-money framing.
+- **Daily regression expansion** — Added deterministic mathematics, checkpoint
+  elimination, seeded tournament, service, full browser-engine match, and
+  shared-state contract coverage before rebuilding the public lobby; all 142
+  Python and 10 web tests pass.
+
 ## Updates 08/12/2026
 
 - **Love Letter duel shipped locally** — Added a complete two-player 16-card

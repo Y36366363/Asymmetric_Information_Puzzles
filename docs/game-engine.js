@@ -13,6 +13,7 @@ const GAMES = [
   ["hidden-pursuit", "隐形追踪", "控制两名侦探围捕隐藏移动的目标；交通信号公开，但位置只会间歇暴露。", "单人 · 隐藏移动与信念追踪", true],
   ["battleship", "海战棋", "部署自己的舰队，在未知海域中搜索敌舰，并对抗概率热力图 AI。", "单人 · 隐藏部署与概率搜索", true],
   ["love-letter", "情书决斗", "读取公开弃牌与隐藏手牌，在保护、换牌、试探和点杀之间先赢得四轮。", "单人 · 手牌推断与风险控制", true],
+  ["investment", "Kelly 生存投资赛", "在赔率与胜率之间选择并管理虚拟仓位；资金最低者会在淘汰点离场。", "单人 · 增长率、风险与相对排名", true],
   ["e-card", "E-Card 皇帝牌", "皇帝、市民与奴隶构成不对称循环；用隐藏出牌和高额弱者收益击败策略型 AI。", "单人 · 非对称混合策略", true],
   ["pirates", "海盗议会", "亲自分配 100 枚金币，面对会做逆向归纳的理性海盗投票。", "单人 · 人机投票", true],
   ["kuhn-poker", "库恩扑克", "只用三张牌与策略型 AI 对决：读取下注信号，决定诈唬、跟注或弃牌。", "单人 · 隐藏手牌与诈唬", true],
@@ -346,8 +347,27 @@ class LoveLetterSession{
   }
 }
 
+function investmentKelly(probability,odds){return Math.max(0,Math.min(1,(odds*probability-(1-probability))/odds));}
+class InvestmentSession{
+  constructor(){this.maxRounds=12;this.eliminationRounds=[4,7,10];this.start();}
+  start(){this.round=1;this.phase="decision";this.history=[];this.contestants=[
+    {id:"player",name:"You",skill:"odds_analyst",bankroll:1000,alive:true},
+    {id:"kelly",name:"Kelly",skill:"full_kelly",bankroll:1000,alive:true},
+    {id:"shield",name:"Shield",skill:"half_kelly",bankroll:1000,alive:true},
+    {id:"chaser",name:"Chaser",skill:"rank_chaser",bankroll:1000,alive:true},
+    {id:"rocket",name:"Rocket",skill:"longshot",bankroll:1000,alive:true},
+    {id:"anchor",name:"Anchor",skill:"capital_preserver",bankroll:1000,alive:true},
+  ];this.makeOffers();}
+  makeOffers(){const odds=shuffle([.75,1.5,2,3,5]).slice(0,2),edges=shuffle([-.05,.02,.06,.1]).slice(0,2);this.offers=[{id:"A",netOdds:1,probability:.5,expectedReturn:0,kellyFraction:0},...odds.map((netOdds,index)=>{const probability=Math.min(.82,Math.max(.08,(1+edges[index])/(netOdds+1)));return{id:String.fromCharCode(66+index),netOdds,probability,expectedReturn:probability*netOdds-(1-probability),kellyFraction:investmentKelly(probability,netOdds)};})];}
+  rankings(){return[...this.contestants].sort((a,b)=>Number(b.alive)-Number(a.alive)||b.bankroll-a.bankroll);}
+  aiChoice(contestant){const positive=this.offers.filter(offer=>offer.expectedReturn>0),pool=positive.length?positive:this.offers;if(contestant.skill==="longshot")return{offer:[...this.offers].sort((a,b)=>b.netOdds-a.netOdds)[0],fraction:.45};const offer=[...pool].sort((a,b)=>b.expectedReturn-a.expectedReturn||b.kellyFraction-a.kellyFraction)[0];if(contestant.skill==="half_kelly")return{offer,fraction:Math.min(.35,offer.kellyFraction*.5)};if(contestant.skill==="capital_preserver")return{offer,fraction:Math.min(.12,offer.kellyFraction*.35)};if(contestant.skill==="rank_chaser"){const living=this.contestants.filter(item=>item.alive).map(item=>item.bankroll).sort((a,b)=>a-b),median=living[Math.floor(living.length/2)];return{offer,fraction:Math.min(.65,offer.kellyFraction*(contestant.bankroll<median?1.8:.8))};}return{offer,fraction:Math.min(.6,offer.kellyFraction)};}
+  invest(offerId,fraction){if(this.phase!=="decision")throw new Error("the tournament is not awaiting an investment");if(![0,.1,.25,.5,.75].includes(fraction))throw new Error("choose one of the displayed stake fractions");const playerOffer=this.offers.find(item=>item.id===offerId);if(!playerOffer)throw new Error("unknown opportunity");const choices={player:{offer:playerOffer,fraction}};for(const contestant of this.contestants)if(contestant.alive&&contestant.id!=="player")choices[contestant.id]=this.aiChoice(contestant);const results=[];for(const contestant of this.contestants){if(!contestant.alive)continue;const choice=choices[contestant.id],before=contestant.bankroll,stake=before*choice.fraction,won=Math.random()<choice.offer.probability;contestant.bankroll=before+(won?stake*choice.offer.netOdds:-stake);results.push({id:contestant.id,offer:choice.offer.id,fraction:choice.fraction,won,before,after:contestant.bankroll});}let eliminated=null;if(this.eliminationRounds.includes(this.round)){const loser=this.contestants.filter(item=>item.alive).sort((a,b)=>a.bankroll-b.bankroll||a.id.localeCompare(b.id))[0];loser.alive=false;eliminated=loser.id;}this.history.push({round:this.round,results,eliminated});const player=this.contestants.find(item=>item.id==="player");if(!player.alive||this.round>=this.maxRounds){this.phase="finished";return;}this.round+=1;this.makeOffers();}
+  act(action,payload={}){if(action==="new_game"){this.start();return;}if(action!=="invest")throw new Error("unknown investment action");this.invest(String(payload.offerId||""),Number(payload.fraction));}
+  snapshot(){const rankings=this.rankings(),player=this.contestants.find(item=>item.id==="player"),best=[...this.offers].sort((a,b)=>b.expectedReturn-a.expectedReturn||b.kellyFraction-a.kellyFraction)[0],winner=this.phase==="finished"&&this.round>=this.maxRounds?[...this.contestants].filter(item=>item.alive).sort((a,b)=>b.bankroll-a.bankroll)[0].id:null;return{gameId:"investment",phase:this.phase,roundNumber:this.round,maxRounds:this.maxRounds,eliminationRounds:this.eliminationRounds,playerRank:rankings.findIndex(item=>item.id==="player")+1,playerBankroll:player.bankroll,offers:this.phase==="decision"?this.offers:[],rankings,lastRound:this.history.at(-1)||null,winner,suggestion:this.phase==="decision"?{offerId:best.id,kellyFraction:best.kellyFraction,reason:"highest_expected_edge_then_log_growth"}:null,legalActions:this.phase==="decision"?["invest"]:["new_game"],strategyScope:"virtual bankroll; Kelly maximizes asymptotic log growth, not tournament survival or title probability",informationSet:{analystProbabilities:Object.fromEntries(this.offers.map(offer=>[offer.id,offer.probability])),opponentSkills:Object.fromEntries(this.contestants.filter(item=>item.id!=="player").map(item=>[item.id,item.skill])),privateOpponentChoices:true,publicHistory:this.history}};}
+}
+
 function createSession(gameId, options={}) {
-  const factories={cases:CaseSession,worm:WormSession,pirates:PirateSession,"kuhn-poker":PokerSession,"e-card":ECardSession,"restricted-rps":RPSSession,blackjack:BlackjackSession,"liars-dice":LiarDiceSession,mastermind:MastermindSession,"guess-who":GuessWhoSession,battleship:BattleshipSession,"hidden-pursuit":HiddenPursuitSession,"love-letter":LoveLetterSession};
+  const factories={cases:CaseSession,worm:WormSession,pirates:PirateSession,"kuhn-poker":PokerSession,"e-card":ECardSession,"restricted-rps":RPSSession,blackjack:BlackjackSession,"liars-dice":LiarDiceSession,mastermind:MastermindSession,"guess-who":GuessWhoSession,battleship:BattleshipSession,"hidden-pursuit":HiddenPursuitSession,"love-letter":LoveLetterSession,investment:InvestmentSession};
   const Factory=factories[gameId]; if(!Factory)throw new Error("unknown or unavailable game"); const session=new Factory(options);session.gameId=gameId;return session;
 }
 

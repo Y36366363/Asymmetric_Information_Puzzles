@@ -63,7 +63,7 @@ test("browser engine intercepts API calls without a backend", async () => {
   await import(`../../docs/game-engine.js?test=${Date.now()}`);
   try {
     const games = await (await fetch("/api/games")).json();
-    assert.equal(games.games.filter((game) => game.available).length, 13);
+    assert.equal(games.games.filter((game) => game.available).length, 14);
     const created = await (await fetch("/api/sessions", {
       method: "POST",
       body: JSON.stringify({ gameId: "pirates", options: { pirates: 5, gold: 100 } }),

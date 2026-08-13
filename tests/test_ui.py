@@ -37,6 +37,7 @@ class LocalGameUITests(unittest.TestCase):
                 "hidden-pursuit",
                 "battleship",
                 "love-letter",
+                "investment",
                 "e-card",
                 "pirates",
                 "kuhn-poker",
@@ -159,6 +160,19 @@ class LocalGameUITests(unittest.TestCase):
         self.assertEqual(state["phase"], "match_finished")
         self.assertIn(4, state["scores"].values())
         self.assertIsNotNone(state["opponentHand"])
+
+    def test_investment_tournament_exposes_tradeoffs_and_completes(self) -> None:
+        created = self.service.create_session("investment", {"seed": 43})
+        state = created["state"]
+        self.assertEqual(len(state["offers"]), 3)
+        self.assertTrue(all("kellyFraction" in offer for offer in state["offers"]))
+        while state["phase"] == "decision":
+            state = self.service.act(
+                created["sessionId"], "invest",
+                {"offerId": state["suggestion"]["offerId"], "fraction": 0.25},
+            )
+        self.assertTrue(state["winner"] is not None or not next(item for item in state["rankings"] if item["id"] == "player")["alive"])
+        self.assertTrue(any(not item["alive"] for item in state["rankings"]))
 
     def test_session_store_evicts_the_oldest_temporary_game(self) -> None:
         service = LocalGameService(build_default_registry(), max_sessions=2)
