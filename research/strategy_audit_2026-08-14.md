@@ -13,7 +13,7 @@ implemented rules, objective, information boundary, and proof all match.
 | Guess Who | Dynamic programming | Exact in model | Globally minimizes expected or worst-case questions for the fixed 24-person roster, uniform prior, and eight-question bank. |
 | Restricted RPS | Exact finite-game minimax plus bounded exploitation | Safe core, adaptive overlay | The exposed equilibrium is exact. The deployed exploit mixture may score better against a biased player but gives up a strict minimax guarantee. |
 | Blackjack | Six-deck S17 basic strategy | Rule-scoped optimum | Optimal for the available hit/stand/double actions without splits, surrender, insurance, or card counting. It is not universally optimal Blackjack. |
-| Kuhn Poker | Equilibrium-inspired mixed frequencies | Strong benchmark | The tiny game is solvable, but the current repeated-match implementation has not yet been exhaustively checked for exploitability at every information set. |
+| Kuhn Poker | Position-aware mixed equilibrium | Exact in model | The alpha=1/3 equilibrium has zero exploitability under exhaustive pure best-response checks. First-position Q calls 2/3 after check-bet; second-position Q calls 1/3 against an opening bet. |
 | E-Card | Timing randomization with bounded adaptation | Heuristic | Uses legal public timing history, but no equilibrium proof exists for the repeated asymmetric scoring model. |
 | Battleship | Placement-density targeting | Improved heuristic | Strong one-step search, not an exact posterior over complete non-overlapping fleets and not a lookahead optimum. |
 | Mastermind | Bounded one-step minimax | Strong heuristic | Exact candidate filtering; the opening search is budgeted, so global minimum expected attempts is not proved. |
@@ -85,12 +85,10 @@ until the player chooses an objective.
 
 ## Next optimization priorities
 
-1. Audit Kuhn Poker exploitability at every information set and replace its
-   hand-written frequencies with an exact equilibrium table if any gap exists.
-2. Alternate Love Letter first action, then compare the current belief scorer
+1. Alternate Love Letter first action, then compare the current belief scorer
    with shallow determinized expectiminimax on identical deals.
-3. Upgrade Battleship from independent ship placements to sampled legal
+2. Upgrade Battleship from independent ship placements to sampled legal
    complete fleets only if both mean and P90 improve within the interaction
    time budget.
-4. Treat the RPS exploit overlay as an optional opponent profile; retain the
+3. Treat the RPS exploit overlay as an optional opponent profile; retain the
    exact minimax distribution as the clearly labeled non-exploitable mode.

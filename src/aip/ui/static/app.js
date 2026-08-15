@@ -53,7 +53,7 @@ const copy = {
     restartMatch: "重新开始比赛", handNumber: "当前牌局", yourScore: "你的净筹码",
     potSize: "底池", aiScore: "AI 净筹码", strategyAi: "策略型 AI", you: "你",
     yourInformationSet: "你的信息集", quickRules: "快速规则",
-    pokerRules: "双方先各投入 1。下注为 1；跟注后比牌，弃牌则直接输。K 最大、J 最小。AI 会按概率诈唬，所以同一种动作不总代表同一张牌。",
+    pokerRules: "双方先各投入 1。下注为 1；跟注后比牌，弃牌则直接输。K 最大、J 最小。AI 使用经过可利用性验证的混合均衡，会按位置调整诈唬和跟注概率。",
     eCardEyebrow: "CASE 08 · 非对称收益与混合策略 · 中等", eCardTitle: "E-Card 皇帝牌",
     currentDuel: "本轮对决", emperor: "皇帝", citizen: "市民", slave: "奴隶",
     eCardYourScore: "你的得分", eCardAiScore: "AI 得分",
@@ -121,7 +121,7 @@ const copy = {
     restartMatch: "Restart match", handNumber: "Current hand", yourScore: "Your net chips",
     potSize: "Pot", aiScore: "AI net chips", strategyAi: "Strategy AI", you: "You",
     yourInformationSet: "Your information set", quickRules: "Quick rules",
-    pokerRules: "Both players ante 1. A bet costs 1; a call leads to showdown, while a fold loses immediately. K is high and J is low. The AI bluffs probabilistically, so one action never reveals one card with certainty.",
+    pokerRules: "Both players ante 1. A bet costs 1; a call reaches showdown, while a fold loses immediately. K is high and J is low. The AI uses an exploitability-checked mixed equilibrium with position-aware bluff and call frequencies.",
     eCardEyebrow: "CASE 08 · ASYMMETRIC PAYOFFS & MIXED STRATEGY · MEDIUM", eCardTitle: "E-Card",
     currentDuel: "Duel", emperor: "Emperor", citizen: "Citizen", slave: "Slave",
     eCardYourScore: "Your score", eCardAiScore: "AI score",
@@ -226,7 +226,7 @@ const rulesCopy = {
     cases: ["目标：在 26 个箱子中尽可能拿到高奖金。", "先点击任意一个箱子作为你的保留箱；之后不要再打开它。", "按页面提示点击指定数量的其他箱子，打开后会显示金额。完成本轮后银行家报价。", "报价出现时点击“接受报价”立即结束并领取报价；点击“拒绝，继续开箱”则进入下一轮。", "坚持到最后会拿到保留箱里的金额；右侧的期望值、风险和建议只是辅助，不会替你操作。"],
     worm: ["目标：在虫子逃走前抓到它。五个洞按 1–5 排成一行。", "每回合点击一个洞进行检查；点击正确位置就立即成功。", "如果没抓到，虫子会移动到相邻洞，系统随后更新“仍可能的位置”。", "这是最坏情况模式，不靠随机运气；点击“保证抓捕序列”中下一个洞，才能保证最终抓到。"],
     pirates: ["目标：让你的提案获得足够票数，并让海盗 A 活下来。", "在每个海盗的金币输入框中填整数，所有分配之和必须正好等于 100。", "点击“提交提案并投票”。每名海盗会比较你的报价与否决后按逆向归纳得到的金币/生存结果。", "达到页面显示的赞成票数就通过；否则 A 被处决，系统展示实际结果和理论最优方案。"],
-    "kuhn-poker": ["目标：赢得更多筹码。你和 AI 各拿一张 J、Q 或 K，并各投入 1 枚底注。", "轮到你时可点击“过牌”或“下注”；下注会额外投入 1 枚。", "若 AI 下注，你只能选择“跟注”或“弃牌”；弃牌立即输掉底注。", "跟注后双方亮牌，K > Q > J，牌大者赢得底池；下一局会交换先手。"],
+    "kuhn-poker": ["目标：在连续牌局中赢得更多净筹码。你和 AI 从 J、Q、K 中各拿一张未知于对方的牌，并各投入 1 枚底注。", "轮到你时可点击“过牌”或“下注”；下注会额外投入 1 枚。若一方过牌，对方仍可下注。", "面对下注时只能“跟注”或“弃牌”：弃牌立即损失底注；跟注再投入 1 枚并亮牌，K > Q > J。", "下一局交换先后手。AI 使用精确混合均衡：弱牌偶尔诈唬，中牌是否跟注会随先后手改变，所以应结合自己的牌、位置和公开行动判断。"],
     "e-card": ["目标：利用特殊牌的循环克制关系赢得高分。你和 AI 各有 1 张特殊牌与 4 张市民牌。", "点击手中的一张牌，双方会同时出牌，AI 的选择在揭示前保持隐藏。", "皇帝击败市民，市民击败奴隶，奴隶击败皇帝；奴隶获胜通常得到更高收益。", "市民对市民不会结束本轮，两张牌会被消耗后继续；特殊牌相遇则按克制关系结束本轮。"],
     "restricted-rps": ["目标：在有限库存耗尽前赢得更多回合。你和 AI 各有相同数量的石头、剪刀、布。", "点击一张仍有库存的手势牌；双方同时出牌，使用过的牌永久减少。", "石头胜剪刀，剪刀胜布，布胜石头；相同手势为平局。双方库存和历史都会公开。", "库存全部用完后比赛结束。页面显示均衡建议，以及 AI 是否根据你的历史偏好进行了有限度适应。"],
     blackjack: ["目标：让自己的点数尽量接近 21，但超过 21 就爆牌并立即输。", "A 可算 1 或 11；J/Q/K 算 10。开始时你会看到两张手牌和庄家的一张明牌。", "点击“要牌”再拿一张；点击“停牌”结束行动；首轮可点击“加倍”并只再拿一张。", "庄家随后按固定规则补牌（软 17 停牌），最后比较点数；黑杰克按页面规则结算。右侧可让 AI 执行基础策略建议。"],
@@ -242,7 +242,7 @@ const rulesCopy = {
     cases: ["Goal: maximize your payout from 26 cases.", "Click one case to keep; never open it afterward.", "Open the number of other cases shown on screen. The banker then makes an offer.", "Choose Deal to end for the offer, or No Deal to continue. If you reach the end, you receive the kept case's value."],
     worm: ["Goal: catch the worm. Five holes are arranged from 1 to 5.", "Check one hole per turn. A correct check catches it immediately.", "After a miss, the adversary moves to a neighboring hole and the possible-position panel updates.", "This is worst-case play, so follow the guaranteed sequence rather than relying on luck."],
     pirates: ["Goal: pass your proposal and keep pirate A alive.", "Enter integer gold allocations totaling exactly 100, then submit the proposal.", "Each pirate compares your offer with the continuation payoff after A's execution.", "If enough votes support the proposal it passes; otherwise A is executed and the benchmark is shown."],
-    "kuhn-poker": ["Goal: win chips. Each player receives J, Q, or K and antes 1.", "When first, choose Check or Bet. Facing a bet, choose Call or Fold.", "A fold loses immediately; a call reaches showdown. K beats Q, which beats J.", "The next hand swaps first position."],
+    "kuhn-poker": ["Goal: win more net chips over repeated hands. You and the AI each receive one private card from J, Q, and K, then ante 1.", "On your turn choose Check or Bet; a bet adds 1. After a check, the other player may still bet.", "Facing a bet, choose Call or Fold. Folding loses the ante; calling adds 1 and reveals both cards. K beats Q, which beats J.", "First position alternates each hand. The AI uses an exact mixed equilibrium: weak cards sometimes bluff and a middle-card call depends on position, so read your card, seat, and the public action history together."],
     "e-card": ["Goal: exploit the asymmetric special-card cycle. Each side holds one special card and four citizens.", "Click one card; both sides reveal simultaneously.", "Emperor beats Citizen, Citizen beats Slave, and Slave beats Emperor. Slave wins pay more.", "Citizen versus Citizen consumes both cards and continues the round."],
     "restricted-rps": ["Goal: win more rounds before your finite inventory runs out.", "Click an available Rock, Paper, or Scissors card; both choices are simultaneous and the card is consumed.", "Rock beats Scissors, Scissors beats Paper, and Paper beats Rock. Equal moves draw.", "The match ends when the inventory is exhausted; equilibrium and adaptation diagnostics remain visible."],
     blackjack: ["Goal: approach 21 without going over.", "A counts as 1 or 11; face cards count as 10. You see your hand and the dealer upcard.", "Choose Hit, Stand, or Double (first decision only). The dealer then follows the fixed soft-17 rule.", "Compare the final totals; the strategy panel can execute the basic-strategy recommendation."],
@@ -1273,14 +1273,25 @@ function renderPoker() {
     button.addEventListener("click", () => act(button.dataset.pokerAction));
   });
   const facingBet = state.legalActions.includes("call");
+  const facingBetInstruction = language === "zh"
+    ? state.playerCard === "J"
+      ? "你拿 J：按照均衡策略，AI 的这次下注只可能来自 K。"
+      : state.playerCard === "K"
+        ? "你拿 K：按照均衡策略，AI 的这次下注只可能是 J 诈唬。"
+        : "AI 下注了：它拿着 K，还是在用 J 诈唬？"
+    : state.playerCard === "J"
+      ? "You hold J: under equilibrium play, this AI bet can only come from K."
+      : state.playerCard === "K"
+        ? "You hold K: under equilibrium play, this AI bet can only be a J bluff."
+        : "The AI bet: is it holding K, or bluffing with J?";
   $("#pokerInstruction").textContent = state.phase === "finished"
     ? (language === "zh" ? "本局信息已经揭晓" : "The hand is revealed")
     : facingBet
-      ? (language === "zh" ? "AI 下注了：它拿着 K，还是在用 J 诈唬？" : "The AI bet: is it holding K, or bluffing with J?")
+      ? facingBetInstruction
       : (language === "zh" ? "利用你的私牌与公开行动做决定" : "Decide from your private card and the public actions");
   $("#pokerInformation").textContent = language === "zh"
-    ? `你确定自己拿到 ${state.informationSet.privateCard}；因此 AI 只可能持有 ${state.informationSet.possibleOpponentCards.join(" 或 ")}。公开行动不会直接揭示是哪一张。`
-    : `You know you hold ${state.informationSet.privateCard}; therefore the AI can only hold ${state.informationSet.possibleOpponentCards.join(" or ")}. Public actions do not identify which one with certainty.`;
+    ? `你确定自己拿到 ${state.informationSet.privateCard}；因此 AI 只可能持有 ${state.informationSet.possibleOpponentCards.join(" 或 ")}。AI 使用已通过穷举最佳回应验证的均衡；先后手价值不同，因此 Q 面对下注时的跟注概率也会随位置变化。`
+    : `You hold ${state.informationSet.privateCard}, so the AI can only hold ${state.informationSet.possibleOpponentCards.join(" or ")}. Its equilibrium passed exhaustive best-response checks; seat value differs, so its Q call frequency also changes by position.`;
   $("#pokerResult").classList.toggle("hidden", state.phase !== "finished");
   if (state.phase === "finished") {
     const won = state.result.winner === "player";

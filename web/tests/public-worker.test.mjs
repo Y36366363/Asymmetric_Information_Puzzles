@@ -175,6 +175,7 @@ test("single-player games survive complete decision loops", async () => {
   assert.ok(ecard.state.result);
 
   const poker = await create("kuhn-poker");
+  assert.equal(poker.state.strategyScope, "exact_three_card_kuhn_equilibrium_alpha_one_third");
   for (let guard=0; poker.state.phase === "playing" && guard < 4; guard += 1) {
     const action = poker.state.legalActions.includes("check") ? "check" : poker.state.legalActions.includes("call") ? "call" : poker.state.legalActions[0];
     await act(poker, action);

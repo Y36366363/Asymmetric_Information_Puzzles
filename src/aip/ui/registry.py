@@ -19,6 +19,7 @@ from aip.puzzles.hidden_pursuit.solver import PursuitState
 from aip.puzzles.love_letter.solver import CARD_COUNTS, CARD_NAMES, LoveLetterGame
 from aip.puzzles.investment import InvestmentTournament
 from aip.puzzles.guess_who import DEFAULT_QUESTIONS, DEFAULT_ROSTER, GuessWhoSolver
+from aip.puzzles.kuhn_poker import equilibrium_policy
 from aip.puzzles.pirates.models import PirateRules
 from aip.puzzles.pirates.solver import PirateSolver
 from aip.puzzles.worm.solver import WormSolver
@@ -570,6 +571,7 @@ class KuhnPokerSession:
     """A short repeated poker match with private cards and a mixed-strategy AI."""
 
     CARDS = ("J", "Q", "K")
+    EQUILIBRIUM = equilibrium_policy()
 
     def __init__(self, options: dict[str, object]) -> None:
         self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
@@ -638,8 +640,8 @@ class KuhnPokerSession:
         self._ai_after_player_check()
 
     def _ai_opening_action(self) -> None:
-        should_bet = self.ai_card == "K" or (
-            self.ai_card == "J" and self._rng.random() < 1 / 3
+        should_bet = self._rng.random() < float(
+            self.EQUILIBRIUM.first_open_bet[self.ai_card]
         )
         action = "bet" if should_bet else "check"
         self.history.append({"actor": "ai", "action": action})
@@ -650,8 +652,8 @@ class KuhnPokerSession:
             self.legal_actions = ["check", "bet"]
 
     def _ai_after_player_check(self) -> None:
-        should_bet = self.ai_card == "K" or (
-            self.ai_card == "J" and self._rng.random() < 1 / 3
+        should_bet = self._rng.random() < float(
+            self.EQUILIBRIUM.second_bet_after_check[self.ai_card]
         )
         action = "bet" if should_bet else "check"
         self.history.append({"actor": "ai", "action": action})
@@ -662,9 +664,15 @@ class KuhnPokerSession:
             self._showdown(1, "both_checked")
 
     def _ai_facing_bet(self) -> None:
-        should_call = self.ai_card == "K" or (
-            self.ai_card == "Q" and self._rng.random() < 1 / 3
+        # The two Q information sets are not interchangeable.  As first seat,
+        # after check-bet, equilibrium calls 2/3; as second seat versus an
+        # opening bet it calls 1/3.
+        call_table = (
+            self.EQUILIBRIUM.second_call_open_bet
+            if self.player_is_first
+            else self.EQUILIBRIUM.first_call_after_check_bet
         )
+        should_call = self._rng.random() < float(call_table[self.ai_card])
         action = "call" if should_call else "fold"
         self.history.append({"actor": "ai", "action": action})
         if action == "fold":
@@ -714,6 +722,7 @@ class KuhnPokerSession:
             "legalActions": list(self.legal_actions),
             "history": public_history,
             "result": self.result,
+            "strategyScope": "exact_three_card_kuhn_equilibrium_alpha_one_third",
             "informationSet": {
                 "privateCard": self.player_card,
                 "publicHistory": public_history,

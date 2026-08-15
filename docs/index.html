@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#10100f" />
     <title>AIP · 非对称博弈实验室</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23d8aa4c'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial' font-size='23' font-weight='900' fill='%2311110f'%3EAIP%3C/text%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=e58fcceb9025" />
+    <link rel="stylesheet" href="styles.css?v=35250c1fafbb" />
   </head>
   <body>
     <header class="topbar">
@@ -188,7 +188,7 @@
           </section>
           <section class="panel poker-rules">
             <div class="panel-title"><span data-i18n="quickRules">快速规则</span><span>KUHN 1950</span></div>
-            <p data-i18n="pokerRules">双方先各投入 1。下注为 1；跟注后比牌，弃牌则直接输。K 最大、J 最小。AI 会按概率诈唬，所以同一种动作不总代表同一张牌。</p>
+            <p data-i18n="pokerRules">双方先各投入 1。下注为 1；跟注后比牌，弃牌则直接输。K 最大、J 最小。AI 使用经过可利用性验证的混合均衡，会按位置调整诈唬和跟注概率。</p>
           </section>
         </div>
       </section>
@@ -641,6 +641,6 @@
 
     <div class="operation-status hidden" id="operationStatus" role="status" aria-live="polite"></div>
     <div class="toast hidden" id="toast" role="status"></div>
-    <script type="module" src="bootstrap.js?v=e58fcceb9025"></script>
+    <script type="module" src="bootstrap.js?v=35250c1fafbb"></script>
   </body>
 </html>

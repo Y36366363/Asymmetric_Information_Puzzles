@@ -397,6 +397,10 @@ class LocalGameUITests(unittest.TestCase):
         self.assertNotIn(
             state["playerCard"], state["informationSet"]["possibleOpponentCards"]
         )
+        self.assertEqual(
+            state["strategyScope"],
+            "exact_three_card_kuhn_equilibrium_alpha_one_third",
+        )
 
         while state["phase"] == "playing":
             action = state["legalActions"][0]
@@ -573,6 +577,11 @@ class LocalGameUITests(unittest.TestCase):
         self.assertIn('event.key !== "Tab"', script)
         self.assertIn("setOperationPending", script)
         self.assertIn('id="operationStatus"', html)
+
+    def test_kuhn_poker_prompt_respects_the_players_private_card(self) -> None:
+        script = files("aip.ui").joinpath("static/app.js").read_text()
+        self.assertIn("this AI bet can only come from K", script)
+        self.assertIn("this AI bet can only be a J bluff", script)
 
     def test_detail_case_numbers_follow_the_difficulty_order(self) -> None:
         html = files("aip.ui").joinpath("static/index.html").read_text()

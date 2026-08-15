@@ -5,6 +5,26 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/15/2026
+
+- **Exact Kuhn Poker equilibrium** — Corrected the AI's first-seat Q call
+  frequency from `1/3` to `2/3` after check-bet while retaining `1/3` for the
+  distinct second-seat information set.
+- **Exhaustive exploitability oracle** — Added an exact rational evaluator that
+  checks all 64 pure best responses from each seat. It proves zero
+  exploitability for the corrected policy and reproduces the old policy's
+  `1/9`-chip-per-hand weakness. [Read the full audit](research/kuhn_poker_ai_2026-08-15.md).
+- **Private-card-aware guidance** — Expanded the bilingual rules and made the
+  live bet prompt respect the player's known card: a J holder can rule out a J
+  bluff, while a K holder can identify the equilibrium bet as a J bluff.
+- **Cross-runtime consistency** — Published strategy-scope metadata and the
+  position-aware policy in both the Python service and zero-backend browser
+  engine, then rebuilt both deployable targets.
+- **Daily stability pass** — Verified complete single-player loops, the local
+  health endpoint, 390px responsive layout, first-screen navigation, language
+  switching, and clean browser logs; all 150 Python plus 10 public-engine tests
+  pass.
+
 ## Updates 08/14/2026
 
 - **Strategy optimality audit** — Classified every playable game as exact,
