@@ -7,6 +7,15 @@
 
 ## Updates 08/15/2026
 
+- **Next-game shortlist** — Compared a Clue-like original mystery, Goofspiel,
+  Leduc Hold'em, and Micro Stratego across familiarity, player agency, AI
+  feasibility, browser fit, and overlap with the current lobby. [Read the ranked analysis](research/next_game_candidates_2026-08-15.md).
+- **Local Manor Mystery prototype** — Added an exact hidden-deal information
+  set, ordered passes, private card reveals, posterior filtering, and a
+  one-step information advisor without exposing the game in the web lobby.
+- **Early strategy evidence** — Across 200 seeded cases, the information
+  advisor solved 100% in 3.995 suggestions on average (worst 6), versus 81.5%
+  within the limit and 9.595 suggestions for non-repeating random play.
 - **Exact Kuhn Poker equilibrium** — Corrected the AI's first-seat Q call
   frequency from `1/3` to `2/3` after check-bet while retaining `1/3` for the
   distinct second-seat information set.
@@ -22,7 +31,7 @@
   engine, then rebuilt both deployable targets.
 - **Daily stability pass** — Verified complete single-player loops, the local
   health endpoint, 390px responsive layout, first-screen navigation, language
-  switching, and clean browser logs; all 150 Python plus 10 public-engine tests
+  switching, and clean browser logs; all 156 Python plus 10 public-engine tests
   pass.
 
 ## Updates 08/14/2026
