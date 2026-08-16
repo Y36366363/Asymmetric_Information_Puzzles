@@ -1,2 +1,2 @@
-import "./game-engine.js?v=35250c1fafbb";
-import "./app.js?v=35250c1fafbb";
+import "./game-engine.js?v=23fc3acf333c";
+import "./app.js?v=23fc3acf333c";

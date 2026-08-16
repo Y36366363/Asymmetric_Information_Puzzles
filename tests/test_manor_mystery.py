@@ -57,6 +57,14 @@ class ManorMysteryTests(unittest.TestCase):
         self.assertLessEqual(max(run.suggestions for run in runs), 8)
         self.assertTrue(all(run.candidate_trace[-1] == 1 for run in runs))
 
+    def test_robust_strategy_survives_information_denying_reveals(self) -> None:
+        runs = [
+            self.solver.play(seed, "information", reveal_policy="information_denying")
+            for seed in range(12)
+        ]
+        self.assertTrue(all(run.solved for run in runs))
+        self.assertLessEqual(max(run.suggestions for run in runs), 8)
+
     def test_information_strategy_beats_random_suggestions(self) -> None:
         summaries = {item.strategy: item for item in self.solver.compare(20, seed=100)}
         self.assertEqual(summaries["information"].solved_rate, 1)

@@ -32,6 +32,9 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /renderBattleship/);
   assert.match(app, /renderHiddenPursuit/);
   assert.match(app, /function renderGuessWho\(\)/);
+  assert.match(app, /function renderGoofspiel\(\)/);
+  assert.match(html, /id="goofspielView"/);
+  assert.match(app, /精确均衡建议/);
   assert.match(app, /A wrong guess costs one turn/);
   assert.match(app, /aip-rules-seen-/);
   assert.match(app, /actionPending/);
@@ -63,7 +66,7 @@ test("browser engine intercepts API calls without a backend", async () => {
   await import(`../../docs/game-engine.js?test=${Date.now()}`);
   try {
     const games = await (await fetch("/api/games")).json();
-    assert.equal(games.games.filter((game) => game.available).length, 14);
+    assert.equal(games.games.filter((game) => game.available).length, 15);
     const created = await (await fetch("/api/sessions", {
       method: "POST",
       body: JSON.stringify({ gameId: "pirates", options: { pirates: 5, gold: 100 } }),
@@ -84,6 +87,10 @@ test("browser engine intercepts API calls without a backend", async () => {
     assert.equal(pursuit.state.gameId, "hidden-pursuit");
     assert.equal(pursuit.state.fugitivePosition, null);
     assert.equal(pursuit.state.belief.length, 16);
+    const goofspiel = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "goofspiel" }) })).json();
+    assert.equal(goofspiel.state.gameId, "goofspiel");
+    assert.equal(goofspiel.state.informationSet.aiCurrentBidHidden, true);
+    assert.equal(goofspiel.state.advisorDistribution.reduce((sum, item) => sum + item.probability, 0), 1);
     const guessWho = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "guess-who" }) })).json();
     assert.equal(guessWho.state.gameId, "guess-who");
     assert.equal(guessWho.state.informationSet.possibleCount, 24);

@@ -37,6 +37,7 @@ const gameViews = {
   battleship: "battleshipView",
   "love-letter": "loveLetterView",
   investment: "investmentView",
+  goofspiel: "goofspielView",
   blackjack: "blackjackView",
 };
 
@@ -47,7 +48,7 @@ const copy = {
     heroCopy: "选择一个实验。你做决定，系统隐藏信息、扮演对手，并在关键时刻揭示概率与代价。",
     backLobby: "← 返回大厅", restart: "重新开始", restartCouncil: "重新召开议会", playNow: "开始游戏 →", comingSoon: "后续开放",
     caseEyebrow: "CASE 01 · 风险与谈判 · 入门", caseTitle: "命运之箱",
-    wormEyebrow: "CASE 14 · 隐藏状态追踪 · 挑战", wormTitle: "移动虫穴",
+    wormEyebrow: "CASE 15 · 隐藏状态追踪 · 挑战", wormTitle: "移动虫穴",
     pirateEyebrow: "CASE 09 · 逆向归纳与联盟 · 中等", pirateTitle: "海盗议会",
     pokerEyebrow: "CASE 12 · 私有信息与诈唬 · 较难", pokerTitle: "库恩扑克",
     restartMatch: "重新开始比赛", handNumber: "当前牌局", yourScore: "你的净筹码",
@@ -93,6 +94,8 @@ const copy = {
     loveUseSuggestion: "执行 AI 建议", loveChooseCard: "点击一张合法手牌将它打出", loveRemoved: "开局公开移除", loveYourScore: "你的得分", loveAiScore: "AI 得分", loveSelf: "自己",
     investmentEyebrow: "CASE 11 · 增长率与淘汰压力 · 较难", investmentTitle: "Kelly 生存投资赛",
     investmentCapital: "虚拟资金", investmentRank: "当前排名", investmentNextCut: "下次淘汰", investmentStake: "仓位比例", investmentConfirm: "确认本轮决策", investmentLeaderboard: "生存榜", investmentAnalysis: "赔率分析师面板",
+    goofspielEyebrow: "CASE 14 · 同时行动与秘密竞价 · 较难", goofspielTitle: "秘密竞价 · Goofspiel",
+    goofYourScore: "你的奖牌分", goofPrizeLabel: "当前奖牌", goofAiScore: "AI 奖牌分", goofAiInventory: "AI 剩余竞价牌（公开）", goofRevealedPrize: "本轮已揭晓奖牌", goofYourInventory: "你的剩余竞价牌", goofAdvisor: "精确均衡建议",
     yourFleet: "你的舰队", enemyWaters: "敌方海域", randomizeFleet: "重新随机布阵", startBattle: "确认布阵，开始战斗",
     shipsRemaining: "剩余舰船", candidateWorlds: "候选部署", advisorShot: "概率建议", battleHistory: "交火记录",
     rulesEyebrow: "玩法说明", rulesTitle: "游戏规则", closeRules: "关闭",
@@ -115,7 +118,7 @@ const copy = {
     heroCopy: "Choose an experiment. You decide; the system hides information, plays the opposition, and reveals probability and cost at decisive moments.",
     backLobby: "← Back to lobby", restart: "New game", restartCouncil: "New council", playNow: "Play now →", comingSoon: "Coming later",
     caseEyebrow: "CASE 01 · RISK & NEGOTIATION · BEGINNER", caseTitle: "Cases of Fate",
-    wormEyebrow: "CASE 14 · HIDDEN-STATE TRACKING · CHALLENGE", wormTitle: "The Moving Worm",
+    wormEyebrow: "CASE 15 · HIDDEN-STATE TRACKING · CHALLENGE", wormTitle: "The Moving Worm",
     pirateEyebrow: "CASE 09 · BACKWARD INDUCTION & COALITIONS · MEDIUM", pirateTitle: "Pirate Council",
     pokerEyebrow: "CASE 12 · PRIVATE INFORMATION & BLUFFING · HARD", pokerTitle: "Kuhn Poker",
     restartMatch: "Restart match", handNumber: "Current hand", yourScore: "Your net chips",
@@ -161,6 +164,8 @@ const copy = {
     loveUseSuggestion: "Take AI advice", loveChooseCard: "Click a legal card to play it", loveRemoved: "Face-up removals", loveYourScore: "Your score", loveAiScore: "AI score", loveSelf: "Yourself",
     investmentEyebrow: "CASE 11 · GROWTH & ELIMINATION PRESSURE · HARD", investmentTitle: "Kelly Survival Tournament",
     investmentCapital: "Virtual capital", investmentRank: "Current rank", investmentNextCut: "Next elimination", investmentStake: "Stake fraction", investmentConfirm: "Lock this decision", investmentLeaderboard: "Survival table", investmentAnalysis: "Odds analyst panel",
+    goofspielEyebrow: "CASE 14 · SIMULTANEOUS SECRET BIDDING · HARD", goofspielTitle: "Secret Bidding · Goofspiel",
+    goofYourScore: "Your prize points", goofPrizeLabel: "Current prize", goofAiScore: "AI prize points", goofAiInventory: "AI bid cards left (public)", goofRevealedPrize: "Revealed prize this round", goofYourInventory: "Your bid cards left", goofAdvisor: "Exact-equilibrium guide",
     yourFleet: "Your fleet", enemyWaters: "Enemy waters", randomizeFleet: "Randomize fleet", startBattle: "Lock fleet and start",
     shipsRemaining: "Ships remaining", candidateWorlds: "Candidate placements", advisorShot: "Probability hint", battleHistory: "Battle log",
     rulesEyebrow: "HOW TO PLAY", rulesTitle: "Rules", closeRules: "Close",
@@ -195,6 +200,7 @@ const gamesCopy = {
     battleship: ["海战棋", "部署舰队，在未知海域中逐格搜索敌舰，对抗概率热力图 AI。", "单人 · 隐藏部署与概率搜索"],
     "love-letter": ["情书决斗", "读取公开弃牌与隐藏手牌，在保护、换牌、试探和点杀之间先赢得四轮。", "单人 · 手牌推断与风险控制"],
     investment: ["Kelly 生存投资赛", "比较赔率、胜率和仓位，在周期淘汰制下兼顾资金增长与存活。", "单人 · 增长率、风险与相对排名"],
+    goofspiel: ["秘密竞价", "奖牌逐轮揭晓，双方同时秘密打出唯一竞价牌；管理有限手牌并对抗精确均衡 AI。", "单人 · 同时行动与秘密竞价"],
     auction: ["百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放"],
   },
   en: {
@@ -212,13 +218,14 @@ const gamesCopy = {
     battleship: ["Battleship", "Deploy a fleet, search unknown waters cell by cell, and face a probability-density AI.", "Solo · Hidden deployment & search"],
     "love-letter": ["Love Letter Duel", "Read public discards and a hidden hand while balancing protection, trades, probes, and elimination.", "Solo · Hand inference & risk control"],
     investment: ["Kelly Survival Tournament", "Trade odds, probability, and position size while periodic eliminations reward both growth and survival.", "Solo · Growth, risk & relative rank"],
+    goofspiel: ["Secret Bidding", "Reveal prizes one by one, commit simultaneous hidden bids, and manage a finite hand against an exact-equilibrium AI.", "Solo · Simultaneous hidden bidding"],
     auction: ["100-Unit All-Pay Auction", "Fight for leadership through public prices, alliances, and defection.", "Local multiplayer · Coming soon"],
   },
 };
 
 const difficultyCopy = {
-  zh: { cases: "入门", blackjack: "入门", "restricted-rps": "简单", mastermind: "简单", "guess-who": "简单", "hidden-pursuit": "中等", battleship: "中等", "love-letter": "较难", investment: "较难", "e-card": "中等", pirates: "中等", "kuhn-poker": "较难", "liars-dice": "较难", worm: "挑战", auction: "未开放" },
-  en: { cases: "Beginner", blackjack: "Beginner", "restricted-rps": "Easy", mastermind: "Easy", "guess-who": "Easy", "hidden-pursuit": "Medium", battleship: "Medium", "love-letter": "Hard", investment: "Hard", "e-card": "Medium", pirates: "Medium", "kuhn-poker": "Hard", "liars-dice": "Hard", worm: "Challenge", auction: "Coming soon" },
+  zh: { cases: "入门", blackjack: "入门", "restricted-rps": "简单", mastermind: "简单", "guess-who": "简单", "hidden-pursuit": "中等", battleship: "中等", "love-letter": "较难", investment: "较难", "e-card": "中等", pirates: "中等", "kuhn-poker": "较难", "liars-dice": "较难", goofspiel: "较难", worm: "挑战", auction: "未开放" },
+  en: { cases: "Beginner", blackjack: "Beginner", "restricted-rps": "Easy", mastermind: "Easy", "guess-who": "Easy", "hidden-pursuit": "Medium", battleship: "Medium", "love-letter": "Hard", investment: "Hard", "e-card": "Medium", pirates: "Medium", "kuhn-poker": "Hard", "liars-dice": "Hard", goofspiel: "Hard", worm: "Challenge", auction: "Coming soon" },
 };
 
 const rulesCopy = {
@@ -237,6 +244,7 @@ const rulesCopy = {
     battleship: ["目标：在概率 AI 击沉你的全部舰船之前，先找到并击沉它的舰队。", "布阵阶段先选择 10×10、12×12 或 15×15 海域；地图越大，双方舰船也越多。", "不同颜色表示不同舰船。点击舰船卡可旋转 90°，也可点击“重新随机布阵”；直线舰船翻转 180°占据的格子不变。", "满意后点击“确认布阵，开始战斗”。战斗阶段点击敌方未知格；淡点表示落空，红色表示命中，深红色表示击沉。", "你每开一炮，AI 会立即根据仍合法的水平与垂直部署还击。已经射击过的格子不能重复选择。", "候选部署表示目前仍符合反馈的舰船位置数量；概率建议给出覆盖合法部署最多的格子，但你可以选择别处。"],
     "love-letter": ["目标：比 AI 更早获得 4 枚胜利标记。每轮只有 16 张牌，你必须从公开弃牌推测 AI 留在手里的角色。", "开局双方各持一张牌；轮到你时再摸一张，然后点击两张手牌中的一张打出。牌面效果会立即执行。", "卫兵需要在右侧选择一个 2–8 的角色进行猜测；王子需要选择让 AI 或自己弃掉手牌。其他牌的目标由规则自动决定。", "侍女会保护你直到下次行动；男爵比较双方手牌；国王交换手牌；若同时持有伯爵夫人与国王或王子，必须打出伯爵夫人。", "打出公主或因卫兵、男爵、王子效果被淘汰会立刻输掉本轮；牌堆用完则比较手牌点数。点击“执行 AI 建议”可查看并采用信念策略。"],
     investment: ["目标：用 1,000 单位虚拟资金完成 12 轮并最终排名第一；第 4、7、10 轮资金最低者会被淘汰。", "每轮比较三张机会卡。1:1 表示投入 100、成功净赚 100；3:1 表示成功净赚 300，失败都损失投入的 100。", "成功率×净赔率−失败率得到期望回报。正值只表示大量重复后的平均优势，不保证本轮获利。", "选择机会，再选 0%、10%、25%、50% 或 75% 仓位。0% 能保本，但可能被增长型对手超过。", "Kelly 最大化长期对数增长，不保证淘汰赛夺冠；AI 分别使用全 Kelly、半 Kelly、追赶、长赔率和保本技能。所有金额均为虚拟数值。"],
+    goofspiel: ["目标：四轮结束后赢得比 AI 更多的奖牌分数。", "你和 AI 各有数值 1–4 的四张竞价牌；奖牌 1–4 随机排序，每轮只揭晓当前奖牌。", "点击一张尚未使用的竞价牌后，你和 AI 同时揭晓选择。出牌前看不到 AI 本轮选了什么。", "较大的竞价牌赢得当前奖牌对应的分数；相同则奖牌作废。双方使用过的竞价牌都会永久移除并公开。", "四张牌全部用完后比较总分。均衡面板显示零和动态博弈的精确混合策略，但不会替你自动出牌。"],
   },
   en: {
     cases: ["Goal: maximize your payout from 26 cases.", "Click one case to keep; never open it afterward.", "Open the number of other cases shown on screen. The banker then makes an offer.", "Choose Deal to end for the offer, or No Deal to continue. If you reach the end, you receive the kept case's value."],
@@ -253,6 +261,7 @@ const rulesCopy = {
     battleship: ["Goal: sink the enemy fleet before the probability AI sinks yours.", "Choose a 10×10, 12×12, or 15×15 sea during deployment; larger boards add ships to preserve action density.", "Each ship has its own color. Click a ship card to rotate it 90°, or randomize the fleet. A 180° flip of a straight ship occupies the same cells.", "Lock the layout, then click unknown enemy cells. A pale dot is a miss, red is a hit, and dark red is a sunk ship.", "The AI returns fire from legal horizontal and vertical placements after every shot. Fired cells cannot be selected again.", "Candidate placements count ship positions consistent with observations; the hint marks a high-density cell without forcing it."],
     "love-letter": ["Goal: earn four tokens before the AI. Only 16 cards exist, so public discards let you infer the hidden opposing hand.", "Each side begins with one card. On your turn you draw a second card, then click one of the two cards to play it and resolve its effect.", "A Guard needs a 2–8 character guess; a Prince needs a target. Choose those controls before clicking the card. Other targets are automatic.", "Handmaid protects until your next turn; Baron compares hands; King trades hands. Countess must be played while held with King or Prince.", "Discarding Princess or losing to Guard, Baron, or Prince ends the round. An empty deck triggers a high-card showdown. Take AI advice uses public-card beliefs, not the hidden hand."],
     investment: ["Goal: finish first after 12 rounds with 1,000 units of virtual capital. The lowest bankroll leaves after rounds 4, 7, and 10.", "Compare three opportunities. Net odds 1:1 mean a 100 stake wins 100 profit; 3:1 wins 300, while failure loses the 100 stake.", "Expected return is probability × odds − failure probability. A positive value is a long-run average edge, never a guarantee this round.", "Choose an opportunity and a 0%, 10%, 25%, 50%, or 75% stake. Cash preserves capital but may lose relative rank.", "Kelly maximizes asymptotic log growth, not tournament title probability. Rivals use full-Kelly, half-Kelly, chasing, longshot, and capital-preserving skills. All capital is virtual."],
+    goofspiel: ["Goal: finish four rounds with more prize points than the AI.", "Both sides hold bid cards 1–4. Prize cards 1–4 are shuffled, and only the current prize is revealed each round.", "Click one unused bid card. Your bid and the AI's hidden choice are then revealed simultaneously.", "The higher bid wins the current prize value; equal bids discard it. Both used bid cards leave their public inventories permanently.", "After all four bids, the higher score wins. The guide shows the exact mixed equilibrium for the remaining public state but never commits your card automatically."],
   },
 };
 
@@ -272,6 +281,7 @@ const ruleDetails = {
     battleship: { role: "你和 AI 在相互隔离的海域秘密部署舰队。标准、扩展和大型地图分别为 10×10、12×12、15×15；你只能看到自己的彩色舰船，敌舰通过命中反馈逐步暴露。", example: "例：你把蓝色长度 4 舰旋转为垂直方向，然后向敌方 B7 开火并命中。下一炮打 B8：若再次命中，可沿同一方向搜索；若落空，就要考虑舰船可能纵向延伸。", finish: "一艘船的所有格子都被命中时即被击沉；任一方全部舰船沉没时比赛结束。结束后敌方完整彩色舰队会揭晓，便于复盘。", terms: "旋转 90°＝在水平与垂直之间切换；180°翻转对没有首尾差异的直线舰船不产生新布局；候选部署＝与命中、落空和击沉反馈相容的水平或垂直位置总数。" },
     "love-letter": { role: "你和 AI 都只有一张隐藏手牌。牌很少且弃牌完全公开，因此每次行动既会触发角色能力，也会改变对手对你手牌的判断。AI 只能使用它应当知道的信息。", example: "例：5 张卫兵已有 4 张公开离场，而 AI 没有保护。此时 AI 手牌是卫兵的概率很低；若你打出卫兵，应根据剩余牌数猜最可能的高价值角色，而不是平均随机。", finish: "任何一方被角色能力淘汰，该轮立即结束并让胜者得 1 分；牌堆耗尽则比较手牌，较高者获胜。先到 4 分赢得整场比赛。", terms: "公开移除＝双人开局额外翻开的三张牌；信念概率＝根据你的手牌、公开移除和双方弃牌估计的对手手牌分布；保护＝对手效果不能以你为目标，直到你下一回合开始。" },
     investment: { role: "你是赔率分析师，与五种风格的 AI 管理人参加虚拟资金淘汰赛。你能看到校准成功率，但对手本轮的选择在结算前保密。", example: "1:1、55% 成功率的期望回报是 +10%，Kelly 仓位为 10%。投入 25% 能更快抢排名，但失败也会损失 25%。", finish: "第 4、7、10 轮淘汰资金最低者；你出局即失败。活到第 12 轮后，资金第一才获胜。", terms: "净赔率＝成功时相对本金的净利润；期望回报＝平均收益率；Kelly＝最大化长期对数增长的理论仓位；存活率与夺冠率并非同一目标。" },
+    goofspiel: { role: "这是一个同时行动的有限手牌竞价游戏。奖牌价值公开，但双方本轮用哪张牌在提交前互相隐藏；高牌不一定应该立刻用在高奖牌上，因为剩余库存决定后续威胁。", example: "例：本轮奖牌为 3，你剩 1、3、4，AI 剩 1、2、4。出 4 几乎能确保 3 分，却会失去以后压制 AI 的最高牌；出 3 可能保留 4，但要承担 AI 也出 4 的风险。", finish: "每轮揭晓双方竞价牌并结算奖牌，平局奖牌作废。四轮后总分高者获胜，同分为和局。", terms: "当前奖牌＝本轮可争夺分数；竞价牌＝每张整场只能使用一次；混合策略＝按多个概率随机选择，使对手无法稳定利用你的规律；未来价值＝从当前状态开始、双方最优时你的预期分差。" },
   },
   en: {
     cases: { role: "You are a TV-game contestant. Twenty-six cases hide prizes from tiny amounts to one million. You eliminate prizes and decide whether to accept the banker's cash offer.", example: "Example: you keep case 7 and open case 3, revealing $1. That prize leaves the board. After the required openings, an $80,000 offer means you can leave with $80,000 or reject it and keep risking your hidden case.", finish: "The game ends when you accept an offer, or when you reject every offer and receive the value in your kept case. There is no single correct risk preference.", terms: "Kept case: your unopened original choice. Expected value: the average of unrevealed prizes. A higher offer-to-EV ratio is usually more attractive." },
@@ -288,6 +298,7 @@ const ruleDetails = {
     battleship: { role: "You and the AI deploy private fleets on separate 10×10, 12×12, or 15×15 seas. You see your individually colored ships only; enemy ships emerge through hit feedback.", example: "Example: rotate the blue length-4 ship vertically, then hit B7. Firing at B8 tests a horizontal extension; a miss makes a vertical ship more plausible.", finish: "A ship sinks when every cell is hit. The match ends when either fleet is gone, then the complete colored enemy fleet is revealed for review.", terms: "Rotate 90° switches horizontal and vertical. A 180° flip creates no new layout for an undirected straight ship. Candidate placements count legal horizontal and vertical positions consistent with feedback." },
     "love-letter": { role: "You and the AI each keep one hidden card. The tiny deck and public discards make every role effect both an action and a signal. The AI uses only information it is entitled to know.", example: "If four of five Guards are already public, the opposing hand is unlikely to be a Guard. Playing your Guard should target the most frequent remaining non-Guard role rather than guessing uniformly.", finish: "An effect that eliminates a player ends the round for one point. If the deck empties, the higher hand wins. The first player to four points wins the match.", terms: "Face-up removals are the three extra cards revealed in a two-player setup. Belief probability is estimated from your hand and all public cards. Protection prevents opposing effects until your next turn." },
     investment: { role: "You are the odds analyst facing five AI managers in a virtual-capital elimination tournament. You see calibrated probabilities; rival choices remain private until settlement.", example: "At 1:1 and 55% success, expected return is +10% and Kelly is 10%. Staking 25% gains rank faster but loses 25% on failure.", finish: "The lowest bankroll leaves after rounds 4, 7, and 10. Your elimination ends the game; after round 12, only first place wins.", terms: "Net odds are profit relative to stake. Expected return is average profit per staked unit. Kelly maximizes long-run log growth. Survival and title probability are different objectives." },
+    goofspiel: { role: "This is simultaneous bidding with a finite hand. The prize is public, but each current bid stays hidden until both commit. Spending the largest card now changes every threat available later.", example: "With prize 3, your 1/3/4 against the AI's 1/2/4 creates a tradeoff: bid 4 to strongly contest three points, or preserve it and risk losing the prize.", finish: "Each reveal awards the prize to the higher bid; a tie discards it. After four rounds, higher total prize points wins and equal scores draw.", terms: "Prize is the points at stake. A bid card is usable once. Mixed strategy randomizes across cards so a rival cannot exploit a fixed pattern. Future value is your optimal expected score difference from the public state." },
   },
 };
 
@@ -300,7 +311,7 @@ function installRulesButtons() {
   document.querySelectorAll(".game-heading").forEach((heading) => {
     if (heading.querySelector(".rules-button")) return;
     const view = heading.closest(".view");
-    const gameId = { gameView: "cases", wormView: "worm", pirateView: "pirates", pokerView: "kuhn-poker", eCardView: "e-card", rpsView: "restricted-rps", liarView: "liars-dice", blackjackView: "blackjack", mastermindView: "mastermind", guessWhoView: "guess-who", pursuitView: "hidden-pursuit", battleshipView: "battleship", loveLetterView: "love-letter", investmentView: "investment" }[view?.id];
+    const gameId = { gameView: "cases", wormView: "worm", pirateView: "pirates", pokerView: "kuhn-poker", eCardView: "e-card", rpsView: "restricted-rps", liarView: "liars-dice", blackjackView: "blackjack", mastermindView: "mastermind", guessWhoView: "guess-who", pursuitView: "hidden-pursuit", battleshipView: "battleship", loveLetterView: "love-letter", investmentView: "investment", goofspielView: "goofspiel" }[view?.id];
     if (!gameId) return;
     const button = document.createElement("button");
     button.className = "rules-button";
@@ -566,6 +577,10 @@ function render() {
   }
   if (currentState.gameId === "investment") {
     renderInvestment();
+    return;
+  }
+  if (currentState.gameId === "goofspiel") {
+    renderGoofspiel();
     return;
   }
   if (currentState.gameId === "blackjack") {
@@ -1074,6 +1089,46 @@ function renderInvestment() {
   if (!active) $("#investmentResult").textContent = state.winner === "player" ? (language === "zh" ? "锦标赛胜利" : "Tournament victory") : state.winner ? (language === "zh" ? `冠军：${state.rankings.find((item) => item.id === state.winner).name}` : `Champion: ${state.rankings.find((item) => item.id === state.winner).name}`) : (language === "zh" ? "你在淘汰点出局；其余经理继续比赛。" : "You were eliminated; the remaining managers continue.");
 }
 
+function renderGoofspiel() {
+  const state = currentState;
+  const active = state.phase === "bidding";
+  const winnerLabel = state.winner === "player"
+    ? (language === "zh" ? "你赢得比赛" : "You win the match")
+    : state.winner === "ai"
+      ? (language === "zh" ? "AI 赢得比赛" : "The AI wins the match")
+      : (language === "zh" ? "比赛以平局结束" : "The match ends in a draw");
+  $("#goofRound").textContent = `${Math.min(state.roundNumber, state.roundsTotal)} / ${state.roundsTotal}`;
+  $("#goofPlayerScore").textContent = state.playerScore;
+  $("#goofAiScore").textContent = state.aiScore;
+  $("#goofScorePrize").textContent = active ? state.currentPrize : "—";
+  $("#goofPrize").textContent = active ? state.currentPrize : "✓";
+  $("#goofHiddenPrizes").textContent = active
+    ? (language === "zh" ? `之后还有 ${state.informationSet.unrevealedPrizeCount} 张奖牌尚未揭晓` : `${state.informationSet.unrevealedPrizeCount} later prize card(s) remain hidden`)
+    : winnerLabel;
+  $("#goofInstruction").textContent = active
+    ? (language === "zh" ? `为 ${state.currentPrize} 分奖牌选择一张秘密竞价牌` : `Choose one secret bid for the ${state.currentPrize}-point prize`)
+    : winnerLabel;
+  $("#goofAiCards").innerHTML = state.aiCards.map((card) => `<span class="goof-bid-card passive">${card}</span>`).join("") || `<small>${language === "zh" ? "已全部使用" : "All used"}</small>`;
+  $("#goofPlayerCards").innerHTML = state.playerCards.map((card) => `<button class="goof-bid-card ${card === state.recommendedBid ? "recommended" : ""}" data-goof-bid="${card}" ${active ? "" : "disabled"}><strong>${card}</strong>${card === state.recommendedBid ? `<small>${language === "zh" ? "均衡建议" : "Suggested"}</small>` : ""}</button>`).join("") || `<small>${language === "zh" ? "四张牌均已使用" : "All four cards used"}</small>`;
+  document.querySelectorAll("[data-goof-bid]").forEach((button) => button.addEventListener("click", () => act("bid", { card: Number(button.dataset.goofBid) })));
+
+  const last = state.lastRound;
+  $("#goofLastRound").classList.toggle("hidden", !last);
+  if (last) {
+    const outcome = last.playerBid > last.aiBid ? (language === "zh" ? "你赢得奖牌" : "You won the prize") : last.aiBid > last.playerBid ? (language === "zh" ? "AI 赢得奖牌" : "AI won the prize") : (language === "zh" ? "同价，奖牌作废" : "Tie — prize discarded");
+    $("#goofLastRound").innerHTML = `<span>${language === "zh" ? "上轮揭晓" : "Last reveal"}</span><strong>${last.playerBid} : ${last.aiBid}</strong><small>${last.prize} ${language === "zh" ? "分" : "pts"} · ${outcome}</small>`;
+  }
+  const distribution = state.advisorDistribution || [];
+  $("#goofAdvice").textContent = active
+    ? (language === "zh" ? `精确均衡建议出 ${state.recommendedBid}。下方概率是应当随机采用各张牌的频率；从当前公开状态开始，双方都最优时你的预期分差为 ${Number(state.futureValue).toFixed(2)}。` : `The exact equilibrium currently recommends ${state.recommendedBid}. The probabilities below are frequencies to randomize across cards; your expected score difference under optimal play is ${Number(state.futureValue).toFixed(2)}.`)
+    : (language === "zh" ? `最终比分 ${state.playerScore} : ${state.aiScore}。AI 每轮均从当前公开状态的精确零和均衡中随机出牌。` : `Final score ${state.playerScore}:${state.aiScore}. Each AI bid was sampled from the exact zero-sum equilibrium for that public state.`);
+  $("#goofDistribution").innerHTML = distribution.map((item) => `<div><span>${language === "zh" ? "出牌" : "Bid"} ${item.card}</span><strong>${(item.probability * 100).toFixed(1)}%</strong><i style="--goof-prob:${item.probability}"></i></div>`).join("") || `<p>${language === "zh" ? "比赛结束后不再需要决策。" : "No decision remains after the match."}</p>`;
+  $("#goofHistory").innerHTML = state.history.length ? state.history.slice().reverse().map((item) => {
+    const outcome = item.playerBid > item.aiBid ? (language === "zh" ? "你得分" : "you score") : item.aiBid > item.playerBid ? (language === "zh" ? "AI 得分" : "AI scores") : (language === "zh" ? "奖牌作废" : "discarded");
+    return `<div><b>R${item.round}</b><span>${language === "zh" ? "奖牌" : "Prize"} ${item.prize}</span><strong>${item.playerBid} : ${item.aiBid}</strong><small>${outcome}</small></div>`;
+  }).join("") : `<p>${language === "zh" ? "提交第一张竞价牌后，公开揭晓会记录在这里。" : "The first simultaneous reveal will appear here after you submit a bid."}</p>`;
+}
+
 function renderGuessWho() {
   const state = currentState;
   const info = state.informationSet;
@@ -1528,6 +1583,7 @@ function showLobby() {
   $("#blackjackView").classList.add("hidden");
   $("#loveLetterView").classList.add("hidden");
   $("#investmentView").classList.add("hidden");
+  $("#goofspielView").classList.add("hidden");
   $("#lobbyView").classList.remove("hidden");
   window.scrollTo(0, 0);
 }
@@ -1553,6 +1609,7 @@ $("#newPursuitMatch").addEventListener("click", () => startGame("hidden-pursuit"
 $("#newBattleshipMatch").addEventListener("click", () => startGame("battleship"));
 $("#loveNewMatch").addEventListener("click", () => act("new_match"));
 $("#investmentNew").addEventListener("click", () => startGame("investment"));
+$("#goofspielNew").addEventListener("click", () => startGame("goofspiel"));
 $("#investmentSubmit").addEventListener("click", () => act("invest", { offerId: investmentOffer, fraction: investmentFraction }));
 $("#loveUseSuggestion").addEventListener("click", () => {
   if (currentState.phase === "round_finished") { act("next_round"); return; }

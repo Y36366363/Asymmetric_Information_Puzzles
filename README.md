@@ -5,6 +5,27 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/16/2026
+
+- **Secret Bidding is playable** — Added a bilingual four-round Goofspiel game
+  to the public lobby, with hidden simultaneous bids, public finite inventories,
+  reveal history, clear beginner-facing rules, and responsive controls.
+- **Exact equilibrium AI** — Solved every four-card public state with rational
+  zero-sum dynamic programming and primal/dual LP checks, then exported 692
+  policies so the zero-backend browser can respond instantly without seeing the
+  player's current bid. [Read the strategy audit](research/goofspiel_ai_2026-08-16.md).
+- **Strategy stress test** — Across 2,000 fixed-seed games, equilibrium play
+  stayed near the symmetric value of zero while uniform random and always-high
+  play lost 1.644 and 2.093 points per match on average, respectively.
+- **Adversarial Manor Mystery** — Opponents can now choose the legal reveal that
+  preserves the most ambiguity, while the advisor minimizes worst-case remaining
+  solutions. It solved all 50 adversarial seeded cases within eight suggestions,
+  but remains local-only pending opponent turns, accusation risk, and notebook UI.
+- **Daily stability pass** — Expanded Python and public-engine decision-loop
+  coverage for the new game, rebuilt the static deployment, and checked the
+  bilingual player journey and mobile layout; all 163 Python plus 10
+  public-engine tests pass.
+
 ## Updates 08/15/2026
 
 - **Next-game shortlist** — Compared a Clue-like original mystery, Goofspiel,

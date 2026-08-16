@@ -103,8 +103,15 @@ reduced the expected secret count to 12.11.
 
 | Strategy | Solved within 16 suggestions | Mean suggestions | Worst suggestions |
 | --- | ---: | ---: | ---: |
-| Information advisor | **100.0%** | **3.995** | **6** |
-| Non-repeating random | 81.5% | 9.595 | 16 |
+| Information advisor | **100.0%** | **4.430** | **12** |
+| Non-repeating random | 77.5% | 10.345 | 16 |
+
+The corrected observation model no longer assumes which of several legal cards
+an opponent must reveal. Against the explicitly information-denying responder,
+a separate 50-case audit solved **100% within eight suggestions**, averaging
+**4.620** suggestions with a worst case of **6**. Mean Python wall time was
+0.131 seconds per complete run; individual recommendation latency still needs a
+browser-oriented benchmark before this game can pass the 100 ms gate.
 
 Run with:
 
@@ -134,3 +141,19 @@ Do not add a fifteenth playable lobby card until the local engine:
 - exposes a readable detective notebook explaining facts, deductions, and
   unresolved possibilities separately;
 - uses entirely original names, story text, icons, and visual assets.
+
+## 2026-08-16 integration decision
+
+Goofspiel passed the current lightweight-web gate and is now the fifteenth
+playable lobby game. The published version deliberately uses four bid cards:
+that size admits an exact dynamic zero-sum solution, a compact 692-state policy
+table, and instant browser decisions without a backend. The five-card exact
+prototype remains a research target because recomputing its full policy is too
+slow for the current deployment budget.
+
+Manor Mystery gained an information-denying responder that may choose any legal
+card which preserves the largest posterior ambiguity. The advisor now minimizes
+worst-case remaining secrets against that responder. It remains local-only:
+although the small model solves seeded cases, its recommendation latency is
+still far above the 100 ms browser gate, and the full player experience still
+needs opponent turns, accusation risk, and a readable notebook.

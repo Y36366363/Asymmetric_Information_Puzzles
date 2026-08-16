@@ -10,8 +10,8 @@ test("serves the bilingual lobby and all playable descriptors", async () => {
   assert.match(await page.text(), /ASYMMETRIC INFORMATION PUZZLES/);
   const response = await call("/api/games");
   const { games } = await response.json();
-  assert.equal(games.filter((game) => game.available).length, 14);
-  assert.deepEqual(games.filter((game) => game.available).map((game) => game.id), ["cases", "blackjack", "restricted-rps", "mastermind", "guess-who", "hidden-pursuit", "battleship", "e-card", "pirates", "love-letter", "investment", "kuhn-poker", "liars-dice", "worm"]);
+  assert.equal(games.filter((game) => game.available).length, 15);
+  assert.deepEqual(games.filter((game) => game.available).map((game) => game.id), ["cases", "blackjack", "restricted-rps", "mastermind", "guess-who", "hidden-pursuit", "battleship", "e-card", "pirates", "love-letter", "investment", "kuhn-poker", "liars-dice", "goofspiel", "worm"]);
 });
 
 test("case game reaches a clear non-null final reveal", async () => {
@@ -223,6 +223,18 @@ test("single-player games survive complete decision loops", async () => {
   }
   assert.ok(investment.state.winner || !investment.state.rankings.find((item) => item.id === "player").alive);
   assert.ok(investment.state.rankings.some((item) => !item.alive));
+
+  const goofspiel = await create("goofspiel");
+  assert.equal(goofspiel.state.strategyScope, "exact four-card shuffled-prize zero-sum equilibrium");
+  assert.equal(goofspiel.state.informationSet.aiCurrentBidHidden, true);
+  while (goofspiel.state.phase === "bidding") {
+    const totalProbability = goofspiel.state.advisorDistribution.reduce((sum, item) => sum + item.probability, 0);
+    assert.ok(Math.abs(totalProbability - 1) < 1e-9);
+    await act(goofspiel, "bid", {card:goofspiel.state.recommendedBid});
+  }
+  assert.equal(goofspiel.state.history.length, 4);
+  assert.equal(goofspiel.state.playerCards.length, 0);
+  assert.ok(["player", "ai", "tie"].includes(goofspiel.state.winner));
 
   const expanded = await create("battleship");
   await act(expanded, "set_board_size", {boardSize:12});

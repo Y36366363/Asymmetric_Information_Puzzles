@@ -77,8 +77,8 @@ class MysterySolver:
 
     This deliberately small research model keeps the deduction structure of a
     classic manor mystery while avoiding branded names and map rules.  The
-    responder reveals the alphabetically first matching card; because that
-    policy is declared and deterministic, posterior filtering is exact.
+    responder can follow a transparent deterministic policy or deliberately
+    show the legal card that preserves the most uncertainty.
     """
 
     def __init__(self, cards: Mapping[str, tuple[str, ...]] | None = None) -> None:
@@ -134,15 +134,37 @@ class MysterySolver:
             possible_states=worlds,
         )
 
-    def response(self, world: CaseWorld, suggestion: Suggestion) -> Response:
+    def legal_responses(self, world: CaseWorld, suggestion: Suggestion) -> tuple[Response, ...]:
         passed = []
         for player in (1, 2):
             matches = world.hands[player].intersection(suggestion.cards)
             if matches:
-                shown = min(matches, key=self.card_order.__getitem__)
-                return Response(tuple(passed), player, shown)
+                return tuple(
+                    Response(tuple(passed), player, shown)
+                    for shown in sorted(matches, key=self.card_order.__getitem__)
+                )
             passed.append(player)
-        return Response(tuple(passed), None, None)
+        return (Response(tuple(passed), None, None),)
+
+    def response(self, world: CaseWorld, suggestion: Suggestion) -> Response:
+        return self.legal_responses(world, suggestion)[0]
+
+    def information_denying_response(
+        self,
+        information: InformationSet[CaseWorld],
+        world: CaseWorld,
+        suggestion: Suggestion,
+    ) -> Response:
+        scored = []
+        for response in self.legal_responses(world, suggestion):
+            posterior = self.observe(information, suggestion, response)
+            scored.append((
+                len(self.remaining_secrets(posterior)),
+                len(posterior.possible_states),
+                response.shown_card or "",
+                response,
+            ))
+        return max(scored, key=lambda item: item[:3])[-1]
 
     def observe(
         self,
@@ -165,15 +187,17 @@ class MysterySolver:
                 ),
             )
         if response.responder is not None and response.shown_card is not None:
+            responder = response.responder
+            shown_card = response.shown_card
             fact = Observation(
                 name="card_shown",
-                value=(response.responder, response.shown_card, suggestion),
+                value=(responder, shown_card, suggestion),
                 is_public=False,
                 timestamp=len(updated.observations) + len(updated.public_history) + 1,
             )
             updated = updated.update(
                 fact,
-                lambda world, _observation: self.response(world, suggestion) == response,
+                lambda world, _observation: shown_card in world.hands[responder],
             )
         return updated
 
@@ -185,17 +209,32 @@ class MysterySolver:
         self,
         information: InformationSet[CaseWorld],
         suggestion: Suggestion,
+        reveal_policy: str = "transparent",
     ) -> SuggestionScore:
+        if reveal_policy not in {"transparent", "information_denying"}:
+            raise ValueError("unknown reveal policy")
         partitions: dict[Response, list[CaseWorld]] = {}
         for world in information.possible_states:
-            partitions.setdefault(self.response(world, suggestion), []).append(world)
+            responses = (
+                (self.response(world, suggestion),)
+                if reveal_policy == "transparent"
+                else self.legal_responses(world, suggestion)
+            )
+            for response in responses:
+                partitions.setdefault(response, []).append(world)
         total = len(information.possible_states)
         secret_counts = [len({world.secret for world in worlds}) for worlds in partitions.values()]
-        expected_secrets = sum(
-            len(worlds) / total * secret_count
-            for worlds, secret_count in zip(partitions.values(), secret_counts)
-        )
-        expected_worlds = sum(len(worlds) * len(worlds) for worlds in partitions.values()) / total
+        if reveal_policy == "transparent":
+            expected_secrets = sum(
+                len(worlds) / total * secret_count
+                for worlds, secret_count in zip(partitions.values(), secret_counts)
+            )
+            expected_worlds = sum(
+                len(worlds) * len(worlds) for worlds in partitions.values()
+            ) / total
+        else:
+            expected_secrets = sum(secret_counts) / len(secret_counts)
+            expected_worlds = sum(len(worlds) for worlds in partitions.values()) / len(partitions)
         return SuggestionScore(
             suggestion=suggestion,
             expected_remaining_secrets=expected_secrets,
@@ -208,12 +247,29 @@ class MysterySolver:
         self,
         information: InformationSet[CaseWorld],
         used: frozenset[Suggestion] = frozenset(),
+        reveal_policy: str = "transparent",
     ) -> SuggestionScore:
         candidates = [suggestion for suggestion in self.suggestions if suggestion not in used]
         if not candidates:
             raise ValueError("every suggestion has already been used")
+        scores = (
+            self.score_suggestion(information, suggestion, reveal_policy)
+            for suggestion in candidates
+        )
+        if reveal_policy == "information_denying":
+            return min(
+                scores,
+                key=lambda item: (
+                    item.worst_remaining_secrets,
+                    item.expected_remaining_secrets,
+                    item.expected_remaining_worlds,
+                    item.suggestion.suspect,
+                    item.suggestion.room,
+                    item.suggestion.method,
+                ),
+            )
         return min(
-            (self.score_suggestion(information, suggestion) for suggestion in candidates),
+            scores,
             key=lambda item: (
                 item.expected_remaining_secrets,
                 item.worst_remaining_secrets,
@@ -224,9 +280,17 @@ class MysterySolver:
             ),
         )
 
-    def play(self, seed: int, strategy: str = "information", max_suggestions: int = 16) -> MysteryRun:
+    def play(
+        self,
+        seed: int,
+        strategy: str = "information",
+        max_suggestions: int = 16,
+        reveal_policy: str = "transparent",
+    ) -> MysteryRun:
         if strategy not in {"information", "random"}:
             raise ValueError("strategy must be 'information' or 'random'")
+        if reveal_policy not in {"transparent", "information_denying"}:
+            raise ValueError("unknown reveal policy")
         rng = random.Random(seed + 10_000)
         world = self.deal(seed)
         information = self.initial_information_set(world.hands[0])
@@ -235,12 +299,17 @@ class MysterySolver:
         while len(self.remaining_secrets(information)) > 1 and len(used) < max_suggestions:
             available = [item for item in self.suggestions if item not in used]
             suggestion = (
-                self.recommend(information, frozenset(used)).suggestion
+                self.recommend(information, frozenset(used), reveal_policy).suggestion
                 if strategy == "information"
                 else rng.choice(available)
             )
             used.add(suggestion)
-            information = self.observe(information, suggestion, self.response(world, suggestion))
+            response = (
+                self.information_denying_response(information, world, suggestion)
+                if reveal_policy == "information_denying"
+                else self.response(world, suggestion)
+            )
+            information = self.observe(information, suggestion, response)
             trace.append(len(self.remaining_secrets(information)))
         solved = self.remaining_secrets(information) == {world.secret}
         return MysteryRun(

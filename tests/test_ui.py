@@ -42,6 +42,7 @@ class LocalGameUITests(unittest.TestCase):
                 "investment",
                 "kuhn-poker",
                 "liars-dice",
+                "goofspiel",
                 "worm",
             ],
         )
@@ -426,6 +427,26 @@ class LocalGameUITests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.service.act(created["sessionId"], "call")
 
+    def test_goofspiel_hides_current_bid_and_completes_four_rounds(self) -> None:
+        created = self.service.create_session("goofspiel", {"seed": 47})
+        state = created["state"]
+        self.assertEqual(state["strategyScope"], "exact four-card shuffled-prize zero-sum equilibrium")
+        self.assertTrue(state["informationSet"]["aiCurrentBidHidden"])
+        self.assertAlmostEqual(
+            sum(item["probability"] for item in state["advisorDistribution"]),
+            1.0,
+        )
+        while state["phase"] == "bidding":
+            state = self.service.act(
+                created["sessionId"],
+                "bid",
+                {"card": state["recommendedBid"]},
+            )
+        self.assertEqual(len(state["history"]), 4)
+        self.assertIn(state["winner"], {"player", "ai", "tie"})
+        self.assertEqual(state["playerCards"], [])
+        self.assertEqual(state["aiCards"], [])
+
     def test_case_value_stays_hidden_until_opened_or_finished(self) -> None:
         created = self.service.create_session("cases", {"seed": 7})
         session_id = created["sessionId"]
@@ -600,6 +621,7 @@ class LocalGameUITests(unittest.TestCase):
             "investmentEyebrow",
             "pokerEyebrow",
             "liarEyebrow",
+            "goofspielEyebrow",
             "wormEyebrow",
         ]
         for number, key in enumerate(case_keys, start=1):

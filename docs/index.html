@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#10100f" />
     <title>AIP · 非对称博弈实验室</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23d8aa4c'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial' font-size='23' font-weight='900' fill='%2311110f'%3EAIP%3C/text%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=35250c1fafbb" />
+    <link rel="stylesheet" href="styles.css?v=23fc3acf333c" />
   </head>
   <body>
     <header class="topbar">
@@ -78,7 +78,7 @@
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="wormEyebrow">CASE 14 · 隐藏状态追踪 · 挑战</p>
+            <p class="eyebrow" data-i18n="wormEyebrow">CASE 15 · 隐藏状态追踪 · 挑战</p>
             <h1 data-i18n="wormTitle">移动虫穴</h1>
           </div>
           <button class="secondary-button" id="newWormButton" data-i18n="restart">重新开始</button>
@@ -620,6 +620,30 @@
           <section class="panel information-set"><div class="panel-title"><span data-i18n="investmentAnalysis">赔率分析师面板</span><span>EXPECTED GROWTH</span></div><p id="investmentAdvice"></p><div class="investment-history" id="investmentHistory"></div></section>
         </div>
       </section>
+
+      <section id="goofspielView" class="view goofspiel-view hidden">
+        <div class="game-heading">
+          <div><button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button><p class="eyebrow" data-i18n="goofspielEyebrow">CASE 14 · 同时行动与秘密竞价 · 较难</p><h1 data-i18n="goofspielTitle">秘密竞价 · Goofspiel</h1></div>
+          <button class="secondary-button" id="goofspielNew" data-i18n="restartMatch">重新开始比赛</button>
+        </div>
+        <div class="goof-score panel">
+          <div><span data-i18n="round">回合</span><strong id="goofRound">1 / 4</strong></div>
+          <div><span data-i18n="goofYourScore">你的奖牌分</span><strong id="goofPlayerScore">0</strong></div>
+          <div><span data-i18n="goofPrizeLabel">当前奖牌</span><strong id="goofScorePrize">1</strong></div>
+          <div><span data-i18n="goofAiScore">AI 得分</span><strong id="goofAiScore">0</strong></div>
+        </div>
+        <section class="goof-arena panel">
+          <div class="goof-opponent"><span data-i18n="goofAiInventory">AI 剩余竞价牌（公开）</span><div id="goofAiCards"></div></div>
+          <div class="goof-prize"><span data-i18n="goofRevealedPrize">本轮已揭晓奖牌</span><strong id="goofPrize">1</strong><small id="goofHiddenPrizes"></small></div>
+          <h2 id="goofInstruction">选择一张牌秘密竞价</h2>
+          <div class="goof-last hidden" id="goofLastRound"></div>
+          <div class="goof-hand"><span data-i18n="goofYourInventory">你的剩余竞价牌</span><div id="goofPlayerCards"></div></div>
+        </section>
+        <div class="goof-lower">
+          <section class="panel information-set"><div class="panel-title"><span data-i18n="goofAdvisor">精确均衡建议</span><span>ZERO-SUM POLICY</span></div><p id="goofAdvice"></p><div class="goof-distribution" id="goofDistribution"></div></section>
+          <section class="panel"><div class="panel-title"><span data-i18n="gameHistory">博弈记录</span><span>PUBLIC REVEALS</span></div><div class="goof-history" id="goofHistory"></div></section>
+        </div>
+      </section>
     </main>
 
     <div class="modal-backdrop hidden" id="offerModal" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
@@ -641,6 +665,6 @@
 
     <div class="operation-status hidden" id="operationStatus" role="status" aria-live="polite"></div>
     <div class="toast hidden" id="toast" role="status"></div>
-    <script type="module" src="bootstrap.js?v=35250c1fafbb"></script>
+    <script type="module" src="bootstrap.js?v=23fc3acf333c"></script>
   </body>
 </html>

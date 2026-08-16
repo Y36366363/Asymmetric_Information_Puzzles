@@ -16,6 +16,7 @@ const [runtime, app, styles] = await Promise.all([
   readFile(resolve(source, "app.js"), "utf8"),
   readFile(resolve(source, "styles.css"), "utf8"),
 ]);
+const goofspielPolicy = await readFile(resolve(here, "goofspiel-policy.json"), "utf8");
 const version = createHash("sha256")
   .update(runtime)
   .update(app)
@@ -71,7 +72,7 @@ await Promise.all([
   writeFile(resolve(output, "index.html"), index),
   writeFile(resolve(output, "styles.css"), styles),
   writeFile(resolve(output, "app.js"), app),
-  writeFile(resolve(output, "game-engine.js"), runtime.slice(0, apiBoundary) + browserAdapter),
+  writeFile(resolve(output, "game-engine.js"), `const GOOFSPIEL_POLICY = ${goofspielPolicy.trim()};\n` + runtime.slice(0, apiBoundary) + browserAdapter),
   writeFile(resolve(output, "bootstrap.js"), `import "./game-engine.js?v=${version}";\nimport "./app.js?v=${version}";\n`),
   writeFile(resolve(output, ".nojekyll"), ""),
 ]);

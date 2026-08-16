@@ -19,6 +19,7 @@ from aip.puzzles.hidden_pursuit.solver import PursuitState
 from aip.puzzles.love_letter.solver import CARD_COUNTS, CARD_NAMES, LoveLetterGame
 from aip.puzzles.investment import InvestmentTournament
 from aip.puzzles.guess_who import DEFAULT_QUESTIONS, DEFAULT_ROSTER, GuessWhoSolver
+from aip.puzzles.goofspiel import GoofspielSolver
 from aip.puzzles.kuhn_poker import equilibrium_policy
 from aip.puzzles.pirates.models import PirateRules
 from aip.puzzles.pirates.solver import PirateSolver
@@ -102,8 +103,9 @@ GAME_DISPLAY_ORDER = {
     "investment": 11,
     "kuhn-poker": 12,
     "liars-dice": 13,
-    "worm": 14,
-    "auction": 15,
+    "goofspiel": 14,
+    "worm": 15,
+    "auction": 16,
 }
 
 
@@ -2337,6 +2339,144 @@ class InvestmentGameSession:
             },
         }
 
+
+_GOOFSPIEL_SOLVER = GoofspielSolver(4)
+
+
+class GoofspielGameSession:
+    """Four-round secret bidding against an exact dynamic-equilibrium AI."""
+
+    def __init__(self, options: dict[str, object]) -> None:
+        self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
+        self.rng = random.Random(self.seed)
+        self._start()
+
+    def _start(self) -> None:
+        self.prize_order = list(_GOOFSPIEL_SOLVER.cards)
+        self.rng.shuffle(self.prize_order)
+        self.player_cards = _GOOFSPIEL_SOLVER.cards
+        self.ai_cards = _GOOFSPIEL_SOLVER.cards
+        self.round_number = 1
+        self.player_score = 0
+        self.ai_score = 0
+        self.phase = "bidding"
+        self.history: list[dict[str, object]] = []
+
+    @property
+    def current_prize(self) -> int | None:
+        if self.phase == "finished":
+            return None
+        return self.prize_order[self.round_number - 1]
+
+    @property
+    def remaining_prizes(self) -> tuple[int, ...]:
+        return tuple(sorted(self.prize_order[self.round_number - 1:]))
+
+    def _solution(self):
+        current = self.current_prize
+        if current is None:
+            return None
+        return _GOOFSPIEL_SOLVER.round_solution(
+            self.player_cards,
+            self.ai_cards,
+            self.remaining_prizes,
+            current,
+        )
+
+    def _sample_ai_bid(self, probabilities: tuple[object, ...]) -> int:
+        target = self.rng.random()
+        cumulative = 0.0
+        for card, probability in zip(self.ai_cards, probabilities):
+            cumulative += float(probability)
+            if target < cumulative:
+                return card
+        return self.ai_cards[-1]
+
+    def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
+        if action == "new_match" and self.phase == "finished":
+            self._start()
+            return self.snapshot()
+        if action != "bid" or self.phase != "bidding":
+            raise ValueError(f"illegal Goofspiel action: {action}")
+        player_bid = _whole_int(payload.get("card"), "bid card")
+        if player_bid not in self.player_cards:
+            raise ValueError("bid a card that remains in your hand")
+        current_prize = self.current_prize
+        solution = self._solution()
+        assert current_prize is not None and solution is not None
+        ai_bid = self._sample_ai_bid(solution.column_strategy)
+        if player_bid > ai_bid:
+            outcome = "player"
+            self.player_score += current_prize
+        elif ai_bid > player_bid:
+            outcome = "ai"
+            self.ai_score += current_prize
+        else:
+            outcome = "tie"
+        self.history.append({
+            "round": self.round_number,
+            "prize": current_prize,
+            "playerBid": player_bid,
+            "aiBid": ai_bid,
+            "outcome": outcome,
+            "playerScore": self.player_score,
+            "aiScore": self.ai_score,
+            "equilibriumValue": float(solution.value),
+            "aiDistribution": [
+                {"card": card, "probability": float(probability)}
+                for card, probability in zip(self.ai_cards, solution.column_strategy)
+            ],
+        })
+        self.player_cards = tuple(card for card in self.player_cards if card != player_bid)
+        self.ai_cards = tuple(card for card in self.ai_cards if card != ai_bid)
+        if self.round_number == len(self.prize_order):
+            self.phase = "finished"
+        else:
+            self.round_number += 1
+        return self.snapshot()
+
+    def snapshot(self) -> dict[str, object]:
+        solution = self._solution()
+        advisor = [] if solution is None else [
+            {"card": card, "probability": float(probability)}
+            for card, probability in zip(self.player_cards, solution.row_strategy)
+        ]
+        recommended = (
+            max(advisor, key=lambda item: (item["probability"], item["card"]))["card"]
+            if advisor else None
+        )
+        winner = None
+        if self.phase == "finished":
+            winner = "player" if self.player_score > self.ai_score else "ai" if self.ai_score > self.player_score else "tie"
+        return {
+            "gameId": "goofspiel",
+            "phase": self.phase,
+            "roundNumber": self.round_number,
+            "roundsTotal": len(self.prize_order),
+            "currentPrize": self.current_prize,
+            "playerCards": list(self.player_cards),
+            "aiCards": list(self.ai_cards),
+            "playerScore": self.player_score,
+            "aiScore": self.ai_score,
+            "history": [dict(item) for item in self.history],
+            "lastRound": dict(self.history[-1]) if self.history else None,
+            "winner": winner,
+            "advisorDistribution": advisor,
+            "recommendedBid": recommended,
+            "futureValue": float(solution.value) if solution is not None else 0.0,
+            "legalActions": ["bid"] if self.phase == "bidding" else ["new_match"],
+            "strategyScope": "exact four-card shuffled-prize zero-sum equilibrium",
+            "informationSet": {
+                "currentPrize": self.current_prize,
+                "playerRemaining": list(self.player_cards),
+                "aiRemaining": list(self.ai_cards),
+                "aiCurrentBidHidden": self.phase == "bidding",
+                "unrevealedPrizeCount": len(self.remaining_prizes) - 1 if self.phase == "bidding" else 0,
+                "publicHistory": [dict(item) for item in self.history],
+            },
+        }
+
+
 def build_default_registry() -> GameRegistry:
     registry = GameRegistry()
     registry.register(
@@ -2464,6 +2604,15 @@ def build_default_registry() -> GameRegistry:
             "单人 · 增长率、风险与相对排名",
         ),
         InvestmentGameSession,
+    )
+    registry.register(
+        GameDescriptor(
+            "goofspiel",
+            "秘密竞价",
+            "奖牌逐轮揭晓，双方同时秘密打出唯一的竞价牌；用有限手牌对抗精确均衡 AI。",
+            "单人 · 同时行动与秘密竞价",
+        ),
+        GoofspielGameSession,
     )
     for descriptor in (
         GameDescriptor(
