@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#10100f" />
     <title>AIP · 非对称博弈实验室</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23d8aa4c'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial' font-size='23' font-weight='900' fill='%2311110f'%3EAIP%3C/text%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=27943bb767ac" />
+    <link rel="stylesheet" href="styles.css?v=23fc3acf333c" />
   </head>
   <body>
     <header class="topbar">
@@ -78,7 +78,7 @@
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="wormEyebrow">CASE 12 · 隐藏状态追踪 · 挑战</p>
+            <p class="eyebrow" data-i18n="wormEyebrow">CASE 15 · 隐藏状态追踪 · 挑战</p>
             <h1 data-i18n="wormTitle">移动虫穴</h1>
           </div>
           <button class="secondary-button" id="newWormButton" data-i18n="restart">重新开始</button>
@@ -148,7 +148,7 @@
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="pokerEyebrow">CASE 10 · 私有信息与诈唬 · 较难</p>
+            <p class="eyebrow" data-i18n="pokerEyebrow">CASE 12 · 私有信息与诈唬 · 较难</p>
             <h1 data-i18n="pokerTitle">库恩扑克</h1>
           </div>
           <button class="secondary-button" id="newPokerMatch" data-i18n="restartMatch">重新开始比赛</button>
@@ -188,7 +188,7 @@
           </section>
           <section class="panel poker-rules">
             <div class="panel-title"><span data-i18n="quickRules">快速规则</span><span>KUHN 1950</span></div>
-            <p data-i18n="pokerRules">双方先各投入 1。下注为 1；跟注后比牌，弃牌则直接输。K 最大、J 最小。AI 会按概率诈唬，所以同一种动作不总代表同一张牌。</p>
+            <p data-i18n="pokerRules">双方先各投入 1。下注为 1；跟注后比牌，弃牌则直接输。K 最大、J 最小。AI 使用经过可利用性验证的混合均衡，会按位置调整诈唬和跟注概率。</p>
           </section>
         </div>
       </section>
@@ -298,7 +298,7 @@
         <div class="game-heading">
           <div>
             <button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button>
-            <p class="eyebrow" data-i18n="liarEyebrow">CASE 11 · 隐藏骰子与公开信号 · 较难</p>
+            <p class="eyebrow" data-i18n="liarEyebrow">CASE 13 · 隐藏骰子与公开信号 · 较难</p>
             <h1 data-i18n="liarTitle">骗子骰子</h1>
           </div>
           <button class="secondary-button" id="newLiarMatch" data-i18n="restartMatch">重新开始比赛</button>
@@ -565,6 +565,85 @@
           <section class="panel information-set"><div class="panel-title"><span data-i18n="yourInformationSet">你的信息集</span><span>5,040 HIDDEN WORLDS</span></div><p id="mastermindInformation"></p><div class="candidate-preview" id="mastermindCandidatePreview"></div><p class="strategy-scope" id="mastermindStrategy"></p></section>
         </div>
       </section>
+
+      <section id="loveLetterView" class="view love-letter-view hidden">
+        <div class="game-heading">
+          <div><button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button><p class="eyebrow" data-i18n="loveLetterEyebrow">CASE 10 · 手牌推断与风险控制 · 较难</p><h1 data-i18n="loveLetterTitle">情书决斗</h1></div>
+          <button class="secondary-button" id="loveNewMatch" data-i18n="restartMatch">重新开始比赛</button>
+        </div>
+        <div class="love-score panel">
+          <div><span data-i18n="round">回合</span><strong id="loveRound">1</strong></div>
+          <div><span data-i18n="loveYourScore">你的得分</span><strong id="lovePlayerScore">0 / 4</strong></div>
+          <div><span data-i18n="loveAiScore">AI 得分</span><strong id="loveAiScore">0 / 4</strong></div>
+          <div><span data-i18n="loveDeck">牌堆剩余</span><strong id="loveDeck">9</strong></div>
+        </div>
+        <section class="love-table panel">
+          <div class="love-opponent">
+            <span class="seat-label" data-i18n="strategyAi">策略型 AI</span>
+            <div class="love-card card-back">?</div>
+            <small id="loveOpponentStatus">手牌隐藏</small>
+          </div>
+          <div class="love-center">
+            <p class="eyebrow">16-CARD DEDUCTION DUEL</p>
+            <h2 id="loveInstruction">从两张手牌中打出一张，并执行角色效果</h2>
+            <div class="love-options">
+              <label><span data-i18n="lovePrinceTarget">王子目标</span><select id="loveTarget"><option value="ai">AI</option><option value="player" data-i18n="loveSelf">自己</option></select></label>
+              <label><span data-i18n="loveGuardGuess">卫兵猜测</span><select id="loveGuess"><option value="2">2 · Priest</option><option value="3">3 · Baron</option><option value="4">4 · Handmaid</option><option value="5">5 · Prince</option><option value="6">6 · King</option><option value="7">7 · Countess</option><option value="8">8 · Princess</option></select></label>
+            </div>
+            <button class="secondary-button" id="loveUseSuggestion" data-i18n="loveUseSuggestion">执行 AI 建议</button>
+            <div class="love-result hidden" id="loveResult"></div>
+          </div>
+          <div class="love-player">
+            <span class="seat-label" data-i18n="you">你</span>
+            <div class="love-hand" id="loveHand"></div>
+            <small data-i18n="loveChooseCard">点击一张合法手牌将它打出</small>
+          </div>
+        </section>
+        <div class="love-lower">
+          <section class="panel information-set"><div class="panel-title"><span data-i18n="yourInformationSet">你的信息集</span><span>PUBLIC DISCARD BELIEF</span></div><p id="loveInformation"></p><div class="love-beliefs" id="loveBeliefs"></div><p class="strategy-scope" id="loveSuggestion"></p></section>
+          <section class="panel"><div class="panel-title"><span data-i18n="gameHistory">博弈记录</span><span>PUBLIC ACTIONS</span></div><div class="love-history" id="loveHistory"></div><div class="love-removed"><span data-i18n="loveRemoved">开局公开移除</span><strong id="loveRemoved"></strong></div></section>
+        </div>
+      </section>
+
+      <section id="investmentView" class="view investment-view hidden">
+        <div class="game-heading"><div><button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button><p class="eyebrow" data-i18n="investmentEyebrow">CASE 11 · 增长率与淘汰压力 · 较难</p><h1 data-i18n="investmentTitle">Kelly 生存投资赛</h1></div><button class="secondary-button" id="investmentNew" data-i18n="restartMatch">重新开始比赛</button></div>
+        <div class="investment-score panel"><div><span data-i18n="round">回合</span><strong id="investmentRound">1 / 12</strong></div><div><span data-i18n="investmentCapital">虚拟资金</span><strong id="investmentCapital">1,000</strong></div><div><span data-i18n="investmentRank">当前排名</span><strong id="investmentRank">1 / 6</strong></div><div><span data-i18n="investmentNextCut">下次淘汰</span><strong id="investmentNextCut">第 4 轮</strong></div></div>
+        <section class="investment-market panel">
+          <p class="eyebrow">VIRTUAL CAPITAL · NO REAL-MONEY BETTING</p>
+          <h2 id="investmentInstruction">选择一个赔率方案，再决定投入多少资金</h2>
+          <div class="investment-offers" id="investmentOffers"></div>
+          <div class="stake-control"><span data-i18n="investmentStake">仓位比例</span><div id="investmentFractions"></div><button class="deal-button" id="investmentSubmit" data-i18n="investmentConfirm">确认本轮决策</button></div>
+          <div class="investment-result hidden" id="investmentResult"></div>
+        </section>
+        <div class="investment-lower">
+          <section class="panel"><div class="panel-title"><span data-i18n="investmentLeaderboard">生存榜</span><span>LOWEST IS ELIMINATED</span></div><div class="investment-ranking" id="investmentRanking"></div></section>
+          <section class="panel information-set"><div class="panel-title"><span data-i18n="investmentAnalysis">赔率分析师面板</span><span>EXPECTED GROWTH</span></div><p id="investmentAdvice"></p><div class="investment-history" id="investmentHistory"></div></section>
+        </div>
+      </section>
+
+      <section id="goofspielView" class="view goofspiel-view hidden">
+        <div class="game-heading">
+          <div><button class="text-button back-to-lobby" data-i18n="backLobby">← 返回大厅</button><p class="eyebrow" data-i18n="goofspielEyebrow">CASE 14 · 同时行动与秘密竞价 · 较难</p><h1 data-i18n="goofspielTitle">秘密竞价 · Goofspiel</h1></div>
+          <button class="secondary-button" id="goofspielNew" data-i18n="restartMatch">重新开始比赛</button>
+        </div>
+        <div class="goof-score panel">
+          <div><span data-i18n="round">回合</span><strong id="goofRound">1 / 4</strong></div>
+          <div><span data-i18n="goofYourScore">你的奖牌分</span><strong id="goofPlayerScore">0</strong></div>
+          <div><span data-i18n="goofPrizeLabel">当前奖牌</span><strong id="goofScorePrize">1</strong></div>
+          <div><span data-i18n="goofAiScore">AI 得分</span><strong id="goofAiScore">0</strong></div>
+        </div>
+        <section class="goof-arena panel">
+          <div class="goof-opponent"><span data-i18n="goofAiInventory">AI 剩余竞价牌（公开）</span><div id="goofAiCards"></div></div>
+          <div class="goof-prize"><span data-i18n="goofRevealedPrize">本轮已揭晓奖牌</span><strong id="goofPrize">1</strong><small id="goofHiddenPrizes"></small></div>
+          <h2 id="goofInstruction">选择一张牌秘密竞价</h2>
+          <div class="goof-last hidden" id="goofLastRound"></div>
+          <div class="goof-hand"><span data-i18n="goofYourInventory">你的剩余竞价牌</span><div id="goofPlayerCards"></div></div>
+        </section>
+        <div class="goof-lower">
+          <section class="panel information-set"><div class="panel-title"><span data-i18n="goofAdvisor">精确均衡建议</span><span>ZERO-SUM POLICY</span></div><p id="goofAdvice"></p><div class="goof-distribution" id="goofDistribution"></div></section>
+          <section class="panel"><div class="panel-title"><span data-i18n="gameHistory">博弈记录</span><span>PUBLIC REVEALS</span></div><div class="goof-history" id="goofHistory"></div></section>
+        </div>
+      </section>
     </main>
 
     <div class="modal-backdrop hidden" id="offerModal" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
@@ -584,7 +663,8 @@
       <div class="rules-card"><button class="rules-close" id="rulesClose" aria-label="Close">×</button><p class="eyebrow" data-i18n="rulesEyebrow">HOW TO PLAY</p><h2 id="rulesTitle">游戏规则</h2><div id="rulesBody"></div></div>
     </div>
 
+    <div class="operation-status hidden" id="operationStatus" role="status" aria-live="polite"></div>
     <div class="toast hidden" id="toast" role="status"></div>
-    <script type="module" src="bootstrap.js?v=27943bb767ac"></script>
+    <script type="module" src="bootstrap.js?v=23fc3acf333c"></script>
   </body>
 </html>

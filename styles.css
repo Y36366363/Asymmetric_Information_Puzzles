@@ -214,6 +214,33 @@ input:focus-visible {
 .deal-button { color: #17130c; border: 1px solid var(--gold); background: var(--gold); font-weight: 800; }
 .no-deal-button { color: var(--ink); border: 1px solid #605d54; background: transparent; }
 .toast { position: fixed; left: 50%; bottom: 28px; z-index: 20; transform: translateX(-50%); padding: 12px 18px; color: #fff; background: var(--red); box-shadow: var(--shadow); }
+.operation-status {
+  position: fixed;
+  top: 84px;
+  right: clamp(18px, 4vw, 64px);
+  z-index: 18;
+  padding: 9px 13px 9px 31px;
+  color: #17130c;
+  border-radius: 999px;
+  background: var(--gold-soft);
+  box-shadow: var(--shadow);
+  font-size: 12px;
+  font-weight: 800;
+}
+.operation-status::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin-top: -5px;
+  border: 2px solid rgba(23, 19, 12, .28);
+  border-top-color: #17130c;
+  border-radius: 50%;
+  animation: operation-spin .7s linear infinite;
+}
+@keyframes operation-spin { to { transform: rotate(360deg); } }
 
 .worm-stage { padding: clamp(26px, 5vw, 64px); text-align: center; }
 .worm-copy h2 { margin: 14px 0 8px; font: 500 clamp(28px, 4vw, 46px) Georgia, "Songti SC", serif; }
@@ -600,6 +627,87 @@ button.battle-cell:disabled { cursor: default; }
 .battle-history div { display: grid; grid-template-columns: 80px 1fr 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .battle-history span { color: var(--muted); }
 
+.love-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; padding: 0; }
+.love-score div { padding: 18px; text-align: center; border-right: 1px solid var(--line); }
+.love-score div:last-child { border-right: 0; }
+.love-score span, .love-opponent small, .love-player small { display: block; color: var(--muted); font-size: 11px; }
+.love-score strong { display: block; margin-top: 7px; color: var(--gold-soft); font-size: 24px; }
+.love-table { display: grid; grid-template-columns: minmax(150px,.7fr) minmax(280px,1.15fr) minmax(260px,1fr); gap: 24px; align-items: center; min-height: 430px; }
+.love-opponent, .love-player, .love-center { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+.love-center h2 { margin: 0; max-width: 430px; font: 500 28px Georgia, "Songti SC", serif; }
+.love-card { position: relative; width: 118px; min-height: 174px; padding: 18px 10px; border: 1px solid #b98b47; border-radius: 10px; color: #f7e9c3; background: linear-gradient(145deg,#5e2739,#281927); box-shadow: 0 10px 26px rgba(0,0,0,.28); }
+.love-card span { display: block; color: var(--gold-soft); font: 700 34px Georgia,serif; }
+.love-card strong { display: block; margin-top: 48px; font-size: 14px; }
+button.love-card:not(:disabled):hover { transform: translateY(-7px); border-color: var(--gold-soft); }
+button.love-card:disabled { opacity: .43; cursor: not-allowed; }
+.love-card.card-back { display: grid; place-items: center; font: 700 44px Georgia,serif; background: repeating-linear-gradient(45deg,#472333,#472333 8px,#2d1b28 8px,#2d1b28 16px); }
+.love-hand { display: flex; gap: 14px; min-height: 174px; }
+.love-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: min(100%,440px); }
+.love-options label { color: var(--muted); font-size: 10px; text-align: left; }
+.love-options select { width: 100%; margin-top: 6px; padding: 10px; border: 1px solid var(--line); color: var(--paper); background: #171514; }
+.love-result { padding: 12px 15px; border: 1px solid var(--gold); color: var(--gold-soft); font-weight: 800; }
+.love-lower { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+.love-beliefs { display: grid; gap: 7px; }
+.love-beliefs div { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; font-size: 12px; }
+.love-beliefs i { grid-column: 1 / -1; width: calc(var(--belief) * 100%); min-width: 2px; height: 4px; background: var(--gold); }
+.love-history { max-height: 260px; overflow: auto; }
+.love-history div { display: grid; grid-template-columns: 60px 1fr; gap: 6px 12px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.love-history small { grid-column: 2; color: var(--muted); }
+.love-removed { display: flex; justify-content: space-between; gap: 14px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+.love-removed strong { color: var(--paper); text-align: right; }
+
+.investment-score { display:grid; grid-template-columns:repeat(4,1fr); margin-bottom:18px; padding:0; }
+.investment-score div { padding:18px; text-align:center; border-right:1px solid var(--line); }
+.investment-score div:last-child { border-right:0; }
+.investment-score span { display:block; color:var(--muted); font-size:11px; }
+.investment-score strong { display:block; margin-top:7px; color:var(--gold-soft); font-size:23px; }
+.investment-market { text-align:center; }
+.investment-market h2 { margin:8px 0 22px; font:500 29px Georgia,"Songti SC",serif; }
+.investment-offers { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.investment-offer { display:flex; flex-direction:column; gap:9px; min-height:210px; padding:20px; border:1px solid var(--line); color:var(--paper); background:#171514; text-align:left; }
+.investment-offer.selected { border-color:var(--gold); box-shadow:inset 0 0 0 1px var(--gold); background:#211d17; }
+.investment-offer > span,.investment-offer small { color:var(--muted); }
+.investment-offer strong { color:var(--gold-soft); font:700 36px Georgia,serif; }
+.investment-offer em { margin-top:auto; color:var(--paper); font-style:normal; }
+.positive { color:#83c99a !important; }.negative { color:#e28a7b !important; }
+.stake-control { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:14px; margin-top:22px; }
+.stake-control > span { color:var(--muted); }
+.stake-control > div { display:flex; gap:6px; flex-wrap:wrap; }
+.fraction-button { padding:10px 13px; border:1px solid var(--line); color:var(--paper); background:#171514; }
+.fraction-button.selected { border-color:var(--gold); color:var(--gold-soft); }
+.investment-result { margin-top:18px; padding:14px; border:1px solid var(--gold); color:var(--gold-soft); font-weight:800; }
+.investment-lower { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:18px; }
+.investment-ranking div { display:grid; grid-template-columns:28px 1fr auto auto; gap:12px; align-items:center; padding:11px 0; border-bottom:1px solid var(--line); }
+.investment-ranking span strong,.investment-ranking span small { display:block; }.investment-ranking span small { color:var(--muted); margin-top:3px; }
+.investment-ranking em { color:var(--gold-soft); font-style:normal; }.investment-ranking i { color:#e28a7b; font-size:10px; }.investment-ranking .eliminated { opacity:.48; }
+.investment-history { margin-top:16px; }.investment-history div { display:grid; grid-template-columns:1fr auto auto; gap:12px; padding:8px 0; border-bottom:1px solid var(--line); }.investment-history span { color:var(--muted); }.investment-history em { font-style:normal; }
+
+.goof-score { display:grid; grid-template-columns:repeat(4,1fr); margin-bottom:18px; padding:0; }
+.goof-score div { padding:18px; text-align:center; border-right:1px solid var(--line); }
+.goof-score div:last-child { border-right:0; }
+.goof-score span,.goof-opponent > span,.goof-hand > span { display:block; color:var(--muted); font-size:11px; }
+.goof-score strong { display:block; margin-top:7px; color:var(--gold-soft); font-size:24px; }
+.goof-arena { display:flex; min-height:430px; flex-direction:column; align-items:center; justify-content:center; gap:22px; text-align:center; background:radial-gradient(circle at center,rgba(216,170,76,.09),transparent 58%); }
+.goof-arena h2 { margin:0; font:500 28px Georgia,"Songti SC",serif; }
+.goof-opponent,.goof-hand { width:min(100%,620px); }
+.goof-opponent > div,.goof-hand > div { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-top:11px; }
+.goof-prize { display:flex; flex-direction:column; align-items:center; gap:7px; }
+.goof-prize span,.goof-prize small { color:var(--muted); }
+.goof-prize strong { display:grid; width:92px; height:92px; place-items:center; border:2px solid var(--gold); border-radius:50%; color:#17130c; background:var(--gold); font:700 40px Georgia,serif; box-shadow:0 10px 34px rgba(216,170,76,.2); }
+.goof-bid-card { display:inline-flex; width:74px; min-height:94px; flex-direction:column; align-items:center; justify-content:center; gap:7px; border:1px solid #6f6759; border-radius:8px; color:var(--paper); background:linear-gradient(145deg,#302b25,#171514); font:700 26px Georgia,serif; }
+button.goof-bid-card { cursor:pointer; transition:transform .15s,border-color .15s; }
+button.goof-bid-card:hover:not(:disabled) { transform:translateY(-5px); border-color:var(--gold-soft); }
+.goof-bid-card.passive { width:52px; min-height:66px; color:var(--muted); font-size:20px; }
+.goof-bid-card.recommended { border-color:var(--gold); box-shadow:inset 0 0 0 1px var(--gold),0 7px 20px rgba(216,170,76,.14); }
+.goof-bid-card small { color:var(--gold-soft); font:600 9px sans-serif; }
+.goof-last { display:grid; grid-template-columns:1fr auto; gap:4px 16px; min-width:min(100%,300px); padding:12px 16px; border:1px solid var(--line); text-align:left; }
+.goof-last span,.goof-last small { color:var(--muted); }.goof-last small { grid-column:1/-1; }.goof-last strong { color:var(--gold-soft); }
+.goof-lower { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:18px; }
+.goof-distribution div { display:grid; grid-template-columns:1fr auto; gap:7px; margin-top:11px; }
+.goof-distribution i { grid-column:1/-1; width:calc(var(--goof-prob) * 100%); min-width:2px; height:5px; background:var(--gold); }
+.goof-history div { display:grid; grid-template-columns:34px 1fr auto; gap:5px 12px; padding:10px 0; border-bottom:1px solid var(--line); }
+.goof-history b { color:var(--gold-soft); }.goof-history span,.goof-history small { color:var(--muted); }.goof-history small { grid-column:2/-1; }
+
 @media (max-width: 1100px) {
   .game-layout { grid-template-columns: 180px 1fr; }
   .insight-panel { grid-column: 1 / -1; }
@@ -690,5 +798,23 @@ button.battle-cell:disabled { cursor: default; }
   .battleship-view.placement-phase .enemy-board-shell { display: none; }
   .battle-history div { grid-template-columns: 62px 1fr; }
   .battle-history div span:last-child { grid-column: 2; }
+  .love-score { grid-template-columns: 1fr 1fr; }
+  .love-score div:nth-child(2) { border-right: 0; }
+  .love-score div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .love-table { grid-template-columns: 1fr; }
+  .love-center { grid-row: 2; }
+  .love-lower { grid-template-columns: 1fr; }
+  .love-hand { flex-wrap: wrap; justify-content: center; }
+  .love-card { width: 105px; min-height: 154px; }
+  .investment-score { grid-template-columns:1fr 1fr; }
+  .investment-score div:nth-child(2) { border-right:0; }.investment-score div:nth-child(-n+2) { border-bottom:1px solid var(--line); }
+  .investment-offers,.investment-lower { grid-template-columns:1fr; }
+  .investment-offer { min-height:155px; }
+  .stake-control { align-items:stretch; flex-direction:column; }.stake-control > div { justify-content:center; }
+  .goof-score { grid-template-columns:1fr 1fr; }
+  .goof-score div:nth-child(2) { border-right:0; }.goof-score div:nth-child(-n+2) { border-bottom:1px solid var(--line); }
+  .goof-lower { grid-template-columns:1fr; }
+  .goof-arena { min-height:390px; padding-inline:12px; }
+  .goof-bid-card { width:62px; min-height:84px; }
   .hole-row { gap: 5px; }
 }
