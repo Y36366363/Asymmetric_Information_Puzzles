@@ -1013,6 +1013,10 @@ function renderLoveLetter() {
   const names = loveNames[language];
   const active = state.phase === "player_turn";
   const finished = ["round_finished", "match_finished"].includes(state.phase);
+  const loveTarget = $("#loveTarget");
+  const aiTarget = loveTarget.querySelector('option[value="ai"]');
+  aiTarget.disabled = state.protected.ai;
+  if (state.protected.ai && loveTarget.value === "ai") loveTarget.value = "player";
   $("#loveRound").textContent = state.roundNumber;
   $("#lovePlayerScore").textContent = `${state.scores.player} / ${state.targetScore}`;
   $("#loveAiScore").textContent = `${state.scores.ai} / ${state.targetScore}`;
@@ -1109,7 +1113,7 @@ function renderGoofspiel() {
     ? (language === "zh" ? `为 ${state.currentPrize} 分奖牌选择一张秘密竞价牌` : `Choose one secret bid for the ${state.currentPrize}-point prize`)
     : winnerLabel;
   $("#goofAiCards").innerHTML = state.aiCards.map((card) => `<span class="goof-bid-card passive">${card}</span>`).join("") || `<small>${language === "zh" ? "已全部使用" : "All used"}</small>`;
-  $("#goofPlayerCards").innerHTML = state.playerCards.map((card) => `<button class="goof-bid-card ${card === state.recommendedBid ? "recommended" : ""}" data-goof-bid="${card}" ${active ? "" : "disabled"}><strong>${card}</strong>${card === state.recommendedBid ? `<small>${language === "zh" ? "均衡建议" : "Suggested"}</small>` : ""}</button>`).join("") || `<small>${language === "zh" ? "四张牌均已使用" : "All four cards used"}</small>`;
+  $("#goofPlayerCards").innerHTML = state.playerCards.map((card) => `<button class="goof-bid-card ${card === state.recommendedBid ? "recommended" : ""}" data-goof-bid="${card}" ${active ? "" : "disabled"}><strong>${card}</strong>${card === state.recommendedBid ? `<small>${language === "zh" ? "最高频" : "Most likely"}</small>` : ""}</button>`).join("") || `<small>${language === "zh" ? "四张牌均已使用" : "All four cards used"}</small>`;
   document.querySelectorAll("[data-goof-bid]").forEach((button) => button.addEventListener("click", () => act("bid", { card: Number(button.dataset.goofBid) })));
 
   const last = state.lastRound;
@@ -1120,7 +1124,7 @@ function renderGoofspiel() {
   }
   const distribution = state.advisorDistribution || [];
   $("#goofAdvice").textContent = active
-    ? (language === "zh" ? `精确均衡建议出 ${state.recommendedBid}。下方概率是应当随机采用各张牌的频率；从当前公开状态开始，双方都最优时你的预期分差为 ${Number(state.futureValue).toFixed(2)}。` : `The exact equilibrium currently recommends ${state.recommendedBid}. The probabilities below are frequencies to randomize across cards; your expected score difference under optimal play is ${Number(state.futureValue).toFixed(2)}.`)
+    ? (language === "zh" ? `当前均衡中，${state.recommendedBid} 是最高频出牌，但不能每次固定选择它；精确策略是按下方概率随机。双方都最优时，剩余回合带来的预期额外分差为 ${Number(state.futureValue).toFixed(2)}。` : `${state.recommendedBid} has the highest equilibrium frequency, but it should not be chosen every time; the exact policy randomizes by the probabilities below. Optimal play gives an expected additional score difference of ${Number(state.futureValue).toFixed(2)} over the remaining rounds.`)
     : (language === "zh" ? `最终比分 ${state.playerScore} : ${state.aiScore}。AI 每轮均从当前公开状态的精确零和均衡中随机出牌。` : `Final score ${state.playerScore}:${state.aiScore}. Each AI bid was sampled from the exact zero-sum equilibrium for that public state.`);
   $("#goofDistribution").innerHTML = distribution.map((item) => `<div><span>${language === "zh" ? "出牌" : "Bid"} ${item.card}</span><strong>${(item.probability * 100).toFixed(1)}%</strong><i style="--goof-prob:${item.probability}"></i></div>`).join("") || `<p>${language === "zh" ? "比赛结束后不再需要决策。" : "No decision remains after the match."}</p>`;
   $("#goofHistory").innerHTML = state.history.length ? state.history.slice().reverse().map((item) => {

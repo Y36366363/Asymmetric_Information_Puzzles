@@ -162,6 +162,34 @@ class LocalGameUITests(unittest.TestCase):
         self.assertIn(4, state["scores"].values())
         self.assertIsNotNone(state["opponentHand"])
 
+    def test_love_letter_prince_cannot_target_a_protected_opponent(self) -> None:
+        created = self.service.create_session("love-letter", {"seed": 0})
+        session_id = created["sessionId"]
+        state = created["state"]
+        for _step in range(40):
+            if (
+                state["phase"] == "player_turn"
+                and 5 in state["playerHand"]
+                and state["protected"]["ai"]
+            ):
+                break
+            if state["phase"] == "player_turn":
+                state = self.service.act(session_id, "play_card", state["suggestedPlay"])
+            elif state["phase"] == "round_finished":
+                state = self.service.act(session_id, "next_round")
+            else:
+                self.fail("seeded match ended before the protected-target case")
+        else:
+            self.fail("seeded match did not reach the protected-target case")
+
+        self.assertEqual(state["suggestedPlay"]["target"], "player")
+        with self.assertRaises(ValueError):
+            self.service.act(
+                session_id,
+                "play_card",
+                {"card": 5, "target": "ai", "guess": None},
+            )
+
     def test_investment_tournament_exposes_tradeoffs_and_completes(self) -> None:
         created = self.service.create_session("investment", {"seed": 43})
         state = created["state"]

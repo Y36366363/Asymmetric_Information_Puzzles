@@ -5,6 +5,27 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/17/2026
+
+- **Protected-target bug fixed** — Love Letter now disables the AI as a Prince
+  target while Handmaid protection is active and automatically selects the only
+  legal self-target instead of letting a visible action fail after submission.
+- **Honest mixed-strategy guidance** — Goofspiel now calls the highlighted bid
+  the highest-frequency equilibrium action and explicitly tells players to
+  randomize by the full distribution, rather than implying one fixed card is
+  always optimal.
+- **Mobile and keyboard usability** — Enlarged lobby, GitHub, language, and home
+  controls to 44 px touch targets on phones and added visible focus treatment to
+  native select menus without introducing horizontal overflow.
+- **Full player-route audit** — Traversed all 15 public detail pages and ran
+  complete game loops in both runtimes; checked rules/restart/back controls,
+  translations, duplicate IDs, unnamed controls, busy states, 390 px overflow,
+  and browser logs. [Read the
+  audit and next priorities](research/player_experience_audit_2026-08-17.md).
+- **Daily stability pass** — All 164 Python tests plus 10 public-engine and
+  static-build tests pass, including a deterministic regression for the
+  protected Prince edge case.
+
 ## Updates 08/16/2026
 
 - **Secret Bidding is playable** — Added a bilingual four-round Goofspiel game

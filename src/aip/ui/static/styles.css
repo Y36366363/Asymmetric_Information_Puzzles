@@ -29,7 +29,8 @@ button { font: inherit; }
 
 button:focus-visible,
 a:focus-visible,
-input:focus-visible {
+input:focus-visible,
+select:focus-visible {
   outline: 2px solid var(--gold-soft);
   outline-offset: 3px;
 }
@@ -718,6 +719,9 @@ button.goof-bid-card:hover:not(:disabled) { transform:translateY(-5px); border-c
   .status { display: none; }
   .github-link > span:last-child { display: none; }
   .header-actions { gap: 8px; }
+  .brand, .github-link, .language-switch button { min-height: 44px; }
+  .github-link { min-width: 44px; justify-content: center; }
+  .game-heading .back-to-lobby, .game-heading #backButton { min-height: 44px; }
   .view { padding-inline: 14px; }
   .brand > span:last-child { display: none; }
   .game-heading { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; gap: 10px; }
