@@ -379,6 +379,11 @@ class LocalGameUITests(unittest.TestCase):
         self.assertEqual(state["roundNumber"], 3)
         self.assertEqual(sum(state["playerInventory"].values()), 0)
         self.assertEqual(state["playerScore"] + state["aiScore"] + state["draws"], 3)
+        review = state["postMatchReview"]
+        self.assertGreaterEqual(review["equilibriumSupportedRounds"], 0)
+        self.assertLessEqual(review["equilibriumSupportedRounds"], 3)
+        self.assertAlmostEqual(sum(review["moveCounts"].values()), 3)
+        self.assertGreater(review["averageChosenProbability"], 0)
 
     def test_e_card_uses_the_asymmetric_dominance_cycle(self) -> None:
         self.assertEqual(ECardSession._outcome("emperor", "citizen"), "player")
@@ -474,6 +479,32 @@ class LocalGameUITests(unittest.TestCase):
         self.assertIn(state["winner"], {"player", "ai", "tie"})
         self.assertEqual(state["playerCards"], [])
         self.assertEqual(state["aiCards"], [])
+        self.assertEqual(state["postMatchReview"]["equilibriumSupportedRounds"], 4)
+        self.assertEqual(state["postMatchReview"]["offSupportRounds"], [])
+        self.assertTrue(all("playerBidProbability" in item for item in state["history"]))
+
+    def test_large_battleship_uses_symmetric_two_shot_salvos(self) -> None:
+        created = self.service.create_session("battleship", {"seed": 101})
+        session_id = created["sessionId"]
+        state = self.service.act(
+            session_id, "set_board_size", {"boardSize": 15}
+        )
+        self.assertEqual(state["salvoSize"], 2)
+        state = self.service.act(session_id, "start_battle")
+        first = state["suggestedShot"]
+        state = self.service.act(
+            session_id, "fire", {"row": first[0], "column": first[1]}
+        )
+        self.assertEqual(state["shotsRemainingInVolley"], 1)
+        self.assertEqual(state["history"][-1]["aiShots"], [])
+        second = state["suggestedShot"]
+        state = self.service.act(
+            session_id, "fire", {"row": second[0], "column": second[1]}
+        )
+        self.assertEqual(len(state["history"][-1]["aiShots"]), 2)
+        self.assertEqual(state["volleyNumber"], 2)
+        self.assertIn(state["lastAiAnalysis"]["searchMode"], {"hunt", "target"})
+        self.assertEqual(len(state["lastAiAnalysis"]["volleyShots"]), 2)
 
     def test_case_value_stays_hidden_until_opened_or_finished(self) -> None:
         created = self.service.create_session("cases", {"seed": 7})

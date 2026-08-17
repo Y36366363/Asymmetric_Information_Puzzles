@@ -143,6 +143,7 @@ test("single-player games survive complete decision loops", async () => {
     await act(rps, "play_move", {move});
   }
   assert.equal(rps.state.roundNumber, rps.state.roundsTotal);
+  assert.ok(rps.state.postMatchReview.equilibriumSupportedRounds <= rps.state.roundsTotal);
 
   const mastermind = await create("mastermind");
   assert.equal(mastermind.state.candidateCount, 5040);
@@ -235,6 +236,7 @@ test("single-player games survive complete decision loops", async () => {
   assert.equal(goofspiel.state.history.length, 4);
   assert.equal(goofspiel.state.playerCards.length, 0);
   assert.ok(["player", "ai", "tie"].includes(goofspiel.state.winner));
+  assert.equal(goofspiel.state.postMatchReview.equilibriumSupportedRounds, 4);
 
   const expanded = await create("battleship");
   await act(expanded, "set_board_size", {boardSize:12});
@@ -246,7 +248,16 @@ test("single-player games survive complete decision loops", async () => {
 
   const grand = await create("battleship");
   await act(grand, "set_board_size", {boardSize:15});
+  assert.equal(grand.state.salvoSize, 2);
   await act(grand, "start_battle");
+  const [firstRow, firstColumn] = grand.state.suggestedShot;
+  await act(grand, "fire", {row:firstRow,column:firstColumn});
+  assert.equal(grand.state.shotsRemainingInVolley, 1);
+  assert.equal(grand.state.history.at(-1).aiShots.length, 0);
+  const [secondRow, secondColumn] = grand.state.suggestedShot;
+  await act(grand, "fire", {row:secondRow,column:secondColumn});
+  assert.equal(grand.state.history.at(-1).aiShots.length, 2);
+  assert.ok(["hunt","target"].includes(grand.state.lastAiAnalysis.searchMode));
   while (grand.state.phase === "player_turn") {
     const [row, column] = grand.state.suggestedShot;
     await act(grand, "fire", {row,column});

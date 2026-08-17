@@ -7,6 +7,19 @@
 
 ## Updates 08/17/2026
 
+- **First-turn guidance for harder games** — Added bilingual, action-specific
+  opening briefings to Kuhn Poker, Liar's Dice, Love Letter, Kelly Survival,
+  Goofspiel, and the adversarial worm puzzle; the guide disappears after the
+  player commits the first meaningful action. A dedicated 15×15 Battleship
+  briefing explains its large-board cadence before combat.
+- **Probability-based post-match reviews** — Restricted RPS and Goofspiel now
+  separate score variance from policy quality, reporting equilibrium-support
+  coverage, the average probability assigned to chosen actions, repeated-move
+  exposure, and any zero- or low-frequency bidding rounds.
+- **Faster, auditable large-board Battleship** — The 15×15 board now uses fair
+  two-shot salvos for both sides, shows shots remaining before the AI responds,
+  and reports search-versus-target mode, density coverage, tied best cells,
+  explored-board progress, and confirmed enemy segments.
 - **Protected-target bug fixed** — Love Letter now disables the AI as a Prince
   target while Handmaid protection is active and automatically selects the only
   legal self-target instead of letting a visible action fail after submission.
@@ -22,7 +35,7 @@
   translations, duplicate IDs, unnamed controls, busy states, 390 px overflow,
   and browser logs. [Read the
   audit and next priorities](research/player_experience_audit_2026-08-17.md).
-- **Daily stability pass** — All 164 Python tests plus 10 public-engine and
+- **Daily stability pass** — All 166 Python tests plus 10 public-engine and
   static-build tests pass, including a deterministic regression for the
   protected Prince edge case.
 

@@ -37,6 +37,11 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /精确均衡建议/);
   assert.match(app, /不能每次固定选择它/);
   assert.match(app, /highest equilibrium frequency/);
+  assert.match(app, /function renderFirstTurnGuide/);
+  assert.match(app, /15×15 大海域提示/);
+  assert.match(app, /Post-match strategy review/);
+  assert.match(html, /id="rpsPostMatch"/);
+  assert.match(html, /id="goofPostMatch"/);
   assert.match(app, /aiTarget\.disabled = state\.protected\.ai/);
   assert.match(app, /loveTarget\.value = "player"/);
   assert.match(app, /A wrong guess costs one turn/);
@@ -64,6 +69,8 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(styles, /\.blackjack-actions \{ flex-wrap: wrap; \}/);
   assert.match(styles, /\.game-heading \.back-to-lobby, \.game-heading #backButton \{ min-height: 44px; \}/);
   assert.match(styles, /select:focus-visible/);
+  assert.match(styles, /\.first-turn-guide/);
+  assert.match(styles, /\.strategy-review-grid/);
 });
 
 test("browser engine intercepts API calls without a backend", async () => {

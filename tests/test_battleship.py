@@ -47,6 +47,8 @@ class BattleshipResearchTests(unittest.TestCase):
         self.assertEqual(ai.last_analysis["chosenCell"], choice)
         self.assertGreater(ai.last_analysis["candidatePlacements"], 0)
         self.assertGreater(ai.last_analysis["peakDensity"], 0)
+        self.assertEqual(ai.last_analysis["searchMode"], "hunt")
+        self.assertGreater(ai.last_analysis["coverageShare"], 0)
 
     def test_probability_ai_requires_a_placement_to_explain_the_full_hit_line(self) -> None:
         ai = ProbabilityDensityAI(FleetRules(), random.Random(9))
@@ -54,6 +56,13 @@ class BattleshipResearchTests(unittest.TestCase):
         scores, _candidate_count = ai.density_scores()
         self.assertGreater(scores[(4, 3)], scores[(3, 4)])
         self.assertGreater(scores[(4, 6)], scores[(3, 5)])
+
+    def test_probability_ai_reports_target_mode_after_a_hit(self) -> None:
+        ai = ProbabilityDensityAI(FleetRules(), random.Random(12))
+        ai.unresolved_hits.add((4, 4))
+        ai.choose()
+        self.assertEqual(ai.last_analysis["searchMode"], "target")
+        self.assertLessEqual(ai.last_analysis["coverageShare"], 1)
 
 
 if __name__ == "__main__":

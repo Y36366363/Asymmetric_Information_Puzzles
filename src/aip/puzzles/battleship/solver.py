@@ -218,6 +218,10 @@ class ProbabilityDensityAI(_KnowledgePolicy):
             "candidatePlacements": candidate_count,
             "peakDensity": best_score,
             "tiedBestCells": len(best),
+            "searchMode": "target" if self.unresolved_hits else "hunt",
+            "coverageShare": (
+                best_score / candidate_count if candidate_count else 0.0
+            ),
             "chosenCell": choice,
         }
         return choice

@@ -1162,6 +1162,33 @@ class RestrictedRPSSession:
         )
         recommendation = dict(zip(self.MOVES, player_strategy))
         public_history = [dict(entry) for entry in self.history]
+        post_match_review = None
+        if self.phase == "finished":
+            selected_probabilities = [
+                float(entry["analysis"]["playerMinimaxDistribution"][entry["playerMove"]])
+                for entry in self.history
+            ]
+            move_counts = {
+                move: sum(entry["playerMove"] == move for entry in self.history)
+                for move in self.MOVES
+            }
+            highest_count = max(move_counts.values())
+            post_match_review = {
+                "scoreDifference": self.player_score - self.ai_score,
+                "equilibriumSupportedRounds": sum(
+                    probability > 1e-9 for probability in selected_probabilities
+                ),
+                "averageChosenProbability": sum(selected_probabilities)
+                / len(selected_probabilities),
+                "mostUsedMoves": [
+                    move for move, count in move_counts.items() if count == highest_count
+                ],
+                "moveCounts": move_counts,
+                "maxExploitWeight": max(
+                    float(entry["analysis"]["exploitWeight"])
+                    for entry in self.history
+                ),
+            }
         return {
             "gameId": "restricted-rps",
             "phase": self.phase,
@@ -1174,6 +1201,7 @@ class RestrictedRPSSession:
             "draws": self.draws,
             "history": public_history,
             "lastAnalysis": self.last_analysis,
+            "postMatchReview": post_match_review,
             "equilibriumRecommendation": recommendation,
             "legalActions": ["play_move"] if self.phase == "playing" else ["new_match"],
             "informationSet": {
@@ -1753,6 +1781,8 @@ class BattleshipGameSession:
         self.advisor = ProbabilityDensityAI(self.rules, random.Random(self.seed ^ 0xA1B2C3))
         self.phase = "placement"
         self.turn = 0
+        self.volley_number = 1
+        self.player_shots_in_volley = 0
         self.winner: str | None = None
         self.history: list[dict[str, object]] = []
         self.last_ai_analysis: dict[str, object] | None = None
@@ -1827,27 +1857,46 @@ class BattleshipGameSession:
         self.turn += 1
         event: dict[str, object] = {
             "turn": self.turn,
+            "volley": self.volley_number,
             "playerShot": self._outcome_payload(player_outcome),
             "aiShot": None,
+            "aiShots": [],
         }
         if self.enemy_board.all_sunk:
             self.phase = "finished"
             self.winner = "player"
             self.history.append(event)
             return
+        self.player_shots_in_volley += 1
+        if self.player_shots_in_volley < self.salvo_size:
+            self.history.append(event)
+            return
 
-        ai_cell = self.ai.choose()
-        ai_outcome = self.player_board.fire(ai_cell)
-        self.ai.observe(ai_outcome)
-        event["aiShot"] = self._outcome_payload(ai_outcome)
+        ai_shots: list[dict[str, object]] = []
+        ai_analyses: list[dict[str, object]] = []
+        for _shot in range(self.salvo_size):
+            ai_cell = self.ai.choose()
+            analysis = {
+                **getattr(self.ai, "last_analysis", {}),
+                "chosenCell": list(ai_cell),
+            }
+            ai_outcome = self.player_board.fire(ai_cell)
+            self.ai.observe(ai_outcome)
+            ai_shots.append(self._outcome_payload(ai_outcome))
+            ai_analyses.append(analysis)
+            if self.player_board.all_sunk:
+                self.phase = "finished"
+                self.winner = "ai"
+                break
+        event["aiShot"] = ai_shots[0] if ai_shots else None
+        event["aiShots"] = ai_shots
         self.last_ai_analysis = {
-            **getattr(self.ai, "last_analysis", {}),
-            "chosenCell": list(ai_cell),
+            **ai_analyses[-1],
+            "volleyShots": ai_analyses,
         }
         self.history.append(event)
-        if self.player_board.all_sunk:
-            self.phase = "finished"
-            self.winner = "ai"
+        self.player_shots_in_volley = 0
+        self.volley_number += 1
 
     @staticmethod
     def _outcome_payload(outcome: ShotOutcome) -> dict[str, object]:
@@ -1894,6 +1943,13 @@ class BattleshipGameSession:
             "gameId": "battleship",
             "phase": self.phase,
             "turn": self.turn,
+            "volleyNumber": self.volley_number,
+            "salvoSize": self.salvo_size,
+            "shotsRemainingInVolley": (
+                self.salvo_size - self.player_shots_in_volley
+                if self.phase == "player_turn"
+                else 0
+            ),
             "winner": self.winner,
             "boardSize": self.rules.board_size,
             "boardSizes": list(self.FLEETS),
@@ -1933,8 +1989,17 @@ class BattleshipGameSession:
                 "sunkCells": [list(cell) for cell in sorted(self.advisor.sunk_cells)],
                 "remainingShipLengths": list(self.advisor.remaining_lengths),
                 "candidatePlacementCount": candidate_count,
+                "confirmedEnemyHits": len(self.advisor.unresolved_hits)
+                + len(self.advisor.sunk_cells),
+                "enemySegmentsTotal": sum(self.rules.ship_lengths),
+                "searchedCells": len(self.advisor.shots),
+                "boardCells": self.rules.board_size**2,
             },
         }
+
+    @property
+    def salvo_size(self) -> int:
+        return 2 if self.rules.board_size == 15 else 1
 
 
 class GuessWhoGameSession:
@@ -2426,6 +2491,13 @@ class GoofspielGameSession:
                 {"card": card, "probability": float(probability)}
                 for card, probability in zip(self.ai_cards, solution.column_strategy)
             ],
+            "playerDistribution": [
+                {"card": card, "probability": float(probability)}
+                for card, probability in zip(self.player_cards, solution.row_strategy)
+            ],
+            "playerBidProbability": float(
+                solution.row_strategy[self.player_cards.index(player_bid)]
+            ),
         })
         self.player_cards = tuple(card for card in self.player_cards if card != player_bid)
         self.ai_cards = tuple(card for card in self.ai_cards if card != ai_bid)
@@ -2448,6 +2520,28 @@ class GoofspielGameSession:
         winner = None
         if self.phase == "finished":
             winner = "player" if self.player_score > self.ai_score else "ai" if self.ai_score > self.player_score else "tie"
+        post_match_review = None
+        if self.phase == "finished":
+            probabilities = [
+                float(entry["playerBidProbability"]) for entry in self.history
+            ]
+            post_match_review = {
+                "scoreDifference": self.player_score - self.ai_score,
+                "equilibriumSupportedRounds": sum(
+                    probability > 1e-9 for probability in probabilities
+                ),
+                "averageChosenProbability": sum(probabilities) / len(probabilities),
+                "offSupportRounds": [
+                    int(entry["round"])
+                    for entry in self.history
+                    if float(entry["playerBidProbability"]) <= 1e-9
+                ],
+                "lowFrequencyRounds": [
+                    int(entry["round"])
+                    for entry in self.history
+                    if 0 < float(entry["playerBidProbability"]) < 0.1
+                ],
+            }
         return {
             "gameId": "goofspiel",
             "phase": self.phase,
@@ -2461,6 +2555,7 @@ class GoofspielGameSession:
             "history": [dict(item) for item in self.history],
             "lastRound": dict(self.history[-1]) if self.history else None,
             "winner": winner,
+            "postMatchReview": post_match_review,
             "advisorDistribution": advisor,
             "recommendedBid": recommended,
             "futureValue": float(solution.value) if solution is not None else 0.0,

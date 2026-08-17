@@ -235,16 +235,16 @@ const rulesCopy = {
     pirates: ["目标：让你的提案获得足够票数，并让海盗 A 活下来。", "在每个海盗的金币输入框中填整数，所有分配之和必须正好等于 100。", "点击“提交提案并投票”。每名海盗会比较你的报价与否决后按逆向归纳得到的金币/生存结果。", "达到页面显示的赞成票数就通过；否则 A 被处决，系统展示实际结果和理论最优方案。"],
     "kuhn-poker": ["目标：在连续牌局中赢得更多净筹码。你和 AI 从 J、Q、K 中各拿一张未知于对方的牌，并各投入 1 枚底注。", "轮到你时可点击“过牌”或“下注”；下注会额外投入 1 枚。若一方过牌，对方仍可下注。", "面对下注时只能“跟注”或“弃牌”：弃牌立即损失底注；跟注再投入 1 枚并亮牌，K > Q > J。", "下一局交换先后手。AI 使用精确混合均衡：弱牌偶尔诈唬，中牌是否跟注会随先后手改变，所以应结合自己的牌、位置和公开行动判断。"],
     "e-card": ["目标：利用特殊牌的循环克制关系赢得高分。你和 AI 各有 1 张特殊牌与 4 张市民牌。", "点击手中的一张牌，双方会同时出牌，AI 的选择在揭示前保持隐藏。", "皇帝击败市民，市民击败奴隶，奴隶击败皇帝；奴隶获胜通常得到更高收益。", "市民对市民不会结束本轮，两张牌会被消耗后继续；特殊牌相遇则按克制关系结束本轮。"],
-    "restricted-rps": ["目标：在有限库存耗尽前赢得更多回合。你和 AI 各有相同数量的石头、剪刀、布。", "点击一张仍有库存的手势牌；双方同时出牌，使用过的牌永久减少。", "石头胜剪刀，剪刀胜布，布胜石头；相同手势为平局。双方库存和历史都会公开。", "库存全部用完后比赛结束。页面显示均衡建议，以及 AI 是否根据你的历史偏好进行了有限度适应。"],
+    "restricted-rps": ["目标：在有限库存耗尽前赢得更多回合。你和 AI 各有相同数量的石头、剪刀、布。", "点击一张仍有库存的手势牌；双方同时出牌，使用过的牌永久减少。", "石头胜剪刀，剪刀胜布，布胜石头；相同手势为平局。双方库存和历史都会公开。", "库存全部用完后比赛结束。赛后复盘会比较实际频率、均衡支持集和 AI 的针对权重；单场输赢仍会受到随机出牌影响。"],
     blackjack: ["目标：让自己的点数尽量接近 21，但超过 21 就爆牌并立即输。", "A 可算 1 或 11；J/Q/K 算 10。开始时你会看到两张手牌和庄家的一张明牌。", "点击“要牌”再拿一张；点击“停牌”结束行动；首轮可点击“加倍”并只再拿一张。", "庄家随后按固定规则补牌（软 17 停牌），最后比较点数；黑杰克按页面规则结算。右侧可让 AI 执行基础策略建议。"],
     "liars-dice": ["目标：判断公开叫价是真实还是虚张声势，并在质疑中赢下本轮。", "你能看到自己的骰子，但看不到 AI 的骰子。叫价“数量 × 点数”表示全桌至少有这么多个该点数。", "点击“加注”提交更高的数量，或在数量相同时提交更高点数；1 点对 2–6 点是万能牌。", "如果你认为上一口不可信，点击“质疑”。系统揭示全部骰子并根据实际数量判定胜负。"],
     mastermind: ["目标：在 10 次尝试内破解 AI 隐藏的四位密码。密码从 0–9 中选择四个不同数字，共有 5,040 种可能。", "输入恰好四个不同数字，例如 0123；首位可以是 0。点击“提交猜测”后才能得到反馈。", "“位置正确”表示数字和位置都对；“数字正确但位置不同”表示数字存在但放错位置。反馈只给数量，不指出具体是哪一位。", "观察每轮排除的候选数并继续推理。你可以完全自己猜，也可以点击“采用 AI 建议”复制 minimax 建议，再提交。", "得到 4 个位置正确即获胜。连续完成多局后，页面会计算你的成功局平均步数与最佳成绩。"],
     "guess-who": ["目标：在 8 回合内找出 AI 从 24 张公开角色卡中秘密选中的人。", "先查看角色特征，再点击一个仍能切分候选集的是非问题；按钮会预告回答“是”和“否”各剩多少人。", "AI 只回答“是”或“否”。不符合答案的角色会变暗，信息集和最优建议会立即更新。", "要猜身份时，先点击一张仍亮起的角色卡，再点击“确认猜测”。猜错会消耗一回合并排除该角色，猜对即获胜。", "“执行 AI 建议”会采用固定角色表与问题库下经过动态规划证明的最小期望策略；候选唯一时，它会执行最终猜测。"],
     "hidden-pursuit": ["目标：在第 12 回合结束前，让任一侦探移动到隐藏目标当前所在的节点。", "地图上蓝色 A、青色 B 是你的两名侦探。每回合先移动 A，再移动 B；只能点击当前侦探通过线路直接相连的节点。", "两名侦探都行动后，目标会沿黄色出租车线或紫色公交线移动一次，并公开所用交通方式，但通常不公开终点。", "带问号的节点是仍符合全部公开信息的位置。你移动到其中一个节点却没有抓到人，也会排除该位置。", "目标会在第 3、6、9 回合移动后强制现身；利用现身位置、之后的交通信号和两名侦探的封锁完成包围。", "抓到目标即获胜；撑过 12 回合则目标逃脱。AI 根据距离、出口和移动后的候选数量规避，但不是已证明的全局最优逃跑策略。"],
-    battleship: ["目标：在概率 AI 击沉你的全部舰船之前，先找到并击沉它的舰队。", "布阵阶段先选择 10×10、12×12 或 15×15 海域；地图越大，双方舰船也越多。", "不同颜色表示不同舰船。点击舰船卡可旋转 90°，也可点击“重新随机布阵”；直线舰船翻转 180°占据的格子不变。", "满意后点击“确认布阵，开始战斗”。战斗阶段点击敌方未知格；淡点表示落空，红色表示命中，深红色表示击沉。", "你每开一炮，AI 会立即根据仍合法的水平与垂直部署还击。已经射击过的格子不能重复选择。", "候选部署表示目前仍符合反馈的舰船位置数量；概率建议给出覆盖合法部署最多的格子，但你可以选择别处。"],
+    battleship: ["目标：在概率 AI 击沉你的全部舰船之前，先找到并击沉它的舰队。", "布阵阶段先选择 10×10、12×12 或 15×15 海域；地图越大，双方舰船也越多。", "不同颜色表示不同舰船。点击舰船卡可旋转 90°，也可点击“重新随机布阵”；直线舰船翻转 180°占据的格子不变。", "满意后点击“确认布阵，开始战斗”。战斗阶段点击敌方未知格；淡点表示落空，红色表示命中，深红色表示击沉。", "10×10 与 12×12 中双方每次各开一炮；15×15 使用对称双炮齐射，你连续打完两炮后 AI 才还击两炮。已经射击过的格子不能重复选择。", "候选部署表示目前仍符合反馈的舰船位置数量；概率建议给出高密度目标，AI 面板还会公开搜索/追击模式与覆盖强度。"],
     "love-letter": ["目标：比 AI 更早获得 4 枚胜利标记。每轮只有 16 张牌，你必须从公开弃牌推测 AI 留在手里的角色。", "开局双方各持一张牌；轮到你时再摸一张，然后点击两张手牌中的一张打出。牌面效果会立即执行。", "卫兵需要在右侧选择一个 2–8 的角色进行猜测；王子需要选择让 AI 或自己弃掉手牌。其他牌的目标由规则自动决定。", "侍女会保护你直到下次行动；男爵比较双方手牌；国王交换手牌；若同时持有伯爵夫人与国王或王子，必须打出伯爵夫人。", "打出公主或因卫兵、男爵、王子效果被淘汰会立刻输掉本轮；牌堆用完则比较手牌点数。点击“执行 AI 建议”可查看并采用信念策略。"],
     investment: ["目标：用 1,000 单位虚拟资金完成 12 轮并最终排名第一；第 4、7、10 轮资金最低者会被淘汰。", "每轮比较三张机会卡。1:1 表示投入 100、成功净赚 100；3:1 表示成功净赚 300，失败都损失投入的 100。", "成功率×净赔率−失败率得到期望回报。正值只表示大量重复后的平均优势，不保证本轮获利。", "选择机会，再选 0%、10%、25%、50% 或 75% 仓位。0% 能保本，但可能被增长型对手超过。", "Kelly 最大化长期对数增长，不保证淘汰赛夺冠；AI 分别使用全 Kelly、半 Kelly、追赶、长赔率和保本技能。所有金额均为虚拟数值。"],
-    goofspiel: ["目标：四轮结束后赢得比 AI 更多的奖牌分数。", "你和 AI 各有数值 1–4 的四张竞价牌；奖牌 1–4 随机排序，每轮只揭晓当前奖牌。", "点击一张尚未使用的竞价牌后，你和 AI 同时揭晓选择。出牌前看不到 AI 本轮选了什么。", "较大的竞价牌赢得当前奖牌对应的分数；相同则奖牌作废。双方使用过的竞价牌都会永久移除并公开。", "四张牌全部用完后比较总分。均衡面板显示零和动态博弈的精确混合策略，但不会替你自动出牌。"],
+    goofspiel: ["目标：四轮结束后赢得比 AI 更多的奖牌分数。", "你和 AI 各有数值 1–4 的四张竞价牌；奖牌 1–4 随机排序，每轮只揭晓当前奖牌。", "点击一张尚未使用的竞价牌后，你和 AI 同时揭晓选择。出牌前看不到 AI 本轮选了什么。", "较大的竞价牌赢得当前奖牌对应的分数；相同则奖牌作废。双方使用过的竞价牌都会永久移除并公开。", "四张牌全部用完后比较总分。赛后复盘会检查每轮选择在当时均衡中的概率，而不是仅凭最终输赢评价策略。"],
   },
   en: {
     cases: ["Goal: maximize your payout from 26 cases.", "Click one case to keep; never open it afterward.", "Open the number of other cases shown on screen. The banker then makes an offer.", "Choose Deal to end for the offer, or No Deal to continue. If you reach the end, you receive the kept case's value."],
@@ -252,16 +252,16 @@ const rulesCopy = {
     pirates: ["Goal: pass your proposal and keep pirate A alive.", "Enter integer gold allocations totaling exactly 100, then submit the proposal.", "Each pirate compares your offer with the continuation payoff after A's execution.", "If enough votes support the proposal it passes; otherwise A is executed and the benchmark is shown."],
     "kuhn-poker": ["Goal: win more net chips over repeated hands. You and the AI each receive one private card from J, Q, and K, then ante 1.", "On your turn choose Check or Bet; a bet adds 1. After a check, the other player may still bet.", "Facing a bet, choose Call or Fold. Folding loses the ante; calling adds 1 and reveals both cards. K beats Q, which beats J.", "First position alternates each hand. The AI uses an exact mixed equilibrium: weak cards sometimes bluff and a middle-card call depends on position, so read your card, seat, and the public action history together."],
     "e-card": ["Goal: exploit the asymmetric special-card cycle. Each side holds one special card and four citizens.", "Click one card; both sides reveal simultaneously.", "Emperor beats Citizen, Citizen beats Slave, and Slave beats Emperor. Slave wins pay more.", "Citizen versus Citizen consumes both cards and continues the round."],
-    "restricted-rps": ["Goal: win more rounds before your finite inventory runs out.", "Click an available Rock, Paper, or Scissors card; both choices are simultaneous and the card is consumed.", "Rock beats Scissors, Scissors beats Paper, and Paper beats Rock. Equal moves draw.", "The match ends when the inventory is exhausted; equilibrium and adaptation diagnostics remain visible."],
+    "restricted-rps": ["Goal: win more rounds before your finite inventory runs out.", "Click an available Rock, Paper, or Scissors card; both choices are simultaneous and the card is consumed.", "Rock beats Scissors, Scissors beats Paper, and Paper beats Rock. Equal moves draw.", "The post-match review compares your frequencies, equilibrium support, and the AI's exploit weight. One match still contains variance from randomized play."],
     blackjack: ["Goal: approach 21 without going over.", "A counts as 1 or 11; face cards count as 10. You see your hand and the dealer upcard.", "Choose Hit, Stand, or Double (first decision only). The dealer then follows the fixed soft-17 rule.", "Compare the final totals; the strategy panel can execute the basic-strategy recommendation."],
     "liars-dice": ["Goal: identify a bluff and win the round.", "You see your dice only. A bid Quantity × Face claims at least that many matching dice across both hands.", "Raise quantity, or raise face at equal quantity; ones are wild for faces 2–6.", "Challenge the current bid to reveal all dice and settle the round."],
     mastermind: ["Goal: crack a four-digit hidden code in ten attempts. It uses four distinct digits from 0–9, creating 5,040 possible worlds.", "Enter exactly four different digits, such as 0123. A leading zero is valid, then submit.", "Exact means right digit and position; misplaced means a right digit in the wrong position. Counts never identify the individual digits.", "Reason independently or copy the bounded-minimax AI suggestion. Each history row shows how many candidates that experiment removed.", "Four exact positions win. Across solved rounds, the page tracks your average and best attempt count."],
     "guess-who": ["Goal: identify the AI's secret person from 24 public character cards within eight turns.", "Inspect the traits, then ask a yes/no question that still splits the candidate set. Each button previews how many people remain after Yes and No.", "The AI answers truthfully. Inconsistent cards dim immediately, and both the information set and exact recommendation update.", "To name the person, select a bright card and press Confirm guess. A wrong guess costs one turn and eliminates that card; a correct guess wins.", "Take AI advice uses a dynamic-programming policy proven to minimize expected turns for this fixed roster and question bank. When one candidate remains, it makes the final guess."],
     "hidden-pursuit": ["Goal: move either detective onto the hidden fugitive before round 12 ends.", "Blue A and cyan B are your detectives. Move A, then B each round by clicking a directly connected node.", "After both moves, the fugitive takes one yellow Taxi or purple Bus edge. The transport is public; the destination usually remains hidden.", "Question-mark nodes form the current information set. Visiting one without a capture also eliminates it.", "The fugitive must reveal after moves 3, 6, and 9. Combine that sighting with later transport signals and two-token blocking.", "Capture wins; surviving round 12 lets the fugitive escape. The AI is a distance-and-ambiguity heuristic, not a proven globally optimal evader."],
-    battleship: ["Goal: sink the enemy fleet before the probability AI sinks yours.", "Choose a 10×10, 12×12, or 15×15 sea during deployment; larger boards add ships to preserve action density.", "Each ship has its own color. Click a ship card to rotate it 90°, or randomize the fleet. A 180° flip of a straight ship occupies the same cells.", "Lock the layout, then click unknown enemy cells. A pale dot is a miss, red is a hit, and dark red is a sunk ship.", "The AI returns fire from legal horizontal and vertical placements after every shot. Fired cells cannot be selected again.", "Candidate placements count ship positions consistent with observations; the hint marks a high-density cell without forcing it."],
+    battleship: ["Goal: sink the enemy fleet before the probability AI sinks yours.", "Choose a 10×10, 12×12, or 15×15 sea during deployment; larger boards add ships to preserve action density.", "Each ship has its own color. Click a ship card to rotate it 90°, or randomize the fleet. A 180° flip of a straight ship occupies the same cells.", "Lock the layout, then click unknown enemy cells. A pale dot is a miss, red is a hit, and dark red is a sunk ship.", "The 10×10 and 12×12 boards alternate one shot each. On 15×15, you fire a two-shot salvo before the AI returns two shots. Fired cells cannot be selected again.", "Candidate placements count positions consistent with observations; the hint marks a dense target, while the AI panel reports hunt/target mode and coverage strength."],
     "love-letter": ["Goal: earn four tokens before the AI. Only 16 cards exist, so public discards let you infer the hidden opposing hand.", "Each side begins with one card. On your turn you draw a second card, then click one of the two cards to play it and resolve its effect.", "A Guard needs a 2–8 character guess; a Prince needs a target. Choose those controls before clicking the card. Other targets are automatic.", "Handmaid protects until your next turn; Baron compares hands; King trades hands. Countess must be played while held with King or Prince.", "Discarding Princess or losing to Guard, Baron, or Prince ends the round. An empty deck triggers a high-card showdown. Take AI advice uses public-card beliefs, not the hidden hand."],
     investment: ["Goal: finish first after 12 rounds with 1,000 units of virtual capital. The lowest bankroll leaves after rounds 4, 7, and 10.", "Compare three opportunities. Net odds 1:1 mean a 100 stake wins 100 profit; 3:1 wins 300, while failure loses the 100 stake.", "Expected return is probability × odds − failure probability. A positive value is a long-run average edge, never a guarantee this round.", "Choose an opportunity and a 0%, 10%, 25%, 50%, or 75% stake. Cash preserves capital but may lose relative rank.", "Kelly maximizes asymptotic log growth, not tournament title probability. Rivals use full-Kelly, half-Kelly, chasing, longshot, and capital-preserving skills. All capital is virtual."],
-    goofspiel: ["Goal: finish four rounds with more prize points than the AI.", "Both sides hold bid cards 1–4. Prize cards 1–4 are shuffled, and only the current prize is revealed each round.", "Click one unused bid card. Your bid and the AI's hidden choice are then revealed simultaneously.", "The higher bid wins the current prize value; equal bids discard it. Both used bid cards leave their public inventories permanently.", "After all four bids, the higher score wins. The guide shows the exact mixed equilibrium for the remaining public state but never commits your card automatically."],
+    goofspiel: ["Goal: finish four rounds with more prize points than the AI.", "Both sides hold bid cards 1–4. Prize cards 1–4 are shuffled, and only the current prize is revealed each round.", "Click one unused bid card. Your bid and the AI's hidden choice are then revealed simultaneously.", "The higher bid wins the current prize value; equal bids discard it. Both used bid cards leave their public inventories permanently.", "After four bids, the review checks every choice's probability in its exact public-state equilibrium instead of judging strategy from the final score alone."],
   },
 };
 
@@ -278,7 +278,7 @@ const ruleDetails = {
     mastermind: { role: "这是经典 Bulls and Cows（几A几B）数字推理。AI 从 0–9 中秘密选择四个不重复数字，包括 0123 这样的前导零密码。你看到的不是答案，而是逐轮反馈形成的信息集。", example: "例：答案假设为 0-3-5-6，你猜 0-2-6-4。数字 0 的位置也正确，因此位置正确为 1；数字 6 存在但位置错误，因此错位正确为 1；2 和 4 不在密码中。", finish: "十次之内得到 4 个位置正确即获胜；十次仍未破解则答案揭晓。建议策略最小化下一轮最大的反馈分组，再比较平均剩余候选；它是强而快速的单步 minimax 启发式，不是已经证明的全局最少平均步数策略。", terms: "候选数量＝与全部历史反馈一致的密码数；信息集＝你当前无法区分的所有候选；最坏剩余＝采用该建议后，无论收到哪种反馈，最大反馈分组的大小。" },
     "guess-who": { role: "AI 秘密选择一张身份卡，但所有人的外貌属性和全部问题都公开。你的任务不是靠运气点人，而是利用每次公开的是非答案系统地缩小信息集。", example: "例：还剩 Ada、Bruno、Cleo、Dante 四人，其中两人戴眼镜。提问“是否戴眼镜？”无论答案是什么都只剩两人，因此是 2/2 的平衡切分；4/0 的问题则完全没有信息。", finish: "确认正确身份立即获胜；错误身份会被排除但消耗一回合。第 8 回合仍未猜中则失败并揭晓答案。精确策略在当前固定模型中平均 5.667 回合、最坏 6 回合。", terms: "候选＝与所有公开答案一致的人；信息分割＝问题把候选分成“是/否”两组；期望剩余＝按两种回答概率加权后的平均候选数；精确最优只针对本页固定角色与问题库。" },
     "hidden-pursuit": { role: "你控制两名公开位置的侦探，AI 控制一名隐藏目标。目标每回合必须移动，并公开乘坐出租车还是公交车；只有规定回合才公开实际位置。", example: "例：目标第 3 回合在 8 号节点现身，下一回合公开乘坐公交。你应把候选缩小到所有从 8 号经公交可达、且未被侦探占据的节点，再用 A、B 分别封锁出口。", finish: "任一侦探落到目标所在节点时立即抓捕；如果目标没有合法出口也算被包围。目标完成第 12 次移动仍未被抓则逃脱。", terms: "候选节点＝与所有交通信号、现身记录和落空搜查相容的位置；交通信号＝只公开线路类型，不公开终点；最后现身＝最近一次强制公开的位置，不保证目标现在仍在那里。" },
-    battleship: { role: "你和 AI 在相互隔离的海域秘密部署舰队。标准、扩展和大型地图分别为 10×10、12×12、15×15；你只能看到自己的彩色舰船，敌舰通过命中反馈逐步暴露。", example: "例：你把蓝色长度 4 舰旋转为垂直方向，然后向敌方 B7 开火并命中。下一炮打 B8：若再次命中，可沿同一方向搜索；若落空，就要考虑舰船可能纵向延伸。", finish: "一艘船的所有格子都被命中时即被击沉；任一方全部舰船沉没时比赛结束。结束后敌方完整彩色舰队会揭晓，便于复盘。", terms: "旋转 90°＝在水平与垂直之间切换；180°翻转对没有首尾差异的直线舰船不产生新布局；候选部署＝与命中、落空和击沉反馈相容的水平或垂直位置总数。" },
+    battleship: { role: "你和 AI 在相互隔离的海域秘密部署舰队。标准、扩展和大型地图分别为 10×10、12×12、15×15；你只能看到自己的彩色舰船，敌舰通过命中反馈逐步暴露。", example: "例：你把蓝色长度 4 舰旋转为垂直方向，然后向敌方 B7 开火并命中。下一炮打 B8：若再次命中，可沿同一方向搜索；若落空，就要考虑舰船可能纵向延伸。15×15 中这两炮属于同一轮齐射，之后 AI 连续还击两炮。", finish: "一艘船的所有格子都被命中时即被击沉；任一方全部舰船沉没时比赛结束。结束后敌方完整彩色舰队会揭晓，便于复盘。", terms: "旋转 90°＝在水平与垂直之间切换；齐射＝一方连续完成本轮全部炮击后另一方行动；候选部署＝与命中、落空和击沉反馈相容的位置总数。" },
     "love-letter": { role: "你和 AI 都只有一张隐藏手牌。牌很少且弃牌完全公开，因此每次行动既会触发角色能力，也会改变对手对你手牌的判断。AI 只能使用它应当知道的信息。", example: "例：5 张卫兵已有 4 张公开离场，而 AI 没有保护。此时 AI 手牌是卫兵的概率很低；若你打出卫兵，应根据剩余牌数猜最可能的高价值角色，而不是平均随机。", finish: "任何一方被角色能力淘汰，该轮立即结束并让胜者得 1 分；牌堆耗尽则比较手牌，较高者获胜。先到 4 分赢得整场比赛。", terms: "公开移除＝双人开局额外翻开的三张牌；信念概率＝根据你的手牌、公开移除和双方弃牌估计的对手手牌分布；保护＝对手效果不能以你为目标，直到你下一回合开始。" },
     investment: { role: "你是赔率分析师，与五种风格的 AI 管理人参加虚拟资金淘汰赛。你能看到校准成功率，但对手本轮的选择在结算前保密。", example: "1:1、55% 成功率的期望回报是 +10%，Kelly 仓位为 10%。投入 25% 能更快抢排名，但失败也会损失 25%。", finish: "第 4、7、10 轮淘汰资金最低者；你出局即失败。活到第 12 轮后，资金第一才获胜。", terms: "净赔率＝成功时相对本金的净利润；期望回报＝平均收益率；Kelly＝最大化长期对数增长的理论仓位；存活率与夺冠率并非同一目标。" },
     goofspiel: { role: "这是一个同时行动的有限手牌竞价游戏。奖牌价值公开，但双方本轮用哪张牌在提交前互相隐藏；高牌不一定应该立刻用在高奖牌上，因为剩余库存决定后续威胁。", example: "例：本轮奖牌为 3，你剩 1、3、4，AI 剩 1、2、4。出 4 几乎能确保 3 分，却会失去以后压制 AI 的最高牌；出 3 可能保留 4，但要承担 AI 也出 4 的风险。", finish: "每轮揭晓双方竞价牌并结算奖牌，平局奖牌作废。四轮后总分高者获胜，同分为和局。", terms: "当前奖牌＝本轮可争夺分数；竞价牌＝每张整场只能使用一次；混合策略＝按多个概率随机选择，使对手无法稳定利用你的规律；未来价值＝从当前状态开始、双方最优时你的预期分差。" },
@@ -295,7 +295,7 @@ const ruleDetails = {
     mastermind: { role: "This is classic Bulls and Cows. The AI secretly chooses four distinct digits from 0–9, including leading-zero codes such as 0123. Public feedback transforms the set of hidden worlds after every guess.", example: "If the code is 0-3-5-6 and you guess 0-2-6-4, digit 0 gives one exact match and digit 6 gives one misplaced match; 2 and 4 are absent.", finish: "Four exact matches within ten guesses wins; otherwise the code is revealed. The adviser minimizes the largest next feedback bucket, then expected survivors. It is a strong, responsive one-step minimax heuristic, not a proof of globally minimal average guesses.", terms: "Candidate count is the number of codes consistent with every clue. The information set is the candidates you cannot yet distinguish. Worst-case remaining is the largest possible feedback bucket after the suggested guess." },
     "guess-who": { role: "The AI secretly selects one identity card, while every visible trait and every permitted question is public. Use truthful yes/no answers to shrink your information set instead of guessing blindly.", example: "Suppose Ada, Bruno, Cleo, and Dante remain and exactly two wear glasses. Asking about glasses creates a 2/2 split, so either answer leaves two candidates. A 4/0 question provides no information and is disabled.", finish: "A correct confirmed identity wins. A wrong identity is eliminated but costs a turn. Failing to identify the person by turn eight reveals the answer. The exact fixed-model policy averages 5.667 turns and needs at most six.", terms: "Candidate means consistent with every public answer. Information split is the Yes/No partition. Expected remaining is the probability-weighted next candidate count. Exact optimality applies only to this roster and question bank." },
     "hidden-pursuit": { role: "You control two visible detectives while the AI controls a hidden fugitive. Every fugitive move publicly reveals Taxi or Bus, but the destination appears only on scheduled reveal rounds.", example: "Example: the fugitive appears at node 8 after round 3, then reports Bus. The next information set is every unblocked node reachable from 8 by a Bus edge; position A and B to cover separate exits.", finish: "Landing on the fugitive captures immediately; leaving no legal escape also counts as containment. The fugitive wins by completing move 12.", terms: "Candidate nodes fit every signal, reveal, and failed search. A transport signal reveals edge type only. Last seen is historical and may not be the current location." },
-    battleship: { role: "You and the AI deploy private fleets on separate 10×10, 12×12, or 15×15 seas. You see your individually colored ships only; enemy ships emerge through hit feedback.", example: "Example: rotate the blue length-4 ship vertically, then hit B7. Firing at B8 tests a horizontal extension; a miss makes a vertical ship more plausible.", finish: "A ship sinks when every cell is hit. The match ends when either fleet is gone, then the complete colored enemy fleet is revealed for review.", terms: "Rotate 90° switches horizontal and vertical. A 180° flip creates no new layout for an undirected straight ship. Candidate placements count legal horizontal and vertical positions consistent with feedback." },
+    battleship: { role: "You and the AI deploy private fleets on separate 10×10, 12×12, or 15×15 seas. You see your individually colored ships only; enemy ships emerge through hit feedback.", example: "Example: rotate the blue length-4 ship vertically, then hit B7. Firing at B8 tests an extension; on 15×15 those two shots form one salvo before the AI returns two shots.", finish: "A ship sinks when every cell is hit. The match ends when either fleet is gone, then the complete colored enemy fleet is revealed for review.", terms: "Rotate 90° switches horizontal and vertical. A salvo means one side completes every shot in its turn before the other responds. Candidate placements count legal positions consistent with feedback." },
     "love-letter": { role: "You and the AI each keep one hidden card. The tiny deck and public discards make every role effect both an action and a signal. The AI uses only information it is entitled to know.", example: "If four of five Guards are already public, the opposing hand is unlikely to be a Guard. Playing your Guard should target the most frequent remaining non-Guard role rather than guessing uniformly.", finish: "An effect that eliminates a player ends the round for one point. If the deck empties, the higher hand wins. The first player to four points wins the match.", terms: "Face-up removals are the three extra cards revealed in a two-player setup. Belief probability is estimated from your hand and all public cards. Protection prevents opposing effects until your next turn." },
     investment: { role: "You are the odds analyst facing five AI managers in a virtual-capital elimination tournament. You see calibrated probabilities; rival choices remain private until settlement.", example: "At 1:1 and 55% success, expected return is +10% and Kelly is 10%. Staking 25% gains rank faster but loses 25% on failure.", finish: "The lowest bankroll leaves after rounds 4, 7, and 10. Your elimination ends the game; after round 12, only first place wins.", terms: "Net odds are profit relative to stake. Expected return is average profit per staked unit. Kelly maximizes long-run log growth. Survival and title probability are different objectives." },
     goofspiel: { role: "This is simultaneous bidding with a finite hand. The prize is public, but each current bid stays hidden until both commit. Spending the largest card now changes every threat available later.", example: "With prize 3, your 1/3/4 against the AI's 1/2/4 creates a tradeoff: bid 4 to strongly contest three points, or preserve it and risk losing the prize.", finish: "Each reveal awards the prize to the higher bid; a tie discards it. After four rounds, higher total prize points wins and equal scores draw.", terms: "Prize is the points at stake. A bid card is usable once. Mixed strategy randomizes across cards so a rival cannot exploit a fixed pattern. Future value is your optimal expected score difference from the public state." },
@@ -559,6 +559,7 @@ async function act(action, payload = {}) {
 }
 
 function render() {
+  renderFirstTurnGuide();
   if (currentState.gameId === "guess-who") {
     renderGuessWho();
     return;
@@ -666,6 +667,47 @@ function render() {
   }
 }
 
+function renderFirstTurnGuide() {
+  document.querySelectorAll(".first-turn-guide").forEach((node) => node.remove());
+  const state = currentState;
+  const visible = {
+    worm: state.gameId === "worm" && state.phase === "playing" && state.turn === 0,
+    "kuhn-poker": state.gameId === "kuhn-poker" && state.handNumber === 1 && state.phase === "playing" && !state.history.some((item) => item.actor === "player"),
+    "liars-dice": state.gameId === "liars-dice" && state.roundNumber === 1 && state.phase === "bidding" && state.history.length === 0,
+    "love-letter": state.gameId === "love-letter" && state.roundNumber === 1 && state.phase === "player_turn" && state.history.length === 0,
+    investment: state.gameId === "investment" && state.roundNumber === 1 && state.phase === "decision" && !state.lastRound,
+    goofspiel: state.gameId === "goofspiel" && state.phase === "bidding" && state.history.length === 0,
+    battleship: state.gameId === "battleship" && state.phase === "placement" && state.boardSize === 15,
+  }[state.gameId];
+  if (!visible) return;
+  const guides = language === "zh" ? {
+    worm: ["首回合怎么做", ["先看黄色保证序列，不要凭感觉点击。", "第一步检查高亮洞口；失手后虫子必移动一格。", "之后继续严格照序列走，偏离一步就会失去必胜保证。"]],
+    "kuhn-poker": ["第一手怎么判断", ["先看自己的 J、Q 或 K，再看你是先手还是后手。", "过牌可控制底池，下注可能是强牌取价值，也可能是 J 诈唬。", "AI 行动后只根据公开下注信号更新判断，不会偷看它的牌。"]],
+    "liars-dice": ["第一轮怎么叫价", ["先数自己手中的目标点数；除叫 1 点外，1 都是万能点。", "输入一个数量和点数后加注，AI 会选择继续抬价或质疑。", "轮到你面对公开叫价时，可看真实概率再决定加注或质疑。"]],
+    "love-letter": ["第一回合怎么出牌", ["你每回合抽到两张牌，必须打出其中一张。", "若打卫兵，先选择要猜的牌；若打王子，先选择目标。", "右侧信念概率只依据公开信息，建议是启发式而非已证明的全局最优。"]],
+    investment: ["第一轮怎么投资", ["先比较每个方案的成功率、赔率和期望回报。", "再选择投入比例；0% 可以保本，Kelly 比例偏向长期增长。", "每到淘汰轮资金最低者出局，所以生存压力可能改变最优仓位。"]],
+    goofspiel: ["第一轮怎么竞价", ["先看本轮奖牌分值，再从 1–4 中秘密打出一张牌。", "双方较高者拿走奖牌，同价则奖牌作废；出过的牌不能再用。", "黄色标记只是均衡中的最高频动作，真正的均衡需要按概率随机。"]],
+    battleship: ["15×15 大海域提示", ["大型海域采用双方对称的双炮齐射：你连续打两炮后，AI 才还击两炮。", "第一炮后界面会显示本轮还剩一炮，不要误以为AI停住。", "命中后优先沿相邻方向追击；AI面板会公开其搜索模式与覆盖强度。"]],
+  } : {
+    worm: ["Your first move", ["Read the gold guaranteed sequence before clicking.", "Check the highlighted hole first; after a miss the worm must move one step.", "Keep following the sequence exactly—one deviation removes the guarantee."]],
+    "kuhn-poker": ["Your first hand", ["Read your J, Q, or K and whether you act first.", "Checking controls the pot; betting can extract value or bluff with J.", "Update only from public betting signals—the AI card remains hidden."]],
+    "liars-dice": ["Your opening bid", ["Count matching dice in your hand; ones are wild unless the bid itself is ones.", "Enter a quantity and face, then raise; the AI may raise again or challenge.", "When a bid returns to you, use its probability before raising or challenging."]],
+    "love-letter": ["Your first turn", ["You hold two cards each turn and must play one.", "Choose a guess before Guard or a target before Prince.", "Belief probabilities use public information only; the advice is heuristic, not globally proven optimal."]],
+    investment: ["Your first investment", ["Compare success probability, odds, and expected return.", "Then choose a stake; 0% preserves capital while Kelly targets long-run growth.", "The lowest bankroll is eliminated at checkpoints, so survival pressure can change the best stake."]],
+    goofspiel: ["Your opening bid", ["Read the revealed prize, then secretly spend one card from 1–4.", "The higher bid wins the prize; ties discard it, and spent cards never return.", "The gold card is only the most frequent equilibrium action—the exact policy randomizes."]],
+    battleship: ["15×15 sea briefing", ["The large board uses symmetric two-shot salvos: fire twice, then the AI returns two shots.", "After your first shot, the interface shows one shot left; the AI has not stalled.", "After a hit, pursue adjacent cells; the AI panel exposes its search mode and coverage strength."]],
+  };
+  const [title, steps] = guides[state.gameId];
+  const view = $(`#${gameViews[state.gameId]}`);
+  const heading = view?.querySelector(".game-heading");
+  if (!heading) return;
+  const guide = document.createElement("section");
+  guide.className = "first-turn-guide panel";
+  guide.setAttribute("aria-label", title);
+  guide.innerHTML = `<div><span>${language === "zh" ? "新手起步" : "FIRST-TURN GUIDE"}</span><strong>${title}</strong></div><ol>${steps.map((step) => `<li>${step}</li>`).join("")}</ol>`;
+  heading.insertAdjacentElement("afterend", guide);
+}
+
 function renderBlackjack() {
   const state = currentState;
   const actionNames = language === "zh"
@@ -749,6 +791,22 @@ function renderRestrictedRps() {
     $("#rpsAnalysis").textContent = language === "zh" ? "第一轮结束后显示 AI 实际采用的混合概率。" : "The AI's actual mixed probabilities appear after round one.";
   }
   $("#rpsHistory").innerHTML = state.history.slice().reverse().map((item) => `<div><span>${item.round}</span><b>${moveNames[item.playerMove]}</b><em>VS</em><b>${moveNames[item.aiMove]}</b><small>${item.outcome === "draw" ? (language === "zh" ? "平" : "Draw") : item.outcome === "player" ? (language === "zh" ? "胜" : "Win") : (language === "zh" ? "负" : "Loss")}</small></div>`).join("");
+  const review = state.postMatchReview;
+  $("#rpsPostMatch").classList.toggle("hidden", !review);
+  if (review) {
+    $("#rpsReviewTitle").textContent = language === "zh" ? "赛后策略复盘" : "Post-match strategy review";
+    const difference = signed(review.scoreDifference);
+    $("#rpsReviewMetrics").innerHTML = [
+      [language === "zh" ? "最终分差" : "Score difference", difference],
+      [language === "zh" ? "均衡支持内" : "In equilibrium support", `${review.equilibriumSupportedRounds} / ${state.roundsTotal}`],
+      [language === "zh" ? "所选动作平均权重" : "Avg chosen weight", `${(review.averageChosenProbability * 100).toFixed(1)}%`],
+      [language === "zh" ? "AI 最高针对权重" : "Peak exploit weight", `${(review.maxExploitWeight * 100).toFixed(0)}%`],
+    ].map(([label, value]) => `<div><span>${label}</span><strong>${value}</strong></div>`).join("");
+    const favorites = review.mostUsedMoves.map((move) => moveNames[move]).join(language === "zh" ? "、" : ", ");
+    $("#rpsReviewCopy").textContent = language === "zh"
+      ? `你最常使用${favorites}。AI 会利用已观察到的重复倾向，但仍保留均衡基线。进入均衡支持集并不表示某一次结果必胜；真正目标是让长期出牌频率接近建议分布。`
+      : `Your most-used move${review.mostUsedMoves.length > 1 ? "s were" : " was"} ${favorites}. The AI exploited observed repetition while retaining its equilibrium baseline. Support membership does not guarantee a win in one round; the goal is to make long-run frequencies resemble the advised mixture.`;
+  }
   if (state.phase === "finished") {
     $("#rpsCards").innerHTML += `<button class="rps-new-match" data-rps-new>${language === "zh" ? "重新洗牌" : "New match"}</button>`;
     $("[data-rps-new]").addEventListener("click", () => act("new_match"));
@@ -901,7 +959,9 @@ function renderBattleship() {
   $("#battlePlayerBoard").setAttribute("aria-label", language === "zh" ? "你的舰队" : "Your fleet");
   const playerShips = state.playerShipsRemaining.length;
   const enemyShips = state.enemyShipsRemaining.length;
-  $("#battleTurn").textContent = state.turn;
+  $("#battleTurn").textContent = state.salvoSize > 1
+    ? `${language === "zh" ? "齐射" : "Volley"} ${state.volleyNumber}`
+    : state.turn;
   $("#battlePlayerShips").textContent = `${playerShips} / ${state.shipLengths.length}`;
   $("#battleCandidates").textContent = state.candidatePlacementCount;
   $("#battleSuggestion").textContent = battleCoordinate(state.suggestedShot);
@@ -913,8 +973,8 @@ function renderBattleship() {
   $("#battleBoardSize").disabled = state.phase !== "placement";
   $("#battleDeploymentTitle").textContent = language === "zh" ? "先确认你的舰队布置" : "Confirm your fleet layout";
   $("#battleDeploymentCopy").textContent = language === "zh"
-    ? "选择海域规模；每种颜色是一艘舰船。点击下方舰船卡旋转 90°，也可以整体随机布阵。"
-    : "Choose a sea size; every color is one ship. Rotate individual ship cards 90°, or randomize the full fleet.";
+    ? `选择海域规模；每种颜色是一艘舰船。点击下方舰船卡旋转 90°，也可以整体随机布阵。${state.boardSize === 15 ? "15×15 将启用双方各两炮的齐射制。" : ""}`
+    : `Choose a sea size; every color is one ship. Rotate individual ship cards 90°, or randomize the full fleet.${state.boardSize === 15 ? " The 15×15 board uses symmetric two-shot salvos." : ""}`;
   renderBattleGrid("#battleEnemyBoard", state.enemyBoard, true, state);
   renderBattleGrid("#battlePlayerBoard", state.playerBoard, false, state);
   $("#battleFleetControls").innerHTML = state.fleet.map((ship) => `
@@ -932,28 +992,33 @@ function renderBattleship() {
     ? (language === "zh" ? "先完成布阵" : "Deploy before battle")
     : state.phase === "finished"
       ? (state.winner === "player" ? (language === "zh" ? "你击沉了敌方舰队" : "You sank the enemy fleet") : (language === "zh" ? "AI 击沉了你的舰队" : "The AI sank your fleet"))
-      : (language === "zh" ? `第 ${state.turn + 1} 回合：选择攻击坐标` : `Turn ${state.turn + 1}: choose a target`);
+      : state.salvoSize > 1
+        ? (language === "zh" ? `第 ${state.volleyNumber} 轮齐射：还可打 ${state.shotsRemainingInVolley} 炮` : `Volley ${state.volleyNumber}: ${state.shotsRemainingInVolley} shot(s) left`)
+        : (language === "zh" ? `第 ${state.turn + 1} 回合：选择攻击坐标` : `Turn ${state.turn + 1}: choose a target`);
   $("#battleInstruction").textContent = state.phase === "placement"
     ? (language === "zh" ? "查看自己的舰船位置；点击确认后布阵将锁定。" : "Review your ship positions. Locking the fleet makes the layout final.")
     : state.phase === "finished"
       ? (language === "zh" ? "敌方完整布阵已经揭示，可以对照交火记录复盘。" : "The complete enemy fleet is now revealed for review.")
-      : (language === "zh" ? "点击敌方未知格开火；AI 会依据概率热力图立即还击。" : "Fire at an unknown enemy cell; the probability AI immediately returns fire.");
+      : state.salvoSize > 1
+        ? (language === "zh" ? `点击敌方未知格开火；完成本轮剩余 ${state.shotsRemainingInVolley} 炮后，AI 将对称还击 ${state.salvoSize} 炮。` : `Fire at an unknown cell. After your ${state.shotsRemainingInVolley} remaining shot(s), the AI returns ${state.salvoSize} shots.`)
+        : (language === "zh" ? "点击敌方未知格开火；AI 会依据概率热力图立即还击。" : "Fire at an unknown enemy cell; the probability AI immediately returns fire.");
 
   const info = state.informationSet;
   $("#battleInformation").textContent = language === "zh"
-    ? `敌方仍有 ${info.remainingShipLengths.length} 艘船；${info.unresolvedHits.length} 个命中尚未归入已击沉舰船。当前枚举到 ${info.candidatePlacementCount} 个合法单舰部署。`
-    : `${info.remainingShipLengths.length} enemy ships remain; ${info.unresolvedHits.length} hits are unresolved. The model counts ${info.candidatePlacementCount} legal single-ship placements.`;
+    ? `已搜索 ${info.searchedCells}/${info.boardCells} 格（${(info.searchedCells / info.boardCells * 100).toFixed(0)}%），确认命中 ${info.confirmedEnemyHits}/${info.enemySegmentsTotal} 段。敌方仍有 ${info.remainingShipLengths.length} 艘船；当前枚举到 ${info.candidatePlacementCount} 个合法单舰部署。`
+    : `Searched ${info.searchedCells}/${info.boardCells} cells (${(info.searchedCells / info.boardCells * 100).toFixed(0)}%) and confirmed ${info.confirmedEnemyHits}/${info.enemySegmentsTotal} enemy segments. ${info.remainingShipLengths.length} ships remain across ${info.candidatePlacementCount} legal single-ship placements.`;
   $("#battleAiAnalysis").textContent = state.lastAiAnalysis
     ? (language === "zh"
-      ? `AI 上一炮选择 ${battleCoordinate(state.lastAiAnalysis.chosenCell)}：该格被 ${state.lastAiAnalysis.peakDensity} 个候选部署覆盖，并列最佳格共有 ${state.lastAiAnalysis.tiedBestCells} 个。`
-      : `The AI chose ${battleCoordinate(state.lastAiAnalysis.chosenCell)}: ${state.lastAiAnalysis.peakDensity} candidate placements covered it, with ${state.lastAiAnalysis.tiedBestCells} cells tied for best.`)
+      ? `AI 上轮采用${state.lastAiAnalysis.searchMode === "target" ? "追击" : "搜索"}模式，计算并发射 ${state.lastAiAnalysis.volleyShots?.length || 1} 炮；最后选择 ${battleCoordinate(state.lastAiAnalysis.chosenCell)}。该格覆盖 ${state.lastAiAnalysis.peakDensity} 个候选部署（占 ${(state.lastAiAnalysis.coverageShare * 100).toFixed(1)}%），并列最佳格 ${state.lastAiAnalysis.tiedBestCells} 个。`
+      : `The AI used ${state.lastAiAnalysis.searchMode === "target" ? "target" : "hunt"} mode and calculated ${state.lastAiAnalysis.volleyShots?.length || 1} shot(s); its last choice was ${battleCoordinate(state.lastAiAnalysis.chosenCell)}. That cell covered ${state.lastAiAnalysis.peakDensity} candidate placements (${(state.lastAiAnalysis.coverageShare * 100).toFixed(1)}%), with ${state.lastAiAnalysis.tiedBestCells} cells tied for best.`)
     : (language === "zh" ? "开战后，这里会解释 AI 为什么选择上一炮。" : "After battle starts, this panel explains the AI's previous shot.");
 
   $("#battleHistory").innerHTML = state.history.length ? state.history.slice().reverse().map((item) => {
     const player = item.playerShot;
-    const ai = item.aiShot;
+    const aiShots = item.aiShots?.length ? item.aiShots : item.aiShot ? [item.aiShot] : [];
     const resultLabel = (shot) => shot.sunk ? (language === "zh" ? `击沉长度 ${shot.sunkLength}` : `sank length ${shot.sunkLength}`) : shot.hit ? (language === "zh" ? "命中" : "hit") : (language === "zh" ? "落空" : "miss");
-    return `<div><strong>${language === "zh" ? `回合 ${item.turn}` : `Turn ${item.turn}`}</strong><span>${language === "zh" ? "你" : "You"} ${battleCoordinate(player.cell)} · ${resultLabel(player)}</span>${ai ? `<span>AI ${battleCoordinate(ai.cell)} · ${resultLabel(ai)}</span>` : ""}</div>`;
+    const turnLabel = state.salvoSize > 1 ? (language === "zh" ? `齐射 ${item.volley} · 第 ${item.turn} 炮` : `Volley ${item.volley} · shot ${item.turn}`) : (language === "zh" ? `回合 ${item.turn}` : `Turn ${item.turn}`);
+    return `<div><strong>${turnLabel}</strong><span>${language === "zh" ? "你" : "You"} ${battleCoordinate(player.cell)} · ${resultLabel(player)}</span>${aiShots.map((ai, index) => `<span>AI${aiShots.length > 1 ? ` ${index + 1}` : ""} ${battleCoordinate(ai.cell)} · ${resultLabel(ai)}</span>`).join("")}</div>`;
   }).join("") : `<p>${language === "zh" ? "战斗尚未开始。" : "The battle has not started."}</p>`;
   $("#battleResult").classList.toggle("hidden", state.phase !== "finished");
   if (state.phase === "finished") $("#battleResult").textContent = state.winner === "player"
@@ -1131,6 +1196,24 @@ function renderGoofspiel() {
     const outcome = item.playerBid > item.aiBid ? (language === "zh" ? "你得分" : "you score") : item.aiBid > item.playerBid ? (language === "zh" ? "AI 得分" : "AI scores") : (language === "zh" ? "奖牌作废" : "discarded");
     return `<div><b>R${item.round}</b><span>${language === "zh" ? "奖牌" : "Prize"} ${item.prize}</span><strong>${item.playerBid} : ${item.aiBid}</strong><small>${outcome}</small></div>`;
   }).join("") : `<p>${language === "zh" ? "提交第一张竞价牌后，公开揭晓会记录在这里。" : "The first simultaneous reveal will appear here after you submit a bid."}</p>`;
+  const review = state.postMatchReview;
+  $("#goofPostMatch").classList.toggle("hidden", !review);
+  if (review) {
+    $("#goofReviewTitle").textContent = language === "zh" ? "赛后策略复盘" : "Post-match strategy review";
+    $("#goofReviewMetrics").innerHTML = [
+      [language === "zh" ? "最终分差" : "Score difference", signed(review.scoreDifference)],
+      [language === "zh" ? "均衡支持内" : "In equilibrium support", `${review.equilibriumSupportedRounds} / ${state.roundsTotal}`],
+      [language === "zh" ? "所选竞价平均权重" : "Avg chosen weight", `${(review.averageChosenProbability * 100).toFixed(1)}%`],
+      [language === "zh" ? "支持集外决策" : "Off-support bids", review.offSupportRounds.length],
+    ].map(([label, value]) => `<div><span>${label}</span><strong>${value}</strong></div>`).join("");
+    const exceptions = review.offSupportRounds.length
+      ? (language === "zh" ? `第 ${review.offSupportRounds.join("、")} 轮选择了均衡中概率为 0 的牌。` : `Rounds ${review.offSupportRounds.join(", ")} used a bid with zero equilibrium probability.`)
+      : (language === "zh" ? "四轮竞价都位于对应公开状态的均衡支持集内。" : "All four bids stayed inside the equilibrium support for their public states.");
+    const rare = review.lowFrequencyRounds.length
+      ? (language === "zh" ? `第 ${review.lowFrequencyRounds.join("、")} 轮虽然合法，但属于低于 10% 的低频分支。` : `Rounds ${review.lowFrequencyRounds.join(", ")} were valid but rare branches below 10%.`)
+      : "";
+    $("#goofReviewCopy").textContent = `${exceptions}${rare ? ` ${rare}` : ""} ${language === "zh" ? "分数结果仍包含AI随机抽样的波动，策略质量应结合概率轨迹而非只看输赢。" : "The score still contains variance from the AI's random draw, so judge strategy from the probability trail—not wins alone."}`;
+  }
 }
 
 function renderGuessWho() {

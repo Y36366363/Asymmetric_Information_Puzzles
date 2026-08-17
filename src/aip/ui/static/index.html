@@ -291,6 +291,11 @@
             <div class="panel-title"><span data-i18n="gameHistory">博弈记录</span><span>PUBLIC</span></div>
             <div class="rps-history" id="rpsHistory"></div>
           </section>
+          <section class="panel strategy-review hidden" id="rpsPostMatch">
+            <div class="panel-title"><span id="rpsReviewTitle">赛后策略复盘</span><span>POST-MATCH REVIEW</span></div>
+            <div class="strategy-review-grid" id="rpsReviewMetrics"></div>
+            <p id="rpsReviewCopy"></p>
+          </section>
         </div>
       </section>
 
@@ -642,6 +647,7 @@
         <div class="goof-lower">
           <section class="panel information-set"><div class="panel-title"><span data-i18n="goofAdvisor">精确均衡建议</span><span>ZERO-SUM POLICY</span></div><p id="goofAdvice"></p><div class="goof-distribution" id="goofDistribution"></div></section>
           <section class="panel"><div class="panel-title"><span data-i18n="gameHistory">博弈记录</span><span>PUBLIC REVEALS</span></div><div class="goof-history" id="goofHistory"></div></section>
+          <section class="panel strategy-review hidden" id="goofPostMatch"><div class="panel-title"><span id="goofReviewTitle">赛后策略复盘</span><span>POST-MATCH REVIEW</span></div><div class="strategy-review-grid" id="goofReviewMetrics"></div><p id="goofReviewCopy"></p></section>
         </div>
       </section>
     </main>

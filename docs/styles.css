@@ -145,6 +145,18 @@ select:focus-visible {
 .game-layout { display: grid; grid-template-columns: 230px minmax(480px, 1fr) 290px; gap: 18px; }
 .panel { padding: 20px; border: 1px solid var(--line); background: rgba(24, 24, 21, .86); }
 .panel-title { display: flex; justify-content: space-between; color: var(--gold); font-size: 12px; letter-spacing: .12em; }
+.first-turn-guide { display: grid; grid-template-columns: minmax(150px,.38fr) 1fr; gap: 24px; margin: -12px 0 18px; border-color: rgba(216,170,76,.55); background: linear-gradient(110deg,rgba(216,170,76,.14),rgba(24,24,21,.9) 48%); }
+.first-turn-guide > div { display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+.first-turn-guide > div span { color: var(--gold); font-size: 10px; font-weight: 800; letter-spacing: .14em; }
+.first-turn-guide > div strong { color: var(--gold-soft); font: 500 24px Georgia,"Songti SC",serif; }
+.first-turn-guide ol { display: grid; gap: 8px; margin: 0; padding-left: 24px; color: var(--muted); line-height: 1.55; }
+.first-turn-guide li::marker { color: var(--gold); font-weight: 800; }
+.strategy-review { grid-column: 1 / -1; border-color: rgba(216,170,76,.48); }
+.strategy-review-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; margin: 18px 0; background: var(--line); }
+.strategy-review-grid div { padding: 14px; background: #191815; }
+.strategy-review-grid span { display: block; min-height: 28px; color: var(--muted); font-size: 10px; line-height: 1.35; }
+.strategy-review-grid strong { display: block; margin-top: 7px; color: var(--gold-soft); font: 600 22px Georgia,serif; }
+.strategy-review > p { margin: 0; color: var(--muted); line-height: 1.7; }
 .prize-board { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 18px; }
 .prize { padding: 7px 8px; color: var(--gold-soft); background: rgba(216,170,76,.08); font-size: 11px; text-align: right; }
 .prize.gone { color: #59574f; background: rgba(255,255,255,.015); text-decoration: line-through; }
@@ -625,7 +637,7 @@ button.battle-cell:disabled { cursor: default; }
 .battle-lower { display: grid; grid-template-columns: .9fr 1.1fr; gap: 18px; margin-top: 18px; }
 .battle-lower p { color: var(--muted); line-height: 1.65; }
 .battle-history { max-height: 270px; overflow: auto; }
-.battle-history div { display: grid; grid-template-columns: 80px 1fr 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.battle-history div { display: grid; grid-template-columns: minmax(92px,.7fr) repeat(2,minmax(110px,1fr)); gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .battle-history span { color: var(--muted); }
 
 .love-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; padding: 0; }
@@ -723,6 +735,8 @@ button.goof-bid-card:hover:not(:disabled) { transform:translateY(-5px); border-c
   .github-link { min-width: 44px; justify-content: center; }
   .game-heading .back-to-lobby, .game-heading #backButton { min-height: 44px; }
   .view { padding-inline: 14px; }
+  .first-turn-guide { grid-template-columns: 1fr; gap: 14px; }
+  .strategy-review-grid { grid-template-columns: 1fr 1fr; }
   .brand > span:last-child { display: none; }
   .game-heading { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; gap: 10px; }
   .game-heading > div { grid-column: 1 / -1; }
