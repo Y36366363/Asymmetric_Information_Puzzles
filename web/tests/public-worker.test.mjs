@@ -40,6 +40,23 @@ test("case game reaches a clear non-null final reveal", async () => {
   assert.equal(session.state.cases.find((item) => item.id === 1).value, session.state.payout);
 });
 
+test("case offers stay below expectation and expose one counter-offer", async () => {
+  const created = await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId:"cases"})});
+  let session = await created.json();
+  const id = session.sessionId;
+  const actCase = async (action,payload={}) => { session = await (await call(`/api/sessions/${id}/actions`,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action,payload})})).json(); return session.state; };
+  await actCase("choose_case",{caseId:1});
+  for(let caseId=2;caseId<=7;caseId+=1) await actCase("open_case",{caseId});
+  const offered=session.state;
+  assert.ok(offered.offer < offered.metrics.expectedValue);
+  assert.ok(offered.metrics.riskAdjustedValue >= 0);
+  assert.equal(offered.counterOfferAvailable,true);
+  const after=await actCase("counter_offer",{amount:offered.suggestedCounterOffer});
+  assert.equal(after.counterOfferUsed,true);
+  assert.equal(after.counterOfferAvailable,false);
+  assert.ok(["opening","finished"].includes(after.phase));
+});
+
 test("creates a pirate session and completes a rational vote", async () => {
   const created = await call("/api/sessions", {
     method: "POST", headers: {"content-type":"application/json"},

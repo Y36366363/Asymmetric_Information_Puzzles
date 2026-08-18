@@ -7,6 +7,23 @@
 
 ## Updates 08/17/2026
 
+- **Spoiler-safe worm challenge** — The minimax hint and guaranteed capture
+  sequence are now hidden behind separate Hint and Answer controls; the opening
+  guide no longer leaks the solution, and long search histories scroll inside
+  their panel instead of overflowing the page.
+- **Sharper case-game negotiation** — Banker offers are now deliberately below
+  the remaining prize expectation, the offer screen preserves the latest
+  reveals and every remaining value, and the negative reservation-price label
+  has been replaced with a clear nonnegative risk reference. Players also get
+  one counter-offer per game, with acceptance ending the game and rejection
+  automatically continuing it.
+- **Two-mode Blackjack learning** — Added Normal and Practice modes, clearer
+  dealer/player seat framing, and per-decision basic-strategy feedback. The UI
+  now states the exact implemented action set: Hit, Stand, and Double are live;
+  Split, Surrender, and Insurance remain intentionally unavailable.
+- **Readable code entry** — Bulls & Cows input now uses high-contrast dark,
+  heavier digits on a brighter field, including clearer placeholder and caret
+  treatment.
 - **First-turn guidance for harder games** — Added bilingual, action-specific
   opening briefings to Kuhn Poker, Liar's Dice, Love Letter, Kelly Survival,
   Goofspiel, and the adversarial worm puzzle; the guide disappears after the
@@ -35,7 +52,7 @@
   translations, duplicate IDs, unnamed controls, busy states, 390 px overflow,
   and browser logs. [Read the
   audit and next priorities](research/player_experience_audit_2026-08-17.md).
-- **Daily stability pass** — All 166 Python tests plus 10 public-engine and
+- **Daily stability pass** — All 167 Python tests plus 11 public-engine and
   static-build tests pass, including a deterministic regression for the
   protected Prince edge case.
 

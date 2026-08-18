@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#10100f" />
     <title>AIP · 非对称博弈实验室</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23d8aa4c'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial' font-size='23' font-weight='900' fill='%2311110f'%3EAIP%3C/text%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=448e44511db4" />
+    <link rel="stylesheet" href="styles.css?v=abc7d3fd8747" />
   </head>
   <body>
     <header class="topbar">
@@ -94,15 +94,15 @@
           <div class="worm-status">
             <div class="live-counter"><span data-i18n="liveChecks">实时检查次数</span><strong id="wormTurn">0</strong></div>
             <div><span data-i18n="possiblePositions">仍可能的位置</span><strong id="possibleHoles">1 · 2 · 3 · 4 · 5</strong></div>
-            <div><span data-i18n="strategyHint">保证策略提示</span><strong id="wormHint">—</strong></div>
+            <div class="worm-help-status"><span data-i18n="strategyHint">解法帮助</span><div class="worm-help-actions"><button id="wormHintButton" data-i18n="showHint">显示提示</button><button id="wormAnswerButton" data-i18n="showAnswer">查看答案</button></div><strong class="hidden" id="wormHint">—</strong></div>
           </div>
         </div>
 
         <div class="worm-lower">
           <section class="panel strategy-panel">
-            <div class="panel-title"><span data-i18n="guaranteedSequence">保证抓捕序列</span><span>MINIMAX</span></div>
-            <div class="strategy-sequence" id="strategySequence"></div>
-            <p data-i18n="wormStrategyCopy">只要从第一步开始严格执行该序列，即使虫子选择最不利的移动，也能在序列结束前抓到。</p>
+            <div class="panel-title"><span data-i18n="guaranteedSequence">保证抓捕答案</span><span>MINIMAX</span></div>
+            <div class="worm-answer-locked" id="wormAnswerLocked"><p data-i18n="wormAnswerLocked">答案默认隐藏，先独立尝试；需要时再主动揭示。</p><button class="secondary-button" id="wormRevealAnswer" data-i18n="showAnswer">查看答案</button></div>
+            <div class="hidden" id="wormAnswer"><div class="strategy-sequence" id="strategySequence"></div><p data-i18n="wormStrategyCopy">只要从第一步开始严格执行该序列，即使虫子选择最不利的移动，也能在序列结束前抓到。</p></div>
           </section>
           <section class="panel">
             <div class="panel-title"><span data-i18n="searchHistory">搜索记录</span><span>PUBLIC</span></div>
@@ -366,17 +366,18 @@
 
         <section class="blackjack-table panel">
           <div class="blackjack-hand dealer-hand">
-            <div><span data-i18n="dealer">庄家</span><strong id="dealerTotal">明牌</strong></div>
+            <div class="blackjack-seat-label dealer-label"><span data-i18n="dealer">庄家</span><strong id="dealerTotal">明牌</strong></div>
             <div class="blackjack-cards" id="dealerCards"></div>
           </div>
           <div class="blackjack-center">
             <p class="eyebrow">6 DECKS · DEALER STANDS ON SOFT 17</p>
+            <div class="blackjack-mode-switch" role="group" aria-label="Blackjack mode"><button id="blackjackNormalMode" class="active" data-i18n="blackjackNormalMode">普通模式</button><button id="blackjackPracticeMode" data-i18n="blackjackPracticeMode">练习模式</button></div>
             <h2 id="blackjackHeadline">根据手牌与庄家明牌做决定</h2>
             <div class="blackjack-actions" id="blackjackActions"></div>
             <div class="blackjack-result hidden" id="blackjackResult"></div>
           </div>
           <div class="blackjack-hand player-hand">
-            <div><span data-i18n="you">你</span><strong id="playerTotal">0</strong></div>
+            <div class="blackjack-seat-label player-label"><span data-i18n="you">你</span><strong id="playerTotal">0</strong></div>
             <div class="blackjack-cards" id="playerCards"></div>
           </div>
         </section>
@@ -386,7 +387,8 @@
             <div class="panel-title"><span data-i18n="basicStrategyAi">基础策略 AI</span><span>RULE-SCOPED OPTIMUM</span></div>
             <div class="advisor-call" id="blackjackRecommendation">—</div>
             <button id="blackjackAiPlay" data-i18n="letAiPlay">让 AI 执行这一步</button>
-            <p data-i18n="blackjackScope">此建议针对六副牌、软 17 停牌、不可分牌/投降/保险且不计牌的动作集合。改变规则或利用牌靴构成后，最优动作可能改变。</p>
+            <div class="practice-feedback hidden" id="blackjackPracticeFeedback" aria-live="polite"></div>
+            <p data-i18n="blackjackScope">当前可操作：要牌、停牌、加倍。当前版本尚未开放分牌、投降和保险；基础策略只在六副牌、庄家软 17 停牌且不计牌的规则内成立。</p>
           </section>
           <section class="panel">
             <div class="panel-title"><span data-i18n="decisionAudit">决策审计</span><span id="shoeRemaining">308 CARDS</span></div>
@@ -658,6 +660,9 @@
         <h2 id="offerTitle" data-i18n="bankerOffer">银行家报价</h2>
         <div class="offer-value" id="offerValue">¥0</div>
         <p id="offerContext"></p>
+        <div class="offer-comparison" id="offerComparison"></div>
+        <div class="offer-remaining"><span data-i18n="offerRemainingValues">仍可能留在保留箱中的金额</span><div id="offerRemainingValues"></div></div>
+        <div class="counter-offer" id="counterOfferPanel"><label for="counterOfferInput" data-i18n="counterOfferLabel">你的一次议价金额</label><div><input id="counterOfferInput" type="number" min="0" step="0.01" /><button id="counterOfferButton" data-i18n="counterOfferButton">讨价还价一次</button></div><small data-i18n="counterOfferHelp">银行家接受则立即成交；拒绝则自动继续开箱，且本局不能再次议价。</small></div>
         <div class="offer-actions">
           <button class="deal-button" id="dealButton" data-i18n="acceptOffer">接受报价</button>
           <button class="no-deal-button" id="noDealButton" data-i18n="rejectOffer">拒绝，继续开箱</button>
@@ -671,6 +676,6 @@
 
     <div class="operation-status hidden" id="operationStatus" role="status" aria-live="polite"></div>
     <div class="toast hidden" id="toast" role="status"></div>
-    <script type="module" src="bootstrap.js?v=448e44511db4"></script>
+    <script type="module" src="bootstrap.js?v=abc7d3fd8747"></script>
   </body>
 </html>

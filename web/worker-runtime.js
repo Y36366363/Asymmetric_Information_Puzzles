@@ -53,7 +53,7 @@ class CaseSession {
     this.values = Object.fromEntries(shuffle(this.prizes).map((v, i) => [i + 1, v]));
     this.riskTolerance = Number(options.riskTolerance ?? 100000); if(!Number.isFinite(this.riskTolerance)||this.riskTolerance<=0)throw new Error("risk tolerance must be positive");
     this.chosen = null; this.opened = {}; this.round = 0; this.openedRound = 0;
-    this.phase = "choose"; this.offer = null; this.payout = null; this.history = []; this.result = null;
+    this.phase = "choose"; this.offer = null; this.counterCeiling = null; this.counterUsed = false; this.payout = null; this.history = []; this.result = null;
   }
   remaining() { return Object.entries(this.values).filter(([id]) => !(id in this.opened)).map(([,v]) => v); }
   act(action, payload) {
@@ -65,7 +65,9 @@ class CaseSession {
       this.history.push({kind:"reveal", caseId:id, value});
       if (this.openedRound === this.schedule[this.round]) {
         const values = this.remaining(); const mean = values.reduce((a,b)=>a+b,0) / values.length;
-        this.offer = Math.round(mean * Math.min(0.96, 0.72 + this.round * 0.03));
+        const multipliers = [.48,.52,.58,.64,.70,.76,.82,.86,.90,.94];
+        this.offer = Math.min(Math.round(mean * multipliers[Math.min(this.round,multipliers.length-1)] * 100) / 100, Math.max(0,Math.round((mean-.01)*100)/100));
+        this.counterCeiling = Math.min(mean*.97,this.offer*(1.02+Math.random()*.06));
         this.phase = "offer"; this.history.push({kind:"offer", round:this.round+1, value:this.offer});
       }
     } else if (action === "deal" && this.phase === "offer") {
@@ -73,7 +75,12 @@ class CaseSession {
     } else if (action === "no_deal" && this.phase === "offer") {
       this.history.push({kind:"no_deal", round:this.round+1});
       if (this.remaining().length === 1) { this.payout = this.values[this.chosen]; this.phase = "finished"; this.result={kind:"kept_case",payout:this.payout,chosenCase:this.chosen}; this.history.push({kind:"case_payout",caseId:this.chosen,value:this.payout}); }
-      else { this.round += 1; this.openedRound = 0; this.offer = null; this.phase = "opening"; }
+      else { this.round += 1; this.openedRound = 0; this.offer = null; this.counterCeiling = null; this.phase = "opening"; }
+    } else if (action === "counter_offer" && this.phase === "offer" && !this.counterUsed) {
+      const amount=Number(payload.amount); if(!Number.isFinite(amount)||amount<=this.offer)throw new Error("counter-offer must exceed the banker's offer");
+      this.counterUsed=true; const accepted=amount<=this.counterCeiling; this.history.push({kind:"counter_offer",round:this.round+1,value:amount,accepted});
+      if(accepted){this.payout=Math.round(amount*100)/100;this.phase="finished";this.result={kind:"counter_deal",payout:this.payout,offer:this.offer,counterOffer:this.payout};this.history.push({kind:"counter_deal",value:this.payout});}
+      else {this.history.push({kind:"counter_rejected",round:this.round+1});if(this.remaining().length===1){this.payout=this.values[this.chosen];this.phase="finished";this.result={kind:"kept_case",payout:this.payout,chosenCase:this.chosen};this.history.push({kind:"case_payout",caseId:this.chosen,value:this.payout});}else{this.round+=1;this.openedRound=0;this.offer=null;this.counterCeiling=null;this.phase="opening";}}
     } else throw new Error("illegal case-game action");
   }
   snapshot() {
@@ -81,12 +88,13 @@ class CaseSession {
     if (this.phase === "offer") {
       const mean = remaining.reduce((a,b)=>a+b,0)/remaining.length;
       const sd = Math.sqrt(remaining.reduce((a,b)=>a+(b-mean)**2,0)/remaining.length);
-      metrics = {expectedValue:mean, standardDeviation:sd, certaintyEquivalent:mean-sd*sd/(2*this.riskTolerance), offerRatio:this.offer/mean, chanceToBeatOffer:remaining.filter(v=>v>this.offer).length/remaining.length, reservationRecommendation:this.offer >= mean-sd*sd/(2*this.riskTolerance) ? "deal" : "no_deal"};
+      const certaintyEquivalent=mean-sd*sd/(2*this.riskTolerance);
+      metrics = {expectedValue:mean, standardDeviation:sd, certaintyEquivalent, riskAdjustedValue:Math.max(0,certaintyEquivalent), offerRatio:this.offer/mean, chanceToBeatOffer:remaining.filter(v=>v>this.offer).length/remaining.length, reservationRecommendation:this.offer >= certaintyEquivalent ? "deal" : "no_deal"};
     }
     const target = ["opening","offer"].includes(this.phase) ? this.schedule[this.round] : 0;
     return {gameId:"cases", phase:this.phase, round:this.round+1, chosenCase:this.chosen,
       cases:Object.keys(this.values).map(Number).map(id=>({id,status:id===this.chosen?"chosen":id in this.opened?"opened":"closed", ...((id in this.opened || (this.phase==="finished"&&id===this.chosen))?{value:this.values[id]}:{})})),
-      prizeBoard:this.prizes.map(value=>({value,remaining:remaining.includes(value)})), openTarget:target, openedThisRound:this.openedRound, opensRemaining:Math.max(0,target-this.openedRound), offer:this.offer, isFinalOffer:this.phase==="offer"&&remaining.length===1, metrics, payout:this.payout, result:this.result, history:this.history, riskTolerance:this.riskTolerance,legalActions:{choose:["choose_case"],opening:["open_case"],offer:["deal","no_deal"],finished:[]}[this.phase]};
+      prizeBoard:this.prizes.map(value=>({value,remaining:remaining.includes(value)})), openTarget:target, openedThisRound:this.openedRound, opensRemaining:Math.max(0,target-this.openedRound), offer:this.offer, counterOfferUsed:this.counterUsed,counterOfferAvailable:this.phase==="offer"&&!this.counterUsed,suggestedCounterOffer:metrics&&!this.counterUsed?Math.round(Math.min(metrics.expectedValue*.95,this.offer*1.05)*100)/100:null,isFinalOffer:this.phase==="offer"&&remaining.length===1, metrics, payout:this.payout, result:this.result, history:this.history, riskTolerance:this.riskTolerance,legalActions:{choose:["choose_case"],opening:["open_case"],offer:["deal","no_deal",...(this.counterUsed?[]:["counter_offer"])],finished:[]}[this.phase]};
   }
 }
 

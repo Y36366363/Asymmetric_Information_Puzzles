@@ -207,7 +207,7 @@ select:focus-visible {
 .history ol { max-height: 230px; padding-left: 22px; overflow: auto; color: var(--muted); font-size: 12px; line-height: 1.8; }
 
 .modal-backdrop { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; padding: 20px; background: rgba(0,0,0,.78); backdrop-filter: blur(8px); }
-.offer-card { width: min(520px, 100%); padding: 46px; text-align: center; border: 1px solid var(--gold); background: #171612; box-shadow: 0 30px 100px #000; }
+.offer-card { width: min(620px, 100%); max-height: calc(100vh - 40px); overflow-y: auto; padding: 38px; text-align: center; border: 1px solid var(--gold); background: #171612; box-shadow: 0 30px 100px #000; }
 .offer-card h2 { font: 500 32px Georgia, "Songti SC", serif; }
 .offer-value { margin: 24px 0; color: var(--gold-soft); font: 500 clamp(42px, 8vw, 72px) Georgia, serif; }
 .offer-card > p:not(.eyebrow) { color: var(--muted); }
@@ -222,7 +222,20 @@ select:focus-visible {
 .rules-example { border-left: 3px solid #6f9fb5; background: rgba(54,101,123,.12); }
 .rules-terms { border-left: 3px solid var(--gold); }
 .rules-close { position: absolute; top: 10px; right: 14px; color: var(--gold-soft); border: 0; background: transparent; cursor: pointer; font-size: 30px; }
-.offer-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; }
+.offer-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+.offer-comparison { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-top: 20px; }
+.offer-comparison div { padding: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.025); }
+.offer-comparison span { display: block; min-height: 30px; color: var(--muted); font-size: 11px; }
+.offer-comparison strong { display: block; margin-top: 7px; color: var(--gold-soft); font-size: 17px; }
+.offer-remaining { margin-top: 16px; text-align: left; }
+.offer-remaining > span { color: var(--muted); font-size: 11px; }
+.offer-remaining > div { max-height: 95px; overflow-y: auto; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; padding-right: 5px; }
+.offer-remaining > div span { padding: 5px 7px; color: #e8dec7; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.03); font-size: 11px; }
+.counter-offer { margin-top: 18px; padding: 16px; border: 1px solid rgba(216,170,76,.38); background: rgba(216,170,76,.07); text-align: left; }
+.counter-offer label, .counter-offer small { display: block; color: var(--muted); font-size: 11px; line-height: 1.5; }
+.counter-offer > div { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin: 9px 0; }
+.counter-offer input { min-width: 0; padding: 11px; color: #17130c; border: 1px solid var(--gold); background: #fff6dc; font-weight: 800; }
+.counter-offer button { padding: 11px 14px; color: #17130c; border: 0; background: var(--gold); cursor: pointer; font-weight: 800; }
 .deal-button, .no-deal-button { padding: 15px; cursor: pointer; }
 .deal-button { color: #17130c; border: 1px solid var(--gold); background: var(--gold); font-weight: 800; }
 .no-deal-button { color: var(--ink); border: 1px solid #605d54; background: transparent; }
@@ -280,13 +293,18 @@ select:focus-visible {
 .worm-status span { display: block; color: var(--muted); font-size: 11px; letter-spacing: .09em; }
 .worm-status strong { display: block; margin-top: 9px; color: var(--gold-soft); font-size: 16px; }
 .worm-status .live-counter strong { font-size: 34px; line-height: 1; }
+.worm-help-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 7px; margin-top: 9px; }
+.worm-help-actions button, .worm-answer-locked button { padding: 8px 11px; color: var(--ink); border: 1px solid var(--gold); background: transparent; cursor: pointer; font-size: 12px; }
+.worm-help-status > strong:not(.hidden) { margin-top: 11px; }
 .worm-lower { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
 .strategy-sequence { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0; }
 .strategy-step { min-width: 38px; padding: 9px; color: #19150e; background: var(--gold); text-align: center; font-weight: 800; }
 .strategy-step.done { color: #777268; background: #292722; }
 .strategy-step.next { outline: 2px solid var(--gold-soft); outline-offset: 3px; }
 .strategy-panel p { color: var(--muted); line-height: 1.7; }
-.worm-history { max-height: 150px; margin: 20px 0 0; color: var(--muted); line-height: 2; }
+.worm-answer-locked { padding: 24px 8px 6px; text-align: center; }
+.worm-history { max-height: 240px; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; margin: 20px 0 0; padding-right: 12px; color: var(--muted); line-height: 2; }
+.worm-history li { padding-right: 8px; border-bottom: 1px solid rgba(255,255,255,.05); }
 
 .pirate-summary { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 18px; }
 .pirate-summary div { padding: 10px 24px; border-right: 1px solid var(--line); }
@@ -425,13 +443,19 @@ select:focus-visible {
 .blackjack-score span { color: var(--muted); font-size: 11px; letter-spacing: .09em; }
 .blackjack-score strong { display: block; margin-top: 7px; color: var(--gold-soft); font: 500 27px Georgia, serif; }
 .blackjack-table { min-height: 630px; display: grid; grid-template-rows: 1fr auto 1fr; gap: 24px; padding: clamp(28px, 5vw, 60px); background: radial-gradient(ellipse at center, #1e5138 0, #153424 48%, #101c16 100%); }
-.blackjack-hand > div:first-child { display: flex; justify-content: space-between; max-width: 520px; margin: 0 auto 15px; color: var(--muted); }
-.blackjack-hand > div:first-child strong { color: var(--gold-soft); }
+.blackjack-seat-label { display: flex; justify-content: space-between; max-width: 520px; margin: 0 auto 15px; padding: 10px 15px; color: var(--muted); border: 1px solid rgba(255,255,255,.15); border-radius: 6px; background: rgba(0,0,0,.24); }
+.blackjack-seat-label span { color: #fff7df; font-weight: 800; letter-spacing: .13em; }
+.blackjack-seat-label strong { color: var(--gold-soft); }
+.dealer-label { border-left: 4px solid #a9b8ac; }
+.player-label { border-left: 4px solid var(--gold); }
 .blackjack-cards { display: flex; justify-content: center; gap: 10px; min-height: 128px; }
 .blackjack-card { width: 84px; aspect-ratio: .7; display: grid; place-items: center; color: #17130d; border: 2px solid #fff7df; border-radius: 8px; background: linear-gradient(145deg, #fffdf5, #d9ceb5); box-shadow: 0 15px 25px rgba(0,0,0,.35); font: 700 34px Georgia, serif; }
 .blackjack-card.red { color: #a22f2a; }
 .blackjack-card.hidden-card { color: var(--gold); border-color: #b18a43; background: repeating-linear-gradient(45deg, #1b1710, #1b1710 7px, #47371e 7px, #47371e 14px); }
 .blackjack-center { text-align: center; }
+.blackjack-mode-switch { width: fit-content; display: flex; margin: 0 auto 14px; padding: 3px; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; background: rgba(0,0,0,.25); }
+.blackjack-mode-switch button { padding: 7px 13px; color: #c8d7ca; border: 0; border-radius: 999px; background: transparent; cursor: pointer; font-size: 12px; }
+.blackjack-mode-switch button.active { color: #132119; background: var(--gold-soft); font-weight: 900; }
 .blackjack-center h2 { margin: 12px 0 22px; font: 500 clamp(24px, 3vw, 36px) Georgia, "Songti SC", serif; }
 .blackjack-actions { display: flex; justify-content: center; gap: 10px; }
 .blackjack-actions button { min-width: 110px; padding: 13px 18px; color: #17130c; border: 1px solid var(--gold); background: var(--gold); cursor: pointer; font-weight: 800; }
@@ -444,6 +468,9 @@ select:focus-visible {
 .strategy-advisor button { padding: 12px 17px; color: #17130c; border: 0; background: var(--gold); cursor: pointer; font-weight: 800; }
 .strategy-advisor button:disabled { opacity: .35; cursor: not-allowed; }
 .strategy-advisor p { color: var(--muted); line-height: 1.7; }
+.practice-feedback { margin: 16px 0 4px; padding: 13px 15px; border-left: 3px solid #7f9b85; background: rgba(0,0,0,.2); color: #dce7de; line-height: 1.55; }
+.practice-feedback.correct { border-color: #72b57c; background: rgba(81,133,90,.16); }
+.practice-feedback.review { border-color: var(--gold); background: rgba(216,170,76,.12); }
 .blackjack-history { max-height: 230px; overflow: auto; margin-top: 18px; }
 .blackjack-history div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .blackjack-history span, .blackjack-history p { color: var(--muted); }
@@ -478,7 +505,8 @@ select:focus-visible {
 .mastermind-board { padding: clamp(30px, 6vw, 72px); text-align: center; background: radial-gradient(ellipse at center, #173b52 0, #112633 58%, #101820 100%); }
 .mastermind-instruction { max-width: 680px; margin: 0 auto 24px; color: var(--muted); line-height: 1.7; }
 .mastermind-input-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-.mastermind-input-row input { width: 170px; padding: 13px; color: var(--ink); border: 1px solid var(--gold); background: #f1e7cc; text-align: center; letter-spacing: .35em; font: 700 23px Georgia, serif; }
+.mastermind-input-row input { width: 170px; padding: 13px; color: #090806; caret-color: #090806; border: 2px solid var(--gold); background: #fff3c8; box-shadow: inset 0 0 0 2px rgba(0,0,0,.08), 0 0 0 1px rgba(240,207,131,.22); text-align: center; letter-spacing: .35em; text-shadow: none; font: 900 25px Georgia, serif; }
+.mastermind-input-row input::placeholder { color: #6b604a; opacity: .72; }
 .mastermind-input-row button { padding: 13px 20px; }
 .mastermind-input-help { margin: 16px auto 0; color: #9fb8c5; font-size: 13px; }
 .mastermind-result { width: fit-content; margin: 20px auto 0; padding: 12px 22px; border: 1px solid var(--gold); color: var(--gold-soft); font: 500 22px Georgia, serif; }
@@ -728,6 +756,11 @@ button.goof-bid-card:hover:not(:disabled) { transform:translateY(-5px); border-c
 }
 
 @media (max-width: 720px) {
+  .offer-card { padding: 24px 18px; }
+  .offer-comparison { grid-template-columns: 1fr; }
+  .offer-comparison span { min-height: 0; }
+  .counter-offer > div { grid-template-columns: 1fr; }
+  .offer-actions { grid-template-columns: 1fr; }
   .status { display: none; }
   .github-link > span:last-child { display: none; }
   .header-actions { gap: 8px; }

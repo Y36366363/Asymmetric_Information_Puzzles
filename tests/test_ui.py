@@ -8,6 +8,7 @@ from http.server import ThreadingHTTPServer
 
 from aip.ui.registry import (
     BlackjackSession,
+    CaseGameSession,
     ECardSession,
     GameDescriptor,
     GameRegistry,
@@ -523,9 +524,11 @@ class LocalGameUITests(unittest.TestCase):
         for case_id in range(2, 8):
             state = self.service.act(session_id, "open_case", {"caseId": case_id})
         self.assertEqual(state["phase"], "offer")
-        self.assertEqual(state["legalActions"], ["deal", "no_deal"])
+        self.assertEqual(state["legalActions"], ["deal", "no_deal", "counter_offer"])
         self.assertIsNotNone(state["offer"])
         self.assertIsNotNone(state["metrics"])
+        self.assertLess(state["offer"], state["metrics"]["expectedValue"])
+        self.assertGreaterEqual(state["metrics"]["riskAdjustedValue"], 0)
         self.assertEqual(
             len([case for case in state["cases"] if case["status"] == "opened"]), 6
         )
@@ -541,6 +544,18 @@ class LocalGameUITests(unittest.TestCase):
         self.assertEqual(finished["phase"], "finished")
         self.assertEqual(finished["legalActions"], [])
         self.assertEqual(finished["payout"], offer)
+
+    def test_case_game_allows_only_one_counter_offer_and_continues_after_rejection(self) -> None:
+        session = CaseGameSession({"seed": 13, "riskTolerance": 100_000})
+        session.act("choose_case", {"caseId": 1})
+        for case_id in range(2, 8):
+            state = session.act("open_case", {"caseId": case_id})
+        session._counter_ceiling = state["offer"]
+        state = session.act("counter_offer", {"amount": state["offer"] + 1})
+        self.assertEqual(state["phase"], "opening")
+        self.assertTrue(state["counterOfferUsed"])
+        self.assertFalse(state["counterOfferAvailable"])
+        self.assertEqual(state["history"][-1]["kind"], "counter_rejected")
 
     def test_rejecting_every_offer_reaches_chosen_case_payout(self) -> None:
         created = self.service.create_session("cases", {"seed": 17})

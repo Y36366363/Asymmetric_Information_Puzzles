@@ -26,6 +26,11 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /mastermindUseSuggestion/);
   assert.match(app, /5,040/);
   assert.match(html, /id="mastermindCandidatePreview"/);
+  assert.match(html, /id="wormRevealAnswer"/);
+  assert.match(html, /id="counterOfferButton"/);
+  assert.match(html, /id="blackjackPracticeMode"/);
+  assert.match(app, /wormDisclosure/);
+  assert.match(app, /blackjackPracticeMode/);
   assert.match(app, /event\.key === "Enter"/);
   assert.match(app, /aip-rules-seen-/);
   assert.match(app, /playNow/);
@@ -66,6 +71,8 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /Submit unlocks when this reaches zero/);
   assert.match(app, /Math\.max\(minimumQuantity/);
   const styles = await readFile(new URL("styles.css", publicRoot), "utf8");
+  assert.match(styles, /\.worm-history \{[^}]*overflow-y: auto/);
+  assert.match(styles, /\.mastermind-input-row input \{[^}]*color: #090806/);
   assert.match(styles, /\.blackjack-actions \{ flex-wrap: wrap; \}/);
   assert.match(styles, /\.game-heading \.back-to-lobby, \.game-heading #backButton \{ min-height: 44px; \}/);
   assert.match(styles, /select:focus-visible/);

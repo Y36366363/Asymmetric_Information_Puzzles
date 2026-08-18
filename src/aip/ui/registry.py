@@ -5,7 +5,7 @@ import threading
 import uuid
 from dataclasses import dataclass
 from itertools import combinations
-from math import comb
+from math import comb, isfinite
 from typing import Callable, Protocol
 
 from aip.puzzles.cases.models import CLASSROOM_BANKER, CaseGameRules, RiskPreferences
@@ -201,6 +201,8 @@ class CaseGameSession:
         self.opened_this_round = 0
         self.phase = "choose"
         self.current_offer: float | None = None
+        self._counter_ceiling: float | None = None
+        self.counter_offer_used = False
         self.payout: float | None = None
         self.result: dict[str, object] | None = None
         self.history: list[dict[str, object]] = []
@@ -221,6 +223,12 @@ class CaseGameSession:
             self._deal()
         elif action == "no_deal":
             self._no_deal()
+        elif action == "counter_offer":
+            try:
+                amount = float(payload.get("amount", 0))
+            except (TypeError, ValueError) as error:
+                raise ValueError("counter-offer must be a valid amount") from error
+            self._counter_offer(amount)
         else:
             raise ValueError(f"unknown action: {action}")
         return self.snapshot()
@@ -244,8 +252,16 @@ class CaseGameSession:
         target = self.rules.cases_opened_per_round[self.round_index]
         if self.opened_this_round == target:
             remaining = self._remaining_values()
-            self.current_offer = self.analyzer.make_offer(
+            mean = sum(remaining) / len(remaining)
+            raw_offer = self.analyzer.make_offer(
                 remaining, self.round_index, CLASSROOM_BANKER, self._rng
+            )
+            # The banker is deliberately adversarial: a cash offer never reaches
+            # the arithmetic value of the unopened prize distribution.
+            self.current_offer = min(raw_offer, max(0.0, round(mean - 0.01, 2)))
+            concession = self._rng.uniform(0.02, 0.08)
+            self._counter_ceiling = min(
+                mean * 0.97, self.current_offer * (1 + concession)
             )
             self.phase = "offer"
             self.history.append(
@@ -268,15 +284,60 @@ class CaseGameSession:
         if self.phase != "offer":
             raise ValueError("there is no offer to reject")
         self.history.append({"kind": "no_deal", "round": self.round_index + 1})
+        self._continue_after_offer()
+
+    def _counter_offer(self, amount: float) -> None:
+        if self.phase != "offer" or self.current_offer is None:
+            raise ValueError("there is no offer to negotiate")
+        if self.counter_offer_used:
+            raise ValueError("the one counter-offer has already been used")
+        if not isfinite(amount) or amount <= self.current_offer:
+            raise ValueError("the counter-offer must exceed the banker's offer")
+        self.counter_offer_used = True
+        accepted = self._counter_ceiling is not None and amount <= self._counter_ceiling
+        self.history.append(
+            {
+                "kind": "counter_offer",
+                "round": self.round_index + 1,
+                "value": round(amount, 2),
+                "accepted": accepted,
+            }
+        )
+        if accepted:
+            self.payout = round(amount, 2)
+            self.phase = "finished"
+            self.result = {
+                "kind": "counter_deal",
+                "payout": self.payout,
+                "offer": self.current_offer,
+                "counterOffer": self.payout,
+            }
+            self.history.append({"kind": "counter_deal", "value": self.payout})
+            return
+        self.history.append({"kind": "counter_rejected", "round": self.round_index + 1})
+        self._continue_after_offer()
+
+    def _continue_after_offer(self) -> None:
         if len(self._remaining_values()) == 1:
             self.payout = self._values[self.chosen_case]  # type: ignore[index]
             self.phase = "finished"
-            self.result = {"kind": "kept_case", "payout": self.payout, "chosenCase": self.chosen_case}
-            self.history.append({"kind": "case_payout", "caseId": self.chosen_case, "value": self.payout})
+            self.result = {
+                "kind": "kept_case",
+                "payout": self.payout,
+                "chosenCase": self.chosen_case,
+            }
+            self.history.append(
+                {
+                    "kind": "case_payout",
+                    "caseId": self.chosen_case,
+                    "value": self.payout,
+                }
+            )
             return
         self.round_index += 1
         self.opened_this_round = 0
         self.current_offer = None
+        self._counter_ceiling = None
         self.phase = "opening"
 
     def _remaining_values(self) -> tuple[float, ...]:
@@ -306,6 +367,7 @@ class CaseGameSession:
                 "expectedValue": analysis.expected_value,
                 "standardDeviation": analysis.standard_deviation,
                 "certaintyEquivalent": analysis.certainty_equivalent,
+                "riskAdjustedValue": max(0.0, analysis.certainty_equivalent),
                 "offerRatio": analysis.offer_to_expected_value,
                 "chanceToBeatOffer": analysis.probability_case_beats_offer,
                 "reservationRecommendation": analysis.reservation_recommendation,
@@ -331,6 +393,16 @@ class CaseGameSession:
             "openedThisRound": self.opened_this_round,
             "opensRemaining": max(0, target - self.opened_this_round),
             "offer": self.current_offer,
+            "counterOfferUsed": self.counter_offer_used,
+            "counterOfferAvailable": self.phase == "offer" and not self.counter_offer_used,
+            "suggestedCounterOffer": (
+                round(
+                    min(metrics["expectedValue"] * 0.95, self.current_offer * 1.05),
+                    2,
+                )
+                if metrics and self.current_offer is not None and not self.counter_offer_used
+                else None
+            ),
             "isFinalOffer": self.phase == "offer" and len(remaining_prizes) == 1,
             "metrics": metrics,
             "payout": self.payout,
@@ -340,7 +412,8 @@ class CaseGameSession:
             "legalActions": {
                 "choose": ["choose_case"],
                 "opening": ["open_case"],
-                "offer": ["deal", "no_deal"],
+                "offer": ["deal", "no_deal"]
+                + ([] if self.counter_offer_used else ["counter_offer"]),
                 "finished": [],
             }[self.phase],
         }
