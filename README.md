@@ -7,6 +7,24 @@
 
 ## Updates 08/18/2026
 
+- **First executable benchmark slice** — Connected Guess Who to the unified
+  agent contract through a small reusable episode runner, a proved-optimal
+  algorithmic oracle, and an auditable `aip-benchmark-trace-v0` JSON export.
+  Traces contain observations, information states, legal actions, beliefs,
+  choices, confidence, public outcomes, and scores without private reasoning
+  text or pre-decision secret leakage.
+- **Exact policy and belief scoring** — Every decision now reports tied-optimum
+  policy agreement, exact continuation regret, multiclass Brier score, log
+  loss, true-state probability, candidate-support mass, and realized
+  information gain, plus resolved prior bits per question as information
+  efficiency. Missing belief outputs remain explicitly unscored.
+- **Proof boundary made explicit** — Benchmark guesses become legal only after
+  one candidate remains. This matches the dynamic-programming proof model and
+  avoids incorrectly calling the web variant's early-guess action space proved
+  optimal.
+- **Exhaustive oracle baseline** — Across all 24 secrets, the oracle solved 100%
+  in 5.6667 mean turns (worst case 6), with 100% exact-policy agreement and zero
+  action regret. [Read the executable-slice analysis](research/guess_who_benchmark_slice_2026-08-18.md).
 - **Cross-game benchmark direction** — Reframed AIP around one research
   question: whether a general strategic-reasoning agent can transfer reusable
   principles across heterogeneous imperfect-information games. Environment
@@ -26,7 +44,7 @@
   dependency-free agent input/output contract, legal-action and belief
   validation, capability/evidence enums, and a version-controlled environment
   catalog. No new game or unrelated web feature was added.
-- **Regression coverage** — All 173 Python tests and 11 public-engine/build tests
+- **Regression coverage** — All 180 Python tests and 11 public-engine/build tests
   pass, including six new contract, calibration, evidence-level, and holdout
   checks.
 
