@@ -22,6 +22,8 @@ let investmentFraction = 0.25;
 let activeOperation = null;
 let toastTimer = null;
 let routeReady = false;
+let wormDisclosure = 0;
+let blackjackPracticeMode = readPreference("aip-blackjack-mode") === "practice";
 
 const gameViews = {
   cases: "gameView",
@@ -69,7 +71,8 @@ const copy = {
     restartSession: "重新开始实验", netUnits: "净收益单位", record: "胜 / 负 / 和",
     strategyAccuracy: "基础策略吻合率", dealer: "庄家", basicStrategyAi: "基础策略 AI",
     letAiPlay: "让 AI 执行这一步", decisionAudit: "决策审计",
-    blackjackScope: "此建议针对六副牌、软 17 停牌、不可分牌/投降/保险且不计牌的动作集合。改变规则或利用牌靴构成后，最优动作可能改变。",
+    blackjackScope: "当前可操作：要牌、停牌、加倍。当前版本尚未开放分牌、投降和保险；基础策略只在六副牌、庄家软 17 停牌且不计牌的规则内成立。",
+    blackjackNormalMode: "普通模式", blackjackPracticeMode: "练习模式",
     liarEyebrow: "CASE 13 · 隐藏骰子与公开信号 · 较难", liarTitle: "骗子骰子", liarRound: "回合",
     opponentDice: "对手隐藏骰子", yourDice: "你的骰子", aiHiddenDice: "AI 的隐藏骰子",
     currentBid: "当前公开叫价", quantity: "数量", face: "点数", raiseBid: "加注", challengeBid: "质疑叫价",
@@ -102,12 +105,15 @@ const copy = {
     prizePool: "奖金池", round: "回合", decisionPanel: "决策仪表",
     emptyInsight: "银行家报价后，这里会显示期望值、风险和模型建议。",
     gameHistory: "博弈记录", liveChecks: "实时检查次数", possiblePositions: "仍可能的位置",
-    strategyHint: "保证策略提示", guaranteedSequence: "保证抓捕序列",
+    strategyHint: "解法帮助", guaranteedSequence: "保证抓捕答案", showHint: "显示提示", showAnswer: "查看答案",
+    wormAnswerLocked: "答案默认隐藏，先独立尝试；需要时再主动揭示。",
     wormStrategyCopy: "只要从第一步开始严格执行该序列，即使虫子选择最不利的移动，也能在序列结束前抓到。",
     searchHistory: "搜索记录", availableGold: "可分配金币", votesNeeded: "通过所需票数",
     unallocated: "尚未分配", yourProposal: "你的提案", submitProposal: "提交提案并投票",
     pirateInstruction: "你是最资深的 A。为每名海盗分配金币，然后让所有人同时投票。",
     backwardBenchmark: "逆向归纳基准", bankerOffer: "银行家报价", acceptOffer: "接受报价",
+    counterOfferLabel: "你的一次议价金额", counterOfferButton: "讨价还价一次", counterOfferHelp: "银行家接受则立即成交；拒绝则自动继续开箱，且本局不能再次议价。",
+    offerRemainingValues: "仍可能留在保留箱中的金额",
     rejectOffer: "拒绝，继续开箱", operationFailed: "操作失败", operationPending: "正在处理，请稍候…",
     connectionFailed: "连接暂时失败，请检查网络后重试。", invalidResponse: "页面收到异常响应，请刷新后重试。",
     sessionExpired: "这局临时游戏已经过期，请重新开始。",
@@ -139,7 +145,8 @@ const copy = {
     restartSession: "Restart session", netUnits: "Net units", record: "Win / Loss / Push",
     strategyAccuracy: "Basic-strategy match", dealer: "Dealer", basicStrategyAi: "Basic-strategy AI",
     letAiPlay: "Let AI take this action", decisionAudit: "Decision audit",
-    blackjackScope: "This advice is scoped to six decks, dealer standing on soft 17, no split/surrender/insurance, and no card counting. Change the rules or use shoe composition and the optimal action may change.",
+    blackjackScope: "Available actions: Hit, Stand, and Double. Split, Surrender, and Insurance are not yet implemented. Basic strategy is scoped to six decks, dealer standing on soft 17, and no card counting.",
+    blackjackNormalMode: "Normal mode", blackjackPracticeMode: "Practice mode",
     liarEyebrow: "CASE 13 · HIDDEN DICE & PUBLIC SIGNALS · HARD", liarTitle: "Liar's Dice", liarRound: "Round",
     opponentDice: "Opponent hidden dice", yourDice: "Your dice", aiHiddenDice: "AI hidden dice",
     currentBid: "Current public bid", quantity: "Quantity", face: "Face", raiseBid: "Raise", challengeBid: "Challenge",
@@ -172,12 +179,15 @@ const copy = {
     prizePool: "Prize board", round: "Round", decisionPanel: "Decision dashboard",
     emptyInsight: "Expected value, risk, and model guidance appear after the banker's offer.",
     gameHistory: "Game history", liveChecks: "Live check count", possiblePositions: "Possible positions",
-    strategyHint: "Guaranteed-strategy hint", guaranteedSequence: "Guaranteed capture sequence",
+    strategyHint: "Solution help", guaranteedSequence: "Guaranteed-capture answer", showHint: "Show hint", showAnswer: "Reveal answer",
+    wormAnswerLocked: "The answer is hidden by default. Try independently, then reveal it only if needed.",
     wormStrategyCopy: "Follow this sequence from the first move and even a worst-case worm must be caught before it ends.",
     searchHistory: "Search history", availableGold: "Gold available", votesNeeded: "Votes required",
     unallocated: "Unallocated", yourProposal: "Your proposal", submitProposal: "Submit proposal and vote",
     pirateInstruction: "You are A, the most senior pirate. Allocate gold to every pirate, then call a simultaneous vote.",
     backwardBenchmark: "Backward-induction benchmark", bankerOffer: "Banker's offer", acceptOffer: "Deal",
+    counterOfferLabel: "Your one counter-offer", counterOfferButton: "Negotiate once", counterOfferHelp: "If accepted, the deal closes immediately. If rejected, play continues and bargaining is gone for this game.",
+    offerRemainingValues: "Values still possible in your kept case",
     rejectOffer: "No deal — keep opening", operationFailed: "Action failed", operationPending: "Working…",
     connectionFailed: "Connection failed. Check your network and try again.", invalidResponse: "The page received an invalid response. Refresh and try again.",
     sessionExpired: "This temporary game has expired. Please start a new game.",
@@ -230,13 +240,13 @@ const difficultyCopy = {
 
 const rulesCopy = {
   zh: {
-    cases: ["目标：在 26 个箱子中尽可能拿到高奖金。", "先点击任意一个箱子作为你的保留箱；之后不要再打开它。", "按页面提示点击指定数量的其他箱子，打开后会显示金额。完成本轮后银行家报价。", "报价出现时点击“接受报价”立即结束并领取报价；点击“拒绝，继续开箱”则进入下一轮。", "坚持到最后会拿到保留箱里的金额；右侧的期望值、风险和建议只是辅助，不会替你操作。"],
-    worm: ["目标：在虫子逃走前抓到它。五个洞按 1–5 排成一行。", "每回合点击一个洞进行检查；点击正确位置就立即成功。", "如果没抓到，虫子会移动到相邻洞，系统随后更新“仍可能的位置”。", "这是最坏情况模式，不靠随机运气；点击“保证抓捕序列”中下一个洞，才能保证最终抓到。"],
+    cases: ["目标：在 26 个箱子中尽可能拿到高奖金。", "先点击任意一个箱子作为你的保留箱；之后不要再打开它。", "按页面提示点击指定数量的其他箱子；刚打开的金额会保留在报价窗口中，方便判断奖池变好还是变差。", "银行家报价始终低于剩余金额的算术期望。你可以接受、拒绝，或在整局中使用一次议价；议价被拒后会自动继续开箱。", "若所有报价都拒绝，坚持到最后会自动打开保留箱，并明确显示最终所得金额。"],
+    worm: ["目标：在最坏情况下也抓到不断移动的虫子。五个洞按 1–5 排成一行。", "每回合点击一个洞检查；若未抓到，虫子必须立刻移动到相邻洞。", "观察“仍可能的位置”和奇偶节奏，自行设计检查顺序。", "具体提示和完整答案默认隐藏；卡住时再点击“显示提示”或“查看答案”。"],
     pirates: ["目标：让你的提案获得足够票数，并让海盗 A 活下来。", "在每个海盗的金币输入框中填整数，所有分配之和必须正好等于 100。", "点击“提交提案并投票”。每名海盗会比较你的报价与否决后按逆向归纳得到的金币/生存结果。", "达到页面显示的赞成票数就通过；否则 A 被处决，系统展示实际结果和理论最优方案。"],
     "kuhn-poker": ["目标：在连续牌局中赢得更多净筹码。你和 AI 从 J、Q、K 中各拿一张未知于对方的牌，并各投入 1 枚底注。", "轮到你时可点击“过牌”或“下注”；下注会额外投入 1 枚。若一方过牌，对方仍可下注。", "面对下注时只能“跟注”或“弃牌”：弃牌立即损失底注；跟注再投入 1 枚并亮牌，K > Q > J。", "下一局交换先后手。AI 使用精确混合均衡：弱牌偶尔诈唬，中牌是否跟注会随先后手改变，所以应结合自己的牌、位置和公开行动判断。"],
     "e-card": ["目标：利用特殊牌的循环克制关系赢得高分。你和 AI 各有 1 张特殊牌与 4 张市民牌。", "点击手中的一张牌，双方会同时出牌，AI 的选择在揭示前保持隐藏。", "皇帝击败市民，市民击败奴隶，奴隶击败皇帝；奴隶获胜通常得到更高收益。", "市民对市民不会结束本轮，两张牌会被消耗后继续；特殊牌相遇则按克制关系结束本轮。"],
     "restricted-rps": ["目标：在有限库存耗尽前赢得更多回合。你和 AI 各有相同数量的石头、剪刀、布。", "点击一张仍有库存的手势牌；双方同时出牌，使用过的牌永久减少。", "石头胜剪刀，剪刀胜布，布胜石头；相同手势为平局。双方库存和历史都会公开。", "库存全部用完后比赛结束。赛后复盘会比较实际频率、均衡支持集和 AI 的针对权重；单场输赢仍会受到随机出牌影响。"],
-    blackjack: ["目标：让自己的点数尽量接近 21，但超过 21 就爆牌并立即输。", "A 可算 1 或 11；J/Q/K 算 10。开始时你会看到两张手牌和庄家的一张明牌。", "点击“要牌”再拿一张；点击“停牌”结束行动；首轮可点击“加倍”并只再拿一张。", "庄家随后按固定规则补牌（软 17 停牌），最后比较点数；黑杰克按页面规则结算。右侧可让 AI 执行基础策略建议。"],
+    blackjack: ["目标：让自己的点数尽量接近 21，但超过 21 就爆牌并立即输。", "A 可算 1 或 11；J/Q/K 算 10。开始时你会看到两张手牌和庄家的一张明牌。", "普通模式不会提前揭示建议；练习模式会在每次操作后判断是否符合基础策略并告诉你正确动作。", "当前可点击要牌、停牌，以及仅首个决定可用的加倍。庄家按软 17 停牌；分牌、投降和保险尚未开放。"],
     "liars-dice": ["目标：判断公开叫价是真实还是虚张声势，并在质疑中赢下本轮。", "你能看到自己的骰子，但看不到 AI 的骰子。叫价“数量 × 点数”表示全桌至少有这么多个该点数。", "点击“加注”提交更高的数量，或在数量相同时提交更高点数；1 点对 2–6 点是万能牌。", "如果你认为上一口不可信，点击“质疑”。系统揭示全部骰子并根据实际数量判定胜负。"],
     mastermind: ["目标：在 10 次尝试内破解 AI 隐藏的四位密码。密码从 0–9 中选择四个不同数字，共有 5,040 种可能。", "输入恰好四个不同数字，例如 0123；首位可以是 0。点击“提交猜测”后才能得到反馈。", "“位置正确”表示数字和位置都对；“数字正确但位置不同”表示数字存在但放错位置。反馈只给数量，不指出具体是哪一位。", "观察每轮排除的候选数并继续推理。你可以完全自己猜，也可以点击“采用 AI 建议”复制 minimax 建议，再提交。", "得到 4 个位置正确即获胜。连续完成多局后，页面会计算你的成功局平均步数与最佳成绩。"],
     "guess-who": ["目标：在 8 回合内找出 AI 从 24 张公开角色卡中秘密选中的人。", "先查看角色特征，再点击一个仍能切分候选集的是非问题；按钮会预告回答“是”和“否”各剩多少人。", "AI 只回答“是”或“否”。不符合答案的角色会变暗，信息集和最优建议会立即更新。", "要猜身份时，先点击一张仍亮起的角色卡，再点击“确认猜测”。猜错会消耗一回合并排除该角色，猜对即获胜。", "“执行 AI 建议”会采用固定角色表与问题库下经过动态规划证明的最小期望策略；候选唯一时，它会执行最终猜测。"],
@@ -247,13 +257,13 @@ const rulesCopy = {
     goofspiel: ["目标：四轮结束后赢得比 AI 更多的奖牌分数。", "你和 AI 各有数值 1–4 的四张竞价牌；奖牌 1–4 随机排序，每轮只揭晓当前奖牌。", "点击一张尚未使用的竞价牌后，你和 AI 同时揭晓选择。出牌前看不到 AI 本轮选了什么。", "较大的竞价牌赢得当前奖牌对应的分数；相同则奖牌作废。双方使用过的竞价牌都会永久移除并公开。", "四张牌全部用完后比较总分。赛后复盘会检查每轮选择在当时均衡中的概率，而不是仅凭最终输赢评价策略。"],
   },
   en: {
-    cases: ["Goal: maximize your payout from 26 cases.", "Click one case to keep; never open it afterward.", "Open the number of other cases shown on screen. The banker then makes an offer.", "Choose Deal to end for the offer, or No Deal to continue. If you reach the end, you receive the kept case's value."],
-    worm: ["Goal: catch the worm. Five holes are arranged from 1 to 5.", "Check one hole per turn. A correct check catches it immediately.", "After a miss, the adversary moves to a neighboring hole and the possible-position panel updates.", "This is worst-case play, so follow the guaranteed sequence rather than relying on luck."],
+    cases: ["Goal: maximize your payout from 26 cases.", "Click one case to keep; never open it afterward.", "Open the required cases; the latest revealed values remain visible while you assess the offer.", "Every banker offer is below the remaining arithmetic mean. Deal, continue, or spend your one counter-offer; rejection automatically continues play.", "Reject every offer and the kept case is revealed with a clear final payout."],
+    worm: ["Goal: catch the moving worm even under worst-case play. Five holes are arranged from 1 to 5.", "Check one hole per turn. After a miss, the worm must immediately move to a neighbor.", "Watch the possible-position set and reason about alternating parity as you build a search rhythm.", "The specific hint and full answer are hidden by default; reveal either only when you want help."],
     pirates: ["Goal: pass your proposal and keep pirate A alive.", "Enter integer gold allocations totaling exactly 100, then submit the proposal.", "Each pirate compares your offer with the continuation payoff after A's execution.", "If enough votes support the proposal it passes; otherwise A is executed and the benchmark is shown."],
     "kuhn-poker": ["Goal: win more net chips over repeated hands. You and the AI each receive one private card from J, Q, and K, then ante 1.", "On your turn choose Check or Bet; a bet adds 1. After a check, the other player may still bet.", "Facing a bet, choose Call or Fold. Folding loses the ante; calling adds 1 and reveals both cards. K beats Q, which beats J.", "First position alternates each hand. The AI uses an exact mixed equilibrium: weak cards sometimes bluff and a middle-card call depends on position, so read your card, seat, and the public action history together."],
     "e-card": ["Goal: exploit the asymmetric special-card cycle. Each side holds one special card and four citizens.", "Click one card; both sides reveal simultaneously.", "Emperor beats Citizen, Citizen beats Slave, and Slave beats Emperor. Slave wins pay more.", "Citizen versus Citizen consumes both cards and continues the round."],
     "restricted-rps": ["Goal: win more rounds before your finite inventory runs out.", "Click an available Rock, Paper, or Scissors card; both choices are simultaneous and the card is consumed.", "Rock beats Scissors, Scissors beats Paper, and Paper beats Rock. Equal moves draw.", "The post-match review compares your frequencies, equilibrium support, and the AI's exploit weight. One match still contains variance from randomized play."],
-    blackjack: ["Goal: approach 21 without going over.", "A counts as 1 or 11; face cards count as 10. You see your hand and the dealer upcard.", "Choose Hit, Stand, or Double (first decision only). The dealer then follows the fixed soft-17 rule.", "Compare the final totals; the strategy panel can execute the basic-strategy recommendation."],
+    blackjack: ["Goal: approach 21 without going over.", "A counts as 1 or 11; face cards count as 10. You see your hand and the dealer upcard.", "Normal mode keeps advice out of the way. Practice mode grades every decision and reveals the basic-strategy action afterward.", "Choose Hit, Stand, or Double on the first decision. The dealer stands on soft 17; Split, Surrender, and Insurance are not yet available."],
     "liars-dice": ["Goal: identify a bluff and win the round.", "You see your dice only. A bid Quantity × Face claims at least that many matching dice across both hands.", "Raise quantity, or raise face at equal quantity; ones are wild for faces 2–6.", "Challenge the current bid to reveal all dice and settle the round."],
     mastermind: ["Goal: crack a four-digit hidden code in ten attempts. It uses four distinct digits from 0–9, creating 5,040 possible worlds.", "Enter exactly four different digits, such as 0123. A leading zero is valid, then submit.", "Exact means right digit and position; misplaced means a right digit in the wrong position. Counts never identify the individual digits.", "Reason independently or copy the bounded-minimax AI suggestion. Each history row shows how many candidates that experiment removed.", "Four exact positions win. Across solved rounds, the page tracks your average and best attempt count."],
     "guess-who": ["Goal: identify the AI's secret person from 24 public character cards within eight turns.", "Inspect the traits, then ask a yes/no question that still splits the candidate set. Each button previews how many people remain after Yes and No.", "The AI answers truthfully. Inconsistent cards dim immediately, and both the information set and exact recommendation update.", "To name the person, select a bright card and press Confirm guess. A wrong guess costs one turn and eliminates that card; a correct guess wins.", "Take AI advice uses a dynamic-programming policy proven to minimize expected turns for this fixed roster and question bank. When one candidate remains, it makes the final guess."],
@@ -267,13 +277,13 @@ const rulesCopy = {
 
 const ruleDetails = {
   zh: {
-    cases: { role: "你是一名电视游戏参赛者。26 个箱子里分别装着从极小到一百万不等的奖金，但你看不到每个箱子的金额。你要一边排除金额，一边决定是否接受银行家的现金报价。", example: "例：你保留了 7 号箱，本轮打开 3 号箱并发现里面是 1 元。1 元从奖金池消失，说明你的保留箱更不可能是低额。完成规定开箱数后，银行家可能报价 80,000 元；接受就拿 80,000 元离场，拒绝就继续冒险。", finish: "接受任意一次银行家报价时立即结束；若一直拒绝，就在最后打开保留箱并获得其中金额。这里没有唯一正确答案——保守玩家可能早接受，愿意冒险的玩家可能继续。", terms: "保留箱＝你最初选中、暂时不打开的箱子；剩余期望值＝所有未揭晓金额的平均数；报价/期望值越高，银行家的条件通常越有吸引力。" },
-    worm: { role: "你是搜捕者，虫子是会主动躲避你的对手。你看不到它在哪个洞，只能根据它每次必须移动到相邻洞的规则推理。", example: "例：你检查 2 号洞但没抓到。虫子此前若在 1 号，只能移到 2 号；若在 3 号，可移到 2 或 4。系统会把仍然可能的洞显示出来。", finish: "当你检查的洞覆盖虫子所有仍合法的可能位置时，保证抓捕成功。乱点可能永远抓不到；从第一步严格执行页面给出的 2→3→4→2→3→4，可以在五洞规则下保证成功。", terms: "可能位置＝根据所有历史记录，虫子现在仍可能所在的洞；保证策略＝无论虫子怎样选择合法移动都能成功的检查顺序。" },
+    cases: { role: "你是一名电视游戏参赛者。26 个箱子里分别装着从极小到一百万不等的奖金，但你看不到每个箱子的金额。你要一边排除金额，一边决定是否接受银行家的现金报价。", example: "例：你保留了 7 号箱，本轮打开 3 号箱并发现里面是 1 元。报价窗口会保留刚揭晓金额、全部剩余金额和剩余价值期望。你也可以把整局唯一一次议价用在这一轮，但若银行家拒绝，就必须继续开箱。", finish: "接受报价或议价成功时立即结算；若一直拒绝，就在最后打开保留箱并明确显示最终金额。这里没有唯一正确风险偏好。", terms: "保留箱＝最初选中且暂不打开的箱子；剩余价值期望＝所有未揭晓金额的算术平均；风险调整参考值最低按 0 显示，不会再出现难以解释的负金额。" },
+    worm: { role: "你是搜捕者，虫子是会主动躲避你的对手。你看不到它在哪个洞，只能根据它每次必须移动到相邻洞的规则推理。", example: "例：你检查 2 号洞但没抓到。虫子此前若在 1 号，只能移到 2 号；若在 3 号，可移到 2 或 4。系统会把仍然可能的洞显示出来。", finish: "当你检查的洞覆盖虫子所有仍合法的可能位置时，保证抓捕成功。乱点可能永远抓不到；具体提示和完整答案默认隐藏，只有主动点击相应按钮才会揭示。", terms: "可能位置＝根据全部历史仍合法的位置；奇偶节奏＝虫子每移动一步就会在奇数洞与偶数洞之间切换；保证策略＝面对任何合法逃法都能成功的顺序。" },
     pirates: { role: "你扮演最资深海盗 A。规则是：A 提出如何分 100 枚金币，所有海盗投票；若票数不足，A 被处决，下一位海盗重新提案。每个人都知道之后会发生什么。", example: "例：如果海盗 C 在 A 死后能得到 1 枚金币，那么给 C 仍然只有 1 枚通常买不到他的票；给 2 枚才比他的后续结果更好。也可以收买那些 A 死后会一无所有的人。", finish: "分配总和恰好为 100 后提交。赞成票达到页面要求，A 存活并按提案分金币；票数不足则 A 死亡，页面展示后续结果。你的核心任务是用尽量少的金币买到足够票数。", terms: "逆向归纳＝先算只剩最后几名海盗时会怎样，再一步步倒推到现在；延续收益＝否决当前提案后，该海盗预计能否存活以及能拿多少金币。" },
     "kuhn-poker": { role: "这是把扑克压缩到三张牌的练习。你只知道自己的牌，不知道 AI 的牌；下注既可能代表强牌，也可能是拿弱牌诈唬。", example: "例：你拿 Q，AI 下注。AI 可能拿 K 认真下注，也可能拿 J 诈唬。跟注要再投入 1 枚并亮牌；弃牌会损失已投入的底注，但避免继续亏损。", finish: "一方弃牌或双方完成过牌/跟注后，本局结束并结算筹码。连续多局比较净筹码；同一个 AI 动作不一定对应同一张牌。", terms: "过牌＝不加钱，把行动交给对方；下注＝额外投入 1；跟注＝支付同样金额并要求亮牌；诈唬＝弱牌下注，希望对手弃牌。" },
     "e-card": { role: "你和 AI 轮流扮演皇帝方与奴隶方。皇帝通常强，但奴隶能击败皇帝且回报更高，因此双方都要猜特殊牌会在哪一次出现。", example: "例：你是奴隶方，前两次先出市民试探。若 AI 也出市民，两张市民消耗后继续。你第三次出奴隶，若 AI 此时出皇帝，你将以弱胜强获得高分；若 AI 出市民，你会输。", finish: "出现非市民平局的胜负关系时，本轮结束并计分，然后双方交换阵营开始下一轮。重点不是只看单张强弱，而是推测对方何时使用唯一的特殊牌。", terms: "皇帝＞市民、 市民＞奴隶、奴隶＞皇帝；特殊牌＝皇帝或奴隶；市民相撞＝平局并消耗双方各一张市民。" },
     "restricted-rps": { role: "这是有库存的猜拳。普通猜拳每轮都能随便出，但这里每种手势只有有限张；你刚才用掉什么，会改变后面还能怎么出。", example: "例：你只剩 1 石头、0 剪刀、2 布，AI 能看到这个库存，所以知道你不可能出剪刀。你仍需在石头和布之间随机选择，避免行为过于容易预测。", finish: "双方所有手势卡用完后结束，胜局多的一方获胜。每轮后可以看公开库存、均衡建议和 AI 对你历史偏好的分析。", terms: "库存＝每种手势还可使用几次；均衡建议＝即使对手知道你的概率，也难以稳定利用你的随机方案；适应＝AI 根据你过去偏爱哪种手势调整。" },
-    blackjack: { role: "你是玩家，与按固定规则行动的庄家比较点数。你看得到庄家一张明牌，但看不到他的底牌，因此每次要牌都在不完全信息下承担爆牌风险。", example: "例：你有 10+6=16 点，庄家明牌是 10。停牌很可能输给庄家较高点数；要牌可能改善手牌，也可能抽到 6 以上直接爆牌。页面的基础策略会告诉你在长期统计下哪种动作损失更小。", finish: "你爆牌时立即输；你停牌或加倍后庄家自动补牌，最后不爆牌且更接近 21 的一方获胜，同点为和局。每局结束后点击下一局。", terms: "要牌＝再抽一张；停牌＝不再抽；加倍＝赌注翻倍且只抽一张；软牌＝有 A 暂时按 11 计算的手牌；爆牌＝超过 21。" },
+    blackjack: { role: "你是玩家，与按固定规则行动的庄家比较点数。普通模式保留决策压力；练习模式会在每次操作后对照基础策略给出反馈。", example: "例：你有 10+6=16 点，庄家明牌是 10。练习模式会在你选择后说明该操作是否匹配基础策略，并显示这个规则集下建议的动作。", finish: "你爆牌时立即输；你停牌或加倍后庄家自动补牌，最后不爆牌且更接近 21 的一方获胜，同点为和局。当前完整可用动作是要牌、停牌和加倍；分牌、投降、保险尚未实现。", terms: "要牌＝再抽一张；停牌＝不再抽；加倍＝赌注翻倍且只抽一张；软牌＝有 A 暂时按 11 计算的手牌；基础策略最优性只适用于页面注明的固定规则。" },
     "liars-dice": { role: "你和 AI 各有五颗隐藏骰子。双方看不到对方点数，只能通过越来越高的公开叫价传递信息或诈唬。", example: "例：你手里有两个 4 和一个 1。因为 1 是万能牌，你已知道全桌至少有三个可算作 4。叫“3×4”很安全；AI 若叫到“7×4”，你需要判断它真的有很多 4，还是在虚张声势。", finish: "当任一方质疑时揭开所有骰子。实际匹配数量达到叫价，质疑者输；数量不足，最后叫价者输。赢一轮得 1 分，可继续开始下一轮。", terms: "叫价 3×4＝声称全桌至少有三个 4（包括可作万能牌的 1）；加注＝提高数量，或数量不变时提高点数；质疑＝认为当前叫价不成立。" },
     mastermind: { role: "这是经典 Bulls and Cows（几A几B）数字推理。AI 从 0–9 中秘密选择四个不重复数字，包括 0123 这样的前导零密码。你看到的不是答案，而是逐轮反馈形成的信息集。", example: "例：答案假设为 0-3-5-6，你猜 0-2-6-4。数字 0 的位置也正确，因此位置正确为 1；数字 6 存在但位置错误，因此错位正确为 1；2 和 4 不在密码中。", finish: "十次之内得到 4 个位置正确即获胜；十次仍未破解则答案揭晓。建议策略最小化下一轮最大的反馈分组，再比较平均剩余候选；它是强而快速的单步 minimax 启发式，不是已经证明的全局最少平均步数策略。", terms: "候选数量＝与全部历史反馈一致的密码数；信息集＝你当前无法区分的所有候选；最坏剩余＝采用该建议后，无论收到哪种反馈，最大反馈分组的大小。" },
     "guess-who": { role: "AI 秘密选择一张身份卡，但所有人的外貌属性和全部问题都公开。你的任务不是靠运气点人，而是利用每次公开的是非答案系统地缩小信息集。", example: "例：还剩 Ada、Bruno、Cleo、Dante 四人，其中两人戴眼镜。提问“是否戴眼镜？”无论答案是什么都只剩两人，因此是 2/2 的平衡切分；4/0 的问题则完全没有信息。", finish: "确认正确身份立即获胜；错误身份会被排除但消耗一回合。第 8 回合仍未猜中则失败并揭晓答案。精确策略在当前固定模型中平均 5.667 回合、最坏 6 回合。", terms: "候选＝与所有公开答案一致的人；信息分割＝问题把候选分成“是/否”两组；期望剩余＝按两种回答概率加权后的平均候选数；精确最优只针对本页固定角色与问题库。" },
@@ -284,13 +294,13 @@ const ruleDetails = {
     goofspiel: { role: "这是一个同时行动的有限手牌竞价游戏。奖牌价值公开，但双方本轮用哪张牌在提交前互相隐藏；高牌不一定应该立刻用在高奖牌上，因为剩余库存决定后续威胁。", example: "例：本轮奖牌为 3，你剩 1、3、4，AI 剩 1、2、4。出 4 几乎能确保 3 分，却会失去以后压制 AI 的最高牌；出 3 可能保留 4，但要承担 AI 也出 4 的风险。", finish: "每轮揭晓双方竞价牌并结算奖牌，平局奖牌作废。四轮后总分高者获胜，同分为和局。", terms: "当前奖牌＝本轮可争夺分数；竞价牌＝每张整场只能使用一次；混合策略＝按多个概率随机选择，使对手无法稳定利用你的规律；未来价值＝从当前状态开始、双方最优时你的预期分差。" },
   },
   en: {
-    cases: { role: "You are a TV-game contestant. Twenty-six cases hide prizes from tiny amounts to one million. You eliminate prizes and decide whether to accept the banker's cash offer.", example: "Example: you keep case 7 and open case 3, revealing $1. That prize leaves the board. After the required openings, an $80,000 offer means you can leave with $80,000 or reject it and keep risking your hidden case.", finish: "The game ends when you accept an offer, or when you reject every offer and receive the value in your kept case. There is no single correct risk preference.", terms: "Kept case: your unopened original choice. Expected value: the average of unrevealed prizes. A higher offer-to-EV ratio is usually more attractive." },
-    worm: { role: "You are the searcher; the worm actively avoids capture. You cannot see it and must reason from the rule that every miss forces it to move to a neighboring hole.", example: "Example: after you miss at hole 2, a worm formerly at 1 can only move to 2, while one at 3 may move to 2 or 4. The possible-position display updates these paths.", finish: "Capture is guaranteed only when your check covers every remaining legal location. For five holes, following 2→3→4→2→3→4 from the start guarantees success.", terms: "Possible positions are locations consistent with all history. A guaranteed strategy succeeds against every legal movement choice." },
+    cases: { role: "You are a TV-game contestant. Twenty-six cases hide prizes from tiny amounts to one million. You eliminate prizes and decide whether to accept the banker's cash offer.", example: "After a reveal, the offer window keeps the latest values, every remaining value, and their arithmetic mean visible. You may spend the game's only counter-offer now; rejection forces play to continue.", finish: "A deal or accepted counter settles immediately. Reject everything and the kept case is revealed with a clear final payout.", terms: "Expected remaining value is the arithmetic mean of unrevealed prizes. The risk-adjusted reference is floored at zero so the UI never presents a confusing negative currency amount." },
+    worm: { role: "You are the searcher; the worm actively avoids capture. You cannot see it and must reason from the rule that every miss forces it to move to a neighboring hole.", example: "Example: after you miss at hole 2, a worm formerly at 1 can only move to 2, while one at 3 may move to 2 or 4. The possible-position display updates these paths.", finish: "Capture is guaranteed only when your check covers every remaining legal location. The specific hint and complete sequence remain hidden until you deliberately reveal them.", terms: "Possible positions fit all history. Parity flips after every mandatory move. A guaranteed strategy wins against every legal escape path." },
     pirates: { role: "You are senior pirate A. You propose how to split 100 coins. If the vote fails, A dies and the next pirate proposes, so everyone compares the present offer with that future outcome.", example: "Example: if C expects 1 coin after A dies, offering C 1 is normally insufficient; 2 is better than C's continuation payoff and can buy the vote.", finish: "Submit allocations totaling exactly 100. Enough yes votes pass the plan and keep A alive; otherwise A dies. Your challenge is buying enough votes as cheaply as possible.", terms: "Backward induction solves later councils first and works back. Continuation payoff is a pirate's expected survival and gold after rejection." },
     "kuhn-poker": { role: "This is poker reduced to J, Q, and K. You know your card but not the AI's; a bet can signal strength or be a bluff with a weak card.", example: "Example: you hold Q and the AI bets. It may hold K for value or J as a bluff. Calling pays 1 more to reveal; folding loses the ante but avoids further loss.", finish: "A fold or completed check/call sequence ends the hand and settles chips. Play repeated hands and track net chips.", terms: "Check passes without paying. Bet adds 1. Call matches the bet and shows cards. Bluff means betting weak to induce a fold." },
     "e-card": { role: "You and the AI alternate Emperor and Slave sides. Emperor is usually strong, but Slave beats Emperor for a larger reward, so timing the unique special card is the central decision.", example: "Example: as Slave, you spend citizens on early probes. If you play Slave exactly when the AI commits Emperor, you score the upset; against Citizen, Slave loses.", finish: "A decisive non-citizen tie outcome ends and scores the round, then roles swap. Track which cards were consumed and infer when the AI will commit its special card.", terms: "Emperor beats Citizen; Citizen beats Slave; Slave beats Emperor. Citizen versus Citizen consumes both and continues." },
     "restricted-rps": { role: "This is Rock-Paper-Scissors with limited cards. Every move you spend changes what remains possible later, and both inventories are public.", example: "Example: with 1 Rock, 0 Scissors, and 2 Paper left, the AI knows Scissors is impossible. Randomizing between Rock and Paper keeps your choice less predictable.", finish: "The match ends when all cards are used; more round wins takes the match. Review inventory, equilibrium guidance, and AI adaptation after each reveal.", terms: "Inventory is remaining uses. Equilibrium guidance is a mixture that is hard to exploit. Adaptation is the AI reacting to your historical bias." },
-    blackjack: { role: "You compare your hand with a fixed-rule dealer. You see one dealer card but not the hole card, so Hit and Stand decisions trade improvement against bust risk.", example: "Example: you have 16 against a dealer 10. Standing often loses to a stronger dealer total; hitting may improve the hand or bust. Basic strategy identifies the better long-run action.", finish: "Bust loses immediately. After you stand or double, the dealer draws automatically; the higher non-bust total wins and equal totals push.", terms: "Hit: draw. Stand: stop. Double: double the stake and draw once. Soft hand: an Ace currently counted as 11. Bust: exceed 21." },
+    blackjack: { role: "You compare your hand with a fixed-rule dealer. Normal mode preserves the decision challenge; Practice mode grades each completed action against basic strategy.", example: "With 16 against a dealer 10, Practice mode waits for your choice, then explains whether it matched the rule-scoped recommendation.", finish: "Bust loses immediately. Stand or Double starts dealer resolution. Hit, Stand, and Double are complete; Split, Surrender, and Insurance are not yet implemented.", terms: "Hit draws; Stand stops; Double doubles the stake and draws once. Basic-strategy optimality applies only to the displayed fixed rules." },
     "liars-dice": { role: "You and the AI each hold five hidden dice. Public bids rise while private dice stay secret, so every bid can be information or a bluff.", example: "Example: two 4s and one wild 1 give you three known matches for face 4. A bid of 3×4 is safe; after the AI raises to 7×4, decide whether its private hand supports that claim.", finish: "A challenge reveals all dice. If the bid's quantity exists, the challenger loses; otherwise the last bidder loses. The winner scores one point.", terms: "3×4 claims at least three 4-matches across both hands. Raise increases quantity or face. Challenge says the current claim is false." },
     mastermind: { role: "This is classic Bulls and Cows. The AI secretly chooses four distinct digits from 0–9, including leading-zero codes such as 0123. Public feedback transforms the set of hidden worlds after every guess.", example: "If the code is 0-3-5-6 and you guess 0-2-6-4, digit 0 gives one exact match and digit 6 gives one misplaced match; 2 and 4 are absent.", finish: "Four exact matches within ten guesses wins; otherwise the code is revealed. The adviser minimizes the largest next feedback bucket, then expected survivors. It is a strong, responsive one-step minimax heuristic, not a proof of globally minimal average guesses.", terms: "Candidate count is the number of codes consistent with every clue. The information set is the candidates you cannot yet distinguish. Worst-case remaining is the largest possible feedback bucket after the suggested guess." },
     "guess-who": { role: "The AI secretly selects one identity card, while every visible trait and every permitted question is public. Use truthful yes/no answers to shrink your information set instead of guessing blindly.", example: "Suppose Ada, Bruno, Cleo, and Dante remain and exactly two wear glasses. Asking about glasses creates a 2/2 split, so either answer leaves two candidates. A 4/0 question provides no information and is disabled.", finish: "A correct confirmed identity wins. A wrong identity is eliminated but costs a turn. Failing to identify the person by turn eight reveals the answer. The exact fixed-model policy averages 5.667 turns and needs at most six.", terms: "Candidate means consistent with every public answer. Information split is the Yes/No partition. Expected remaining is the probability-weighted next candidate count. Exact optimality applies only to this roster and question bank." },
@@ -510,6 +520,7 @@ async function startGame(gameId = "cases", options = {}) {
     currentState = result.state;
     currentGameId = gameId;
     if (gameId === "pirates") pirateDraft = currentState.pirates.map(() => 0);
+    if (gameId === "worm") wormDisclosure = 0;
     if (gameId === "guess-who") guessWhoSelected = null;
     if (gameId === "investment") { investmentOffer = currentState.suggestion?.offerId || "A"; investmentFraction = 0.25; }
     showGameView(gameId);
@@ -620,16 +631,17 @@ function render() {
   $("#roundNumber").textContent = state.phase === "choose" ? "—" : state.round;
   $("#remainingCount").textContent = state.prizeBoard.filter((prize) => prize.remaining).length;
   const finalPayout = Number.isFinite(state.payout) ? formatMoney(state.payout) : (language === "zh" ? "金额待确认" : "Payout unavailable");
+  const acceptedDeal = ["deal", "counter_deal"].includes(state.result?.kind);
   const instructions = language === "zh" ? {
     choose: "第一步：点击一个箱子作为你的保留箱",
     opening: `本轮请再打开 ${state.opensRemaining} 个箱子，完成后银行家会报价`,
     offer: state.isFinalOffer ? "最终阶段：只剩你的保留箱，请决定接受最终报价还是直接揭晓" : "银行家正在等待：接受报价，或拒绝并继续开箱",
-    finished: state.result?.kind === "deal" ? `本局结束 · 你接受了 ${finalPayout}` : `最终揭晓 · 你的保留箱奖金为 ${finalPayout}`,
+    finished: acceptedDeal ? `本局结束 · 你最终获得 ${finalPayout}` : `最终揭晓 · 你的保留箱奖金为 ${finalPayout}`,
   } : {
     choose: "First: click one case to keep",
     opening: `Open ${state.opensRemaining} more case(s); the banker will then make an offer`,
     offer: state.isFinalOffer ? "Final stage: only your kept case remains. Take the final offer or reveal it" : "The banker is waiting: take the offer or reject it and keep opening",
-    finished: state.result?.kind === "deal" ? `Game over · You accepted ${finalPayout}` : `Final reveal · Your kept case pays ${finalPayout}`,
+    finished: acceptedDeal ? `Game over · You receive ${finalPayout}` : `Final reveal · Your kept case pays ${finalPayout}`,
   };
   $("#instruction").textContent = instructions[state.phase];
   const chosenCase = state.chosenCase ? findCase(state.chosenCase) : null;
@@ -659,9 +671,18 @@ function render() {
   if (state.phase === "offer") {
     $("#offerValue").textContent = formatMoney(state.offer);
     const remaining = state.prizeBoard.filter((prize) => prize.remaining).length;
+    const recentReveals = state.history.filter((item) => item.kind === "reveal").slice(-state.openedThisRound);
+    const revealText = recentReveals.map((item) => formatMoney(item.value)).join(" · ");
     $("#offerContext").textContent = state.isFinalOffer
       ? (language === "zh" ? `这是最终报价。接受可立即获得 ${formatMoney(state.offer)}；拒绝后会直接打开 ${state.chosenCase} 号保留箱并领取其中金额。` : `This is the final offer. Take ${formatMoney(state.offer)} now, or reject it to reveal and receive kept case No. ${state.chosenCase}.`)
-      : (language === "zh" ? `还有 ${remaining} 个可能金额。接受就立即结束；拒绝则继续开箱。模型保留价为 ${formatMoney(state.metrics.certaintyEquivalent)}。` : `${remaining} prize values remain. Deal ends the game; No Deal continues. Model reservation value: ${formatMoney(state.metrics.certaintyEquivalent)}.`);
+      : (language === "zh" ? `本轮刚打开：${revealText || "—"}。还有 ${remaining} 个可能金额；接受即结束，拒绝则继续开箱。` : `Just revealed: ${revealText || "—"}. ${remaining} values remain; Deal ends the game and No Deal continues.`);
+    $("#offerComparison").innerHTML = `<div><span>${language === "zh" ? "银行家报价" : "Bank offer"}</span><strong>${formatMoney(state.offer)}</strong></div><div><span>${language === "zh" ? "剩余箱子价值期望" : "Expected remaining value"}</span><strong>${formatMoney(state.metrics.expectedValue)}</strong></div><div><span>${language === "zh" ? "报价仅为期望的" : "Offer as % of expectation"}</span><strong>${(state.metrics.offerRatio * 100).toFixed(1)}%</strong></div>`;
+    $("#offerRemainingValues").innerHTML = state.prizeBoard.filter((prize) => prize.remaining).map((prize) => `<span>${formatMoney(prize.value)}</span>`).join("");
+    $("#counterOfferPanel").classList.toggle("hidden", !state.counterOfferAvailable);
+    if (state.counterOfferAvailable) {
+      $("#counterOfferInput").value = state.suggestedCounterOffer;
+      $("#counterOfferInput").min = (state.offer + 0.01).toFixed(2);
+    }
     $("#dealButton").textContent = state.isFinalOffer ? (language === "zh" ? "接受最终报价" : "Take final offer") : tr("acceptOffer");
     $("#noDealButton").textContent = state.isFinalOffer ? (language === "zh" ? "拒绝并揭晓保留箱" : "Reject and reveal my case") : tr("rejectOffer");
   }
@@ -681,7 +702,7 @@ function renderFirstTurnGuide() {
   }[state.gameId];
   if (!visible) return;
   const guides = language === "zh" ? {
-    worm: ["首回合怎么做", ["先看黄色保证序列，不要凭感觉点击。", "第一步检查高亮洞口；失手后虫子必移动一格。", "之后继续严格照序列走，偏离一步就会失去必胜保证。"]],
+    worm: ["首回合怎么做", ["先任选一个洞开始检查，观察失手后可能位置如何变化。", "虫子每次必须移动到相邻洞，因此奇偶节奏比猜位置更重要。", "页面不会直接展示解法；需要时可主动打开提示或答案。"]],
     "kuhn-poker": ["第一手怎么判断", ["先看自己的 J、Q 或 K，再看你是先手还是后手。", "过牌可控制底池，下注可能是强牌取价值，也可能是 J 诈唬。", "AI 行动后只根据公开下注信号更新判断，不会偷看它的牌。"]],
     "liars-dice": ["第一轮怎么叫价", ["先数自己手中的目标点数；除叫 1 点外，1 都是万能点。", "输入一个数量和点数后加注，AI 会选择继续抬价或质疑。", "轮到你面对公开叫价时，可看真实概率再决定加注或质疑。"]],
     "love-letter": ["第一回合怎么出牌", ["你每回合抽到两张牌，必须打出其中一张。", "若打卫兵，先选择要猜的牌；若打王子，先选择目标。", "右侧信念概率只依据公开信息，建议是启发式而非已证明的全局最优。"]],
@@ -689,7 +710,7 @@ function renderFirstTurnGuide() {
     goofspiel: ["第一轮怎么竞价", ["先看本轮奖牌分值，再从 1–4 中秘密打出一张牌。", "双方较高者拿走奖牌，同价则奖牌作废；出过的牌不能再用。", "黄色标记只是均衡中的最高频动作，真正的均衡需要按概率随机。"]],
     battleship: ["15×15 大海域提示", ["大型海域采用双方对称的双炮齐射：你连续打两炮后，AI 才还击两炮。", "第一炮后界面会显示本轮还剩一炮，不要误以为AI停住。", "命中后优先沿相邻方向追击；AI面板会公开其搜索模式与覆盖强度。"]],
   } : {
-    worm: ["Your first move", ["Read the gold guaranteed sequence before clicking.", "Check the highlighted hole first; after a miss the worm must move one step.", "Keep following the sequence exactly—one deviation removes the guarantee."]],
+    worm: ["Your first move", ["Probe any hole first and watch how the possible positions change after a miss.", "The worm must move to a neighbor, so parity and rhythm matter more than guessing a location.", "The solution stays hidden unless you deliberately open a hint or the answer."]],
     "kuhn-poker": ["Your first hand", ["Read your J, Q, or K and whether you act first.", "Checking controls the pot; betting can extract value or bluff with J.", "Update only from public betting signals—the AI card remains hidden."]],
     "liars-dice": ["Your opening bid", ["Count matching dice in your hand; ones are wild unless the bid itself is ones.", "Enter a quantity and face, then raise; the AI may raise again or challenge.", "When a bid returns to you, use its probability before raising or challenging."]],
     "love-letter": ["Your first turn", ["You hold two cards each turn and must play one.", "Choose a guess before Guard or a target before Prince.", "Belief probabilities use public information only; the advice is heuristic, not globally proven optimal."]],
@@ -722,12 +743,15 @@ function renderBlackjack() {
   $("#dealerTotal").textContent = state.dealerTotal == null ? (language === "zh" ? "明牌" : "Upcard") : state.dealerTotal;
   $("#playerCards").innerHTML = state.playerHand.map(renderBlackjackCard).join("");
   $("#dealerCards").innerHTML = state.dealerHand.map(renderBlackjackCard).join("") + (state.dealerHoleHidden ? '<div class="blackjack-card hidden-card">?</div>' : "");
+  $("#blackjackNormalMode").classList.toggle("active", !blackjackPracticeMode);
+  $("#blackjackPracticeMode").classList.toggle("active", blackjackPracticeMode);
   $("#blackjackActions").innerHTML = state.legalActions.map((action) => `<button data-blackjack-action="${action}">${actionNames[action]}</button>`).join("");
   document.querySelectorAll("[data-blackjack-action]").forEach((button) => button.addEventListener("click", () => act(button.dataset.blackjackAction)));
-  $("#blackjackRecommendation").textContent = state.recommendation
-    ? actionNames[state.recommendation]
-    : (language === "zh" ? "本局已结算" : "Hand settled");
-  $("#blackjackAiPlay").disabled = state.phase !== "player_turn";
+  $("#blackjackRecommendation").textContent = blackjackPracticeMode
+    ? (state.recommendation ? actionNames[state.recommendation] : (language === "zh" ? "本局已结算" : "Hand settled"))
+    : (language === "zh" ? "普通模式不提前揭示" : "Hidden in normal mode");
+  $("#blackjackAiPlay").classList.toggle("hidden", !blackjackPracticeMode);
+  $("#blackjackAiPlay").disabled = !blackjackPracticeMode || state.phase !== "player_turn";
   $("#blackjackHeadline").textContent = state.phase === "player_turn"
     ? (language === "zh" ? "根据手牌与庄家明牌做决定" : "Decide from your hand and the dealer upcard")
     : (language === "zh" ? "庄家底牌与最终结果已经揭晓" : "The dealer hole card and result are revealed");
@@ -735,6 +759,17 @@ function renderBlackjack() {
     if (item.actor === "dealer") return `<div><b>${language === "zh" ? "庄家" : "Dealer"}</b><span>${language === "zh" ? "要牌" : "hits"} ${item.card} → ${item.total}</span></div>`;
     return `<div><b>${item.actor === "ai" ? "AI" : (language === "zh" ? "你" : "You")}</b><span>${actionNames[item.action]} · ${item.matched ? (language === "zh" ? "符合基础策略" : "matched basic strategy") : `${language === "zh" ? "建议" : "advice"}: ${actionNames[item.recommended]}`}</span></div>`;
   }).join("") : `<p>${language === "zh" ? "尚无决策记录。" : "No decisions yet."}</p>`;
+  const latestDecision = state.history.slice().reverse().find((item) => item.actor !== "dealer");
+  const feedback = $("#blackjackPracticeFeedback");
+  feedback.classList.toggle("hidden", !blackjackPracticeMode);
+  if (blackjackPracticeMode) {
+    feedback.className = `practice-feedback ${latestDecision ? (latestDecision.matched ? "correct" : "review") : "waiting"}`;
+    feedback.textContent = latestDecision
+      ? (latestDecision.matched
+        ? (language === "zh" ? `符合基础策略：${actionNames[latestDecision.action]} 是这个规则集下的正确操作。` : `Basic strategy matched: ${actionNames[latestDecision.action]} was correct for this rule set.`)
+        : (language === "zh" ? `本次选择了${actionNames[latestDecision.action]}；基础策略应为${actionNames[latestDecision.recommended]}。` : `You chose ${actionNames[latestDecision.action]}; basic strategy called for ${actionNames[latestDecision.recommended]}.`))
+      : (language === "zh" ? "做出一次操作后，AI 会立即解释是否符合基础策略。" : "Make a decision and the AI will immediately grade it against basic strategy.");
+  }
   $("#blackjackResult").classList.toggle("hidden", state.phase !== "finished");
   if (state.phase === "finished") {
     const labels = language === "zh" ? { player: "你赢了", dealer: "庄家获胜", push: "平局" } : { player: "You win", dealer: "Dealer wins", push: "Push" };
@@ -1556,10 +1591,13 @@ function renderWorm() {
   const state = currentState;
   $("#wormTurn").textContent = state.turn;
   $("#possibleHoles").textContent = state.possiblePositions.join(" · ") || (language === "zh" ? "已锁定" : "Locked");
+  const hintVisible = wormDisclosure >= 1;
+  const answerVisible = wormDisclosure >= 2;
+  $("#wormHint").classList.toggle("hidden", !hintVisible);
   $("#wormHint").textContent = state.phase === "finished"
     ? (language === "zh" ? "已成功抓捕" : "Captured")
     : state.suggestedHole
-      ? (language === "zh" ? `检查 ${state.suggestedHole} 号洞` : `Check hole ${state.suggestedHole}`)
+      ? (wormDisclosure >= 2 ? (language === "zh" ? `下一步检查 ${state.suggestedHole} 号洞` : `Next: check hole ${state.suggestedHole}`) : (language === "zh" ? "提示：保持同一奇偶节奏" : "Hint: preserve one parity rhythm"))
       : state.followedStrategy
         ? (language === "zh" ? "序列已完成" : "Sequence complete")
         : (language === "zh" ? "已偏离保证序列" : "Guaranteed sequence lost");
@@ -1580,6 +1618,11 @@ function renderWorm() {
   document.querySelectorAll(".hole:not(:disabled)").forEach((button) => {
     button.addEventListener("click", () => act("check_hole", { holeId: Number(button.dataset.hole) }));
   });
+
+  $("#wormHintButton").classList.toggle("hidden", hintVisible);
+  $("#wormAnswerButton").classList.toggle("hidden", answerVisible);
+  $("#wormAnswerLocked").classList.toggle("hidden", answerVisible);
+  $("#wormAnswer").classList.toggle("hidden", !answerVisible);
 
   $("#strategySequence").innerHTML = state.strategy.map((hole, index) => {
     const status = index < state.turn ? "done" : index === state.turn && state.followedStrategy ? "next" : "";
@@ -1603,17 +1646,17 @@ function renderMetrics(metrics) {
   $("#metrics").classList.toggle("hidden", !metrics);
   if (!metrics) return;
   const labels = language === "zh" ? {
-    ev: "剩余期望值", ce: "确定性等价", ratio: "报价 / 期望值",
+    ev: "剩余箱子价值期望", ce: "风险调整参考值", ratio: "报价 / 价值期望",
     beat: "箱内金额超过报价", volatility: "剩余波动", recommendation: "模型建议：",
     deal: "接受报价", noDeal: "继续开箱",
   } : {
-    ev: "Expected value", ce: "Certainty equivalent", ratio: "Offer / expected value",
+    ev: "Expected remaining value", ce: "Risk-adjusted reference", ratio: "Offer / expected value",
     beat: "Chance case beats offer", volatility: "Remaining volatility", recommendation: "Model guidance: ",
     deal: "Take the deal", noDeal: "Keep opening",
   };
   $("#metrics").innerHTML = `
     <div class="metric"><span>${labels.ev}</span><strong>${formatMoney(metrics.expectedValue)}</strong></div>
-    <div class="metric"><span>${labels.ce}</span><strong>${formatMoney(metrics.certaintyEquivalent)}</strong></div>
+    <div class="metric"><span>${labels.ce}</span><strong>${formatMoney(metrics.riskAdjustedValue)}</strong></div>
     <div class="metric"><span>${labels.ratio}</span><strong>${(metrics.offerRatio * 100).toFixed(1)}%</strong></div>
     <div class="metric"><span>${labels.beat}</span><strong>${(metrics.chanceToBeatOffer * 100).toFixed(1)}%</strong></div>
     <div class="metric"><span>${labels.volatility}</span><strong>${formatMoney(metrics.standardDeviation)}</strong></div>
@@ -1628,6 +1671,9 @@ function renderHistory(history) {
     offer: (item) => `第 ${item.round} 轮报价：${formatMoney(item.value)}`,
     deal: (item) => `接受报价：${formatMoney(item.value)}`,
     no_deal: (item) => `第 ${item.round} 轮拒绝报价`,
+    counter_offer: (item) => `提出一次议价：${formatMoney(item.value)}（${item.accepted ? "银行家接受" : "银行家拒绝"}）`,
+    counter_rejected: () => "议价失败，自动继续开箱",
+    counter_deal: (item) => `议价成交：${formatMoney(item.value)}`,
     case_payout: (item) => `坚持到底：箱内为 ${formatMoney(item.value)}`,
   } : {
     choose: (item) => `Kept case ${item.caseId}`,
@@ -1635,6 +1681,9 @@ function renderHistory(history) {
     offer: (item) => `Round ${item.round} offer: ${formatMoney(item.value)}`,
     deal: (item) => `Accepted ${formatMoney(item.value)}`,
     no_deal: (item) => `Rejected the round ${item.round} offer`,
+    counter_offer: (item) => `Countered at ${formatMoney(item.value)} (${item.accepted ? "accepted" : "rejected"})`,
+    counter_rejected: () => "Counter rejected; play continued automatically",
+    counter_deal: (item) => `Counter accepted at ${formatMoney(item.value)}`,
     case_payout: (item) => `Went to the end: case held ${formatMoney(item.value)}`,
   };
   $("#historyList").innerHTML = history.slice().reverse().map((item) =>
@@ -1682,12 +1731,17 @@ $("#backButton").addEventListener("click", navigateToLobby);
 document.querySelectorAll(".back-to-lobby").forEach((button) => button.addEventListener("click", navigateToLobby));
 $("#newGameButton").addEventListener("click", () => startGame("cases"));
 $("#newWormButton").addEventListener("click", () => startGame("worm"));
+$("#wormHintButton").addEventListener("click", () => { wormDisclosure = Math.max(wormDisclosure, 1); renderWorm(); });
+$("#wormAnswerButton").addEventListener("click", () => { wormDisclosure = 2; renderWorm(); });
+$("#wormRevealAnswer").addEventListener("click", () => { wormDisclosure = 2; renderWorm(); });
 $("#newPirateButton").addEventListener("click", () => startGame("pirates"));
 $("#newPokerMatch").addEventListener("click", () => startGame("kuhn-poker"));
 $("#newECardMatch").addEventListener("click", () => startGame("e-card"));
 $("#newRpsMatch").addEventListener("click", () => startGame("restricted-rps"));
 $("#newLiarMatch").addEventListener("click", () => startGame("liars-dice"));
 $("#newBlackjackMatch").addEventListener("click", () => startGame("blackjack"));
+$("#blackjackNormalMode").addEventListener("click", () => { blackjackPracticeMode = false; writePreference("aip-blackjack-mode", "normal"); renderBlackjack(); });
+$("#blackjackPracticeMode").addEventListener("click", () => { blackjackPracticeMode = true; writePreference("aip-blackjack-mode", "practice"); renderBlackjack(); });
 $("#guessWhoNew").addEventListener("click", () => startGame("guess-who"));
 $("#guessWhoConfirm").addEventListener("click", () => {
   if (guessWhoSelected) act("guess_character", { name: guessWhoSelected });
@@ -1708,6 +1762,7 @@ $("#battleRandomize").addEventListener("click", () => act("randomize_fleet"));
 $("#battleStart").addEventListener("click", () => act("start_battle"));
 $("#battleBoardSize").addEventListener("change", (event) => act("set_board_size", { boardSize: Number(event.target.value) }));
 $("#blackjackAiPlay").addEventListener("click", () => act("ai_play"));
+$("#counterOfferButton").addEventListener("click", () => act("counter_offer", { amount: Number($("#counterOfferInput").value) }));
 $("#liarRaise").addEventListener("click", () => act("raise_bid", {
   quantity: Number($("#liarQuantity").value),
   face: Number($("#liarFace").value),
