@@ -5,6 +5,31 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/18/2026
+
+- **Cross-game benchmark direction** — Reframed AIP around one research
+  question: whether a general strategic-reasoning agent can transfer reusable
+  principles across heterogeneous imperfect-information games. Environment
+  count is no longer a primary progress metric, and a universal OpenSpiel-style
+  engine is explicitly out of scope.
+- **Capability and evidence taxonomy** — Classified the existing environments
+  across hidden-state reasoning, belief updating, mixed strategy, opponent
+  modelling, information acquisition, deception, adversarial search, and
+  risk-sensitive decisions. Policy references are now separated into proved
+  optimality, equilibrium-backed behavior, strong heuristics, and exploratory
+  LLM behavior.
+- **Six-environment v1 design** — Selected Kuhn Poker, Goofspiel, Guess Who,
+  Moving Worm, Liar's Dice, and held-out Mastermind, with an explicit matrix for
+  exact policy, equilibrium, regret/exploitability, belief truth, and heuristic
+  truth. [Read the benchmark design](research/cross_game_benchmark_v1.md).
+- **Benchmark Contract v0** — Implemented the only milestone in this update: a
+  dependency-free agent input/output contract, legal-action and belief
+  validation, capability/evidence enums, and a version-controlled environment
+  catalog. No new game or unrelated web feature was added.
+- **Regression coverage** — All 173 Python tests and 11 public-engine/build tests
+  pass, including six new contract, calibration, evidence-level, and holdout
+  checks.
+
 ## Updates 08/17/2026
 
 - **Spoiler-safe worm challenge** — The minimax hint and guaranteed capture
