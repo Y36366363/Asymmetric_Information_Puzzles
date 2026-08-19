@@ -5,6 +5,32 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/19/2026
+
+- **Generic weak control** — Added a game-agnostic, stateless baseline that uses
+  a stable seeded hash to choose among legal actions. It reads no rules,
+  observations, history, beliefs, or game-specific state, emits no invented
+  belief, and is reproducible across processes.
+- **Single-game prompted control** — Versioned a Guess Who prompt and a local
+  deterministic proxy that follows its one-step balanced-split instruction
+  using only public `AgentInput`. It is explicitly recorded as a strong
+  heuristic with `isLlm=false`, not presented as either a real LLM result or a
+  proof of optimality.
+- **Trace provenance and fairer metrics** — Added structured agent-condition
+  metadata to every trace. Policy agreement and action regret now exclude the
+  forced final identity guess, preventing a trivial action from inflating weak
+  policies' scores.
+- **Hidden-state channel closed** — Removed secret character names from default
+  episode IDs and excluded episode IDs from the generic policy hash, so tracing
+  identifiers cannot accidentally influence actions through hidden state.
+- **Baseline discrimination confirmed** — Across 100 weak seeds and all 24
+  secrets, the generic control averaged 5.9033 turns, 70.29% exact-policy
+  agreement, and 0.0483 regret. The prompted proxy averaged 5.6667 turns, 100%
+  agreement, and zero regret; this equality with the oracle is an exhaustive
+  result for the fixed roster, not a general proof. [Read the baseline study](research/guess_who_baseline_discrimination_2026-08-19.md).
+- **Regression coverage** — All 185 Python tests and 11 public-engine/build tests
+  pass. No game, web feature, or deployment artifact was added.
+
 ## Updates 08/18/2026
 
 - **First executable benchmark slice** — Connected Guess Who to the unified

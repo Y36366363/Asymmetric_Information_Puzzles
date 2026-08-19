@@ -31,6 +31,7 @@ class GuessWhoBenchmarkTests(unittest.TestCase):
         )
         for step in trace.steps[:-1]:
             self.assertNotIn("secret", step.decision_input.information_state)
+            self.assertNotIn("Ada", step.decision_input.episode_id)
             self.assertGreater(float(step.evaluation["trueStateProbability"]), 0)
 
         payload = json.loads(trace.to_json())

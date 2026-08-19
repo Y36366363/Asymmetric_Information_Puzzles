@@ -7,7 +7,8 @@ from dataclasses import dataclass
 from statistics import mean
 from typing import Iterable, Mapping
 
-from aip.benchmark.runner import EpisodeTrace, StepResult
+from aip.benchmark.baselines import GENERIC_WEAK_METADATA, GenericWeakRandomAgent
+from aip.benchmark.runner import EpisodeTrace, StepResult, run_episode
 from aip.benchmark.types import (
     ActionEvent,
     ActionSpec,
@@ -15,6 +16,7 @@ from aip.benchmark.types import (
     AgentInput,
     BeliefOutput,
     EvidenceLevel,
+    StrategicAgent,
     validate_decision,
 )
 from aip.puzzles.guess_who import GuessWhoSolver
@@ -30,6 +32,31 @@ RULES = (
     "remains, name that character. Every question and the final guess cost one turn."
 )
 
+SINGLE_GAME_PROMPT = """You are playing the declared AIP Guess Who benchmark.
+Use only the public candidate profiles and legal actions. Under the uniform
+posterior, choose the yes/no question that minimizes expected candidates after
+the answer (equivalently, prefer the most even split). Update the belief to be
+uniform over all candidates consistent with public answers. Guess only when one
+candidate remains. Return one legal action, your belief, and confidence.
+"""
+
+ORACLE_METADATA = {
+    "condition": "algorithmic_oracle",
+    "policyClass": "exact_dynamic_programming",
+    "isLlm": False,
+    "claimLevel": EvidenceLevel.PROVED_OPTIMAL.value,
+    "usesGameSpecificKnowledge": True,
+}
+
+SINGLE_GAME_PROMPT_METADATA = {
+    "condition": "single_game_prompted_heuristic_proxy",
+    "policyClass": "one_step_balanced_split",
+    "isLlm": False,
+    "claimLevel": EvidenceLevel.STRONG_HEURISTIC.value,
+    "usesGameSpecificKnowledge": True,
+    "prompt": SINGLE_GAME_PROMPT,
+}
+
 
 @dataclass(frozen=True, slots=True)
 class GuessWhoSuiteSummary:
@@ -43,6 +70,31 @@ class GuessWhoSuiteSummary:
     mean_belief_brier: float | None
     mean_belief_log_loss: float | None
     mean_information_efficiency_bits_per_question: float
+
+
+@dataclass(frozen=True, slots=True)
+class GuessWhoBaselineReport:
+    oracle: GuessWhoSuiteSummary
+    single_game_prompted: GuessWhoSuiteSummary
+    generic_weak: GuessWhoSuiteSummary
+
+    @property
+    def prompted_turn_gain(self) -> float:
+        return self.generic_weak.mean_turns - self.single_game_prompted.mean_turns
+
+    @property
+    def prompted_agreement_gain(self) -> float:
+        return (
+            self.single_game_prompted.optimal_policy_agreement
+            - self.generic_weak.optimal_policy_agreement
+        )
+
+    @property
+    def prompted_regret_reduction(self) -> float:
+        return (
+            self.generic_weak.mean_action_regret
+            - self.single_game_prompted.mean_action_regret
+        )
 
 
 class GuessWhoBenchmarkAdapter:
@@ -69,7 +121,7 @@ class GuessWhoBenchmarkAdapter:
         if secret not in names:
             raise ValueError(f"unknown secret character: {secret}")
         self.secret = secret
-        self.episode_id = episode_id or f"guess-who:{secret}"
+        self.episode_id = episode_id or "guess-who:episode"
         self.include_rules = include_rules
         self._candidates = tuple(character.name for character in self.solver.roster)
         self._used_question_ids: set[str] = set()
@@ -219,6 +271,7 @@ class GuessWhoBenchmarkAdapter:
         before_count = len(self._candidates)
 
         if decision.action_id.startswith(ASK_PREFIX):
+            evaluation["decisionKind"] = "information_question"
             question_id = decision.action_id.removeprefix(ASK_PREFIX)
             candidates_mask, remaining = self._masks()
             optimum = self.solver.exact_expected_questions(candidates_mask, remaining)
@@ -247,6 +300,7 @@ class GuessWhoBenchmarkAdapter:
                 before_count / len(self._candidates)
             )
         else:
+            evaluation["decisionKind"] = "final_guess"
             guessed_name = decision.action_id.removeprefix(GUESS_PREFIX)
             self._solved = guessed_name == self.secret
             self._terminal = True
@@ -308,6 +362,60 @@ class OptimalGuessWhoAgent:
         return AgentDecision(action_id=action_id, confidence=1.0, belief=belief)
 
 
+class GuessWhoSingleGamePromptBaseline:
+    """Deterministically execute the public one-step policy in ``SINGLE_GAME_PROMPT``.
+
+    This is a stable prompt-policy proxy, not an LLM. It deliberately avoids the
+    solver and exact continuation values so later LLM runs can be compared with
+    a transparent single-game instruction baseline.
+    """
+
+    _PROFILE_KEYS = {
+        "glasses": "glasses",
+        "hat": "hat",
+        "facial_hair": "facialHair",
+        "smiling": "smiling",
+    }
+
+    @staticmethod
+    def _matches(question_id: str, profile: Mapping[str, object]) -> bool:
+        if question_id.startswith("hair_"):
+            return profile["hair"] == question_id.removeprefix("hair_")
+        return bool(profile[GuessWhoSingleGamePromptBaseline._PROFILE_KEYS[question_id]])
+
+    def choose_action(self, decision: AgentInput) -> AgentDecision:
+        if decision.environment_id != "guess-who":
+            raise ValueError("single-game prompt baseline supports only guess-who")
+        candidates = tuple(
+            str(name) for name in decision.information_state["candidateNames"]
+        )
+        probability = 1 / len(candidates)
+        belief = BeliefOutput(
+            target="secret_character",
+            probabilities={name: probability for name in candidates},
+        )
+        if len(candidates) == 1:
+            return AgentDecision(
+                action_id=GUESS_PREFIX + candidates[0],
+                confidence=1.0,
+                belief=belief,
+            )
+
+        profiles = tuple(decision.information_state["candidateProfiles"])
+        scored: list[tuple[int, str]] = []
+        for action in decision.legal_actions:
+            question_id = action.action_id.removeprefix(ASK_PREFIX)
+            yes = sum(self._matches(question_id, profile) for profile in profiles)
+            no = len(profiles) - yes
+            expected_remaining_numerator = yes * yes + no * no
+            scored.append((expected_remaining_numerator, action.action_id))
+        best_score, action_id = min(scored)
+        total = len(profiles)
+        yes_no_gap = math.sqrt(max(0, 2 * best_score - total * total))
+        confidence = 1 - yes_no_gap / total
+        return AgentDecision(action_id, confidence, belief=belief)
+
+
 def summarize_guess_who_traces(
     traces: Iterable[EpisodeTrace],
 ) -> GuessWhoSuiteSummary:
@@ -317,6 +425,11 @@ def summarize_guess_who_traces(
     if any(trace.environment_id != "guess-who" for trace in episodes):
         raise ValueError("summary accepts only Guess Who traces")
     steps = tuple(step for trace in episodes for step in trace.steps)
+    question_steps = tuple(
+        step
+        for step in steps
+        if step.evaluation["decisionKind"] == "information_question"
+    )
     belief_steps = tuple(
         step for step in steps if step.evaluation["beliefBrier"] is not None
     )
@@ -326,9 +439,11 @@ def summarize_guess_who_traces(
         mean_turns=mean(int(trace.result["turnsIncludingGuess"]) for trace in episodes),
         worst_turns=max(int(trace.result["turnsIncludingGuess"]) for trace in episodes),
         optimal_policy_agreement=mean(
-            bool(step.evaluation["optimalPolicyAgreement"]) for step in steps
+            bool(step.evaluation["optimalPolicyAgreement"]) for step in question_steps
         ),
-        mean_action_regret=mean(float(step.evaluation["actionRegret"]) for step in steps),
+        mean_action_regret=mean(
+            float(step.evaluation["actionRegret"]) for step in question_steps
+        ),
         belief_output_rate=len(belief_steps) / len(steps),
         mean_belief_brier=(
             mean(float(step.evaluation["beliefBrier"]) for step in belief_steps)
@@ -344,4 +459,69 @@ def summarize_guess_who_traces(
             float(trace.result["informationEfficiencyBitsPerQuestion"])
             for trace in episodes
         ),
+    )
+
+
+def compare_guess_who_baselines(
+    *,
+    weak_seeds: Iterable[int] = range(20),
+) -> GuessWhoBaselineReport:
+    """Evaluate three honest controls over the same exhaustive secret roster."""
+
+    secrets = tuple(character.name for character in GuessWhoSolver().roster)
+    oracle_traces = tuple(
+        run_guess_who_baseline(
+            secret,
+            OptimalGuessWhoAgent(),
+            agent_id="algorithmic-oracle",
+            metadata=ORACLE_METADATA,
+            episode_id=f"guess-who:roster:{index}",
+        )
+        for index, secret in enumerate(secrets)
+    )
+    prompted_traces = tuple(
+        run_guess_who_baseline(
+            secret,
+            GuessWhoSingleGamePromptBaseline(),
+            agent_id="single-game-prompted-heuristic",
+            metadata=SINGLE_GAME_PROMPT_METADATA,
+            episode_id=f"guess-who:roster:{index}",
+        )
+        for index, secret in enumerate(secrets)
+    )
+    weak_traces = tuple(
+        run_guess_who_baseline(
+            secret,
+            GenericWeakRandomAgent(seed),
+            agent_id=f"generic-weak:{seed}",
+            metadata={**GENERIC_WEAK_METADATA, "seed": seed},
+            episode_id=f"guess-who:roster:{index}",
+        )
+        for seed in tuple(weak_seeds)
+        for index, secret in enumerate(secrets)
+    )
+    if not weak_traces:
+        raise ValueError("weak_seeds must contain at least one seed")
+    return GuessWhoBaselineReport(
+        oracle=summarize_guess_who_traces(oracle_traces),
+        single_game_prompted=summarize_guess_who_traces(prompted_traces),
+        generic_weak=summarize_guess_who_traces(weak_traces),
+    )
+
+
+def run_guess_who_baseline(
+    secret: str,
+    agent: StrategicAgent,
+    *,
+    agent_id: str,
+    metadata: Mapping[str, object],
+    episode_id: str | None = None,
+) -> EpisodeTrace:
+    """Keep baseline trace construction consistent and metadata-complete."""
+
+    return run_episode(
+        GuessWhoBenchmarkAdapter(secret, episode_id=episode_id, include_rules=True),
+        agent,
+        agent_id=agent_id,
+        agent_metadata=metadata,
     )

@@ -55,6 +55,7 @@ class EpisodeTrace:
     environment_id: str
     episode_id: str
     agent_id: str
+    agent_metadata: Mapping[str, object]
     evidence_level: EvidenceLevel
     steps: tuple[TraceStep, ...]
     result: Mapping[str, object]
@@ -65,6 +66,7 @@ class EpisodeTrace:
             "environmentId": self.environment_id,
             "episodeId": self.episode_id,
             "agentId": self.agent_id,
+            "agentMetadata": dict(self.agent_metadata),
             "evidenceLevel": self.evidence_level.value,
             "steps": [
                 {
@@ -94,6 +96,7 @@ def run_episode(
     agent: StrategicAgent,
     *,
     agent_id: str,
+    agent_metadata: Mapping[str, object] | None = None,
     max_steps: int = 100,
 ) -> EpisodeTrace:
     """Run one adapter-agent episode and retain every observable decision."""
@@ -121,6 +124,7 @@ def run_episode(
         adapter.environment_id,
         adapter.episode_id,
         agent_id,
+        dict(agent_metadata or {}),
         adapter.evidence_level,
         tuple(steps),
         adapter.result(),
