@@ -7,6 +7,26 @@
 
 ## Updates 08/19/2026
 
+- **Completion-backed agent boundary** — Added a provider-neutral request and
+  response contract, strict decision parser, bounded retry loop, and shared-model
+  pair for generic versus single-game Guess Who prompts. Both conditions must
+  use the same backend instance and requested model.
+- **Operational telemetry in every trace** — Decision steps now record parse,
+  validation, and transport failures; retries; per-attempt and total latency;
+  input/output/total tokens; response IDs; requested and resolved models; output
+  fingerprints; and final self-reported confidence. Failed raw text is not
+  retained.
+- **Optional real OpenAI adapter** — Added a `store=false` Responses API backend
+  with strict JSON-schema output and an optional `llm` dependency group. The
+  guarded runner requires `OPENAI_API_KEY`, accepts an explicit model or snapshot,
+  runs both prompt conditions, and rejects resolved-model drift. No real-model
+  result is claimed today because this host has no API credential. [Read the
+  boundary and run protocol](research/completion_agent_boundary_2026-08-19.md).
+- **Failure-path regression coverage** — Added deterministic tests for malformed
+  JSON, illegal actions, transport failures, successful and exhausted retries,
+  usage aggregation, latency, confidence, trace serialization, and the official
+  Responses request shape. All 191 Python tests and 11 public-engine/build tests
+  pass.
 - **Generic weak control** — Added a game-agnostic, stateless baseline that uses
   a stable seeded hash to choose among legal actions. It reads no rules,
   observations, history, beliefs, or game-specific state, emits no invented

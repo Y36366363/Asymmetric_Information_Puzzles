@@ -12,6 +12,9 @@ license = {text = "MIT"}
 authors = [{name = "AIP Contributors"}]
 dependencies = []
 
+[project.optional-dependencies]
+llm = ["openai>=2.14.0,<3"]
+
 [project.scripts]
 aip = "aip.cli:main"
 aip-play = "aip.ui.server:main"

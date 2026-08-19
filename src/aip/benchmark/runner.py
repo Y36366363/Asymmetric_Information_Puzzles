@@ -44,6 +44,7 @@ class BenchmarkAdapter(Protocol):
 class TraceStep:
     decision_input: AgentInput
     decision: AgentDecision
+    agent_telemetry: Mapping[str, object]
     outcome: Mapping[str, object]
     evaluation: Mapping[str, object]
 
@@ -72,6 +73,7 @@ class EpisodeTrace:
                 {
                     "input": asdict(step.decision_input),
                     "decision": asdict(step.decision),
+                    "agentTelemetry": dict(step.agent_telemetry),
                     "outcome": dict(step.outcome),
                     "evaluation": dict(step.evaluation),
                 }
@@ -111,11 +113,16 @@ def run_episode(
             raise RuntimeError(f"episode exceeded max_steps={max_steps}")
         decision_input = adapter.decision_input()
         decision = agent.choose_action(decision_input)
+        telemetry_provider = getattr(agent, "decision_telemetry", None)
+        agent_telemetry = (
+            dict(telemetry_provider()) if callable(telemetry_provider) else {}
+        )
         transition = adapter.apply_decision(decision)
         steps.append(
             TraceStep(
                 decision_input,
                 decision,
+                agent_telemetry,
                 transition.outcome,
                 transition.evaluation,
             )
