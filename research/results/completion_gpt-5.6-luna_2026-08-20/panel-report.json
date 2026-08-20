@@ -1,0 +1,173 @@
+{
+  "artifactSchemaVersion": "aip-completion-panel-v1",
+  "date": "2026-08-20",
+  "environment": "guess-who",
+  "model": {
+    "requested": "gpt-5.6-luna",
+    "resolved": [
+      "gpt-5.6-luna"
+    ],
+    "reasoningEffort": "low",
+    "maxOutputTokens": 4096,
+    "store": false
+  },
+  "design": {
+    "conditions": [
+      "generic",
+      "single-game"
+    ],
+    "secrets": [
+      "Ada",
+      "Hugo",
+      "Nico",
+      "Talia"
+    ],
+    "rawModelTextRetained": false,
+    "notes": "Successful-trace metrics use the targeted generic recovery run for Hugo. First-run completion is reported separately."
+  },
+  "completion": {
+    "generic": {
+      "firstRunCompletedEpisodes": 3,
+      "firstRunCompletionRate": 0.75,
+      "recoveryCompletedEpisodes": 4,
+      "recoveryCompletionRate": 1.0
+    },
+    "single-game": {
+      "firstRunCompletedEpisodes": 4,
+      "firstRunCompletionRate": 1.0,
+      "recoveryCompletedEpisodes": 4,
+      "recoveryCompletionRate": 1.0
+    }
+  },
+  "successfulTraceMetrics": {
+    "generic": {
+      "episodes": 4,
+      "solvedRate": 1.0,
+      "meanTurns": 5.75,
+      "worstTurns": 6,
+      "optimalPolicyAgreement": 0.8947368421052632,
+      "meanActionRegret": 0.017543859649122744,
+      "beliefOutputRate": 1.0,
+      "meanBeliefBrier": 0.6391963109364076,
+      "meanBeliefLogLoss": 1.5323164782423966,
+      "meanInformationEfficiencyBitsPerQuestion": 0.9743045314032457,
+      "questionConfidenceBrier": 0.13626842105263157,
+      "decisionInvocations": 23,
+      "providerAttempts": 24,
+      "retries": 1,
+      "validationFailures": 1,
+      "beliefNormalizations": 3,
+      "inputTokens": 20579,
+      "outputTokens": 7395,
+      "totalTokens": 27974,
+      "totalLatencyMs": 135298.82233502576,
+      "meanTokensPerDecision": 1216.2608695652175,
+      "meanLatencyMsPerDecision": 5882.557492827207
+    },
+    "single-game": {
+      "episodes": 4,
+      "solvedRate": 1.0,
+      "meanTurns": 5.75,
+      "worstTurns": 6,
+      "optimalPolicyAgreement": 0.8421052631578947,
+      "meanActionRegret": 0.02339181286549699,
+      "beliefOutputRate": 1.0,
+      "meanBeliefBrier": 0.6570048309236716,
+      "meanBeliefLogLoss": 1.608083377081227,
+      "meanInformationEfficiencyBitsPerQuestion": 0.9743045314032457,
+      "questionConfidenceBrier": 0.20942105263157895,
+      "decisionInvocations": 23,
+      "providerAttempts": 24,
+      "retries": 1,
+      "validationFailures": 1,
+      "beliefNormalizations": 3,
+      "inputTokens": 21929,
+      "outputTokens": 6300,
+      "totalTokens": 28229,
+      "totalLatencyMs": 106537.78333292576,
+      "meanTokensPerDecision": 1227.3478260869565,
+      "meanLatencyMsPerDecision": 4632.077536214163
+    }
+  },
+  "pairedActionSequences": [
+    {
+      "secret": "Ada",
+      "generic": [
+        "ask_question:hair_black",
+        "ask_question:glasses",
+        "ask_question:hat",
+        "ask_question:facial_hair",
+        "guess_character:Ada"
+      ],
+      "singleGame": [
+        "ask_question:hair_black",
+        "ask_question:glasses",
+        "ask_question:hat",
+        "ask_question:facial_hair",
+        "guess_character:Ada"
+      ],
+      "exactStepAgreement": 1.0
+    },
+    {
+      "secret": "Hugo",
+      "generic": [
+        "ask_question:hair_black",
+        "ask_question:glasses",
+        "ask_question:smiling",
+        "ask_question:hat",
+        "ask_question:hair_brown",
+        "guess_character:Hugo"
+      ],
+      "singleGame": [
+        "ask_question:glasses",
+        "ask_question:hat",
+        "ask_question:smiling",
+        "ask_question:hair_black",
+        "ask_question:hair_brown",
+        "guess_character:Hugo"
+      ],
+      "exactStepAgreement": 0.5
+    },
+    {
+      "secret": "Nico",
+      "generic": [
+        "ask_question:hat",
+        "ask_question:glasses",
+        "ask_question:facial_hair",
+        "ask_question:hair_black",
+        "ask_question:hair_brown",
+        "guess_character:Nico"
+      ],
+      "singleGame": [
+        "ask_question:glasses",
+        "ask_question:facial_hair",
+        "ask_question:hair_black",
+        "ask_question:hair_brown",
+        "ask_question:hat",
+        "guess_character:Nico"
+      ],
+      "exactStepAgreement": 0.16666666666666666
+    },
+    {
+      "secret": "Talia",
+      "generic": [
+        "ask_question:hat",
+        "ask_question:glasses",
+        "ask_question:smiling",
+        "ask_question:facial_hair",
+        "ask_question:hair_brown",
+        "guess_character:Talia"
+      ],
+      "singleGame": [
+        "ask_question:hair_black",
+        "ask_question:hair_brown",
+        "ask_question:hair_blond",
+        "ask_question:glasses",
+        "ask_question:smiling",
+        "guess_character:Talia"
+      ],
+      "exactStepAgreement": 0.16666666666666666
+    }
+  ],
+  "meanPairedExactStepAgreement": 0.4583333333333333
+}

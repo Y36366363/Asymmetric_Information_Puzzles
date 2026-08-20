@@ -1,5 +1,7 @@
 import json
 import unittest
+import tempfile
+from pathlib import Path
 from types import SimpleNamespace
 
 from aip.benchmark import (
@@ -11,7 +13,9 @@ from aip.benchmark import (
     OpenAIResponsesBackend,
     PromptCondition,
     make_guess_who_completion_pair,
+    load_dotenv_value,
     run_episode,
+    parse_completion_decision,
 )
 
 
@@ -154,6 +158,34 @@ class CompletionAgentTests(unittest.TestCase):
             ["transport_error", "validation_error", "success"],
         )
 
+    def test_wrong_adapter_belief_target_retries_before_environment_transition(self):
+        wrong_target = json.dumps(
+            {
+                "action_id": self.legal_action,
+                "confidence": 0.8,
+                "belief": {
+                    "target": "hidden_character",
+                    "probabilities": [
+                        {"state": "Ada", "probability": 1.0}
+                    ],
+                },
+            }
+        )
+        backend = FakeBackend(
+            [self.response(wrong_target), self.response(valid_output(self.legal_action))]
+        )
+        agent = CompletionBackedAgent(
+            backend,
+            "same-model-snapshot",
+            PromptCondition.GENERIC,
+            max_attempts=2,
+        )
+        agent.choose_action(self.decision_input)
+        telemetry = agent.decision_telemetry()
+        self.assertEqual(telemetry["validationFailureCount"], 1)
+        self.assertEqual(telemetry["retryCount"], 1)
+        self.assertIn("belief target must be secret_character", backend.requests[1].input_text)
+
     def test_exhausted_retries_raise_with_complete_telemetry(self):
         backend = FakeBackend([self.response("{"), self.response("also bad")])
         agent = CompletionBackedAgent(
@@ -221,9 +253,47 @@ class CompletionAgentTests(unittest.TestCase):
         self.assertEqual(response.total_tokens, 26)
         self.assertEqual(response.resolved_model, "resolved-model")
         self.assertFalse(calls[0]["store"])
+        self.assertEqual(calls[0]["reasoning"], {"effort": "low"})
+        self.assertEqual(calls[0]["max_output_tokens"], 4096)
         output_format = calls[0]["text"]["format"]
         self.assertEqual(output_format["type"], "json_schema")
         self.assertTrue(output_format["strict"])
+
+    def test_dotenv_loader_reads_only_literal_requested_value(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / ".env"
+            path.write_text(
+                "OTHER=$(echo should-not-run)\n"
+                "OPENAI_API_KEY='first'\n"
+                "export OPENAI_API_KEY=second\n",
+                encoding="utf-8",
+            )
+            self.assertEqual(load_dotenv_value(path, "OPENAI_API_KEY"), "second")
+            self.assertEqual(
+                load_dotenv_value(path, "OTHER"), "$(echo should-not-run)"
+            )
+            self.assertIsNone(load_dotenv_value(path, "MISSING"))
+
+    def test_small_belief_rounding_error_is_normalized_but_large_error_rejected(self):
+        rounded = json.dumps(
+            {
+                "action_id": self.legal_action,
+                "confidence": 0.7,
+                "belief": {
+                    "target": "secret_character",
+                    "probabilities": [
+                        {"state": "Ada", "probability": 0.33},
+                        {"state": "Bruno", "probability": 0.33},
+                        {"state": "Cleo", "probability": 0.33},
+                    ],
+                },
+            }
+        )
+        parsed = parse_completion_decision(rounded)
+        self.assertAlmostEqual(sum(parsed.belief.probabilities.values()), 1.0)
+        badly_scaled = rounded.replace("0.33", "0.2")
+        with self.assertRaisesRegex(ValueError, "maximum accepted rounding"):
+            parse_completion_decision(badly_scaled)
 
 
 if __name__ == "__main__":

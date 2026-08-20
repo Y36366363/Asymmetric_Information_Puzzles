@@ -21,6 +21,7 @@ from aip.benchmark.completion import (
     OpenAIResponsesBackend,
     PromptCondition,
     make_guess_who_completion_pair,
+    load_dotenv_value,
     parse_completion_decision,
 )
 from aip.benchmark.guess_who import (
@@ -98,6 +99,7 @@ __all__ = [
     "run_guess_who_baseline",
     "run_episode",
     "make_guess_who_completion_pair",
+    "load_dotenv_value",
     "parse_completion_decision",
     "summarize_guess_who_traces",
     "validate_decision",

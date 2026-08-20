@@ -1,0 +1,60 @@
+{
+  "allConditionsCompleted": false,
+  "conditions": {
+    "generic": {
+      "calls": 3,
+      "confidences": [
+        1.0,
+        0.99,
+        null
+      ],
+      "parseFailures": 0,
+      "resolvedModels": [
+        "gpt-5.6-luna"
+      ],
+      "retries": 2,
+      "status": "failed",
+      "terminalError": {
+        "message": "completion agent failed after 3 attempts",
+        "type": "CompletionAgentError"
+      },
+      "totalLatencyMs": 27203.87649902841,
+      "totalTokens": 7423,
+      "transportFailures": 0,
+      "validationFailures": 3
+    },
+    "single-game": {
+      "calls": 6,
+      "confidences": [
+        0.99,
+        1.0,
+        1.0,
+        0.25,
+        0.99,
+        1.0
+      ],
+      "parseFailures": 0,
+      "resolvedModels": [
+        "gpt-5.6-luna"
+      ],
+      "result": {
+        "informationEfficiencyBitsPerQuestion": 0.9169925001442312,
+        "questionsAsked": 5,
+        "secret": "Hugo",
+        "solved": true,
+        "turnsIncludingGuess": 6
+      },
+      "retries": 0,
+      "status": "completed",
+      "terminalError": null,
+      "totalLatencyMs": 24205.56075096829,
+      "totalTokens": 6839,
+      "trace": "research/results/completion_gpt-5.6-luna_2026-08-20/hugo/single-game.json",
+      "transportFailures": 0,
+      "validationFailures": 0
+    }
+  },
+  "model": "gpt-5.6-luna",
+  "sameResolvedModel": true,
+  "secret": "Hugo"
+}

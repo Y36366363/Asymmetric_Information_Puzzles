@@ -1,0 +1,1575 @@
+{
+  "agentId": "completion:single-game:gpt-5.6-luna",
+  "agentMetadata": {
+    "backendConfiguration": {
+      "maxOutputTokens": 4096,
+      "reasoningEffort": "low",
+      "store": false,
+      "structuredOutputs": true
+    },
+    "claimLevel": "exploratory_llm_behavior",
+    "completionBacked": true,
+    "condition": "single_game_prompted",
+    "isLlm": true,
+    "isRealModel": true,
+    "promptSha256": "cd9a06d7a85443d9d2bc92f929fabf9d047edf9f62468a07d1db30d3ba3ae276",
+    "provider": "openai-responses",
+    "requestedModel": "gpt-5.6-luna",
+    "usesGameSpecificKnowledge": true
+  },
+  "environmentId": "guess-who",
+  "episodeId": "guess-who:completion-pair",
+  "evidenceLevel": "proved_optimality",
+  "result": {
+    "informationEfficiencyBitsPerQuestion": 0.9169925001442312,
+    "questionsAsked": 5,
+    "secret": "Nico",
+    "solved": true,
+    "turnsIncludingGuess": 6
+  },
+  "schemaVersion": "aip-benchmark-trace-v0",
+  "steps": [
+    {
+      "agentTelemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "input_tokens": 1377,
+            "latency_ms": 5820.192500017583,
+            "outcome": "success",
+            "output_characters": 1169,
+            "output_sha256": "f228cc35302bb4565f65e48b048d388329488362e481f874177625a8f2ccf807",
+            "output_tokens": 501,
+            "raw_belief_probability_sum": 1.0000000008,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0dc48a02200ece6a016a871e31a7b487d2be502bad56e04796",
+            "total_tokens": 1878
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 1.0,
+        "inputTokens": 1377,
+        "outputTokens": 501,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 5820.192500017583,
+        "totalTokens": 1878,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      },
+      "decision": {
+        "action_id": "ask_question:glasses",
+        "belief": {
+          "probabilities": {
+            "Ada": 0.0416666667,
+            "Bruno": 0.0416666667,
+            "Cleo": 0.0416666667,
+            "Dante": 0.0416666667,
+            "Esme": 0.0416666667,
+            "Farah": 0.0416666667,
+            "Hugo": 0.0416666667,
+            "Iris": 0.0416666667,
+            "Jules": 0.0416666667,
+            "Kira": 0.0416666667,
+            "Leon": 0.0416666667,
+            "Mira": 0.0416666667,
+            "Nico": 0.0416666667,
+            "Opal": 0.0416666667,
+            "Pavel": 0.0416666667,
+            "Quinn": 0.0416666667,
+            "Rosa": 0.0416666667,
+            "Soren": 0.0416666667,
+            "Talia": 0.0416666667,
+            "Uma": 0.0416666667,
+            "Vik": 0.0416666667,
+            "Wren": 0.0416666667,
+            "Xavi": 0.0416666667,
+            "Yara": 0.0416666667
+          },
+          "target": "secret_character"
+        },
+        "confidence": 1.0,
+        "payload": {}
+      },
+      "evaluation": {
+        "actionRegret": 0.0,
+        "beliefBrier": 0.9583333333333335,
+        "beliefLogLoss": 3.1780538295479457,
+        "candidateSupportMass": 1.0000000008,
+        "decisionKind": "information_question",
+        "informationGainBits": 1.0,
+        "optimalActionIds": [
+          "ask_question:glasses",
+          "ask_question:hat",
+          "ask_question:facial_hair",
+          "ask_question:smiling"
+        ],
+        "optimalPolicyAgreement": true,
+        "trueStateProbability": 0.0416666667,
+        "zeroProbabilityOnTruth": false
+      },
+      "input": {
+        "action_history": [],
+        "environment_id": "guess-who",
+        "episode_id": "guess-who:completion-pair",
+        "information_state": {
+          "beliefStateLabels": [
+            "Ada",
+            "Bruno",
+            "Cleo",
+            "Dante",
+            "Esme",
+            "Farah",
+            "Hugo",
+            "Iris",
+            "Jules",
+            "Kira",
+            "Leon",
+            "Mira",
+            "Nico",
+            "Opal",
+            "Pavel",
+            "Quinn",
+            "Rosa",
+            "Soren",
+            "Talia",
+            "Uma",
+            "Vik",
+            "Wren",
+            "Xavi",
+            "Yara"
+          ],
+          "beliefTarget": "secret_character",
+          "candidateCount": 24,
+          "candidateNames": [
+            "Ada",
+            "Bruno",
+            "Cleo",
+            "Dante",
+            "Esme",
+            "Farah",
+            "Hugo",
+            "Iris",
+            "Jules",
+            "Kira",
+            "Leon",
+            "Mira",
+            "Nico",
+            "Opal",
+            "Pavel",
+            "Quinn",
+            "Rosa",
+            "Soren",
+            "Talia",
+            "Uma",
+            "Vik",
+            "Wren",
+            "Xavi",
+            "Yara"
+          ],
+          "candidateProfiles": [
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "black",
+              "hat": false,
+              "name": "Ada",
+              "smiling": false
+            },
+            {
+              "facialHair": false,
+              "glasses": true,
+              "hair": "black",
+              "hat": true,
+              "name": "Bruno",
+              "smiling": false
+            },
+            {
+              "facialHair": true,
+              "glasses": true,
+              "hair": "black",
+              "hat": false,
+              "name": "Cleo",
+              "smiling": false
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "black",
+              "hat": true,
+              "name": "Dante",
+              "smiling": true
+            },
+            {
+              "facialHair": true,
+              "glasses": false,
+              "hair": "black",
+              "hat": false,
+              "name": "Esme",
+              "smiling": true
+            },
+            {
+              "facialHair": true,
+              "glasses": true,
+              "hair": "black",
+              "hat": true,
+              "name": "Farah",
+              "smiling": true
+            },
+            {
+              "facialHair": false,
+              "glasses": true,
+              "hair": "brown",
+              "hat": false,
+              "name": "Hugo",
+              "smiling": false
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "brown",
+              "hat": true,
+              "name": "Iris",
+              "smiling": false
+            },
+            {
+              "facialHair": true,
+              "glasses": true,
+              "hair": "brown",
+              "hat": true,
+              "name": "Jules",
+              "smiling": false
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "brown",
+              "hat": false,
+              "name": "Kira",
+              "smiling": true
+            },
+            {
+              "facialHair": true,
+              "glasses": true,
+              "hair": "brown",
+              "hat": false,
+              "name": "Leon",
+              "smiling": true
+            },
+            {
+              "facialHair": true,
+              "glasses": false,
+              "hair": "brown",
+              "hat": true,
+              "name": "Mira",
+              "smiling": true
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "blond",
+              "hat": false,
+              "name": "Nico",
+              "smiling": false
+            },
+            {
+              "facialHair": true,
+              "glasses": false,
+              "hair": "blond",
+              "hat": true,
+              "name": "Opal",
+              "smiling": false
+            },
+            {
+              "facialHair": true,
+              "glasses": true,
+              "hair": "blond",
+              "hat": true,
+              "name": "Pavel",
+              "smiling": false
+            },
+            {
+              "facialHair": false,
+              "glasses": true,
+              "hair": "blond",
+              "hat": false,
+              "name": "Quinn",
+              "smiling": true
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "blond",
+              "hat": true,
+              "name": "Rosa",
+              "smiling": true
+            },
+            {
+              "facialHair": true,
+              "glasses": true,
+              "hair": "blond",
+              "hat": true,
+              "name": "Soren",
+              "smiling": true
+            },
+            {
+              "facialHair": false,
+              "glasses": true,
+              "hair": "red",
+              "hat": false,
+              "name": "Talia",
+              "smiling": false
+            },
+            {
+              "facialHair": true,
+              "glasses": false,
+              "hair": "red",
+              "hat": false,
+              "name": "Uma",
+              "smiling": false
+            },
+            {
+              "facialHair": true,
+              "glasses": false,
+              "hair": "red",
+              "hat": true,
+              "name": "Vik",
+              "smiling": false
+            },
+            {
+              "facialHair": false,
+              "glasses": true,
+              "hair": "red",
+              "hat": false,
+              "name": "Wren",
+              "smiling": true
+            },
+            {
+              "facialHair": false,
+              "glasses": true,
+              "hair": "red",
+              "hat": true,
+              "name": "Xavi",
+              "smiling": true
+            },
+            {
+              "facialHair": true,
+              "glasses": false,
+              "hair": "red",
+              "hat": true,
+              "name": "Yara",
+              "smiling": true
+            }
+          ],
+          "usedQuestionIds": []
+        },
+        "legal_actions": [
+          {
+            "action_id": "ask_question:hair_black",
+            "description": "Does the person have black hair?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:hair_brown",
+            "description": "Does the person have brown hair?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:hair_blond",
+            "description": "Does the person have blond hair?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:hair_red",
+            "description": "Does the person have red hair?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:glasses",
+            "description": "Does the person wear glasses?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:hat",
+            "description": "Does the person wear a hat?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:facial_hair",
+            "description": "Does the person have facial hair?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:smiling",
+            "description": "Is the person smiling?",
+            "payload_schema": {}
+          }
+        ],
+        "natural_language_rules": "One of 24 characters is hidden under a uniform prior. Ask one unused public yes/no question per turn. Answers are truthful. When exactly one candidate remains, name that character. Every question and the final guess cost one turn.",
+        "observation": {
+          "kind": "start"
+        },
+        "step": 0
+      },
+      "outcome": {
+        "answer": false,
+        "kind": "answer",
+        "questionId": "glasses",
+        "remainingCandidates": 12
+      }
+    },
+    {
+      "agentTelemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "input_tokens": 1027,
+            "latency_ms": 6486.134749953635,
+            "outcome": "success",
+            "output_characters": 641,
+            "output_sha256": "747d71e38f07ee607d747753b13b134a07284df9246828c2a86fdfa2226fe580",
+            "output_tokens": 358,
+            "raw_belief_probability_sum": 0.9999999996000001,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_05d04f118f5f17cf016a871e3786b481a295a5077967c6bf83",
+            "total_tokens": 1385
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.99,
+        "inputTokens": 1027,
+        "outputTokens": 358,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 6486.134749953635,
+        "totalTokens": 1385,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      },
+      "decision": {
+        "action_id": "ask_question:facial_hair",
+        "belief": {
+          "probabilities": {
+            "Ada": 0.0833333333,
+            "Dante": 0.0833333333,
+            "Esme": 0.0833333333,
+            "Iris": 0.0833333333,
+            "Kira": 0.0833333333,
+            "Mira": 0.0833333333,
+            "Nico": 0.0833333333,
+            "Opal": 0.0833333333,
+            "Rosa": 0.0833333333,
+            "Uma": 0.0833333333,
+            "Vik": 0.0833333333,
+            "Yara": 0.0833333333
+          },
+          "target": "secret_character"
+        },
+        "confidence": 0.99,
+        "payload": {}
+      },
+      "evaluation": {
+        "actionRegret": 0.0,
+        "beliefBrier": 0.9166666666666666,
+        "beliefLogLoss": 2.4849066501880004,
+        "candidateSupportMass": 0.9999999996000001,
+        "decisionKind": "information_question",
+        "informationGainBits": 1.0,
+        "optimalActionIds": [
+          "ask_question:hat",
+          "ask_question:facial_hair",
+          "ask_question:smiling"
+        ],
+        "optimalPolicyAgreement": true,
+        "trueStateProbability": 0.0833333333,
+        "zeroProbabilityOnTruth": false
+      },
+      "input": {
+        "action_history": [
+          {
+            "action_id": "ask_question:glasses",
+            "actor_id": "agent",
+            "payload": {},
+            "public_observation": {
+              "answer": false,
+              "kind": "answer",
+              "questionId": "glasses",
+              "remainingCandidates": 12
+            }
+          }
+        ],
+        "environment_id": "guess-who",
+        "episode_id": "guess-who:completion-pair",
+        "information_state": {
+          "beliefStateLabels": [
+            "Ada",
+            "Bruno",
+            "Cleo",
+            "Dante",
+            "Esme",
+            "Farah",
+            "Hugo",
+            "Iris",
+            "Jules",
+            "Kira",
+            "Leon",
+            "Mira",
+            "Nico",
+            "Opal",
+            "Pavel",
+            "Quinn",
+            "Rosa",
+            "Soren",
+            "Talia",
+            "Uma",
+            "Vik",
+            "Wren",
+            "Xavi",
+            "Yara"
+          ],
+          "beliefTarget": "secret_character",
+          "candidateCount": 12,
+          "candidateNames": [
+            "Ada",
+            "Dante",
+            "Esme",
+            "Iris",
+            "Kira",
+            "Mira",
+            "Nico",
+            "Opal",
+            "Rosa",
+            "Uma",
+            "Vik",
+            "Yara"
+          ],
+          "candidateProfiles": [
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "black",
+              "hat": false,
+              "name": "Ada",
+              "smiling": false
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "black",
+              "hat": true,
+              "name": "Dante",
+              "smiling": true
+            },
+            {
+              "facialHair": true,
+              "glasses": false,
+              "hair": "black",
+              "hat": false,
+              "name": "Esme",
+              "smiling": true
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "brown",
+              "hat": true,
+              "name": "Iris",
+              "smiling": false
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "brown",
+              "hat": false,
+              "name": "Kira",
+              "smiling": true
+            },
+            {
+              "facialHair": true,
+              "glasses": false,
+              "hair": "brown",
+              "hat": true,
+              "name": "Mira",
+              "smiling": true
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "blond",
+              "hat": false,
+              "name": "Nico",
+              "smiling": false
+            },
+            {
+              "facialHair": true,
+              "glasses": false,
+              "hair": "blond",
+              "hat": true,
+              "name": "Opal",
+              "smiling": false
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "blond",
+              "hat": true,
+              "name": "Rosa",
+              "smiling": true
+            },
+            {
+              "facialHair": true,
+              "glasses": false,
+              "hair": "red",
+              "hat": false,
+              "name": "Uma",
+              "smiling": false
+            },
+            {
+              "facialHair": true,
+              "glasses": false,
+              "hair": "red",
+              "hat": true,
+              "name": "Vik",
+              "smiling": false
+            },
+            {
+              "facialHair": true,
+              "glasses": false,
+              "hair": "red",
+              "hat": true,
+              "name": "Yara",
+              "smiling": true
+            }
+          ],
+          "usedQuestionIds": [
+            "glasses"
+          ]
+        },
+        "legal_actions": [
+          {
+            "action_id": "ask_question:hair_black",
+            "description": "Does the person have black hair?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:hair_brown",
+            "description": "Does the person have brown hair?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:hair_blond",
+            "description": "Does the person have blond hair?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:hair_red",
+            "description": "Does the person have red hair?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:hat",
+            "description": "Does the person wear a hat?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:facial_hair",
+            "description": "Does the person have facial hair?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:smiling",
+            "description": "Is the person smiling?",
+            "payload_schema": {}
+          }
+        ],
+        "natural_language_rules": "One of 24 characters is hidden under a uniform prior. Ask one unused public yes/no question per turn. Answers are truthful. When exactly one candidate remains, name that character. Every question and the final guess cost one turn.",
+        "observation": {
+          "answer": false,
+          "kind": "answer",
+          "questionId": "glasses",
+          "remainingCandidates": 12
+        },
+        "step": 1
+      },
+      "outcome": {
+        "answer": false,
+        "kind": "answer",
+        "questionId": "facial_hair",
+        "remainingCandidates": 6
+      }
+    },
+    {
+      "agentTelemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": "duplicate belief state: Dante",
+            "error_type": "ValueError",
+            "input_tokens": 839,
+            "latency_ms": 4693.196917010937,
+            "outcome": "validation_error",
+            "output_characters": 981,
+            "output_sha256": "cfe5bd1d9ccefc72cdfbf79c89917dfe52c09803edc544c68b10808aa6dce527",
+            "output_tokens": 383,
+            "raw_belief_probability_sum": null,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0cbfe9816b47f35d016a871e3dfb1487d299c5082a476bcf4b",
+            "total_tokens": 1222
+          },
+          {
+            "attempt": 2,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "input_tokens": 857,
+            "latency_ms": 8393.139708030503,
+            "outcome": "success",
+            "output_characters": 977,
+            "output_sha256": "9b6313720fcdb1d0b14e8817d417c736976cd6b84ee513f6d020af600cfd164c",
+            "output_tokens": 395,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0b6d2ee4a3cbe74f016a871e42af08819cb961bda8cfa9d20e",
+            "total_tokens": 1252
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.99,
+        "inputTokens": 1696,
+        "outputTokens": 778,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 1,
+        "totalLatencyMs": 13086.33662504144,
+        "totalTokens": 2474,
+        "transportFailureCount": 0,
+        "validationFailureCount": 1
+      },
+      "decision": {
+        "action_id": "ask_question:hair_black",
+        "belief": {
+          "probabilities": {
+            "Ada": 0.1666666667,
+            "Bruno": 0.0,
+            "Cleo": 0.0,
+            "Dante": 0.1666666667,
+            "Esme": 0.0,
+            "Farah": 0.0,
+            "Hugo": 0.0,
+            "Iris": 0.1666666667,
+            "Jules": 0.0,
+            "Kira": 0.1666666667,
+            "Leon": 0.0,
+            "Mira": 0.0,
+            "Nico": 0.1666666667,
+            "Opal": 0.0,
+            "Pavel": 0.0,
+            "Quinn": 0.0,
+            "Rosa": 0.1666666667,
+            "Soren": 0.0,
+            "Talia": 0.0,
+            "Uma": 0.0,
+            "Vik": 0.0,
+            "Wren": 0.0,
+            "Xavi": 0.0,
+            "Yara": 0.0
+          },
+          "target": "secret_character"
+        },
+        "confidence": 0.99,
+        "payload": {}
+      },
+      "evaluation": {
+        "actionRegret": 0.0,
+        "beliefBrier": 0.8333333333333334,
+        "beliefLogLoss": 1.791759469028055,
+        "candidateSupportMass": 1.0000000002,
+        "decisionKind": "information_question",
+        "informationGainBits": 0.5849625007211562,
+        "optimalActionIds": [
+          "ask_question:hair_black",
+          "ask_question:hair_brown",
+          "ask_question:hair_blond",
+          "ask_question:hat",
+          "ask_question:smiling"
+        ],
+        "optimalPolicyAgreement": true,
+        "trueStateProbability": 0.1666666667,
+        "zeroProbabilityOnTruth": false
+      },
+      "input": {
+        "action_history": [
+          {
+            "action_id": "ask_question:glasses",
+            "actor_id": "agent",
+            "payload": {},
+            "public_observation": {
+              "answer": false,
+              "kind": "answer",
+              "questionId": "glasses",
+              "remainingCandidates": 12
+            }
+          },
+          {
+            "action_id": "ask_question:facial_hair",
+            "actor_id": "agent",
+            "payload": {},
+            "public_observation": {
+              "answer": false,
+              "kind": "answer",
+              "questionId": "facial_hair",
+              "remainingCandidates": 6
+            }
+          }
+        ],
+        "environment_id": "guess-who",
+        "episode_id": "guess-who:completion-pair",
+        "information_state": {
+          "beliefStateLabels": [
+            "Ada",
+            "Bruno",
+            "Cleo",
+            "Dante",
+            "Esme",
+            "Farah",
+            "Hugo",
+            "Iris",
+            "Jules",
+            "Kira",
+            "Leon",
+            "Mira",
+            "Nico",
+            "Opal",
+            "Pavel",
+            "Quinn",
+            "Rosa",
+            "Soren",
+            "Talia",
+            "Uma",
+            "Vik",
+            "Wren",
+            "Xavi",
+            "Yara"
+          ],
+          "beliefTarget": "secret_character",
+          "candidateCount": 6,
+          "candidateNames": [
+            "Ada",
+            "Dante",
+            "Iris",
+            "Kira",
+            "Nico",
+            "Rosa"
+          ],
+          "candidateProfiles": [
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "black",
+              "hat": false,
+              "name": "Ada",
+              "smiling": false
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "black",
+              "hat": true,
+              "name": "Dante",
+              "smiling": true
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "brown",
+              "hat": true,
+              "name": "Iris",
+              "smiling": false
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "brown",
+              "hat": false,
+              "name": "Kira",
+              "smiling": true
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "blond",
+              "hat": false,
+              "name": "Nico",
+              "smiling": false
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "blond",
+              "hat": true,
+              "name": "Rosa",
+              "smiling": true
+            }
+          ],
+          "usedQuestionIds": [
+            "facial_hair",
+            "glasses"
+          ]
+        },
+        "legal_actions": [
+          {
+            "action_id": "ask_question:hair_black",
+            "description": "Does the person have black hair?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:hair_brown",
+            "description": "Does the person have brown hair?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:hair_blond",
+            "description": "Does the person have blond hair?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:hat",
+            "description": "Does the person wear a hat?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:smiling",
+            "description": "Is the person smiling?",
+            "payload_schema": {}
+          }
+        ],
+        "natural_language_rules": "One of 24 characters is hidden under a uniform prior. Ask one unused public yes/no question per turn. Answers are truthful. When exactly one candidate remains, name that character. Every question and the final guess cost one turn.",
+        "observation": {
+          "answer": false,
+          "kind": "answer",
+          "questionId": "facial_hair",
+          "remainingCandidates": 6
+        },
+        "step": 2
+      },
+      "outcome": {
+        "answer": false,
+        "kind": "answer",
+        "questionId": "hair_black",
+        "remainingCandidates": 4
+      }
+    },
+    {
+      "agentTelemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "input_tokens": 796,
+            "latency_ms": 3609.928832971491,
+            "outcome": "success",
+            "output_characters": 255,
+            "output_sha256": "57b2137885a017aa700669dc98ece685769cd332a63512a53ed77118a31fa9d9",
+            "output_tokens": 161,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0e4c851820a232fc016a871e4b12cc87d2a76194f6d0802d1f",
+            "total_tokens": 957
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 1.0,
+        "inputTokens": 796,
+        "outputTokens": 161,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3609.928832971491,
+        "totalTokens": 957,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      },
+      "decision": {
+        "action_id": "ask_question:hair_brown",
+        "belief": {
+          "probabilities": {
+            "Iris": 0.25,
+            "Kira": 0.25,
+            "Nico": 0.25,
+            "Rosa": 0.25
+          },
+          "target": "secret_character"
+        },
+        "confidence": 1.0,
+        "payload": {}
+      },
+      "evaluation": {
+        "actionRegret": 0.0,
+        "beliefBrier": 0.75,
+        "beliefLogLoss": 1.3862943611198906,
+        "candidateSupportMass": 1.0,
+        "decisionKind": "information_question",
+        "informationGainBits": 1.0,
+        "optimalActionIds": [
+          "ask_question:hair_brown",
+          "ask_question:hair_blond",
+          "ask_question:hat",
+          "ask_question:smiling"
+        ],
+        "optimalPolicyAgreement": true,
+        "trueStateProbability": 0.25,
+        "zeroProbabilityOnTruth": false
+      },
+      "input": {
+        "action_history": [
+          {
+            "action_id": "ask_question:glasses",
+            "actor_id": "agent",
+            "payload": {},
+            "public_observation": {
+              "answer": false,
+              "kind": "answer",
+              "questionId": "glasses",
+              "remainingCandidates": 12
+            }
+          },
+          {
+            "action_id": "ask_question:facial_hair",
+            "actor_id": "agent",
+            "payload": {},
+            "public_observation": {
+              "answer": false,
+              "kind": "answer",
+              "questionId": "facial_hair",
+              "remainingCandidates": 6
+            }
+          },
+          {
+            "action_id": "ask_question:hair_black",
+            "actor_id": "agent",
+            "payload": {},
+            "public_observation": {
+              "answer": false,
+              "kind": "answer",
+              "questionId": "hair_black",
+              "remainingCandidates": 4
+            }
+          }
+        ],
+        "environment_id": "guess-who",
+        "episode_id": "guess-who:completion-pair",
+        "information_state": {
+          "beliefStateLabels": [
+            "Ada",
+            "Bruno",
+            "Cleo",
+            "Dante",
+            "Esme",
+            "Farah",
+            "Hugo",
+            "Iris",
+            "Jules",
+            "Kira",
+            "Leon",
+            "Mira",
+            "Nico",
+            "Opal",
+            "Pavel",
+            "Quinn",
+            "Rosa",
+            "Soren",
+            "Talia",
+            "Uma",
+            "Vik",
+            "Wren",
+            "Xavi",
+            "Yara"
+          ],
+          "beliefTarget": "secret_character",
+          "candidateCount": 4,
+          "candidateNames": [
+            "Iris",
+            "Kira",
+            "Nico",
+            "Rosa"
+          ],
+          "candidateProfiles": [
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "brown",
+              "hat": true,
+              "name": "Iris",
+              "smiling": false
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "brown",
+              "hat": false,
+              "name": "Kira",
+              "smiling": true
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "blond",
+              "hat": false,
+              "name": "Nico",
+              "smiling": false
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "blond",
+              "hat": true,
+              "name": "Rosa",
+              "smiling": true
+            }
+          ],
+          "usedQuestionIds": [
+            "facial_hair",
+            "glasses",
+            "hair_black"
+          ]
+        },
+        "legal_actions": [
+          {
+            "action_id": "ask_question:hair_brown",
+            "description": "Does the person have brown hair?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:hair_blond",
+            "description": "Does the person have blond hair?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:hat",
+            "description": "Does the person wear a hat?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:smiling",
+            "description": "Is the person smiling?",
+            "payload_schema": {}
+          }
+        ],
+        "natural_language_rules": "One of 24 characters is hidden under a uniform prior. Ask one unused public yes/no question per turn. Answers are truthful. When exactly one candidate remains, name that character. Every question and the final guess cost one turn.",
+        "observation": {
+          "answer": false,
+          "kind": "answer",
+          "questionId": "hair_black",
+          "remainingCandidates": 4
+        },
+        "step": 3
+      },
+      "outcome": {
+        "answer": false,
+        "kind": "answer",
+        "questionId": "hair_brown",
+        "remainingCandidates": 2
+      }
+    },
+    {
+      "agentTelemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "input_tokens": 731,
+            "latency_ms": 3337.3219579807483,
+            "outcome": "success",
+            "output_characters": 177,
+            "output_sha256": "dec43a16ffda4ea18c20463953c3f7cd5643bb6155d1ebf3f612909b3eaa3935",
+            "output_tokens": 102,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0ad82e7e440d35e5016a871e4eafc0819d8e41f8f0d0431725",
+            "total_tokens": 833
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.99,
+        "inputTokens": 731,
+        "outputTokens": 102,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3337.3219579807483,
+        "totalTokens": 833,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      },
+      "decision": {
+        "action_id": "ask_question:hat",
+        "belief": {
+          "probabilities": {
+            "Nico": 0.5,
+            "Rosa": 0.5
+          },
+          "target": "secret_character"
+        },
+        "confidence": 0.99,
+        "payload": {}
+      },
+      "evaluation": {
+        "actionRegret": 0.0,
+        "beliefBrier": 0.5,
+        "beliefLogLoss": 0.6931471805599453,
+        "candidateSupportMass": 1.0,
+        "decisionKind": "information_question",
+        "informationGainBits": 1.0,
+        "optimalActionIds": [
+          "ask_question:hat",
+          "ask_question:smiling"
+        ],
+        "optimalPolicyAgreement": true,
+        "trueStateProbability": 0.5,
+        "zeroProbabilityOnTruth": false
+      },
+      "input": {
+        "action_history": [
+          {
+            "action_id": "ask_question:glasses",
+            "actor_id": "agent",
+            "payload": {},
+            "public_observation": {
+              "answer": false,
+              "kind": "answer",
+              "questionId": "glasses",
+              "remainingCandidates": 12
+            }
+          },
+          {
+            "action_id": "ask_question:facial_hair",
+            "actor_id": "agent",
+            "payload": {},
+            "public_observation": {
+              "answer": false,
+              "kind": "answer",
+              "questionId": "facial_hair",
+              "remainingCandidates": 6
+            }
+          },
+          {
+            "action_id": "ask_question:hair_black",
+            "actor_id": "agent",
+            "payload": {},
+            "public_observation": {
+              "answer": false,
+              "kind": "answer",
+              "questionId": "hair_black",
+              "remainingCandidates": 4
+            }
+          },
+          {
+            "action_id": "ask_question:hair_brown",
+            "actor_id": "agent",
+            "payload": {},
+            "public_observation": {
+              "answer": false,
+              "kind": "answer",
+              "questionId": "hair_brown",
+              "remainingCandidates": 2
+            }
+          }
+        ],
+        "environment_id": "guess-who",
+        "episode_id": "guess-who:completion-pair",
+        "information_state": {
+          "beliefStateLabels": [
+            "Ada",
+            "Bruno",
+            "Cleo",
+            "Dante",
+            "Esme",
+            "Farah",
+            "Hugo",
+            "Iris",
+            "Jules",
+            "Kira",
+            "Leon",
+            "Mira",
+            "Nico",
+            "Opal",
+            "Pavel",
+            "Quinn",
+            "Rosa",
+            "Soren",
+            "Talia",
+            "Uma",
+            "Vik",
+            "Wren",
+            "Xavi",
+            "Yara"
+          ],
+          "beliefTarget": "secret_character",
+          "candidateCount": 2,
+          "candidateNames": [
+            "Nico",
+            "Rosa"
+          ],
+          "candidateProfiles": [
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "blond",
+              "hat": false,
+              "name": "Nico",
+              "smiling": false
+            },
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "blond",
+              "hat": true,
+              "name": "Rosa",
+              "smiling": true
+            }
+          ],
+          "usedQuestionIds": [
+            "facial_hair",
+            "glasses",
+            "hair_black",
+            "hair_brown"
+          ]
+        },
+        "legal_actions": [
+          {
+            "action_id": "ask_question:hat",
+            "description": "Does the person wear a hat?",
+            "payload_schema": {}
+          },
+          {
+            "action_id": "ask_question:smiling",
+            "description": "Is the person smiling?",
+            "payload_schema": {}
+          }
+        ],
+        "natural_language_rules": "One of 24 characters is hidden under a uniform prior. Ask one unused public yes/no question per turn. Answers are truthful. When exactly one candidate remains, name that character. Every question and the final guess cost one turn.",
+        "observation": {
+          "answer": false,
+          "kind": "answer",
+          "questionId": "hair_brown",
+          "remainingCandidates": 2
+        },
+        "step": 4
+      },
+      "outcome": {
+        "answer": false,
+        "kind": "answer",
+        "questionId": "hat",
+        "remainingCandidates": 1
+      }
+    },
+    {
+      "agentTelemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "input_tokens": 715,
+            "latency_ms": 1403.4313749871217,
+            "outcome": "success",
+            "output_characters": 141,
+            "output_sha256": "3b96cc4f9d9854728653f4d7cd1fcf9853ddac58f312aa9b841147587d6894b4",
+            "output_tokens": 46,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_06bf0033a75f8649016a871e520e5087d29124c5b2f372c31e",
+            "total_tokens": 761
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 1.0,
+        "inputTokens": 715,
+        "outputTokens": 46,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 1403.4313749871217,
+        "totalTokens": 761,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      },
+      "decision": {
+        "action_id": "guess_character:Nico",
+        "belief": {
+          "probabilities": {
+            "Nico": 1.0
+          },
+          "target": "secret_character"
+        },
+        "confidence": 1.0,
+        "payload": {}
+      },
+      "evaluation": {
+        "actionRegret": 0.0,
+        "beliefBrier": 0.0,
+        "beliefLogLoss": -0.0,
+        "candidateSupportMass": 1.0,
+        "decisionKind": "final_guess",
+        "informationGainBits": 0.0,
+        "optimalActionIds": [
+          "guess_character:Nico"
+        ],
+        "optimalPolicyAgreement": true,
+        "trueStateProbability": 1.0,
+        "zeroProbabilityOnTruth": false
+      },
+      "input": {
+        "action_history": [
+          {
+            "action_id": "ask_question:glasses",
+            "actor_id": "agent",
+            "payload": {},
+            "public_observation": {
+              "answer": false,
+              "kind": "answer",
+              "questionId": "glasses",
+              "remainingCandidates": 12
+            }
+          },
+          {
+            "action_id": "ask_question:facial_hair",
+            "actor_id": "agent",
+            "payload": {},
+            "public_observation": {
+              "answer": false,
+              "kind": "answer",
+              "questionId": "facial_hair",
+              "remainingCandidates": 6
+            }
+          },
+          {
+            "action_id": "ask_question:hair_black",
+            "actor_id": "agent",
+            "payload": {},
+            "public_observation": {
+              "answer": false,
+              "kind": "answer",
+              "questionId": "hair_black",
+              "remainingCandidates": 4
+            }
+          },
+          {
+            "action_id": "ask_question:hair_brown",
+            "actor_id": "agent",
+            "payload": {},
+            "public_observation": {
+              "answer": false,
+              "kind": "answer",
+              "questionId": "hair_brown",
+              "remainingCandidates": 2
+            }
+          },
+          {
+            "action_id": "ask_question:hat",
+            "actor_id": "agent",
+            "payload": {},
+            "public_observation": {
+              "answer": false,
+              "kind": "answer",
+              "questionId": "hat",
+              "remainingCandidates": 1
+            }
+          }
+        ],
+        "environment_id": "guess-who",
+        "episode_id": "guess-who:completion-pair",
+        "information_state": {
+          "beliefStateLabels": [
+            "Ada",
+            "Bruno",
+            "Cleo",
+            "Dante",
+            "Esme",
+            "Farah",
+            "Hugo",
+            "Iris",
+            "Jules",
+            "Kira",
+            "Leon",
+            "Mira",
+            "Nico",
+            "Opal",
+            "Pavel",
+            "Quinn",
+            "Rosa",
+            "Soren",
+            "Talia",
+            "Uma",
+            "Vik",
+            "Wren",
+            "Xavi",
+            "Yara"
+          ],
+          "beliefTarget": "secret_character",
+          "candidateCount": 1,
+          "candidateNames": [
+            "Nico"
+          ],
+          "candidateProfiles": [
+            {
+              "facialHair": false,
+              "glasses": false,
+              "hair": "blond",
+              "hat": false,
+              "name": "Nico",
+              "smiling": false
+            }
+          ],
+          "usedQuestionIds": [
+            "facial_hair",
+            "glasses",
+            "hair_black",
+            "hair_brown",
+            "hat"
+          ]
+        },
+        "legal_actions": [
+          {
+            "action_id": "guess_character:Nico",
+            "description": "Name Nico as the hidden character.",
+            "payload_schema": {}
+          }
+        ],
+        "natural_language_rules": "One of 24 characters is hidden under a uniform prior. Ask one unused public yes/no question per turn. Answers are truthful. When exactly one candidate remains, name that character. Every question and the final guess cost one turn.",
+        "observation": {
+          "answer": false,
+          "kind": "answer",
+          "questionId": "hat",
+          "remainingCandidates": 1
+        },
+        "step": 5
+      },
+      "outcome": {
+        "correct": true,
+        "kind": "final_guess",
+        "name": "Nico"
+      }
+    }
+  ]
+}

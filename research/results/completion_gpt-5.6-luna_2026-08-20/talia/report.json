@@ -1,0 +1,68 @@
+{
+  "allConditionsCompleted": true,
+  "conditions": {
+    "generic": {
+      "calls": 6,
+      "confidences": [
+        0.99,
+        0.99,
+        1.0,
+        0.99,
+        1.0,
+        1.0
+      ],
+      "parseFailures": 0,
+      "resolvedModels": [
+        "gpt-5.6-luna"
+      ],
+      "result": {
+        "informationEfficiencyBitsPerQuestion": 0.9169925001442312,
+        "questionsAsked": 5,
+        "secret": "Talia",
+        "solved": true,
+        "turnsIncludingGuess": 6
+      },
+      "retries": 0,
+      "status": "completed",
+      "terminalError": null,
+      "totalLatencyMs": 22265.585876011755,
+      "totalTokens": 6859,
+      "trace": "research/results/completion_gpt-5.6-luna_2026-08-20/talia/generic.json",
+      "transportFailures": 0,
+      "validationFailures": 0
+    },
+    "single-game": {
+      "calls": 6,
+      "confidences": [
+        0.99,
+        1.0,
+        0.99,
+        0.99,
+        0.99,
+        1.0
+      ],
+      "parseFailures": 0,
+      "resolvedModels": [
+        "gpt-5.6-luna"
+      ],
+      "result": {
+        "informationEfficiencyBitsPerQuestion": 0.9169925001442312,
+        "questionsAsked": 5,
+        "secret": "Talia",
+        "solved": true,
+        "turnsIncludingGuess": 6
+      },
+      "retries": 0,
+      "status": "completed",
+      "terminalError": null,
+      "totalLatencyMs": 31129.255666048266,
+      "totalTokens": 7781,
+      "trace": "research/results/completion_gpt-5.6-luna_2026-08-20/talia/single-game.json",
+      "transportFailures": 0,
+      "validationFailures": 0
+    }
+  },
+  "model": "gpt-5.6-luna",
+  "sameResolvedModel": true,
+  "secret": "Talia"
+}

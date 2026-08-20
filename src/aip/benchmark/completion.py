@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import time
 from dataclasses import asdict, dataclass, field
 from enum import Enum
+from pathlib import Path
 from typing import Callable, Mapping, Protocol
 
 from aip.benchmark.types import (
@@ -70,6 +72,8 @@ DECISION_JSON_SCHEMA: Mapping[str, object] = {
     "additionalProperties": False,
 }
 
+BELIEF_NORMALIZATION_TOLERANCE = 0.02
+
 
 class PromptCondition(str, Enum):
     GENERIC = "generic"
@@ -120,6 +124,8 @@ class CompletionAttempt:
     response_id: str | None
     output_sha256: str | None
     output_characters: int
+    raw_belief_probability_sum: float | None = None
+    belief_normalized: bool = False
     error_type: str | None = None
     error_message: str | None = None
 
@@ -199,6 +205,29 @@ def _response_fingerprint(output_text: str) -> str:
     return hashlib.sha256(output_text.encode("utf-8")).hexdigest()
 
 
+def load_dotenv_value(path: str | Path, key: str) -> str | None:
+    """Read one literal dotenv value without executing shell syntax or expansion."""
+
+    if not key or "=" in key:
+        raise ValueError("dotenv key must be a nonempty variable name")
+    source = Path(path)
+    if not source.is_file():
+        return None
+    found: str | None = None
+    for raw_line in source.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        name, value = line.removeprefix("export ").split("=", 1)
+        if name.strip() != key:
+            continue
+        value = value.strip()
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
+            value = value[1:-1]
+        found = value
+    return found or None
+
+
 def _public_agent_input(decision: AgentInput) -> dict[str, object]:
     return {
         "environment_id": decision.environment_id,
@@ -211,8 +240,34 @@ def _public_agent_input(decision: AgentInput) -> dict[str, object]:
     }
 
 
+def _validate_adapter_belief(decision_input: AgentInput, chosen: AgentDecision) -> None:
+    if chosen.belief is None:
+        return
+    target = decision_input.information_state.get("beliefTarget")
+    if isinstance(target, str) and chosen.belief.target != target:
+        raise ValueError(f"belief target must be {target}")
+    labels = decision_input.information_state.get("beliefStateLabels")
+    if isinstance(labels, (list, tuple)):
+        allowed = {str(label) for label in labels}
+        unknown = set(chosen.belief.probabilities).difference(allowed)
+        if unknown:
+            raise ValueError(f"belief contains unknown state labels: {sorted(unknown)}")
+
+
 def parse_completion_decision(output_text: str) -> AgentDecision:
     """Parse the narrow structured-output shape without accepting extra fields."""
+
+    return _parse_completion_decision(output_text).decision
+
+
+@dataclass(frozen=True, slots=True)
+class _ParsedDecision:
+    decision: AgentDecision
+    raw_belief_probability_sum: float | None
+    belief_normalized: bool
+
+
+def _parse_completion_decision(output_text: str) -> _ParsedDecision:
 
     payload = json.loads(output_text)
     if not isinstance(payload, dict):
@@ -228,6 +283,8 @@ def parse_completion_decision(output_text: str) -> AgentDecision:
         raise ValueError("confidence must be numeric")
     belief_payload = payload["belief"]
     belief = None
+    raw_sum = None
+    normalized = False
     if belief_payload is not None:
         if not isinstance(belief_payload, dict) or set(belief_payload) != {
             "target",
@@ -252,9 +309,29 @@ def parse_completion_decision(output_text: str) -> AgentDecision:
                 raise ValueError(f"duplicate belief state: {state}")
             if isinstance(probability, bool) or not isinstance(probability, (int, float)):
                 raise ValueError("belief probability must be numeric")
-            probabilities[state] = float(probability)
+            probability = float(probability)
+            if not math.isfinite(probability) or not 0 <= probability <= 1:
+                raise ValueError("belief probability must be between 0 and 1")
+            probabilities[state] = probability
+        raw_sum = sum(probabilities.values())
+        deviation = abs(raw_sum - 1.0)
+        if deviation > BELIEF_NORMALIZATION_TOLERANCE:
+            raise ValueError(
+                f"belief probabilities sum to {raw_sum:.12g}; maximum accepted "
+                f"rounding deviation is {BELIEF_NORMALIZATION_TOLERANCE}"
+            )
+        if deviation > 1e-9:
+            probabilities = {
+                state: probability / raw_sum
+                for state, probability in probabilities.items()
+            }
+            normalized = True
         belief = BeliefOutput(target, probabilities)
-    return AgentDecision(action_id, float(confidence), belief=belief)
+    return _ParsedDecision(
+        AgentDecision(action_id, float(confidence), belief=belief),
+        raw_sum,
+        normalized,
+    )
 
 
 class CompletionBackedAgent:
@@ -290,7 +367,7 @@ class CompletionBackedAgent:
         return f"{GENERIC_STRATEGIC_PROMPT}\n{self.condition_prompt}\n"
 
     def agent_metadata(self) -> dict[str, object]:
-        return {
+        metadata = {
             "condition": self.condition.value,
             "completionBacked": True,
             "provider": self.backend.provider_name,
@@ -307,6 +384,10 @@ class CompletionBackedAgent:
                 self.instructions.encode("utf-8")
             ).hexdigest(),
         }
+        backend_metadata = getattr(self.backend, "metadata", None)
+        if callable(backend_metadata):
+            metadata["backendConfiguration"] = dict(backend_metadata())
+        return metadata
 
     def decision_telemetry(self) -> Mapping[str, object]:
         return self._last_telemetry.as_dict() if self._last_telemetry else {}
@@ -337,18 +418,18 @@ class CompletionBackedAgent:
                 latency_ms = (self._clock() - started) * 1000
                 attempts.append(
                     CompletionAttempt(
-                        attempt_number,
-                        "transport_error",
-                        latency_ms,
-                        0,
-                        0,
-                        0,
-                        None,
-                        None,
-                        None,
-                        0,
-                        error.__class__.__name__,
-                        _safe_error(error),
+                        attempt=attempt_number,
+                        outcome="transport_error",
+                        latency_ms=latency_ms,
+                        input_tokens=0,
+                        output_tokens=0,
+                        total_tokens=0,
+                        resolved_model=None,
+                        response_id=None,
+                        output_sha256=None,
+                        output_characters=0,
+                        error_type=error.__class__.__name__,
+                        error_message=_safe_error(error),
                     )
                 )
                 correction = "The previous request failed. Produce the required JSON."
@@ -367,7 +448,8 @@ class CompletionBackedAgent:
                 "output_characters": len(response.output_text),
             }
             try:
-                chosen = parse_completion_decision(response.output_text)
+                parsed = _parse_completion_decision(response.output_text)
+                chosen = parsed.decision
             except json.JSONDecodeError as error:
                 attempts.append(
                     CompletionAttempt(
@@ -388,24 +470,40 @@ class CompletionBackedAgent:
                         **common,
                     )
                 )
-                correction = "The previous JSON did not match the required schema."
+                correction = (
+                    "The previous JSON did not match the required schema: "
+                    + _safe_error(error)
+                )
                 continue
 
             try:
                 validate_decision(decision, chosen)
+                _validate_adapter_belief(decision, chosen)
             except ValueError as error:
                 attempts.append(
                     CompletionAttempt(
                         outcome="validation_error",
                         error_type=error.__class__.__name__,
                         error_message=_safe_error(error),
+                        raw_belief_probability_sum=parsed.raw_belief_probability_sum,
+                        belief_normalized=parsed.belief_normalized,
                         **common,
                     )
                 )
-                correction = "The previous action was illegal for the supplied state."
+                correction = (
+                    "The previous action was illegal for the supplied state: "
+                    + _safe_error(error)
+                )
                 continue
 
-            attempts.append(CompletionAttempt(outcome="success", **common))
+            attempts.append(
+                CompletionAttempt(
+                    outcome="success",
+                    raw_belief_probability_sum=parsed.raw_belief_probability_sum,
+                    belief_normalized=parsed.belief_normalized,
+                    **common,
+                )
+            )
             self._last_telemetry = CompletionTelemetry(
                 self.condition,
                 self.backend.provider_name,
@@ -477,7 +575,18 @@ class OpenAIResponsesBackend:
     provider_name = "openai-responses"
     is_real_model = True
 
-    def __init__(self, client: object | None = None, **client_options: object) -> None:
+    def __init__(
+        self,
+        client: object | None = None,
+        *,
+        reasoning_effort: str = "low",
+        max_output_tokens: int = 4096,
+        **client_options: object,
+    ) -> None:
+        if not reasoning_effort:
+            raise ValueError("reasoning_effort cannot be empty")
+        if max_output_tokens < 1:
+            raise ValueError("max_output_tokens must be positive")
         if client is None:
             try:
                 from openai import OpenAI
@@ -487,6 +596,16 @@ class OpenAIResponsesBackend:
                 ) from error
             client = OpenAI(**client_options)
         self.client = client
+        self.reasoning_effort = reasoning_effort
+        self.max_output_tokens = max_output_tokens
+
+    def metadata(self) -> Mapping[str, object]:
+        return {
+            "reasoningEffort": self.reasoning_effort,
+            "maxOutputTokens": self.max_output_tokens,
+            "store": False,
+            "structuredOutputs": True,
+        }
 
     def complete(self, request: CompletionRequest) -> CompletionResponse:
         responses = getattr(self.client, "responses")
@@ -502,6 +621,8 @@ class OpenAIResponsesBackend:
                     "schema": request.response_schema,
                 }
             },
+            reasoning={"effort": self.reasoning_effort},
+            max_output_tokens=self.max_output_tokens,
             store=False,
         )
         usage = _field(response, "usage", {})

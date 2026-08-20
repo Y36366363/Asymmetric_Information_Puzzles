@@ -1,0 +1,68 @@
+{
+  "allConditionsCompleted": true,
+  "conditions": {
+    "generic": {
+      "calls": 6,
+      "confidences": [
+        0.99,
+        0.86,
+        0.84,
+        0.99,
+        1.0,
+        1.0
+      ],
+      "parseFailures": 0,
+      "resolvedModels": [
+        "gpt-5.6-luna"
+      ],
+      "result": {
+        "informationEfficiencyBitsPerQuestion": 0.9169925001442312,
+        "questionsAsked": 5,
+        "secret": "Nico",
+        "solved": true,
+        "turnsIncludingGuess": 6
+      },
+      "retries": 0,
+      "status": "completed",
+      "terminalError": null,
+      "totalLatencyMs": 36194.991834054235,
+      "totalTokens": 7267,
+      "trace": "research/results/completion_gpt-5.6-luna_2026-08-20/nico/generic.json",
+      "transportFailures": 0,
+      "validationFailures": 0
+    },
+    "single-game": {
+      "calls": 6,
+      "confidences": [
+        1.0,
+        0.99,
+        0.99,
+        1.0,
+        0.99,
+        1.0
+      ],
+      "parseFailures": 0,
+      "resolvedModels": [
+        "gpt-5.6-luna"
+      ],
+      "result": {
+        "informationEfficiencyBitsPerQuestion": 0.9169925001442312,
+        "questionsAsked": 5,
+        "secret": "Nico",
+        "solved": true,
+        "turnsIncludingGuess": 6
+      },
+      "retries": 1,
+      "status": "completed",
+      "terminalError": null,
+      "totalLatencyMs": 33743.34604095202,
+      "totalTokens": 8288,
+      "trace": "research/results/completion_gpt-5.6-luna_2026-08-20/nico/single-game.json",
+      "transportFailures": 0,
+      "validationFailures": 1
+    }
+  },
+  "model": "gpt-5.6-luna",
+  "sameResolvedModel": true,
+  "secret": "Nico"
+}

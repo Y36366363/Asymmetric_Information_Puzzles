@@ -111,21 +111,31 @@ PYTHONPATH=src python scripts/run_completion_baseline.py \
 ```
 
 It runs both conditions against the same secret and shared backend, then writes
-`generic.json`, `single-game.json`, and `report.json`. The report contains calls,
-failures, retries, token use, latency, confidence sequences, terminal result,
-and resolved-model consistency.
+`generic.json`, `single-game.json`, and `report.json`. The report contains
+decision invocations, provider attempts, failures, retries, token use, latency,
+confidence sequences, terminal result, and resolved-model consistency. Report
+v1 distinguishes strategic
+`decisionInvocations` from `providerAttempts`, so an internal retry is never
+misreported as a new game decision.
 
-## Verification and current limitation
+For paid failure diagnosis, `--condition generic` or
+`--condition single-game` reruns only the failed arm. Exhausted conditions retain
+their full per-attempt telemetry in `failureTelemetry` even though no terminal
+episode trace exists.
 
-Six deterministic tests cover:
+## Verification and current status
+
+Deterministic tests cover:
 
 1. same backend/model with distinct prompt conditions;
 2. malformed JSON followed by a successful retry;
 3. transport and illegal-action failures as separate classes;
 4. exhausted retries retaining telemetry;
 5. per-decision telemetry inside a complete episode trace;
-6. strict OpenAI request shape and usage extraction with a test client.
+6. strict OpenAI request shape and usage extraction with a test client;
+7. literal dotenv loading without shell evaluation;
+8. audited normalization of small probability rounding errors;
+9. rejection and retry for the wrong adapter belief target.
 
-No real-model performance numbers are reported today. The host has the optional
-SDK but no API credential. Executing paid calls without a user-selected model,
-credential, and cost scope would not be a valid or authorized experiment.
+The first authorized real-model experiment is reported in
+[`completion_real_model_experiment_2026-08-20.md`](completion_real_model_experiment_2026-08-20.md).

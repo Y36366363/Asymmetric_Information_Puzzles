@@ -5,6 +5,40 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/20/2026
+
+- **First real-model paired experiment** — Ran the same resolved
+  `gpt-5.6-luna` model on generic and single-game prompts across four fixed
+  Guess Who secrets. Both completed panels solved 4/4 with 5.75 mean turns, but
+  generic had 89.47% exact optimal-question agreement versus 84.21% for the
+  single-game prompt. This small one-environment panel is operational evidence,
+  not a cross-game transfer claim. [Read the experiment](research/completion_real_model_experiment_2026-08-20.md).
+- **Trace differences are measurable** — Generic recorded 0.01754 mean action
+  regret and 0.63920 belief Brier; single-game recorded 0.02339 and 0.65700.
+  Their aligned action sequences agreed only 45.83% of the time despite equal
+  mean turns, confirming that the trace and scoring layer reveals differences
+  hidden by terminal success.
+- **Operational reliability is explicit** — First-run completion was 3/4 for
+  generic and 4/4 for single-game. A targeted generic recovery completed, and
+  each successful panel used 24 provider attempts for 23 strategic decisions.
+  Report v1 now separates those counts and retains full failure telemetry.
+- **Belief contract hardened** — Guess Who now declares the exact belief target
+  and allowed state labels. Small probability-rounding deviations up to 2% are
+  normalized with the raw sum and event recorded; larger deviations, unknown
+  states, and wrong targets are rejected and retried. The live runs exercised
+  both normalization and strict rejection paths.
+- **Credential handling secured** — `.env` and `.env.*` are ignored (except a
+  future `.env.example`), and the runner reads `OPENAI_API_KEY` literally without
+  shell evaluation. Keys and raw completion text are never written to traces.
+- **Reproducible live runner** — Added selective `--condition` recovery, safe
+  terminal-error capture, input/output token totals, belief-normalization counts,
+  low-reasoning backend metadata, and `store=false` requests. Sanitized raw
+  traces and a machine-readable panel report are retained under
+  `research/results/completion_gpt-5.6-luna_2026-08-20/`.
+- **Regression verification** — All 194 Python tests and all 11 public
+  engine/static-build tests pass. The Python suite includes the localhost health
+  check under an environment that permits a temporary loopback socket.
+
 ## Updates 08/19/2026
 
 - **Completion-backed agent boundary** — Added a provider-neutral request and

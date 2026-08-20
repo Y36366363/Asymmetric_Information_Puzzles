@@ -211,6 +211,10 @@ class GuessWhoBenchmarkAdapter:
             information_state={
                 "candidateNames": list(self._candidates),
                 "candidateCount": len(self._candidates),
+                "beliefTarget": "secret_character",
+                "beliefStateLabels": [
+                    character.name for character in self.solver.roster
+                ],
                 "candidateProfiles": [
                     {
                         "name": character.name,
