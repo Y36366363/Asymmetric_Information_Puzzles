@@ -1,0 +1,77 @@
+{
+  "allConditionsCompleted": true,
+  "conditions": {
+    "generic": {
+      "beliefNormalizations": 0,
+      "confidences": [
+        0.99,
+        0.99,
+        0.99,
+        0.99,
+        1.0,
+        1.0
+      ],
+      "decisionInvocations": 6,
+      "inputTokens": 5151,
+      "outputTokens": 2257,
+      "parseFailures": 0,
+      "providerAttempts": 6,
+      "resolvedModels": [
+        "gpt-5.6-luna"
+      ],
+      "result": {
+        "informationEfficiencyBitsPerQuestion": 0.9169925001442312,
+        "questionsAsked": 5,
+        "secret": "Nico",
+        "solved": true,
+        "turnsIncludingGuess": 6
+      },
+      "retries": 0,
+      "status": "completed",
+      "terminalError": null,
+      "totalLatencyMs": 20810.563334962353,
+      "totalTokens": 7408,
+      "trace": "research/results/completion_gpt-5.6-luna_2026-08-21_replicate-2/nico/generic.json",
+      "transportFailures": 0,
+      "validationFailures": 0
+    },
+    "single-game": {
+      "beliefNormalizations": 1,
+      "confidences": [
+        1.0,
+        0.99,
+        0.99,
+        0.99,
+        1.0,
+        1.0
+      ],
+      "decisionInvocations": 6,
+      "inputTokens": 6331,
+      "outputTokens": 1982,
+      "parseFailures": 0,
+      "providerAttempts": 7,
+      "resolvedModels": [
+        "gpt-5.6-luna"
+      ],
+      "result": {
+        "informationEfficiencyBitsPerQuestion": 0.9169925001442312,
+        "questionsAsked": 5,
+        "secret": "Nico",
+        "solved": true,
+        "turnsIncludingGuess": 6
+      },
+      "retries": 1,
+      "status": "completed",
+      "terminalError": null,
+      "totalLatencyMs": 23105.60937412083,
+      "totalTokens": 8313,
+      "trace": "research/results/completion_gpt-5.6-luna_2026-08-21_replicate-2/nico/single-game.json",
+      "transportFailures": 0,
+      "validationFailures": 1
+    }
+  },
+  "model": "gpt-5.6-luna",
+  "reportSchemaVersion": "aip-completion-report-v1",
+  "sameResolvedModel": true,
+  "secret": "Nico"
+}

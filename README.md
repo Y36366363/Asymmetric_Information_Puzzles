@@ -5,6 +5,31 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/21/2026
+
+- **Independent prompt replication** — Repeated the same four-secret paired
+  Guess Who experiment with the same resolved `gpt-5.6-luna` model. All eight
+  new episodes completed. Generic repeated 5.75 mean turns, 89.47% exact-policy
+  agreement, and 0.01754 regret; single-game recorded 6.00 turns, 75.00%
+  agreement, and 0.03611 regret. [Read the replication](research/completion_replication_2026-08-21.md).
+- **Pooled difference remains visible** — Across two stochastic runs and eight
+  episodes per condition, generic reached 89.47% optimal-question agreement
+  versus 79.49% for single-game, with lower regret and better confidence
+  calibration. This is a narrow one-game result, not a cross-game transfer claim.
+- **Policy stability is now measured** — Exact aligned action agreement across
+  repeats was 75.00% for generic and 45.24% for single-game. Equal terminal
+  success therefore does not imply a stable or equivalent policy.
+- **Bounded live usage** — Today's eight-episode run consumed 56,548 tokens. At
+  the official price observed today, estimated token cost was $0.02527. One
+  single-game belief required a validation retry; no generic retry was needed.
+- **Historical traces are executable data** — `EpisodeTrace` now supports strict
+  `from_dict`, `from_json`, and `read_json` reconstruction. Saved traces can be
+  rescored offline without another API call, while unknown schema versions and
+  malformed shapes are rejected.
+- **Regression verification** — All 195 Python tests and all 11 public
+  engine/static-build tests pass, including trace round trips, malformed-trace
+  rejection, and the localhost health check.
+
 ## Updates 08/20/2026
 
 - **First real-model paired experiment** — Ran the same resolved

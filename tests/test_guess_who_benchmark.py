@@ -6,6 +6,7 @@ from pathlib import Path
 from aip.benchmark import (
     AgentDecision,
     BeliefOutput,
+    EpisodeTrace,
     GuessWhoBenchmarkAdapter,
     OptimalGuessWhoAgent,
     run_episode,
@@ -40,6 +41,28 @@ class GuessWhoBenchmarkTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = trace.write_json(Path(directory) / "trace.json")
             self.assertEqual(json.loads(path.read_text()), payload)
+            loaded = EpisodeTrace.read_json(path)
+            self.assertEqual(loaded, trace)
+            self.assertEqual(loaded.to_json(), trace.to_json())
+
+    def test_trace_loader_rejects_unknown_schema_and_shape(self) -> None:
+        trace = run_episode(
+            GuessWhoBenchmarkAdapter("Ada"),
+            OptimalGuessWhoAgent(),
+            agent_id="algorithmic-oracle",
+        )
+        payload = trace.as_dict()
+        payload["schemaVersion"] = "aip-benchmark-trace-v999"
+        with self.assertRaisesRegex(ValueError, "unsupported trace schema"):
+            EpisodeTrace.from_dict(payload)
+        payload = trace.as_dict()
+        payload["unexpected"] = True
+        with self.assertRaisesRegex(ValueError, "unexpected or missing fields"):
+            EpisodeTrace.from_dict(payload)
+        payload = trace.as_dict()
+        payload["steps"][0]["input"]["step"] = 0.5
+        with self.assertRaisesRegex(ValueError, "step must be an integer"):
+            EpisodeTrace.from_dict(payload)
 
     def test_exhaustive_oracle_suite_matches_exact_policy(self) -> None:
         oracle = OptimalGuessWhoAgent()

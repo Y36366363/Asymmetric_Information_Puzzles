@@ -1,0 +1,77 @@
+{
+  "allConditionsCompleted": true,
+  "conditions": {
+    "generic": {
+      "beliefNormalizations": 1,
+      "confidences": [
+        0.99,
+        0.95,
+        0.99,
+        0.99,
+        0.99,
+        1.0
+      ],
+      "decisionInvocations": 6,
+      "inputTokens": 5455,
+      "outputTokens": 1727,
+      "parseFailures": 0,
+      "providerAttempts": 6,
+      "resolvedModels": [
+        "gpt-5.6-luna"
+      ],
+      "result": {
+        "informationEfficiencyBitsPerQuestion": 0.9169925001442312,
+        "questionsAsked": 5,
+        "secret": "Hugo",
+        "solved": true,
+        "turnsIncludingGuess": 6
+      },
+      "retries": 0,
+      "status": "completed",
+      "terminalError": null,
+      "totalLatencyMs": 18772.44658197742,
+      "totalTokens": 7182,
+      "trace": "research/results/completion_gpt-5.6-luna_2026-08-21_replicate-2/hugo/generic.json",
+      "transportFailures": 0,
+      "validationFailures": 0
+    },
+    "single-game": {
+      "beliefNormalizations": 1,
+      "confidences": [
+        1.0,
+        0.99,
+        0.99,
+        0.99,
+        1.0,
+        1.0
+      ],
+      "decisionInvocations": 6,
+      "inputTokens": 5722,
+      "outputTokens": 1896,
+      "parseFailures": 0,
+      "providerAttempts": 6,
+      "resolvedModels": [
+        "gpt-5.6-luna"
+      ],
+      "result": {
+        "informationEfficiencyBitsPerQuestion": 0.9169925001442312,
+        "questionsAsked": 5,
+        "secret": "Hugo",
+        "solved": true,
+        "turnsIncludingGuess": 6
+      },
+      "retries": 0,
+      "status": "completed",
+      "terminalError": null,
+      "totalLatencyMs": 22920.530541916378,
+      "totalTokens": 7618,
+      "trace": "research/results/completion_gpt-5.6-luna_2026-08-21_replicate-2/hugo/single-game.json",
+      "transportFailures": 0,
+      "validationFailures": 0
+    }
+  },
+  "model": "gpt-5.6-luna",
+  "reportSchemaVersion": "aip-completion-report-v1",
+  "sameResolvedModel": true,
+  "secret": "Hugo"
+}

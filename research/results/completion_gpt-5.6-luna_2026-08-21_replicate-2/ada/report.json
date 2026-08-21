@@ -1,0 +1,75 @@
+{
+  "allConditionsCompleted": true,
+  "conditions": {
+    "generic": {
+      "beliefNormalizations": 2,
+      "confidences": [
+        0.25,
+        0.25,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "decisionInvocations": 5,
+      "inputTokens": 3909,
+      "outputTokens": 1186,
+      "parseFailures": 0,
+      "providerAttempts": 5,
+      "resolvedModels": [
+        "gpt-5.6-luna"
+      ],
+      "result": {
+        "informationEfficiencyBitsPerQuestion": 1.146240625180289,
+        "questionsAsked": 4,
+        "secret": "Ada",
+        "solved": true,
+        "turnsIncludingGuess": 5
+      },
+      "retries": 0,
+      "status": "completed",
+      "terminalError": null,
+      "totalLatencyMs": 17391.669832984917,
+      "totalTokens": 5095,
+      "trace": "research/results/completion_gpt-5.6-luna_2026-08-21_replicate-2/ada/generic.json",
+      "transportFailures": 0,
+      "validationFailures": 0
+    },
+    "single-game": {
+      "beliefNormalizations": 0,
+      "confidences": [
+        1.0,
+        1.0,
+        0.34,
+        1.0,
+        1.0
+      ],
+      "decisionInvocations": 5,
+      "inputTokens": 4159,
+      "outputTokens": 1343,
+      "parseFailures": 0,
+      "providerAttempts": 5,
+      "resolvedModels": [
+        "gpt-5.6-luna"
+      ],
+      "result": {
+        "informationEfficiencyBitsPerQuestion": 1.146240625180289,
+        "questionsAsked": 4,
+        "secret": "Ada",
+        "solved": true,
+        "turnsIncludingGuess": 5
+      },
+      "retries": 0,
+      "status": "completed",
+      "terminalError": null,
+      "totalLatencyMs": 18157.781082903966,
+      "totalTokens": 5502,
+      "trace": "research/results/completion_gpt-5.6-luna_2026-08-21_replicate-2/ada/single-game.json",
+      "transportFailures": 0,
+      "validationFailures": 0
+    }
+  },
+  "model": "gpt-5.6-luna",
+  "reportSchemaVersion": "aip-completion-report-v1",
+  "sameResolvedModel": true,
+  "secret": "Ada"
+}

@@ -1,0 +1,146 @@
+{
+  "artifactSchemaVersion": "aip-completion-replication-v1",
+  "date": "2026-08-21",
+  "environment": "guess-who",
+  "model": {
+    "requested": "gpt-5.6-luna",
+    "resolved": [
+      "gpt-5.6-luna"
+    ],
+    "reasoningEffort": "low",
+    "maxOutputTokens": 4096,
+    "store": false,
+    "temperature": "provider-default",
+    "seed": "not-exposed-by-responses-create"
+  },
+  "design": {
+    "replicationIndex": 2,
+    "conditions": [
+      "generic",
+      "single-game"
+    ],
+    "secrets": [
+      "Ada",
+      "Hugo",
+      "Nico",
+      "Talia"
+    ],
+    "episodes": 8,
+    "rawModelTextRetained": false
+  },
+  "replicate2": {
+    "generic": {
+      "episodes": 4,
+      "solvedRate": 1.0,
+      "meanTurns": 5.75,
+      "worstTurns": 6,
+      "optimalPolicyAgreement": 0.8947368421052632,
+      "meanActionRegret": 0.017543859649122816,
+      "beliefOutputRate": 1.0,
+      "meanBeliefBrier": 0.6392512077294686,
+      "meanBeliefLogLoss": 1.534761683447739,
+      "meanInformationEfficiencyBitsPerQuestion": 0.9743045314032457,
+      "questionConfidenceBrier": 0.10759999999999999,
+      "decisionInvocations": 23,
+      "providerAttempts": 23,
+      "retries": 0,
+      "validationFailures": 0,
+      "beliefNormalizations": 3,
+      "inputTokens": 19676,
+      "outputTokens": 6833,
+      "totalTokens": 26509,
+      "totalLatencyMs": 73066.82995893061,
+      "estimatedUsd": 0.012134800000000001
+    },
+    "single-game": {
+      "episodes": 4,
+      "solvedRate": 1.0,
+      "meanTurns": 6.0,
+      "worstTurns": 7,
+      "optimalPolicyAgreement": 0.75,
+      "meanActionRegret": 0.036111111111111024,
+      "beliefOutputRate": 1.0,
+      "meanBeliefBrier": 0.6493055555555556,
+      "meanBeliefLogLoss": 1.5797762885433724,
+      "meanInformationEfficiencyBitsPerQuestion": 0.9360965105639026,
+      "questionConfidenceBrier": 0.268835,
+      "decisionInvocations": 24,
+      "providerAttempts": 25,
+      "retries": 1,
+      "validationFailures": 1,
+      "beliefNormalizations": 4,
+      "inputTokens": 22907,
+      "outputTokens": 7132,
+      "totalTokens": 30039,
+      "totalLatencyMs": 88705.13991592452,
+      "estimatedUsd": 0.0131398
+    }
+  },
+  "pooledSuccessfulTraces": {
+    "replicates": 2,
+    "generic": {
+      "episodes": 8,
+      "solvedRate": 1.0,
+      "meanTurns": 5.75,
+      "worstTurns": 6,
+      "optimalPolicyAgreement": 0.8947368421052632,
+      "meanActionRegret": 0.01754385964912278,
+      "beliefOutputRate": 1.0,
+      "meanBeliefBrier": 0.6392237593329381,
+      "meanBeliefLogLoss": 1.5335390808450677,
+      "meanInformationEfficiencyBitsPerQuestion": 0.9743045314032457,
+      "questionConfidenceBrier": 0.12193421052631578,
+      "decisionInvocations": 46,
+      "providerAttempts": 47,
+      "retries": 1,
+      "validationFailures": 1,
+      "beliefNormalizations": 6,
+      "inputTokens": 40255,
+      "outputTokens": 14228,
+      "totalTokens": 54483,
+      "totalLatencyMs": 208365.65229395637,
+      "estimatedUsd": 0.025124599999999997
+    },
+    "single-game": {
+      "episodes": 8,
+      "solvedRate": 1.0,
+      "meanTurns": 5.875,
+      "worstTurns": 7,
+      "optimalPolicyAgreement": 0.7948717948717948,
+      "meanActionRegret": 0.029914529914529833,
+      "beliefOutputRate": 1.0,
+      "meanBeliefBrier": 0.6530732860548464,
+      "meanBeliefLogLoss": 1.5936286935725352,
+      "meanInformationEfficiencyBitsPerQuestion": 0.9552005209835741,
+      "questionConfidenceBrier": 0.23988974358974358,
+      "decisionInvocations": 47,
+      "providerAttempts": 49,
+      "retries": 2,
+      "validationFailures": 2,
+      "beliefNormalizations": 7,
+      "inputTokens": 44836,
+      "outputTokens": 13432,
+      "totalTokens": 58268,
+      "totalLatencyMs": 195242.92324885027,
+      "estimatedUsd": 0.0250856
+    }
+  },
+  "stabilityAcrossReplicates": {
+    "genericMeanExactAlignedActionAgreement": 0.75,
+    "singleGameMeanExactAlignedActionAgreement": 0.4523809523809524,
+    "genericStrategicMetricDirectionRepeated": true,
+    "singleGameSecondRunWasWorseOnTurnsAgreementAndRegret": true
+  },
+  "freshRunUsage": {
+    "inputTokens": 42583,
+    "outputTokens": 13965,
+    "totalTokens": 56548,
+    "estimatedUsd": 0.0252746,
+    "pricingBasis": {
+      "inputUsdPerMillionTokens": 0.2,
+      "outputUsdPerMillionTokens": 1.2,
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-luna",
+      "observedOn": "2026-08-21"
+    }
+  }
+}
