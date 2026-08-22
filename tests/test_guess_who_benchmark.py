@@ -38,6 +38,7 @@ class GuessWhoBenchmarkTests(unittest.TestCase):
         payload = json.loads(trace.to_json())
         self.assertEqual(payload["schemaVersion"], "aip-benchmark-trace-v0")
         self.assertEqual(len(payload["steps"]), len(trace.steps))
+        self.assertEqual(EpisodeTrace.from_dict(trace.as_dict()), trace)
         with tempfile.TemporaryDirectory() as directory:
             path = trace.write_json(Path(directory) / "trace.json")
             self.assertEqual(json.loads(path.read_text()), payload)
@@ -63,6 +64,25 @@ class GuessWhoBenchmarkTests(unittest.TestCase):
         payload["steps"][0]["input"]["step"] = 0.5
         with self.assertRaisesRegex(ValueError, "step must be an integer"):
             EpisodeTrace.from_dict(payload)
+        payload = trace.as_dict()
+        payload["steps"][0]["input"]["environment_id"] = "another-game"
+        with self.assertRaisesRegex(ValueError, "environment id does not match"):
+            EpisodeTrace.from_dict(payload)
+        payload = trace.as_dict()
+        payload["steps"][0]["decision"]["action_id"] = "undeclared-action"
+        with self.assertRaisesRegex(ValueError, "illegal agent action"):
+            EpisodeTrace.from_dict(payload)
+
+    def test_runner_rejects_illegal_agent_action_before_transition(self) -> None:
+        adapter = GuessWhoBenchmarkAdapter("Ada")
+
+        class IllegalAgent:
+            def choose_action(self, decision):
+                return AgentDecision("undeclared-action", confidence=1)
+
+        with self.assertRaisesRegex(ValueError, "illegal agent action"):
+            run_episode(adapter, IllegalAgent(), agent_id="illegal-agent")
+        self.assertEqual(adapter.decision_input().step, 0)
 
     def test_exhaustive_oracle_suite_matches_exact_policy(self) -> None:
         oracle = OptimalGuessWhoAgent()

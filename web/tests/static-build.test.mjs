@@ -115,6 +115,10 @@ test("browser engine intercepts API calls without a backend", async () => {
     assert.equal(guessWho.state.gameId, "guess-who");
     assert.equal(guessWho.state.informationSet.possibleCount, 24);
     assert.equal(guessWho.state.characters.some((character) => character.secret), false);
+    const investment = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "investment" }) })).json();
+    const hiddenRestart = await fetch(`/api/sessions/${investment.sessionId}/actions`, { method: "POST", body: JSON.stringify({ action: "new_game", payload: {} }) });
+    assert.equal(hiddenRestart.status, 400);
+    assert.match((await hiddenRestart.json()).error, /not legal/);
     const firstTemporary = await (await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "worm" }) })).json();
     for (let index = 0; index < 256; index += 1) {
       const response = await fetch("/api/sessions", { method: "POST", body: JSON.stringify({ gameId: "worm" }) });

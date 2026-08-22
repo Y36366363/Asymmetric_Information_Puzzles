@@ -405,6 +405,11 @@ function validateState(state, expectedGameId) {
   return state;
 }
 
+function requireLegalAction(session, action) {
+  const state = validateState(session.snapshot(), session.gameId);
+  if (typeof action !== "string" || !state.legalActions.includes(action)) throw new Error("action is not legal in the current game state");
+}
+
 async function api(request, url) {
   if (request.method === "GET" && url.pathname === "/api/health") return json({status:"ok",service:"aip-public"});
   if (request.method === "GET" && url.pathname === "/api/games") return json({games:GAMES});
@@ -412,7 +417,7 @@ async function api(request, url) {
     const {gameId,options} = await request.json(); const session=createSession(gameId,options); const sessionId=crypto.randomUUID(); const state=validateState(session.snapshot(),gameId); storeSession(sessionId,session); return json({sessionId,state},201);
   }
   const match=url.pathname.match(/^\/api\/sessions\/([^/]+)\/actions$/);
-  if(request.method==="POST"&&match){const session=sessions.get(match[1]);if(!session)throw new Error("unknown or expired session; restart the game");sessions.delete(match[1]);sessions.set(match[1],session);const{action,payload}=await request.json();session.act(action,payload||{});return json({state:validateState(session.snapshot(),session.gameId)});}
+  if(request.method==="POST"&&match){const session=sessions.get(match[1]);if(!session)throw new Error("unknown or expired session; restart the game");sessions.delete(match[1]);sessions.set(match[1],session);const{action,payload}=await request.json();requireLegalAction(session,action);session.act(action,payload||{});return json({state:validateState(session.snapshot(),session.gameId)});}
   return json({error:"not found"},404);
 }
 

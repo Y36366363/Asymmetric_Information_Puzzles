@@ -406,6 +406,11 @@ function validateState(state, expectedGameId) {
   return state;
 }
 
+function requireLegalAction(session, action) {
+  const state = validateState(session.snapshot(), session.gameId);
+  if (typeof action !== "string" || !state.legalActions.includes(action)) throw new Error("action is not legal in the current game state");
+}
+
 
 const networkFetch = globalThis.fetch.bind(globalThis);
 
@@ -434,6 +439,7 @@ globalThis.fetch = async (input, init = {}) => {
       sessions.delete(match[1]);
       sessions.set(match[1], session);
       const body = JSON.parse(String(init.body || "{}"));
+      requireLegalAction(session, body.action);
       session.act(body.action, body.payload || {});
       return json({ state: validateState(session.snapshot(), session.gameId) });
     }

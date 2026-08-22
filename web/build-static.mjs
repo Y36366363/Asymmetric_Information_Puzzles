@@ -54,6 +54,7 @@ globalThis.fetch = async (input, init = {}) => {
       sessions.delete(match[1]);
       sessions.set(match[1], session);
       const body = JSON.parse(String(init.body || "{}"));
+      requireLegalAction(session, body.action);
       session.act(body.action, body.payload || {});
       return json({ state: validateState(session.snapshot(), session.gameId) });
     }

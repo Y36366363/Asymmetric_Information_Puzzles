@@ -15,6 +15,7 @@ from aip.benchmark.types import (
     BeliefOutput,
     EvidenceLevel,
     StrategicAgent,
+    validate_decision,
 )
 
 
@@ -28,9 +29,9 @@ def _mapping(value: object, field_name: str) -> Mapping[str, object]:
 
 
 def _sequence(value: object, field_name: str) -> list[object]:
-    if not isinstance(value, list):
+    if not isinstance(value, (list, tuple)):
         raise ValueError(f"{field_name} must be an array")
-    return value
+    return list(value)
 
 
 def _string(value: object, field_name: str) -> str:
@@ -208,6 +209,19 @@ class EpisodeTrace:
     steps: tuple[TraceStep, ...]
     result: Mapping[str, object]
 
+    def __post_init__(self) -> None:
+        if not self.environment_id or not self.episode_id or not self.agent_id:
+            raise ValueError("trace environment, episode, and agent ids cannot be empty")
+        for index, step in enumerate(self.steps):
+            decision_input = step.decision_input
+            if decision_input.environment_id != self.environment_id:
+                raise ValueError(f"trace step {index} environment id does not match")
+            if decision_input.episode_id != self.episode_id:
+                raise ValueError(f"trace step {index} episode id does not match")
+            if decision_input.step != index:
+                raise ValueError(f"trace step {index} has a non-contiguous step number")
+            validate_decision(decision_input, step.decision)
+
     def as_dict(self) -> dict[str, object]:
         return {
             "schemaVersion": TRACE_SCHEMA_VERSION,
@@ -324,6 +338,7 @@ def run_episode(
             raise RuntimeError(f"episode exceeded max_steps={max_steps}")
         decision_input = adapter.decision_input()
         decision = agent.choose_action(decision_input)
+        validate_decision(decision_input, decision)
         telemetry_provider = getattr(agent, "decision_telemetry", None)
         agent_telemetry = (
             dict(telemetry_provider()) if callable(telemetry_provider) else {}

@@ -142,6 +142,34 @@ test("every public game creates a playable state", async () => {
   }
 });
 
+test("every public game rejects actions outside its declared legal set", async () => {
+  const listed = await (await call("/api/games")).json();
+  for (const gameId of listed.games.filter((game) => game.available).map((game) => game.id)) {
+    const created = await (await call("/api/sessions", {
+      method:"POST", headers:{"content-type":"application/json"},
+      body:JSON.stringify({gameId}),
+    })).json();
+    const rejected = await call(`/api/sessions/${created.sessionId}/actions`, {
+      method:"POST", headers:{"content-type":"application/json"},
+      body:JSON.stringify({action:"__undeclared_action__",payload:{}}),
+    });
+    assert.equal(rejected.status, 400, gameId);
+    assert.match((await rejected.json()).error, /not legal/, gameId);
+  }
+
+  const investment = await (await call("/api/sessions", {
+    method:"POST", headers:{"content-type":"application/json"},
+    body:JSON.stringify({gameId:"investment"}),
+  })).json();
+  assert.equal(investment.state.phase, "decision");
+  assert.equal(investment.state.legalActions.includes("new_game"), false);
+  const hiddenRestart = await call(`/api/sessions/${investment.sessionId}/actions`, {
+    method:"POST", headers:{"content-type":"application/json"},
+    body:JSON.stringify({action:"new_game",payload:{}}),
+  });
+  assert.equal(hiddenRestart.status, 400);
+});
+
 test("single-player games survive complete decision loops", async () => {
   const create = async (gameId) => (await (await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId})})).json());
   const act = async (session, action, payload={}) => {

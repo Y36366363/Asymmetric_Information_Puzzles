@@ -5,6 +5,30 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/22/2026
+
+- **Declared actions are now authoritative** — The shared API boundary rejects
+  any action not present in the current state's `legalActions` before a game can
+  mutate. The same rule now protects both the server worker and zero-backend
+  public browser build.
+- **Cross-game contract regression** — Added a table-driven check across all 15
+  playable games plus a targeted hidden-restart case. Undeclared actions return
+  a clear 400 error, while existing complete decision-loop tests confirm legal
+  actions still reach valid terminal states.
+- **Runner-side legality enforcement** — Benchmark `run_episode` now validates
+  every agent choice before an environment transition. An illegal agent can no
+  longer rely on each adapter independently remembering this boundary.
+- **Semantic trace validation** — Reconstructed traces now verify matching
+  environment and episode IDs, contiguous step numbers, and legal recorded
+  decisions. Corrupted but structurally valid traces are rejected.
+- **Round-trip defect found and fixed** — A new direct
+  `from_dict(trace.as_dict())` test exposed tuple/list incompatibility that JSON
+  loading had hidden. Both in-memory and JSON sequence representations now load
+  strictly, and all 16 historical completion traces round-trip offline.
+- **Regression verification** — All 196 Python tests and all 12 worker/static
+  browser tests pass. No new game or paid model call was added today. [Read the
+  contract audit](research/contract_consistency_audit_2026-08-22.md).
+
 ## Updates 08/21/2026
 
 - **Independent prompt replication** — Repeated the same four-secret paired
