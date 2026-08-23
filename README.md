@@ -5,6 +5,26 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/23/2026
+
+- **Mastermind mechanism audit** — Compared the bounded adviser with complete
+  one-step enumeration across all 13 nonterminal feedback branches after the
+  fixed opening. The previous 360-point global sample matched 10/13 branches;
+  a 361-point phase correction matches 13/13.
+- **Measured local-policy improvement** — On the same 200 deterministic secrets,
+  the corrected policy solved 200/200, lowered mean attempts from 5.295 to 5.245,
+  and reduced seven-attempt games from 10 to 6. This is a fixed-sample heuristic
+  result, not a proof of globally optimal play.
+- **Exact audit boundary** — Added an explicit exact one-step adviser and a
+  reproducible experiment script. Candidate beliefs are exact; full multi-step
+  play remains clearly labeled a strong heuristic.
+- **Python/browser policy parity** — Applied the same evidence-backed sampling
+  correction to the local solver and zero-backend public game, with regression
+  coverage to prevent them drifting apart.
+- **Regression verification** — All 199 Python tests and all 12 public
+  engine/static-build tests pass. No new game and no paid model call were added
+  today. [Read the mechanism and theory audit](research/mastermind_sampling_audit_2026-08-23.md).
+
 ## Updates 08/22/2026
 
 - **Declared actions are now authoritative** — The shared API boundary rejects

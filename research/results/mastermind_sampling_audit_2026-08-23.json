@@ -1,0 +1,703 @@
+{
+  "artifactSchemaVersion": "aip-mastermind-sampling-audit-v1",
+  "evidenceBoundary": {
+    "candidateFiltering": "exact",
+    "fullPolicy": "strong_heuristic",
+    "openingBranchReference": "exact_one_step_only"
+  },
+  "openingAudit": {
+    "agreementByBudget": {
+      "360": 10,
+      "361": 13
+    },
+    "branches": [
+      {
+        "candidateCount": 360,
+        "exactOneStep": {
+          "evaluatedGuesses": 5040,
+          "expectedRemaining": 64.59444444444445,
+          "guess": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "worstCaseRemaining": 88
+        },
+        "feedback": {
+          "exact": 0,
+          "misplaced": 0
+        },
+        "policies": {
+          "360": {
+            "evaluatedGuesses": 720,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 64.59444444444445,
+            "guess": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 88
+          },
+          "361": {
+            "evaluatedGuesses": 701,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 64.59444444444445,
+            "guess": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 88
+          }
+        }
+      },
+      {
+        "candidateCount": 1440,
+        "exactOneStep": {
+          "evaluatedGuesses": 5040,
+          "expectedRemaining": 254.66666666666666,
+          "guess": [
+            1,
+            4,
+            5,
+            6
+          ],
+          "worstCaseRemaining": 378
+        },
+        "feedback": {
+          "exact": 0,
+          "misplaced": 1
+        },
+        "policies": {
+          "360": {
+            "evaluatedGuesses": 388,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 254.66666666666666,
+            "guess": [
+              1,
+              4,
+              5,
+              6
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 378
+          },
+          "361": {
+            "evaluatedGuesses": 388,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 254.66666666666666,
+            "guess": [
+              1,
+              4,
+              5,
+              6
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 378
+          }
+        }
+      },
+      {
+        "candidateCount": 1260,
+        "exactOneStep": {
+          "evaluatedGuesses": 5040,
+          "expectedRemaining": 218.21428571428572,
+          "guess": [
+            1,
+            2,
+            0,
+            4
+          ],
+          "worstCaseRemaining": 300
+        },
+        "feedback": {
+          "exact": 0,
+          "misplaced": 2
+        },
+        "policies": {
+          "360": {
+            "evaluatedGuesses": 391,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 218.21428571428572,
+            "guess": [
+              1,
+              3,
+              4,
+              0
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 300
+          },
+          "361": {
+            "evaluatedGuesses": 391,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 218.21428571428572,
+            "guess": [
+              1,
+              3,
+              4,
+              0
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 300
+          }
+        }
+      },
+      {
+        "candidateCount": 264,
+        "exactOneStep": {
+          "evaluatedGuesses": 5040,
+          "expectedRemaining": 45.484848484848484,
+          "guess": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "worstCaseRemaining": 64
+        },
+        "feedback": {
+          "exact": 0,
+          "misplaced": 3
+        },
+        "policies": {
+          "360": {
+            "evaluatedGuesses": 543,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 45.484848484848484,
+            "guess": [
+              1,
+              4,
+              6,
+              0
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 64
+          },
+          "361": {
+            "evaluatedGuesses": 612,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 45.484848484848484,
+            "guess": [
+              1,
+              2,
+              5,
+              8
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 64
+          }
+        }
+      },
+      {
+        "candidateCount": 9,
+        "exactOneStep": {
+          "evaluatedGuesses": 5040,
+          "expectedRemaining": 3.0,
+          "guess": [
+            0,
+            2,
+            3,
+            1
+          ],
+          "worstCaseRemaining": 3
+        },
+        "feedback": {
+          "exact": 0,
+          "misplaced": 4
+        },
+        "policies": {
+          "360": {
+            "evaluatedGuesses": 5040,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 3.0,
+            "guess": [
+              0,
+              2,
+              3,
+              1
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 3
+          },
+          "361": {
+            "evaluatedGuesses": 5040,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 3.0,
+            "guess": [
+              0,
+              2,
+              3,
+              1
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 3
+          }
+        }
+      },
+      {
+        "candidateCount": 480,
+        "exactOneStep": {
+          "evaluatedGuesses": 5040,
+          "expectedRemaining": 80.53333333333333,
+          "guess": [
+            0,
+            1,
+            4,
+            5
+          ],
+          "worstCaseRemaining": 120
+        },
+        "feedback": {
+          "exact": 1,
+          "misplaced": 0
+        },
+        "policies": {
+          "360": {
+            "evaluatedGuesses": 840,
+            "exactObjectiveAgreement": false,
+            "expectedRemaining": 79.79166666666667,
+            "guess": [
+              0,
+              4,
+              5,
+              6
+            ],
+            "oneStepExpectedDifference": -0.74166666666666,
+            "oneStepWorstCaseRegret": 6,
+            "worstCaseRemaining": 126
+          },
+          "361": {
+            "evaluatedGuesses": 796,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 80.53333333333333,
+            "guess": [
+              0,
+              1,
+              5,
+              9
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 120
+          }
+        }
+      },
+      {
+        "candidateCount": 720,
+        "exactOneStep": {
+          "evaluatedGuesses": 5040,
+          "expectedRemaining": 107.55555555555556,
+          "guess": [
+            0,
+            1,
+            4,
+            5
+          ],
+          "worstCaseRemaining": 148
+        },
+        "feedback": {
+          "exact": 1,
+          "misplaced": 1
+        },
+        "policies": {
+          "360": {
+            "evaluatedGuesses": 1026,
+            "exactObjectiveAgreement": false,
+            "expectedRemaining": 121.11111111111111,
+            "guess": [
+              0,
+              1,
+              4,
+              2
+            ],
+            "oneStepExpectedDifference": 13.555555555555557,
+            "oneStepWorstCaseRegret": 22,
+            "worstCaseRemaining": 170
+          },
+          "361": {
+            "evaluatedGuesses": 1026,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 107.55555555555556,
+            "guess": [
+              0,
+              1,
+              5,
+              9
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 148
+          }
+        }
+      },
+      {
+        "candidateCount": 216,
+        "exactOneStep": {
+          "evaluatedGuesses": 5040,
+          "expectedRemaining": 41.2962962962963,
+          "guess": [
+            0,
+            1,
+            4,
+            5
+          ],
+          "worstCaseRemaining": 60
+        },
+        "feedback": {
+          "exact": 1,
+          "misplaced": 2
+        },
+        "policies": {
+          "360": {
+            "evaluatedGuesses": 528,
+            "exactObjectiveAgreement": false,
+            "expectedRemaining": 44.18518518518518,
+            "guess": [
+              4,
+              2,
+              6,
+              0
+            ],
+            "oneStepExpectedDifference": 2.8888888888888857,
+            "oneStepWorstCaseRegret": 2,
+            "worstCaseRemaining": 62
+          },
+          "361": {
+            "evaluatedGuesses": 568,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 41.2962962962963,
+            "guess": [
+              0,
+              1,
+              5,
+              9
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 60
+          }
+        }
+      },
+      {
+        "candidateCount": 8,
+        "exactOneStep": {
+          "evaluatedGuesses": 5040,
+          "expectedRemaining": 3.0,
+          "guess": [
+            0,
+            1,
+            3,
+            4
+          ],
+          "worstCaseRemaining": 4
+        },
+        "feedback": {
+          "exact": 1,
+          "misplaced": 3
+        },
+        "policies": {
+          "360": {
+            "evaluatedGuesses": 5040,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 3.0,
+            "guess": [
+              0,
+              1,
+              3,
+              4
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 4
+          },
+          "361": {
+            "evaluatedGuesses": 5040,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 3.0,
+            "guess": [
+              0,
+              1,
+              3,
+              4
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 4
+          }
+        }
+      },
+      {
+        "candidateCount": 180,
+        "exactOneStep": {
+          "evaluatedGuesses": 5040,
+          "expectedRemaining": 26.88888888888889,
+          "guess": [
+            0,
+            2,
+            4,
+            5
+          ],
+          "worstCaseRemaining": 37
+        },
+        "feedback": {
+          "exact": 2,
+          "misplaced": 0
+        },
+        "policies": {
+          "360": {
+            "evaluatedGuesses": 540,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 26.88888888888889,
+            "guess": [
+              0,
+              4,
+              6,
+              1
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 37
+          },
+          "361": {
+            "evaluatedGuesses": 528,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 26.88888888888889,
+            "guess": [
+              0,
+              2,
+              5,
+              9
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 37
+          }
+        }
+      },
+      {
+        "candidateCount": 72,
+        "exactOneStep": {
+          "evaluatedGuesses": 5040,
+          "expectedRemaining": 12.11111111111111,
+          "guess": [
+            0,
+            2,
+            4,
+            5
+          ],
+          "worstCaseRemaining": 17
+        },
+        "feedback": {
+          "exact": 2,
+          "misplaced": 1
+        },
+        "policies": {
+          "360": {
+            "evaluatedGuesses": 5040,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 12.11111111111111,
+            "guess": [
+              0,
+              2,
+              4,
+              5
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 17
+          },
+          "361": {
+            "evaluatedGuesses": 5040,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 12.11111111111111,
+            "guess": [
+              0,
+              2,
+              4,
+              5
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 17
+          }
+        }
+      },
+      {
+        "candidateCount": 6,
+        "exactOneStep": {
+          "evaluatedGuesses": 5040,
+          "expectedRemaining": 2.3333333333333335,
+          "guess": [
+            0,
+            2,
+            1,
+            4
+          ],
+          "worstCaseRemaining": 3
+        },
+        "feedback": {
+          "exact": 2,
+          "misplaced": 2
+        },
+        "policies": {
+          "360": {
+            "evaluatedGuesses": 5040,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 2.3333333333333335,
+            "guess": [
+              0,
+              2,
+              1,
+              4
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 3
+          },
+          "361": {
+            "evaluatedGuesses": 5040,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 2.3333333333333335,
+            "guess": [
+              0,
+              2,
+              1,
+              4
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 3
+          }
+        }
+      },
+      {
+        "candidateCount": 24,
+        "exactOneStep": {
+          "evaluatedGuesses": 5040,
+          "expectedRemaining": 6.333333333333333,
+          "guess": [
+            0,
+            1,
+            4,
+            5
+          ],
+          "worstCaseRemaining": 8
+        },
+        "feedback": {
+          "exact": 3,
+          "misplaced": 0
+        },
+        "policies": {
+          "360": {
+            "evaluatedGuesses": 5040,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 6.333333333333333,
+            "guess": [
+              0,
+              1,
+              4,
+              5
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 8
+          },
+          "361": {
+            "evaluatedGuesses": 5040,
+            "exactObjectiveAgreement": true,
+            "expectedRemaining": 6.333333333333333,
+            "guess": [
+              0,
+              1,
+              4,
+              5
+            ],
+            "oneStepExpectedDifference": 0.0,
+            "oneStepWorstCaseRegret": 0,
+            "worstCaseRemaining": 8
+          }
+        }
+      }
+    ],
+    "nonterminalBranches": 13,
+    "openingGuess": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "referenceScope": "exact_one_step_minimax_then_expected_partition"
+  },
+  "rules": {
+    "length": 4,
+    "repeatedDigits": false,
+    "symbols": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "worldCount": 5040
+  },
+  "simulations": [
+    {
+      "attemptHistogram": {
+        "1": 1,
+        "3": 2,
+        "4": 20,
+        "5": 100,
+        "6": 67,
+        "7": 10
+      },
+      "failures": [],
+      "maximumAttempts": 7,
+      "meanAttempts": 5.295,
+      "midSizeGlobalSample": 360,
+      "runtimeMs": 30266.11970795784,
+      "secretCount": 200,
+      "secretSelection": "deterministic_even_spacing",
+      "solved": 200
+    },
+    {
+      "attemptHistogram": {
+        "1": 1,
+        "3": 2,
+        "4": 21,
+        "5": 104,
+        "6": 66,
+        "7": 6
+      },
+      "failures": [],
+      "maximumAttempts": 7,
+      "meanAttempts": 5.245,
+      "midSizeGlobalSample": 361,
+      "runtimeMs": 35192.725249915384,
+      "secretCount": 200,
+      "secretSelection": "deterministic_even_spacing",
+      "solved": 200
+    }
+  ]
+}

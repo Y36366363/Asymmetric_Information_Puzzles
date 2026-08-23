@@ -71,6 +71,8 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /Submit unlocks when this reaches zero/);
   assert.match(app, /Math\.max\(minimumQuantity/);
   const styles = await readFile(new URL("styles.css", publicRoot), "utf8");
+  const engine = await readFile(new URL("game-engine.js", publicRoot), "utf8");
+  assert.match(engine, /sample\(this\.allCodes,361\)/);
   assert.match(styles, /\.worm-history \{[^}]*overflow-y: auto/);
   assert.match(styles, /\.mastermind-input-row input \{[^}]*color: #090806/);
   assert.match(styles, /\.blackjack-actions \{ flex-wrap: wrap; \}/);

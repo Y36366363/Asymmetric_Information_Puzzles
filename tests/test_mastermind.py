@@ -32,6 +32,43 @@ class MastermindSolverTests(unittest.TestCase):
         self.assertEqual(guesses[-1], (9, 8, 7, 6))
         self.assertLessEqual(len(guesses), self.rules.max_attempts)
 
+    def test_shifted_mid_size_sample_closes_known_opening_branch_gaps(self) -> None:
+        opening = (0, 1, 2, 3)
+        expected = {
+            CodeFeedback(1, 0): (120, 80.53333333333333),
+            CodeFeedback(1, 1): (148, 107.55555555555556),
+            CodeFeedback(1, 2): (60, 41.2962962962963),
+        }
+        for feedback, (worst, mean_remaining) in expected.items():
+            candidates = self.solver.filter_candidates(
+                self.solver.all_codes, opening, feedback
+            )
+            analysis = self.solver.suggest(candidates)
+            self.assertEqual(analysis.worst_case_remaining, worst)
+            self.assertAlmostEqual(analysis.expected_remaining, mean_remaining)
+
+        old_solver = MastermindSolver(mid_size_global_sample=360)
+        candidates = old_solver.filter_candidates(
+            old_solver.all_codes, opening, CodeFeedback(1, 1)
+        )
+        old_analysis = old_solver.suggest(candidates)
+        self.assertEqual(old_analysis.worst_case_remaining, 170)
+        self.assertEqual(expected[CodeFeedback(1, 1)][0], 148)
+
+    def test_exact_adviser_is_explicitly_one_step_only(self) -> None:
+        candidates = self.solver.filter_candidates(
+            self.solver.all_codes,
+            (0, 1, 2, 3),
+            CodeFeedback(0, 4),
+        )
+        exact = self.solver.suggest_exact(candidates)
+        self.assertTrue(exact.exact_search)
+        self.assertEqual(exact.worst_case_remaining, 3)
+
+    def test_mid_size_sample_must_be_positive(self) -> None:
+        with self.assertRaisesRegex(ValueError, "must be positive"):
+            MastermindSolver(mid_size_global_sample=0)
+
     def test_repeated_digits_are_rejected(self) -> None:
         with self.assertRaisesRegex(ValueError, "may not repeat"):
             self.rules.validate_guess((1, 1, 2, 3))

@@ -9,6 +9,7 @@ from .models import CodeFeedback, CodeRules
 
 Code = tuple[int, ...]
 MAX_SUGGESTION_CACHE = 256
+DEFAULT_MID_SIZE_GLOBAL_SAMPLE = 361
 
 
 @lru_cache(maxsize=16)
@@ -35,9 +36,17 @@ class MastermindSolver:
     while the state is large.
     """
 
-    def __init__(self, rules: CodeRules | None = None) -> None:
+    def __init__(
+        self,
+        rules: CodeRules | None = None,
+        *,
+        mid_size_global_sample: int = DEFAULT_MID_SIZE_GLOBAL_SAMPLE,
+    ) -> None:
+        if mid_size_global_sample < 1:
+            raise ValueError("mid-size global sample must be positive")
         self.rules = rules or CodeRules()
         self.all_codes = _code_worlds(self.rules)
+        self.mid_size_global_sample = mid_size_global_sample
         self._suggestion_cache: OrderedDict[tuple[Code, ...], GuessAnalysis] = OrderedDict()
 
     @property
@@ -78,7 +87,7 @@ class MastermindSolver:
         if len(candidates) <= 160:
             return self.all_codes
         if len(candidates) <= 800:
-            extras = self._sample(self.all_codes, 360)
+            extras = self._sample(self.all_codes, self.mid_size_global_sample)
             return tuple(dict.fromkeys((*candidates, *extras)))
         candidate_sample = self._sample(candidates, 280)
         global_sample = self._sample(self.all_codes, 120)
@@ -110,7 +119,24 @@ class MastermindSolver:
             self._remember(candidates, result)
             return result
 
-        pool = self._guess_pool(candidates)
+        result = self._analyze_pool(candidates, self._guess_pool(candidates))
+        self._remember(candidates, result)
+        return result
+
+    def suggest_exact(self, candidates: tuple[Code, ...]) -> GuessAnalysis | None:
+        """Return the exact one-step minimax choice over every legal guess.
+
+        This certifies only the next feedback partition, not the globally minimum
+        number of guesses over the full future decision tree.
+        """
+
+        if not candidates:
+            return None
+        return self._analyze_pool(candidates, self.all_codes)
+
+    def _analyze_pool(
+        self, candidates: tuple[Code, ...], pool: tuple[Code, ...]
+    ) -> GuessAnalysis:
         candidate_set = set(candidates)
         best_key: tuple[float, ...] | None = None
         best: GuessAnalysis | None = None
@@ -130,8 +156,8 @@ class MastermindSolver:
                     len(pool),
                     len(pool) == len(self.all_codes),
                 )
-        if best is not None:
-            self._remember(candidates, best)
+        if best is None:
+            raise ValueError("guess pool cannot be empty")
         return best
 
     def solve(self, secret: Code, max_attempts: int | None = None) -> tuple[Code, ...]:
