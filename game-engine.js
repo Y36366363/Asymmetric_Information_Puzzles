@@ -24,9 +24,17 @@ const GAMES = [
   ["auction", "百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放", false],
 ].map(([id, title, summary, playerMode, available]) => ({ id, title, summary, playerMode, available }));
 
+const SECURITY_HEADERS = {
+  "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; frame-ancestors 'none'",
+  "cross-origin-opener-policy": "same-origin",
+  "permissions-policy": "camera=(), microphone=(), geolocation=()",
+  "referrer-policy": "no-referrer",
+  "x-content-type-options": "nosniff",
+};
+const responseHeaders = (headers = {}) => ({ ...SECURITY_HEADERS, ...headers });
 const json = (body, status = 200) => new Response(JSON.stringify(body), {
   status,
-  headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" },
+  headers: responseHeaders({ "content-type": "application/json; charset=utf-8", "cache-control": "no-store" }),
 });
 const randomChoice = (items) => items[Math.floor(Math.random() * items.length)];
 const boundedInteger = (value, fallback, minimum, maximum, label) => { const number=Number(value??fallback); if(!Number.isInteger(number)||number<minimum||number>maximum)throw new Error(`${label} must be a whole number from ${minimum} to ${maximum}`); return number; };
@@ -217,7 +225,7 @@ class MastermindSession {
   start() { this.secret=[...this.allCodes[Math.floor(Math.random()*this.allCodes.length)]]; this.candidates=[...this.allCodes]; this.attempts=[]; this.phase="playing"; this.result=null; }
   feedback(guess, secret) { const exact=guess.reduce((n,v,i)=>n+(v===secret[i]?1:0),0); const shared=guess.filter(v=>secret.includes(v)).length; return [exact,shared-exact]; }
   sample(values,limit){if(values.length<=limit)return values;return Array.from({length:limit},(_,index)=>values[Math.floor(index*values.length/limit)]);}
-  suggestion() { if(!this.candidates.length)return null;if(this.candidates.length===1)return{guess:this.candidates[0],worstCaseRemaining:1,expectedRemaining:1,evaluatedGuesses:1,exactSearch:true};let pool;if(this.candidates.length===this.allCodes.length){pool=[[0,1,2,3]];}else if(this.candidates.length<=160){pool=this.allCodes;}else if(this.candidates.length<=800){pool=[...new Map([...this.candidates,...this.sample(this.allCodes,360)].map(code=>[code.join(""),code])).values()];}else{pool=[...new Map([...this.sample(this.candidates,280),...this.sample(this.allCodes,120)].map(code=>[code.join(""),code])).values()];}const candidateKeys=new Set(this.candidates.map(code=>code.join("")));let best=null;for(const guess of pool){const counts={};for(const candidate of this.candidates){const key=this.feedback(guess,candidate).join(",");counts[key]=(counts[key]||0)+1;}const sizes=Object.values(counts),worst=Math.max(...sizes),expected=sizes.reduce((sum,size)=>sum+size*size,0)/this.candidates.length,key=[worst,expected,candidateKeys.has(guess.join(""))?0:1,...guess];if(!best||key.some((value,index)=>value<best.key[index]&&key.slice(0,index).every((prior,i)=>prior===best.key[i]))){best={guess,worstCaseRemaining:worst,expectedRemaining:expected,evaluatedGuesses:pool.length,exactSearch:pool.length===this.allCodes.length,key};}}delete best.key;return best; }
+  suggestion() { if(!this.candidates.length)return null;if(this.candidates.length===1)return{guess:this.candidates[0],worstCaseRemaining:1,expectedRemaining:1,evaluatedGuesses:1,exactSearch:true};let pool;if(this.candidates.length===this.allCodes.length){pool=[[0,1,2,3]];}else if(this.candidates.length<=160){pool=this.allCodes;}else if(this.candidates.length<=800){pool=[...new Map([...this.candidates,...this.sample(this.allCodes,361)].map(code=>[code.join(""),code])).values()];}else{pool=[...new Map([...this.sample(this.candidates,280),...this.sample(this.allCodes,120)].map(code=>[code.join(""),code])).values()];}const candidateKeys=new Set(this.candidates.map(code=>code.join("")));let best=null;for(const guess of pool){const counts={};for(const candidate of this.candidates){const key=this.feedback(guess,candidate).join(",");counts[key]=(counts[key]||0)+1;}const sizes=Object.values(counts),worst=Math.max(...sizes),expected=sizes.reduce((sum,size)=>sum+size*size,0)/this.candidates.length,key=[worst,expected,candidateKeys.has(guess.join(""))?0:1,...guess];if(!best||key.some((value,index)=>value<best.key[index]&&key.slice(0,index).every((prior,i)=>prior===best.key[i]))){best={guess,worstCaseRemaining:worst,expectedRemaining:expected,evaluatedGuesses:pool.length,exactSearch:pool.length===this.allCodes.length,key};}}delete best.key;return best; }
   act(action,payload={}) { if(action==="new_game"){this.start();return;} if(action!=="submit_guess"||this.phase!=="playing")throw new Error("submit a guess while the game is active"); const guess=(payload.guess||[]).map(Number); if(guess.length!==4||guess.some(v=>!Number.isInteger(v))||new Set(guess).size!==4||guess.some(v=>!this.symbols.includes(v)))throw new Error("guess must contain four distinct digits from 0 to 9"); const beforeCandidates=this.candidates.length,[exact,partial]=this.feedback(guess,this.secret);this.candidates=this.candidates.filter(candidate=>{const f=this.feedback(guess,candidate);return f[0]===exact&&f[1]===partial;});const afterCandidates=this.candidates.length;this.attempts.push({guess,exact,partial,beforeCandidates,afterCandidates,eliminated:beforeCandidates-afterCandidates}); if(exact===4){this.phase="finished";this.result={won:true,secret:this.secret,attempts:this.attempts.length};this.gamesCompleted+=1;this.gamesSolved+=1;this.totalSolvedAttempts+=this.attempts.length;this.bestAttempts=this.bestAttempts===null?this.attempts.length:Math.min(this.bestAttempts,this.attempts.length);}else if(this.attempts.length>=this.maxAttempts){this.phase="finished";this.result={won:false,secret:this.secret,attempts:this.attempts.length};this.gamesCompleted+=1;} }
   snapshot() { const analysis=this.phase==="playing"?this.suggestion():null; return {gameId:"mastermind",phase:this.phase,length:4,symbols:this.symbols,maxAttempts:10,attemptsUsed:this.attempts.length,attempts:this.attempts,candidateCount:this.candidates.length,initialCandidateCount:this.allCodes.length,suggestedGuess:analysis?analysis.guess:null,suggestionAnalysis:analysis?{worstCaseRemaining:analysis.worstCaseRemaining,expectedRemaining:analysis.expectedRemaining,evaluatedGuesses:analysis.evaluatedGuesses,exactSearch:analysis.exactSearch}:null,result:this.result,legalActions:this.phase==="playing"?["submit_guess"]:["new_game"],sessionStats:{gamesCompleted:this.gamesCompleted,gamesSolved:this.gamesSolved,averageSolvedAttempts:this.gamesSolved?this.totalSolvedAttempts/this.gamesSolved:null,bestAttempts:this.bestAttempts},strategyScope:"bounded_one_step_minimax_then_expected_partition",informationSet:{candidateCount:this.candidates.length,candidatePreview:this.candidates.slice(0,8),feedbackHistory:this.attempts}}; }
 }
@@ -406,6 +414,11 @@ function validateState(state, expectedGameId) {
   return state;
 }
 
+function requireLegalAction(session, action) {
+  const state = validateState(session.snapshot(), session.gameId);
+  if (typeof action !== "string" || !state.legalActions.includes(action)) throw new Error("action is not legal in the current game state");
+}
+
 
 const networkFetch = globalThis.fetch.bind(globalThis);
 
@@ -434,6 +447,7 @@ globalThis.fetch = async (input, init = {}) => {
       sessions.delete(match[1]);
       sessions.set(match[1], session);
       const body = JSON.parse(String(init.body || "{}"));
+      requireLegalAction(session, body.action);
       session.act(body.action, body.payload || {});
       return json({ state: validateState(session.snapshot(), session.gameId) });
     }
