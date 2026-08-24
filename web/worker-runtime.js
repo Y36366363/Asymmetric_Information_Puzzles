@@ -23,9 +23,17 @@ const GAMES = [
   ["auction", "百元全支付拍卖", "用公开价格争夺主导权，并观察联盟与背叛。", "本地多人 · 即将开放", false],
 ].map(([id, title, summary, playerMode, available]) => ({ id, title, summary, playerMode, available }));
 
+const SECURITY_HEADERS = {
+  "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; frame-ancestors 'none'",
+  "cross-origin-opener-policy": "same-origin",
+  "permissions-policy": "camera=(), microphone=(), geolocation=()",
+  "referrer-policy": "no-referrer",
+  "x-content-type-options": "nosniff",
+};
+const responseHeaders = (headers = {}) => ({ ...SECURITY_HEADERS, ...headers });
 const json = (body, status = 200) => new Response(JSON.stringify(body), {
   status,
-  headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" },
+  headers: responseHeaders({ "content-type": "application/json; charset=utf-8", "cache-control": "no-store" }),
 });
 const randomChoice = (items) => items[Math.floor(Math.random() * items.length)];
 const boundedInteger = (value, fallback, minimum, maximum, label) => { const number=Number(value??fallback); if(!Number.isInteger(number)||number<minimum||number>maximum)throw new Error(`${label} must be a whole number from ${minimum} to ${maximum}`); return number; };
@@ -426,10 +434,10 @@ export default {
     const url=new URL(request.url);
     try {
       if(url.pathname.startsWith("/api/"))return await api(request,url);
-      if(url.pathname==="/"||url.pathname==="/index.html")return new Response(INDEX_HTML,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"public, max-age=300"}});
-      if(url.pathname==="/styles.css")return new Response(STYLES_CSS,{headers:{"content-type":"text/css; charset=utf-8","cache-control":"public, max-age=3600"}});
-      if(url.pathname==="/app.js")return new Response(APP_JS,{headers:{"content-type":"text/javascript; charset=utf-8","cache-control":"public, max-age=3600"}});
-      return new Response("Not found",{status:404});
+      if(url.pathname==="/"||url.pathname==="/index.html")return new Response(INDEX_HTML,{headers:responseHeaders({"content-type":"text/html; charset=utf-8","cache-control":"public, max-age=300"})});
+      if(url.pathname==="/styles.css")return new Response(STYLES_CSS,{headers:responseHeaders({"content-type":"text/css; charset=utf-8","cache-control":"public, max-age=3600"})});
+      if(url.pathname==="/app.js")return new Response(APP_JS,{headers:responseHeaders({"content-type":"text/javascript; charset=utf-8","cache-control":"public, max-age=3600"})});
+      return new Response("Not found",{status:404,headers:responseHeaders({"content-type":"text/plain; charset=utf-8"})});
     } catch(error) { return json({error:error instanceof Error?error.message:"operation failed"},400); }
   }
 };

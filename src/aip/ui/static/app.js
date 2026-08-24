@@ -16,6 +16,7 @@ let pirateDraft = [];
 let guessWhoSelected = null;
 let openRulesGameId = null;
 let rulesReturnFocus = null;
+let offerModalOpen = false;
 let actionPending = false;
 let investmentOffer = null;
 let investmentFraction = 0.25;
@@ -349,6 +350,7 @@ function openRules(gameId) {
     <section class="rules-terms"><h3>${labels.terms}</h3><p>${details.terms || ""}</p></section>`;
   $("#rulesModal").classList.remove("hidden");
   $("#rulesModal .rules-card").scrollTop = 0;
+  syncModalState();
   window.requestAnimationFrame(() => $("#rulesClose").focus());
 }
 
@@ -359,9 +361,33 @@ function closeRules() {
   openRulesGameId = null;
   rulesReturnFocus = null;
   $("#rulesModal").classList.add("hidden");
+  syncModalState();
   const fallback = document.querySelector(`[data-rules-game="${gameId}"]`);
   const target = returnFocus?.getClientRects().length ? returnFocus : fallback;
   target?.focus();
+}
+
+function visibleModal() {
+  if (!$("#rulesModal").classList.contains("hidden")) return $("#rulesModal");
+  if (!$("#offerModal").classList.contains("hidden")) return $("#offerModal");
+  return null;
+}
+
+function syncModalState() {
+  const modal = visibleModal();
+  const hasModal = Boolean(modal);
+  document.body.classList.toggle("modal-open", hasModal);
+  document.querySelector("header").inert = hasModal;
+  document.querySelector("main").inert = hasModal;
+  if (modal?.id === "offerModal" && !offerModalOpen) {
+    window.requestAnimationFrame(() => {
+      const target = $("#counterOfferPanel").classList.contains("hidden")
+        ? $("#dealButton")
+        : $("#counterOfferInput");
+      target.focus();
+    });
+  }
+  offerModalOpen = modal?.id === "offerModal";
 }
 
 function tr(key) { return copy[language][key] ?? key; }
@@ -686,6 +712,7 @@ function render() {
     $("#dealButton").textContent = state.isFinalOffer ? (language === "zh" ? "接受最终报价" : "Take final offer") : tr("acceptOffer");
     $("#noDealButton").textContent = state.isFinalOffer ? (language === "zh" ? "拒绝并揭晓保留箱" : "Reject and reveal my case") : tr("rejectOffer");
   }
+  syncModalState();
 }
 
 function renderFirstTurnGuide() {
@@ -1705,6 +1732,7 @@ function showLobby() {
   setOperationPending(false);
   if (openRulesGameId) closeRules();
   $("#offerModal").classList.add("hidden");
+  syncModalState();
   $("#gameView").classList.add("hidden");
   $("#wormView").classList.add("hidden");
   $("#pirateView").classList.add("hidden");
@@ -1795,10 +1823,11 @@ $("#noDealButton").addEventListener("click", () => act("no_deal"));
 $("#rulesClose").addEventListener("click", closeRules);
 $("#rulesModal").addEventListener("click", (event) => { if (event.target.id === "rulesModal") closeRules(); });
 document.addEventListener("keydown", (event) => {
-  if (!openRulesGameId) return;
-  if (event.key === "Escape") closeRules();
+  const modal = visibleModal();
+  if (!modal) return;
+  if (event.key === "Escape" && openRulesGameId) closeRules();
   if (event.key !== "Tab") return;
-  const focusable = [...$("#rulesModal").querySelectorAll("button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])")]
+  const focusable = [...modal.querySelectorAll("button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])")]
     .filter((element) => !element.disabled && element.getClientRects().length);
   if (!focusable.length) return;
   const first = focusable[0];

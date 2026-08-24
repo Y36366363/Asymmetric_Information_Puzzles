@@ -7,8 +7,12 @@ const call = (path, init) => worker.fetch(new Request(`https://aip.test${path}`,
 test("serves the bilingual lobby and all playable descriptors", async () => {
   const page = await call("/");
   assert.equal(page.status, 200);
+  assert.match(page.headers.get("content-security-policy"), /frame-ancestors 'none'/);
+  assert.equal(page.headers.get("x-content-type-options"), "nosniff");
+  assert.equal(page.headers.get("referrer-policy"), "no-referrer");
   assert.match(await page.text(), /ASYMMETRIC INFORMATION PUZZLES/);
   const response = await call("/api/games");
+  assert.equal(response.headers.get("x-content-type-options"), "nosniff");
   const { games } = await response.json();
   assert.equal(games.filter((game) => game.available).length, 15);
   assert.deepEqual(games.filter((game) => game.available).map((game) => game.id), ["cases", "blackjack", "restricted-rps", "mastermind", "guess-who", "hidden-pursuit", "battleship", "e-card", "pirates", "love-letter", "investment", "kuhn-poker", "liars-dice", "goofspiel", "worm"]);

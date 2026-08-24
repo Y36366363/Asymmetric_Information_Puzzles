@@ -22,6 +22,7 @@ body {
     radial-gradient(circle at 80% -10%, rgba(216, 170, 76, 0.16), transparent 34rem),
     linear-gradient(145deg, #11110f 0%, #181713 52%, #0d0d0c 100%);
 }
+body.modal-open { overflow: hidden; }
 main[aria-busy="true"] { cursor: progress; }
 main[aria-busy="true"] button { pointer-events: none; }
 
@@ -98,7 +99,7 @@ select:focus-visible {
 
 .game-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 18px;
 }
 
@@ -765,9 +766,16 @@ button.goof-bid-card:hover:not(:disabled) { transform:translateY(-5px); border-c
   .github-link > span:last-child { display: none; }
   .header-actions { gap: 8px; }
   .brand, .github-link, .language-switch button { min-height: 44px; }
+  .language-switch button { min-width: 44px; }
   .github-link { min-width: 44px; justify-content: center; }
   .game-heading .back-to-lobby, .game-heading #backButton { min-height: 44px; }
   .view { padding-inline: 14px; }
+  .game-grid { grid-template-columns: 1fr; gap: 12px; }
+  .game-card { min-height: 0; padding: 20px; }
+  .game-card h2 { margin: 18px 0 8px; font-size: 27px; }
+  .game-card p { margin: 0; line-height: 1.55; }
+  .difficulty-badge { margin-top: 12px; }
+  .game-cta { margin-top: 10px; }
   .first-turn-guide { grid-template-columns: 1fr; gap: 14px; }
   .strategy-review-grid { grid-template-columns: 1fr 1fr; }
   .brand > span:last-child { display: none; }

@@ -5,6 +5,27 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/24/2026
+
+- **Modal interaction repaired** — Rules and banker-offer dialogs now isolate
+  background content, lock page scrolling, keep keyboard focus inside the active
+  decision surface, and place focus on the first meaningful control. Rules still
+  restore focus to their launcher after closing.
+- **Denser mobile lobby** — Reduced card height and spacing at the 390 px
+  breakpoint while preserving readable descriptions. The audited first-row card
+  heights fell from 353–387 px to 242–267 px, both language controls are now
+  44 px wide, and the page has no horizontal overflow.
+- **Browser boundary hardening** — Added CSP, MIME-sniffing protection,
+  no-referrer behavior, permissions restrictions, and opener isolation to local
+  and Worker responses. The zero-backend static page now carries its own CSP.
+- **Real-page verification** — Confirmed scroll-to-top game entry, rules focus
+  restoration, forward/reverse offer focus wrapping, responsive layout, and an
+  empty browser warning/error console. All 15 games still complete through the
+  public decision-loop test.
+- **Regression verification** — All 199 Python tests and all 12 public
+  engine/static-build tests pass. No new game, strategy claim, or paid model
+  call was added. [Read the UI and security audit](research/ui_security_accessibility_audit_2026-08-24.md).
+
 ## Updates 08/23/2026
 
 - **Mastermind mechanism audit** — Compared the bounded adviser with complete

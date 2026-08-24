@@ -17,7 +17,7 @@ from aip.ui.registry import (
     RestrictedRPSSession,
     build_default_registry,
 )
-from aip.ui.server import AIPRequestHandler, MAX_REQUEST_BYTES
+from aip.ui.server import AIPRequestHandler, MAX_REQUEST_BYTES, SECURITY_HEADERS
 
 
 class LocalGameUITests(unittest.TestCase):
@@ -622,6 +622,12 @@ class LocalGameUITests(unittest.TestCase):
             connection = HTTPConnection("127.0.0.1", server.server_port, timeout=2)
             connection.request("GET", "/api/health")
             response = connection.getresponse()
+            self.assertEqual(response.getheader("X-Content-Type-Options"), "nosniff")
+            self.assertEqual(response.getheader("Referrer-Policy"), "no-referrer")
+            self.assertIn(
+                "frame-ancestors 'none'",
+                response.getheader("Content-Security-Policy"),
+            )
             payload = json.loads(response.read())
             connection.close()
             self.assertEqual(payload["status"], "ok")
@@ -656,6 +662,8 @@ class LocalGameUITests(unittest.TestCase):
         handler.wfile = io.BytesIO()
         handler._static("app.js")
         self.assertIn(("Cache-Control", "no-cache"), headers)
+        for item in SECURITY_HEADERS.items():
+            self.assertIn(item, headers)
 
     def test_lobby_assets_include_language_and_github_navigation(self) -> None:
         html = files("aip.ui").joinpath("static/index.html").read_text()
@@ -670,6 +678,10 @@ class LocalGameUITests(unittest.TestCase):
         self.assertIn('window.history.replaceState(null, "", "#lobby")', script)
         self.assertIn('window.requestAnimationFrame(() => $("#rulesClose").focus())', script)
         self.assertIn('event.key !== "Tab"', script)
+        self.assertIn("function syncModalState()", script)
+        self.assertIn('document.body.classList.toggle("modal-open", hasModal)', script)
+        self.assertIn('document.querySelector("main").inert = hasModal', script)
+        self.assertIn('http-equiv="Content-Security-Policy"', html)
         self.assertIn("setOperationPending", script)
         self.assertIn('id="operationStatus"', html)
 
