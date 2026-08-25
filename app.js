@@ -876,7 +876,7 @@ function renderRestrictedRps() {
 }
 
 function probabilityBars(distribution, labels) {
-  return Object.entries(distribution).map(([move, probability]) => `<div class="probability-row"><span>${labels[move]}</span><i><b style="width:${(probability * 100).toFixed(1)}%"></b></i><strong>${(probability * 100).toFixed(1)}%</strong></div>`).join("");
+  return Object.entries(distribution).map(([move, probability]) => `<div class="probability-row"><span>${labels[move]}</span><progress max="1" value="${probability}" aria-label="${labels[move]} ${(probability * 100).toFixed(1)}%"></progress><strong>${(probability * 100).toFixed(1)}%</strong></div>`).join("");
 }
 
 function renderLiarDice() {
@@ -930,6 +930,25 @@ function pursuitTransportLabel(mode) {
   return mode === "taxi" ? "Taxi · yellow lines" : "Bus · purple lines";
 }
 
+function drawPursuitRoutes(state, nodeById) {
+  const canvas = $("#pursuitRoutes");
+  const context = canvas.getContext("2d");
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.lineCap = "round";
+  state.edges.forEach((edge) => {
+    const start = nodeById[edge.from];
+    const end = nodeById[edge.to];
+    context.beginPath();
+    context.moveTo(start.x * 10, start.y * 10);
+    context.lineTo(end.x * 10, end.y * 10);
+    context.strokeStyle = edge.transport === "taxi" ? "#d5a83f" : "#8762b5";
+    context.globalAlpha = edge.transport === "taxi" ? 0.48 : 0.62;
+    context.lineWidth = edge.transport === "taxi" ? 3 : 5;
+    context.stroke();
+  });
+  context.globalAlpha = 1;
+}
+
 function renderHiddenPursuit() {
   const state = currentState;
   const finished = state.phase === "finished";
@@ -946,27 +965,19 @@ function renderHiddenPursuit() {
   $("#pursuitTransport").textContent = pursuitTransportLabel(state.lastTransport);
   $("#pursuitMap").setAttribute("aria-label", language === "zh" ? "隐形追踪交通地图" : "Hidden pursuit transport map");
 
-  const edges = state.edges.map((edge) => {
-    const start = nodeById[edge.from];
-    const end = nodeById[edge.to];
-    const dx = end.x - start.x;
-    const dy = end.y - start.y;
-    const length = Math.hypot(dx, dy);
-    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-    return `<span class="pursuit-edge ${edge.transport}" style="left:${start.x}%;top:${start.y}%;width:${length}%;transform:rotate(${angle}deg)"></span>`;
-  }).join("");
   const nodes = state.nodes.map((node) => {
     const detectiveIndex = state.detectives.indexOf(node.id);
     const isLegal = legal.has(node.id);
     const isPossible = belief.has(node.id);
     const isLastSeen = state.lastReveal === node.id;
     const isFugitive = finished && state.fugitivePosition === node.id;
-    const classes = ["pursuit-node", detectiveIndex === 0 ? "detective-a" : "", detectiveIndex === 1 ? "detective-b" : "", isLegal ? "legal" : "", isPossible ? "possible" : "", isLastSeen ? "last-seen" : "", isFugitive ? "fugitive" : ""].filter(Boolean).join(" ");
+    const classes = ["pursuit-node", `node-${node.id}`, detectiveIndex === 0 ? "detective-a" : "", detectiveIndex === 1 ? "detective-b" : "", isLegal ? "legal" : "", isPossible ? "possible" : "", isLastSeen ? "last-seen" : "", isFugitive ? "fugitive" : ""].filter(Boolean).join(" ");
     const marker = detectiveIndex === 0 ? "A" : detectiveIndex === 1 ? "B" : isFugitive ? "X" : isPossible ? "?" : node.id;
     const label = language === "zh" ? `${node.id} 号节点${isLegal ? "，可移动" : ""}` : `Node ${node.id}${isLegal ? ", legal move" : ""}`;
-    return `<button class="${classes}" style="left:${node.x}%;top:${node.y}%" data-pursuit-node="${node.id}" ${isLegal && !finished ? "" : "disabled"} aria-label="${label}"><span>${marker}</span><small>${node.id}</small></button>`;
+    return `<button class="${classes}" data-pursuit-node="${node.id}" ${isLegal && !finished ? "" : "disabled"} aria-label="${label}"><span>${marker}</span><small>${node.id}</small></button>`;
   }).join("");
-  $("#pursuitMap").innerHTML = edges + nodes;
+  $("#pursuitMap").innerHTML = `<canvas class="pursuit-routes" id="pursuitRoutes" width="1000" height="1000" aria-hidden="true"></canvas>${nodes}`;
+  drawPursuitRoutes(state, nodeById);
   document.querySelectorAll("[data-pursuit-node]:not(:disabled)").forEach((button) => {
     button.addEventListener("click", () => act("move_detective", {node: Number(button.dataset.pursuitNode)}));
   });
@@ -993,8 +1004,8 @@ function renderHiddenPursuit() {
 
 function renderBattleGrid(selector, cells, isEnemy, state) {
   const suggested = state.suggestedShot?.join(",");
-  $(selector).style.gridTemplateColumns = `repeat(${state.boardSize}, 1fr)`;
-  $(selector).style.minWidth = `${state.boardSize * 30 + (state.boardSize - 1) * 2}px`;
+  $(selector).classList.remove("board-size-10", "board-size-12", "board-size-15");
+  $(selector).classList.add(`board-size-${state.boardSize}`);
   $(selector).innerHTML = cells.map((cell) => {
     const key = `${cell.row},${cell.column}`;
     const classes = ["battle-cell", cell.ship ? "ship" : "", cell.shipId != null ? `ship-${cell.shipId}` : "", cell.shot && !cell.hit ? "miss" : "", cell.hit ? "hit" : "", cell.sunk ? "sunk" : "", isEnemy && key === suggested ? "suggested" : ""].filter(Boolean).join(" ");
@@ -1175,7 +1186,7 @@ function renderLoveLetter() {
   $("#loveInformation").textContent = known
     ? (language === "zh" ? `你通过角色效果确认 AI 当前持有 ${known} · ${names[known]}。` : `A role effect confirms the AI currently holds ${known} · ${names[known]}.`)
     : (language === "zh" ? "以下概率只使用你的手牌、公开移除牌和双方弃牌计算，不读取 AI 的隐藏手牌。" : "These probabilities use your hand, face-up removals, and public discards only; they do not read the AI's hidden card.");
-  $("#loveBeliefs").innerHTML = state.informationSet.possibleCards.map((item) => `<div><span>${item.value} · ${names[item.value]}</span><strong>${(item.probability * 100).toFixed(1)}%</strong><i style="--belief:${item.probability}"></i></div>`).join("");
+  $("#loveBeliefs").innerHTML = state.informationSet.possibleCards.map((item) => `<div><span>${item.value} · ${names[item.value]}</span><strong>${(item.probability * 100).toFixed(1)}%</strong><progress max="1" value="${item.probability}" aria-label="${names[item.value]} ${(item.probability * 100).toFixed(1)}%"></progress></div>`).join("");
   $("#loveSuggestion").textContent = suggestion
     ? (language === "zh" ? `信念策略建议：打出 ${suggestion.card} · ${names[suggestion.card]}${suggestion.guess ? `，卫兵猜 ${suggestion.guess} · ${names[suggestion.guess]}` : ""}${suggestion.card === 5 ? `，目标为${suggestion.target === "player" ? "自己" : "AI"}` : ""}。这是公开信息上的启发式策略，并非完整博弈树最优证明。` : `Belief advice: play ${suggestion.card} · ${names[suggestion.card]}${suggestion.guess ? ` and guess ${suggestion.guess} · ${names[suggestion.guess]}` : ""}${suggestion.card === 5 ? ` targeting ${suggestion.target === "player" ? "yourself" : "the AI"}` : ""}. This is a public-information heuristic, not a full-game optimality proof.`)
     : (language === "zh" ? "本轮已经结束；双方手牌均已公开，可以结合弃牌记录复盘。" : "The round is over. Both hands are now available for review with the discard log.");
@@ -1253,7 +1264,7 @@ function renderGoofspiel() {
   $("#goofAdvice").textContent = active
     ? (language === "zh" ? `当前均衡中，${state.recommendedBid} 是最高频出牌，但不能每次固定选择它；精确策略是按下方概率随机。双方都最优时，剩余回合带来的预期额外分差为 ${Number(state.futureValue).toFixed(2)}。` : `${state.recommendedBid} has the highest equilibrium frequency, but it should not be chosen every time; the exact policy randomizes by the probabilities below. Optimal play gives an expected additional score difference of ${Number(state.futureValue).toFixed(2)} over the remaining rounds.`)
     : (language === "zh" ? `最终比分 ${state.playerScore} : ${state.aiScore}。AI 每轮均从当前公开状态的精确零和均衡中随机出牌。` : `Final score ${state.playerScore}:${state.aiScore}. Each AI bid was sampled from the exact zero-sum equilibrium for that public state.`);
-  $("#goofDistribution").innerHTML = distribution.map((item) => `<div><span>${language === "zh" ? "出牌" : "Bid"} ${item.card}</span><strong>${(item.probability * 100).toFixed(1)}%</strong><i style="--goof-prob:${item.probability}"></i></div>`).join("") || `<p>${language === "zh" ? "比赛结束后不再需要决策。" : "No decision remains after the match."}</p>`;
+  $("#goofDistribution").innerHTML = distribution.map((item) => `<div><span>${language === "zh" ? "出牌" : "Bid"} ${item.card}</span><strong>${(item.probability * 100).toFixed(1)}%</strong><progress max="1" value="${item.probability}" aria-label="${language === "zh" ? "出牌" : "Bid"} ${item.card} ${(item.probability * 100).toFixed(1)}%"></progress></div>`).join("") || `<p>${language === "zh" ? "比赛结束后不再需要决策。" : "No decision remains after the match."}</p>`;
   $("#goofHistory").innerHTML = state.history.length ? state.history.slice().reverse().map((item) => {
     const outcome = item.playerBid > item.aiBid ? (language === "zh" ? "你得分" : "you score") : item.aiBid > item.playerBid ? (language === "zh" ? "AI 得分" : "AI scores") : (language === "zh" ? "奖牌作废" : "discarded");
     return `<div><b>R${item.round}</b><span>${language === "zh" ? "奖牌" : "Prize"} ${item.prize}</span><strong>${item.playerBid} : ${item.aiBid}</strong><small>${outcome}</small></div>`;
@@ -1578,7 +1589,7 @@ function updatePirateBudget() {
   pirateDraft = inputs.map((input) => Math.max(0, Number(input.value) || 0));
   const left = currentState.totalGold - used;
   $("#pirateGoldLeft").textContent = left;
-  $("#pirateGoldLeft").style.color = left === 0 ? "var(--gold-soft)" : "#efb0aa";
+  $("#pirateGoldLeft").classList.toggle("unallocated-warning", left !== 0);
   $("#submitPirateProposal").disabled = currentState.phase !== "proposing" || left !== 0;
   if (currentState.phase === "proposing") {
     $("#pirateInstruction").textContent = language === "zh"
