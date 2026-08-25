@@ -5,6 +5,7 @@ import threading
 from importlib.resources import files
 from http.client import HTTPConnection
 from http.server import ThreadingHTTPServer
+from pathlib import Path
 
 from aip.ui.registry import (
     BlackjackSession,
@@ -628,6 +629,9 @@ class LocalGameUITests(unittest.TestCase):
                 "frame-ancestors 'none'",
                 response.getheader("Content-Security-Policy"),
             )
+            self.assertNotIn(
+                "unsafe-inline", response.getheader("Content-Security-Policy")
+            )
             payload = json.loads(response.read())
             connection.close()
             self.assertEqual(payload["status"], "ok")
@@ -682,8 +686,27 @@ class LocalGameUITests(unittest.TestCase):
         self.assertIn('document.body.classList.toggle("modal-open", hasModal)', script)
         self.assertIn('document.querySelector("main").inert = hasModal', script)
         self.assertIn('http-equiv="Content-Security-Policy"', html)
+        self.assertNotIn("unsafe-inline", html)
+        self.assertNotIn("style=", script)
+        self.assertNotIn(".style.", script)
+        self.assertIn('id="pursuitRoutes"', script)
+        self.assertIn("<progress", script)
         self.assertIn("setOperationPending", script)
         self.assertIn('id="operationStatus"', html)
+
+    def test_pages_workflow_verifies_docs_before_fast_forward_publish(self) -> None:
+        workflow = (
+            Path(__file__).parents[1] / ".github/workflows/sync-pages.yml"
+        ).read_text()
+        self.assertIn("branches: [main]", workflow)
+        self.assertIn("git diff --exit-code -- docs", workflow)
+        self.assertIn(
+            'published_tree="$(git rev-parse origin/gh-pages^{tree})"', workflow
+        )
+        self.assertIn('git commit-tree "$docs_tree" -p origin/gh-pages', workflow)
+        self.assertIn('git push origin "$deploy_sha:gh-pages"', workflow)
+        self.assertIn("cancel-in-progress: false", workflow)
+        self.assertNotIn("--force", workflow)
 
     def test_kuhn_poker_prompt_respects_the_players_private_card(self) -> None:
         script = files("aip.ui").joinpath("static/app.js").read_text()

@@ -20,7 +20,7 @@ STATIC_ROOT = files("aip.ui").joinpath("static")
 MAX_REQUEST_BYTES = 1_000_000
 SECURITY_HEADERS = {
     "Content-Security-Policy": (
-        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; "
+        "default-src 'self'; script-src 'self'; style-src 'self'; "
         "img-src 'self' data:; connect-src 'self'; base-uri 'none'; "
         "form-action 'self'; object-src 'none'; frame-ancestors 'none'"
     ),

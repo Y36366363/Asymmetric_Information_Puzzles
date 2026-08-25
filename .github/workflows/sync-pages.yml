@@ -1,0 +1,50 @@
+name: Sync GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/sync-pages.yml"
+      - "docs/**"
+      - "src/aip/ui/static/**"
+      - "web/build-static.mjs"
+      - "web/goofspiel-policy.json"
+      - "web/worker-runtime.js"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aip-gh-pages-sync
+  cancel-in-progress: false
+
+jobs:
+  verify-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify committed static build
+        run: |
+          node web/build-static.mjs
+          git diff --exit-code -- docs
+      - name: Publish docs tree without rewriting history
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin gh-pages:refs/remotes/origin/gh-pages
+          docs_tree="$(git rev-parse HEAD:docs)"
+          published_tree="$(git rev-parse origin/gh-pages^{tree})"
+          if [[ "$docs_tree" == "$published_tree" ]]; then
+            echo "gh-pages already matches main/docs"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          deploy_sha="$(git commit-tree "$docs_tree" -p origin/gh-pages -m "Deploy main/docs from ${GITHUB_SHA}")"
+          git push origin "$deploy_sha:gh-pages"

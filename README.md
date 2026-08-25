@@ -5,6 +5,25 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/25/2026
+
+- **Automatic Pages synchronization** — Added a guarded workflow that rebuilds
+  and verifies committed `docs`, compares exact trees, and fast-forwards
+  `gh-pages` from `main/docs`. It never force-pushes or triggers from its own
+  deployment branch.
+- **Strict style CSP** — Removed the remaining `unsafe-inline` allowance from
+  local, Worker, and zero-backend policies. Generated application assets now
+  contain no inline `style=` markup or JavaScript `.style.*` mutation.
+- **CSP-safe dynamic visuals** — Replaced probability bars with accessible
+  `<progress>` elements, board dimensions and allocation warnings with classes,
+  and Hidden Pursuit's dynamic route spans with a Canvas plus fixed node classes.
+- **Real-browser regression** — Verified the 18-node pursuit map, RPS probability
+  bars, 10-column Battleship board, zero AIP inline styles, and an empty browser
+  warning/error console under the strict policy.
+- **Regression verification** — All 200 Python tests and all 12 public
+  engine/static-build tests pass. No new game, benchmark condition, strategy
+  claim, or paid model call was added. [Read the deployment and CSP audit](research/deployment_csp_audit_2026-08-25.md).
+
 ## Updates 08/24/2026
 
 - **Modal interaction repaired** — Rules and banker-offer dialogs now isolate

@@ -8,6 +8,7 @@ test("serves the bilingual lobby and all playable descriptors", async () => {
   const page = await call("/");
   assert.equal(page.status, 200);
   assert.match(page.headers.get("content-security-policy"), /frame-ancestors 'none'/);
+  assert.doesNotMatch(page.headers.get("content-security-policy"), /unsafe-inline/);
   assert.equal(page.headers.get("x-content-type-options"), "nosniff");
   assert.equal(page.headers.get("referrer-policy"), "no-referrer");
   assert.match(await page.text(), /ASYMMETRIC INFORMATION PUZZLES/);

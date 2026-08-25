@@ -15,6 +15,7 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(bootstrap, /app\.js\?v=[a-f0-9]{12}/);
   assert.match(html, /id="rulesModal"/);
   assert.match(html, /http-equiv="Content-Security-Policy"/);
+  assert.doesNotMatch(html, /unsafe-inline/);
   const app = await readFile(new URL("app.js", publicRoot), "utf8");
   assert.match(app, /installRulesButtons/);
   assert.match(app, /Mastermind/);
@@ -65,6 +66,10 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /requestAnimationFrame\(\(\) => \$\("#rulesClose"\)\.focus\(\)\)/);
   assert.match(app, /event\.key !== "Tab"/);
   assert.match(app, /function syncModalState\(\)/);
+  assert.doesNotMatch(app, /style=/);
+  assert.doesNotMatch(app, /\.style\./);
+  assert.match(app, /id="pursuitRoutes"/);
+  assert.match(app, /<progress/);
   assert.match(app, /document\.querySelector\("main"\)\.inert = hasModal/);
   assert.match(html, /id="battleEnemyBoard"/);
   assert.match(html, /id="battleBoardSize"/);
@@ -75,6 +80,7 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /Math\.max\(minimumQuantity/);
   const styles = await readFile(new URL("styles.css", publicRoot), "utf8");
   const engine = await readFile(new URL("game-engine.js", publicRoot), "utf8");
+  assert.doesNotMatch(engine, /unsafe-inline/);
   assert.match(engine, /sample\(this\.allCodes,361\)/);
   assert.match(styles, /\.worm-history \{[^}]*overflow-y: auto/);
   assert.match(styles, /body\.modal-open \{ overflow: hidden; \}/);
