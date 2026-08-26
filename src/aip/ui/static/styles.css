@@ -338,6 +338,12 @@ select:focus-visible {
 .optimal-compare p { color: var(--muted); line-height: 1.7; }
 
 .poker-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
+.poker-mode-panel { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 18px; padding: 18px 22px; }
+.poker-mode-panel strong { color: var(--gold-soft); font: 500 19px Georgia, "Songti SC", serif; }
+.poker-mode-panel p { margin: 7px 0 0; max-width: 760px; color: var(--muted); line-height: 1.55; }
+.poker-mode-switch { display: flex; flex: 0 0 auto; padding: 3px; border: 1px solid var(--line); background: rgba(0,0,0,.22); }
+.poker-mode-switch button { min-height: 42px; padding: 8px 16px; color: var(--muted); border: 0; background: transparent; cursor: pointer; font-weight: 700; }
+.poker-mode-switch button.active { color: #17130c; background: var(--gold); }
 .poker-score div { padding: 10px 24px; text-align: center; border-right: 1px solid var(--line); }
 .poker-score div:last-child { border-right: 0; }
 .poker-score span { display: block; color: var(--muted); font-size: 11px; letter-spacing: .09em; }
@@ -819,6 +825,9 @@ button.goof-bid-card:hover:not(:disabled) { transform:translateY(-5px); border-c
   .worm-status, .worm-lower { grid-template-columns: 1fr; }
   .pirate-summary, .pirate-grid, .vote-grid { grid-template-columns: 1fr; }
   .poker-score { grid-template-columns: 1fr 1fr; }
+  .poker-mode-panel { align-items: stretch; flex-direction: column; }
+  .poker-mode-switch { width: 100%; }
+  .poker-mode-switch button { flex: 1; }
   .poker-score div:nth-child(2) { border-right: 0; }
   .poker-table { min-height: auto; grid-template-columns: 1fr 1fr; }
   .poker-center { grid-column: 1 / -1; grid-row: 2; }

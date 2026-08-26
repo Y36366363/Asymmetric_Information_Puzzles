@@ -73,9 +73,58 @@ def legacy_policy() -> KuhnPolicy:
     )
 
 
+def basic_policy() -> KuhnPolicy:
+    """Return the intentionally exploitable policy used by the basic AI.
+
+    The policy preserves Kuhn Poker's value bets and randomized bluffs, but it
+    calls a bet with Q too rarely after checking.  A second-seat player can
+    therefore earn more than the game's equilibrium seat value by adapting.
+    """
+    return legacy_policy()
+
+
 def game_value(hero_first: bool) -> Fraction:
     """Zero-sum equilibrium value for the requested seat, including antes."""
     return Fraction(-1 if hero_first else 1, 18)
+
+
+def policy_value(
+    hero: KuhnPolicy, opponent: KuhnPolicy, *, hero_first: bool
+) -> Fraction:
+    """Return the exact expected value of one behavior policy against another."""
+    total = Fraction(0)
+    for hero_card in CARDS:
+        for opponent_card in CARDS:
+            if hero_card == opponent_card:
+                continue
+            if hero_first:
+                open_probability = hero.first_open_bet[hero_card]
+                opponent_call = opponent.second_call_open_bet[opponent_card]
+                bet_value = opponent_call * _showdown(hero_card, opponent_card, 2)
+                bet_value += (1 - opponent_call) * 1
+                opponent_bet = opponent.second_bet_after_check[opponent_card]
+                hero_call = hero.first_call_after_check_bet[hero_card]
+                response_value = hero_call * _showdown(hero_card, opponent_card, 2)
+                response_value += (1 - hero_call) * -1
+                check_value = (1 - opponent_bet) * _showdown(
+                    hero_card, opponent_card, 1
+                )
+                check_value += opponent_bet * response_value
+                value = open_probability * bet_value + (1 - open_probability) * check_value
+            else:
+                opponent_open = opponent.first_open_bet[opponent_card]
+                hero_call = hero.second_call_open_bet[hero_card]
+                facing_bet = hero_call * _showdown(hero_card, opponent_card, 2)
+                facing_bet += (1 - hero_call) * -1
+                hero_bet = hero.second_bet_after_check[hero_card]
+                opponent_call = opponent.first_call_after_check_bet[opponent_card]
+                bet_value = opponent_call * _showdown(hero_card, opponent_card, 2)
+                bet_value += (1 - opponent_call) * 1
+                checked_to = hero_bet * bet_value
+                checked_to += (1 - hero_bet) * _showdown(hero_card, opponent_card, 1)
+                value = opponent_open * facing_bet + (1 - opponent_open) * checked_to
+            total += value
+    return total / 6
 
 
 def _showdown(hero_card: str, opponent_card: str, stakes: int) -> Fraction:

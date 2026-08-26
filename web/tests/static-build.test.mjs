@@ -31,8 +31,12 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(html, /id="wormRevealAnswer"/);
   assert.match(html, /id="counterOfferButton"/);
   assert.match(html, /id="blackjackPracticeMode"/);
+  assert.match(html, /id="pokerBasicMode"/);
+  assert.match(html, /id="pokerAdvancedMode"/);
   assert.match(app, /wormDisclosure/);
   assert.match(app, /blackjackPracticeMode/);
+  assert.match(app, /aip-kuhn-poker-mode/);
+  assert.match(app, /player always act second|always act second|固定担任后手/);
   assert.match(app, /event\.key === "Enter"/);
   assert.match(app, /aip-rules-seen-/);
   assert.match(app, /playNow/);

@@ -128,14 +128,14 @@ class PirateSession {
 }
 
 class PokerSession {
-  constructor(){this.hand=0;this.playerScore=0;this.aiScore=0;this.start();}
-  start(){this.hand+=1;[this.playerCard,this.aiCard]=shuffle(["J","Q","K"]).slice(0,2);this.first=this.hand%2===1;this.phase="playing";this.history=[];this.result=null;this.pot=2;this.legal=this.first?["check","bet"]:[];if(!this.first)this.aiOpen();}
+  constructor(options={}){this.mode=String(options.mode||"basic").trim().toLowerCase();if(!["basic","advanced"].includes(this.mode))throw new Error("Kuhn Poker mode must be basic or advanced");this.hand=0;this.playerScore=0;this.aiScore=0;this.start();}
+  start(){this.hand+=1;[this.playerCard,this.aiCard]=shuffle(["J","Q","K"]).slice(0,2);this.first=false;this.phase="playing";this.history=[];this.result=null;this.pot=2;this.legal=[];this.aiOpen();}
   aiBet(){return this.aiCard==="K"||(this.aiCard==="J"&&Math.random()<1/3);}
   aiOpen(){const action=this.aiBet()?"bet":"check";this.history.push({actor:"ai",action});if(action==="bet"){this.pot=3;this.legal=["fold","call"];}else this.legal=["check","bet"];}
   finish(winner,stakes,reason){const delta=winner==="player"?stakes:-stakes;this.playerScore+=delta;this.aiScore-=delta;this.result={winner,playerDelta:delta,reason,aiBluffed:this.history.some(x=>x.actor==="ai"&&x.action==="bet")&&this.aiCard==="J"};this.phase="finished";this.legal=["next_hand"];}
   showdown(stakes,reason){this.finish(["J","Q","K"].indexOf(this.playerCard)>["J","Q","K"].indexOf(this.aiCard)?"player":"ai",stakes,reason);}
-  act(action){if(action==="next_hand"&&this.phase==="finished"){this.start();return;}if(!this.legal.includes(action))throw new Error("illegal poker action");this.history.push({actor:"player",action});if(action==="fold")return this.finish("ai",1,"player_folded");if(action==="call"){this.pot=4;return this.showdown(2,"bet_called");}if(action==="bet"){this.pot=3;const queenCall=this.first?1/3:2/3;const call=this.aiCard==="K"||(this.aiCard==="Q"&&Math.random()<queenCall);this.history.push({actor:"ai",action:call?"call":"fold"});return call?this.showdown(2,"bet_called"):this.finish("player",1,"ai_folded");}if(this.history[0].actor==="ai")return this.showdown(1,"both_checked");const bet=this.aiBet();this.history.push({actor:"ai",action:bet?"bet":"check"});if(bet){this.pot=3;this.legal=["fold","call"];}else this.showdown(1,"both_checked");}
-  snapshot(){return{gameId:"kuhn-poker",phase:this.phase,handNumber:this.hand,playerCard:this.playerCard,aiCard:this.phase==="finished"?this.aiCard:null,playerIsFirst:this.first,pot:this.pot,playerScore:this.playerScore,aiScore:this.aiScore,legalActions:this.legal,history:this.history,result:this.result,strategyScope:"exact_three_card_kuhn_equilibrium_alpha_one_third",informationSet:{privateCard:this.playerCard,publicHistory:this.history,possibleOpponentCards:["J","Q","K"].filter(c=>c!==this.playerCard)}};}
+  act(action){if(action==="next_hand"&&this.phase==="finished"){this.start();return;}if(!this.legal.includes(action))throw new Error("illegal poker action");this.history.push({actor:"player",action});if(action==="fold")return this.finish("ai",1,"player_folded");if(action==="call"){this.pot=4;return this.showdown(2,"bet_called");}if(action==="bet"){this.pot=3;const queenCall=this.mode==="advanced"?2/3:1/3;const call=this.aiCard==="K"||(this.aiCard==="Q"&&Math.random()<queenCall);this.history.push({actor:"ai",action:call?"call":"fold"});return call?this.showdown(2,"bet_called"):this.finish("player",1,"ai_folded");}if(this.history[0].actor==="ai")return this.showdown(1,"both_checked");const bet=this.aiBet();this.history.push({actor:"ai",action:bet?"bet":"check"});if(bet){this.pot=3;this.legal=["fold","call"];}else this.showdown(1,"both_checked");}
+  snapshot(){return{gameId:"kuhn-poker",mode:this.mode,phase:this.phase,handNumber:this.hand,playerCard:this.playerCard,aiCard:this.phase==="finished"?this.aiCard:null,playerIsFirst:false,playerSeat:"second",pot:this.pot,playerScore:this.playerScore,aiScore:this.aiScore,legalActions:this.legal,history:this.history,result:this.result,strategyScope:this.mode==="advanced"?"exact_three_card_kuhn_equilibrium_alpha_one_third":"strong_heuristic_exploitable_queen_under_call",strategyEvidence:this.mode==="advanced"?"equilibrium_backed":"strong_heuristic",playerEquilibriumValuePerHand:1/18,aiExploitability:this.mode==="advanced"?0:1/9,informationSet:{privateCard:this.playerCard,publicHistory:this.history,possibleOpponentCards:["J","Q","K"].filter(c=>c!==this.playerCard)}};}
 }
 
 class ECardSession {
@@ -419,7 +419,7 @@ function requireLegalAction(session, action) {
 }
 
 async function api(request, url) {
-  if (request.method === "GET" && url.pathname === "/api/health") return json({status:"ok",service:"aip-public"});
+  if (request.method === "GET" && url.pathname === "/api/health") return json({status:"ok",service:"aip-public",apiVersion:2});
   if (request.method === "GET" && url.pathname === "/api/games") return json({games:GAMES});
   if (request.method === "POST" && url.pathname === "/api/sessions") {
     const {gameId,options} = await request.json(); const session=createSession(gameId,options); const sessionId=crypto.randomUUID(); const state=validateState(session.snapshot(),gameId); storeSession(sessionId,session); return json({sessionId,state},201);

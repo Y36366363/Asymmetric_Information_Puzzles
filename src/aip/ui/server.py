@@ -18,6 +18,7 @@ from aip.ui.registry import LocalGameService, build_default_registry
 
 STATIC_ROOT = files("aip.ui").joinpath("static")
 MAX_REQUEST_BYTES = 1_000_000
+API_VERSION = 2
 SECURITY_HEADERS = {
     "Content-Security-Policy": (
         "default-src 'self'; script-src 'self'; style-src 'self'; "
@@ -44,7 +45,13 @@ class AIPRequestHandler(BaseHTTPRequestHandler):
             self._json({"games": self.service.games()})
             return
         if path == "/api/health":
-            self._json({"status": "ok", "application": "aip-game-lobby"})
+            self._json(
+                {
+                    "status": "ok",
+                    "application": "aip-game-lobby",
+                    "apiVersion": API_VERSION,
+                }
+            )
             return
         if path.startswith("/api/sessions/"):
             session_id = path.removeprefix("/api/sessions/")
@@ -142,7 +149,10 @@ def _is_existing_aip_server(host: str, port: int) -> bool:
         connection.request("GET", "/api/health")
         response = connection.getresponse()
         payload = json.loads(response.read())
-        return payload.get("application") == "aip-game-lobby"
+        return (
+            payload.get("application") == "aip-game-lobby"
+            and payload.get("apiVersion") == API_VERSION
+        )
     except (OSError, ValueError, json.JSONDecodeError):
         return False
     finally:
@@ -162,7 +172,7 @@ def serve(host: str = "127.0.0.1", port: int = 8765, *, open_browser: bool = Tru
                 webbrowser.open(url)
             return
         server = ThreadingHTTPServer((host, 0), AIPRequestHandler)
-        print(f"端口 {port} 已被其他程序占用，已自动改用空闲端口。")
+        print(f"端口 {port} 上是旧版 AIP 或其他程序，已自动改用空闲端口。")
     url = f"http://{host}:{server.server_port}"
     print(f"AIP 游戏大厅已启动：{url}")
     print("按 Ctrl+C 结束游戏服务器。")

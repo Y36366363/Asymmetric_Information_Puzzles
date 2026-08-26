@@ -18,7 +18,7 @@ from aip.ui.registry import (
     RestrictedRPSSession,
     build_default_registry,
 )
-from aip.ui.server import AIPRequestHandler, MAX_REQUEST_BYTES, SECURITY_HEADERS
+from aip.ui.server import API_VERSION, AIPRequestHandler, MAX_REQUEST_BYTES, SECURITY_HEADERS
 
 
 class LocalGameUITests(unittest.TestCase):
@@ -433,10 +433,11 @@ class LocalGameUITests(unittest.TestCase):
         self.assertNotIn(
             state["playerCard"], state["informationSet"]["possibleOpponentCards"]
         )
-        self.assertEqual(
-            state["strategyScope"],
-            "exact_three_card_kuhn_equilibrium_alpha_one_third",
-        )
+        self.assertEqual(state["mode"], "basic")
+        self.assertEqual(state["strategyEvidence"], "strong_heuristic")
+        self.assertEqual(state["playerSeat"], "second")
+        self.assertFalse(state["playerIsFirst"])
+        self.assertAlmostEqual(state["aiExploitability"], 1 / 9)
 
         while state["phase"] == "playing":
             action = state["legalActions"][0]
@@ -457,10 +458,30 @@ class LocalGameUITests(unittest.TestCase):
         self.assertFalse(state["playerIsFirst"])
         self.assertIsNone(state["aiCard"])
 
+    def test_kuhn_poker_advanced_mode_uses_exact_gto_from_first_seat(self) -> None:
+        created = self.service.create_session(
+            "kuhn-poker", {"seed": 37, "mode": "advanced"}
+        )
+        state = created["state"]
+        self.assertEqual(state["mode"], "advanced")
+        self.assertEqual(state["strategyEvidence"], "equilibrium_backed")
+        self.assertEqual(
+            state["strategyScope"],
+            "exact_three_card_kuhn_equilibrium_alpha_one_third",
+        )
+        self.assertEqual(state["aiExploitability"], 0)
+        self.assertFalse(state["playerIsFirst"])
+
+    def test_kuhn_poker_rejects_unknown_mode(self) -> None:
+        with self.assertRaises(ValueError):
+            self.service.create_session("kuhn-poker", {"mode": "impossible"})
+
     def test_kuhn_poker_rejects_actions_outside_the_information_set(self) -> None:
         created = self.service.create_session("kuhn-poker", {"seed": 41})
+        legal = set(created["state"]["legalActions"])
+        illegal = next(action for action in ("bet", "call", "fold") if action not in legal)
         with self.assertRaises(ValueError):
-            self.service.act(created["sessionId"], "call")
+            self.service.act(created["sessionId"], illegal)
 
     def test_goofspiel_hides_current_bid_and_completes_four_rounds(self) -> None:
         created = self.service.create_session("goofspiel", {"seed": 47})
@@ -636,6 +657,7 @@ class LocalGameUITests(unittest.TestCase):
             connection.close()
             self.assertEqual(payload["status"], "ok")
             self.assertEqual(payload["application"], "aip-game-lobby")
+            self.assertEqual(payload["apiVersion"], API_VERSION)
         finally:
             server.shutdown()
             server.server_close()
@@ -693,6 +715,10 @@ class LocalGameUITests(unittest.TestCase):
         self.assertIn("<progress", script)
         self.assertIn("setOperationPending", script)
         self.assertIn('id="operationStatus"', html)
+        self.assertIn('id="pokerBasicMode"', html)
+        self.assertIn('id="pokerAdvancedMode"', html)
+        self.assertIn('writePreference("aip-kuhn-poker-mode"', script)
+        self.assertIn("最佳回应可把后手期望从 +1/18 提升到 +1/6/局", script)
 
     def test_pages_workflow_verifies_docs_before_fast_forward_publish(self) -> None:
         workflow = (

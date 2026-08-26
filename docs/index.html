@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'" />
     <title>AIP · 非对称博弈实验室</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23d8aa4c'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial' font-size='23' font-weight='900' fill='%2311110f'%3EAIP%3C/text%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=b1015532ef38" />
+    <link rel="stylesheet" href="styles.css?v=d36b086a0b2b" />
   </head>
   <body>
     <header class="topbar">
@@ -155,6 +155,17 @@
           <button class="secondary-button" id="newPokerMatch" data-i18n="restartMatch">重新开始比赛</button>
         </div>
 
+        <section class="poker-mode-panel panel" aria-labelledby="pokerModeTitle">
+          <div>
+            <strong id="pokerModeTitle" data-i18n="pokerModeTitle">选择 AI 难度</strong>
+            <p id="pokerModeDescription">基础 AI 有完整策略但存在可利用偏差；高级 AI 使用精确 GTO。你始终担任长期正期望的后手。</p>
+          </div>
+          <div class="poker-mode-switch" role="group" aria-label="Kuhn Poker AI mode">
+            <button id="pokerBasicMode" class="active" aria-pressed="true" data-i18n="pokerBasicMode">基础模式</button>
+            <button id="pokerAdvancedMode" aria-pressed="false" data-i18n="pokerAdvancedMode">高级 GTO</button>
+          </div>
+        </section>
+
         <div class="poker-score panel">
           <div><span data-i18n="handNumber">当前牌局</span><strong id="pokerHand">1</strong></div>
           <div><span data-i18n="yourScore">你的净筹码</span><strong id="pokerPlayerScore">0</strong></div>
@@ -164,7 +175,7 @@
 
         <section class="poker-table panel">
           <div class="poker-seat opponent-seat">
-            <span class="seat-label" data-i18n="strategyAi">策略型 AI</span>
+            <span class="seat-label" id="pokerAiLabel">基础策略 AI</span>
             <div class="playing-card card-back" id="aiCard">?</div>
             <strong id="aiPosition">后手</strong>
           </div>
@@ -189,7 +200,7 @@
           </section>
           <section class="panel poker-rules">
             <div class="panel-title"><span data-i18n="quickRules">快速规则</span><span>KUHN 1950</span></div>
-            <p data-i18n="pokerRules">双方先各投入 1。下注为 1；跟注后比牌，弃牌则直接输。K 最大、J 最小。AI 使用经过可利用性验证的混合均衡，会按位置调整诈唬和跟注概率。</p>
+            <p data-i18n="pokerRules">双方各投入 1 枚底注，K &gt; Q &gt; J。AI 固定先手，你固定后手；后手的均衡长期价值为每局 +1/18，但单局并不保证获胜。基础 AI 可被利用，高级 AI 使用精确 GTO。</p>
           </section>
         </div>
       </section>
@@ -677,6 +688,6 @@
 
     <div class="operation-status hidden" id="operationStatus" role="status" aria-live="polite"></div>
     <div class="toast hidden" id="toast" role="status"></div>
-    <script type="module" src="bootstrap.js?v=b1015532ef38"></script>
+    <script type="module" src="bootstrap.js?v=d36b086a0b2b"></script>
   </body>
 </html>

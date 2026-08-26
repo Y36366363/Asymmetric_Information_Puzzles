@@ -5,6 +5,26 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/26/2026
+
+- **Two verified Kuhn Poker modes** — Basic keeps coherent value betting and
+  randomized bluffing but exposes exactly `1/9` chip/hand of exploitability;
+  Advanced uses the zero-exploitability alpha-`1/3` equilibrium.
+- **Fair seat comparison** — The player now remains second to act in every hand.
+  That seat is worth exactly `+1/18` chip/hand under equilibrium play; the UI
+  explicitly distinguishes long-run expectation from a guaranteed short-run win.
+- **Mode-aware teaching UI** — Added bilingual Basic/Advanced controls, mode
+  evidence, precise payoff explanations, fixed-seat first-turn guidance, and a
+  score reset when difficulty changes.
+- **Mechanism and rules audit** — Rechecked exact/equilibrium/heuristic claims
+  across the existing games. No unsupported optimality label was found; Kuhn's
+  obsolete alternating-seat text was removed. Local startup now detects an old
+  API process instead of silently pairing new assets with stale game logic.
+- **Regression verification** — All 204 Python tests and all 12 public
+  engine/static-build tests pass. Real-browser testing confirmed both modes,
+  persistent second-seat play, hidden AI cards, score reset, zero inline styles,
+  and an empty warning/error console. [Read the strategy and rules audit](research/kuhn_poker_modes_2026-08-26.md).
+
 ## Updates 08/25/2026
 
 - **Automatic Pages synchronization** — Added a guarded workflow that rebuilds

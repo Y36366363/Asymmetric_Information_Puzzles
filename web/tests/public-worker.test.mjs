@@ -5,6 +5,8 @@ const worker = (await import("../dist/server/index.js")).default;
 const call = (path, init) => worker.fetch(new Request(`https://aip.test${path}`, init));
 
 test("serves the bilingual lobby and all playable descriptors", async () => {
+  const health = await call("/api/health");
+  assert.equal((await health.json()).apiVersion, 2);
   const page = await call("/");
   assert.equal(page.status, 200);
   assert.match(page.headers.get("content-security-policy"), /frame-ancestors 'none'/);
@@ -176,7 +178,7 @@ test("every public game rejects actions outside its declared legal set", async (
 });
 
 test("single-player games survive complete decision loops", async () => {
-  const create = async (gameId) => (await (await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId})})).json());
+  const create = async (gameId, options={}) => (await (await call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId,options})})).json());
   const act = async (session, action, payload={}) => {
     const response = await call(`/api/sessions/${session.sessionId}/actions`, {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action,payload})});
     assert.equal(response.status, 200, `${session.state.gameId}:${action}`);
@@ -226,12 +228,21 @@ test("single-player games survive complete decision loops", async () => {
   assert.ok(ecard.state.result);
 
   const poker = await create("kuhn-poker");
-  assert.equal(poker.state.strategyScope, "exact_three_card_kuhn_equilibrium_alpha_one_third");
+  assert.equal(poker.state.mode, "basic");
+  assert.equal(poker.state.strategyEvidence, "strong_heuristic");
+  assert.equal(poker.state.playerIsFirst, false);
+  assert.equal(poker.state.aiExploitability, 1/9);
   for (let guard=0; poker.state.phase === "playing" && guard < 4; guard += 1) {
     const action = poker.state.legalActions.includes("check") ? "check" : poker.state.legalActions.includes("call") ? "call" : poker.state.legalActions[0];
     await act(poker, action);
   }
   assert.equal(poker.state.phase, "finished");
+
+  const advancedPoker = await create("kuhn-poker", {mode:"advanced"});
+  assert.equal(advancedPoker.state.strategyScope, "exact_three_card_kuhn_equilibrium_alpha_one_third");
+  assert.equal(advancedPoker.state.strategyEvidence, "equilibrium_backed");
+  assert.equal(advancedPoker.state.playerIsFirst, false);
+  assert.equal(advancedPoker.state.aiExploitability, 0);
 
   const liar = await create("liars-dice");
   await act(liar, "raise_bid", {quantity:1,face:1});

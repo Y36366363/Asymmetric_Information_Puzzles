@@ -20,7 +20,7 @@ from aip.puzzles.love_letter.solver import CARD_COUNTS, CARD_NAMES, LoveLetterGa
 from aip.puzzles.investment import InvestmentTournament
 from aip.puzzles.guess_who import DEFAULT_QUESTIONS, DEFAULT_ROSTER, GuessWhoSolver
 from aip.puzzles.goofspiel import GoofspielSolver
-from aip.puzzles.kuhn_poker import equilibrium_policy
+from aip.puzzles.kuhn_poker import basic_policy, equilibrium_policy
 from aip.puzzles.pirates.models import PirateRules
 from aip.puzzles.pirates.solver import PirateSolver
 from aip.puzzles.worm.solver import WormSolver
@@ -647,8 +647,13 @@ class KuhnPokerSession:
 
     CARDS = ("J", "Q", "K")
     EQUILIBRIUM = equilibrium_policy()
+    BASIC = basic_policy()
 
     def __init__(self, options: dict[str, object]) -> None:
+        self.mode = str(options.get("mode", "basic")).strip().lower()
+        if self.mode not in {"basic", "advanced"}:
+            raise ValueError("Kuhn Poker mode must be basic or advanced")
+        self.ai_policy = self.BASIC if self.mode == "basic" else self.EQUILIBRIUM
         self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
         self._rng = random.Random(self.seed)
         self.hand_number = 0
@@ -656,7 +661,7 @@ class KuhnPokerSession:
         self.ai_score = 0
         self.player_card = ""
         self.ai_card = ""
-        self.player_is_first = True
+        self.player_is_first = False
         self.phase = "playing"
         self.history: list[dict[str, str]] = []
         self.legal_actions: list[str] = []
@@ -681,16 +686,16 @@ class KuhnPokerSession:
         cards = list(self.CARDS)
         self._rng.shuffle(cards)
         self.player_card, self.ai_card = cards[:2]
-        self.player_is_first = self.hand_number % 2 == 1
+        # The player remains in Kuhn Poker's positive-value second seat.  This
+        # also keeps mode comparisons from being confounded by alternating seat
+        # advantage.
+        self.player_is_first = False
         self.phase = "playing"
         self.history = []
         self.result = None
         self.pot = 2
-        if self.player_is_first:
-            self.legal_actions = ["check", "bet"]
-        else:
-            self.legal_actions = []
-            self._ai_opening_action()
+        self.legal_actions = []
+        self._ai_opening_action()
 
     def _player_action(self, action: str) -> None:
         self.history.append({"actor": "player", "action": action})
@@ -716,7 +721,7 @@ class KuhnPokerSession:
 
     def _ai_opening_action(self) -> None:
         should_bet = self._rng.random() < float(
-            self.EQUILIBRIUM.first_open_bet[self.ai_card]
+            self.ai_policy.first_open_bet[self.ai_card]
         )
         action = "bet" if should_bet else "check"
         self.history.append({"actor": "ai", "action": action})
@@ -728,7 +733,7 @@ class KuhnPokerSession:
 
     def _ai_after_player_check(self) -> None:
         should_bet = self._rng.random() < float(
-            self.EQUILIBRIUM.second_bet_after_check[self.ai_card]
+            self.ai_policy.second_bet_after_check[self.ai_card]
         )
         action = "bet" if should_bet else "check"
         self.history.append({"actor": "ai", "action": action})
@@ -743,9 +748,9 @@ class KuhnPokerSession:
         # after check-bet, equilibrium calls 2/3; as second seat versus an
         # opening bet it calls 1/3.
         call_table = (
-            self.EQUILIBRIUM.second_call_open_bet
+            self.ai_policy.second_call_open_bet
             if self.player_is_first
-            else self.EQUILIBRIUM.first_call_after_check_bet
+            else self.ai_policy.first_call_after_check_bet
         )
         should_call = self._rng.random() < float(call_table[self.ai_card])
         action = "call" if should_call else "fold"
@@ -786,6 +791,7 @@ class KuhnPokerSession:
         possible_ai_cards = [card for card in self.CARDS if card != self.player_card]
         return {
             "gameId": "kuhn-poker",
+            "mode": self.mode,
             "phase": self.phase,
             "handNumber": self.hand_number,
             "playerCard": self.player_card,
@@ -797,7 +803,17 @@ class KuhnPokerSession:
             "legalActions": list(self.legal_actions),
             "history": public_history,
             "result": self.result,
-            "strategyScope": "exact_three_card_kuhn_equilibrium_alpha_one_third",
+            "strategyScope": (
+                "strong_heuristic_exploitable_queen_under_call"
+                if self.mode == "basic"
+                else "exact_three_card_kuhn_equilibrium_alpha_one_third"
+            ),
+            "strategyEvidence": (
+                "strong_heuristic" if self.mode == "basic" else "equilibrium_backed"
+            ),
+            "playerSeat": "second",
+            "playerEquilibriumValuePerHand": 1 / 18,
+            "aiExploitability": 1 / 9 if self.mode == "basic" else 0,
             "informationSet": {
                 "privateCard": self.player_card,
                 "publicHistory": public_history,
