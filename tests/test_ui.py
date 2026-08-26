@@ -725,6 +725,7 @@ class LocalGameUITests(unittest.TestCase):
             Path(__file__).parents[1] / ".github/workflows/sync-pages.yml"
         ).read_text()
         self.assertIn("branches: [main]", workflow)
+        self.assertNotIn("    paths:", workflow)
         self.assertIn("git diff --exit-code -- docs", workflow)
         self.assertIn(
             'published_tree="$(git rev-parse origin/gh-pages^{tree})"', workflow

@@ -20,6 +20,9 @@
   across the existing games. No unsupported optimality label was found; Kuhn's
   obsolete alternating-seat text was removed. Local startup now detects an old
   API process instead of silently pairing new assets with stale game logic.
+- **Publish trigger hardened** — A live push exposed that GitHub did not create
+  a run for the path-filtered sync workflow. It now verifies every `main` push;
+  exact tree comparison still exits without a deployment when `docs` is unchanged.
 - **Regression verification** — All 204 Python tests and all 12 public
   engine/static-build tests pass. Real-browser testing confirmed both modes,
   persistent second-seat play, hidden AI cards, score reset, zero inline styles,

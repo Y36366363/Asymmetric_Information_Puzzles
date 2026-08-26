@@ -3,13 +3,6 @@ name: Sync GitHub Pages
 on:
   push:
     branches: [main]
-    paths:
-      - ".github/workflows/sync-pages.yml"
-      - "docs/**"
-      - "src/aip/ui/static/**"
-      - "web/build-static.mjs"
-      - "web/goofspiel-policy.json"
-      - "web/worker-runtime.js"
   workflow_dispatch:
 
 permissions:
