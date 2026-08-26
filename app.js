@@ -25,6 +25,7 @@ let toastTimer = null;
 let routeReady = false;
 let wormDisclosure = 0;
 let blackjackPracticeMode = readPreference("aip-blackjack-mode") === "practice";
+let pokerMode = readPreference("aip-kuhn-poker-mode") === "advanced" ? "advanced" : "basic";
 
 const gameViews = {
   cases: "gameView",
@@ -57,7 +58,8 @@ const copy = {
     restartMatch: "重新开始比赛", handNumber: "当前牌局", yourScore: "你的净筹码",
     potSize: "底池", aiScore: "AI 净筹码", strategyAi: "策略型 AI", you: "你",
     yourInformationSet: "你的信息集", quickRules: "快速规则",
-    pokerRules: "双方先各投入 1。下注为 1；跟注后比牌，弃牌则直接输。K 最大、J 最小。AI 使用经过可利用性验证的混合均衡，会按位置调整诈唬和跟注概率。",
+    pokerModeTitle: "选择 AI 难度", pokerBasicMode: "基础模式", pokerAdvancedMode: "高级 GTO",
+    pokerRules: "双方各投入 1 枚底注，K > Q > J。AI 固定先手，你固定后手；后手的均衡长期价值为每局 +1/18，但单局并不保证获胜。基础 AI 可被利用，高级 AI 使用精确 GTO。",
     eCardEyebrow: "CASE 08 · 非对称收益与混合策略 · 中等", eCardTitle: "E-Card 皇帝牌",
     currentDuel: "本轮对决", emperor: "皇帝", citizen: "市民", slave: "奴隶",
     eCardYourScore: "你的得分", eCardAiScore: "AI 得分",
@@ -131,7 +133,8 @@ const copy = {
     restartMatch: "Restart match", handNumber: "Current hand", yourScore: "Your net chips",
     potSize: "Pot", aiScore: "AI net chips", strategyAi: "Strategy AI", you: "You",
     yourInformationSet: "Your information set", quickRules: "Quick rules",
-    pokerRules: "Both players ante 1. A bet costs 1; a call reaches showdown, while a fold loses immediately. K is high and J is low. The AI uses an exploitability-checked mixed equilibrium with position-aware bluff and call frequencies.",
+    pokerModeTitle: "Choose AI difficulty", pokerBasicMode: "Basic mode", pokerAdvancedMode: "Advanced GTO",
+    pokerRules: "Both players ante 1; K > Q > J. The AI always acts first and you always act second. The second seat is worth +1/18 chip per hand in equilibrium over the long run, not a guaranteed win. Basic AI is exploitable; Advanced uses exact GTO.",
     eCardEyebrow: "CASE 08 · ASYMMETRIC PAYOFFS & MIXED STRATEGY · MEDIUM", eCardTitle: "E-Card",
     currentDuel: "Duel", emperor: "Emperor", citizen: "Citizen", slave: "Slave",
     eCardYourScore: "Your score", eCardAiScore: "AI score",
@@ -244,7 +247,7 @@ const rulesCopy = {
     cases: ["目标：在 26 个箱子中尽可能拿到高奖金。", "先点击任意一个箱子作为你的保留箱；之后不要再打开它。", "按页面提示点击指定数量的其他箱子；刚打开的金额会保留在报价窗口中，方便判断奖池变好还是变差。", "银行家报价始终低于剩余金额的算术期望。你可以接受、拒绝，或在整局中使用一次议价；议价被拒后会自动继续开箱。", "若所有报价都拒绝，坚持到最后会自动打开保留箱，并明确显示最终所得金额。"],
     worm: ["目标：在最坏情况下也抓到不断移动的虫子。五个洞按 1–5 排成一行。", "每回合点击一个洞检查；若未抓到，虫子必须立刻移动到相邻洞。", "观察“仍可能的位置”和奇偶节奏，自行设计检查顺序。", "具体提示和完整答案默认隐藏；卡住时再点击“显示提示”或“查看答案”。"],
     pirates: ["目标：让你的提案获得足够票数，并让海盗 A 活下来。", "在每个海盗的金币输入框中填整数，所有分配之和必须正好等于 100。", "点击“提交提案并投票”。每名海盗会比较你的报价与否决后按逆向归纳得到的金币/生存结果。", "达到页面显示的赞成票数就通过；否则 A 被处决，系统展示实际结果和理论最优方案。"],
-    "kuhn-poker": ["目标：在连续牌局中赢得更多净筹码。你和 AI 从 J、Q、K 中各拿一张未知于对方的牌，并各投入 1 枚底注。", "轮到你时可点击“过牌”或“下注”；下注会额外投入 1 枚。若一方过牌，对方仍可下注。", "面对下注时只能“跟注”或“弃牌”：弃牌立即损失底注；跟注再投入 1 枚并亮牌，K > Q > J。", "下一局交换先后手。AI 使用精确混合均衡：弱牌偶尔诈唬，中牌是否跟注会随先后手改变，所以应结合自己的牌、位置和公开行动判断。"],
+    "kuhn-poker": ["目标：你固定担任后手，在连续牌局中取得正的净筹码。你和 AI 从 J、Q、K 中各拿一张私牌，并各投入 1 枚底注。", "AI 先选择过牌或下注。AI 过牌后，你可过牌直接比牌，或额外投入 1 枚下注；面对 AI 下注时，你只能跟注或弃牌。", "跟注再投入 1 枚并亮牌；弃牌立即损失底注。牌力为 K > Q > J。下注既可能是 K 的价值下注，也可能是 J 的诈唬。", "基础模式保留合理混合策略，但在一次 Q 跟注频率上存在可利用偏差；高级模式使用穷举最佳回应验证、可利用度为零的精确 GTO。", "后手在双方都采用 GTO 时长期期望为每局 +1/18 枚筹码。它是大量牌局的平均值，不代表每局或短期比赛必胜。切换模式会重新开始并清空比分。"],
     "e-card": ["目标：利用特殊牌的循环克制关系赢得高分。你和 AI 各有 1 张特殊牌与 4 张市民牌。", "点击手中的一张牌，双方会同时出牌，AI 的选择在揭示前保持隐藏。", "皇帝击败市民，市民击败奴隶，奴隶击败皇帝；奴隶获胜通常得到更高收益。", "市民对市民不会结束本轮，两张牌会被消耗后继续；特殊牌相遇则按克制关系结束本轮。"],
     "restricted-rps": ["目标：在有限库存耗尽前赢得更多回合。你和 AI 各有相同数量的石头、剪刀、布。", "点击一张仍有库存的手势牌；双方同时出牌，使用过的牌永久减少。", "石头胜剪刀，剪刀胜布，布胜石头；相同手势为平局。双方库存和历史都会公开。", "库存全部用完后比赛结束。赛后复盘会比较实际频率、均衡支持集和 AI 的针对权重；单场输赢仍会受到随机出牌影响。"],
     blackjack: ["目标：让自己的点数尽量接近 21，但超过 21 就爆牌并立即输。", "A 可算 1 或 11；J/Q/K 算 10。开始时你会看到两张手牌和庄家的一张明牌。", "普通模式不会提前揭示建议；练习模式会在每次操作后判断是否符合基础策略并告诉你正确动作。", "当前可点击要牌、停牌，以及仅首个决定可用的加倍。庄家按软 17 停牌；分牌、投降和保险尚未开放。"],
@@ -261,7 +264,7 @@ const rulesCopy = {
     cases: ["Goal: maximize your payout from 26 cases.", "Click one case to keep; never open it afterward.", "Open the required cases; the latest revealed values remain visible while you assess the offer.", "Every banker offer is below the remaining arithmetic mean. Deal, continue, or spend your one counter-offer; rejection automatically continues play.", "Reject every offer and the kept case is revealed with a clear final payout."],
     worm: ["Goal: catch the moving worm even under worst-case play. Five holes are arranged from 1 to 5.", "Check one hole per turn. After a miss, the worm must immediately move to a neighbor.", "Watch the possible-position set and reason about alternating parity as you build a search rhythm.", "The specific hint and full answer are hidden by default; reveal either only when you want help."],
     pirates: ["Goal: pass your proposal and keep pirate A alive.", "Enter integer gold allocations totaling exactly 100, then submit the proposal.", "Each pirate compares your offer with the continuation payoff after A's execution.", "If enough votes support the proposal it passes; otherwise A is executed and the benchmark is shown."],
-    "kuhn-poker": ["Goal: win more net chips over repeated hands. You and the AI each receive one private card from J, Q, and K, then ante 1.", "On your turn choose Check or Bet; a bet adds 1. After a check, the other player may still bet.", "Facing a bet, choose Call or Fold. Folding loses the ante; calling adds 1 and reveals both cards. K beats Q, which beats J.", "First position alternates each hand. The AI uses an exact mixed equilibrium: weak cards sometimes bluff and a middle-card call depends on position, so read your card, seat, and the public action history together."],
+    "kuhn-poker": ["Goal: play every hand from the second seat and build positive net chips over repeated hands. You and the AI receive different private cards from J, Q, and K, then ante 1 each.", "The AI acts first with Check or Bet. After a check, choose Check for showdown or Bet for 1 more. Facing an opening bet, choose Call or Fold.", "Calling adds 1 and reveals both cards; folding loses the ante. K > Q > J. A bet may be value with K or a bluff with J.", "Basic mode keeps a coherent mixed strategy but under-calls with Q in one information set, creating a measurable weakness. Advanced uses exact GTO with zero exploitability under exhaustive pure best-response checks.", "Against GTO, the second seat is worth +1/18 chip per hand in long-run expectation. This is an average over many hands, never a promise to win one hand or a short match. Switching modes resets the score."],
     "e-card": ["Goal: exploit the asymmetric special-card cycle. Each side holds one special card and four citizens.", "Click one card; both sides reveal simultaneously.", "Emperor beats Citizen, Citizen beats Slave, and Slave beats Emperor. Slave wins pay more.", "Citizen versus Citizen consumes both cards and continues the round."],
     "restricted-rps": ["Goal: win more rounds before your finite inventory runs out.", "Click an available Rock, Paper, or Scissors card; both choices are simultaneous and the card is consumed.", "Rock beats Scissors, Scissors beats Paper, and Paper beats Rock. Equal moves draw.", "The post-match review compares your frequencies, equilibrium support, and the AI's exploit weight. One match still contains variance from randomized play."],
     blackjack: ["Goal: approach 21 without going over.", "A counts as 1 or 11; face cards count as 10. You see your hand and the dealer upcard.", "Normal mode keeps advice out of the way. Practice mode grades every decision and reveals the basic-strategy action afterward.", "Choose Hit, Stand, or Double on the first decision. The dealer stands on soft 17; Split, Surrender, and Insurance are not yet available."],
@@ -281,7 +284,7 @@ const ruleDetails = {
     cases: { role: "你是一名电视游戏参赛者。26 个箱子里分别装着从极小到一百万不等的奖金，但你看不到每个箱子的金额。你要一边排除金额，一边决定是否接受银行家的现金报价。", example: "例：你保留了 7 号箱，本轮打开 3 号箱并发现里面是 1 元。报价窗口会保留刚揭晓金额、全部剩余金额和剩余价值期望。你也可以把整局唯一一次议价用在这一轮，但若银行家拒绝，就必须继续开箱。", finish: "接受报价或议价成功时立即结算；若一直拒绝，就在最后打开保留箱并明确显示最终金额。这里没有唯一正确风险偏好。", terms: "保留箱＝最初选中且暂不打开的箱子；剩余价值期望＝所有未揭晓金额的算术平均；风险调整参考值最低按 0 显示，不会再出现难以解释的负金额。" },
     worm: { role: "你是搜捕者，虫子是会主动躲避你的对手。你看不到它在哪个洞，只能根据它每次必须移动到相邻洞的规则推理。", example: "例：你检查 2 号洞但没抓到。虫子此前若在 1 号，只能移到 2 号；若在 3 号，可移到 2 或 4。系统会把仍然可能的洞显示出来。", finish: "当你检查的洞覆盖虫子所有仍合法的可能位置时，保证抓捕成功。乱点可能永远抓不到；具体提示和完整答案默认隐藏，只有主动点击相应按钮才会揭示。", terms: "可能位置＝根据全部历史仍合法的位置；奇偶节奏＝虫子每移动一步就会在奇数洞与偶数洞之间切换；保证策略＝面对任何合法逃法都能成功的顺序。" },
     pirates: { role: "你扮演最资深海盗 A。规则是：A 提出如何分 100 枚金币，所有海盗投票；若票数不足，A 被处决，下一位海盗重新提案。每个人都知道之后会发生什么。", example: "例：如果海盗 C 在 A 死后能得到 1 枚金币，那么给 C 仍然只有 1 枚通常买不到他的票；给 2 枚才比他的后续结果更好。也可以收买那些 A 死后会一无所有的人。", finish: "分配总和恰好为 100 后提交。赞成票达到页面要求，A 存活并按提案分金币；票数不足则 A 死亡，页面展示后续结果。你的核心任务是用尽量少的金币买到足够票数。", terms: "逆向归纳＝先算只剩最后几名海盗时会怎样，再一步步倒推到现在；延续收益＝否决当前提案后，该海盗预计能否存活以及能拿多少金币。" },
-    "kuhn-poker": { role: "这是把扑克压缩到三张牌的练习。你只知道自己的牌，不知道 AI 的牌；下注既可能代表强牌，也可能是拿弱牌诈唬。", example: "例：你拿 Q，AI 下注。AI 可能拿 K 认真下注，也可能拿 J 诈唬。跟注要再投入 1 枚并亮牌；弃牌会损失已投入的底注，但避免继续亏损。", finish: "一方弃牌或双方完成过牌/跟注后，本局结束并结算筹码。连续多局比较净筹码；同一个 AI 动作不一定对应同一张牌。", terms: "过牌＝不加钱，把行动交给对方；下注＝额外投入 1；跟注＝支付同样金额并要求亮牌；诈唬＝弱牌下注，希望对手弃牌。" },
+    "kuhn-poker": { role: "这是把扑克压缩到三张牌的练习。AI 固定先手、你固定后手；你只知道自己的牌，不知道 AI 的牌。基础模式可被利用，高级模式是精确 GTO。", example: "例：你拿 Q，AI 下注。AI 可能拿 K 认真下注，也可能拿 J 诈唬。跟注要再投入 1 枚并亮牌；弃牌会损失已投入的底注，但避免继续亏损。", finish: "一方弃牌或双方完成过牌/跟注后，本局结束并结算筹码。后手的 GTO 长期价值是 +1/18/局；基础 AI 的最佳回应价值可达 +1/6/局。两者都是精确期望值，不保证单局胜负。", terms: "过牌＝不加钱；下注＝额外投入 1；跟注＝支付同样金额并要求亮牌；GTO＝对手无法通过单方面改变策略获得更多收益的均衡策略。切换模式会清空当前比分。" },
     "e-card": { role: "你和 AI 轮流扮演皇帝方与奴隶方。皇帝通常强，但奴隶能击败皇帝且回报更高，因此双方都要猜特殊牌会在哪一次出现。", example: "例：你是奴隶方，前两次先出市民试探。若 AI 也出市民，两张市民消耗后继续。你第三次出奴隶，若 AI 此时出皇帝，你将以弱胜强获得高分；若 AI 出市民，你会输。", finish: "出现非市民平局的胜负关系时，本轮结束并计分，然后双方交换阵营开始下一轮。重点不是只看单张强弱，而是推测对方何时使用唯一的特殊牌。", terms: "皇帝＞市民、 市民＞奴隶、奴隶＞皇帝；特殊牌＝皇帝或奴隶；市民相撞＝平局并消耗双方各一张市民。" },
     "restricted-rps": { role: "这是有库存的猜拳。普通猜拳每轮都能随便出，但这里每种手势只有有限张；你刚才用掉什么，会改变后面还能怎么出。", example: "例：你只剩 1 石头、0 剪刀、2 布，AI 能看到这个库存，所以知道你不可能出剪刀。你仍需在石头和布之间随机选择，避免行为过于容易预测。", finish: "双方所有手势卡用完后结束，胜局多的一方获胜。每轮后可以看公开库存、均衡建议和 AI 对你历史偏好的分析。", terms: "库存＝每种手势还可使用几次；均衡建议＝即使对手知道你的概率，也难以稳定利用你的随机方案；适应＝AI 根据你过去偏爱哪种手势调整。" },
     blackjack: { role: "你是玩家，与按固定规则行动的庄家比较点数。普通模式保留决策压力；练习模式会在每次操作后对照基础策略给出反馈。", example: "例：你有 10+6=16 点，庄家明牌是 10。练习模式会在你选择后说明该操作是否匹配基础策略，并显示这个规则集下建议的动作。", finish: "你爆牌时立即输；你停牌或加倍后庄家自动补牌，最后不爆牌且更接近 21 的一方获胜，同点为和局。当前完整可用动作是要牌、停牌和加倍；分牌、投降、保险尚未实现。", terms: "要牌＝再抽一张；停牌＝不再抽；加倍＝赌注翻倍且只抽一张；软牌＝有 A 暂时按 11 计算的手牌；基础策略最优性只适用于页面注明的固定规则。" },
@@ -298,7 +301,7 @@ const ruleDetails = {
     cases: { role: "You are a TV-game contestant. Twenty-six cases hide prizes from tiny amounts to one million. You eliminate prizes and decide whether to accept the banker's cash offer.", example: "After a reveal, the offer window keeps the latest values, every remaining value, and their arithmetic mean visible. You may spend the game's only counter-offer now; rejection forces play to continue.", finish: "A deal or accepted counter settles immediately. Reject everything and the kept case is revealed with a clear final payout.", terms: "Expected remaining value is the arithmetic mean of unrevealed prizes. The risk-adjusted reference is floored at zero so the UI never presents a confusing negative currency amount." },
     worm: { role: "You are the searcher; the worm actively avoids capture. You cannot see it and must reason from the rule that every miss forces it to move to a neighboring hole.", example: "Example: after you miss at hole 2, a worm formerly at 1 can only move to 2, while one at 3 may move to 2 or 4. The possible-position display updates these paths.", finish: "Capture is guaranteed only when your check covers every remaining legal location. The specific hint and complete sequence remain hidden until you deliberately reveal them.", terms: "Possible positions fit all history. Parity flips after every mandatory move. A guaranteed strategy wins against every legal escape path." },
     pirates: { role: "You are senior pirate A. You propose how to split 100 coins. If the vote fails, A dies and the next pirate proposes, so everyone compares the present offer with that future outcome.", example: "Example: if C expects 1 coin after A dies, offering C 1 is normally insufficient; 2 is better than C's continuation payoff and can buy the vote.", finish: "Submit allocations totaling exactly 100. Enough yes votes pass the plan and keep A alive; otherwise A dies. Your challenge is buying enough votes as cheaply as possible.", terms: "Backward induction solves later councils first and works back. Continuation payoff is a pirate's expected survival and gold after rejection." },
-    "kuhn-poker": { role: "This is poker reduced to J, Q, and K. You know your card but not the AI's; a bet can signal strength or be a bluff with a weak card.", example: "Example: you hold Q and the AI bets. It may hold K for value or J as a bluff. Calling pays 1 more to reveal; folding loses the ante but avoids further loss.", finish: "A fold or completed check/call sequence ends the hand and settles chips. Play repeated hands and track net chips.", terms: "Check passes without paying. Bet adds 1. Call matches the bet and shows cards. Bluff means betting weak to induce a fold." },
+    "kuhn-poker": { role: "This is poker reduced to J, Q, and K. The AI always acts first and you always act second. Basic mode is deliberately exploitable; Advanced is exact GTO.", example: "If you hold Q and the AI bets, it may hold K for value or J as a bluff. Calling pays 1 more to reveal; folding loses the ante but limits the loss.", finish: "A fold or completed check/call sequence settles the hand. The second-seat GTO value is +1/18 chip per hand; a best response to Basic reaches +1/6. These are exact long-run expectations, not guaranteed hand outcomes.", terms: "Check adds nothing. Bet adds 1. Call matches and reveals. GTO is an equilibrium from which no unilateral deviation earns more. Switching mode resets the score." },
     "e-card": { role: "You and the AI alternate Emperor and Slave sides. Emperor is usually strong, but Slave beats Emperor for a larger reward, so timing the unique special card is the central decision.", example: "Example: as Slave, you spend citizens on early probes. If you play Slave exactly when the AI commits Emperor, you score the upset; against Citizen, Slave loses.", finish: "A decisive non-citizen tie outcome ends and scores the round, then roles swap. Track which cards were consumed and infer when the AI will commit its special card.", terms: "Emperor beats Citizen; Citizen beats Slave; Slave beats Emperor. Citizen versus Citizen consumes both and continues." },
     "restricted-rps": { role: "This is Rock-Paper-Scissors with limited cards. Every move you spend changes what remains possible later, and both inventories are public.", example: "Example: with 1 Rock, 0 Scissors, and 2 Paper left, the AI knows Scissors is impossible. Randomizing between Rock and Paper keeps your choice less predictable.", finish: "The match ends when all cards are used; more round wins takes the match. Review inventory, equilibrium guidance, and AI adaptation after each reveal.", terms: "Inventory is remaining uses. Equilibrium guidance is a mixture that is hard to exploit. Adaptation is the AI reacting to your historical bias." },
     blackjack: { role: "You compare your hand with a fixed-rule dealer. Normal mode preserves the decision challenge; Practice mode grades each completed action against basic strategy.", example: "With 16 against a dealer 10, Practice mode waits for your choice, then explains whether it matched the rule-scoped recommendation.", finish: "Bust loses immediately. Stand or Double starts dealer resolution. Hit, Stand, and Double are complete; Split, Surrender, and Insurance are not yet implemented.", terms: "Hit draws; Stand stops; Double doubles the stake and draws once. Basic-strategy optimality applies only to the displayed fixed rules." },
@@ -535,7 +538,9 @@ async function startGame(gameId = "cases", options = {}) {
   try {
     const gameOptions = gameId === "cases"
       ? { riskTolerance: 100000, ...options }
-      : options;
+      : gameId === "kuhn-poker"
+        ? { mode: pokerMode, ...options }
+        : options;
     const result = await request("/api/sessions", {
       method: "POST",
       signal: controller.signal,
@@ -545,6 +550,7 @@ async function startGame(gameId = "cases", options = {}) {
     sessionId = result.sessionId;
     currentState = result.state;
     currentGameId = gameId;
+    if (gameId === "kuhn-poker") pokerMode = currentState.mode;
     if (gameId === "pirates") pirateDraft = currentState.pirates.map(() => 0);
     if (gameId === "worm") wormDisclosure = 0;
     if (gameId === "guess-who") guessWhoSelected = null;
@@ -730,7 +736,7 @@ function renderFirstTurnGuide() {
   if (!visible) return;
   const guides = language === "zh" ? {
     worm: ["首回合怎么做", ["先任选一个洞开始检查，观察失手后可能位置如何变化。", "虫子每次必须移动到相邻洞，因此奇偶节奏比猜位置更重要。", "页面不会直接展示解法；需要时可主动打开提示或答案。"]],
-    "kuhn-poker": ["第一手怎么判断", ["先看自己的 J、Q 或 K，再看你是先手还是后手。", "过牌可控制底池，下注可能是强牌取价值，也可能是 J 诈唬。", "AI 行动后只根据公开下注信号更新判断，不会偷看它的牌。"]],
+    "kuhn-poker": ["第一手怎么判断", ["你固定是后手：先看自己的 J、Q 或 K，再阅读 AI 已经公开的过牌或下注。", "AI 过牌后，你可过牌摊牌或下注；AI 下注后，你只能跟注或弃牌。", "只根据自己的牌与公开行动更新判断。基础模式可寻找稳定偏差，高级模式则无法获得超过后手均衡价值的长期优势。"]],
     "liars-dice": ["第一轮怎么叫价", ["先数自己手中的目标点数；除叫 1 点外，1 都是万能点。", "输入一个数量和点数后加注，AI 会选择继续抬价或质疑。", "轮到你面对公开叫价时，可看真实概率再决定加注或质疑。"]],
     "love-letter": ["第一回合怎么出牌", ["你每回合抽到两张牌，必须打出其中一张。", "若打卫兵，先选择要猜的牌；若打王子，先选择目标。", "右侧信念概率只依据公开信息，建议是启发式而非已证明的全局最优。"]],
     investment: ["第一轮怎么投资", ["先比较每个方案的成功率、赔率和期望回报。", "再选择投入比例；0% 可以保本，Kelly 比例偏向长期增长。", "每到淘汰轮资金最低者出局，所以生存压力可能改变最优仓位。"]],
@@ -738,7 +744,7 @@ function renderFirstTurnGuide() {
     battleship: ["15×15 大海域提示", ["大型海域采用双方对称的双炮齐射：你连续打两炮后，AI 才还击两炮。", "第一炮后界面会显示本轮还剩一炮，不要误以为AI停住。", "命中后优先沿相邻方向追击；AI面板会公开其搜索模式与覆盖强度。"]],
   } : {
     worm: ["Your first move", ["Probe any hole first and watch how the possible positions change after a miss.", "The worm must move to a neighbor, so parity and rhythm matter more than guessing a location.", "The solution stays hidden unless you deliberately open a hint or the answer."]],
-    "kuhn-poker": ["Your first hand", ["Read your J, Q, or K and whether you act first.", "Checking controls the pot; betting can extract value or bluff with J.", "Update only from public betting signals—the AI card remains hidden."]],
+    "kuhn-poker": ["Your first hand", ["You always act second: read your J, Q, or K, then the AI's public Check or Bet.", "After a check, choose showdown or bet; after a bet, choose Call or Fold.", "Use only your card and public actions. Seek a stable leak in Basic mode; Advanced cannot yield more than the second-seat equilibrium value in the long run."]],
     "liars-dice": ["Your opening bid", ["Count matching dice in your hand; ones are wild unless the bid itself is ones.", "Enter a quantity and face, then raise; the AI may raise again or challenge.", "When a bid returns to you, use its probability before raising or challenging."]],
     "love-letter": ["Your first turn", ["You hold two cards each turn and must play one.", "Choose a guess before Guard or a target before Prince.", "Belief probabilities use public information only; the advice is heuristic, not globally proven optimal."]],
     investment: ["Your first investment", ["Compare success probability, odds, and expected return.", "Then choose a stake; 0% preserves capital while Kelly targets long-run growth.", "The lowest bankroll is eliminated at checkpoints, so survival pressure can change the best stake."]],
@@ -1469,6 +1475,21 @@ function renderPoker() {
   $("#pokerPlayerScore").textContent = signed(state.playerScore);
   $("#pokerAiScore").textContent = signed(state.aiScore);
   $("#pokerPot").textContent = state.pot;
+  const advanced = state.mode === "advanced";
+  $("#pokerBasicMode").classList.toggle("active", !advanced);
+  $("#pokerAdvancedMode").classList.toggle("active", advanced);
+  $("#pokerBasicMode").setAttribute("aria-pressed", String(!advanced));
+  $("#pokerAdvancedMode").setAttribute("aria-pressed", String(advanced));
+  $("#pokerAiLabel").textContent = language === "zh"
+    ? (advanced ? "完美 GTO AI" : "基础策略 AI")
+    : (advanced ? "Exact GTO AI" : "Basic strategy AI");
+  $("#pokerModeDescription").textContent = language === "zh"
+    ? (advanced
+      ? "高级 AI 使用经穷举验证、可利用度为 0 的精确均衡。你固定为后手；长期均衡价值 +1/18/局，不保证单局获胜。"
+      : "基础 AI 会价值下注和随机诈唬，但 Q 在一个信息集中过度弃牌；最佳回应可把后手期望从 +1/18 提升到 +1/6/局。")
+    : (advanced
+      ? "Advanced AI uses an exhaustively verified exact equilibrium with zero exploitability. You stay second: +1/18 chip per hand in expectation, never a guaranteed hand."
+      : "Basic AI value-bets and randomizes bluffs, but folds Q too often in one information set. A best response raises second-seat value from +1/18 to +1/6 per hand.");
   $("#playerCard").textContent = state.playerCard;
   $("#aiCard").textContent = state.aiCard || "?";
   $("#aiCard").classList.toggle("card-back", !state.aiCard);
@@ -1505,8 +1526,8 @@ function renderPoker() {
       ? facingBetInstruction
       : (language === "zh" ? "利用你的私牌与公开行动做决定" : "Decide from your private card and the public actions");
   $("#pokerInformation").textContent = language === "zh"
-    ? `你确定自己拿到 ${state.informationSet.privateCard}；因此 AI 只可能持有 ${state.informationSet.possibleOpponentCards.join(" 或 ")}。AI 使用已通过穷举最佳回应验证的均衡；先后手价值不同，因此 Q 面对下注时的跟注概率也会随位置变化。`
-    : `You hold ${state.informationSet.privateCard}, so the AI can only hold ${state.informationSet.possibleOpponentCards.join(" or ")}. Its equilibrium passed exhaustive best-response checks; seat value differs, so its Q call frequency also changes by position.`;
+    ? `你确定自己拿到 ${state.informationSet.privateCard}；因此 AI 只可能持有 ${state.informationSet.possibleOpponentCards.join(" 或 ")}。你固定担任后手。${advanced ? "当前 AI 是可利用度为 0 的精确 GTO。" : "当前 AI 是强启发式，存在 1/9 筹码/局的可利用度；观察它过牌后面对下注的反应。"}`
+    : `You hold ${state.informationSet.privateCard}, so the AI can only hold ${state.informationSet.possibleOpponentCards.join(" or ")}. You always act second. ${advanced ? "This AI is exact GTO with zero exploitability." : "This strong heuristic has 1/9 chip per hand of exploitability; study how it responds to a bet after checking."}`;
   $("#pokerResult").classList.toggle("hidden", state.phase !== "finished");
   if (state.phase === "finished") {
     const won = state.result.winner === "player";
@@ -1774,7 +1795,19 @@ $("#wormHintButton").addEventListener("click", () => { wormDisclosure = Math.max
 $("#wormAnswerButton").addEventListener("click", () => { wormDisclosure = 2; renderWorm(); });
 $("#wormRevealAnswer").addEventListener("click", () => { wormDisclosure = 2; renderWorm(); });
 $("#newPirateButton").addEventListener("click", () => startGame("pirates"));
-$("#newPokerMatch").addEventListener("click", () => startGame("kuhn-poker"));
+$("#newPokerMatch").addEventListener("click", () => startGame("kuhn-poker", { mode: pokerMode }));
+$("#pokerBasicMode").addEventListener("click", () => {
+  if (pokerMode === "basic") return;
+  pokerMode = "basic";
+  writePreference("aip-kuhn-poker-mode", pokerMode);
+  startGame("kuhn-poker", { mode: pokerMode });
+});
+$("#pokerAdvancedMode").addEventListener("click", () => {
+  if (pokerMode === "advanced") return;
+  pokerMode = "advanced";
+  writePreference("aip-kuhn-poker-mode", pokerMode);
+  startGame("kuhn-poker", { mode: pokerMode });
+});
 $("#newECardMatch").addEventListener("click", () => startGame("e-card"));
 $("#newRpsMatch").addEventListener("click", () => startGame("restricted-rps"));
 $("#newLiarMatch").addEventListener("click", () => startGame("liars-dice"));
