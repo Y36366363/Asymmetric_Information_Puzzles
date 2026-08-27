@@ -37,6 +37,15 @@ class GoofspielTests(unittest.TestCase):
         self.assertLess(summaries["high_card"].player_mean_difference, -0.5)
         self.assertGreaterEqual(summaries["equilibrium"].player_mean_difference, -0.5)
 
+    def test_match_prize_ai_has_exactly_two_points_of_exploitability(self) -> None:
+        solver = GoofspielSolver(4)
+        self.assertEqual(
+            solver.best_response_value_against_match_prize(
+                solver.cards, solver.cards, solver.cards
+            ),
+            Fraction(2),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

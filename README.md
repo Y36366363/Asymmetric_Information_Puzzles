@@ -5,6 +5,31 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/27/2026
+
+- **Audited Goofspiel difficulty modes** — Basic uses a transparent
+  match-the-prize heuristic with exactly `2` points/match of exploitability;
+  Advanced samples the exact four-card zero-sum equilibrium and has zero
+  exploitability inside the implemented ruleset.
+- **Mode-aware learning flow** — Added persistent bilingual Basic/Advanced
+  controls, fresh-match resets on difficulty changes, clear AI identity, and an
+  equilibrium reference that remains explicitly separate from Basic AI's actual
+  behavior.
+- **Cross-game mode review** — Checked Blackjack, Mastermind, Battleship, Love
+  Letter, and Restricted RPS against the Kuhn Poker evidence standard. No
+  unsupported “perfect AI” modes were added where an exact policy or
+  exploitability calculation is absent.
+- **Web-game interaction comparison** — Applied the useful separation between
+  opponent strength, optional learning feedback, and restart flow seen in
+  established browser games while preserving AIP's account-free local sessions.
+- **Runtime compatibility** — Raised the local/public API compatibility marker
+  so an old background server cannot silently serve the new Goofspiel UI with
+  stale game logic. [Read the mode and UI audit](research/goofspiel_modes_2026-08-27.md).
+- **Regression verification** — All 207 Python tests and all 12 public
+  engine/static-build tests pass. Real-browser testing confirmed Basic play,
+  Advanced reset and persistence, bilingual labels, scroll-to-top behavior, and
+  an empty warning/error console.
+
 ## Updates 08/26/2026
 
 - **Two verified Kuhn Poker modes** — Basic keeps coherent value betting and

@@ -2495,12 +2495,22 @@ class InvestmentGameSession:
 
 
 _GOOFSPIEL_SOLVER = GoofspielSolver(4)
+_GOOFSPIEL_BASIC_EXPLOITABILITY = float(
+    _GOOFSPIEL_SOLVER.best_response_value_against_match_prize(
+        _GOOFSPIEL_SOLVER.cards,
+        _GOOFSPIEL_SOLVER.cards,
+        _GOOFSPIEL_SOLVER.cards,
+    )
+)
 
 
 class GoofspielGameSession:
-    """Four-round secret bidding against an exact dynamic-equilibrium AI."""
+    """Four-round secret bidding with audited heuristic and equilibrium modes."""
 
     def __init__(self, options: dict[str, object]) -> None:
+        self.mode = str(options.get("mode", "basic")).strip().lower()
+        if self.mode not in {"basic", "advanced"}:
+            raise ValueError("Goofspiel mode must be basic or advanced")
         self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
         self.rng = random.Random(self.seed)
         self._start()
@@ -2558,7 +2568,11 @@ class GoofspielGameSession:
         current_prize = self.current_prize
         solution = self._solution()
         assert current_prize is not None and solution is not None
-        ai_bid = self._sample_ai_bid(solution.column_strategy)
+        ai_bid = (
+            _GOOFSPIEL_SOLVER.match_prize_bid(self.ai_cards, current_prize)
+            if self.mode == "basic"
+            else self._sample_ai_bid(solution.column_strategy)
+        )
         if player_bid > ai_bid:
             outcome = "player"
             self.player_score += current_prize
@@ -2577,9 +2591,19 @@ class GoofspielGameSession:
             "aiScore": self.ai_score,
             "equilibriumValue": float(solution.value),
             "aiDistribution": [
-                {"card": card, "probability": float(probability)}
+                {
+                    "card": card,
+                    "probability": (
+                        1.0
+                        if self.mode == "basic" and card == ai_bid
+                        else 0.0
+                        if self.mode == "basic"
+                        else float(probability)
+                    ),
+                }
                 for card, probability in zip(self.ai_cards, solution.column_strategy)
             ],
+            "aiPolicy": self.mode,
             "playerDistribution": [
                 {"card": card, "probability": float(probability)}
                 for card, probability in zip(self.player_cards, solution.row_strategy)
@@ -2633,6 +2657,7 @@ class GoofspielGameSession:
             }
         return {
             "gameId": "goofspiel",
+            "mode": self.mode,
             "phase": self.phase,
             "roundNumber": self.round_number,
             "roundsTotal": len(self.prize_order),
@@ -2649,7 +2674,18 @@ class GoofspielGameSession:
             "recommendedBid": recommended,
             "futureValue": float(solution.value) if solution is not None else 0.0,
             "legalActions": ["bid"] if self.phase == "bidding" else ["new_match"],
-            "strategyScope": "exact four-card shuffled-prize zero-sum equilibrium",
+            "strategyScope": (
+                "deterministic_match_prize_heuristic_four_card"
+                if self.mode == "basic"
+                else "exact_four_card_shuffled_prize_zero_sum_equilibrium"
+            ),
+            "strategyEvidence": (
+                "strong_heuristic" if self.mode == "basic" else "equilibrium_backed"
+            ),
+            "aiExploitability": (
+                _GOOFSPIEL_BASIC_EXPLOITABILITY if self.mode == "basic" else 0.0
+            ),
+            "equilibriumValue": 0.0,
             "informationSet": {
                 "currentPrize": self.current_prize,
                 "playerRemaining": list(self.player_cards),
@@ -2793,7 +2829,7 @@ def build_default_registry() -> GameRegistry:
         GameDescriptor(
             "goofspiel",
             "秘密竞价",
-            "奖牌逐轮揭晓，双方同时秘密打出唯一的竞价牌；用有限手牌对抗精确均衡 AI。",
+            "奖牌逐轮揭晓，双方同时秘密竞价；在直觉型与精确均衡 AI 之间切换挑战。",
             "单人 · 同时行动与秘密竞价",
         ),
         GoofspielGameSession,

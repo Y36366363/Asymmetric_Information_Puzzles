@@ -36,7 +36,7 @@ globalThis.fetch = async (input, init = {}) => {
   try {
     const method = String(init.method || (typeof input === "string" ? "GET" : input.method) || "GET").toUpperCase();
     if (method === "GET" && target.pathname === "/api/health") {
-      return json({ status: "ok", service: "aip-static-browser", apiVersion: 2 });
+      return json({ status: "ok", service: "aip-static-browser", apiVersion: 3 });
     }
     if (method === "GET" && target.pathname === "/api/games") return json({ games: GAMES });
     if (method === "POST" && target.pathname === "/api/sessions") {

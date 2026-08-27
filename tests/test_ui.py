@@ -486,12 +486,25 @@ class LocalGameUITests(unittest.TestCase):
     def test_goofspiel_hides_current_bid_and_completes_four_rounds(self) -> None:
         created = self.service.create_session("goofspiel", {"seed": 47})
         state = created["state"]
-        self.assertEqual(state["strategyScope"], "exact four-card shuffled-prize zero-sum equilibrium")
+        self.assertEqual(state["mode"], "basic")
+        self.assertEqual(state["strategyEvidence"], "strong_heuristic")
+        self.assertEqual(state["aiExploitability"], 2.0)
         self.assertTrue(state["informationSet"]["aiCurrentBidHidden"])
         self.assertAlmostEqual(
             sum(item["probability"] for item in state["advisorDistribution"]),
             1.0,
         )
+        first_prize = state["currentPrize"]
+        expected_basic_bid = min(
+            state["aiCards"], key=lambda card: (abs(card - first_prize), card)
+        )
+        state = self.service.act(
+            created["sessionId"],
+            "bid",
+            {"card": state["recommendedBid"]},
+        )
+        self.assertEqual(state["lastRound"]["aiBid"], expected_basic_bid)
+        self.assertEqual(state["lastRound"]["aiPolicy"], "basic")
         while state["phase"] == "bidding":
             state = self.service.act(
                 created["sessionId"],
@@ -505,6 +518,23 @@ class LocalGameUITests(unittest.TestCase):
         self.assertEqual(state["postMatchReview"]["equilibriumSupportedRounds"], 4)
         self.assertEqual(state["postMatchReview"]["offSupportRounds"], [])
         self.assertTrue(all("playerBidProbability" in item for item in state["history"]))
+
+    def test_goofspiel_advanced_mode_uses_exact_zero_sum_equilibrium(self) -> None:
+        created = self.service.create_session(
+            "goofspiel", {"seed": 53, "mode": "advanced"}
+        )
+        state = created["state"]
+        self.assertEqual(state["mode"], "advanced")
+        self.assertEqual(state["strategyEvidence"], "equilibrium_backed")
+        self.assertEqual(
+            state["strategyScope"],
+            "exact_four_card_shuffled_prize_zero_sum_equilibrium",
+        )
+        self.assertEqual(state["aiExploitability"], 0)
+
+    def test_goofspiel_rejects_unknown_mode(self) -> None:
+        with self.assertRaises(ValueError):
+            self.service.create_session("goofspiel", {"mode": "impossible"})
 
     def test_large_battleship_uses_symmetric_two_shot_salvos(self) -> None:
         created = self.service.create_session("battleship", {"seed": 101})

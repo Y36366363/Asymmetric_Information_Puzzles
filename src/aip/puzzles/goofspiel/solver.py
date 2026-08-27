@@ -206,6 +206,58 @@ class GoofspielSolver:
         solution = self.round_solution(player_cards, ai_cards, prizes, current_prize)
         return self._sample(player_cards, solution.row_strategy, rng)
 
+    @staticmethod
+    def match_prize_bid(cards: tuple[int, ...], current_prize: int) -> int:
+        """Return the intuitive closest-to-prize bid, breaking ties downward."""
+        if not cards:
+            raise ValueError("at least one bid card must remain")
+        return min(cards, key=lambda card: (abs(card - current_prize), card))
+
+    @lru_cache(maxsize=None)
+    def best_response_value_against_match_prize(
+        self,
+        player_cards: tuple[int, ...],
+        ai_cards: tuple[int, ...],
+        prizes: tuple[int, ...],
+    ) -> Fraction:
+        """Exact player value against the deterministic match-prize heuristic."""
+        if not prizes:
+            return Fraction(0)
+        return sum(
+            self._best_response_round_value(
+                player_cards, ai_cards, prizes, current_prize
+            )
+            for current_prize in prizes
+        ) / len(prizes)
+
+    def _best_response_round_value(
+        self,
+        player_cards: tuple[int, ...],
+        ai_cards: tuple[int, ...],
+        prizes: tuple[int, ...],
+        current_prize: int,
+    ) -> Fraction:
+        ai_bid = self.match_prize_bid(ai_cards, current_prize)
+        next_ai = tuple(card for card in ai_cards if card != ai_bid)
+        next_prizes = tuple(prize for prize in prizes if prize != current_prize)
+        returns = []
+        for player_bid in player_cards:
+            immediate = (
+                current_prize
+                if player_bid > ai_bid
+                else -current_prize
+                if player_bid < ai_bid
+                else 0
+            )
+            next_player = tuple(card for card in player_cards if card != player_bid)
+            returns.append(
+                Fraction(immediate)
+                + self.best_response_value_against_match_prize(
+                    next_player, next_ai, next_prizes
+                )
+            )
+        return max(returns)
+
     def play(self, seed: int, player_policy: str = "equilibrium") -> GoofspielRun:
         rng = random.Random(seed)
         prizes = list(self.cards)

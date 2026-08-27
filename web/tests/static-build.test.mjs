@@ -33,6 +33,8 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(html, /id="blackjackPracticeMode"/);
   assert.match(html, /id="pokerBasicMode"/);
   assert.match(html, /id="pokerAdvancedMode"/);
+  assert.match(html, /id="goofBasicMode"/);
+  assert.match(html, /id="goofAdvancedMode"/);
   assert.match(app, /wormDisclosure/);
   assert.match(app, /blackjackPracticeMode/);
   assert.match(app, /aip-kuhn-poker-mode/);
@@ -47,7 +49,7 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(html, /id="goofspielView"/);
   assert.match(app, /精确均衡建议/);
   assert.match(app, /不能每次固定选择它/);
-  assert.match(app, /highest equilibrium frequency/);
+  assert.match(app, /In the equilibrium reference/);
   assert.match(app, /function renderFirstTurnGuide/);
   assert.match(app, /15×15 大海域提示/);
   assert.match(app, /Post-match strategy review/);

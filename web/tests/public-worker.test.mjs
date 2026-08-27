@@ -6,7 +6,7 @@ const call = (path, init) => worker.fetch(new Request(`https://aip.test${path}`,
 
 test("serves the bilingual lobby and all playable descriptors", async () => {
   const health = await call("/api/health");
-  assert.equal((await health.json()).apiVersion, 2);
+  assert.equal((await health.json()).apiVersion, 3);
   const page = await call("/");
   assert.equal(page.status, 200);
   assert.match(page.headers.get("content-security-policy"), /frame-ancestors 'none'/);
@@ -287,8 +287,14 @@ test("single-player games survive complete decision loops", async () => {
   assert.ok(investment.state.rankings.some((item) => !item.alive));
 
   const goofspiel = await create("goofspiel");
-  assert.equal(goofspiel.state.strategyScope, "exact four-card shuffled-prize zero-sum equilibrium");
+  assert.equal(goofspiel.state.mode, "basic");
+  assert.equal(goofspiel.state.strategyEvidence, "strong_heuristic");
+  assert.equal(goofspiel.state.aiExploitability, 2);
   assert.equal(goofspiel.state.informationSet.aiCurrentBidHidden, true);
+  const firstGoofPrize = goofspiel.state.currentPrize;
+  await act(goofspiel, "bid", {card:goofspiel.state.recommendedBid});
+  assert.equal(goofspiel.state.lastRound.aiBid, firstGoofPrize);
+  assert.equal(goofspiel.state.lastRound.aiPolicy, "basic");
   while (goofspiel.state.phase === "bidding") {
     const totalProbability = goofspiel.state.advisorDistribution.reduce((sum, item) => sum + item.probability, 0);
     assert.ok(Math.abs(totalProbability - 1) < 1e-9);
@@ -298,6 +304,12 @@ test("single-player games survive complete decision loops", async () => {
   assert.equal(goofspiel.state.playerCards.length, 0);
   assert.ok(["player", "ai", "tie"].includes(goofspiel.state.winner));
   assert.equal(goofspiel.state.postMatchReview.equilibriumSupportedRounds, 4);
+
+  const advancedGoofspiel = await create("goofspiel", {mode:"advanced"});
+  assert.equal(advancedGoofspiel.state.mode, "advanced");
+  assert.equal(advancedGoofspiel.state.strategyEvidence, "equilibrium_backed");
+  assert.equal(advancedGoofspiel.state.aiExploitability, 0);
+  assert.equal(advancedGoofspiel.state.strategyScope, "exact_four_card_shuffled_prize_zero_sum_equilibrium");
 
   const expanded = await create("battleship");
   await act(expanded, "set_board_size", {boardSize:12});
