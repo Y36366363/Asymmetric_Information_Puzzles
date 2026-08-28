@@ -5,6 +5,27 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/28/2026
+
+- **Settings-contract audit** — Reviewed every current setting by when it takes
+  effect, whether it resets play, whether it persists, and whether its UI promise
+  matches the underlying engine behavior.
+- **Blackjack mode isolation** — Normal decisions, Practice decisions, and AI
+  demonstrations are now accounted for separately. Switching modes cannot reveal
+  or retroactively grade a Normal-mode action, and AI play cannot inflate the
+  player's Practice score.
+- **Decide-then-review learning flow** — Practice mode withholds the correct play
+  until the player acts, then explains the previous decision. Normal mode keeps a
+  clean public action log without strategy answers or grading.
+- **Clear, accessible mode state** — Added concise bilingual mode descriptions
+  and machine-readable pressed states to Blackjack and language controls.
+- **Runtime compatibility** — Raised the local/public API marker to prevent a
+  stale background process from silently serving the older scoring contract.
+- **Regression verification** — All 209 Python tests and all 12 public
+  engine/static-build tests pass. Real-browser testing confirmed delayed feedback,
+  Practice-only scoring, persistent mode/language selection, and an empty browser
+  warning/error log. [Read the interaction-settings audit](research/interaction_settings_audit_2026-08-28.md).
+
 ## Updates 08/27/2026
 
 - **Audited Goofspiel difficulty modes** — Basic uses a transparent

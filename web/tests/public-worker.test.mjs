@@ -6,7 +6,7 @@ const call = (path, init) => worker.fetch(new Request(`https://aip.test${path}`,
 
 test("serves the bilingual lobby and all playable descriptors", async () => {
   const health = await call("/api/health");
-  assert.equal((await health.json()).apiVersion, 3);
+  assert.equal((await health.json()).apiVersion, 4);
   const page = await call("/");
   assert.equal(page.status, 200);
   assert.match(page.headers.get("content-security-policy"), /frame-ancestors 'none'/);
@@ -186,7 +186,14 @@ test("single-player games survive complete decision loops", async () => {
   };
 
   const blackjack = await create("blackjack");
-  if (blackjack.state.phase === "player_turn") await act(blackjack, "stand");
+  if (blackjack.state.phase === "player_turn") {
+    const recommendation = blackjack.state.recommendation;
+    await act(blackjack, recommendation, {practice:true});
+    assert.equal(blackjack.state.practiceDecisions, 1);
+    assert.equal(blackjack.state.practiceAccuracy, 1);
+    assert.equal(blackjack.state.history[0].practiceAssessed, true);
+    while (blackjack.state.phase === "player_turn") await act(blackjack, "stand");
+  }
   assert.equal(blackjack.state.phase, "finished");
 
   const rps = await create("restricted-rps");

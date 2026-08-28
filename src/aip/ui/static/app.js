@@ -420,6 +420,8 @@ function applyLanguage() {
   document.querySelectorAll(".rules-button").forEach((button) => { button.textContent = tr("rulesTitle"); });
   $("#languageZh").classList.toggle("active", language === "zh");
   $("#languageEn").classList.toggle("active", language === "en");
+  $("#languageZh").setAttribute("aria-pressed", String(language === "zh"));
+  $("#languageEn").setAttribute("aria-pressed", String(language === "en"));
   renderLobby();
   if (currentState) render();
   if (openRulesGameId) openRules(openRulesGameId);
@@ -776,7 +778,6 @@ function renderBlackjack() {
   $("#blackjackRound").textContent = state.roundNumber;
   $("#blackjackBankroll").textContent = signed(state.bankroll);
   $("#blackjackRecord").textContent = `${state.wins} / ${state.losses} / ${state.pushes}`;
-  $("#blackjackAccuracy").textContent = state.strategyAccuracy == null ? "—" : `${(state.strategyAccuracy * 100).toFixed(0)}%`;
   $("#shoeRemaining").textContent = `${state.shoeRemaining} ${language === "zh" ? "张剩余" : "CARDS LEFT"}`;
   $("#playerTotal").textContent = `${state.playerSoft ? (language === "zh" ? "软 " : "Soft ") : ""}${state.playerTotal}`;
   $("#dealerTotal").textContent = state.dealerTotal == null ? (language === "zh" ? "明牌" : "Upcard") : state.dealerTotal;
@@ -784,10 +785,23 @@ function renderBlackjack() {
   $("#dealerCards").innerHTML = state.dealerHand.map(renderBlackjackCard).join("") + (state.dealerHoleHidden ? '<div class="blackjack-card hidden-card">?</div>' : "");
   $("#blackjackNormalMode").classList.toggle("active", !blackjackPracticeMode);
   $("#blackjackPracticeMode").classList.toggle("active", blackjackPracticeMode);
+  $("#blackjackNormalMode").setAttribute("aria-pressed", String(!blackjackPracticeMode));
+  $("#blackjackPracticeMode").setAttribute("aria-pressed", String(blackjackPracticeMode));
+  $("#blackjackModeDescription").textContent = language === "zh"
+    ? (blackjackPracticeMode
+      ? "练习模式先让你独立选择，再讲评上一操作；需要直接示范时可让 AI 执行。切换不会重新发牌。"
+      : "普通模式隐藏策略答案、吻合率与讲评，只保留你的公开操作记录。切换不会重新发牌。")
+    : (blackjackPracticeMode
+      ? "Practice lets you decide first, then reviews the previous action. Use AI play only when you want a demonstration. Switching does not redeal."
+      : "Normal hides strategy answers, accuracy, and grading while retaining only your public action log. Switching does not redeal.");
+  $("#blackjackAccuracy").textContent = blackjackPracticeMode && state.practiceAccuracy != null ? `${(state.practiceAccuracy * 100).toFixed(0)}%` : "—";
   $("#blackjackActions").innerHTML = state.legalActions.map((action) => `<button data-blackjack-action="${action}">${actionNames[action]}</button>`).join("");
-  document.querySelectorAll("[data-blackjack-action]").forEach((button) => button.addEventListener("click", () => act(button.dataset.blackjackAction)));
+  document.querySelectorAll("[data-blackjack-action]").forEach((button) => button.addEventListener("click", () => act(button.dataset.blackjackAction, { practice: blackjackPracticeMode })));
+  const latestDecision = state.history.slice().reverse().find((item) => item.practiceAssessed);
   $("#blackjackRecommendation").textContent = blackjackPracticeMode
-    ? (state.recommendation ? actionNames[state.recommendation] : (language === "zh" ? "本局已结算" : "Hand settled"))
+    ? (latestDecision
+      ? `${language === "zh" ? "上一操作的正确策略" : "Correct play last decision"}: ${actionNames[latestDecision.recommended]}`
+      : (language === "zh" ? "先独立选择；提交后显示正确策略" : "Decide first; the correct play appears afterward"))
     : (language === "zh" ? "普通模式不提前揭示" : "Hidden in normal mode");
   $("#blackjackAiPlay").classList.toggle("hidden", !blackjackPracticeMode);
   $("#blackjackAiPlay").disabled = !blackjackPracticeMode || state.phase !== "player_turn";
@@ -796,9 +810,11 @@ function renderBlackjack() {
     : (language === "zh" ? "庄家底牌与最终结果已经揭晓" : "The dealer hole card and result are revealed");
   $("#blackjackHistory").innerHTML = state.history.length ? state.history.map((item) => {
     if (item.actor === "dealer") return `<div><b>${language === "zh" ? "庄家" : "Dealer"}</b><span>${language === "zh" ? "要牌" : "hits"} ${item.card} → ${item.total}</span></div>`;
-    return `<div><b>${item.actor === "ai" ? "AI" : (language === "zh" ? "你" : "You")}</b><span>${actionNames[item.action]} · ${item.matched ? (language === "zh" ? "符合基础策略" : "matched basic strategy") : `${language === "zh" ? "建议" : "advice"}: ${actionNames[item.recommended]}`}</span></div>`;
+    const audit = blackjackPracticeMode && item.practiceAssessed
+      ? ` · ${item.matched ? (language === "zh" ? "符合基础策略" : "matched basic strategy") : `${language === "zh" ? "正确策略" : "correct play"}: ${actionNames[item.recommended]}`}`
+      : "";
+    return `<div><b>${item.actor === "ai" ? "AI" : (language === "zh" ? "你" : "You")}</b><span>${actionNames[item.action]}${audit}</span></div>`;
   }).join("") : `<p>${language === "zh" ? "尚无决策记录。" : "No decisions yet."}</p>`;
-  const latestDecision = state.history.slice().reverse().find((item) => item.actor !== "dealer");
   const feedback = $("#blackjackPracticeFeedback");
   feedback.classList.toggle("hidden", !blackjackPracticeMode);
   if (blackjackPracticeMode) {

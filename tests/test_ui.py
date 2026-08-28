@@ -324,6 +324,9 @@ class LocalGameUITests(unittest.TestCase):
         self.assertTrue(state["history"][0]["matched"])
         self.assertEqual(state["history"][0]["actor"], "ai")
         self.assertEqual(state["strategyAccuracy"], 1.0)
+        self.assertIsNone(state["practiceAccuracy"])
+        self.assertEqual(state["practiceDecisions"], 0)
+        self.assertFalse(state["history"][0]["practiceAssessed"])
 
     def test_blackjack_manual_deviation_is_audited(self) -> None:
         created = self.service.create_session("blackjack", {"seed": 6})
@@ -332,6 +335,23 @@ class LocalGameUITests(unittest.TestCase):
         state = self.service.act(created["sessionId"], "hit")
         self.assertFalse(state["history"][0]["matched"])
         self.assertEqual(state["strategyAccuracy"], 0.0)
+
+    def test_blackjack_practice_accuracy_excludes_normal_mode_actions(self) -> None:
+        created = self.service.create_session("blackjack", {"seed": 6})
+        state = self.service.act(created["sessionId"], "hit", {"practice": False})
+        self.assertEqual(state["practiceDecisions"], 0)
+        self.assertIsNone(state["practiceAccuracy"])
+        self.assertFalse(state["history"][0]["practiceAssessed"])
+
+    def test_blackjack_practice_action_is_scored_separately(self) -> None:
+        created = self.service.create_session("blackjack", {"seed": 1})
+        recommendation = created["state"]["recommendation"]
+        state = self.service.act(
+            created["sessionId"], recommendation, {"practice": True}
+        )
+        self.assertEqual(state["practiceDecisions"], 1)
+        self.assertEqual(state["practiceAccuracy"], 1.0)
+        self.assertTrue(state["history"][0]["practiceAssessed"])
 
     def test_restricted_rps_dominance_cycle_is_zero_sum(self) -> None:
         self.assertEqual(RestrictedRPSSession._payoff("rock", "scissors"), 1)
@@ -726,8 +746,12 @@ class LocalGameUITests(unittest.TestCase):
         script = files("aip.ui").joinpath("static/app.js").read_text()
         self.assertIn("https://github.com/Y36366363/Asymmetric_Information_Puzzles", html)
         self.assertIn('id="languageEn"', html)
+        self.assertIn('class="language-switch" role="group"', html)
+        self.assertIn('id="languageZh" class="active" aria-pressed="true"', html)
+        self.assertIn('id="languageEn" aria-pressed="false"', html)
         self.assertIn('en: {', script)
         self.assertIn('writePreference("aip-language"', script)
+        self.assertIn('$("#languageZh").setAttribute("aria-pressed"', script)
         self.assertIn("try { return window.localStorage.getItem(key); }", script)
         self.assertIn("new AbortController()", script)
         self.assertIn('window.addEventListener("hashchange"', script)
@@ -747,7 +771,15 @@ class LocalGameUITests(unittest.TestCase):
         self.assertIn('id="operationStatus"', html)
         self.assertIn('id="pokerBasicMode"', html)
         self.assertIn('id="pokerAdvancedMode"', html)
+        self.assertIn('id="blackjackNormalMode" class="active" aria-pressed="true"', html)
+        self.assertIn('id="blackjackPracticeMode" aria-pressed="false"', html)
+        self.assertIn('id="blackjackModeDescription"', html)
         self.assertIn('writePreference("aip-kuhn-poker-mode"', script)
+        self.assertIn('$("#blackjackNormalMode").setAttribute("aria-pressed"', script)
+        self.assertIn("Decide first; the correct play appears afterward", script)
+        self.assertIn('const audit = blackjackPracticeMode && item.practiceAssessed', script)
+        self.assertIn('state.practiceAccuracy', script)
+        self.assertIn('{ practice: blackjackPracticeMode }', script)
         self.assertIn("最佳回应可把后手期望从 +1/18 提升到 +1/6/局", script)
 
     def test_pages_workflow_verifies_docs_before_fast_forward_publish(self) -> None:

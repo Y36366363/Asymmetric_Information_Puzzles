@@ -21,9 +21,9 @@
           target="_blank" rel="noreferrer" aria-label="Open AIP on GitHub">
           <span class="github-mark">GH</span><span>GitHub</span>
         </a>
-        <div class="language-switch" aria-label="Language">
-          <button id="languageZh" class="active">中文</button>
-          <button id="languageEn">EN</button>
+        <div class="language-switch" role="group" aria-label="Language">
+          <button id="languageZh" class="active" aria-pressed="true">中文</button>
+          <button id="languageEn" aria-pressed="false">EN</button>
         </div>
       </div>
     </header>
@@ -383,7 +383,8 @@
           </div>
           <div class="blackjack-center">
             <p class="eyebrow">6 DECKS · DEALER STANDS ON SOFT 17</p>
-            <div class="blackjack-mode-switch" role="group" aria-label="Blackjack mode"><button id="blackjackNormalMode" class="active" data-i18n="blackjackNormalMode">普通模式</button><button id="blackjackPracticeMode" data-i18n="blackjackPracticeMode">练习模式</button></div>
+            <div class="blackjack-mode-switch" role="group" aria-label="Blackjack mode"><button id="blackjackNormalMode" class="active" aria-pressed="true" data-i18n="blackjackNormalMode">普通模式</button><button id="blackjackPracticeMode" aria-pressed="false" data-i18n="blackjackPracticeMode">练习模式</button></div>
+            <p class="blackjack-mode-description" id="blackjackModeDescription">普通模式隐藏答案与评分；切换模式不会重新发牌。</p>
             <h2 id="blackjackHeadline">根据手牌与庄家明牌做决定</h2>
             <div class="blackjack-actions" id="blackjackActions"></div>
             <div class="blackjack-result hidden" id="blackjackResult"></div>

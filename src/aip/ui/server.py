@@ -18,7 +18,7 @@ from aip.ui.registry import LocalGameService, build_default_registry
 
 STATIC_ROOT = files("aip.ui").joinpath("static")
 MAX_REQUEST_BYTES = 1_000_000
-API_VERSION = 3
+API_VERSION = 4
 SECURITY_HEADERS = {
     "Content-Security-Policy": (
         "default-src 'self'; script-src 'self'; style-src 'self'; "

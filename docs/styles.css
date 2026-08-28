@@ -467,6 +467,7 @@ progress::-moz-progress-bar { background: var(--gold); }
 .blackjack-mode-switch { width: fit-content; display: flex; margin: 0 auto 14px; padding: 3px; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; background: rgba(0,0,0,.25); }
 .blackjack-mode-switch button { padding: 7px 13px; color: #c8d7ca; border: 0; border-radius: 999px; background: transparent; cursor: pointer; font-size: 12px; }
 .blackjack-mode-switch button.active { color: #132119; background: var(--gold-soft); font-weight: 900; }
+.blackjack-mode-description { max-width: 520px; margin: 0 auto 14px; color: #b9c5bb; font-size: 12px; line-height: 1.5; }
 .blackjack-center h2 { margin: 12px 0 22px; font: 500 clamp(24px, 3vw, 36px) Georgia, "Songti SC", serif; }
 .blackjack-actions { display: flex; justify-content: center; gap: 10px; }
 .blackjack-actions button { min-width: 110px; padding: 13px 18px; color: #17130c; border: 1px solid var(--gold); background: var(--gold); cursor: pointer; font-weight: 800; }

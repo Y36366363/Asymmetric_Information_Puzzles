@@ -1324,13 +1324,14 @@ class BlackjackSession:
         self.pushes = 0
         self.decisions = 0
         self.basic_strategy_matches = 0
+        self.practice_decisions = 0
+        self.practice_strategy_matches = 0
         self.history: list[dict[str, object]] = []
         self.result: dict[str, object] | None = None
         self._build_shoe()
         self._start_round()
 
     def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
-        del payload
         if action == "new_round":
             if self.phase != "finished":
                 raise ValueError("finish the current hand first")
@@ -1338,9 +1339,15 @@ class BlackjackSession:
         elif action == "ai_play":
             if self.phase != "player_turn":
                 raise ValueError("there is no player decision to automate")
-            self._player_action(self._recommendation(), used_ai=True)
+            self._player_action(
+                self._recommendation(), used_ai=True, practice_assessed=False
+            )
         elif action in {"hit", "stand", "double"}:
-            self._player_action(action, used_ai=False)
+            self._player_action(
+                action,
+                used_ai=False,
+                practice_assessed=payload.get("practice") is True,
+            )
         else:
             raise ValueError(f"unknown action: {action}")
         return self.snapshot()
@@ -1374,7 +1381,9 @@ class BlackjackSession:
             else:
                 self._finish("dealer", -1.0, "dealer_blackjack")
 
-    def _player_action(self, action: str, *, used_ai: bool) -> None:
+    def _player_action(
+        self, action: str, *, used_ai: bool, practice_assessed: bool
+    ) -> None:
         if self.phase != "player_turn":
             raise ValueError("the player hand is not awaiting an action")
         legal = self._legal_actions()
@@ -1385,12 +1394,17 @@ class BlackjackSession:
         matched = action == recommendation
         if matched:
             self.basic_strategy_matches += 1
+        if practice_assessed:
+            self.practice_decisions += 1
+            if matched:
+                self.practice_strategy_matches += 1
         self.history.append(
             {
                 "actor": "ai" if used_ai else "player",
                 "action": action,
                 "recommended": recommendation,
                 "matched": matched,
+                "practiceAssessed": practice_assessed,
                 "totalBefore": self._hand_value(self.player_hand)[0],
             }
         )
@@ -1532,6 +1546,11 @@ class BlackjackSession:
             dealer_visible = list(self.dealer_hand)
         dealer_total = self._hand_value(self.dealer_hand)[0] if self.phase == "finished" else None
         accuracy = self.basic_strategy_matches / self.decisions if self.decisions else None
+        practice_accuracy = (
+            self.practice_strategy_matches / self.practice_decisions
+            if self.practice_decisions
+            else None
+        )
         return {
             "gameId": "blackjack",
             "phase": self.phase,
@@ -1556,6 +1575,8 @@ class BlackjackSession:
             "recommendation": self._recommendation() if self.phase == "player_turn" else None,
             "strategyAccuracy": accuracy,
             "decisions": self.decisions,
+            "practiceAccuracy": practice_accuracy,
+            "practiceDecisions": self.practice_decisions,
             "history": [dict(item) for item in self.history],
             "result": dict(self.result) if self.result else None,
             "rules": {
