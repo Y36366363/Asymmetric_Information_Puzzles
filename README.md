@@ -5,6 +5,24 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/29/2026
+
+- **Unified difficulty explanations** — Blackjack, Kuhn Poker, and Goofspiel
+  now use the same three-row contract: what changes, when it takes effect, and
+  what happens to the current score or learning record.
+- **Reset behavior made explicit** — Kuhn Poker and Goofspiel state that a mode
+  change starts a fresh match and clears match results; Blackjack states that a
+  mode change affects the current hand without redealing or clearing bankroll.
+- **Mode-specific evidence preserved** — Basic heuristics, exact equilibrium
+  opponents, and Practice coaching remain clearly distinguished instead of
+  being flattened into a generic easy/hard label.
+- **Bilingual and accessible state** — Both languages share the same label order;
+  selector groups now reference live descriptions that announce the selected
+  contract while keyboard focus stays on the control.
+- **Scope discipline** — Battleship board size remains a rules configuration,
+  not an AI-difficulty selector. No new game, policy, or optimality claim was
+  added. [Read the selector-contract audit](research/difficulty_selector_contracts_2026-08-29.md).
+
 ## Updates 08/28/2026
 
 - **Settings-contract audit** — Reviewed every current setting by when it takes

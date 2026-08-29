@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'" />
     <title>AIP · 非对称博弈实验室</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23d8aa4c'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial' font-size='23' font-weight='900' fill='%2311110f'%3EAIP%3C/text%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=bde9961c6179" />
+    <link rel="stylesheet" href="styles.css?v=234b4d0ce6d8" />
   </head>
   <body>
     <header class="topbar">
@@ -158,9 +158,13 @@
         <section class="poker-mode-panel panel" aria-labelledby="pokerModeTitle">
           <div>
             <strong id="pokerModeTitle" data-i18n="pokerModeTitle">选择 AI 难度</strong>
-            <p id="pokerModeDescription">基础 AI 有完整策略但存在可利用偏差；高级 AI 使用精确 GTO。你始终担任长期正期望的后手。</p>
+            <div class="mode-contract" id="pokerModeDescription" aria-live="polite">
+              <div><strong>改变内容</strong><span>基础 AI 使用存在可利用偏差的混合策略。</span></div>
+              <div><strong>生效时机</strong><span>选择后立即开始一场新比赛。</span></div>
+              <div><strong>成绩处理</strong><span>当前累计净筹码与行动记录会重置。</span></div>
+            </div>
           </div>
-          <div class="poker-mode-switch" role="group" aria-label="Kuhn Poker AI mode">
+          <div class="poker-mode-switch" role="group" aria-label="Kuhn Poker AI mode" aria-describedby="pokerModeDescription">
             <button id="pokerBasicMode" class="active" aria-pressed="true" data-i18n="pokerBasicMode">基础模式</button>
             <button id="pokerAdvancedMode" aria-pressed="false" data-i18n="pokerAdvancedMode">高级 GTO</button>
           </div>
@@ -383,8 +387,12 @@
           </div>
           <div class="blackjack-center">
             <p class="eyebrow">6 DECKS · DEALER STANDS ON SOFT 17</p>
-            <div class="blackjack-mode-switch" role="group" aria-label="Blackjack mode"><button id="blackjackNormalMode" class="active" aria-pressed="true" data-i18n="blackjackNormalMode">普通模式</button><button id="blackjackPracticeMode" aria-pressed="false" data-i18n="blackjackPracticeMode">练习模式</button></div>
-            <p class="blackjack-mode-description" id="blackjackModeDescription">普通模式隐藏答案与评分；切换模式不会重新发牌。</p>
+            <div class="blackjack-mode-switch" role="group" aria-label="Blackjack mode" aria-describedby="blackjackModeDescription"><button id="blackjackNormalMode" class="active" aria-pressed="true" data-i18n="blackjackNormalMode">普通模式</button><button id="blackjackPracticeMode" aria-pressed="false" data-i18n="blackjackPracticeMode">练习模式</button></div>
+            <div class="mode-contract blackjack-mode-description" id="blackjackModeDescription" aria-live="polite">
+              <div><strong>改变内容</strong><span>隐藏策略答案、练习评分与 AI 示范。</span></div>
+              <div><strong>生效时机</strong><span>立即作用于当前牌局，不重新发牌。</span></div>
+              <div><strong>成绩处理</strong><span>净收益与练习成绩均保留。</span></div>
+            </div>
             <h2 id="blackjackHeadline">根据手牌与庄家明牌做决定</h2>
             <div class="blackjack-actions" id="blackjackActions"></div>
             <div class="blackjack-result hidden" id="blackjackResult"></div>
@@ -649,9 +657,13 @@
         <section class="poker-mode-panel panel" aria-labelledby="goofModeTitle">
           <div>
             <strong id="goofModeTitle" data-i18n="goofModeTitle">选择 AI 难度</strong>
-            <p id="goofModeDescription">基础 AI 使用可预测的直觉竞价；高级 AI 使用精确零和均衡。下方建议始终显示均衡基准。</p>
+            <div class="mode-contract" id="goofModeDescription" aria-live="polite">
+              <div><strong>改变内容</strong><span>基础 AI 使用可预测的直觉竞价。</span></div>
+              <div><strong>生效时机</strong><span>选择后立即开始一场新比赛。</span></div>
+              <div><strong>成绩处理</strong><span>当前奖牌分与竞价记录会重置。</span></div>
+            </div>
           </div>
-          <div class="poker-mode-switch" role="group" aria-label="Goofspiel AI mode">
+          <div class="poker-mode-switch" role="group" aria-label="Goofspiel AI mode" aria-describedby="goofModeDescription">
             <button id="goofBasicMode" class="active" aria-pressed="true" data-i18n="goofBasicMode">基础模式</button>
             <button id="goofAdvancedMode" aria-pressed="false" data-i18n="goofAdvancedMode">高级均衡</button>
           </div>
@@ -699,6 +711,6 @@
 
     <div class="operation-status hidden" id="operationStatus" role="status" aria-live="polite"></div>
     <div class="toast hidden" id="toast" role="status"></div>
-    <script type="module" src="bootstrap.js?v=bde9961c6179"></script>
+    <script type="module" src="bootstrap.js?v=234b4d0ce6d8"></script>
   </body>
 </html>

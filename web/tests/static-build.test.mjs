@@ -37,6 +37,10 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(html, /id="blackjackNormalMode" class="active" aria-pressed="true"/);
   assert.match(html, /id="blackjackPracticeMode" aria-pressed="false"/);
   assert.match(html, /id="blackjackModeDescription"/);
+  assert.equal((html.match(/class="mode-contract/g) || []).length, 3);
+  assert.match(html, /aria-describedby="blackjackModeDescription"/);
+  assert.match(html, /aria-describedby="pokerModeDescription"/);
+  assert.match(html, /aria-describedby="goofModeDescription"/);
   assert.match(html, /id="pokerBasicMode"/);
   assert.match(html, /id="pokerAdvancedMode"/);
   assert.match(html, /id="goofBasicMode"/);
@@ -47,6 +51,12 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /const audit = blackjackPracticeMode && item\.practiceAssessed/);
   assert.match(app, /state\.practiceAccuracy/);
   assert.match(app, /\{ practice: blackjackPracticeMode \}/);
+  assert.match(app, /function renderModeContract\(selector, details\)/);
+  assert.match(app, /changes: "改变内容"/);
+  assert.match(app, /applies: "生效时机"/);
+  assert.match(app, /score: "成绩处理"/);
+  assert.match(app, /Selecting it immediately starts a new match/);
+  assert.match(app, /Normal decisions do not enter Practice accuracy/);
   assert.match(app, /aip-kuhn-poker-mode/);
   assert.match(app, /player always act second|always act second|固定担任后手/);
   assert.match(app, /event\.key === "Enter"/);

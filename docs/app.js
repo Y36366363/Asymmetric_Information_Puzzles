@@ -770,6 +770,23 @@ function renderFirstTurnGuide() {
   heading.insertAdjacentElement("afterend", guide);
 }
 
+function renderModeContract(selector, details) {
+  const labels = language === "zh"
+    ? { changes: "改变内容", applies: "生效时机", score: "成绩处理" }
+    : { changes: "CHANGES", applies: "TAKES EFFECT", score: "SCORE HANDLING" };
+  const container = $(selector);
+  const rows = Object.keys(labels).map((key) => {
+    const row = document.createElement("div");
+    const label = document.createElement("strong");
+    const value = document.createElement("span");
+    label.textContent = labels[key];
+    value.textContent = details[key];
+    row.append(label, value);
+    return row;
+  });
+  container.replaceChildren(...rows);
+}
+
 function renderBlackjack() {
   const state = currentState;
   const actionNames = language === "zh"
@@ -787,13 +804,17 @@ function renderBlackjack() {
   $("#blackjackPracticeMode").classList.toggle("active", blackjackPracticeMode);
   $("#blackjackNormalMode").setAttribute("aria-pressed", String(!blackjackPracticeMode));
   $("#blackjackPracticeMode").setAttribute("aria-pressed", String(blackjackPracticeMode));
-  $("#blackjackModeDescription").textContent = language === "zh"
-    ? (blackjackPracticeMode
-      ? "练习模式先让你独立选择，再讲评上一操作；需要直接示范时可让 AI 执行。切换不会重新发牌。"
-      : "普通模式隐藏策略答案、吻合率与讲评，只保留你的公开操作记录。切换不会重新发牌。")
-    : (blackjackPracticeMode
-      ? "Practice lets you decide first, then reviews the previous action. Use AI play only when you want a demonstration. Switching does not redeal."
-      : "Normal hides strategy answers, accuracy, and grading while retaining only your public action log. Switching does not redeal.");
+  renderModeContract("#blackjackModeDescription", language === "zh"
+    ? {
+      changes: blackjackPracticeMode ? "开启提交后的基础策略讲评与可选 AI 示范。" : "隐藏策略答案、练习评分与 AI 示范，只保留公开操作记录。",
+      applies: "立即作用于当前牌局；切换不会重新发牌。",
+      score: blackjackPracticeMode ? "净收益与既有练习成绩保留；只统计此后由玩家亲自提交的练习决策。" : "净收益与既有练习成绩保留；普通模式决策不计入练习吻合率。",
+    }
+    : {
+      changes: blackjackPracticeMode ? "Enables post-decision basic-strategy review and an optional AI demonstration." : "Hides strategy answers, practice grading, and the AI demonstration; only the public action log remains.",
+      applies: "Applies immediately to the current hand; switching does not redeal.",
+      score: blackjackPracticeMode ? "Bankroll and existing practice results stay; only future human Practice decisions are scored." : "Bankroll and existing practice results stay; Normal decisions do not enter Practice accuracy.",
+    });
   $("#blackjackAccuracy").textContent = blackjackPracticeMode && state.practiceAccuracy != null ? `${(state.practiceAccuracy * 100).toFixed(0)}%` : "—";
   $("#blackjackActions").innerHTML = state.legalActions.map((action) => `<button data-blackjack-action="${action}">${actionNames[action]}</button>`).join("");
   document.querySelectorAll("[data-blackjack-action]").forEach((button) => button.addEventListener("click", () => act(button.dataset.blackjackAction, { practice: blackjackPracticeMode })));
@@ -1276,13 +1297,17 @@ function renderGoofspiel() {
   $("#goofAiLabel").textContent = language === "zh"
     ? `${advanced ? "精确均衡" : "直觉竞价"} AI · 剩余牌公开`
     : `${advanced ? "Exact-equilibrium" : "Intuitive-bidding"} AI · public inventory`;
-  $("#goofModeDescription").textContent = language === "zh"
-    ? (advanced
-      ? "高级 AI 按当前公开状态的精确零和均衡随机出牌，可利用度为 0；单场结果仍有随机波动。"
-      : "基础 AI 总打出最接近当前奖牌值的剩余牌（距离相同取较小牌）。精确最佳回应可获得平均 +2 分/场；下方仍展示均衡参考。")
-    : (advanced
-      ? "Advanced AI samples the exact zero-sum equilibrium for each public state, with zero exploitability; one match still has variance."
-      : "Basic AI always spends the remaining card closest to the prize (lower card breaks ties). An exact best response earns +2 points per match on average; the panel below remains an equilibrium reference.");
+  renderModeContract("#goofModeDescription", language === "zh"
+    ? {
+      changes: advanced ? "AI 按当前公开状态的精确零和均衡随机竞价，可利用度为 0。" : "AI 总打出最接近当前奖牌值的剩余牌；最佳回应平均可赢 +2 分/场。",
+      applies: "选择后立即开始一场使用该 AI 的新比赛，从第一轮起生效。",
+      score: "当前奖牌分、竞价牌与行动记录全部重置；难度偏好在刷新后保留。",
+    }
+    : {
+      changes: advanced ? "The AI samples the exact zero-sum equilibrium for each public state, with zero exploitability." : "The AI spends the remaining card closest to the prize; an exact best response earns +2 points per match on average.",
+      applies: "Selecting it immediately starts a new match with that AI, effective from round one.",
+      score: "Prize scores, bid cards, and action history reset; the difficulty preference survives refresh.",
+    });
   $("#goofPlayerScore").textContent = state.playerScore;
   $("#goofAiScore").textContent = state.aiScore;
   $("#goofScorePrize").textContent = active ? state.currentPrize : "—";
@@ -1520,13 +1545,17 @@ function renderPoker() {
   $("#pokerAiLabel").textContent = language === "zh"
     ? (advanced ? "完美 GTO AI" : "基础策略 AI")
     : (advanced ? "Exact GTO AI" : "Basic strategy AI");
-  $("#pokerModeDescription").textContent = language === "zh"
-    ? (advanced
-      ? "高级 AI 使用经穷举验证、可利用度为 0 的精确均衡。你固定为后手；长期均衡价值 +1/18/局，不保证单局获胜。"
-      : "基础 AI 会价值下注和随机诈唬，但 Q 在一个信息集中过度弃牌；最佳回应可把后手期望从 +1/18 提升到 +1/6/局。")
-    : (advanced
-      ? "Advanced AI uses an exhaustively verified exact equilibrium with zero exploitability. You stay second: +1/18 chip per hand in expectation, never a guaranteed hand."
-      : "Basic AI value-bets and randomizes bluffs, but folds Q too often in one information set. A best response raises second-seat value from +1/18 to +1/6 per hand.");
+  renderModeContract("#pokerModeDescription", language === "zh"
+    ? {
+      changes: advanced ? "AI 使用经穷举验证、可利用度为 0 的精确 GTO；你仍固定为后手。" : "AI 会价值下注和随机诈唬，但 Q 过度弃牌；最佳回应可达 +1/6 筹码/局。",
+      applies: "选择后立即开始一场使用该 AI 的新比赛，从第一手起生效。",
+      score: "当前牌局、累计净筹码与行动记录全部重置；难度偏好在刷新后保留。",
+    }
+    : {
+      changes: advanced ? "The AI uses an exhaustively verified exact GTO policy with zero exploitability; you remain second to act." : "The AI value-bets and randomizes bluffs but folds Q too often; a best response reaches +1/6 chip per hand.",
+      applies: "Selecting it immediately starts a new match with that AI, effective from hand one.",
+      score: "The hand, cumulative net chips, and action history reset; the difficulty preference survives refresh.",
+    });
   $("#playerCard").textContent = state.playerCard;
   $("#aiCard").textContent = state.aiCard || "?";
   $("#aiCard").classList.toggle("card-back", !state.aiCard);

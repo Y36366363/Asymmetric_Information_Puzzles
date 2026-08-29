@@ -339,8 +339,11 @@ select:focus-visible {
 
 .poker-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
 .poker-mode-panel { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 18px; padding: 18px 22px; }
-.poker-mode-panel strong { color: var(--gold-soft); font: 500 19px Georgia, "Songti SC", serif; }
-.poker-mode-panel p { margin: 7px 0 0; max-width: 760px; color: var(--muted); line-height: 1.55; }
+.poker-mode-panel > div > strong { color: var(--gold-soft); font: 500 19px Georgia, "Songti SC", serif; }
+.mode-contract { display: grid; gap: 5px; margin-top: 9px; max-width: 800px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.mode-contract > div { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; align-items: start; }
+.mode-contract > div > strong { color: var(--gold-soft); font: 800 11px/1.7 system-ui, sans-serif; letter-spacing: .04em; }
+.mode-contract > div > span { min-width: 0; }
 .poker-mode-switch { display: flex; flex: 0 0 auto; padding: 3px; border: 1px solid var(--line); background: rgba(0,0,0,.22); }
 .poker-mode-switch button { min-height: 42px; padding: 8px 16px; color: var(--muted); border: 0; background: transparent; cursor: pointer; font-weight: 700; }
 .poker-mode-switch button.active { color: #17130c; background: var(--gold); }
@@ -467,7 +470,8 @@ progress::-moz-progress-bar { background: var(--gold); }
 .blackjack-mode-switch { width: fit-content; display: flex; margin: 0 auto 14px; padding: 3px; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; background: rgba(0,0,0,.25); }
 .blackjack-mode-switch button { padding: 7px 13px; color: #c8d7ca; border: 0; border-radius: 999px; background: transparent; cursor: pointer; font-size: 12px; }
 .blackjack-mode-switch button.active { color: #132119; background: var(--gold-soft); font-weight: 900; }
-.blackjack-mode-description { max-width: 520px; margin: 0 auto 14px; color: #b9c5bb; font-size: 12px; line-height: 1.5; }
+.blackjack-mode-description { max-width: 620px; margin: 0 auto 14px; color: #b9c5bb; text-align: left; }
+.blackjack-mode-description > div > strong { color: #ead397; }
 .blackjack-center h2 { margin: 12px 0 22px; font: 500 clamp(24px, 3vw, 36px) Georgia, "Songti SC", serif; }
 .blackjack-actions { display: flex; justify-content: center; gap: 10px; }
 .blackjack-actions button { min-width: 110px; padding: 13px 18px; color: #17130c; border: 1px solid var(--gold); background: var(--gold); cursor: pointer; font-weight: 800; }
