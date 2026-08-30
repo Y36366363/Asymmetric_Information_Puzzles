@@ -347,6 +347,7 @@ select:focus-visible {
 .poker-mode-switch { display: flex; flex: 0 0 auto; padding: 3px; border: 1px solid var(--line); background: rgba(0,0,0,.22); }
 .poker-mode-switch button { min-height: 42px; padding: 8px 16px; color: var(--muted); border: 0; background: transparent; cursor: pointer; font-weight: 700; }
 .poker-mode-switch button.active { color: #17130c; background: var(--gold); }
+.difficulty-control:disabled { cursor: progress; opacity: .55; }
 .poker-score div { padding: 10px 24px; text-align: center; border-right: 1px solid var(--line); }
 .poker-score div:last-child { border-right: 0; }
 .poker-score span { display: block; color: var(--muted); font-size: 11px; letter-spacing: .09em; }
