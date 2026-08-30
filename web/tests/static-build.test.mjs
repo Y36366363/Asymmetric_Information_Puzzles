@@ -34,8 +34,8 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(html, /id="wormRevealAnswer"/);
   assert.match(html, /id="counterOfferButton"/);
   assert.match(html, /id="blackjackPracticeMode"/);
-  assert.match(html, /id="blackjackNormalMode" class="active" aria-pressed="true"/);
-  assert.match(html, /id="blackjackPracticeMode" aria-pressed="false"/);
+  assert.match(html, /class="difficulty-control active" id="blackjackNormalMode" aria-pressed="true"/);
+  assert.match(html, /class="difficulty-control" id="blackjackPracticeMode" aria-pressed="false"/);
   assert.match(html, /id="blackjackModeDescription"/);
   assert.equal((html.match(/class="mode-contract/g) || []).length, 3);
   assert.match(html, /aria-describedby="blackjackModeDescription"/);
@@ -57,6 +57,12 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /score: "成绩处理"/);
   assert.match(app, /Selecting it immediately starts a new match/);
   assert.match(app, /Normal decisions do not enter Practice accuracy/);
+  assert.match(app, /button\.disabled = pending/);
+  assert.match(app, /\$\("#pokerModeSwitch"\)\.setAttribute\("aria-label"/);
+  assert.match(app, /pokerMode = currentState\.mode;\s+writePreference/);
+  assert.match(app, /goofspielMode = currentState\.mode;\s+writePreference/);
+  assert.doesNotMatch(app, /pokerMode = "advanced";/);
+  assert.doesNotMatch(app, /goofspielMode = "advanced";/);
   assert.match(app, /aip-kuhn-poker-mode/);
   assert.match(app, /player always act second|always act second|固定担任后手/);
   assert.match(app, /event\.key === "Enter"/);

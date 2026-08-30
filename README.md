@@ -5,6 +5,27 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/30/2026
+
+- **Transactional difficulty settings** — Kuhn Poker and Goofspiel now save a
+  requested AI difficulty only after the replacement match is created. A failed
+  connection can no longer leave the visible match and refresh preference out
+  of sync.
+- **Pending-state protection** — Difficulty controls temporarily lock during a
+  session transition, preventing duplicate or conflicting mode requests, then
+  reliably recover after success or failure.
+- **Localized control identity** — Added Chinese and English accessible names to
+  all three mode groups while preserving their shared change/effect/score
+  explanation contract.
+- **Failure-path verification** — Deliberately stopped the local service during
+  an Advanced → Basic request: Advanced remained selected, the controls recovered,
+  a connection message appeared, and refresh still restored Advanced.
+- **Responsive regression** — At 390 px, the mode contract remains within the
+  viewport with no horizontal overflow. Successful Kuhn and Goofspiel resets and
+  Blackjack's no-redeal switch were also rechecked in a real browser.
+- **Scope discipline** — No game, opponent policy, payoff, optimality claim, or
+  benchmark condition changed. [Read the settings audit](research/transactional_settings_audit_2026-08-30.md).
+
 ## Updates 08/29/2026
 
 - **Unified difficulty explanations** — Blackjack, Kuhn Poker, and Goofspiel

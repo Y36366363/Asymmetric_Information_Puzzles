@@ -401,6 +401,9 @@ function tr(key) { return copy[language][key] ?? key; }
 function setOperationPending(pending) {
   actionPending = pending;
   document.querySelector("main").toggleAttribute("aria-busy", pending);
+  document.querySelectorAll(".difficulty-control").forEach((button) => {
+    button.disabled = pending;
+  });
   const status = $("#operationStatus");
   status.textContent = tr("operationPending");
   status.classList.toggle("hidden", !pending);
@@ -410,6 +413,9 @@ function applyLanguage() {
   document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
   document.title = language === "zh" ? "AIP · 非对称博弈实验室" : "AIP · Asymmetric Games Lab";
   $("#homeButton").setAttribute("aria-label", language === "zh" ? "返回游戏大厅" : "Return to game lobby");
+  $("#blackjackModeSwitch").setAttribute("aria-label", language === "zh" ? "21 点学习模式" : "Blackjack learning mode");
+  $("#pokerModeSwitch").setAttribute("aria-label", language === "zh" ? "库恩扑克 AI 难度" : "Kuhn Poker AI difficulty");
+  $("#goofModeSwitch").setAttribute("aria-label", language === "zh" ? "Goofspiel AI 难度" : "Goofspiel AI difficulty");
   $("#rulesClose").setAttribute("aria-label", tr("closeRules"));
   $("#operationStatus").textContent = tr("operationPending");
   money = new Intl.NumberFormat(language === "zh" ? "zh-CN" : "en-US", { maximumFractionDigits: 2 });
@@ -557,8 +563,14 @@ async function startGame(gameId = "cases", options = {}) {
     sessionId = result.sessionId;
     currentState = result.state;
     currentGameId = gameId;
-    if (gameId === "kuhn-poker") pokerMode = currentState.mode;
-    if (gameId === "goofspiel") goofspielMode = currentState.mode;
+    if (gameId === "kuhn-poker") {
+      pokerMode = currentState.mode;
+      writePreference("aip-kuhn-poker-mode", pokerMode);
+    }
+    if (gameId === "goofspiel") {
+      goofspielMode = currentState.mode;
+      writePreference("aip-goofspiel-mode", goofspielMode);
+    }
     if (gameId === "pirates") pirateDraft = currentState.pirates.map(() => 0);
     if (gameId === "worm") wormDisclosure = 0;
     if (gameId === "guess-who") guessWhoSelected = null;
@@ -1864,15 +1876,11 @@ $("#newPirateButton").addEventListener("click", () => startGame("pirates"));
 $("#newPokerMatch").addEventListener("click", () => startGame("kuhn-poker", { mode: pokerMode }));
 $("#pokerBasicMode").addEventListener("click", () => {
   if (pokerMode === "basic") return;
-  pokerMode = "basic";
-  writePreference("aip-kuhn-poker-mode", pokerMode);
-  startGame("kuhn-poker", { mode: pokerMode });
+  startGame("kuhn-poker", { mode: "basic" });
 });
 $("#pokerAdvancedMode").addEventListener("click", () => {
   if (pokerMode === "advanced") return;
-  pokerMode = "advanced";
-  writePreference("aip-kuhn-poker-mode", pokerMode);
-  startGame("kuhn-poker", { mode: pokerMode });
+  startGame("kuhn-poker", { mode: "advanced" });
 });
 $("#newECardMatch").addEventListener("click", () => startGame("e-card"));
 $("#newRpsMatch").addEventListener("click", () => startGame("restricted-rps"));
@@ -1891,15 +1899,11 @@ $("#investmentNew").addEventListener("click", () => startGame("investment"));
 $("#goofspielNew").addEventListener("click", () => startGame("goofspiel", { mode: goofspielMode }));
 $("#goofBasicMode").addEventListener("click", () => {
   if (goofspielMode === "basic") return;
-  goofspielMode = "basic";
-  writePreference("aip-goofspiel-mode", goofspielMode);
-  startGame("goofspiel", { mode: goofspielMode });
+  startGame("goofspiel", { mode: "basic" });
 });
 $("#goofAdvancedMode").addEventListener("click", () => {
   if (goofspielMode === "advanced") return;
-  goofspielMode = "advanced";
-  writePreference("aip-goofspiel-mode", goofspielMode);
-  startGame("goofspiel", { mode: goofspielMode });
+  startGame("goofspiel", { mode: "advanced" });
 });
 $("#investmentSubmit").addEventListener("click", () => act("invest", { offerId: investmentOffer, fraction: investmentFraction }));
 $("#loveUseSuggestion").addEventListener("click", () => {

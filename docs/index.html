@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'" />
     <title>AIP · 非对称博弈实验室</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23d8aa4c'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial' font-size='23' font-weight='900' fill='%2311110f'%3EAIP%3C/text%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=234b4d0ce6d8" />
+    <link rel="stylesheet" href="styles.css?v=064f0cc320ad" />
   </head>
   <body>
     <header class="topbar">
@@ -164,9 +164,9 @@
               <div><strong>成绩处理</strong><span>当前累计净筹码与行动记录会重置。</span></div>
             </div>
           </div>
-          <div class="poker-mode-switch" role="group" aria-label="Kuhn Poker AI mode" aria-describedby="pokerModeDescription">
-            <button id="pokerBasicMode" class="active" aria-pressed="true" data-i18n="pokerBasicMode">基础模式</button>
-            <button id="pokerAdvancedMode" aria-pressed="false" data-i18n="pokerAdvancedMode">高级 GTO</button>
+          <div class="poker-mode-switch" id="pokerModeSwitch" role="group" aria-label="库恩扑克 AI 难度" aria-describedby="pokerModeDescription">
+            <button class="difficulty-control active" id="pokerBasicMode" aria-pressed="true" data-i18n="pokerBasicMode">基础模式</button>
+            <button class="difficulty-control" id="pokerAdvancedMode" aria-pressed="false" data-i18n="pokerAdvancedMode">高级 GTO</button>
           </div>
         </section>
 
@@ -387,7 +387,7 @@
           </div>
           <div class="blackjack-center">
             <p class="eyebrow">6 DECKS · DEALER STANDS ON SOFT 17</p>
-            <div class="blackjack-mode-switch" role="group" aria-label="Blackjack mode" aria-describedby="blackjackModeDescription"><button id="blackjackNormalMode" class="active" aria-pressed="true" data-i18n="blackjackNormalMode">普通模式</button><button id="blackjackPracticeMode" aria-pressed="false" data-i18n="blackjackPracticeMode">练习模式</button></div>
+            <div class="blackjack-mode-switch" id="blackjackModeSwitch" role="group" aria-label="21 点学习模式" aria-describedby="blackjackModeDescription"><button class="difficulty-control active" id="blackjackNormalMode" aria-pressed="true" data-i18n="blackjackNormalMode">普通模式</button><button class="difficulty-control" id="blackjackPracticeMode" aria-pressed="false" data-i18n="blackjackPracticeMode">练习模式</button></div>
             <div class="mode-contract blackjack-mode-description" id="blackjackModeDescription" aria-live="polite">
               <div><strong>改变内容</strong><span>隐藏策略答案、练习评分与 AI 示范。</span></div>
               <div><strong>生效时机</strong><span>立即作用于当前牌局，不重新发牌。</span></div>
@@ -663,9 +663,9 @@
               <div><strong>成绩处理</strong><span>当前奖牌分与竞价记录会重置。</span></div>
             </div>
           </div>
-          <div class="poker-mode-switch" role="group" aria-label="Goofspiel AI mode" aria-describedby="goofModeDescription">
-            <button id="goofBasicMode" class="active" aria-pressed="true" data-i18n="goofBasicMode">基础模式</button>
-            <button id="goofAdvancedMode" aria-pressed="false" data-i18n="goofAdvancedMode">高级均衡</button>
+          <div class="poker-mode-switch" id="goofModeSwitch" role="group" aria-label="Goofspiel AI 难度" aria-describedby="goofModeDescription">
+            <button class="difficulty-control active" id="goofBasicMode" aria-pressed="true" data-i18n="goofBasicMode">基础模式</button>
+            <button class="difficulty-control" id="goofAdvancedMode" aria-pressed="false" data-i18n="goofAdvancedMode">高级均衡</button>
           </div>
         </section>
         <div class="goof-score panel">
@@ -711,6 +711,6 @@
 
     <div class="operation-status hidden" id="operationStatus" role="status" aria-live="polite"></div>
     <div class="toast hidden" id="toast" role="status"></div>
-    <script type="module" src="bootstrap.js?v=234b4d0ce6d8"></script>
+    <script type="module" src="bootstrap.js?v=064f0cc320ad"></script>
   </body>
 </html>
