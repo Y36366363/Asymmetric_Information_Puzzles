@@ -66,6 +66,8 @@ select:focus-visible {
 
 .status { color: var(--muted); font-size: 13px; }
 .header-actions { display: flex; align-items: center; gap: 16px; }
+.guidance-toggle { min-height: 36px; padding: 6px 10px; color: var(--gold-soft); border: 1px solid rgba(216,170,76,.45); background: rgba(216,170,76,.08); cursor: pointer; font-size: 12px; font-weight: 700; }
+.guidance-toggle[aria-pressed="false"] { color: var(--muted); border-color: var(--line); background: transparent; }
 .github-link { display: flex; align-items: center; gap: 7px; color: var(--ink); text-decoration: none; font-size: 13px; }
 .github-mark { display: grid; place-items: center; width: 28px; height: 28px; color: #111; border-radius: 50%; background: var(--ink); font-size: 9px; font-weight: 900; }
 .language-switch { display: flex; padding: 3px; border: 1px solid var(--line); }
@@ -223,6 +225,7 @@ select:focus-visible {
 .rules-example { border-left: 3px solid #6f9fb5; background: rgba(54,101,123,.12); }
 .rules-terms { border-left: 3px solid var(--gold); }
 .rules-close { position: absolute; top: 10px; right: 14px; color: var(--gold-soft); border: 0; background: transparent; cursor: pointer; font-size: 30px; }
+.rules-start { display: block; width: min(360px, 100%); margin: 22px auto 0; }
 .offer-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
 .offer-comparison { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-top: 20px; }
 .offer-comparison div { padding: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.025); }
@@ -800,7 +803,8 @@ button.goof-bid-card:hover:not(:disabled) { transform:translateY(-5px); border-c
   .status { display: none; }
   .github-link > span:last-child { display: none; }
   .header-actions { gap: 8px; }
-  .brand, .github-link, .language-switch button { min-height: 44px; }
+  .brand, .guidance-toggle, .github-link, .language-switch button { min-height: 44px; }
+  .guidance-toggle { padding-inline: 8px; }
   .language-switch button { min-width: 44px; }
   .github-link { min-width: 44px; justify-content: center; }
   .game-heading .back-to-lobby, .game-heading #backButton { min-height: 44px; }
