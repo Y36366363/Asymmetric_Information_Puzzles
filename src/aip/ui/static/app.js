@@ -27,6 +27,7 @@ let wormDisclosure = 0;
 let blackjackPracticeMode = readPreference("aip-blackjack-mode") === "practice";
 let pokerMode = readPreference("aip-kuhn-poker-mode") === "advanced" ? "advanced" : "basic";
 let goofspielMode = readPreference("aip-goofspiel-mode") === "advanced" ? "advanced" : "basic";
+let guidedMode = readPreference("aip-guided-mode") !== "off";
 
 const gameViews = {
   cases: "gameView",
@@ -106,7 +107,8 @@ const copy = {
     goofYourScore: "你的奖牌分", goofPrizeLabel: "当前奖牌", goofAiScore: "AI 奖牌分", goofAiInventory: "AI 剩余竞价牌（公开）", goofRevealedPrize: "本轮已揭晓奖牌", goofYourInventory: "你的剩余竞价牌", goofAdvisor: "精确均衡建议",
     yourFleet: "你的舰队", enemyWaters: "敌方海域", randomizeFleet: "重新随机布阵", startBattle: "确认布阵，开始战斗",
     shipsRemaining: "剩余舰船", candidateWorlds: "候选部署", advisorShot: "概率建议", battleHistory: "交火记录",
-    rulesEyebrow: "玩法说明", rulesTitle: "游戏规则", closeRules: "关闭",
+    rulesEyebrow: "玩法说明", rulesTitle: "规则与操作", closeRules: "关闭", rulesStart: "明白了，开始游戏",
+    guidedModeOn: "新手引导：开", guidedModeOff: "新手引导：关",
     prizePool: "奖金池", round: "回合", decisionPanel: "决策仪表",
     emptyInsight: "银行家报价后，这里会显示期望值、风险和模型建议。",
     gameHistory: "博弈记录", liveChecks: "实时检查次数", possiblePositions: "仍可能的位置",
@@ -182,7 +184,8 @@ const copy = {
     goofYourScore: "Your prize points", goofPrizeLabel: "Current prize", goofAiScore: "AI prize points", goofAiInventory: "AI bid cards left (public)", goofRevealedPrize: "Revealed prize this round", goofYourInventory: "Your bid cards left", goofAdvisor: "Exact-equilibrium guide",
     yourFleet: "Your fleet", enemyWaters: "Enemy waters", randomizeFleet: "Randomize fleet", startBattle: "Lock fleet and start",
     shipsRemaining: "Ships remaining", candidateWorlds: "Candidate placements", advisorShot: "Probability hint", battleHistory: "Battle log",
-    rulesEyebrow: "HOW TO PLAY", rulesTitle: "Rules", closeRules: "Close",
+    rulesEyebrow: "HOW TO PLAY", rulesTitle: "Rules & controls", closeRules: "Close", rulesStart: "Got it — start playing",
+    guidedModeOn: "Guidance: on", guidedModeOff: "Guidance: off",
     prizePool: "Prize board", round: "Round", decisionPanel: "Decision dashboard",
     emptyInsight: "Expected value, risk, and model guidance appear after the banker's offer.",
     gameHistory: "Game history", liveChecks: "Live check count", possiblePositions: "Possible positions",
@@ -417,6 +420,9 @@ function applyLanguage() {
   $("#pokerModeSwitch").setAttribute("aria-label", language === "zh" ? "库恩扑克 AI 难度" : "Kuhn Poker AI difficulty");
   $("#goofModeSwitch").setAttribute("aria-label", language === "zh" ? "Goofspiel AI 难度" : "Goofspiel AI difficulty");
   $("#rulesClose").setAttribute("aria-label", tr("closeRules"));
+  $("#guidedModeToggle").setAttribute("aria-label", language === "zh" ? "开启或关闭所有游戏的首回合新手引导" : "Turn first-turn guidance on or off for every game");
+  $("#guidedModeToggle").setAttribute("aria-pressed", String(guidedMode));
+  $("#guidedModeToggle").textContent = tr(guidedMode ? "guidedModeOn" : "guidedModeOff");
   $("#operationStatus").textContent = tr("operationPending");
   money = new Intl.NumberFormat(language === "zh" ? "zh-CN" : "en-US", { maximumFractionDigits: 2 });
   document.querySelectorAll("[data-i18n]").forEach((element) => {
@@ -743,33 +749,58 @@ function render() {
 
 function renderFirstTurnGuide() {
   document.querySelectorAll(".first-turn-guide").forEach((node) => node.remove());
+  if (!guidedMode) return;
   const state = currentState;
   const visible = {
+    cases: state.gameId === "cases" && state.phase === "choose",
     worm: state.gameId === "worm" && state.phase === "playing" && state.turn === 0,
+    pirates: state.gameId === "pirates" && state.phase === "proposing",
     "kuhn-poker": state.gameId === "kuhn-poker" && state.handNumber === 1 && state.phase === "playing" && !state.history.some((item) => item.actor === "player"),
+    "e-card": state.gameId === "e-card" && state.roundNumber === 1 && state.phase === "playing" && state.history.length === 0,
+    "restricted-rps": state.gameId === "restricted-rps" && state.phase === "playing" && state.history.length === 0,
     "liars-dice": state.gameId === "liars-dice" && state.roundNumber === 1 && state.phase === "bidding" && state.history.length === 0,
+    blackjack: state.gameId === "blackjack" && state.roundNumber === 1 && state.phase === "player_turn" && state.history.length === 0,
+    mastermind: state.gameId === "mastermind" && state.phase === "playing" && state.attemptsUsed === 0,
+    "guess-who": state.gameId === "guess-who" && state.phase === "playing" && state.history.length === 0,
+    "hidden-pursuit": state.gameId === "hidden-pursuit" && state.phase === "detective_turn" && state.history.length === 0,
     "love-letter": state.gameId === "love-letter" && state.roundNumber === 1 && state.phase === "player_turn" && state.history.length === 0,
     investment: state.gameId === "investment" && state.roundNumber === 1 && state.phase === "decision" && !state.lastRound,
     goofspiel: state.gameId === "goofspiel" && state.phase === "bidding" && state.history.length === 0,
-    battleship: state.gameId === "battleship" && state.phase === "placement" && state.boardSize === 15,
+    battleship: state.gameId === "battleship" && state.phase === "placement",
   }[state.gameId];
   if (!visible) return;
   const guides = language === "zh" ? {
+    cases: ["第一次开箱怎么做", ["目标是让最终收入尽量高：先点击任意一个箱子，把它留到游戏最后。", "接着按回合提示打开其他箱子；左侧金额被划掉，表示该奖金已经不可能在你的保留箱里。", "银行家报价时比较报价与剩余箱子的价值期望：接受会立刻结束，拒绝会继续开箱。"]],
     worm: ["首回合怎么做", ["先任选一个洞开始检查，观察失手后可能位置如何变化。", "虫子每次必须移动到相邻洞，因此奇偶节奏比猜位置更重要。", "页面不会直接展示解法；需要时可主动打开提示或答案。"]],
+    pirates: ["第一次提案怎么分", ["你扮演最资深海盗 A，目标是在提案通过且自己存活的前提下留下最多金币。", "必须把全部金币以整数分完；下方基准会告诉你每名海盗在你死亡后能得到什么。", "海盗只有在存活更有利或金币严格更多时才投赞成；达到所需票数后提案通过。"]],
     "kuhn-poker": ["第一手怎么判断", ["你固定是后手：先看自己的 J、Q 或 K，再阅读 AI 已经公开的过牌或下注。", "AI 过牌后，你可过牌摊牌或下注；AI 下注后，你只能跟注或弃牌。", "只根据自己的牌与公开行动更新判断。基础模式可寻找稳定偏差，高级模式则无法获得超过后手均衡价值的长期优势。"]],
+    "e-card": ["第一轮怎么出牌", ["先看双方身份：皇帝胜市民、市民胜奴隶、奴隶胜皇帝；奴隶爆冷可得 5 分。", "点击手中的一张牌，AI 会同时揭示隐藏出牌；市民对市民只弃牌并继续本轮。", "观察公开记录和双方剩余牌数，判断对手会在何时使用唯一的特殊牌。"]],
+    "restricted-rps": ["第一轮怎么出拳", ["双方各有有限数量的石头、剪刀、布，目标是在库存用尽前取得更高总分。", "点击一种仍有库存的手势；双方同时揭示，胜者加 1 分，用过的手势各消耗一张。", "每轮后查看剩余库存和 AI 分析；均衡建议是概率分布，不代表每次都点同一个手势。"]],
     "liars-dice": ["第一轮怎么叫价", ["先数自己手中的目标点数；除叫 1 点外，1 都是万能点。", "输入一个数量和点数后加注，AI 会选择继续抬价或质疑。", "轮到你面对公开叫价时，可看真实概率再决定加注或质疑。"]],
+    blackjack: ["第一手怎么决策", ["目标是在不超过 21 点的前提下比庄家更接近 21；先看自己的总点数和庄家唯一公开的明牌。", "选择要牌、停牌，或仅在最初两张牌时选择加倍；庄家暗牌要到你结束操作后才揭示。", "普通模式自行判断；练习模式会在你操作后评价这一步，不会提前泄露答案。"]],
+    mastermind: ["第一次猜测怎么填", ["AI 已藏好一个可由 0 开头、四个数字互不重复的密码；目标是在 10 次内找出它。", "在输入框填四个不同数字并提交，例如 0123。", "位置正确表示数字和位置都对；数字正确但位置不同表示数字存在但放错位置，据此缩小候选集合。"]],
+    "guess-who": ["第一个问题怎么问", ["AI 暗选一名角色；目标是用尽量少的是/否问题找出他。", "选择一个尚未问过的问题，回答后不符合条件的角色会被排除；精确建议会优先把候选分得接近一半。", "当你有把握时点击候选角色并确认猜测；猜错会消耗一回合，但游戏不会立刻结束。"]],
+    "hidden-pursuit": ["第一轮怎么追踪", ["逃犯位置隐藏，你控制两名侦探，目标是在回合上限前让任一侦探与逃犯处于同一节点。", "按高亮线路移动当前侦探；逃犯随后秘密移动，但会公开交通类型，并在指定回合公开位置。", "根据交通信号和现身记录观察可能位置集合，让两名侦探从不同方向压缩范围。"]],
     "love-letter": ["第一回合怎么出牌", ["你每回合抽到两张牌，必须打出其中一张。", "若打卫兵，先选择要猜的牌；若打王子，先选择目标。", "右侧信念概率只依据公开信息，建议是启发式而非已证明的全局最优。"]],
     investment: ["第一轮怎么投资", ["先比较每个方案的成功率、赔率和期望回报。", "再选择投入比例；0% 可以保本，Kelly 比例偏向长期增长。", "每到淘汰轮资金最低者出局，所以生存压力可能改变最优仓位。"]],
     goofspiel: ["第一轮怎么竞价", ["先看本轮奖牌分值，再从 1–4 中秘密打出一张牌。", "双方较高者拿走奖牌，同价则奖牌作废；出过的牌不能再用。", "黄色标记只是均衡中的最高频动作，真正的均衡需要按概率随机。"]],
-    battleship: ["15×15 大海域提示", ["大型海域采用双方对称的双炮齐射：你连续打两炮后，AI 才还击两炮。", "第一炮后界面会显示本轮还剩一炮，不要误以为AI停住。", "命中后优先沿相邻方向追击；AI面板会公开其搜索模式与覆盖强度。"]],
+    battleship: ["第一次布阵和开火", ["先选择棋盘规模；重新随机布阵或点击舰船旋转，确认后才进入交战。不同颜色区分你的舰船。", "开战后点击敌方未知格开火：红色是命中，暗色标记是落空；击中一艘船的全部格子才算击沉。", state.boardSize === 15 ? "15×15 使用双炮齐射：连续打两炮后 AI 才还击，界面会显示本轮剩余炮数。" : "10×10 与 12×12 每轮各打一炮；命中后可沿相邻方向继续搜索。"]],
   } : {
+    cases: ["Opening your first case", ["Your goal is to maximize the final payout. First click any case to keep sealed until the end.", "Then open the number of other cases requested each round; crossed-out prizes can no longer be inside your kept case.", "At an offer, compare the bank's price with expected remaining value. Deal ends immediately; No Deal continues play."]],
     worm: ["Your first move", ["Probe any hole first and watch how the possible positions change after a miss.", "The worm must move to a neighbor, so parity and rhythm matter more than guessing a location.", "The solution stays hidden unless you deliberately open a hint or the answer."]],
+    pirates: ["Building your first proposal", ["You are senior pirate A. Keep as much gold as possible while passing the vote and staying alive.", "Allocate every coin as a whole number; the benchmark shows what each pirate receives if you die.", "A pirate votes yes only for survival or strictly more gold. Reach the displayed vote threshold to pass."]],
     "kuhn-poker": ["Your first hand", ["You always act second: read your J, Q, or K, then the AI's public Check or Bet.", "After a check, choose showdown or bet; after a bet, choose Call or Fold.", "Use only your card and public actions. Seek a stable leak in Basic mode; Advanced cannot yield more than the second-seat equilibrium value in the long run."]],
+    "e-card": ["Playing your first duel", ["Read the roles: Emperor beats Citizen, Citizen beats Slave, and Slave beats Emperor for a 5-point upset.", "Click one card; the AI reveals its hidden choice simultaneously. Citizen versus Citizen only discards both and continues the duel.", "Use the public log and cards remaining to infer when the opponent may spend its unique special card."]],
+    "restricted-rps": ["Playing round one", ["Both sides have limited Rock, Paper, and Scissors cards. Finish with the higher score after inventories run out.", "Click an available gesture; choices reveal together, the winner gains one point, and both spent cards disappear.", "Afterward read inventories and AI analysis. Equilibrium advice is a probability mix, not a command to repeat one gesture."]],
     "liars-dice": ["Your opening bid", ["Count matching dice in your hand; ones are wild unless the bid itself is ones.", "Enter a quantity and face, then raise; the AI may raise again or challenge.", "When a bid returns to you, use its probability before raising or challenging."]],
+    blackjack: ["Your first blackjack decision", ["Beat the dealer by getting closer to 21 without going over. Start with your total and the dealer's single visible card.", "Choose Hit, Stand, or Double only on the first two cards. The dealer's hole card stays hidden until your turn ends.", "Normal mode leaves the decision to you; Practice mode grades the move only after you act, without revealing the answer first."]],
+    mastermind: ["Entering your first code", ["The AI hides four distinct digits, including a possible leading zero. Find the code within 10 attempts.", "Enter four different digits such as 0123, then submit.", "Exact means right digit and position; misplaced means the digit exists elsewhere. Use both counts to shrink the candidate set."]],
+    "guess-who": ["Asking your first question", ["The AI secretly selects one character. Identify them with as few yes/no questions as possible.", "Ask an unused question; incompatible cards are eliminated. Exact advice favors a near-even split of remaining candidates.", "When confident, select a character and confirm. A wrong guess costs one turn but does not instantly end the game."]],
+    "hidden-pursuit": ["Tracking the first move", ["The fugitive is hidden; you control two detectives and must share a node with the fugitive before the round limit.", "Move the highlighted detective along a legal route. The fugitive then moves secretly but reveals transport type and appears on scheduled rounds.", "Use transport and reveal history to watch the possible-node set, then close in from different directions."]],
     "love-letter": ["Your first turn", ["You hold two cards each turn and must play one.", "Choose a guess before Guard or a target before Prince.", "Belief probabilities use public information only; the advice is heuristic, not globally proven optimal."]],
     investment: ["Your first investment", ["Compare success probability, odds, and expected return.", "Then choose a stake; 0% preserves capital while Kelly targets long-run growth.", "The lowest bankroll is eliminated at checkpoints, so survival pressure can change the best stake."]],
     goofspiel: ["Your opening bid", ["Read the revealed prize, then secretly spend one card from 1–4.", "The higher bid wins the prize; ties discard it, and spent cards never return.", "The gold card is only the most frequent equilibrium action—the exact policy randomizes."]],
-    battleship: ["15×15 sea briefing", ["The large board uses symmetric two-shot salvos: fire twice, then the AI returns two shots.", "After your first shot, the interface shows one shot left; the AI has not stalled.", "After a hit, pursue adjacent cells; the AI panel exposes its search mode and coverage strength."]],
+    battleship: ["Placing ships and firing", ["Choose a board size, then randomize or click ships to rotate them. Lock the fleet before battle; colors distinguish your ships.", "Click an unknown enemy cell to fire. Red means hit, the dark marker means miss, and every segment must be hit to sink a ship.", state.boardSize === 15 ? "The 15×15 board uses two-shot salvos: fire twice before the AI replies; the UI shows shots remaining." : "The 10×10 and 12×12 boards use one shot per side; after a hit, search adjacent cells."]],
   };
   const [title, steps] = guides[state.gameId];
   const view = $(`#${gameViews[state.gameId]}`);
@@ -1947,6 +1978,14 @@ $("#submitPirateProposal").addEventListener("click", () => {
 $("#dealButton").addEventListener("click", () => act("deal"));
 $("#noDealButton").addEventListener("click", () => act("no_deal"));
 $("#rulesClose").addEventListener("click", closeRules);
+$("#rulesStart").addEventListener("click", closeRules);
+$("#guidedModeToggle").addEventListener("click", () => {
+  guidedMode = !guidedMode;
+  writePreference("aip-guided-mode", guidedMode ? "on" : "off");
+  $("#guidedModeToggle").setAttribute("aria-pressed", String(guidedMode));
+  $("#guidedModeToggle").textContent = tr(guidedMode ? "guidedModeOn" : "guidedModeOff");
+  if (currentState) renderFirstTurnGuide();
+});
 $("#rulesModal").addEventListener("click", (event) => { if (event.target.id === "rulesModal") closeRules(); });
 document.addEventListener("keydown", (event) => {
   const modal = visibleModal();

@@ -5,6 +5,24 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 08/31/2026
+
+- **Complete novice path** — All 15 playable environments now explain the goal,
+  first meaningful action, feedback to inspect, and how play progresses without
+  exposing hidden information or requiring outside help.
+- **Default-on guidance mode** — Added a persistent bilingual header control for
+  compact first-turn guidance. It is enabled for new players, disappears after
+  the first meaningful action, and can be disabled globally without changing a
+  game, score, or difficulty.
+- **Clear rules handoff** — Renamed the entry to “Rules & controls” and added an
+  explicit “Got it — start playing” action after the full role, sequence, example,
+  finish-condition, and terminology explanation.
+- **Context-aware instructions** — Battleship now distinguishes one-shot standard
+  boards from the 15×15 two-shot salvo; Practice Blackjack makes its decide-first,
+  review-afterward behavior clear; the worm solution remains opt-in.
+- **Scope discipline** — No new game, opponent policy, payoff, or optimality claim
+  was added. [Read the novice-onboarding audit](research/novice_onboarding_audit_2026-08-31.md).
+
 ## Updates 08/30/2026
 
 - **Transactional difficulty settings** — Kuhn Poker and Goofspiel now save a

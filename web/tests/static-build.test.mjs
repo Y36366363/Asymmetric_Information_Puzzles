@@ -14,6 +14,8 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(bootstrap, /game-engine\.js\?v=[a-f0-9]{12}/);
   assert.match(bootstrap, /app\.js\?v=[a-f0-9]{12}/);
   assert.match(html, /id="rulesModal"/);
+  assert.match(html, /id="rulesStart"/);
+  assert.match(html, /id="guidedModeToggle" aria-pressed="true"/);
   assert.match(html, /class="language-switch" role="group"/);
   assert.match(html, /id="languageZh" class="active" aria-pressed="true"/);
   assert.match(html, /id="languageEn" aria-pressed="false"/);
@@ -77,7 +79,15 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /不能每次固定选择它/);
   assert.match(app, /In the equilibrium reference/);
   assert.match(app, /function renderFirstTurnGuide/);
-  assert.match(app, /15×15 大海域提示/);
+  assert.match(app, /第一次布阵和开火/);
+  assert.match(app, /aip-guided-mode/);
+  assert.match(app, /if \(!guidedMode\) return/);
+  assert.match(app, /"hidden-pursuit": state\.gameId === "hidden-pursuit" && state\.phase === "detective_turn"/);
+  const guideBlock = app.slice(app.indexOf("const guides ="), app.indexOf("const [title, steps]"));
+  assert.equal((guideBlock.match(/^    (?:"[^"]+"|[a-z-]+): \["/gm) || []).filter((line) => [
+    "cases", "worm", "pirates", "kuhn-poker", "e-card", "restricted-rps", "liars-dice", "blackjack",
+    "mastermind", "guess-who", "hidden-pursuit", "love-letter", "investment", "goofspiel", "battleship",
+  ].some((gameId) => line.startsWith(`    ${gameId}:`) || line.startsWith(`    "${gameId}":`))).length, 30);
   assert.match(app, /Post-match strategy review/);
   assert.match(html, /id="rpsPostMatch"/);
   assert.match(html, /id="goofPostMatch"/);
@@ -122,6 +132,8 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(styles, /\.game-heading \.back-to-lobby, \.game-heading #backButton \{ min-height: 44px; \}/);
   assert.match(styles, /select:focus-visible/);
   assert.match(styles, /\.first-turn-guide/);
+  assert.match(styles, /\.guidance-toggle\[aria-pressed="false"\]/);
+  assert.match(styles, /\.rules-start/);
   assert.match(styles, /\.strategy-review-grid/);
 });
 
