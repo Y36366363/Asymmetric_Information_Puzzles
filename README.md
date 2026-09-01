@@ -5,6 +5,26 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 09/01/2026
+
+- **Preregistered experiment grid** — Added deterministic trial identities across
+  model, environment, seed, repeat, opponent shift, and agent condition. The v1
+  plan keeps Mastermind held out and separates training environments explicitly.
+- **Full strategic-agent ablation** — Encoded the complete 2×2×2 matrix for
+  game-specific prompt, memory, and cross-game experience. Target-game prompting
+  is marked as a supervised ceiling and cannot count as primary transfer evidence.
+- **Evidence-aware scoring** — Exact regret, equilibrium exploitability, and
+  heuristic agreement now have distinct eligibility rules. Missing belief or
+  unavailable metrics remain `null`; they are never interpreted as zero.
+- **Repeated exact-ground-truth pilot** — Ran four disjoint repeats with eight
+  random seeds each over all 24 Guess Who secrets. Across repeats, the prompted
+  proxy improved exact-policy agreement by `0.3028 ± 0.0231 SD` and reduced exact
+  regret by `0.04983 ± 0.00296 SD` versus the generic weak control.
+- **Honest scope and next step** — Today's offline pilot validates repeat and
+  metric plumbing; it is not held-out or multi-model evidence. The next milestone
+  is a spoiler-safe Mastermind adapter plus leakage audit before a small two-model
+  held-out smoke test. [Read the experiment report](research/benchmark_protocol_2026-09-01.md).
+
 ## Updates 08/31/2026
 
 - **Complete novice path** — All 15 playable environments now explain the goal,

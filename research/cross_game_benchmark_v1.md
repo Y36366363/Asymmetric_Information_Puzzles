@@ -206,17 +206,38 @@ Every result table must carry one of these labels beside its reference. Language
 such as “optimal”, “equilibrium”, and “exploitability” is reserved for conditions
 where the corresponding object is actually computed.
 
-## 7. The single implementation milestone
+## 7. Implementation status and ordered roadmap
 
-The only implementation begun in this update is **Benchmark Contract v0**:
+Implemented foundations:
 
-- dependency-free unified `AgentInput` / `AgentDecision` types;
-- legal-action and normalized-belief validation;
-- explicit capability and evidence enums;
-- a six-environment, version-controlled catalog with ground-truth availability
-  and the Mastermind holdout flag.
+1. **Benchmark Contract v0** — unified input/output, legal-action validation,
+   capability taxonomy, evidence labels, and the six-environment catalog.
+2. **Exact trace slice** — Guess Who adapter, replayable traces, exact action
+   regret, optimal-policy agreement, belief Brier/log loss, and information
+   efficiency.
+3. **Completion boundary** — the same real completion model can run generic and
+   single-game prompts with parse/retry/token/latency/confidence telemetry.
+4. **Experiment Protocol v1** — deterministic trial identities across model,
+   seed, repeat, condition, environment, and opponent shift; a full
+   prompt × memory × cross-game-experience ablation matrix; and metric names
+   gated by exact/equilibrium/heuristic ground truth.
 
-This is intentionally smaller than an environment runner. The next justified
-milestone is one end-to-end adapter and trace exporter for Guess Who, because it
-has exact policy and belief truth. It should not begin until Contract v0 traces
-and metric semantics are reviewed.
+Future work proceeds one evidence-bearing slice at a time:
+
+1. **Held-out Mastermind adapter and leakage audit.** Freeze generic prompts and
+   cross-game memory before exposing any Mastermind episode. Single-game prompt
+   results remain a supervised ceiling, never transfer evidence.
+2. **Two-model smoke comparison.** Run a small frozen panel first; promote it to
+   the full seed/repeat grid only if completion and scoring reliability pass.
+3. **Kuhn/Goofspiel equilibrium adapters.** Add mixed-policy distance, exact
+   regret, and exploitability before reporting either word in model results.
+4. **Liar's Dice opponent-shift panel.** Hold the agent fixed across reference,
+   naive, adaptive, and adversarial policies; exact belief calibration can be
+   scored even though action quality remains heuristic-backed.
+5. **Factorial ablation execution.** Compare generic prompt, memory, and
+   cross-game experience with main effects and interactions. Do not infer a
+   memory or transfer gain from unrelated prompts or different model snapshots.
+
+The complete v1 matrix contains 4,608 planned trials for two models and is a
+preregistration target, not authorization to spend tokens blindly. Every stage
+starts with a small reliability pilot and records failures as outcomes.

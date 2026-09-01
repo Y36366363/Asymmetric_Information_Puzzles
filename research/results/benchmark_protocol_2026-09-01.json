@@ -1,0 +1,419 @@
+{
+  "offlinePilot": {
+    "aggregate": {
+      "genericWeakBeliefBrier": null,
+      "policyAgreementGainMean": 0.30280056907683095,
+      "policyAgreementGainSampleSd": 0.02313888032073673,
+      "regretReductionMean": 0.049833998063898294,
+      "regretReductionSampleSd": 0.0029619654430541554,
+      "singleGamePromptedBeliefBrierMean": 0.6544117647058824,
+      "turnGainMean": 0.2447916666666663,
+      "turnGainSampleSd": 0.015332918170708303
+    },
+    "environmentId": "guess-who",
+    "evidenceLevel": "proved_optimality",
+    "notEvidenceFor": [
+      "held_out_transfer",
+      "multi_model_comparison"
+    ],
+    "purpose": "runner_and_metric_discrimination_only",
+    "repeats": 4,
+    "replicates": [
+      {
+        "genericWeak": {
+          "belief_output_rate": 0.0,
+          "episodes": 192,
+          "mean_action_regret": 0.04984093319194054,
+          "mean_belief_brier": null,
+          "mean_belief_log_loss": null,
+          "mean_information_efficiency_bits_per_question": 0.9748731031419263,
+          "mean_turns": 5.911458333333333,
+          "optimal_policy_agreement": 0.6776246023329798,
+          "solved_rate": 1,
+          "worst_turns": 8
+        },
+        "oracle": {
+          "belief_output_rate": 1.0,
+          "episodes": 24,
+          "mean_action_regret": 0.0,
+          "mean_belief_brier": 0.6544117647058824,
+          "mean_belief_log_loss": 1.5909582985421307,
+          "mean_information_efficiency_bits_per_question": 0.9934085418229172,
+          "mean_turns": 5.666666666666667,
+          "optimal_policy_agreement": 1,
+          "solved_rate": 1,
+          "worst_turns": 6
+        },
+        "pairedDifferences": {
+          "policyAgreementGain": 0.32237539766702017,
+          "regretReduction": 0.04984093319194054,
+          "turnGain": 0.24479166666666607
+        },
+        "repeat": 0,
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "singleGamePromptedProxy": {
+          "belief_output_rate": 1.0,
+          "episodes": 24,
+          "mean_action_regret": 0.0,
+          "mean_belief_brier": 0.6544117647058824,
+          "mean_belief_log_loss": 1.5909582985421307,
+          "mean_information_efficiency_bits_per_question": 0.9934085418229172,
+          "mean_turns": 5.666666666666667,
+          "optimal_policy_agreement": 1,
+          "solved_rate": 1,
+          "worst_turns": 6
+        }
+      },
+      {
+        "genericWeak": {
+          "belief_output_rate": 0.0,
+          "episodes": 192,
+          "mean_action_regret": 0.04680851063829781,
+          "mean_belief_brier": null,
+          "mean_belief_log_loss": null,
+          "mean_information_efficiency_bits_per_question": 0.9759533894454197,
+          "mean_turns": 5.895833333333333,
+          "optimal_policy_agreement": 0.6893617021276596,
+          "solved_rate": 1,
+          "worst_turns": 8
+        },
+        "oracle": {
+          "belief_output_rate": 1.0,
+          "episodes": 24,
+          "mean_action_regret": 0.0,
+          "mean_belief_brier": 0.6544117647058824,
+          "mean_belief_log_loss": 1.5909582985421307,
+          "mean_information_efficiency_bits_per_question": 0.9934085418229172,
+          "mean_turns": 5.666666666666667,
+          "optimal_policy_agreement": 1,
+          "solved_rate": 1,
+          "worst_turns": 6
+        },
+        "pairedDifferences": {
+          "policyAgreementGain": 0.31063829787234043,
+          "regretReduction": 0.04680851063829781,
+          "turnGain": 0.22916666666666607
+        },
+        "repeat": 1,
+        "seeds": [
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "singleGamePromptedProxy": {
+          "belief_output_rate": 1.0,
+          "episodes": 24,
+          "mean_action_regret": 0.0,
+          "mean_belief_brier": 0.6544117647058824,
+          "mean_belief_log_loss": 1.5909582985421307,
+          "mean_information_efficiency_bits_per_question": 0.9934085418229172,
+          "mean_turns": 5.666666666666667,
+          "optimal_policy_agreement": 1,
+          "solved_rate": 1,
+          "worst_turns": 6
+        }
+      },
+      {
+        "genericWeak": {
+          "belief_output_rate": 0.0,
+          "episodes": 192,
+          "mean_action_regret": 0.04883227176220805,
+          "mean_belief_brier": null,
+          "mean_belief_log_loss": null,
+          "mean_information_efficiency_bits_per_question": 0.9752711033590028,
+          "mean_turns": 5.90625,
+          "optimal_policy_agreement": 0.6910828025477707,
+          "solved_rate": 1,
+          "worst_turns": 8
+        },
+        "oracle": {
+          "belief_output_rate": 1.0,
+          "episodes": 24,
+          "mean_action_regret": 0.0,
+          "mean_belief_brier": 0.6544117647058824,
+          "mean_belief_log_loss": 1.5909582985421307,
+          "mean_information_efficiency_bits_per_question": 0.9934085418229172,
+          "mean_turns": 5.666666666666667,
+          "optimal_policy_agreement": 1,
+          "solved_rate": 1,
+          "worst_turns": 6
+        },
+        "pairedDifferences": {
+          "policyAgreementGain": 0.30891719745222934,
+          "regretReduction": 0.04883227176220805,
+          "turnGain": 0.23958333333333304
+        },
+        "repeat": 2,
+        "seeds": [
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ],
+        "singleGamePromptedProxy": {
+          "belief_output_rate": 1.0,
+          "episodes": 24,
+          "mean_action_regret": 0.0,
+          "mean_belief_brier": 0.6544117647058824,
+          "mean_belief_log_loss": 1.5909582985421307,
+          "mean_information_efficiency_bits_per_question": 0.9934085418229172,
+          "mean_turns": 5.666666666666667,
+          "optimal_policy_agreement": 1,
+          "solved_rate": 1,
+          "worst_turns": 6
+        }
+      },
+      {
+        "genericWeak": {
+          "belief_output_rate": 0.0,
+          "episodes": 192,
+          "mean_action_regret": 0.05385427666314678,
+          "mean_belief_brier": null,
+          "mean_belief_log_loss": null,
+          "mean_information_efficiency_bits_per_question": 0.9733948166213565,
+          "mean_turns": 5.932291666666667,
+          "optimal_policy_agreement": 0.7307286166842661,
+          "solved_rate": 1,
+          "worst_turns": 8
+        },
+        "oracle": {
+          "belief_output_rate": 1.0,
+          "episodes": 24,
+          "mean_action_regret": 0.0,
+          "mean_belief_brier": 0.6544117647058824,
+          "mean_belief_log_loss": 1.5909582985421307,
+          "mean_information_efficiency_bits_per_question": 0.9934085418229172,
+          "mean_turns": 5.666666666666667,
+          "optimal_policy_agreement": 1,
+          "solved_rate": 1,
+          "worst_turns": 6
+        },
+        "pairedDifferences": {
+          "policyAgreementGain": 0.26927138331573386,
+          "regretReduction": 0.05385427666314678,
+          "turnGain": 0.265625
+        },
+        "repeat": 3,
+        "seeds": [
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "singleGamePromptedProxy": {
+          "belief_output_rate": 1.0,
+          "episodes": 24,
+          "mean_action_regret": 0.0,
+          "mean_belief_brier": 0.6544117647058824,
+          "mean_belief_log_loss": 1.5909582985421307,
+          "mean_information_efficiency_bits_per_question": 0.9934085418229172,
+          "mean_turns": 5.666666666666667,
+          "optimal_policy_agreement": 1,
+          "solved_rate": 1,
+          "worst_turns": 6
+        }
+      }
+    ],
+    "reportSchemaVersion": "aip-repeated-pilot-v1",
+    "seedBlocks": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    ],
+    "seedsPerRepeat": 8
+  },
+  "protocol": {
+    "conditions": [
+      {
+        "condition_id": "prompt-generic__memory-off__cross-game-off",
+        "cross_game_experience": false,
+        "game_specific_prompt": false,
+        "memory": false
+      },
+      {
+        "condition_id": "prompt-generic__memory-off__cross-game-on",
+        "cross_game_experience": true,
+        "game_specific_prompt": false,
+        "memory": false
+      },
+      {
+        "condition_id": "prompt-generic__memory-on__cross-game-off",
+        "cross_game_experience": false,
+        "game_specific_prompt": false,
+        "memory": true
+      },
+      {
+        "condition_id": "prompt-generic__memory-on__cross-game-on",
+        "cross_game_experience": true,
+        "game_specific_prompt": false,
+        "memory": true
+      },
+      {
+        "condition_id": "prompt-single-game__memory-off__cross-game-off",
+        "cross_game_experience": false,
+        "game_specific_prompt": true,
+        "memory": false
+      },
+      {
+        "condition_id": "prompt-single-game__memory-off__cross-game-on",
+        "cross_game_experience": true,
+        "game_specific_prompt": true,
+        "memory": false
+      },
+      {
+        "condition_id": "prompt-single-game__memory-on__cross-game-off",
+        "cross_game_experience": false,
+        "game_specific_prompt": true,
+        "memory": true
+      },
+      {
+        "condition_id": "prompt-single-game__memory-on__cross-game-on",
+        "cross_game_experience": true,
+        "game_specific_prompt": true,
+        "memory": true
+      }
+    ],
+    "heldOutEnvironment": "mastermind",
+    "metricEligibility": {
+      "goofspiel": {
+        "belief_calibration": false,
+        "evidenceLevel": "equilibrium_backed_behavior",
+        "exploitability": true,
+        "information_efficiency": false,
+        "opponent_shift_robustness": true,
+        "policy_agreement": "equilibrium_support_or_distribution_agreement",
+        "regret": true
+      },
+      "guess-who": {
+        "belief_calibration": true,
+        "evidenceLevel": "proved_optimality",
+        "exploitability": false,
+        "information_efficiency": true,
+        "opponent_shift_robustness": false,
+        "policy_agreement": "exact_optimal_policy_agreement",
+        "regret": true
+      },
+      "kuhn-poker": {
+        "belief_calibration": true,
+        "evidenceLevel": "equilibrium_backed_behavior",
+        "exploitability": true,
+        "information_efficiency": true,
+        "opponent_shift_robustness": true,
+        "policy_agreement": "equilibrium_support_or_distribution_agreement",
+        "regret": true
+      },
+      "liars-dice": {
+        "belief_calibration": true,
+        "evidenceLevel": "strong_heuristic",
+        "exploitability": false,
+        "information_efficiency": true,
+        "opponent_shift_robustness": true,
+        "policy_agreement": "heuristic_reference_agreement",
+        "regret": false
+      },
+      "mastermind": {
+        "belief_calibration": true,
+        "evidenceLevel": "strong_heuristic",
+        "exploitability": false,
+        "information_efficiency": true,
+        "opponent_shift_robustness": false,
+        "policy_agreement": "heuristic_reference_agreement",
+        "regret": false
+      },
+      "worm": {
+        "belief_calibration": true,
+        "evidenceLevel": "proved_optimality",
+        "exploitability": false,
+        "information_efficiency": true,
+        "opponent_shift_robustness": false,
+        "policy_agreement": "exact_optimal_policy_agreement",
+        "regret": true
+      }
+    },
+    "models": [
+      "gpt-5.6-luna",
+      "gpt-5.6-terra"
+    ],
+    "opponentShifts": [
+      "reference",
+      "naive",
+      "adaptive",
+      "adversarial"
+    ],
+    "protocolId": "aip-cross-game-v1",
+    "repeats": 3,
+    "seeds": [
+      101,
+      211,
+      307,
+      401
+    ],
+    "trainingEnvironments": [
+      "kuhn-poker",
+      "goofspiel",
+      "guess-who",
+      "worm",
+      "liars-dice"
+    ],
+    "trialCount": 4608
+  }
+}
