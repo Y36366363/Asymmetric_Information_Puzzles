@@ -23,8 +23,10 @@ GENERIC_STRATEGIC_PROMPT = """You are a general strategic-reasoning agent.
 Use only the supplied observation, information state, public history, rules, and
 legal actions. Never infer a hidden state from episode identifiers. Choose one
 legal action. Report an honest confidence from 0 to 1 and, when meaningful, a
-normalized belief over the adapter's state labels. Return only the required JSON
-object, with no explanation or private reasoning text.
+normalized belief over the adapter's state labels. Encode the selected action's
+payload as JSON text in payload_json, using "{}" when the action has no payload.
+Return only the required JSON object, with no explanation or private reasoning
+text.
 """
 
 GUESS_WHO_STRATEGY_PROMPT = """For this Guess Who environment, treat the
@@ -38,6 +40,10 @@ DECISION_JSON_SCHEMA: Mapping[str, object] = {
     "properties": {
         "action_id": {"type": "string"},
         "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "payload_json": {
+            "type": "string",
+            "description": "JSON object for the chosen action payload; use {} when empty.",
+        },
         "belief": {
             "anyOf": [
                 {"type": "null"},
@@ -68,7 +74,7 @@ DECISION_JSON_SCHEMA: Mapping[str, object] = {
             ]
         },
     },
-    "required": ["action_id", "confidence", "belief"],
+    "required": ["action_id", "confidence", "payload_json", "belief"],
     "additionalProperties": False,
 }
 
@@ -272,15 +278,24 @@ def _parse_completion_decision(output_text: str) -> _ParsedDecision:
     payload = json.loads(output_text)
     if not isinstance(payload, dict):
         raise ValueError("completion output must be a JSON object")
-    expected = {"action_id", "confidence", "belief"}
+    expected = {"action_id", "confidence", "payload_json", "belief"}
     if set(payload) != expected:
-        raise ValueError("completion output must contain exactly action_id, confidence, belief")
+        raise ValueError(
+            "completion output must contain exactly action_id, confidence, "
+            "payload_json, belief"
+        )
     action_id = payload["action_id"]
     confidence = payload["confidence"]
     if not isinstance(action_id, str):
         raise ValueError("action_id must be a string")
     if isinstance(confidence, bool) or not isinstance(confidence, (int, float)):
         raise ValueError("confidence must be numeric")
+    payload_json = payload["payload_json"]
+    if not isinstance(payload_json, str):
+        raise ValueError("payload_json must be a string")
+    action_payload = json.loads(payload_json)
+    if not isinstance(action_payload, dict):
+        raise ValueError("payload_json must encode a JSON object")
     belief_payload = payload["belief"]
     belief = None
     raw_sum = None
@@ -328,7 +343,12 @@ def _parse_completion_decision(output_text: str) -> _ParsedDecision:
             normalized = True
         belief = BeliefOutput(target, probabilities)
     return _ParsedDecision(
-        AgentDecision(action_id, float(confidence), belief=belief),
+        AgentDecision(
+            action_id,
+            float(confidence),
+            payload=action_payload,
+            belief=belief,
+        ),
         raw_sum,
         normalized,
     )

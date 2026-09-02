@@ -21,7 +21,12 @@ from aip.benchmark import (
 
 def valid_output(action_id: str, confidence: float = 0.7) -> str:
     return json.dumps(
-        {"action_id": action_id, "confidence": confidence, "belief": None}
+        {
+            "action_id": action_id,
+            "confidence": confidence,
+            "payload_json": "{}",
+            "belief": None,
+        }
     )
 
 
@@ -163,6 +168,7 @@ class CompletionAgentTests(unittest.TestCase):
             {
                 "action_id": self.legal_action,
                 "confidence": 0.8,
+                "payload_json": "{}",
                 "belief": {
                     "target": "hidden_character",
                     "probabilities": [
@@ -279,6 +285,7 @@ class CompletionAgentTests(unittest.TestCase):
             {
                 "action_id": self.legal_action,
                 "confidence": 0.7,
+                "payload_json": "{}",
                 "belief": {
                     "target": "secret_character",
                     "probabilities": [
@@ -294,6 +301,28 @@ class CompletionAgentTests(unittest.TestCase):
         badly_scaled = rounded.replace("0.33", "0.2")
         with self.assertRaisesRegex(ValueError, "maximum accepted rounding"):
             parse_completion_decision(badly_scaled)
+
+    def test_payload_json_supports_game_specific_actions_without_changing_trace_shape(self):
+        output = json.dumps(
+            {
+                "action_id": "submit_guess",
+                "confidence": 0.75,
+                "payload_json": '{"guess":"0123"}',
+                "belief": None,
+            }
+        )
+        decision = parse_completion_decision(output)
+        self.assertEqual(decision.payload, {"guess": "0123"})
+        malformed = json.dumps(
+            {
+                "action_id": "submit_guess",
+                "confidence": 0.75,
+                "payload_json": "[]",
+                "belief": None,
+            }
+        )
+        with self.assertRaisesRegex(ValueError, "must encode a JSON object"):
+            parse_completion_decision(malformed)
 
 
 if __name__ == "__main__":

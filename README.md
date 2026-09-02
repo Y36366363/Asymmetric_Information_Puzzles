@@ -5,6 +5,27 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 09/02/2026
+
+- **Held-out Mastermind adapter** — Added spoiler-safe parameterized guesses,
+  exact candidate filtering, public feedback traces, and exact predictive-belief
+  truth for Brier, log-loss, and calibration-distance scoring.
+- **Strict evidence boundary** — Mastermind action quality is labelled only as a
+  bounded one-step strong heuristic. The evaluator exposes heuristic agreement
+  and information gain, never fabricated exact regret, optimality, or
+  exploitability.
+- **Executable leakage gate** — Frozen the generic prompt, reusable cross-game
+  memory, and source-environment list with SHA-256 hashes; target examples,
+  recipes, source contamination, or later material drift now fail the audit.
+- **Parameterized completion actions** — Extended the shared structured-output
+  contract with validated `payload_json`, so a real model can submit Mastermind
+  guesses without a game-specific completion parser.
+- **Offline readiness panel** — Four secrets were all solved by the declared
+  reference within ten guesses (mean `4.0`, worst `5`), with true-secret retention
+  at every step and exact predictive TV distance `0.0`. This is adapter validation,
+  not held-out model evidence; the two-model/two-repeat smoke remains the next
+  controlled stage. [Read the audit](research/mastermind_holdout_adapter_2026-09-02.md).
+
 ## Updates 09/01/2026
 
 - **Preregistered experiment grid** — Added deterministic trial identities across

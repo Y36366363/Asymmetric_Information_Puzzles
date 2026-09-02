@@ -1,0 +1,48 @@
+{
+  "date": "2026-09-02",
+  "frozenTransferAudit": {
+    "findings": [],
+    "manifest": {
+      "memorySha256": "4f3fcb87a8f4912a255d630c7dc4db140d3f15373567bec27222c20d30cffb7a",
+      "promptSha256": "14a57d20cc29e6ed2ace8e2fea38d0a23beb9a9861738449613fd6eabd0d6320",
+      "sourceEnvironmentIds": [
+        "guess-who",
+        "worm",
+        "kuhn-poker",
+        "goofspiel",
+        "liars-dice"
+      ]
+    },
+    "passed": true
+  },
+  "milestone": "mastermind-held-out-adapter-and-leakage-gate",
+  "nextStage": "Run the frozen two-model/two-repeat completion smoke only after recording model IDs, decoding settings, budget ceiling, and retry policy.",
+  "offlineReferencePanel": {
+    "beliefGroundTruth": "exact_next_feedback_distribution",
+    "evidenceLevel": "strong_heuristic",
+    "exactRegretReported": false,
+    "exploitabilityReported": false,
+    "policyReference": "bounded_one_step_minimax_heuristic",
+    "secretsEvaluated": 4,
+    "summary": {
+      "belief_output_rate": 1.0,
+      "episodes": 4,
+      "heuristic_reference_agreement": 1,
+      "mean_attempts": 4,
+      "mean_belief_brier": 0.7633910291084026,
+      "mean_belief_log_loss": 2.1312903402663537,
+      "mean_information_efficiency_bits_per_guess": 4.919683207354912,
+      "mean_predictive_tv_distance": 0.0,
+      "mean_worst_case_gap_to_heuristic": 0.0,
+      "solved_rate": 1,
+      "worst_attempts": 5
+    }
+  },
+  "readinessGates": {
+    "adapterCorrectnessPass": true,
+    "completionPayloadBoundaryPass": true,
+    "frozenMaterialPass": true,
+    "twoModelTwoRepeatSmokeAuthorized": true,
+    "twoModelTwoRepeatSmokeExecuted": false
+  }
+}

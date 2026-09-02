@@ -102,15 +102,15 @@ One decision request contains only:
 
 One agent response contains only:
 
-1. `action_id` and optional declared payload;
+1. `action_id` and optional declared payload (`payload_json` at the strict
+   completion boundary, decoded back to the same payload map);
 2. optional belief distribution over adapter-defined stable labels;
 3. confidence in `[0, 1]`.
 
 The interface intentionally omits simulator internals, hidden world state, and a
 mandatory chain-of-thought field. Agents may reason internally, but evaluation
 uses actions, stated beliefs, confidence, and outcomes. The implemented contract
-lives in `aip.benchmark`; environment adapters are the next milestone, not part
-of this one.
+and current Guess Who and Mastermind adapters live in `aip.benchmark`.
 
 ## 4. Experimental conditions
 
@@ -221,20 +221,22 @@ Implemented foundations:
    seed, repeat, condition, environment, and opponent shift; a full
    prompt × memory × cross-game-experience ablation matrix; and metric names
    gated by exact/equilibrium/heuristic ground truth.
+5. **Held-out Mastermind gate** — spoiler-safe action/feedback traces, exact
+   next-feedback belief truth, bounded-heuristic action comparison, a generic
+   completion payload bridge, and frozen prompt/memory hashes with target leakage
+   checks. This gate authorizes a small model smoke test; it is not model evidence.
 
 Future work proceeds one evidence-bearing slice at a time:
 
-1. **Held-out Mastermind adapter and leakage audit.** Freeze generic prompts and
-   cross-game memory before exposing any Mastermind episode. Single-game prompt
-   results remain a supervised ceiling, never transfer evidence.
-2. **Two-model smoke comparison.** Run a small frozen panel first; promote it to
+1. **Two-model smoke comparison.** Run a two-model, two-repeat frozen panel first;
+   promote it to
    the full seed/repeat grid only if completion and scoring reliability pass.
-3. **Kuhn/Goofspiel equilibrium adapters.** Add mixed-policy distance, exact
+2. **Kuhn/Goofspiel equilibrium adapters.** Add mixed-policy distance, exact
    regret, and exploitability before reporting either word in model results.
-4. **Liar's Dice opponent-shift panel.** Hold the agent fixed across reference,
+3. **Liar's Dice opponent-shift panel.** Hold the agent fixed across reference,
    naive, adaptive, and adversarial policies; exact belief calibration can be
    scored even though action quality remains heuristic-backed.
-5. **Factorial ablation execution.** Compare generic prompt, memory, and
+4. **Factorial ablation execution.** Compare generic prompt, memory, and
    cross-game experience with main effects and interactions. Do not infer a
    memory or transfer gain from unrelated prompts or different model snapshots.
 
