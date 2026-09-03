@@ -1,0 +1,1068 @@
+{
+  "agentId": "completion:gpt-5.6-terra:cross_game_experience",
+  "agentMetadata": {
+    "backendConfiguration": {
+      "maxOutputTokens": 2048,
+      "maxProviderCalls": 96,
+      "reasoningEffort": "low",
+      "reportedTokenStopThreshold": 250000,
+      "store": false,
+      "structuredOutputs": true
+    },
+    "claimLevel": "exploratory_llm_behavior",
+    "completionBacked": true,
+    "condition": "cross_game_experience",
+    "heldOut": true,
+    "isLlm": true,
+    "isRealModel": true,
+    "promptSha256": "48ee5e8d697bf01f58927075964eabbd58ca6a8cd030e2c7da737d74c233ea2f",
+    "protocolSha256": "0c989df2e45d2f21c156d35d36997de18b225763f47acea5a50ebab9b619fa6f",
+    "provider": "openai-responses",
+    "repeat": 0,
+    "requestedModel": "gpt-5.6-terra",
+    "usesCrossGameExperience": true,
+    "usesGameSpecificKnowledge": false
+  },
+  "environmentId": "mastermind",
+  "episodeId": "mastermind:smoke:repeat-0",
+  "evidenceLevel": "strong_heuristic",
+  "result": {
+    "attempts": 6,
+    "informationEfficiencyBitsPerGuess": 2.0498680030645464,
+    "maxAttempts": 10,
+    "referenceEvidenceLevel": "strong_heuristic",
+    "referenceScope": "bounded_one_step_minimax_heuristic",
+    "remainingCandidates": 1,
+    "secretAfterTerminal": "8062",
+    "solved": true
+  },
+  "schemaVersion": "aip-benchmark-trace-v0",
+  "steps": [
+    {
+      "agentTelemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "input_tokens": 632,
+            "latency_ms": 17185.821791994385,
+            "outcome": "success",
+            "output_characters": 953,
+            "output_sha256": "a222852e4efba678885ab888d6da9695d95c0164b13d0226cb9ab9559a6ecb5c",
+            "output_tokens": 1150,
+            "raw_belief_probability_sum": 1.0000000001,
+            "resolved_model": "gpt-5.6-terra",
+            "response_id": "resp_026918622d4d666a016a99975b287487d2a6e3e21fb3ea0aa5",
+            "total_tokens": 1782
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 1.0,
+        "inputTokens": 632,
+        "outputTokens": 1150,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-terra",
+        "retryCount": 0,
+        "totalLatencyMs": 17185.821791994385,
+        "totalTokens": 1782,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      },
+      "decision": {
+        "action_id": "submit_guess",
+        "belief": {
+          "probabilities": {
+            "exact=0|misplaced=0": 0.0714285714,
+            "exact=0|misplaced=1": 0.2857142857,
+            "exact=0|misplaced=2": 0.25,
+            "exact=0|misplaced=3": 0.0523809524,
+            "exact=0|misplaced=4": 0.0017857143,
+            "exact=1|misplaced=0": 0.0952380952,
+            "exact=1|misplaced=1": 0.1428571429,
+            "exact=1|misplaced=2": 0.0428571429,
+            "exact=1|misplaced=3": 0.0015873016,
+            "exact=2|misplaced=0": 0.0357142857,
+            "exact=2|misplaced=1": 0.0142857143,
+            "exact=2|misplaced=2": 0.0011904762,
+            "exact=3|misplaced=0": 0.0047619048,
+            "exact=4|misplaced=0": 0.0001984127
+          },
+          "target": "next_feedback"
+        },
+        "confidence": 1.0,
+        "payload": {
+          "guess": "0123"
+        }
+      },
+      "evaluation": {
+        "beliefBrier": 0.684803083268623,
+        "beliefLogLoss": 1.3862943611198906,
+        "beliefPredictiveTvDistance": 1.4523808289932175e-10,
+        "decisionKind": "information_guess",
+        "heuristicExpectedRemaining": 931.4075396825397,
+        "heuristicReferenceAgreement": true,
+        "heuristicReferenceGuess": "0123",
+        "heuristicWorstCaseRemaining": 1440,
+        "informationGainBits": 2.0,
+        "referenceEvidenceLevel": "strong_heuristic",
+        "selectedExpectedRemaining": 931.4075396825397,
+        "selectedWorstCaseRemaining": 1440,
+        "trueFeedbackProbability": 0.25,
+        "trueSecretRetained": true,
+        "worstCaseGapToHeuristic": 0,
+        "zeroProbabilityOnTruth": false
+      },
+      "input": {
+        "action_history": [],
+        "environment_id": "mastermind",
+        "episode_id": "mastermind:smoke:repeat-0",
+        "information_state": {
+          "attemptsRemaining": 10,
+          "beliefStateLabels": [
+            "exact=0|misplaced=0",
+            "exact=0|misplaced=1",
+            "exact=0|misplaced=2",
+            "exact=0|misplaced=3",
+            "exact=0|misplaced=4",
+            "exact=1|misplaced=0",
+            "exact=1|misplaced=1",
+            "exact=1|misplaced=2",
+            "exact=1|misplaced=3",
+            "exact=2|misplaced=0",
+            "exact=2|misplaced=1",
+            "exact=2|misplaced=2",
+            "exact=3|misplaced=0",
+            "exact=4|misplaced=0"
+          ],
+          "beliefTarget": "next_feedback",
+          "candidateCount": 5040,
+          "candidatePreview": [
+            "0123",
+            "0124",
+            "0125",
+            "0126",
+            "0127",
+            "0128",
+            "0129",
+            "0132",
+            "0134",
+            "0135",
+            "0136",
+            "0137"
+          ],
+          "candidatePreviewComplete": false,
+          "referenceScope": "bounded_one_step_minimax_heuristic"
+        },
+        "legal_actions": [
+          {
+            "action_id": "submit_guess",
+            "description": "Submit four distinct decimal digits as a string; leading zero is allowed.",
+            "payload_schema": {
+              "guess": "four_distinct_digit_string"
+            }
+          }
+        ],
+        "natural_language_rules": "A hidden four-symbol sequence uses distinct decimal digits and may begin with zero. Submit one four-digit guess per turn. The public response reports how many digits are exact in both value and position and how many are present in a different position. Solve within ten guesses.",
+        "observation": {
+          "kind": "start"
+        },
+        "step": 0
+      },
+      "outcome": {
+        "exact": 0,
+        "guess": "0123",
+        "kind": "feedback",
+        "misplaced": 2,
+        "remainingCandidates": 1260,
+        "solved": false
+      }
+    },
+    {
+      "agentTelemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "input_tokens": 709,
+            "latency_ms": 4833.624750026502,
+            "outcome": "success",
+            "output_characters": 98,
+            "output_sha256": "124ac932a58f68e1d1c2c585248b264d39d9bdf7b2a00098d2258a4607d3e144",
+            "output_tokens": 212,
+            "raw_belief_probability_sum": null,
+            "resolved_model": "gpt-5.6-terra",
+            "response_id": "resp_089020a0cd36095c016a99976c60a887d29454cb54a1dad526",
+            "total_tokens": 921
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.72,
+        "inputTokens": 709,
+        "outputTokens": 212,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-terra",
+        "retryCount": 0,
+        "totalLatencyMs": 4833.624750026502,
+        "totalTokens": 921,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      },
+      "decision": {
+        "action_id": "submit_guess",
+        "belief": null,
+        "confidence": 0.72,
+        "payload": {
+          "guess": "4567"
+        }
+      },
+      "evaluation": {
+        "beliefBrier": null,
+        "beliefLogLoss": null,
+        "beliefPredictiveTvDistance": null,
+        "decisionKind": "information_guess",
+        "heuristicExpectedRemaining": 218.21428571428572,
+        "heuristicReferenceAgreement": false,
+        "heuristicReferenceGuess": "1340",
+        "heuristicWorstCaseRemaining": 300,
+        "informationGainBits": 2.9068905956085187,
+        "referenceEvidenceLevel": "strong_heuristic",
+        "selectedExpectedRemaining": 322.0,
+        "selectedWorstCaseRemaining": 504,
+        "trueFeedbackProbability": null,
+        "trueSecretRetained": true,
+        "worstCaseGapToHeuristic": 204,
+        "zeroProbabilityOnTruth": null
+      },
+      "input": {
+        "action_history": [
+          {
+            "action_id": "submit_guess",
+            "actor_id": "agent",
+            "payload": {
+              "guess": "0123"
+            },
+            "public_observation": {
+              "exact": 0,
+              "guess": "0123",
+              "kind": "feedback",
+              "misplaced": 2,
+              "remainingCandidates": 1260,
+              "solved": false
+            }
+          }
+        ],
+        "environment_id": "mastermind",
+        "episode_id": "mastermind:smoke:repeat-0",
+        "information_state": {
+          "attemptsRemaining": 9,
+          "beliefStateLabels": [
+            "exact=0|misplaced=0",
+            "exact=0|misplaced=1",
+            "exact=0|misplaced=2",
+            "exact=0|misplaced=3",
+            "exact=0|misplaced=4",
+            "exact=1|misplaced=0",
+            "exact=1|misplaced=1",
+            "exact=1|misplaced=2",
+            "exact=1|misplaced=3",
+            "exact=2|misplaced=0",
+            "exact=2|misplaced=1",
+            "exact=2|misplaced=2",
+            "exact=3|misplaced=0",
+            "exact=4|misplaced=0"
+          ],
+          "beliefTarget": "next_feedback",
+          "candidateCount": 1260,
+          "candidatePreview": [
+            "1045",
+            "1046",
+            "1047",
+            "1048",
+            "1049",
+            "1054",
+            "1056",
+            "1057",
+            "1058",
+            "1059",
+            "1064",
+            "1065"
+          ],
+          "candidatePreviewComplete": false,
+          "referenceScope": "bounded_one_step_minimax_heuristic"
+        },
+        "legal_actions": [
+          {
+            "action_id": "submit_guess",
+            "description": "Submit four distinct decimal digits as a string; leading zero is allowed.",
+            "payload_schema": {
+              "guess": "four_distinct_digit_string"
+            }
+          }
+        ],
+        "natural_language_rules": "A hidden four-symbol sequence uses distinct decimal digits and may begin with zero. Submit one four-digit guess per turn. The public response reports how many digits are exact in both value and position and how many are present in a different position. Solve within ten guesses.",
+        "observation": {
+          "exact": 0,
+          "guess": "0123",
+          "kind": "feedback",
+          "misplaced": 2,
+          "remainingCandidates": 1260,
+          "solved": false
+        },
+        "step": 1
+      },
+      "outcome": {
+        "exact": 1,
+        "guess": "4567",
+        "kind": "feedback",
+        "misplaced": 0,
+        "remainingCandidates": 168,
+        "solved": false
+      }
+    },
+    {
+      "agentTelemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "input_tokens": 759,
+            "latency_ms": 26466.033125005197,
+            "outcome": "success",
+            "output_characters": 98,
+            "output_sha256": "16b0fbea1bff41317c908295e29900df80e2791aab57a93e80f0b7909146e7f2",
+            "output_tokens": 1384,
+            "raw_belief_probability_sum": null,
+            "resolved_model": "gpt-5.6-terra",
+            "response_id": "resp_0f2f832c5d7c16fc016a999771e4a487d2880558515d31c731",
+            "total_tokens": 2143
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.42,
+        "inputTokens": 759,
+        "outputTokens": 1384,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-terra",
+        "retryCount": 0,
+        "totalLatencyMs": 26466.033125005197,
+        "totalTokens": 2143,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      },
+      "decision": {
+        "action_id": "submit_guess",
+        "belief": null,
+        "confidence": 0.42,
+        "payload": {
+          "guess": "0148"
+        }
+      },
+      "evaluation": {
+        "beliefBrier": null,
+        "beliefLogLoss": null,
+        "beliefPredictiveTvDistance": null,
+        "decisionKind": "information_guess",
+        "heuristicExpectedRemaining": 24.714285714285715,
+        "heuristicReferenceAgreement": false,
+        "heuristicReferenceGuess": "4590",
+        "heuristicWorstCaseRemaining": 34,
+        "informationGainBits": 1.509674373416919,
+        "referenceEvidenceLevel": "strong_heuristic",
+        "selectedExpectedRemaining": 41.785714285714285,
+        "selectedWorstCaseRemaining": 59,
+        "trueFeedbackProbability": null,
+        "trueSecretRetained": true,
+        "worstCaseGapToHeuristic": 25,
+        "zeroProbabilityOnTruth": null
+      },
+      "input": {
+        "action_history": [
+          {
+            "action_id": "submit_guess",
+            "actor_id": "agent",
+            "payload": {
+              "guess": "0123"
+            },
+            "public_observation": {
+              "exact": 0,
+              "guess": "0123",
+              "kind": "feedback",
+              "misplaced": 2,
+              "remainingCandidates": 1260,
+              "solved": false
+            }
+          },
+          {
+            "action_id": "submit_guess",
+            "actor_id": "agent",
+            "payload": {
+              "guess": "4567"
+            },
+            "public_observation": {
+              "exact": 1,
+              "guess": "4567",
+              "kind": "feedback",
+              "misplaced": 0,
+              "remainingCandidates": 168,
+              "solved": false
+            }
+          }
+        ],
+        "environment_id": "mastermind",
+        "episode_id": "mastermind:smoke:repeat-0",
+        "information_state": {
+          "attemptsRemaining": 8,
+          "beliefStateLabels": [
+            "exact=0|misplaced=0",
+            "exact=0|misplaced=1",
+            "exact=0|misplaced=2",
+            "exact=0|misplaced=3",
+            "exact=0|misplaced=4",
+            "exact=1|misplaced=0",
+            "exact=1|misplaced=1",
+            "exact=1|misplaced=2",
+            "exact=1|misplaced=3",
+            "exact=2|misplaced=0",
+            "exact=2|misplaced=1",
+            "exact=2|misplaced=2",
+            "exact=3|misplaced=0",
+            "exact=4|misplaced=0"
+          ],
+          "beliefTarget": "next_feedback",
+          "candidateCount": 168,
+          "candidatePreview": [
+            "1068",
+            "1069",
+            "1087",
+            "1097",
+            "1268",
+            "1269",
+            "1287",
+            "1297",
+            "1368",
+            "1369",
+            "1387",
+            "1397"
+          ],
+          "candidatePreviewComplete": false,
+          "referenceScope": "bounded_one_step_minimax_heuristic"
+        },
+        "legal_actions": [
+          {
+            "action_id": "submit_guess",
+            "description": "Submit four distinct decimal digits as a string; leading zero is allowed.",
+            "payload_schema": {
+              "guess": "four_distinct_digit_string"
+            }
+          }
+        ],
+        "natural_language_rules": "A hidden four-symbol sequence uses distinct decimal digits and may begin with zero. Submit one four-digit guess per turn. The public response reports how many digits are exact in both value and position and how many are present in a different position. Solve within ten guesses.",
+        "observation": {
+          "exact": 1,
+          "guess": "4567",
+          "kind": "feedback",
+          "misplaced": 0,
+          "remainingCandidates": 168,
+          "solved": false
+        },
+        "step": 2
+      },
+      "outcome": {
+        "exact": 0,
+        "guess": "0148",
+        "kind": "feedback",
+        "misplaced": 2,
+        "remainingCandidates": 59,
+        "solved": false
+      }
+    },
+    {
+      "agentTelemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "input_tokens": 811,
+            "latency_ms": 20693.2447499712,
+            "outcome": "success",
+            "output_characters": 98,
+            "output_sha256": "e70f3028e7813102eee3cf99f1a55230b3e4ab9531c1bba461e2d8da26b7b4d2",
+            "output_tokens": 1071,
+            "raw_belief_probability_sum": null,
+            "resolved_model": "gpt-5.6-terra",
+            "response_id": "resp_05732bcafe4cfa0c016a99978c6b9487d2a7d603f07e58716d",
+            "total_tokens": 1882
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.62,
+        "inputTokens": 811,
+        "outputTokens": 1071,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-terra",
+        "retryCount": 0,
+        "totalLatencyMs": 20693.2447499712,
+        "totalTokens": 1882,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      },
+      "decision": {
+        "action_id": "submit_guess",
+        "belief": null,
+        "confidence": 0.62,
+        "payload": {
+          "guess": "4528"
+        }
+      },
+      "evaluation": {
+        "beliefBrier": null,
+        "beliefLogLoss": null,
+        "beliefPredictiveTvDistance": null,
+        "decisionKind": "information_guess",
+        "heuristicExpectedRemaining": 7.033898305084746,
+        "heuristicReferenceAgreement": false,
+        "heuristicReferenceGuess": "8271",
+        "heuristicWorstCaseRemaining": 10,
+        "informationGainBits": 2.297680548640685,
+        "referenceEvidenceLevel": "strong_heuristic",
+        "selectedExpectedRemaining": 10.423728813559322,
+        "selectedWorstCaseRemaining": 12,
+        "trueFeedbackProbability": null,
+        "trueSecretRetained": true,
+        "worstCaseGapToHeuristic": 2,
+        "zeroProbabilityOnTruth": null
+      },
+      "input": {
+        "action_history": [
+          {
+            "action_id": "submit_guess",
+            "actor_id": "agent",
+            "payload": {
+              "guess": "0123"
+            },
+            "public_observation": {
+              "exact": 0,
+              "guess": "0123",
+              "kind": "feedback",
+              "misplaced": 2,
+              "remainingCandidates": 1260,
+              "solved": false
+            }
+          },
+          {
+            "action_id": "submit_guess",
+            "actor_id": "agent",
+            "payload": {
+              "guess": "4567"
+            },
+            "public_observation": {
+              "exact": 1,
+              "guess": "4567",
+              "kind": "feedback",
+              "misplaced": 0,
+              "remainingCandidates": 168,
+              "solved": false
+            }
+          },
+          {
+            "action_id": "submit_guess",
+            "actor_id": "agent",
+            "payload": {
+              "guess": "0148"
+            },
+            "public_observation": {
+              "exact": 0,
+              "guess": "0148",
+              "kind": "feedback",
+              "misplaced": 2,
+              "remainingCandidates": 59,
+              "solved": false
+            }
+          }
+        ],
+        "environment_id": "mastermind",
+        "episode_id": "mastermind:smoke:repeat-0",
+        "information_state": {
+          "attemptsRemaining": 7,
+          "beliefStateLabels": [
+            "exact=0|misplaced=0",
+            "exact=0|misplaced=1",
+            "exact=0|misplaced=2",
+            "exact=0|misplaced=3",
+            "exact=0|misplaced=4",
+            "exact=1|misplaced=0",
+            "exact=1|misplaced=1",
+            "exact=1|misplaced=2",
+            "exact=1|misplaced=3",
+            "exact=2|misplaced=0",
+            "exact=2|misplaced=1",
+            "exact=2|misplaced=2",
+            "exact=3|misplaced=0",
+            "exact=4|misplaced=0"
+          ],
+          "beliefTarget": "next_feedback",
+          "candidateCount": 59,
+          "candidatePreview": [
+            "1069",
+            "1097",
+            "1287",
+            "1387",
+            "1509",
+            "1582",
+            "1590",
+            "1837",
+            "1862",
+            "1907",
+            "1960",
+            "2087"
+          ],
+          "candidatePreviewComplete": false,
+          "referenceScope": "bounded_one_step_minimax_heuristic"
+        },
+        "legal_actions": [
+          {
+            "action_id": "submit_guess",
+            "description": "Submit four distinct decimal digits as a string; leading zero is allowed.",
+            "payload_schema": {
+              "guess": "four_distinct_digit_string"
+            }
+          }
+        ],
+        "natural_language_rules": "A hidden four-symbol sequence uses distinct decimal digits and may begin with zero. Submit one four-digit guess per turn. The public response reports how many digits are exact in both value and position and how many are present in a different position. Solve within ten guesses.",
+        "observation": {
+          "exact": 0,
+          "guess": "0148",
+          "kind": "feedback",
+          "misplaced": 2,
+          "remainingCandidates": 59,
+          "solved": false
+        },
+        "step": 3
+      },
+      "outcome": {
+        "exact": 0,
+        "guess": "4528",
+        "kind": "feedback",
+        "misplaced": 2,
+        "remainingCandidates": 12,
+        "solved": false
+      }
+    },
+    {
+      "agentTelemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "input_tokens": 863,
+            "latency_ms": 13787.619708047714,
+            "outcome": "success",
+            "output_characters": 668,
+            "output_sha256": "9338184b2f859fb157705cddfb5e2c9d159338b66f604141aad563091ef8fa20",
+            "output_tokens": 900,
+            "raw_belief_probability_sum": 0.9999999999,
+            "resolved_model": "gpt-5.6-terra",
+            "response_id": "resp_075a62301911fdfc016a9997a179c087d29daf5ca3544cbead",
+            "total_tokens": 1763
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.9,
+        "inputTokens": 863,
+        "outputTokens": 900,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-terra",
+        "retryCount": 0,
+        "totalLatencyMs": 13787.619708047714,
+        "totalTokens": 1763,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      },
+      "decision": {
+        "action_id": "submit_guess",
+        "belief": {
+          "probabilities": {
+            "exact=0|misplaced=2": 0.1666666667,
+            "exact=0|misplaced=3": 0.0833333333,
+            "exact=1|misplaced=1": 0.0833333333,
+            "exact=1|misplaced=2": 0.1666666667,
+            "exact=2|misplaced=0": 0.0833333333,
+            "exact=2|misplaced=1": 0.1666666667,
+            "exact=2|misplaced=2": 0.0833333333,
+            "exact=3|misplaced=0": 0.0833333333,
+            "exact=4|misplaced=0": 0.0833333333
+          },
+          "target": "next_feedback"
+        },
+        "confidence": 0.9,
+        "payload": {
+          "guess": "2861"
+        }
+      },
+      "evaluation": {
+        "beliefBrier": 0.7916666666000001,
+        "beliefLogLoss": 1.791759469028055,
+        "beliefPredictiveTvDistance": 0.16666666681666664,
+        "decisionKind": "information_guess",
+        "heuristicExpectedRemaining": 1.5,
+        "heuristicReferenceAgreement": false,
+        "heuristicReferenceGuess": "2807",
+        "heuristicWorstCaseRemaining": 2,
+        "informationGainBits": 2.584962500721156,
+        "referenceEvidenceLevel": "strong_heuristic",
+        "selectedExpectedRemaining": 1.5,
+        "selectedWorstCaseRemaining": 2,
+        "trueFeedbackProbability": 0.1666666667,
+        "trueSecretRetained": true,
+        "worstCaseGapToHeuristic": 0,
+        "zeroProbabilityOnTruth": false
+      },
+      "input": {
+        "action_history": [
+          {
+            "action_id": "submit_guess",
+            "actor_id": "agent",
+            "payload": {
+              "guess": "0123"
+            },
+            "public_observation": {
+              "exact": 0,
+              "guess": "0123",
+              "kind": "feedback",
+              "misplaced": 2,
+              "remainingCandidates": 1260,
+              "solved": false
+            }
+          },
+          {
+            "action_id": "submit_guess",
+            "actor_id": "agent",
+            "payload": {
+              "guess": "4567"
+            },
+            "public_observation": {
+              "exact": 1,
+              "guess": "4567",
+              "kind": "feedback",
+              "misplaced": 0,
+              "remainingCandidates": 168,
+              "solved": false
+            }
+          },
+          {
+            "action_id": "submit_guess",
+            "actor_id": "agent",
+            "payload": {
+              "guess": "0148"
+            },
+            "public_observation": {
+              "exact": 0,
+              "guess": "0148",
+              "kind": "feedback",
+              "misplaced": 2,
+              "remainingCandidates": 59,
+              "solved": false
+            }
+          },
+          {
+            "action_id": "submit_guess",
+            "actor_id": "agent",
+            "payload": {
+              "guess": "4528"
+            },
+            "public_observation": {
+              "exact": 0,
+              "guess": "4528",
+              "kind": "feedback",
+              "misplaced": 2,
+              "remainingCandidates": 12,
+              "solved": false
+            }
+          }
+        ],
+        "environment_id": "mastermind",
+        "episode_id": "mastermind:smoke:repeat-0",
+        "information_state": {
+          "attemptsRemaining": 6,
+          "beliefStateLabels": [
+            "exact=0|misplaced=0",
+            "exact=0|misplaced=1",
+            "exact=0|misplaced=2",
+            "exact=0|misplaced=3",
+            "exact=0|misplaced=4",
+            "exact=1|misplaced=0",
+            "exact=1|misplaced=1",
+            "exact=1|misplaced=2",
+            "exact=1|misplaced=3",
+            "exact=2|misplaced=0",
+            "exact=2|misplaced=1",
+            "exact=2|misplaced=2",
+            "exact=3|misplaced=0",
+            "exact=4|misplaced=0"
+          ],
+          "beliefTarget": "next_feedback",
+          "candidateCount": 12,
+          "candidatePreview": [
+            "1287",
+            "1862",
+            "2087",
+            "2807",
+            "2817",
+            "2860",
+            "2861",
+            "8062",
+            "8207",
+            "8217",
+            "8260",
+            "8261"
+          ],
+          "candidatePreviewComplete": true,
+          "referenceScope": "bounded_one_step_minimax_heuristic"
+        },
+        "legal_actions": [
+          {
+            "action_id": "submit_guess",
+            "description": "Submit four distinct decimal digits as a string; leading zero is allowed.",
+            "payload_schema": {
+              "guess": "four_distinct_digit_string"
+            }
+          }
+        ],
+        "natural_language_rules": "A hidden four-symbol sequence uses distinct decimal digits and may begin with zero. Submit one four-digit guess per turn. The public response reports how many digits are exact in both value and position and how many are present in a different position. Solve within ten guesses.",
+        "observation": {
+          "exact": 0,
+          "guess": "4528",
+          "kind": "feedback",
+          "misplaced": 2,
+          "remainingCandidates": 12,
+          "solved": false
+        },
+        "step": 4
+      },
+      "outcome": {
+        "exact": 1,
+        "guess": "2861",
+        "kind": "feedback",
+        "misplaced": 2,
+        "remainingCandidates": 2,
+        "solved": false
+      }
+    },
+    {
+      "agentTelemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "input_tokens": 885,
+            "latency_ms": 3575.5117089720443,
+            "outcome": "success",
+            "output_characters": 235,
+            "output_sha256": "3fde8111b46b6b37713c4c843b3d09bca89046ccb3df3fd8807e11e02acac536",
+            "output_tokens": 188,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-terra",
+            "response_id": "resp_0cdad7d7ffb1a297016a9997af6de487d2b140e2be7f4f05a3",
+            "total_tokens": 1073
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 1.0,
+        "inputTokens": 885,
+        "outputTokens": 188,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-terra",
+        "retryCount": 0,
+        "totalLatencyMs": 3575.5117089720443,
+        "totalTokens": 1073,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      },
+      "decision": {
+        "action_id": "submit_guess",
+        "belief": {
+          "probabilities": {
+            "exact=2|misplaced=2": 0.5,
+            "exact=4|misplaced=0": 0.5
+          },
+          "target": "next_feedback"
+        },
+        "confidence": 1.0,
+        "payload": {
+          "guess": "8062"
+        }
+      },
+      "evaluation": {
+        "beliefBrier": 0.5,
+        "beliefLogLoss": 0.6931471805599453,
+        "beliefPredictiveTvDistance": 0.0,
+        "decisionKind": "information_guess",
+        "heuristicExpectedRemaining": 1.0,
+        "heuristicReferenceAgreement": true,
+        "heuristicReferenceGuess": "8062",
+        "heuristicWorstCaseRemaining": 1,
+        "informationGainBits": 1.0,
+        "referenceEvidenceLevel": "strong_heuristic",
+        "selectedExpectedRemaining": 1.0,
+        "selectedWorstCaseRemaining": 1,
+        "trueFeedbackProbability": 0.5,
+        "trueSecretRetained": true,
+        "worstCaseGapToHeuristic": 0,
+        "zeroProbabilityOnTruth": false
+      },
+      "input": {
+        "action_history": [
+          {
+            "action_id": "submit_guess",
+            "actor_id": "agent",
+            "payload": {
+              "guess": "0123"
+            },
+            "public_observation": {
+              "exact": 0,
+              "guess": "0123",
+              "kind": "feedback",
+              "misplaced": 2,
+              "remainingCandidates": 1260,
+              "solved": false
+            }
+          },
+          {
+            "action_id": "submit_guess",
+            "actor_id": "agent",
+            "payload": {
+              "guess": "4567"
+            },
+            "public_observation": {
+              "exact": 1,
+              "guess": "4567",
+              "kind": "feedback",
+              "misplaced": 0,
+              "remainingCandidates": 168,
+              "solved": false
+            }
+          },
+          {
+            "action_id": "submit_guess",
+            "actor_id": "agent",
+            "payload": {
+              "guess": "0148"
+            },
+            "public_observation": {
+              "exact": 0,
+              "guess": "0148",
+              "kind": "feedback",
+              "misplaced": 2,
+              "remainingCandidates": 59,
+              "solved": false
+            }
+          },
+          {
+            "action_id": "submit_guess",
+            "actor_id": "agent",
+            "payload": {
+              "guess": "4528"
+            },
+            "public_observation": {
+              "exact": 0,
+              "guess": "4528",
+              "kind": "feedback",
+              "misplaced": 2,
+              "remainingCandidates": 12,
+              "solved": false
+            }
+          },
+          {
+            "action_id": "submit_guess",
+            "actor_id": "agent",
+            "payload": {
+              "guess": "2861"
+            },
+            "public_observation": {
+              "exact": 1,
+              "guess": "2861",
+              "kind": "feedback",
+              "misplaced": 2,
+              "remainingCandidates": 2,
+              "solved": false
+            }
+          }
+        ],
+        "environment_id": "mastermind",
+        "episode_id": "mastermind:smoke:repeat-0",
+        "information_state": {
+          "attemptsRemaining": 5,
+          "beliefStateLabels": [
+            "exact=0|misplaced=0",
+            "exact=0|misplaced=1",
+            "exact=0|misplaced=2",
+            "exact=0|misplaced=3",
+            "exact=0|misplaced=4",
+            "exact=1|misplaced=0",
+            "exact=1|misplaced=1",
+            "exact=1|misplaced=2",
+            "exact=1|misplaced=3",
+            "exact=2|misplaced=0",
+            "exact=2|misplaced=1",
+            "exact=2|misplaced=2",
+            "exact=3|misplaced=0",
+            "exact=4|misplaced=0"
+          ],
+          "beliefTarget": "next_feedback",
+          "candidateCount": 2,
+          "candidatePreview": [
+            "8062",
+            "8260"
+          ],
+          "candidatePreviewComplete": true,
+          "referenceScope": "bounded_one_step_minimax_heuristic"
+        },
+        "legal_actions": [
+          {
+            "action_id": "submit_guess",
+            "description": "Submit four distinct decimal digits as a string; leading zero is allowed.",
+            "payload_schema": {
+              "guess": "four_distinct_digit_string"
+            }
+          }
+        ],
+        "natural_language_rules": "A hidden four-symbol sequence uses distinct decimal digits and may begin with zero. Submit one four-digit guess per turn. The public response reports how many digits are exact in both value and position and how many are present in a different position. Solve within ten guesses.",
+        "observation": {
+          "exact": 1,
+          "guess": "2861",
+          "kind": "feedback",
+          "misplaced": 2,
+          "remainingCandidates": 2,
+          "solved": false
+        },
+        "step": 5
+      },
+      "outcome": {
+        "exact": 4,
+        "guess": "8062",
+        "kind": "feedback",
+        "misplaced": 0,
+        "remainingCandidates": 1,
+        "solved": true
+      }
+    }
+  ]
+}

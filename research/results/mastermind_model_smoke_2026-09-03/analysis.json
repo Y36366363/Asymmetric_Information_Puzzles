@@ -1,0 +1,30 @@
+{
+  "conditionSummary": {
+    "cross_game_experience": {
+      "completedEpisodes": 4,
+      "completionRate": 1.0,
+      "episodes": 4,
+      "meanAttemptsAmongCompleted": 6.25,
+      "meanBeliefOutputRateAmongCompleted": 0.44047619047619047,
+      "meanHeuristicAgreementAmongCompleted": 0.44047619047619047,
+      "meanOfEpisodeBeliefBrierAmongCompleted": 0.5703932954332588,
+      "solvedRateAmongCompleted": 1
+    },
+    "generic": {
+      "completedEpisodes": 2,
+      "completionRate": 0.5,
+      "episodes": 4,
+      "meanAttemptsAmongCompleted": 6.5,
+      "meanBeliefOutputRateAmongCompleted": 0.45238095238095233,
+      "meanHeuristicAgreementAmongCompleted": 0.4642857142857143,
+      "meanOfEpisodeBeliefBrierAmongCompleted": 0.579717823240705,
+      "solvedRateAmongCompleted": 1
+    }
+  },
+  "emptyOutputsAtExactOutputTokenCap": 5,
+  "evidenceLevel": "exploratory_llm_behavior",
+  "interpretation": "Directional condition differences are not a transfer estimate: the panel has only two repeats, two failed episodes, and one interrupted request with unknown reported-token usage.",
+  "primaryPurpose": "completion_and_scoring_reliability_smoke",
+  "reliabilityGatePassed": false,
+  "transferGainClaimed": false
+}

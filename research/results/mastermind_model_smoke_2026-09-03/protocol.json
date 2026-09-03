@@ -1,0 +1,50 @@
+{
+  "leakageAudit": {
+    "findings": [],
+    "manifest": {
+      "memorySha256": "4f3fcb87a8f4912a255d630c7dc4db140d3f15373567bec27222c20d30cffb7a",
+      "promptSha256": "14a57d20cc29e6ed2ace8e2fea38d0a23beb9a9861738449613fd6eabd0d6320",
+      "sourceEnvironmentIds": [
+        "guess-who",
+        "worm",
+        "kuhn-poker",
+        "goofspiel",
+        "liars-dice"
+      ]
+    },
+    "passed": true
+  },
+  "protocol": {
+    "conditions": [
+      "generic",
+      "cross_game_experience"
+    ],
+    "frozen_transfer_manifest": {
+      "memorySha256": "4f3fcb87a8f4912a255d630c7dc4db140d3f15373567bec27222c20d30cffb7a",
+      "promptSha256": "14a57d20cc29e6ed2ace8e2fea38d0a23beb9a9861738449613fd6eabd0d6320",
+      "sourceEnvironmentIds": [
+        "guess-who",
+        "worm",
+        "kuhn-poker",
+        "goofspiel",
+        "liars-dice"
+      ]
+    },
+    "max_attempts_per_decision": 2,
+    "max_output_tokens_per_request": 2048,
+    "max_provider_calls": 96,
+    "model_ids": [
+      "gpt-5.6-luna",
+      "gpt-5.6-terra"
+    ],
+    "planned_episodes": 8,
+    "protocol_id": "aip-mastermind-heldout-smoke-v1",
+    "reasoning_effort": "low",
+    "repeats": 2,
+    "reported_token_stop_threshold": 250000,
+    "secret": "8062",
+    "token_threshold_semantics": "Stop before the next provider call after cumulative API-reported tokens reach the threshold; one completed response may cross it."
+  },
+  "protocolSha256": "0c989df2e45d2f21c156d35d36997de18b225763f47acea5a50ebab9b619fa6f",
+  "status": "prepared_before_api_calls"
+}

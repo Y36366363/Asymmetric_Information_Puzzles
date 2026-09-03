@@ -225,12 +225,16 @@ Implemented foundations:
    next-feedback belief truth, bounded-heuristic action comparison, a generic
    completion payload bridge, and frozen prompt/memory hashes with target leakage
    checks. This gate authorizes a small model smoke test; it is not model evidence.
+6. **Frozen two-model smoke** — two models × two repeats × generic/cross-game
+   conditions produced six completed and two failed episodes. Five empty outputs
+   reached the exact output-token ceiling, so the reliability gate failed and no
+   transfer gain is claimed.
 
 Future work proceeds one evidence-bearing slice at a time:
 
-1. **Two-model smoke comparison.** Run a two-model, two-repeat frozen panel first;
-   promote it to
-   the full seed/repeat grid only if completion and scoring reliability pass.
+1. **Completion-ceiling diagnostic.** Keep the frozen models, prompts, memory,
+   secret, and retry count unchanged; preregister a small larger-output-cap check
+   because five v1 failures exhausted the 2,048-token ceiling without JSON.
 2. **Kuhn/Goofspiel equilibrium adapters.** Add mixed-policy distance, exact
    regret, and exploitability before reporting either word in model results.
 3. **Liar's Dice opponent-shift panel.** Hold the agent fixed across reference,

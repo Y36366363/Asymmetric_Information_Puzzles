@@ -10,7 +10,12 @@ from dataclasses import asdict, dataclass
 from statistics import mean
 from typing import Iterable, Mapping
 
-from aip.benchmark.completion import GENERIC_STRATEGIC_PROMPT
+from aip.benchmark.completion import (
+    GENERIC_STRATEGIC_PROMPT,
+    CompletionBackend,
+    CompletionBackedAgent,
+    PromptCondition,
+)
 from aip.benchmark.runner import EpisodeTrace, StepResult, run_episode
 from aip.benchmark.types import (
     ActionEvent,
@@ -103,6 +108,18 @@ class LeakageAudit:
     manifest: Mapping[str, object]
 
 
+@dataclass(frozen=True, slots=True)
+class MastermindCompletionPair:
+    generic: CompletionBackedAgent
+    cross_game: CompletionBackedAgent
+
+    def __post_init__(self) -> None:
+        if self.generic.backend is not self.cross_game.backend:
+            raise ValueError("paired conditions must share the same backend instance")
+        if self.generic.model != self.cross_game.model:
+            raise ValueError("paired conditions must request the same model")
+
+
 def audit_mastermind_holdout(bundle: FrozenTransferBundle) -> LeakageAudit:
     """Reject target traces, examples, action recipes, and target-specific terms."""
 
@@ -118,6 +135,34 @@ def audit_mastermind_holdout(bundle: FrozenTransferBundle) -> LeakageAudit:
         if re.search(pattern, material):
             findings.append(f"target-specific material matched /{pattern}/")
     return LeakageAudit(not findings, tuple(findings), manifest)
+
+
+def make_mastermind_completion_pair(
+    backend: CompletionBackend,
+    model: str,
+    *,
+    max_attempts: int = 2,
+) -> MastermindCompletionPair:
+    """Create the primary held-out comparison without target-game advice."""
+
+    audit = audit_mastermind_holdout(FROZEN_TRANSFER_BUNDLE_V1)
+    if not audit.passed:
+        raise ValueError(f"frozen transfer material failed audit: {audit.findings}")
+    return MastermindCompletionPair(
+        generic=CompletionBackedAgent(
+            backend,
+            model,
+            PromptCondition.GENERIC,
+            max_attempts=max_attempts,
+        ),
+        cross_game=CompletionBackedAgent(
+            backend,
+            model,
+            PromptCondition.CROSS_GAME_EXPERIENCE,
+            condition_prompt=FROZEN_TRANSFER_BUNDLE_V1.memory,
+            max_attempts=max_attempts,
+        ),
+    )
 
 
 def _code_label(code: tuple[int, ...]) -> str:

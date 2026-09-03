@@ -5,6 +5,28 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 09/03/2026
+
+- **Frozen two-model smoke protocol** — Fixed `gpt-5.6-luna` and
+  `gpt-5.6-terra`, two repeats, generic/cross-game conditions, `low` reasoning,
+  two attempts per decision, and explicit call/token stop rules before any API
+  request. The plan and held-out material are protected by reproducible hashes.
+- **Real-model result, honestly gated** — All eight planned Mastermind slots were
+  attempted: six completed and solved, while two generic episodes failed. The
+  cross-game condition completed 4/4 versus generic 2/4, but this tiny smoke test
+  does **not** establish transfer gain or a model ranking.
+- **Actionable failure signal** — Five parse failures returned no text after
+  consuming exactly the 2,048 output-token allowance, indicating a likely output-
+  ceiling problem. Reliability did not pass, so the formal ablation remains gated.
+- **Crash-safe experiment accounting** — Provider calls are now charged to the
+  budget before dispatch, usage journals update atomically, interrupted calls can
+  be conservatively reserved, completed trials are never silently rerun, and
+  later failures retain attempt-level error/token/latency telemetry.
+- **Budget and replay audit** — The ledger records 53 calls (52 trial attempts plus
+  one reserved interruption), 80,834 reported tokens, and a `$0.3478114`
+  uncached-price estimate excluding the interrupted request. All six stored traces
+  replay and solve successfully. [Read the smoke report](research/mastermind_two_model_smoke_2026-09-03.md).
+
 ## Updates 09/02/2026
 
 - **Held-out Mastermind adapter** — Added spoiler-safe parameterized guesses,

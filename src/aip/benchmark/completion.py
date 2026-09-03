@@ -84,6 +84,7 @@ BELIEF_NORMALIZATION_TOLERANCE = 0.02
 class PromptCondition(str, Enum):
     GENERIC = "generic"
     SINGLE_GAME = "single_game_prompted"
+    CROSS_GAME_EXPERIENCE = "cross_game_experience"
 
 
 @dataclass(frozen=True, slots=True)
@@ -400,6 +401,9 @@ class CompletionBackedAgent:
                 else "test_double"
             ),
             "usesGameSpecificKnowledge": self.condition is PromptCondition.SINGLE_GAME,
+            "usesCrossGameExperience": (
+                self.condition is PromptCondition.CROSS_GAME_EXPERIENCE
+            ),
             "promptSha256": hashlib.sha256(
                 self.instructions.encode("utf-8")
             ).hexdigest(),
