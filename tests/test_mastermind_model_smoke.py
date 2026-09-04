@@ -6,6 +6,8 @@ from pathlib import Path
 from aip.benchmark import (
     FROZEN_MASTERMIND_SMOKE_PROTOCOL_SHA256,
     FROZEN_MASTERMIND_SMOKE_PROTOCOL_V1,
+    FROZEN_MASTERMIND_CEILING_DIAGNOSTIC_SHA256,
+    FROZEN_MASTERMIND_CEILING_DIAGNOSTIC_V1,
     BudgetedCompletionBackend,
     CompletionRequest,
     CompletionResponse,
@@ -13,6 +15,7 @@ from aip.benchmark import (
     PromptCondition,
     make_mastermind_completion_pair,
     verify_frozen_smoke_protocol,
+    verify_frozen_ceiling_diagnostic,
 )
 from scripts.run_mastermind_model_smoke import analyze_report, prepare_plan
 
@@ -42,6 +45,23 @@ class MastermindModelSmokeTests(unittest.TestCase):
         drifted = replace(FROZEN_MASTERMIND_SMOKE_PROTOCOL_V1, max_provider_calls=95)
         with self.assertRaisesRegex(ValueError, "protocol drifted"):
             verify_frozen_smoke_protocol(drifted)
+
+    def test_ceiling_diagnostic_changes_only_the_declared_output_cap(self) -> None:
+        verify_frozen_ceiling_diagnostic()
+        diagnostic = FROZEN_MASTERMIND_CEILING_DIAGNOSTIC_V1
+        smoke = FROZEN_MASTERMIND_SMOKE_PROTOCOL_V1
+        self.assertEqual(
+            diagnostic.sha256(), FROZEN_MASTERMIND_CEILING_DIAGNOSTIC_SHA256
+        )
+        for field in (
+            "model_ids",
+            "conditions",
+            "secret",
+            "reasoning_effort",
+            "max_attempts_per_decision",
+        ):
+            self.assertEqual(getattr(diagnostic, field), getattr(smoke, field))
+        self.assertEqual(diagnostic.max_output_tokens_per_request, 8192)
 
     def test_budget_stops_before_an_extra_provider_call(self) -> None:
         backend = BudgetedCompletionBackend(

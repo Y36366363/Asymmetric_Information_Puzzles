@@ -70,6 +70,43 @@ FROZEN_MASTERMIND_SMOKE_PROTOCOL_SHA256 = (
 )
 
 
+@dataclass(frozen=True, slots=True)
+class MastermindCeilingDiagnosticProtocol:
+    protocol_id: str = "aip-mastermind-output-ceiling-diagnostic-v1"
+    model_ids: tuple[str, str] = ("gpt-5.6-luna", "gpt-5.6-terra")
+    conditions: tuple[str, str] = ("generic", "cross_game_experience")
+    repeats: int = 1
+    secret: str = "8062"
+    reasoning_effort: str = "low"
+    max_attempts_per_decision: int = 2
+    max_output_tokens_per_request: int = 8192
+    max_provider_calls: int = 48
+    reported_token_stop_threshold: int = 250_000
+    changed_from_smoke_v1: str = "max_output_tokens_per_request_only"
+
+    def as_dict(self) -> dict[str, object]:
+        payload = asdict(self)
+        payload["model_ids"] = list(self.model_ids)
+        payload["conditions"] = list(self.conditions)
+        payload["planned_episodes"] = (
+            len(self.model_ids) * len(self.conditions) * self.repeats
+        )
+        payload["frozen_transfer_manifest"] = dict(FROZEN_TRANSFER_MANIFEST_V1)
+        return payload
+
+    def sha256(self) -> str:
+        encoded = json.dumps(
+            self.as_dict(), sort_keys=True, separators=(",", ":")
+        ).encode()
+        return hashlib.sha256(encoded).hexdigest()
+
+
+FROZEN_MASTERMIND_CEILING_DIAGNOSTIC_V1 = MastermindCeilingDiagnosticProtocol()
+FROZEN_MASTERMIND_CEILING_DIAGNOSTIC_SHA256 = (
+    "04b4f4197d3630c0ef400d46276ce43ce8526ddbb1af036fed09e11c8ffbb8ee"
+)
+
+
 class ExperimentBudgetExceeded(RuntimeError):
     pass
 
@@ -166,4 +203,17 @@ def verify_frozen_smoke_protocol(
         raise ValueError(
             "Mastermind smoke protocol drifted: "
             f"expected {FROZEN_MASTERMIND_SMOKE_PROTOCOL_SHA256}, got {actual}"
+        )
+
+
+def verify_frozen_ceiling_diagnostic(
+    protocol: MastermindCeilingDiagnosticProtocol = (
+        FROZEN_MASTERMIND_CEILING_DIAGNOSTIC_V1
+    ),
+) -> None:
+    actual = protocol.sha256()
+    if actual != FROZEN_MASTERMIND_CEILING_DIAGNOSTIC_SHA256:
+        raise ValueError(
+            "Mastermind ceiling diagnostic drifted: "
+            f"expected {FROZEN_MASTERMIND_CEILING_DIAGNOSTIC_SHA256}, got {actual}"
         )

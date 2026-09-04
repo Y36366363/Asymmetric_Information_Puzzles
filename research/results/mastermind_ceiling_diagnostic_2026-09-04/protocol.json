@@ -1,0 +1,35 @@
+{
+  "protocol": {
+    "changed_from_smoke_v1": "max_output_tokens_per_request_only",
+    "conditions": [
+      "generic",
+      "cross_game_experience"
+    ],
+    "frozen_transfer_manifest": {
+      "memorySha256": "4f3fcb87a8f4912a255d630c7dc4db140d3f15373567bec27222c20d30cffb7a",
+      "promptSha256": "14a57d20cc29e6ed2ace8e2fea38d0a23beb9a9861738449613fd6eabd0d6320",
+      "sourceEnvironmentIds": [
+        "guess-who",
+        "worm",
+        "kuhn-poker",
+        "goofspiel",
+        "liars-dice"
+      ]
+    },
+    "max_attempts_per_decision": 2,
+    "max_output_tokens_per_request": 8192,
+    "max_provider_calls": 48,
+    "model_ids": [
+      "gpt-5.6-luna",
+      "gpt-5.6-terra"
+    ],
+    "planned_episodes": 4,
+    "protocol_id": "aip-mastermind-output-ceiling-diagnostic-v1",
+    "reasoning_effort": "low",
+    "repeats": 1,
+    "reported_token_stop_threshold": 250000,
+    "secret": "8062"
+  },
+  "protocolSha256": "04b4f4197d3630c0ef400d46276ce43ce8526ddbb1af036fed09e11c8ffbb8ee",
+  "status": "prepared_before_api_calls"
+}

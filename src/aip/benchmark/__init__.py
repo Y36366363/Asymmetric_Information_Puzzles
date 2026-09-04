@@ -37,6 +37,12 @@ from aip.benchmark.guess_who import (
     run_guess_who_baseline,
     summarize_guess_who_traces,
 )
+from aip.benchmark.equilibrium import (
+    GoofspielEquilibriumMetrics,
+    KuhnEquilibriumMetrics,
+    evaluate_goofspiel_policy,
+    evaluate_kuhn_policy,
+)
 from aip.benchmark.mastermind import (
     BELIEF_TARGET as MASTERMIND_BELIEF_TARGET,
     CROSS_GAME_MEMORY_V1,
@@ -54,12 +60,16 @@ from aip.benchmark.mastermind import (
     summarize_mastermind_traces,
 )
 from aip.benchmark.smoke import (
+    FROZEN_MASTERMIND_CEILING_DIAGNOSTIC_SHA256,
+    FROZEN_MASTERMIND_CEILING_DIAGNOSTIC_V1,
     FROZEN_MASTERMIND_SMOKE_PROTOCOL_SHA256,
     FROZEN_MASTERMIND_SMOKE_PROTOCOL_V1,
     BudgetedCompletionBackend,
     ExperimentBudgetExceeded,
+    MastermindCeilingDiagnosticProtocol,
     MastermindSmokeProtocol,
     verify_frozen_smoke_protocol,
+    verify_frozen_ceiling_diagnostic,
 )
 from aip.benchmark.runner import (
     BenchmarkAdapter,
@@ -114,21 +124,26 @@ __all__ = [
     "GENERIC_WEAK_METADATA",
     "GENERIC_STRATEGIC_PROMPT",
     "GenericWeakRandomAgent",
+    "GoofspielEquilibriumMetrics",
     "GroundTruthProfile",
     "CROSS_GAME_MEMORY_V1",
     "FROZEN_TRANSFER_BUNDLE_V1",
     "FROZEN_TRANSFER_MANIFEST_V1",
     "FROZEN_MASTERMIND_SMOKE_PROTOCOL_SHA256",
     "FROZEN_MASTERMIND_SMOKE_PROTOCOL_V1",
+    "FROZEN_MASTERMIND_CEILING_DIAGNOSTIC_SHA256",
+    "FROZEN_MASTERMIND_CEILING_DIAGNOSTIC_V1",
     "FrozenTransferBundle",
     "MetricEligibility",
     "LeakageAudit",
+    "KuhnEquilibriumMetrics",
     "MASTERMIND_BELIEF_TARGET",
     "MastermindBenchmarkAdapter",
     "MastermindCompletionPair",
     "MastermindHeuristicReferenceAgent",
     "MastermindSuiteSummary",
     "MastermindSmokeProtocol",
+    "MastermindCeilingDiagnosticProtocol",
     "ExperimentBudgetExceeded",
     "GUESS_WHO_STRATEGY_PROMPT",
     "GuessWhoBenchmarkAdapter",
@@ -149,6 +164,8 @@ __all__ = [
     "V1_ABLATIONS",
     "V1_ENVIRONMENTS",
     "environment_spec",
+    "evaluate_goofspiel_policy",
+    "evaluate_kuhn_policy",
     "audit_mastermind_holdout",
     "default_protocol",
     "metric_eligibility",
@@ -164,5 +181,6 @@ __all__ = [
     "summarize_guess_who_traces",
     "summarize_mastermind_traces",
     "verify_frozen_smoke_protocol",
+    "verify_frozen_ceiling_diagnostic",
     "validate_decision",
 ]

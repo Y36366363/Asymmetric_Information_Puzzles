@@ -106,6 +106,8 @@ class CompletionResponse:
     input_tokens: int = 0
     output_tokens: int = 0
     total_tokens: int = 0
+    status: str | None = None
+    incomplete_reason: str | None = None
 
     def __post_init__(self) -> None:
         if min(self.input_tokens, self.output_tokens, self.total_tokens) < 0:
@@ -129,6 +131,8 @@ class CompletionAttempt:
     total_tokens: int
     resolved_model: str | None
     response_id: str | None
+    response_status: str | None
+    incomplete_reason: str | None
     output_sha256: str | None
     output_characters: int
     raw_belief_probability_sum: float | None = None
@@ -450,6 +454,8 @@ class CompletionBackedAgent:
                         total_tokens=0,
                         resolved_model=None,
                         response_id=None,
+                        response_status=None,
+                        incomplete_reason=None,
                         output_sha256=None,
                         output_characters=0,
                         error_type=error.__class__.__name__,
@@ -468,6 +474,8 @@ class CompletionBackedAgent:
                 "total_tokens": response.total_tokens,
                 "resolved_model": response.resolved_model,
                 "response_id": response.response_id,
+                "response_status": response.status,
+                "incomplete_reason": response.incomplete_reason,
                 "output_sha256": _response_fingerprint(response.output_text),
                 "output_characters": len(response.output_text),
             }
@@ -656,6 +664,20 @@ class OpenAIResponsesBackend:
             response_id=(
                 str(response_id)
                 if (response_id := _field(response, "id")) is not None
+                else None
+            ),
+            status=(
+                str(status)
+                if (status := _field(response, "status")) is not None
+                else None
+            ),
+            incomplete_reason=(
+                str(reason)
+                if (
+                    reason := _field(
+                        _field(response, "incomplete_details", {}), "reason"
+                    )
+                ) is not None
                 else None
             ),
             input_tokens=int(_field(usage, "input_tokens", 0) or 0),

@@ -229,18 +229,23 @@ Implemented foundations:
    conditions produced six completed and two failed episodes. Five empty outputs
    reached the exact output-token ceiling, so the reliability gate failed and no
    transfer gain is claimed.
+7. **Completion-ceiling diagnostic** — changing only the response ceiling from
+   2,048 to 8,192 tokens yielded four of four completed episodes with no retry,
+   parse, validation, or max-output incomplete event. Response status and official
+   incomplete reason are now recorded directly.
+8. **Equilibrium metric primitives** — complete Kuhn behavior policies now receive
+   exact seat-specific regret, best-response exploitability, and policy distance;
+   named four-card Goofspiel policies receive exact recursive regret,
+   exploitability, and root-distribution distance.
 
 Future work proceeds one evidence-bearing slice at a time:
 
-1. **Completion-ceiling diagnostic.** Keep the frozen models, prompts, memory,
-   secret, and retry count unchanged; preregister a small larger-output-cap check
-   because five v1 failures exhausted the 2,048-token ceiling without JSON.
-2. **Kuhn/Goofspiel equilibrium adapters.** Add mixed-policy distance, exact
-   regret, and exploitability before reporting either word in model results.
-3. **Liar's Dice opponent-shift panel.** Hold the agent fixed across reference,
+1. **Kuhn/Goofspiel decision adapters.** Bind the new exact full-policy metrics to
+   agent-produced information-set distributions before running model comparisons.
+2. **Liar's Dice opponent-shift panel.** Hold the agent fixed across reference,
    naive, adaptive, and adversarial policies; exact belief calibration can be
    scored even though action quality remains heuristic-backed.
-4. **Factorial ablation execution.** Compare generic prompt, memory, and
+3. **Factorial ablation execution.** Compare generic prompt, memory, and
    cross-game experience with main effects and interactions. Do not infer a
    memory or transfer gain from unrelated prompts or different model snapshots.
 

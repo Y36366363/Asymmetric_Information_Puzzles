@@ -1,0 +1,170 @@
+{
+  "claims": {
+    "exactWithinDeclaredFiniteModels": true,
+    "formalAblationExecuted": false,
+    "liarsDiceOpponentShiftExecuted": false,
+    "llmEvaluationExecuted": false,
+    "provedGlobalGameOptimality": false
+  },
+  "date": "2026-09-04",
+  "evidenceLevel": "equilibrium_backed",
+  "goofspiel": {
+    "equilibrium": {
+      "candidate_regret": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "exploitability": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "game_value": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "mean_root_tv_distance": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "policy": "equilibrium",
+      "value_against_best_response": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "value_against_equilibrium": {
+        "decimal": 0.0,
+        "exact": "0"
+      }
+    },
+    "high_card": {
+      "candidate_regret": {
+        "decimal": 2.039180697624151,
+        "exact": "1040974577468782529/510486676674422175"
+      },
+      "exploitability": {
+        "decimal": 5.041666666666667,
+        "exact": "121/24"
+      },
+      "game_value": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "mean_root_tv_distance": {
+        "decimal": 0.6956780751847863,
+        "exact": "11671917/16777756"
+      },
+      "policy": "high_card",
+      "value_against_best_response": {
+        "decimal": -5.041666666666667,
+        "exact": "-121/24"
+      },
+      "value_against_equilibrium": {
+        "decimal": -2.039180697624151,
+        "exact": "-1040974577468782529/510486676674422175"
+      }
+    },
+    "match_prize": {
+      "candidate_regret": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "exploitability": {
+        "decimal": 2.0,
+        "exact": "2"
+      },
+      "game_value": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "mean_root_tv_distance": {
+        "decimal": 0.33749834236022225,
+        "exact": "431516626717/1278574062614"
+      },
+      "policy": "match_prize",
+      "value_against_best_response": {
+        "decimal": -2.0,
+        "exact": "-2"
+      },
+      "value_against_equilibrium": {
+        "decimal": 0.0,
+        "exact": "0"
+      }
+    },
+    "random": {
+      "candidate_regret": {
+        "decimal": 1.6546240711975506,
+        "exact": "21050636332827518032831304879/12722307561736311269804673600"
+      },
+      "exploitability": {
+        "decimal": 2.5,
+        "exact": "5/2"
+      },
+      "game_value": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "mean_root_tv_distance": {
+        "decimal": 0.5366717896317167,
+        "exact": "2744698521439/5114296250456"
+      },
+      "policy": "random",
+      "value_against_best_response": {
+        "decimal": -2.5,
+        "exact": "-5/2"
+      },
+      "value_against_equilibrium": {
+        "decimal": -1.6546240711975506,
+        "exact": "-21050636332827518032831304879/12722307561736311269804673600"
+      }
+    }
+  },
+  "kuhnPoker": {
+    "equilibrium": {
+      "candidate_regret_first_seat": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "candidate_regret_second_seat": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "equilibrium_support_violations": 0,
+      "exploitability_when_candidate_first": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "exploitability_when_candidate_second": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "mean_information_set_tv_distance": {
+        "decimal": 0.0,
+        "exact": "0"
+      }
+    },
+    "legacy": {
+      "candidate_regret_first_seat": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "candidate_regret_second_seat": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "equilibrium_support_violations": 0,
+      "exploitability_when_candidate_first": {
+        "decimal": 0.1111111111111111,
+        "exact": "1/9"
+      },
+      "exploitability_when_candidate_second": {
+        "decimal": 0.0,
+        "exact": "0"
+      },
+      "mean_information_set_tv_distance": {
+        "decimal": 0.027777777777777776,
+        "exact": "1/36"
+      }
+    },
+    "scope": "complete three-card Kuhn behavior policies; exhaustive pure best responses"
+  }
+}

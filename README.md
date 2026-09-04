@@ -5,6 +5,28 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 09/04/2026
+
+- **Smoke reliability resolved** — A frozen single-variable diagnostic retained
+  both models, prompts, memory, secret, reasoning effort, and retries while raising
+  only `max_output_tokens` from 2,048 to 8,192. All four cells completed without
+  retries, parse failures, validation failures, or incomplete responses.
+- **First-class incomplete telemetry** — Completion traces now record provider
+  response status and `incomplete_details.reason`; output-ceiling failures no
+  longer need to be inferred solely from empty text and token totals.
+- **Exact Kuhn equilibrium scoring** — Added seat-specific policy regret, opponent
+  best-response exploitability, mean information-set TV distance, and support
+  violations. The legacy policy illustrates zero regret against one equilibrium
+  opponent but nonzero `1/9` exploitability.
+- **Exact Goofspiel equilibrium scoring** — Added recursive value against the
+  equilibrium and adaptive best response for equilibrium, random, match-prize,
+  and high-card policies. Match-prize has zero regret against the selected
+  equilibrium yet exact exploitability `2`.
+- **Evidence order preserved** — These results are exact only inside the declared
+  small finite games. No Kuhn/Goofspiel LLM result, Liar's Dice robustness result,
+  or formal ablation is claimed; Liar's Dice opponent shift remains the next
+  research slice. [Read today's report](research/ceiling_and_equilibrium_update_2026-09-04.md).
+
 ## Updates 09/03/2026
 
 - **Frozen two-model smoke protocol** — Fixed `gpt-5.6-luna` and

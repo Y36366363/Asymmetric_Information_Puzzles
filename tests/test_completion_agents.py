@@ -239,6 +239,8 @@ class CompletionAgentTests(unittest.TestCase):
                     output_text=valid_output(self_outer.legal_action),
                     model="resolved-model",
                     id="resp-real-shape",
+                    status="incomplete",
+                    incomplete_details=SimpleNamespace(reason="max_output_tokens"),
                     usage=SimpleNamespace(
                         input_tokens=21, output_tokens=5, total_tokens=26
                     ),
@@ -258,6 +260,8 @@ class CompletionAgentTests(unittest.TestCase):
         )
         self.assertEqual(response.total_tokens, 26)
         self.assertEqual(response.resolved_model, "resolved-model")
+        self.assertEqual(response.status, "incomplete")
+        self.assertEqual(response.incomplete_reason, "max_output_tokens")
         self.assertFalse(calls[0]["store"])
         self.assertEqual(calls[0]["reasoning"], {"effort": "low"})
         self.assertEqual(calls[0]["max_output_tokens"], 4096)
