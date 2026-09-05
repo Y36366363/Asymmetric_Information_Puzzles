@@ -841,7 +841,11 @@ class ECardSession:
         self.history: list[dict[str, object]] = []
         self.last_reveal: dict[str, object] | None = None
         self.result: dict[str, object] | None = None
-        self.player_special_timings: list[int] = []
+        self.player_special_timings: dict[str, list[int]] = {
+            "emperor": [],
+            "slave": [],
+        }
+        self.round_history: list[dict[str, object]] = []
         self._start_round()
 
     def act(self, action: str, payload: dict[str, object]) -> dict[str, object]:
@@ -861,6 +865,12 @@ class ECardSession:
         self.ai_role = self.SPECIAL_COUNTER[self.player_role]
         self.player_hand = [self.player_role] + ["citizen"] * 4
         self.ai_hand = [self.ai_role] + ["citizen"] * 4
+        self.ai_policy_mode, self.ai_timing_distribution = (
+            self._ai_timing_policy()
+        )
+        self.ai_committed_duel = self._sample_ai_duel(
+            self.ai_timing_distribution
+        )
         self.phase = "playing"
         self.history = []
         self.last_reveal = None
@@ -873,7 +883,7 @@ class ECardSession:
             raise ValueError("that card is not available in your hand")
 
         duel = len(self.history) + 1
-        ai_card, special_probability = self._choose_ai_card()
+        ai_card, special_probability = self._choose_ai_card(duel)
         self.player_hand.remove(card)
         self.ai_hand.remove(ai_card)
         outcome = self._outcome(card, ai_card)
@@ -888,7 +898,7 @@ class ECardSession:
         self.last_reveal = reveal
 
         if card == self.player_role:
-            self.player_special_timings.append(duel)
+            self.player_special_timings[self.player_role].append(duel)
         if outcome == "draw":
             if not self.player_hand:
                 raise RuntimeError("an E-Card round cannot exhaust without a winner")
@@ -905,28 +915,60 @@ class ECardSession:
             "winnerRole": winner_role,
             "points": points,
             "decisiveDuel": duel,
+            "aiCommittedDuel": self.ai_committed_duel,
+            "playerSpecialDuel": next(
+                (
+                    item["duel"]
+                    for item in self.history
+                    if item["playerCard"] == self.player_role
+                ),
+                None,
+            ),
         }
+        self.round_history.append(
+            {
+                "round": self.round_number,
+                "playerRole": self.player_role,
+                "aiPolicyMode": self.ai_policy_mode,
+                "aiCommittedDuel": self.ai_committed_duel,
+                "playerSpecialDuel": self.result["playerSpecialDuel"],
+                "winner": outcome,
+                "points": points,
+            }
+        )
         self.phase = "finished"
 
-    def _choose_ai_card(self) -> tuple[str, float]:
-        special = self.ai_role
-        if special not in self.ai_hand:
-            return "citizen", 0.0
-        citizen_count = self.ai_hand.count("citizen")
-        if citizen_count == 0:
-            return special, 1.0
+    def _ai_timing_policy(self) -> tuple[str, tuple[float, ...]]:
+        timings = self.player_special_timings[self.player_role][-8:]
+        if not timings:
+            return "uniform", (0.2,) * 5
+        counts = [timings.count(duel) for duel in range(1, 6)]
+        if self.ai_role == "slave":
+            mode = "chase_player_timing"
+            weights = [2 + 3 * count for count in counts]
+        else:
+            mode = "avoid_player_timing"
+            peak = max(counts)
+            weights = [2 + 3 * (peak - count) for count in counts]
+        total = sum(weights)
+        return mode, tuple(weight / total for weight in weights)
 
-        cards_left = len(self.ai_hand)
-        average_timing = (
-            sum(self.player_special_timings) / len(self.player_special_timings)
-            if self.player_special_timings
-            else 3.0
+    def _sample_ai_duel(self, distribution: tuple[float, ...]) -> int:
+        draw = self._rng.random()
+        cumulative = 0.0
+        for duel, probability in enumerate(distribution, start=1):
+            cumulative += probability
+            if draw < cumulative:
+                return duel
+        return 5
+
+    def _choose_ai_card(self, duel: int) -> tuple[str, float]:
+        remaining_mass = sum(self.ai_timing_distribution[duel - 1 :])
+        conditional_probability = (
+            self.ai_timing_distribution[duel - 1] / remaining_mass
         )
-        learned_early_bias = max(-0.08, min(0.08, (3.0 - average_timing) * 0.04))
-        probability = min(0.78, 1 / cards_left + learned_early_bias)
-        if self._rng.random() < probability:
-            return special, probability
-        return "citizen", probability
+        card = self.ai_role if duel == self.ai_committed_duel else "citizen"
+        return card, conditional_probability
 
     @staticmethod
     def _outcome(player_card: str, ai_card: str) -> str:
@@ -942,6 +984,21 @@ class ECardSession:
     def snapshot(self) -> dict[str, object]:
         visible_history = [dict(item) for item in self.history]
         opponent_possible = sorted(set(self.ai_hand))
+        next_duel = (
+            1 if self.phase == "finished" else min(len(self.history) + 1, 5)
+        )
+        remaining_mass = sum(self.ai_timing_distribution[next_duel - 1 :])
+        timing_forecast = [
+            {
+                "duel": duel,
+                "probability": (
+                    0.0
+                    if duel < next_duel
+                    else self.ai_timing_distribution[duel - 1] / remaining_mass
+                ),
+            }
+            for duel in range(1, 6)
+        ]
         return {
             "gameId": "e-card",
             "phase": self.phase,
@@ -957,14 +1014,24 @@ class ECardSession:
             "playerScore": self.player_score,
             "aiScore": self.ai_score,
             "history": visible_history,
+            "roundHistory": [dict(item) for item in self.round_history],
             "lastReveal": dict(self.last_reveal) if self.last_reveal else None,
             "result": dict(self.result) if self.result else None,
+            "aiPolicyMode": self.ai_policy_mode,
+            "aiTimingForecast": timing_forecast,
+            "aiCommittedDuel": (
+                self.ai_committed_duel if self.phase == "finished" else None
+            ),
+            "strategyScope": "precommitted_timing_with_bounded_cross_round_adaptation",
+            "strategyEvidence": "strong_heuristic",
             "legalActions": ["play_card"] if self.phase == "playing" else ["next_round"],
             "informationSet": {
                 "privateHand": list(self.player_hand),
                 "publicHistory": visible_history,
                 "possibleOpponentCards": opponent_possible,
                 "opponentCardsLeft": len(self.ai_hand),
+                "aiTimingForecast": timing_forecast,
+                "observedRoundHistory": [dict(item) for item in self.round_history],
             },
         }
 

@@ -90,6 +90,10 @@ test("static lobby boots the browser engine before the UI", async () => {
   ].some((gameId) => line.startsWith(`    ${gameId}:`) || line.startsWith(`    "${gameId}":`))).length, 30);
   assert.match(app, /Post-match strategy review/);
   assert.match(html, /id="rpsPostMatch"/);
+  assert.match(html, /id="ecardTimingForecast"/);
+  assert.match(html, /id="ecardTimingRecord"/);
+  assert.match(app, /aiTimingForecast/);
+  assert.match(app, /precommitted its special card/);
   assert.match(html, /id="goofPostMatch"/);
   assert.match(app, /aiTarget\.disabled = state\.protected\.ai/);
   assert.match(app, /loveTarget\.value = "player"/);
@@ -143,6 +147,7 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(styles, /\.guidance-toggle\[aria-pressed="false"\]/);
   assert.match(styles, /\.rules-start/);
   assert.match(styles, /\.strategy-review-grid/);
+  assert.match(styles, /\.ecard-timing-forecast/);
 });
 
 test("browser engine intercepts API calls without a backend", async () => {

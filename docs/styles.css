@@ -414,6 +414,13 @@ select:focus-visible {
 .ecard-history span, .ecard-history em, .ecard-history small { color: var(--muted); }
 .ecard-history em { text-align: center; }
 .ecard-history small { text-align: right; }
+.ecard-timing-forecast { margin: 18px 0; padding: 14px; border: 1px solid var(--line); background: rgba(0,0,0,.16); }
+.ecard-timing-forecast > strong { display: block; margin-bottom: 10px; color: var(--gold-soft); font-size: 13px; }
+.ecard-timing-row { display: grid; grid-template-columns: 58px 1fr 38px; align-items: center; gap: 9px; padding: 5px 0; color: var(--muted); font-size: 12px; }
+.ecard-timing-row.current { color: var(--ink); font-weight: 800; }
+.ecard-timing-row progress { width: 100%; height: 7px; }
+.ecard-timing-row b { text-align: right; color: var(--gold-soft); }
+.ecard-timing-record { color: var(--muted); font-size: 12px; line-height: 1.65; }
 .information-set .payoff-note { color: var(--gold-soft); }
 
 .rps-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }

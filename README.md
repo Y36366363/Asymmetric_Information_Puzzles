@@ -7,6 +7,14 @@
 
 ## Updates 09/05/2026
 
+- **E-Card is now a learnable timing match** — The AI commits its special-card
+  position before the player acts, keeps it hidden until settlement, exposes a
+  public conditional timing forecast, and adapts only between rounds from the
+  player's role-specific revealed timing. This is explicitly a transparent
+  **strong heuristic**, not a false equilibrium claim.
+- **Honest engagement boundary** — Added a compact design standard separating
+  repeated strategic matches from one-shot puzzle laboratories, so deterministic
+  puzzles are not padded with fake AI psychology. [Read the E-Card design note](research/ecard_engagement_redesign_2026-09-05.md).
 - **Playable continuation paths** — Added explicit, in-context continuation
   buttons to Liar's Dice, Guess Who, and Hidden Pursuit. Each starts another
   round inside the same session, preserving the score or accumulated record

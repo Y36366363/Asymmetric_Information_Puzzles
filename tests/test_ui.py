@@ -418,11 +418,37 @@ class LocalGameUITests(unittest.TestCase):
         state = created["state"]
         self.assertNotIn("aiHand", state)
         self.assertIsNone(state["lastReveal"])
+        self.assertIsNone(state["aiCommittedDuel"])
+        self.assertEqual(state["strategyEvidence"], "strong_heuristic")
+        self.assertAlmostEqual(
+            sum(item["probability"] for item in state["aiTimingForecast"]), 1.0
+        )
         self.assertEqual(state["informationSet"]["opponentCardsLeft"], 5)
         state = self.service.act(
             created["sessionId"], "play_card", {"card": "citizen"}
         )
         self.assertIn(state["lastReveal"]["aiCard"], {"citizen", "slave"})
+
+    def test_e_card_commits_before_play_and_adapts_only_across_rounds(self) -> None:
+        session = ECardSession({"seed": 3})
+        session.ai_committed_duel = 3
+        state = session.snapshot()
+        self.assertIsNone(state["aiCommittedDuel"])
+        session.act("play_card", {"card": "citizen"})
+        self.assertEqual(session.last_reveal["aiCard"], "citizen")
+        self.assertAlmostEqual(session.last_reveal["aiSpecialProbability"], 0.2)
+        session.act("play_card", {"card": "citizen"})
+        self.assertAlmostEqual(session.last_reveal["aiSpecialProbability"], 0.25)
+        finished = session.act("play_card", {"card": "citizen"})
+        self.assertEqual(finished["result"]["aiCommittedDuel"], 3)
+        self.assertEqual(finished["roundHistory"][0]["aiCommittedDuel"], 3)
+
+        session.player_special_timings["emperor"] = [2, 2, 2]
+        session._start_round()  # Player is slave: Emperor-timing data must not leak across roles.
+        self.assertEqual(session.ai_policy_mode, "uniform")
+        session._start_round()  # Player is emperor again; AI slave now chases that timing.
+        self.assertEqual(session.ai_policy_mode, "chase_player_timing")
+        self.assertGreater(session.ai_timing_distribution[1], session.ai_timing_distribution[0])
 
     def test_e_card_scores_by_winning_role_and_swaps_sides(self) -> None:
         created = self.service.create_session("e-card", {"seed": 17})

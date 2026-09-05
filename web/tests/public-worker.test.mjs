@@ -231,8 +231,17 @@ test("single-player games survive complete decision loops", async () => {
   assert.equal(guessWho.state.informationSet.possibleCount, 1);
 
   const ecard = await create("e-card");
+  assert.equal(ecard.state.aiCommittedDuel, null);
+  assert.equal(ecard.state.strategyEvidence, "strong_heuristic");
+  assert.equal(ecard.state.aiTimingForecast.reduce((sum, item) => sum + item.probability, 0), 1);
   while (ecard.state.phase === "playing") await act(ecard, "play_card", {card:ecard.state.playerHand[0].card});
   assert.ok(ecard.state.result);
+  assert.ok(Number.isInteger(ecard.state.result.aiCommittedDuel));
+  assert.equal(ecard.state.aiCommittedDuel, ecard.state.result.aiCommittedDuel);
+  assert.equal(ecard.state.roundHistory.length, 1);
+  await act(ecard, "next_round");
+  assert.equal(ecard.state.roundNumber, 2);
+  assert.equal(ecard.state.aiCommittedDuel, null);
 
   const poker = await create("kuhn-poker");
   assert.equal(poker.state.mode, "basic");
