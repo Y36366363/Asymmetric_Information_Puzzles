@@ -120,6 +120,14 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /ship-\$\{cell\.shipId\}/);
   assert.match(app, /Submit unlocks when this reaches zero/);
   assert.match(app, /Math\.max\(minimumQuantity/);
+  assert.match(app, /liarQuantity"\)\.max = String\(state\.dicePerPlayer \* 2\)/);
+  assert.match(app, /liarQuantity"\)\.value = "1"/);
+  assert.match(html, /id="liarAiDiceLabel"/);
+  assert.match(app, /data-liar-next/);
+  assert.match(app, /act\("new_round"\)/);
+  assert.match(app, /data-guess-who-next/);
+  assert.match(app, /data-pursuit-next/);
+  assert.match(app, /AI dice \(revealed this round\)/);
   const styles = await readFile(new URL("styles.css", publicRoot), "utf8");
   const engine = await readFile(new URL("game-engine.js", publicRoot), "utf8");
   assert.doesNotMatch(engine, /unsafe-inline/);

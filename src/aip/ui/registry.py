@@ -1738,6 +1738,7 @@ class LiarDiceSession:
             "roundNumber": self.round_number,
             "dicePerPlayer": self.dice_per_player,
             "playerDice": list(self.player_dice),
+            "aiDice": list(self.ai_dice) if self.phase == "finished" else None,
             "opponentDiceCount": len(self.ai_dice),
             "currentBid": bid,
             "minimumBid": minimum,

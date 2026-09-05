@@ -5,6 +5,25 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 09/05/2026
+
+- **Playable continuation paths** — Added explicit, in-context continuation
+  buttons to Liar's Dice, Guess Who, and Hidden Pursuit. Each starts another
+  round inside the same session, preserving the score or accumulated record
+  instead of forcing a full restart.
+- **Liar's Dice showdown reveal** — The AI's exact dice now replace the hidden
+  placeholders after a challenge, alongside the final bid, matching count,
+  winner, and a clearly labelled “keep score and play next round” action. The
+  next round hides the newly rolled AI dice again.
+- **Second-round input repair** — Reset the Liar's Dice quantity and face fields
+  when a round begins and derive the maximum quantity from the selected dice
+  count. A completed round can no longer leave an impossible stale minimum in
+  the next round's form.
+- **Cross-runtime regression coverage** — Verified reveal timing, legal
+  continuation, round-number advancement, score retention, and re-hiding in
+  both the Python service and zero-backend browser engine, then replayed the
+  complete flow in the real bilingual page.
+
 ## Updates 09/04/2026
 
 - **Smoke reliability resolved** — A frozen single-variable diagnostic retained

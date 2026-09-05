@@ -686,6 +686,23 @@ class LocalGameUITests(unittest.TestCase):
         session._ai_response()
         self.assertEqual(session.history[0]["action"], "challenge")
 
+    def test_liars_dice_reveals_ai_dice_then_continues_with_scores(self) -> None:
+        session = LiarDiceSession({"seed": 17, "dice": 5})
+        self.assertIsNone(session.snapshot()["aiDice"])
+        finished = session.act("raise_bid", {"quantity": 10, "face": 6})
+        self.assertEqual(finished["phase"], "finished")
+        self.assertEqual(finished["aiDice"], sorted(session.ai_dice))
+        self.assertEqual(finished["legalActions"], ["new_round"])
+        score = (finished["playerScore"], finished["aiScore"])
+
+        continued = session.act("new_round", {})
+        self.assertEqual(continued["phase"], "bidding")
+        self.assertEqual(continued["roundNumber"], 2)
+        self.assertIsNone(continued["aiDice"])
+        self.assertEqual(
+            (continued["playerScore"], continued["aiScore"]), score
+        )
+
     def test_health_endpoint_identifies_running_aip_server(self) -> None:
         server = ThreadingHTTPServer(("127.0.0.1", 0), AIPRequestHandler)
         thread = threading.Thread(target=server.serve_forever, daemon=True)

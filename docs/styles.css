@@ -517,6 +517,9 @@ progress::-moz-progress-bar { background: var(--gold); }
 .liar-history { max-height: 220px; overflow: auto; margin-top: 18px; }
 .liar-history div { display: flex; justify-content: space-between; gap: 14px; padding: 9px 0; border-bottom: 1px solid var(--line); color: var(--muted); }
 .liar-result { margin: 18px auto 0; padding: 13px 20px; border: 1px solid var(--line); text-align: center; font: 500 21px Georgia, serif; }
+.liar-result p { margin: 10px auto 14px; color: var(--muted); font: 400 14px/1.55 system-ui, sans-serif; }
+.liar-die.revealed-die { box-shadow: 0 0 0 2px rgba(211, 169, 90, .35); }
+.continuation-button { display: block; min-height: 44px; margin: 14px auto 0; padding: 10px 18px; color: #17130c; border: 1px solid var(--gold); border-radius: 4px; background: var(--gold); cursor: pointer; font-weight: 800; }
 .mastermind-score { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
 .mastermind-score div { padding: 12px 18px; text-align: center; border-right: 1px solid var(--line); }
 .mastermind-score div:last-child { border-right: 0; }

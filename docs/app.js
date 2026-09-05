@@ -973,22 +973,34 @@ function probabilityBars(distribution, labels) {
 
 function renderLiarDice() {
   const state = currentState;
+  const roundFinished = state.phase === "finished";
+  const revealedAiDice = roundFinished && Array.isArray(state.aiDice) ? state.aiDice : null;
   $("#liarRound").textContent = state.roundNumber;
   $("#liarPlayerScore").textContent = state.playerScore;
   $("#liarAiScore").textContent = state.aiScore;
   $("#liarOpponentDice").textContent = state.opponentDiceCount;
   $("#liarPlayerDice").innerHTML = state.playerDice.map((face) => `<span class="liar-die">${face}</span>`).join("");
-  $("#liarAiDice").innerHTML = Array.from({ length: state.opponentDiceCount }, () => '<span class="liar-die hidden-die">?</span>').join("");
+  $("#liarAiDiceLabel").textContent = revealedAiDice
+    ? (language === "zh" ? "AI 的骰子（本轮已公开）" : "AI dice (revealed this round)")
+    : tr("aiHiddenDice");
+  $("#liarAiDice").innerHTML = revealedAiDice
+    ? revealedAiDice.map((face) => `<span class="liar-die revealed-die">${face}</span>`).join("")
+    : Array.from({ length: state.opponentDiceCount }, () => '<span class="liar-die hidden-die">?</span>').join("");
   $("#liarCurrentBid").textContent = state.currentBid ? `${state.currentBid[0]} × ${state.currentBid[1]}` : "—";
   $("#liarProbability").textContent = state.claimProbability == null ? "" : `${tr("liarProbability")}: ${(state.claimProbability * 100).toFixed(1)}%`;
   const playerTurn = state.phase === "bidding" && state.turn === "player";
   $("#liarActions").classList.toggle("hidden", !playerTurn);
   $("#liarChallenge").disabled = !state.currentBid;
+  $("#liarQuantity").max = String(state.dicePerPlayer * 2);
   if (state.minimumBid) {
     const minimumQuantity = state.minimumBid.quantity;
     $("#liarQuantity").min = minimumQuantity;
     $("#liarQuantity").value = String(Math.max(minimumQuantity, Number($("#liarQuantity").value) || minimumQuantity));
     $("#liarFace").value = String(Math.min(6, state.minimumBid.face));
+  } else {
+    $("#liarQuantity").min = "1";
+    $("#liarQuantity").value = "1";
+    $("#liarFace").value = "1";
   }
   $("#liarInstruction").textContent = state.phase === "finished"
     ? (language === "zh" ? `本轮结束：实际符合叫价的骰子数量为 ${state.result.actualCount}。` : `Round over: ${state.result.actualCount} dice matched the claim.`)
@@ -1005,9 +1017,15 @@ function renderLiarDice() {
     : (language === "zh" ? `在把 1 点视为万能牌后，模型估计当前叫价为真的概率是 ${(state.claimProbability * 100).toFixed(1)}%。概率低不等于必假，但它决定质疑的风险边界。` : `Treating ones as wild, the model estimates a ${(state.claimProbability * 100).toFixed(1)}% chance the current bid is true. Low probability is not certainty, but it sets a useful challenge threshold.`);
   $("#liarInformation").textContent = info;
   $("#liarResult").classList.toggle("hidden", state.phase !== "finished");
-  if (state.phase === "finished") {
+  if (roundFinished) {
     const winner = state.result.winner === "player" ? (language === "zh" ? "你赢下本轮" : "You win the round") : (language === "zh" ? "AI 赢下本轮" : "AI wins the round");
-    $("#liarResult").textContent = `${winner} · ${state.result.claimTrue ? (language === "zh" ? "叫价成立" : "claim true") : (language === "zh" ? "叫价被揭穿" : "claim false")}`;
+    const claim = `${state.result.bid[0]} × ${state.result.bid[1]}`;
+    const verdict = state.result.claimTrue ? (language === "zh" ? "叫价成立" : "claim true") : (language === "zh" ? "叫价被揭穿" : "claim false");
+    const detail = language === "zh"
+      ? `公开叫价 ${claim}；双方摊骰后共有 ${state.result.actualCount} 枚符合。比分和回合数将在下一轮保留。`
+      : `The public bid was ${claim}; ${state.result.actualCount} matching dice existed after both hands were revealed. Scores and the round count carry forward.`;
+    $("#liarResult").innerHTML = `<strong>${winner} · ${verdict}</strong><p>${detail}</p><button class="continuation-button" data-liar-next>${language === "zh" ? "保留比分，进入下一轮" : "Keep score and play next round"}</button>`;
+    $("[data-liar-next]").addEventListener("click", () => act("new_round"));
   }
 }
 
@@ -1089,9 +1107,13 @@ function renderHiddenPursuit() {
     return `<div><strong>${language === "zh" ? `第 ${item.round} 回合 · 侦探 ${item.actor === 0 ? "A" : "B"}` : `Round ${item.round} · Detective ${item.actor === 0 ? "A" : "B"}`}</strong><span>${item.from} → ${item.to}${item.capture ? (language === "zh" ? " · 抓捕" : " · capture") : ""}</span></div>`;
   }).join("") : `<p>${language === "zh" ? "尚未移动。先选择侦探 A 的发光相邻节点。" : "No moves yet. Start with a glowing neighbor of detective A."}</p>`;
   $("#pursuitResult").classList.toggle("hidden", !finished);
-  if (finished) $("#pursuitResult").textContent = state.winner === "detectives"
-    ? (language === "zh" ? `侦探获胜 · 第 ${state.round} 回合` : `Detectives win · round ${state.round}`)
-    : (language === "zh" ? "目标获胜 · 撑过 12 回合" : "Fugitive wins · survived 12 rounds");
+  if (finished) {
+    const summary = state.winner === "detectives"
+      ? (language === "zh" ? `侦探获胜 · 第 ${state.round} 回合` : `Detectives win · round ${state.round}`)
+      : (language === "zh" ? "目标获胜 · 撑过 12 回合" : "Fugitive wins · survived 12 rounds");
+    $("#pursuitResult").innerHTML = `<strong>${summary}</strong><button class="continuation-button" data-pursuit-next>${language === "zh" ? "保留战绩，再追踪一局" : "Keep record and track another fugitive"}</button>`;
+    $("[data-pursuit-next]").addEventListener("click", () => act("new_game"));
+  }
 }
 
 function renderBattleGrid(selector, cells, isEnemy, state) {
@@ -1517,9 +1539,16 @@ function renderGuessWho() {
   }).join("") : `<p>${language === "zh" ? "还没有公开记录。先选择一个问题；标出的数字表示回答“是/否”各会剩多少人。" : "No public record yet. Ask a question first; its two numbers show how many candidates survive Yes versus No."}</p>`;
 
   $("#guessWhoResult").classList.toggle("hidden", !finished);
-  if (finished) $("#guessWhoResult").textContent = state.result.won
-    ? (language === "zh" ? `推理成功 · ${state.result.secret} · ${state.result.turns} 步` : `Solved · ${state.result.secret} · ${state.result.turns} turns`)
-    : (language === "zh" ? `本局结束 · 答案是 ${state.result.secret}` : `Round over · The answer was ${state.result.secret}`);
+  if (finished) {
+    const summary = state.result.won
+      ? (language === "zh" ? `推理成功 · ${state.result.secret} · ${state.result.turns} 步` : `Solved · ${state.result.secret} · ${state.result.turns} turns`)
+      : (language === "zh" ? `本局结束 · 答案是 ${state.result.secret}` : `Round over · The answer was ${state.result.secret}`);
+    $("#guessWhoResult").innerHTML = `<strong>${summary}</strong><button class="continuation-button" data-guess-who-next>${language === "zh" ? "保留成绩，开始下一局" : "Keep stats and play another round"}</button>`;
+    $("[data-guess-who-next]").addEventListener("click", () => {
+      guessWhoSelected = null;
+      act("new_game");
+    });
+  }
 }
 
 function renderECard() {

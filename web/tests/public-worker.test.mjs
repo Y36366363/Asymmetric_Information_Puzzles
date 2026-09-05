@@ -252,9 +252,18 @@ test("single-player games survive complete decision loops", async () => {
   assert.equal(advancedPoker.state.aiExploitability, 0);
 
   const liar = await create("liars-dice");
+  assert.equal(liar.state.aiDice, null);
   await act(liar, "raise_bid", {quantity:1,face:1});
   if (liar.state.phase === "bidding") await act(liar, "challenge");
   assert.equal(liar.state.phase, "finished");
+  assert.equal(liar.state.aiDice.length, liar.state.dicePerPlayer);
+  assert.deepEqual(liar.state.legalActions, ["new_round"]);
+  const liarScore = [liar.state.playerScore, liar.state.aiScore];
+  await act(liar, "new_round");
+  assert.equal(liar.state.phase, "bidding");
+  assert.equal(liar.state.roundNumber, 2);
+  assert.equal(liar.state.aiDice, null);
+  assert.deepEqual([liar.state.playerScore, liar.state.aiScore], liarScore);
 
   const battleship = await create("battleship");
   assert.equal(battleship.state.enemyBoard.some((cell) => cell.ship), false);
