@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'" />
     <title>AIP · 非对称博弈实验室</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23d8aa4c'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial' font-size='23' font-weight='900' fill='%2311110f'%3EAIP%3C/text%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=81d1abd838cc" />
+    <link rel="stylesheet" href="styles.css?v=ad122c7d8423" />
   </head>
   <body>
     <header class="topbar">
@@ -336,7 +336,7 @@
         <section class="liar-table panel">
           <div class="liar-hands">
             <div><span class="seat-label" data-i18n="yourDice">你的骰子</span><div class="liar-dice" id="liarPlayerDice"></div></div>
-            <div class="liar-hidden-dice"><span class="seat-label" data-i18n="aiHiddenDice">AI 的隐藏骰子</span><div class="liar-dice" id="liarAiDice"></div></div>
+            <div class="liar-hidden-dice"><span class="seat-label" id="liarAiDiceLabel" data-i18n="aiHiddenDice">AI 的隐藏骰子</span><div class="liar-dice" id="liarAiDice"></div></div>
           </div>
           <div class="liar-bid-banner">
             <span data-i18n="currentBid">当前公开叫价</span><strong id="liarCurrentBid">—</strong>
@@ -712,6 +712,6 @@
 
     <div class="operation-status hidden" id="operationStatus" role="status" aria-live="polite"></div>
     <div class="toast hidden" id="toast" role="status"></div>
-    <script type="module" src="bootstrap.js?v=81d1abd838cc"></script>
+    <script type="module" src="bootstrap.js?v=ad122c7d8423"></script>
   </body>
 </html>
