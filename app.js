@@ -1010,7 +1010,7 @@ function renderLiarDice() {
   $("#liarHistory").innerHTML = state.history.length ? state.history.map((item) => {
     const actor = item.actor === "player" ? (language === "zh" ? "你" : "You") : "AI";
     const action = item.action === "challenge" ? (language === "zh" ? "质疑" : "challenged") : (language === "zh" ? `加注 ${item.quantity} × ${item.face}` : `raised to ${item.quantity} × ${item.face}`);
-    return `<div><b>${actor}</b><span>${action}</span>${item.confidence == null ? "" : `<small>${(item.confidence * 100).toFixed(0)}%</small>`}</div>`;
+    return `<div><b>${actor}</b><span>${action}</span></div>`;
   }).join("") : `<p>${language === "zh" ? "还没有公开叫价。" : "No public bids yet."}</p>`;
   const info = state.claimProbability == null
     ? (language === "zh" ? "第一轮由你先叫价。把自己骰子的分布作为先验，再观察 AI 是否愿意继续加注。" : "You open the round. Use your own dice as a prior, then observe whether the AI is willing to raise.")
@@ -1024,7 +1024,15 @@ function renderLiarDice() {
     const detail = language === "zh"
       ? `公开叫价 ${claim}；双方摊骰后共有 ${state.result.actualCount} 枚符合。比分和回合数将在下一轮保留。`
       : `The public bid was ${claim}; ${state.result.actualCount} matching dice existed after both hands were revealed. Scores and the round count carry forward.`;
-    $("#liarResult").innerHTML = `<strong>${winner} · ${verdict}</strong><p>${detail}</p><button class="continuation-button" data-liar-next>${language === "zh" ? "保留比分，进入下一轮" : "Keep score and play next round"}</button>`;
+    const audit = state.postRoundDecisionAudit?.length
+      ? state.postRoundDecisionAudit.map((item) => {
+        const auditedBid = Array.isArray(item.bid) ? item.bid.join(" × ") : "—";
+        return language === "zh"
+          ? `AI 对 ${auditedBid} 的私有判断 ${(item.privateConfidence * 100).toFixed(1)}%，因此选择${item.action === "challenge" ? "质疑" : "继续加注"}`
+          : `AI privately rated ${auditedBid} at ${(item.privateConfidence * 100).toFixed(1)}%, then ${item.action === "challenge" ? "challenged" : "raised"}`;
+      }).join(language === "zh" ? "；" : "; ")
+      : (language === "zh" ? "本轮 AI 没有作出可审计的叫价决策。" : "The AI made no auditable bidding decision this round.");
+    $("#liarResult").innerHTML = `<strong>${winner} · ${verdict}</strong><p>${detail}</p><p class="liar-decision-audit"><b>${language === "zh" ? "结算后策略审计" : "Post-round strategy audit"}</b> · ${audit}</p><button class="continuation-button" data-liar-next>${language === "zh" ? "保留比分，进入下一轮" : "Keep score and play next round"}</button>`;
     $("[data-liar-next]").addEventListener("click", () => act("new_round"));
   }
 }
