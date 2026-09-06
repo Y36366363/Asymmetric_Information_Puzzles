@@ -1766,7 +1766,16 @@ class LiarDiceSession:
             self._resolve_challenge("ai")
             return
         self.current_bid = next_bid
-        self.history.append({"actor": "ai", "action": "raise", "quantity": next_bid[0], "face": next_bid[1], "confidence": confidence})
+        self.history.append(
+            {
+                "actor": "ai",
+                "action": "raise",
+                "quantity": next_bid[0],
+                "face": next_bid[1],
+                "evaluatedBid": [quantity, face],
+                "confidence": confidence,
+            }
+        )
         self.turn = "player"
 
     def _resolve_challenge(self, challenger: str) -> None:
@@ -1795,6 +1804,28 @@ class LiarDiceSession:
     def snapshot(self) -> dict[str, object]:
         bid = list(self.current_bid) if self.current_bid is not None else None
         confidence = self._claim_probability(self.current_bid) if self.current_bid else None
+        public_history = [
+            {
+                key: value
+                for key, value in item.items()
+                if key not in {"confidence", "evaluatedBid"}
+            }
+            for item in self.history
+        ]
+        decision_audit = None
+        if self.phase == "finished":
+            decision_audit = [
+                {
+                    "action": item["action"],
+                    "bid": item.get(
+                        "evaluatedBid",
+                        item.get("bid", [item.get("quantity"), item.get("face")]),
+                    ),
+                    "privateConfidence": item["confidence"],
+                }
+                for item in self.history
+                if item["actor"] == "ai" and "confidence" in item
+            ]
         minimum = None if self.current_bid is None else {
             "quantity": self.current_bid[0] if self.current_bid[1] < 6 else self.current_bid[0] + 1,
             "face": self.current_bid[1] + 1 if self.current_bid[1] < 6 else 1,
@@ -1813,12 +1844,15 @@ class LiarDiceSession:
             "playerScore": self.player_score,
             "aiScore": self.ai_score,
             "claimProbability": confidence,
-            "history": list(self.history),
+            "history": public_history,
+            "postRoundDecisionAudit": decision_audit,
             "result": dict(self.result) if self.result else None,
+            "strategyScope": "private-dice threshold heuristic with post-round audit",
+            "strategyEvidence": "strong_heuristic",
             "legalActions": (["raise_bid", "challenge"] if self.phase == "bidding" and self.turn == "player" else ["new_round"] if self.phase == "finished" else []),
             "informationSet": {
                 "privateHand": list(self.player_dice),
-                "publicHistory": list(self.history),
+                "publicHistory": public_history,
                 "opponentDiceCount": len(self.ai_dice),
                 "claimProbability": confidence,
             },

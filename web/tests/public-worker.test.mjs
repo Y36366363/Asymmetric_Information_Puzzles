@@ -232,6 +232,18 @@ test("single-player games survive complete decision loops", async () => {
 
   const ecard = await create("e-card");
   assert.equal(ecard.state.aiCommittedDuel, null);
+
+  const liarAudit = await create("liars-dice");
+  await act(liarAudit, "raise_bid", {quantity:1, face:2});
+  if (liarAudit.state.phase === "bidding") {
+    assert.equal(liarAudit.state.history.some((item) => "confidence" in item), false);
+    assert.equal(liarAudit.state.informationSet.publicHistory.some((item) => "confidence" in item), false);
+    assert.equal(liarAudit.state.postRoundDecisionAudit, null);
+    await act(liarAudit, "challenge");
+  }
+  assert.equal(liarAudit.state.phase, "finished");
+  assert.ok(Array.isArray(liarAudit.state.postRoundDecisionAudit));
+  assert.equal(liarAudit.state.history.some((item) => "confidence" in item), false);
   assert.equal(ecard.state.strategyEvidence, "strong_heuristic");
   assert.equal(ecard.state.aiTimingForecast.reduce((sum, item) => sum + item.probability, 0), 1);
   while (ecard.state.phase === "playing") await act(ecard, "play_card", {card:ecard.state.playerHand[0].card});

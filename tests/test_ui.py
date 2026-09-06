@@ -712,6 +712,32 @@ class LocalGameUITests(unittest.TestCase):
         session._ai_response()
         self.assertEqual(session.history[0]["action"], "challenge")
 
+    def test_liars_dice_keeps_ai_private_confidence_hidden_until_settlement(self) -> None:
+        session = LiarDiceSession({"seed": 23, "dice": 5})
+        session.ai_dice = [1, 1, 2, 3, 4]
+        session.current_bid = (1, 2)
+        session.history = []
+        session.turn = "ai"
+        session._ai_response()
+        active = session.snapshot()
+        self.assertEqual(active["phase"], "bidding")
+        self.assertNotIn("confidence", active["history"][0])
+        self.assertNotIn("evaluatedBid", active["history"][0])
+        self.assertNotIn("confidence", active["informationSet"]["publicHistory"][0])
+        self.assertIsNone(active["postRoundDecisionAudit"])
+
+        finished = session.act("challenge", {})
+        self.assertEqual(finished["phase"], "finished")
+        self.assertNotIn("confidence", finished["history"][0])
+        self.assertEqual(len(finished["postRoundDecisionAudit"]), 1)
+        self.assertEqual(finished["postRoundDecisionAudit"][0]["bid"], [1, 2])
+        self.assertGreaterEqual(
+            finished["postRoundDecisionAudit"][0]["privateConfidence"], 0
+        )
+        self.assertLessEqual(
+            finished["postRoundDecisionAudit"][0]["privateConfidence"], 1
+        )
+
     def test_liars_dice_reveals_ai_dice_then_continues_with_scores(self) -> None:
         session = LiarDiceSession({"seed": 17, "dice": 5})
         self.assertIsNone(session.snapshot()["aiDice"])

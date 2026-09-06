@@ -5,6 +5,22 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 09/06/2026
+
+- **Liar's Dice private-information repair** — Removed the AI's private-dice
+  confidence from live action history and the public information set. The
+  hidden calculation now appears only in a clearly labelled post-round audit,
+  after both hands have been revealed.
+- **Engagement audit across the current lobby** — Reviewed all 15 games against
+  agency, informative feedback, counterplay, and end-of-round audit criteria.
+  The next priorities are opponent-shift experiments for Liar's Dice and
+  counterfactual decision review for the investment tournament—not another
+  unrelated game. [Read today's audit](research/gameplay_engagement_audit_2026-09-06.md).
+- **Cross-runtime leakage regression** — Added Python and zero-backend browser
+  assertions proving that private AI confidence is absent during play, remains
+  absent from public history after settlement, and is exposed only through the
+  post-round audit contract.
+
 ## Updates 09/05/2026
 
 - **E-Card is now a learnable timing match** — The AI commits its special-card

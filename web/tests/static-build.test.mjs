@@ -132,6 +132,8 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(app, /data-guess-who-next/);
   assert.match(app, /data-pursuit-next/);
   assert.match(app, /AI dice \(revealed this round\)/);
+  assert.match(app, /Post-round strategy audit/);
+  assert.doesNotMatch(app, /item\.confidence/);
   const styles = await readFile(new URL("styles.css", publicRoot), "utf8");
   const engine = await readFile(new URL("game-engine.js", publicRoot), "utf8");
   assert.doesNotMatch(engine, /unsafe-inline/);
@@ -148,6 +150,7 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(styles, /\.rules-start/);
   assert.match(styles, /\.strategy-review-grid/);
   assert.match(styles, /\.ecard-timing-forecast/);
+  assert.match(styles, /\.liar-decision-audit/);
 });
 
 test("browser engine intercepts API calls without a backend", async () => {
