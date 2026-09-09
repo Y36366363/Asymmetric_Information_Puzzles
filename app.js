@@ -27,6 +27,7 @@ let wormDisclosure = 0;
 let blackjackPracticeMode = readPreference("aip-blackjack-mode") === "practice";
 let pokerMode = readPreference("aip-kuhn-poker-mode") === "advanced" ? "advanced" : "basic";
 let goofspielMode = readPreference("aip-goofspiel-mode") === "advanced" ? "advanced" : "basic";
+let liarMode = readPreference("aip-liars-dice-mode") === "epsilon-gto" ? "epsilon-gto" : "heuristic";
 let guidedMode = readPreference("aip-guided-mode") !== "off";
 
 const gameViews = {
@@ -211,7 +212,7 @@ const gamesCopy = {
     pirates: ["海盗议会", "亲自分配 100 枚金币，面对会做逆向归纳的理性海盗投票。", "单人 · 人机投票"],
     "kuhn-poker": ["库恩扑克", "在三张牌的极简牌局中读取信号、抓诈唬，并与混合策略 AI 连续对战。", "单人 · 隐藏手牌与诈唬"],
     "e-card": ["E-Card 皇帝牌", "轮流扮演皇帝方与奴隶方，在非对称收益下猜测 AI 的隐藏出牌时机。", "单人 · 非对称混合策略"],
-    "restricted-rps": ["限定猜拳实验室", "管理公开的有限手势库存，对抗以均衡随机化为底线、同时学习你偏好的 AI。", "单人 · 资源约束与机制设计"],
+    "restricted-rps": ["限定猜拳实验室", "管理公开的有限手势库存，对抗从每个剩余状态逆推求得的 GTO AI。", "单人 · 资源约束与机制设计"],
     blackjack: ["21 点策略实验室", "对抗固定规则庄家，逐步比较你的行动与规则限定的最优基础策略。", "单人 · 概率决策与策略审计"],
     "liars-dice": ["骗子骰子", "隐藏骰子、公开叫价与质疑概率；判断何时加注，何时抓住 AI 的虚张声势。", "单人 · 隐藏骰子与公开信号"],
     mastermind: ["猜数字 · 密码破解", "从 5,040 个隐藏密码中推理答案，比较自己的步数与 minimax 信息策略。", "单人 · 信息集搜索"],
@@ -229,7 +230,7 @@ const gamesCopy = {
     pirates: ["Pirate Council", "Allocate 100 coins and face rational pirates who reason backward before voting.", "Solo · Human vs AI vote"],
     "kuhn-poker": ["Kuhn Poker", "Read signals, catch bluffs, and battle a mixed-strategy AI in the classic three-card game.", "Solo · Hidden cards & bluffing"],
     "e-card": ["E-Card", "Alternate between Emperor and Slave, reading the AI's hidden timing under asymmetric rewards.", "Solo · Asymmetric mixed strategy"],
-    "restricted-rps": ["Restricted RPS Lab", "Manage a public finite move inventory against an AI that combines equilibrium randomization with learning.", "Solo · Resource constraints & mechanism design"],
+    "restricted-rps": ["Restricted RPS Lab", "Manage a public finite move inventory against a GTO AI solved backward from every remaining state.", "Solo · Resource constraints & mechanism design"],
     blackjack: ["Blackjack Strategy Lab", "Play against a fixed-rule dealer and audit every choice against the rule-scoped optimal basic strategy.", "Solo · Probability & strategy audit"],
     "liars-dice": ["Liar's Dice", "Private dice, public bids, and probability-guided challenges against a bluffing AI.", "Solo · Hidden dice & public signals"],
     mastermind: ["Bulls & Cows Lab", "Reason through 5,040 hidden codes and compare your attempts with a minimax information strategy.", "Solo · Information-set search"],
@@ -255,9 +256,9 @@ const rulesCopy = {
     pirates: ["目标：让你的提案获得足够票数，并让海盗 A 活下来。", "在每个海盗的金币输入框中填整数，所有分配之和必须正好等于 100。", "点击“提交提案并投票”。每名海盗会比较你的报价与否决后按逆向归纳得到的金币/生存结果。", "达到页面显示的赞成票数就通过；否则 A 被处决，系统展示实际结果和理论最优方案。"],
     "kuhn-poker": ["目标：你固定担任后手，在连续牌局中取得正的净筹码。你和 AI 从 J、Q、K 中各拿一张私牌，并各投入 1 枚底注。", "AI 先选择过牌或下注。AI 过牌后，你可过牌直接比牌，或额外投入 1 枚下注；面对 AI 下注时，你只能跟注或弃牌。", "跟注再投入 1 枚并亮牌；弃牌立即损失底注。牌力为 K > Q > J。下注既可能是 K 的价值下注，也可能是 J 的诈唬。", "基础模式保留合理混合策略，但在一次 Q 跟注频率上存在可利用偏差；高级模式使用穷举最佳回应验证、可利用度为零的精确 GTO。", "后手在双方都采用 GTO 时长期期望为每局 +1/18 枚筹码。它是大量牌局的平均值，不代表每局或短期比赛必胜。切换模式会重新开始并清空比分。"],
     "e-card": ["目标：利用特殊牌的循环克制关系赢得高分。你和 AI 各有 1 张特殊牌与 4 张市民牌。", "AI 会在你本轮第一次出牌前秘密承诺特殊牌位置，不会看见你的选择后临时换牌。", "皇帝击败市民，市民击败奴隶，奴隶击败皇帝；奴隶获胜通常得到更高收益。", "观察位置概率与过去回合：AI 会追逐或避开你常用的特殊牌时机，你也可以改变习惯反向利用它。"],
-    "restricted-rps": ["目标：在有限库存耗尽前赢得更多回合。你和 AI 各有相同数量的石头、剪刀、布。", "点击一张仍有库存的手势牌；双方同时出牌，使用过的牌永久减少。", "石头胜剪刀，剪刀胜布，布胜石头；相同手势为平局。双方库存和历史都会公开。", "库存全部用完后比赛结束。赛后复盘会比较实际频率、均衡支持集和 AI 的针对权重；单场输赢仍会受到随机出牌影响。"],
+    "restricted-rps": ["目标：在有限库存耗尽前赢得更多回合。你和 AI 各有相同数量的石头、剪刀、布。", "点击一张仍有库存的手势牌；双方同时出牌，使用过的牌永久减少。", "石头胜剪刀，剪刀胜布，布胜石头；相同手势为平局。双方库存和历史都会公开。", "库存全部用完后比赛结束。AI 在每个公开库存状态按逆向归纳求出的 GTO 分布出牌；赛后复盘比较你的选择与同一均衡。"],
     blackjack: ["目标：让自己的点数尽量接近 21，但超过 21 就爆牌并立即输。", "A 可算 1 或 11；J/Q/K 算 10。开始时你会看到两张手牌和庄家的一张明牌。", "普通模式不会提前揭示建议；练习模式会在每次操作后判断是否符合基础策略并告诉你正确动作。", "当前可点击要牌、停牌，以及仅首个决定可用的加倍。庄家按软 17 停牌；分牌、投降和保险尚未开放。"],
-    "liars-dice": ["目标：判断公开叫价是真实还是虚张声势，并在质疑中赢下本轮。", "你能看到自己的骰子，但看不到 AI 的骰子。叫价“数量 × 点数”表示全桌至少有这么多个该点数。", "点击“加注”提交更高的数量，或在数量相同时提交更高点数；1 点对 2–6 点是万能牌。", "如果你认为上一口不可信，点击“质疑”。系统揭示全部骰子并根据实际数量判定胜负。"],
+    "liars-dice": ["目标：判断公开叫价是真实还是虚张声势，并在质疑中赢下本轮。", "五骰基础模式允许通常的更高叫价，使用透明概率启发式 AI；一骰 ε-GTO 模式是独立的有限规则集。", "一骰模式中开局只能叫 1×点数，之后只能沿 1×1 至 2×6 的阶梯前进一步，或质疑；1 点对 2–6 点是万能牌。", "质疑会揭示全部骰子并结算。模式切换会重开比赛，两个规则集的成绩不会混在一起。"],
     mastermind: ["目标：在 10 次尝试内破解 AI 隐藏的四位密码。密码从 0–9 中选择四个不同数字，共有 5,040 种可能。", "输入恰好四个不同数字，例如 0123；首位可以是 0。点击“提交猜测”后才能得到反馈。", "“位置正确”表示数字和位置都对；“数字正确但位置不同”表示数字存在但放错位置。反馈只给数量，不指出具体是哪一位。", "观察每轮排除的候选数并继续推理。你可以完全自己猜，也可以点击“采用 AI 建议”复制 minimax 建议，再提交。", "得到 4 个位置正确即获胜。连续完成多局后，页面会计算你的成功局平均步数与最佳成绩。"],
     "guess-who": ["目标：在 8 回合内找出 AI 从 24 张公开角色卡中秘密选中的人。", "先查看角色特征，再点击一个仍能切分候选集的是非问题；按钮会预告回答“是”和“否”各剩多少人。", "AI 只回答“是”或“否”。不符合答案的角色会变暗，信息集和最优建议会立即更新。", "要猜身份时，先点击一张仍亮起的角色卡，再点击“确认猜测”。猜错会消耗一回合并排除该角色，猜对即获胜。", "“执行 AI 建议”会采用固定角色表与问题库下经过动态规划证明的最小期望策略；候选唯一时，它会执行最终猜测。"],
     "hidden-pursuit": ["目标：在第 12 回合结束前，让任一侦探移动到隐藏目标当前所在的节点。", "地图上蓝色 A、青色 B 是你的两名侦探。每回合先移动 A，再移动 B；只能点击当前侦探通过线路直接相连的节点。", "两名侦探都行动后，目标会沿黄色出租车线或紫色公交线移动一次，并公开所用交通方式，但通常不公开终点。", "带问号的节点是仍符合全部公开信息的位置。你移动到其中一个节点却没有抓到人，也会排除该位置。", "目标会在第 3、6、9 回合移动后强制现身；利用现身位置、之后的交通信号和两名侦探的封锁完成包围。", "抓到目标即获胜；撑过 12 回合则目标逃脱。AI 根据距离、出口和移动后的候选数量规避，但不是已证明的全局最优逃跑策略。"],
@@ -272,9 +273,9 @@ const rulesCopy = {
     pirates: ["Goal: pass your proposal and keep pirate A alive.", "Enter integer gold allocations totaling exactly 100, then submit the proposal.", "Each pirate compares your offer with the continuation payoff after A's execution.", "If enough votes support the proposal it passes; otherwise A is executed and the benchmark is shown."],
     "kuhn-poker": ["Goal: play every hand from the second seat and build positive net chips over repeated hands. You and the AI receive different private cards from J, Q, and K, then ante 1 each.", "The AI acts first with Check or Bet. After a check, choose Check for showdown or Bet for 1 more. Facing an opening bet, choose Call or Fold.", "Calling adds 1 and reveals both cards; folding loses the ante. K > Q > J. A bet may be value with K or a bluff with J.", "Basic mode keeps a coherent mixed strategy but under-calls with Q in one information set, creating a measurable weakness. Advanced uses exact GTO with zero exploitability under exhaustive pure best-response checks.", "Against GTO, the second seat is worth +1/18 chip per hand in long-run expectation. This is an average over many hands, never a promise to win one hand or a short match. Switching modes resets the score."],
     "e-card": ["Goal: exploit the asymmetric special-card cycle. Each side holds one special card and four citizens.", "Before your first play, the AI secretly commits its special card to one duel; it cannot react after seeing your card.", "Emperor beats Citizen, Citizen beats Slave, and Slave beats Emperor. Slave wins pay more.", "Read the timing forecast and prior rounds: the AI chases or avoids your habits, and you can change patterns to counter it."],
-    "restricted-rps": ["Goal: win more rounds before your finite inventory runs out.", "Click an available Rock, Paper, or Scissors card; both choices are simultaneous and the card is consumed.", "Rock beats Scissors, Scissors beats Paper, and Paper beats Rock. Equal moves draw.", "The post-match review compares your frequencies, equilibrium support, and the AI's exploit weight. One match still contains variance from randomized play."],
+    "restricted-rps": ["Goal: win more rounds before your finite inventory runs out.", "Click an available Rock, Paper, or Scissors card; both choices are simultaneous and the card is consumed.", "Rock beats Scissors, Scissors beats Paper, and Paper beats Rock. Equal moves draw.", "At every public inventory state the AI samples the GTO distribution found by backward induction. The review compares your choices with that same equilibrium."],
     blackjack: ["Goal: approach 21 without going over.", "A counts as 1 or 11; face cards count as 10. You see your hand and the dealer upcard.", "Normal mode keeps advice out of the way. Practice mode grades every decision and reveals the basic-strategy action afterward.", "Choose Hit, Stand, or Double on the first decision. The dealer stands on soft 17; Split, Surrender, and Insurance are not yet available."],
-    "liars-dice": ["Goal: identify a bluff and win the round.", "You see your dice only. A bid Quantity × Face claims at least that many matching dice across both hands.", "Raise quantity, or raise face at equal quantity; ones are wild for faces 2–6.", "Challenge the current bid to reveal all dice and settle the round."],
+    "liars-dice": ["Goal: identify a bluff and win the round.", "Five-die Basic allows ordinary higher bids with a transparent probability heuristic; one-die ε-GTO is a separate finite ruleset.", "In one-die mode, open at 1×face, then either challenge or advance one step along the 1×1 through 2×6 ladder. Ones are wild for faces 2–6.", "A challenge reveals both hands. Switching modes starts a fresh match, so results from the two rulesets are never mixed."],
     mastermind: ["Goal: crack a four-digit hidden code in ten attempts. It uses four distinct digits from 0–9, creating 5,040 possible worlds.", "Enter exactly four different digits, such as 0123. A leading zero is valid, then submit.", "Exact means right digit and position; misplaced means a right digit in the wrong position. Counts never identify the individual digits.", "Reason independently or copy the bounded-minimax AI suggestion. Each history row shows how many candidates that experiment removed.", "Four exact positions win. Across solved rounds, the page tracks your average and best attempt count."],
     "guess-who": ["Goal: identify the AI's secret person from 24 public character cards within eight turns.", "Inspect the traits, then ask a yes/no question that still splits the candidate set. Each button previews how many people remain after Yes and No.", "The AI answers truthfully. Inconsistent cards dim immediately, and both the information set and exact recommendation update.", "To name the person, select a bright card and press Confirm guess. A wrong guess costs one turn and eliminates that card; a correct guess wins.", "Take AI advice uses a dynamic-programming policy proven to minimize expected turns for this fixed roster and question bank. When one candidate remains, it makes the final guess."],
     "hidden-pursuit": ["Goal: move either detective onto the hidden fugitive before round 12 ends.", "Blue A and cyan B are your detectives. Move A, then B each round by clicking a directly connected node.", "After both moves, the fugitive takes one yellow Taxi or purple Bus edge. The transport is public; the destination usually remains hidden.", "Question-mark nodes form the current information set. Visiting one without a capture also eliminates it.", "The fugitive must reveal after moves 3, 6, and 9. Combine that sighting with later transport signals and two-token blocking.", "Capture wins; surviving round 12 lets the fugitive escape. The AI is a distance-and-ambiguity heuristic, not a proven globally optimal evader."],
@@ -292,9 +293,9 @@ const ruleDetails = {
     pirates: { role: "你扮演最资深海盗 A。规则是：A 提出如何分 100 枚金币，所有海盗投票；若票数不足，A 被处决，下一位海盗重新提案。每个人都知道之后会发生什么。", example: "例：如果海盗 C 在 A 死后能得到 1 枚金币，那么给 C 仍然只有 1 枚通常买不到他的票；给 2 枚才比他的后续结果更好。也可以收买那些 A 死后会一无所有的人。", finish: "分配总和恰好为 100 后提交。赞成票达到页面要求，A 存活并按提案分金币；票数不足则 A 死亡，页面展示后续结果。你的核心任务是用尽量少的金币买到足够票数。", terms: "逆向归纳＝先算只剩最后几名海盗时会怎样，再一步步倒推到现在；延续收益＝否决当前提案后，该海盗预计能否存活以及能拿多少金币。" },
     "kuhn-poker": { role: "这是把扑克压缩到三张牌的练习。AI 固定先手、你固定后手；你只知道自己的牌，不知道 AI 的牌。基础模式可被利用，高级模式是精确 GTO。", example: "例：你拿 Q，AI 下注。AI 可能拿 K 认真下注，也可能拿 J 诈唬。跟注要再投入 1 枚并亮牌；弃牌会损失已投入的底注，但避免继续亏损。", finish: "一方弃牌或双方完成过牌/跟注后，本局结束并结算筹码。后手的 GTO 长期价值是 +1/18/局；基础 AI 的最佳回应价值可达 +1/6/局。两者都是精确期望值，不保证单局胜负。", terms: "过牌＝不加钱；下注＝额外投入 1；跟注＝支付同样金额并要求亮牌；GTO＝对手无法通过单方面改变策略获得更多收益的均衡策略。切换模式会清空当前比分。" },
     "e-card": { role: "你和 AI 轮流扮演皇帝方与奴隶方。AI 在每轮开始时已经秘密承诺特殊牌位置，不能根据你刚点击的牌临时改变；真正目标是利用概率和跨轮习惯预测这个位置。", example: "例：你是奴隶方，当前第 3 次对决出现皇帝的条件概率最高。此时出奴隶有更高机会拿到 5 分；但如果你总在第 3 次出特殊牌，AI 下一次扮演奴隶时会更积极追撞这个位置。", finish: "非市民对决结束本轮并计分，之后双方交换阵营。结算会公开 AI 预先承诺的位置；位置预测条和历史记录让你判断自己是在利用规律，还是仅仅碰巧猜中。", terms: "皇帝＞市民、市民＞奴隶、奴隶＞皇帝；位置概率＝在此前尚未出现特殊牌的条件下，AI 本次使用特殊牌的概率；追逐＝AI 奴隶倾向撞上你的皇帝；避开＝AI 皇帝倾向避开你的奴隶。" },
-    "restricted-rps": { role: "这是有库存的猜拳。普通猜拳每轮都能随便出，但这里每种手势只有有限张；你刚才用掉什么，会改变后面还能怎么出。", example: "例：你只剩 1 石头、0 剪刀、2 布，AI 能看到这个库存，所以知道你不可能出剪刀。你仍需在石头和布之间随机选择，避免行为过于容易预测。", finish: "双方所有手势卡用完后结束，胜局多的一方获胜。每轮后可以看公开库存、均衡建议和 AI 对你历史偏好的分析。", terms: "库存＝每种手势还可使用几次；均衡建议＝即使对手知道你的概率，也难以稳定利用你的随机方案；适应＝AI 根据你过去偏爱哪种手势调整。" },
+    "restricted-rps": { role: "这是有库存的猜拳。普通猜拳每轮都能随便出，但这里每种手势只有有限张；你刚才用掉什么，会改变后面还能怎么出。", example: "例：你只剩 1 石头、0 剪刀、2 布，AI 能看到这个库存，所以知道你不可能出剪刀。你仍需在石头和布之间随机选择，避免行为过于容易预测。", finish: "双方所有手势卡用完后结束，胜局多的一方获胜。每轮后可以看公开库存、均衡建议和 AI 实际采用的 GTO 概率。", terms: "库存＝每种手势还可使用几次；均衡建议＝从比赛终点逆推、对最佳回应仍有保证的随机方案；GTO AI 在每个状态实际按该方案抽样。" },
     blackjack: { role: "你是玩家，与按固定规则行动的庄家比较点数。普通模式保留决策压力；练习模式会在每次操作后对照基础策略给出反馈。", example: "例：你有 10+6=16 点，庄家明牌是 10。练习模式会在你选择后说明该操作是否匹配基础策略，并显示这个规则集下建议的动作。", finish: "你爆牌时立即输；你停牌或加倍后庄家自动补牌，最后不爆牌且更接近 21 的一方获胜，同点为和局。当前完整可用动作是要牌、停牌和加倍；分牌、投降、保险尚未实现。", terms: "要牌＝再抽一张；停牌＝不再抽；加倍＝赌注翻倍且只抽一张；软牌＝有 A 暂时按 11 计算的手牌；基础策略最优性只适用于页面注明的固定规则。" },
-    "liars-dice": { role: "你和 AI 各有五颗隐藏骰子。双方看不到对方点数，只能通过越来越高的公开叫价传递信息或诈唬。", example: "例：你手里有两个 4 和一个 1。因为 1 是万能牌，你已知道全桌至少有三个可算作 4。叫“3×4”很安全；AI 若叫到“7×4”，你需要判断它真的有很多 4，还是在虚张声势。", finish: "当任一方质疑时揭开所有骰子。实际匹配数量达到叫价，质疑者输；数量不足，最后叫价者输。赢一轮得 1 分，可继续开始下一轮。", terms: "叫价 3×4＝声称全桌至少有三个 4（包括可作万能牌的 1）；加注＝提高数量，或数量不变时提高点数；质疑＝认为当前叫价不成立。" },
+    "liars-dice": { role: "基础模式中双方各有五颗隐藏骰子；ε-GTO 模式中双方各有一颗，并使用固定逐级叫价规则。两个模式都是私有骰子、公开历史。", example: "一骰模式例：开局叫 1×4 后，下一次加注只能是 1×5；行动者也可直接质疑。完整历史和自己的骰子共同构成 CFR 信息集。", finish: "质疑时揭开所有骰子。实际匹配数量达到叫价，质疑者输；数量不足，最后叫价者输。赢一轮得 1 分。", terms: "一骰 ε-GTO 只覆盖页面声明的逐级叫价变体；它不证明五骰基础模式或任意跨级加注已经达到 GTO。" },
     mastermind: { role: "这是经典 Bulls and Cows（几A几B）数字推理。AI 从 0–9 中秘密选择四个不重复数字，包括 0123 这样的前导零密码。你看到的不是答案，而是逐轮反馈形成的信息集。", example: "例：答案假设为 0-3-5-6，你猜 0-2-6-4。数字 0 的位置也正确，因此位置正确为 1；数字 6 存在但位置错误，因此错位正确为 1；2 和 4 不在密码中。", finish: "十次之内得到 4 个位置正确即获胜；十次仍未破解则答案揭晓。建议策略最小化下一轮最大的反馈分组，再比较平均剩余候选；它是强而快速的单步 minimax 启发式，不是已经证明的全局最少平均步数策略。", terms: "候选数量＝与全部历史反馈一致的密码数；信息集＝你当前无法区分的所有候选；最坏剩余＝采用该建议后，无论收到哪种反馈，最大反馈分组的大小。" },
     "guess-who": { role: "AI 秘密选择一张身份卡，但所有人的外貌属性和全部问题都公开。你的任务不是靠运气点人，而是利用每次公开的是非答案系统地缩小信息集。", example: "例：还剩 Ada、Bruno、Cleo、Dante 四人，其中两人戴眼镜。提问“是否戴眼镜？”无论答案是什么都只剩两人，因此是 2/2 的平衡切分；4/0 的问题则完全没有信息。", finish: "确认正确身份立即获胜；错误身份会被排除但消耗一回合。第 8 回合仍未猜中则失败并揭晓答案。精确策略在当前固定模型中平均 5.667 回合、最坏 6 回合。", terms: "候选＝与所有公开答案一致的人；信息分割＝问题把候选分成“是/否”两组；期望剩余＝按两种回答概率加权后的平均候选数；精确最优只针对本页固定角色与问题库。" },
     "hidden-pursuit": { role: "你控制两名公开位置的侦探，AI 控制一名隐藏目标。目标每回合必须移动，并公开乘坐出租车还是公交车；只有规定回合才公开实际位置。", example: "例：目标第 3 回合在 8 号节点现身，下一回合公开乘坐公交。你应把候选缩小到所有从 8 号经公交可达、且未被侦探占据的节点，再用 A、B 分别封锁出口。", finish: "任一侦探落到目标所在节点时立即抓捕；如果目标没有合法出口也算被包围。目标完成第 12 次移动仍未被抓则逃脱。", terms: "候选节点＝与所有交通信号、现身记录和落空搜查相容的位置；交通信号＝只公开线路类型，不公开终点；最后现身＝最近一次强制公开的位置，不保证目标现在仍在那里。" },
@@ -309,9 +310,9 @@ const ruleDetails = {
     pirates: { role: "You are senior pirate A. You propose how to split 100 coins. If the vote fails, A dies and the next pirate proposes, so everyone compares the present offer with that future outcome.", example: "Example: if C expects 1 coin after A dies, offering C 1 is normally insufficient; 2 is better than C's continuation payoff and can buy the vote.", finish: "Submit allocations totaling exactly 100. Enough yes votes pass the plan and keep A alive; otherwise A dies. Your challenge is buying enough votes as cheaply as possible.", terms: "Backward induction solves later councils first and works back. Continuation payoff is a pirate's expected survival and gold after rejection." },
     "kuhn-poker": { role: "This is poker reduced to J, Q, and K. The AI always acts first and you always act second. Basic mode is deliberately exploitable; Advanced is exact GTO.", example: "If you hold Q and the AI bets, it may hold K for value or J as a bluff. Calling pays 1 more to reveal; folding loses the ante but limits the loss.", finish: "A fold or completed check/call sequence settles the hand. The second-seat GTO value is +1/18 chip per hand; a best response to Basic reaches +1/6. These are exact long-run expectations, not guaranteed hand outcomes.", terms: "Check adds nothing. Bet adds 1. Call matches and reveals. GTO is an equilibrium from which no unilateral deviation earns more. Switching mode resets the score." },
     "e-card": { role: "You and the AI alternate Emperor and Slave. The AI secretly commits its special-card duel before your first play and cannot react to the card you just clicked; infer that position from probabilities and cross-round habits.", example: "As Slave, suppose duel 3 has the highest conditional chance of an AI Emperor. Playing Slave there offers the best five-point shot—but repeatedly choosing duel 3 teaches a future AI Slave where to chase your Emperor.", finish: "A decisive duel scores the round and swaps roles. Settlement reveals the AI's precommitted position; compare it with the forecast and prior timing record to separate a good read from a lucky result.", terms: "Emperor beats Citizen, Citizen beats Slave, and Slave beats Emperor. Timing probability is conditional on the special card not appearing earlier. Chase means an AI Slave targets your Emperor habit; avoid means an AI Emperor evades your Slave habit." },
-    "restricted-rps": { role: "This is Rock-Paper-Scissors with limited cards. Every move you spend changes what remains possible later, and both inventories are public.", example: "Example: with 1 Rock, 0 Scissors, and 2 Paper left, the AI knows Scissors is impossible. Randomizing between Rock and Paper keeps your choice less predictable.", finish: "The match ends when all cards are used; more round wins takes the match. Review inventory, equilibrium guidance, and AI adaptation after each reveal.", terms: "Inventory is remaining uses. Equilibrium guidance is a mixture that is hard to exploit. Adaptation is the AI reacting to your historical bias." },
+    "restricted-rps": { role: "This is Rock-Paper-Scissors with limited cards. Every move you spend changes what remains possible later, and both inventories are public.", example: "Example: with 1 Rock, 0 Scissors, and 2 Paper left, the AI knows Scissors is impossible. Randomizing between Rock and Paper keeps your choice less predictable.", finish: "The match ends when all cards are used; more round wins takes the match. After each reveal, review the inventories, equilibrium guidance, and the GTO probabilities actually used by the AI.", terms: "Inventory means remaining uses. The equilibrium guide is solved backward from the end and retains its guarantee against a best response. The GTO AI samples that policy at every state." },
     blackjack: { role: "You compare your hand with a fixed-rule dealer. Normal mode preserves the decision challenge; Practice mode grades each completed action against basic strategy.", example: "With 16 against a dealer 10, Practice mode waits for your choice, then explains whether it matched the rule-scoped recommendation.", finish: "Bust loses immediately. Stand or Double starts dealer resolution. Hit, Stand, and Double are complete; Split, Surrender, and Insurance are not yet implemented.", terms: "Hit draws; Stand stops; Double doubles the stake and draws once. Basic-strategy optimality applies only to the displayed fixed rules." },
-    "liars-dice": { role: "You and the AI each hold five hidden dice. Public bids rise while private dice stay secret, so every bid can be information or a bluff.", example: "Example: two 4s and one wild 1 give you three known matches for face 4. A bid of 3×4 is safe; after the AI raises to 7×4, decide whether its private hand supports that claim.", finish: "A challenge reveals all dice. If the bid's quantity exists, the challenger loses; otherwise the last bidder loses. The winner scores one point.", terms: "3×4 claims at least three 4-matches across both hands. Raise increases quantity or face. Challenge says the current claim is false." },
+    "liars-dice": { role: "Basic gives each side five hidden dice; ε-GTO gives each side one die and uses fixed stepwise bidding. Both preserve private dice and public history.", example: "In one-die mode, after an opening 1×4 the only raise is 1×5; the acting player may challenge instead. The full history plus one's own die forms the CFR information set.", finish: "A challenge reveals all dice. If the bid is true, the challenger loses; otherwise the last bidder loses. The winner scores one point.", terms: "One-die ε-GTO covers only the declared stepwise-bidding variant; it is not a proof for five-die play or arbitrary jump raises." },
     mastermind: { role: "This is classic Bulls and Cows. The AI secretly chooses four distinct digits from 0–9, including leading-zero codes such as 0123. Public feedback transforms the set of hidden worlds after every guess.", example: "If the code is 0-3-5-6 and you guess 0-2-6-4, digit 0 gives one exact match and digit 6 gives one misplaced match; 2 and 4 are absent.", finish: "Four exact matches within ten guesses wins; otherwise the code is revealed. The adviser minimizes the largest next feedback bucket, then expected survivors. It is a strong, responsive one-step minimax heuristic, not a proof of globally minimal average guesses.", terms: "Candidate count is the number of codes consistent with every clue. The information set is the candidates you cannot yet distinguish. Worst-case remaining is the largest possible feedback bucket after the suggested guess." },
     "guess-who": { role: "The AI secretly selects one identity card, while every visible trait and every permitted question is public. Use truthful yes/no answers to shrink your information set instead of guessing blindly.", example: "Suppose Ada, Bruno, Cleo, and Dante remain and exactly two wear glasses. Asking about glasses creates a 2/2 split, so either answer leaves two candidates. A 4/0 question provides no information and is disabled.", finish: "A correct confirmed identity wins. A wrong identity is eliminated but costs a turn. Failing to identify the person by turn eight reveals the answer. The exact fixed-model policy averages 5.667 turns and needs at most six.", terms: "Candidate means consistent with every public answer. Information split is the Yes/No partition. Expected remaining is the probability-weighted next candidate count. Exact optimality applies only to this roster and question bank." },
     "hidden-pursuit": { role: "You control two visible detectives while the AI controls a hidden fugitive. Every fugitive move publicly reveals Taxi or Bus, but the destination appears only on scheduled reveal rounds.", example: "Example: the fugitive appears at node 8 after round 3, then reports Bus. The next information set is every unblocked node reachable from 8 by a Bus edge; position A and B to cover separate exits.", finish: "Landing on the fugitive captures immediately; leaving no legal escape also counts as containment. The fugitive wins by completing move 12.", terms: "Candidate nodes fit every signal, reveal, and failed search. A transport signal reveals edge type only. Last seen is historical and may not be the current location." },
@@ -419,6 +420,10 @@ function applyLanguage() {
   $("#blackjackModeSwitch").setAttribute("aria-label", language === "zh" ? "21 点学习模式" : "Blackjack learning mode");
   $("#pokerModeSwitch").setAttribute("aria-label", language === "zh" ? "库恩扑克 AI 难度" : "Kuhn Poker AI difficulty");
   $("#goofModeSwitch").setAttribute("aria-label", language === "zh" ? "Goofspiel AI 难度" : "Goofspiel AI difficulty");
+  $("#liarModeSwitch").setAttribute("aria-label", language === "zh" ? "骗子骰子 AI 模式" : "Liar's Dice AI mode");
+  $("#liarModeTitle").textContent = language === "zh" ? "选择 AI 模式" : "Choose AI mode";
+  $("#liarHeuristicMode").textContent = language === "zh" ? "五骰启发式" : "Five-dice heuristic";
+  $("#liarGtoMode").textContent = language === "zh" ? "一骰 ε-GTO" : "One-die ε-GTO";
   $("#rulesClose").setAttribute("aria-label", tr("closeRules"));
   $("#guidedModeToggle").setAttribute("aria-label", language === "zh" ? "开启或关闭所有游戏的首回合新手引导" : "Turn first-turn guidance on or off for every game");
   $("#guidedModeToggle").setAttribute("aria-pressed", String(guidedMode));
@@ -559,6 +564,8 @@ async function startGame(gameId = "cases", options = {}) {
         ? { mode: pokerMode, ...options }
         : gameId === "goofspiel"
           ? { mode: goofspielMode, ...options }
+        : gameId === "liars-dice"
+          ? { mode: liarMode, dice: liarMode === "epsilon-gto" ? 1 : 5, ...options }
         : options;
     const result = await request("/api/sessions", {
       method: "POST",
@@ -576,6 +583,10 @@ async function startGame(gameId = "cases", options = {}) {
     if (gameId === "goofspiel") {
       goofspielMode = currentState.mode;
       writePreference("aip-goofspiel-mode", goofspielMode);
+    }
+    if (gameId === "liars-dice") {
+      liarMode = currentState.mode;
+      writePreference("aip-liars-dice-mode", liarMode);
     }
     if (gameId === "pirates") pirateDraft = currentState.pirates.map(() => 0);
     if (gameId === "worm") wormDisclosure = 0;
@@ -940,7 +951,7 @@ function renderRestrictedRps() {
   $("#rpsRecommendation").innerHTML = probabilityBars(state.equilibriumRecommendation, moveNames);
   if (state.lastAnalysis) {
     const analysis = state.lastAnalysis;
-    $("#rpsAnalysis").innerHTML = `<p>${language === "zh" ? `AI 保留 ${(100 - analysis.exploitWeight * 100).toFixed(0)}% 的均衡基线，并用 ${(analysis.exploitWeight * 100).toFixed(0)}% 权重尝试针对你的模式；本轮最佳回应为${moveNames[analysis.bestResponse]}。` : `The AI kept ${(100 - analysis.exploitWeight * 100).toFixed(0)}% equilibrium weight and used ${(analysis.exploitWeight * 100).toFixed(0)}% to exploit your pattern; its best response was ${moveNames[analysis.bestResponse]}.`}</p>${probabilityBars(analysis.finalDistribution, moveNames)}`;
+    $("#rpsAnalysis").innerHTML = `<p>${language === "zh" ? `AI 本轮实际按逐状态极小极大策略随机出牌；当前 AI 价值为 ${Number(analysis.minimaxValue).toFixed(2)}，针对性偏移为 0%。` : `The AI actually sampled the state-by-state minimax policy this round. Its current value was ${Number(analysis.minimaxValue).toFixed(2)}, with 0% exploitative deviation.`}</p>${probabilityBars(analysis.finalDistribution, moveNames)}`;
   } else {
     $("#rpsAnalysis").textContent = language === "zh" ? "第一轮结束后显示 AI 实际采用的混合概率。" : "The AI's actual mixed probabilities appear after round one.";
   }
@@ -954,12 +965,12 @@ function renderRestrictedRps() {
       [language === "zh" ? "最终分差" : "Score difference", difference],
       [language === "zh" ? "均衡支持内" : "In equilibrium support", `${review.equilibriumSupportedRounds} / ${state.roundsTotal}`],
       [language === "zh" ? "所选动作平均权重" : "Avg chosen weight", `${(review.averageChosenProbability * 100).toFixed(1)}%`],
-      [language === "zh" ? "AI 最高针对权重" : "Peak exploit weight", `${(review.maxExploitWeight * 100).toFixed(0)}%`],
+      [language === "zh" ? "AI 非均衡偏移" : "AI off-equilibrium shift", `${(review.maxExploitWeight * 100).toFixed(0)}%`],
     ].map(([label, value]) => `<div><span>${label}</span><strong>${value}</strong></div>`).join("");
     const favorites = review.mostUsedMoves.map((move) => moveNames[move]).join(language === "zh" ? "、" : ", ");
     $("#rpsReviewCopy").textContent = language === "zh"
-      ? `你最常使用${favorites}。AI 会利用已观察到的重复倾向，但仍保留均衡基线。进入均衡支持集并不表示某一次结果必胜；真正目标是让长期出牌频率接近建议分布。`
-      : `Your most-used move${review.mostUsedMoves.length > 1 ? "s were" : " was"} ${favorites}. The AI exploited observed repetition while retaining its equilibrium baseline. Support membership does not guarantee a win in one round; the goal is to make long-run frequencies resemble the advised mixture.`;
+      ? `你最常使用${favorites}。AI 全程采用逐状态 GTO，没有根据你的历史作非均衡偏移。进入均衡支持集不表示某一轮必胜；策略质量应结合每个状态的建议概率判断。`
+      : `Your most-used move${review.mostUsedMoves.length > 1 ? "s were" : " was"} ${favorites}. The AI used state-by-state GTO throughout, without shifting off equilibrium in response to your history. Support membership does not guarantee a round win; judge choices by each state's advised mixture.`;
   }
   if (state.phase === "finished") {
     $("#rpsCards").innerHTML += `<button class="rps-new-match" data-rps-new>${language === "zh" ? "重新洗牌" : "New match"}</button>`;
@@ -973,6 +984,22 @@ function probabilityBars(distribution, labels) {
 
 function renderLiarDice() {
   const state = currentState;
+  const gto = state.mode === "epsilon-gto";
+  $("#liarHeuristicMode").classList.toggle("active", !gto);
+  $("#liarGtoMode").classList.toggle("active", gto);
+  $("#liarHeuristicMode").setAttribute("aria-pressed", String(!gto));
+  $("#liarGtoMode").setAttribute("aria-pressed", String(gto));
+  renderModeContract("#liarModeDescription", language === "zh"
+    ? {
+      changes: gto ? "每方仅一颗骰子；加注沿固定阶梯前进，AI 使用已通过门槛的 ε-GTO 策略。" : "每方五颗骰子；AI 使用私有骰子概率阈值启发式。",
+      applies: "选择后立即开始采用新规则和 AI 的新比赛。",
+      score: "比分与本轮记录会清空；模式偏好在刷新后保留。",
+    }
+    : {
+      changes: gto ? "One die each with stepwise raises; the AI uses a threshold-certified ε-GTO policy." : "Five dice each; the AI uses a private-dice probability-threshold heuristic.",
+      applies: "Selecting a mode immediately starts a fresh match under those rules.",
+      score: "Scores and round history reset; the preference survives refresh.",
+    });
   const roundFinished = state.phase === "finished";
   const revealedAiDice = roundFinished && Array.isArray(state.aiDice) ? state.aiDice : null;
   $("#liarRound").textContent = state.roundNumber;
@@ -991,6 +1018,7 @@ function renderLiarDice() {
   const playerTurn = state.phase === "bidding" && state.turn === "player";
   $("#liarActions").classList.toggle("hidden", !playerTurn);
   $("#liarChallenge").disabled = !state.currentBid;
+  $("#liarRaise").disabled = !state.legalActions.includes("raise_bid");
   $("#liarQuantity").max = String(state.dicePerPlayer * 2);
   if (state.minimumBid) {
     const minimumQuantity = state.minimumBid.quantity;
@@ -1026,6 +1054,14 @@ function renderLiarDice() {
       : `The public bid was ${claim}; ${state.result.actualCount} matching dice existed after both hands were revealed. Scores and the round count carry forward.`;
     const audit = state.postRoundDecisionAudit?.length
       ? state.postRoundDecisionAudit.map((item) => {
+        if (item.distribution) {
+          const probabilities = Object.entries(item.distribution)
+            .map(([action, probability]) => action + " " + (probability * 100).toFixed(1) + "%")
+            .join(", ");
+          return language === "zh"
+            ? "AI 按认证 CFR 分布抽样并选择" + (item.action === "challenge" ? "质疑" : "加注") + "（" + probabilities + "）"
+            : "The AI sampled its certified CFR distribution and " + (item.action === "challenge" ? "challenged" : "raised") + " (" + probabilities + ")";
+        }
         const auditedBid = Array.isArray(item.bid) ? item.bid.join(" × ") : "—";
         return language === "zh"
           ? `AI 对 ${auditedBid} 的私有判断 ${(item.privateConfidence * 100).toFixed(1)}%，因此选择${item.action === "challenge" ? "质疑" : "继续加注"}`
@@ -1967,7 +2003,15 @@ $("#pokerAdvancedMode").addEventListener("click", () => {
 });
 $("#newECardMatch").addEventListener("click", () => startGame("e-card"));
 $("#newRpsMatch").addEventListener("click", () => startGame("restricted-rps"));
-$("#newLiarMatch").addEventListener("click", () => startGame("liars-dice"));
+$("#newLiarMatch").addEventListener("click", () => startGame("liars-dice", { mode: liarMode, dice: liarMode === "epsilon-gto" ? 1 : 5 }));
+$("#liarHeuristicMode").addEventListener("click", () => {
+  if (liarMode === "heuristic") return;
+  startGame("liars-dice", { mode: "heuristic", dice: 5 });
+});
+$("#liarGtoMode").addEventListener("click", () => {
+  if (liarMode === "epsilon-gto") return;
+  startGame("liars-dice", { mode: "epsilon-gto", dice: 1 });
+});
 $("#newBlackjackMatch").addEventListener("click", () => startGame("blackjack"));
 $("#blackjackNormalMode").addEventListener("click", () => { blackjackPracticeMode = false; writePreference("aip-blackjack-mode", "normal"); renderBlackjack(); });
 $("#blackjackPracticeMode").addEventListener("click", () => { blackjackPracticeMode = true; writePreference("aip-blackjack-mode", "practice"); renderBlackjack(); });
