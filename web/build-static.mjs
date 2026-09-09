@@ -17,10 +17,13 @@ const [runtime, app, styles] = await Promise.all([
   readFile(resolve(source, "styles.css"), "utf8"),
 ]);
 const goofspielPolicy = await readFile(resolve(here, "goofspiel-policy.json"), "utf8");
+const oneDieLiarPolicy = await readFile(resolve(root, "src/aip/puzzles/liars_dice/one_die_cfr_policy.json"), "utf8");
 const version = createHash("sha256")
   .update(runtime)
   .update(app)
   .update(styles)
+  .update(goofspielPolicy)
+  .update(oneDieLiarPolicy)
   .digest("hex")
   .slice(0, 12);
 const apiBoundary = runtime.indexOf("async function api(request, url)");
@@ -73,7 +76,7 @@ await Promise.all([
   writeFile(resolve(output, "index.html"), index),
   writeFile(resolve(output, "styles.css"), styles),
   writeFile(resolve(output, "app.js"), app),
-  writeFile(resolve(output, "game-engine.js"), `const GOOFSPIEL_POLICY = ${goofspielPolicy.trim()};\n` + runtime.slice(0, apiBoundary) + browserAdapter),
+  writeFile(resolve(output, "game-engine.js"), `const GOOFSPIEL_POLICY = ${goofspielPolicy.trim()};\nconst ONE_DIE_LIAR_POLICY = ${oneDieLiarPolicy.trim()};\n` + runtime.slice(0, apiBoundary) + browserAdapter),
   writeFile(resolve(output, "bootstrap.js"), `import "./game-engine.js?v=${version}";\nimport "./app.js?v=${version}";\n`),
   writeFile(resolve(output, ".nojekyll"), ""),
 ]);

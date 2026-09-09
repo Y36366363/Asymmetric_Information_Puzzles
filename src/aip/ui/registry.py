@@ -4,8 +4,11 @@ import random
 import threading
 import uuid
 from dataclasses import dataclass
+from functools import lru_cache
+from importlib.resources import files
 from itertools import combinations
 from math import comb, isfinite
+from pathlib import Path
 from typing import Callable, Protocol
 
 from aip.puzzles.cases.models import CLASSROOM_BANKER, CaseGameRules, RiskPreferences
@@ -21,6 +24,11 @@ from aip.puzzles.investment import InvestmentTournament
 from aip.puzzles.guess_who import DEFAULT_QUESTIONS, DEFAULT_ROSTER, GuessWhoSolver
 from aip.puzzles.goofspiel import GoofspielSolver
 from aip.puzzles.kuhn_poker import basic_policy, equilibrium_policy
+from aip.puzzles.liars_dice import (
+    BIDS as ONE_DIE_LIAR_BIDS,
+    certify_one_die_liar_cfr,
+    load_one_die_liar_policy,
+)
 from aip.puzzles.pirates.models import PirateRules
 from aip.puzzles.pirates.solver import PirateSolver
 from aip.puzzles.worm.solver import WormSolver
@@ -1037,7 +1045,7 @@ class ECardSession:
 
 
 class RestrictedRPSSession:
-    """Finite-inventory RPS with a minimax baseline and bounded exploitation."""
+    """Finite-inventory RPS whose AI samples the subgame-perfect minimax policy."""
 
     MOVES = ("rock", "paper", "scissors")
     BEATS = {"rock": "scissors", "paper": "rock", "scissors": "paper"}
@@ -1050,7 +1058,6 @@ class RestrictedRPSSession:
         self._rng = random.Random(self.seed)
         self.player_inventory: dict[str, int] = {}
         self.ai_inventory: dict[str, int] = {}
-        self.player_history: dict[str, int] = {}
         self.round_number = 0
         self.player_score = 0
         self.ai_score = 0
@@ -1078,7 +1085,6 @@ class RestrictedRPSSession:
     def _reset_match(self) -> None:
         self.player_inventory = {move: self.copies for move in self.MOVES}
         self.ai_inventory = {move: self.copies for move in self.MOVES}
-        self.player_history = {move: 0 for move in self.MOVES}
         self.round_number = 0
         self.player_score = 0
         self.ai_score = 0
@@ -1097,7 +1103,6 @@ class RestrictedRPSSession:
         ai_move = self._sample(strategy["finalDistribution"])
         self.player_inventory[player_move] -= 1
         self.ai_inventory[ai_move] -= 1
-        self.player_history[player_move] += 1
         self.round_number += 1
 
         if player_move == ai_move:
@@ -1128,41 +1133,16 @@ class RestrictedRPSSession:
             ai_counts, player_counts
         )
         equilibrium = dict(zip(self.MOVES, ai_minimax))
-        observations = sum(self.player_history.values())
-        empirical = {
-            move: (self.player_history[move] + 1) / (observations + 3)
-            for move in self.MOVES
-        }
-        player_remaining = sum(self.player_inventory.values())
-        inventory_prior = {
-            move: self.player_inventory[move] / player_remaining for move in self.MOVES
-        }
-        prediction = {
-            move: 0.55 * inventory_prior[move] + 0.45 * empirical[move]
-            for move in self.MOVES
-        }
-        best_response = max(
-            (move for move in self.MOVES if self.ai_inventory[move] > 0),
-            key=lambda candidate: sum(
-                prediction[player_move]
-                * self._payoff(candidate, player_move)
-                for player_move in self.MOVES
-            ),
-        )
-        exploit_weight = min(0.32, observations * 0.045)
-        final = {
-            move: (1 - exploit_weight) * equilibrium[move]
-            + (exploit_weight if move == best_response else 0)
-            for move in self.MOVES
-        }
         return {
             "equilibriumDistribution": equilibrium,
             "playerMinimaxDistribution": dict(zip(self.MOVES, player_minimax)),
             "minimaxValue": value,
-            "predictedPlayerDistribution": prediction,
-            "bestResponse": best_response,
-            "exploitWeight": exploit_weight,
-            "finalDistribution": final,
+            # Keep one explicit field for the distribution actually sampled by
+            # the AI.  This makes it testable that the equilibrium is execution,
+            # not merely advice shown beside a different opponent policy.
+            "finalDistribution": dict(equilibrium),
+            "exploitWeight": 0.0,
+            "policy": "subgame_perfect_minimax",
         }
 
     def _solve_minimax(
@@ -1359,6 +1339,9 @@ class RestrictedRPSSession:
             "lastAnalysis": self.last_analysis,
             "postMatchReview": post_match_review,
             "equilibriumRecommendation": recommendation,
+            "strategyScope": "finite_inventory_rps_backward_induction_minimax",
+            "strategyEvidence": "equilibrium_backed",
+            "aiExploitability": 0.0,
             "legalActions": ["play_move"] if self.phase == "playing" else ["new_match"],
             "informationSet": {
                 "privateChoice": None,
@@ -1664,13 +1647,32 @@ class BlackjackSession:
         }
 
 
+@lru_cache(maxsize=1)
+def _certified_one_die_liar_policy():
+    artifact = files("aip.puzzles.liars_dice").joinpath("one_die_cfr_policy.json")
+    with artifact.open("r", encoding="utf-8") as handle:
+        # The loader accepts a Path so retain one validation/decoding path for
+        # source checkouts and installed packages.
+        result = load_one_die_liar_policy(Path(handle.name))
+    gate = certify_one_die_liar_cfr(result)
+    gate.require_passed()
+    return result, gate
+
+
 class LiarDiceSession:
     """A two-player liar's-dice match with private dice and public bids."""
 
     def __init__(self, options: dict[str, object]) -> None:
+        self.mode = str(options.get("mode", "heuristic")).strip().lower()
+        if self.mode not in {"heuristic", "epsilon-gto"}:
+            raise ValueError("Liar's Dice mode must be heuristic or epsilon-gto")
         self.dice_per_player = _whole_int(options.get("dice", 5), "dice")
-        if self.dice_per_player < 2 or self.dice_per_player > 8:
-            raise ValueError("dice must be between 2 and 8")
+        if self.mode == "epsilon-gto":
+            if self.dice_per_player != 1:
+                raise ValueError("epsilon-gto mode requires exactly one die per player")
+            self.cfr_result, self.cfr_gate = _certified_one_die_liar_policy()
+        elif self.dice_per_player < 2 or self.dice_per_player > 8:
+            raise ValueError("heuristic mode requires between 2 and 8 dice")
         self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
         self._rng = random.Random(self.seed)
         self.player_score = 0
@@ -1686,6 +1688,7 @@ class LiarDiceSession:
         self.phase = "bidding"
         self.turn = "player"
         self.history: list[dict[str, object]] = []
+        self.bid_history: list[tuple[int, int]] = []
         self.result: dict[str, object] | None = None
 
     def _roll(self, count: int) -> list[int]:
@@ -1719,6 +1722,18 @@ class LiarDiceSession:
             raise ValueError("bid must use a face from 1 to 6 and fit the dice pool")
         if not self._is_higher(bid, self.current_bid):
             raise ValueError("a new bid must raise quantity, or raise the face at equal quantity")
+        if self.mode == "epsilon-gto":
+            if self.current_bid is None and quantity != 1:
+                raise ValueError("one-die epsilon-gto openings must have quantity one")
+            if self.current_bid is not None:
+                current_index = ONE_DIE_LIAR_BIDS.index(self.current_bid)
+                if (
+                    current_index == len(ONE_DIE_LIAR_BIDS) - 1
+                    or bid != ONE_DIE_LIAR_BIDS[current_index + 1]
+                ):
+                    raise ValueError(
+                        "one-die epsilon-gto raises must advance exactly one bid step"
+                    )
         return bid
 
     def _player_raise(self, quantity: int, face: int) -> None:
@@ -1726,6 +1741,7 @@ class LiarDiceSession:
             raise ValueError("it is not your bidding turn")
         bid = self._validate_bid(quantity, face)
         self.current_bid = bid
+        self.bid_history.append(bid)
         self.history.append({"actor": "player", "action": "raise", "quantity": quantity, "face": face})
         self.turn = "ai"
         self._ai_response()
@@ -1752,6 +1768,9 @@ class LiarDiceSession:
 
     def _ai_response(self) -> None:
         assert self.current_bid is not None
+        if self.mode == "epsilon-gto":
+            self._cfr_ai_response()
+            return
         confidence = self._claim_probability(self.current_bid, self.ai_dice)
         if confidence < 0.45 or self.current_bid[0] >= self.dice_per_player * 2:
             self.history.append({"actor": "ai", "action": "challenge", "bid": list(self.current_bid), "confidence": confidence})
@@ -1776,6 +1795,43 @@ class LiarDiceSession:
                 "confidence": confidence,
             }
         )
+        self.turn = "player"
+
+    def _cfr_ai_response(self) -> None:
+        assert self.current_bid is not None
+        information_set = (self.ai_dice[0], tuple(self.bid_history))
+        distribution = self.cfr_result.policy[(1, information_set)]
+        target = self._rng.random()
+        cumulative = 0.0
+        selected: object = next(reversed(distribution))
+        for action, probability in distribution.items():
+            cumulative += float(probability)
+            if target <= cumulative:
+                selected = action
+                break
+        audit_distribution = {
+            ("challenge" if action == "challenge" else f"{action[0]}x{action[1]}"): float(probability)
+            for action, probability in distribution.items()
+        }
+        if selected == "challenge":
+            self.history.append({
+                "actor": "ai",
+                "action": "challenge",
+                "bid": list(self.current_bid),
+                "cfrDistribution": audit_distribution,
+            })
+            self._resolve_challenge("ai")
+            return
+        assert isinstance(selected, tuple)
+        self.current_bid = selected
+        self.bid_history.append(selected)
+        self.history.append({
+            "actor": "ai",
+            "action": "raise",
+            "quantity": selected[0],
+            "face": selected[1],
+            "cfrDistribution": audit_distribution,
+        })
         self.turn = "player"
 
     def _resolve_challenge(self, challenger: str) -> None:
@@ -1808,30 +1864,41 @@ class LiarDiceSession:
             {
                 key: value
                 for key, value in item.items()
-                if key not in {"confidence", "evaluatedBid"}
+                if key not in {"confidence", "evaluatedBid", "cfrDistribution"}
             }
             for item in self.history
         ]
         decision_audit = None
         if self.phase == "finished":
-            decision_audit = [
-                {
-                    "action": item["action"],
-                    "bid": item.get(
-                        "evaluatedBid",
-                        item.get("bid", [item.get("quantity"), item.get("face")]),
-                    ),
-                    "privateConfidence": item["confidence"],
-                }
-                for item in self.history
-                if item["actor"] == "ai" and "confidence" in item
-            ]
+            if self.mode == "epsilon-gto":
+                decision_audit = [
+                    {
+                        "action": item["action"],
+                        "distribution": dict(item["cfrDistribution"]),
+                    }
+                    for item in self.history
+                    if item["actor"] == "ai" and "cfrDistribution" in item
+                ]
+            else:
+                decision_audit = [
+                    {
+                        "action": item["action"],
+                        "bid": item.get(
+                            "evaluatedBid",
+                            item.get("bid", [item.get("quantity"), item.get("face")]),
+                        ),
+                        "privateConfidence": item["confidence"],
+                    }
+                    for item in self.history
+                    if item["actor"] == "ai" and "confidence" in item
+                ]
         minimum = None if self.current_bid is None else {
             "quantity": self.current_bid[0] if self.current_bid[1] < 6 else self.current_bid[0] + 1,
             "face": self.current_bid[1] + 1 if self.current_bid[1] < 6 else 1,
         }
         return {
             "gameId": "liars-dice",
+            "mode": self.mode,
             "phase": self.phase,
             "roundNumber": self.round_number,
             "dicePerPlayer": self.dice_per_player,
@@ -1847,9 +1914,36 @@ class LiarDiceSession:
             "history": public_history,
             "postRoundDecisionAudit": decision_audit,
             "result": dict(self.result) if self.result else None,
-            "strategyScope": "private-dice threshold heuristic with post-round audit",
-            "strategyEvidence": "strong_heuristic",
-            "legalActions": (["raise_bid", "challenge"] if self.phase == "bidding" and self.turn == "player" else ["new_round"] if self.phase == "finished" else []),
+            "strategyScope": (
+                "one_die_stepwise_bidding_chance_sampled_cfr"
+                if self.mode == "epsilon-gto"
+                else "private-dice threshold heuristic with post-round audit"
+            ),
+            "strategyEvidence": (
+                "epsilon_equilibrium_backed"
+                if self.mode == "epsilon-gto"
+                else "strong_heuristic"
+            ),
+            "aiExploitability": (
+                self.cfr_gate.exploitability if self.mode == "epsilon-gto" else None
+            ),
+            "cfrCertification": (
+                {
+                    "passed": self.cfr_gate.passed,
+                    "iterations": self.cfr_gate.iterations,
+                    "informationSets": self.cfr_gate.information_sets,
+                    "maximumAveragePositiveRegret": self.cfr_gate.maximum_average_positive_regret,
+                    "exploitability": self.cfr_gate.exploitability,
+                }
+                if self.mode == "epsilon-gto" else None
+            ),
+            "legalActions": (
+                (["challenge"] if self.mode == "epsilon-gto" and self.current_bid == ONE_DIE_LIAR_BIDS[-1] else ["raise_bid", "challenge"])
+                if self.phase == "bidding" and self.turn == "player" and self.current_bid is not None
+                else ["raise_bid"]
+                if self.phase == "bidding" and self.turn == "player"
+                else ["new_round"] if self.phase == "finished" else []
+            ),
             "informationSet": {
                 "privateHand": list(self.player_dice),
                 "publicHistory": public_history,
@@ -2871,7 +2965,7 @@ def build_default_registry() -> GameRegistry:
         GameDescriptor(
             "restricted-rps",
             "限定猜拳实验室",
-            "固定库存让每次出拳都消耗未来选择；对抗均衡随机化与会学习的策略型 AI。",
+            "固定库存让每次出拳都消耗未来选择；对抗从每个剩余状态逆推求得的 GTO AI。",
             "单人 · 资源约束与机制设计",
         ),
         RestrictedRPSSession,

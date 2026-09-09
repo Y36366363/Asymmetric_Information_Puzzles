@@ -1,0 +1,401 @@
+"""Reusable tabular CFR engine and evidence gate for finite two-player games."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from math import isfinite
+import random
+from typing import Hashable, Mapping, Protocol, TypeVar
+
+
+State = TypeVar("State")
+Action = Hashable
+InformationSet = Hashable
+
+
+class CFRGame(Protocol[State]):
+    """Adapter boundary for finite, two-player, zero-sum extensive-form games."""
+
+    def initial_state(self) -> State: ...
+
+    def is_terminal(self, state: State) -> bool: ...
+
+    def utility_player_zero(self, state: State) -> float: ...
+
+    def current_player(self, state: State) -> int | None: ...
+
+    def chance_outcomes(self, state: State) -> tuple[tuple[Action, float], ...]: ...
+
+    def legal_actions(self, state: State) -> tuple[Action, ...]: ...
+
+    def information_set(self, state: State) -> InformationSet: ...
+
+    def next_state(self, state: State, action: Action) -> State: ...
+
+
+@dataclass(slots=True)
+class _Node:
+    actions: tuple[Action, ...]
+    regrets: list[float]
+    strategy_sum: list[float]
+    visits: int = 0
+
+    @classmethod
+    def create(cls, actions: tuple[Action, ...]) -> _Node:
+        return cls(actions, [0.0] * len(actions), [0.0] * len(actions))
+
+    def strategy(self) -> tuple[float, ...]:
+        positive = [max(0.0, regret) for regret in self.regrets]
+        total = sum(positive)
+        if total <= 0:
+            return tuple(1 / len(self.actions) for _ in self.actions)
+        return tuple(value / total for value in positive)
+
+    def average_strategy(self) -> tuple[float, ...]:
+        total = sum(self.strategy_sum)
+        if total <= 0:
+            return tuple(1 / len(self.actions) for _ in self.actions)
+        return tuple(value / total for value in self.strategy_sum)
+
+
+@dataclass(frozen=True, slots=True)
+class CFRResult:
+    iterations: int
+    policy: Mapping[tuple[int, InformationSet], Mapping[Action, float]]
+    information_set_visits: Mapping[tuple[int, InformationSet], int]
+    average_positive_regret: tuple[float, float]
+
+    @property
+    def information_set_count(self) -> int:
+        return len(self.policy)
+
+
+class CFRTrainer:
+    """Vanilla alternating-update CFR with chance and average-policy tracking."""
+
+    def __init__(self, game: CFRGame[State]) -> None:
+        self.game = game
+        self._nodes: dict[tuple[int, InformationSet], _Node] = {}
+        self.iterations = 0
+
+    def train(self, iterations: int) -> CFRResult:
+        if iterations <= 0:
+            raise ValueError("CFR iterations must be positive")
+        root = self.game.initial_state()
+        for _ in range(iterations):
+            self._traverse(root, 1.0, 1.0, 1.0, update_player=0)
+            self._traverse(root, 1.0, 1.0, 1.0, update_player=1)
+            self.iterations += 1
+        return self.result()
+
+    def result(self) -> CFRResult:
+        policy: dict[tuple[int, InformationSet], dict[Action, float]] = {}
+        visits: dict[tuple[int, InformationSet], int] = {}
+        regret_totals = [0.0, 0.0]
+        for key, node in self._nodes.items():
+            policy[key] = dict(zip(node.actions, node.average_strategy()))
+            visits[key] = node.visits
+            regret_totals[key[0]] += sum(max(0.0, value) for value in node.regrets)
+        denominator = max(1, self.iterations)
+        return CFRResult(
+            iterations=self.iterations,
+            policy=policy,
+            information_set_visits=visits,
+            average_positive_regret=(
+                regret_totals[0] / denominator,
+                regret_totals[1] / denominator,
+            ),
+        )
+
+    def _node(
+        self, player: int, information_set: InformationSet, actions: tuple[Action, ...]
+    ) -> _Node:
+        if len(set(actions)) != len(actions):
+            raise ValueError(
+                f"information set {information_set!r} has duplicate legal actions"
+            )
+        key = (player, information_set)
+        node = self._nodes.get(key)
+        if node is None:
+            if not actions:
+                raise ValueError("non-terminal CFR states need at least one legal action")
+            node = _Node.create(actions)
+            self._nodes[key] = node
+        elif node.actions != actions:
+            raise ValueError(
+                f"information set {information_set!r} has inconsistent legal actions"
+            )
+        return node
+
+    def _traverse(
+        self,
+        state: State,
+        reach_zero: float,
+        reach_one: float,
+        chance_reach: float,
+        *,
+        update_player: int,
+    ) -> float:
+        if self.game.is_terminal(state):
+            utility = self.game.utility_player_zero(state)
+            if not isfinite(utility):
+                raise ValueError("terminal CFR utility must be finite")
+            return utility
+        player = self.game.current_player(state)
+        if player is None:
+            outcomes = self.game.chance_outcomes(state)
+            total_probability = sum(probability for _, probability in outcomes)
+            if (
+                not outcomes
+                or len({action for action, _ in outcomes}) != len(outcomes)
+                or any(
+                    not isfinite(probability) or probability < 0
+                    for _, probability in outcomes
+                )
+                or abs(total_probability - 1.0) > 1e-9
+            ):
+                raise ValueError(
+                    "chance outcomes must be finite, nonnegative, nonempty, and sum to one"
+                )
+            return sum(
+                probability
+                * self._traverse(
+                    self.game.next_state(state, action),
+                    reach_zero,
+                    reach_one,
+                    chance_reach * probability,
+                    update_player=update_player,
+                )
+                for action, probability in outcomes
+            )
+        if player not in (0, 1):
+            raise ValueError("CFR current_player must be 0, 1, or None for chance")
+
+        actions = self.game.legal_actions(state)
+        node = self._node(player, self.game.information_set(state), actions)
+        strategy = node.strategy()
+        action_values: list[float] = []
+        for action, probability in zip(actions, strategy):
+            next_zero = reach_zero * probability if player == 0 else reach_zero
+            next_one = reach_one * probability if player == 1 else reach_one
+            action_values.append(
+                self._traverse(
+                    self.game.next_state(state, action),
+                    next_zero,
+                    next_one,
+                    chance_reach,
+                    update_player=update_player,
+                )
+            )
+        node_value = sum(
+            probability * value for probability, value in zip(strategy, action_values)
+        )
+        if player == update_player:
+            own_reach = reach_zero if player == 0 else reach_one
+            opponent_reach = reach_one if player == 0 else reach_zero
+            sign = 1.0 if player == 0 else -1.0
+            for index, (probability, action_value) in enumerate(
+                zip(strategy, action_values)
+            ):
+                node.regrets[index] += (
+                    chance_reach * opponent_reach * sign * (action_value - node_value)
+                )
+                node.strategy_sum[index] += chance_reach * own_reach * probability
+            node.visits += 1
+        return node_value
+
+
+class ChanceSamplingCFRTrainer(CFRTrainer):
+    """CFR variant that samples root chance while traversing every player action."""
+
+    def __init__(self, game: CFRGame[State], *, seed: int = 0) -> None:
+        super().__init__(game)
+        self._rng = random.Random(seed)
+
+    def train(self, iterations: int) -> CFRResult:
+        if iterations <= 0:
+            raise ValueError("CFR iterations must be positive")
+        root = self.game.initial_state()
+        outcomes = self.game.chance_outcomes(root)
+        total_probability = sum(probability for _, probability in outcomes)
+        if (
+            self.game.current_player(root) is not None
+            or not outcomes
+            or len({action for action, _ in outcomes}) != len(outcomes)
+            or any(
+                not isfinite(probability) or probability < 0
+                for _, probability in outcomes
+            )
+            or abs(total_probability - 1.0) > 1e-9
+        ):
+            raise ValueError(
+                "chance-sampling CFR requires a valid chance node at the root"
+            )
+        for _ in range(iterations):
+            for update_player in (0, 1):
+                target = self._rng.random()
+                cumulative = 0.0
+                selected = outcomes[-1][0]
+                for action, probability in outcomes:
+                    cumulative += probability
+                    if target <= cumulative:
+                        selected = action
+                        break
+                sampled_state = self.game.next_state(root, selected)
+                self._traverse(
+                    sampled_state,
+                    1.0,
+                    1.0,
+                    1.0,
+                    update_player=update_player,
+                )
+            self.iterations += 1
+        return self.result()
+
+
+@dataclass(frozen=True, slots=True)
+class CFRThresholds:
+    min_iterations: int = 10_000
+    min_information_sets: int = 1
+    min_visits_per_information_set: int = 1
+    max_average_positive_regret: float = 0.01
+    max_exploitability: float = 0.01
+    probability_tolerance: float = 1e-9
+
+    def __post_init__(self) -> None:
+        if self.min_iterations <= 0 or self.min_information_sets <= 0:
+            raise ValueError("CFR minimums must be positive")
+        if self.min_visits_per_information_set <= 0:
+            raise ValueError("CFR visit minimum must be positive")
+        if (
+            not isfinite(self.max_average_positive_regret)
+            or not isfinite(self.max_exploitability)
+            or self.max_average_positive_regret < 0
+            or self.max_exploitability < 0
+        ):
+            raise ValueError("CFR error thresholds cannot be negative")
+        if not isfinite(self.probability_tolerance) or self.probability_tolerance <= 0:
+            raise ValueError("CFR probability tolerance must be finite and positive")
+
+
+@dataclass(frozen=True, slots=True)
+class CFRGameProperties:
+    """Explicit domain assumptions required by this CFR certification path."""
+
+    players: int
+    finite: bool
+    zero_sum_or_constant_sum: bool
+    perfect_recall: bool
+
+    @property
+    def supported(self) -> bool:
+        return (
+            self.players == 2
+            and self.finite
+            and self.zero_sum_or_constant_sum
+            and self.perfect_recall
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class CFRGateReport:
+    passed: bool
+    failures: tuple[str, ...]
+    iterations: int
+    information_sets: int
+    minimum_visits: int
+    maximum_average_positive_regret: float
+    exploitability: float | None
+
+    def require_passed(self) -> None:
+        """Prevent a policy from being activated when any evidence gate failed."""
+
+        if not self.passed:
+            raise CFRGateFailure(self.failures)
+
+
+class CFRGateFailure(RuntimeError):
+    def __init__(self, failures: tuple[str, ...]) -> None:
+        self.failures = failures
+        super().__init__("CFR policy failed certification: " + ", ".join(failures))
+
+
+@dataclass(slots=True)
+class CFRCertificationGate:
+    """Uniform promotion gate: training diagnostics plus an independent oracle."""
+
+    thresholds: CFRThresholds = field(default_factory=CFRThresholds)
+
+    def evaluate(
+        self,
+        result: CFRResult,
+        *,
+        exploitability: float | None,
+        required_information_sets: frozenset[
+            tuple[int, InformationSet]
+        ] = frozenset(),
+        exact_information_sets: bool = False,
+        game_properties: CFRGameProperties | None = None,
+    ) -> CFRGateReport:
+        failures: list[str] = []
+        policy_keys = set(result.policy)
+        visit_keys = set(result.information_set_visits)
+        visit_values = tuple(result.information_set_visits.values())
+        visits_valid = (
+            policy_keys == visit_keys
+            and all(
+                isinstance(value, int) and not isinstance(value, bool) and value >= 0
+                for value in visit_values
+            )
+        )
+        minimum_visits = min(visit_values, default=0) if visits_valid else 0
+        regrets = tuple(result.average_positive_regret)
+        regrets_valid = (
+            len(regrets) == 2
+            and all(isfinite(value) and value >= 0 for value in regrets)
+        )
+        maximum_regret = max(regrets, default=float("nan"))
+        if game_properties is None:
+            failures.append("game_properties_required")
+        elif not game_properties.supported:
+            failures.append("unsupported_game_properties")
+        if result.iterations < self.thresholds.min_iterations:
+            failures.append("insufficient_iterations")
+        if result.information_set_count < self.thresholds.min_information_sets:
+            failures.append("insufficient_information_sets")
+        if not required_information_sets.issubset(result.policy):
+            failures.append("missing_required_information_sets")
+        if exact_information_sets and policy_keys != set(required_information_sets):
+            failures.append("unexpected_information_sets")
+        if not visits_valid:
+            failures.append("invalid_information_set_visits")
+        if minimum_visits < self.thresholds.min_visits_per_information_set:
+            failures.append("insufficient_information_set_visits")
+        if not regrets_valid:
+            failures.append("invalid_regret_diagnostic")
+        elif maximum_regret > self.thresholds.max_average_positive_regret:
+            failures.append("average_positive_regret_above_threshold")
+        if exploitability is None or not isfinite(exploitability):
+            failures.append("independent_exploitability_required")
+        elif exploitability < -self.thresholds.probability_tolerance:
+            failures.append("invalid_exploitability")
+        elif exploitability > self.thresholds.max_exploitability:
+            failures.append("exploitability_above_threshold")
+        for distribution in result.policy.values():
+            values = tuple(distribution.values())
+            if (
+                not values
+                or any(not isfinite(value) or value < 0 for value in values)
+                or abs(sum(values) - 1.0) > self.thresholds.probability_tolerance
+            ):
+                failures.append("invalid_policy_distribution")
+                break
+        return CFRGateReport(
+            passed=not failures,
+            failures=tuple(failures),
+            iterations=result.iterations,
+            information_sets=result.information_set_count,
+            minimum_visits=minimum_visits,
+            maximum_average_positive_regret=maximum_regret,
+            exploitability=exploitability,
+        )

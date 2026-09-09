@@ -39,14 +39,16 @@ test("static lobby boots the browser engine before the UI", async () => {
   assert.match(html, /class="difficulty-control active" id="blackjackNormalMode" aria-pressed="true"/);
   assert.match(html, /class="difficulty-control" id="blackjackPracticeMode" aria-pressed="false"/);
   assert.match(html, /id="blackjackModeDescription"/);
-  assert.equal((html.match(/class="mode-contract/g) || []).length, 3);
+  assert.equal((html.match(/class="mode-contract/g) || []).length, 4);
   assert.match(html, /aria-describedby="blackjackModeDescription"/);
   assert.match(html, /aria-describedby="pokerModeDescription"/);
   assert.match(html, /aria-describedby="goofModeDescription"/);
+  assert.match(html, /aria-describedby="liarModeDescription"/);
   assert.match(html, /id="pokerBasicMode"/);
   assert.match(html, /id="pokerAdvancedMode"/);
   assert.match(html, /id="goofBasicMode"/);
   assert.match(html, /id="goofAdvancedMode"/);
+  assert.match(html, /id="liarGtoMode"/);
   assert.match(app, /wormDisclosure/);
   assert.match(app, /blackjackPracticeMode/);
   assert.match(app, /Decide first; the correct play appears afterward/);
@@ -138,6 +140,7 @@ test("static lobby boots the browser engine before the UI", async () => {
   const engine = await readFile(new URL("game-engine.js", publicRoot), "utf8");
   assert.doesNotMatch(engine, /unsafe-inline/);
   assert.match(engine, /sample\(this\.allCodes,361\)/);
+  assert.match(engine, /subgame_perfect_minimax/);
   assert.match(styles, /\.worm-history \{[^}]*overflow-y: auto/);
   assert.match(styles, /body\.modal-open \{ overflow: hidden; \}/);
   assert.match(styles, /\.language-switch button \{ min-width: 44px; \}/);

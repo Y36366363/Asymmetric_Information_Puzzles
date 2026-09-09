@@ -197,9 +197,16 @@ test("single-player games survive complete decision loops", async () => {
   assert.equal(blackjack.state.phase, "finished");
 
   const rps = await create("restricted-rps");
+  assert.equal(rps.state.strategyEvidence, "equilibrium_backed");
+  assert.equal(rps.state.aiExploitability, 0);
   while (rps.state.phase === "playing") {
     const move = Object.keys(rps.state.playerInventory).find((key) => rps.state.playerInventory[key] > 0);
     await act(rps, "play_move", {move});
+    assert.equal(rps.state.lastAnalysis.policy, "subgame_perfect_minimax");
+    assert.deepEqual(
+      rps.state.lastAnalysis.finalDistribution,
+      rps.state.lastAnalysis.equilibriumDistribution,
+    );
   }
   assert.equal(rps.state.roundNumber, rps.state.roundsTotal);
   assert.ok(rps.state.postMatchReview.equilibriumSupportedRounds <= rps.state.roundsTotal);
@@ -244,6 +251,17 @@ test("single-player games survive complete decision loops", async () => {
   assert.equal(liarAudit.state.phase, "finished");
   assert.ok(Array.isArray(liarAudit.state.postRoundDecisionAudit));
   assert.equal(liarAudit.state.history.some((item) => "confidence" in item), false);
+
+  const liarGto = await create("liars-dice", {mode:"epsilon-gto",dice:1});
+  assert.equal(liarGto.state.cfrCertification.passed, true);
+  assert.ok(liarGto.state.aiExploitability < .01);
+  await act(liarGto, "raise_bid", {quantity:1,face:2});
+  assert.equal(liarGto.state.history.some((item) => "cfrDistribution" in item), false);
+  if (liarGto.state.phase === "bidding") {
+    assert.deepEqual(liarGto.state.currentBid, [1,3]);
+    await act(liarGto, "challenge");
+  }
+  assert.equal(liarGto.state.phase, "finished");
   assert.equal(ecard.state.strategyEvidence, "strong_heuristic");
   assert.equal(ecard.state.aiTimingForecast.reduce((sum, item) => sum + item.probability, 0), 1);
   while (ecard.state.phase === "playing") await act(ecard, "play_card", {card:ecard.state.playerHand[0].card});

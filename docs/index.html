@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'" />
     <title>AIP · 非对称博弈实验室</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23d8aa4c'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial' font-size='23' font-weight='900' fill='%2311110f'%3EAIP%3C/text%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=f939925f0032" />
+    <link rel="stylesheet" href="styles.css?v=009cc7d648e8" />
   </head>
   <body>
     <header class="topbar">
@@ -284,7 +284,7 @@
 
         <section class="rps-arena panel">
           <div class="rps-opponent">
-            <p class="eyebrow">BOUNDED EXPLOITATION AI</p>
+            <p class="eyebrow">STATE-BY-STATE GTO AI</p>
             <h2 id="rpsHeadline">选择一张有限卡牌</h2>
             <p id="rpsSubline">AI 同时隐藏出牌；使用过的卡不能再使用。</p>
             <div class="rps-reveal" id="rpsReveal"><span>?</span><b>VS</b><span>?</span></div>
@@ -327,6 +327,17 @@
           </div>
           <button class="secondary-button" id="newLiarMatch" data-i18n="restartMatch">重新开始比赛</button>
         </div>
+
+        <section class="poker-mode-panel panel" aria-labelledby="liarModeTitle">
+          <div>
+            <strong id="liarModeTitle">选择 AI 模式</strong>
+            <div class="mode-contract" id="liarModeDescription" aria-live="polite"></div>
+          </div>
+          <div class="poker-mode-switch" id="liarModeSwitch" role="group" aria-describedby="liarModeDescription">
+            <button class="difficulty-control active" id="liarHeuristicMode" aria-pressed="true">五骰启发式</button>
+            <button class="difficulty-control" id="liarGtoMode" aria-pressed="false">一骰 ε-GTO</button>
+          </div>
+        </section>
 
         <div class="liar-score panel">
           <div><span data-i18n="liarRound">回合</span><strong id="liarRound">1</strong></div>
@@ -714,6 +725,6 @@
 
     <div class="operation-status hidden" id="operationStatus" role="status" aria-live="polite"></div>
     <div class="toast hidden" id="toast" role="status"></div>
-    <script type="module" src="bootstrap.js?v=f939925f0032"></script>
+    <script type="module" src="bootstrap.js?v=009cc7d648e8"></script>
   </body>
 </html>

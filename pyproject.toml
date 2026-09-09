@@ -24,3 +24,4 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "aip.ui" = ["static/*"]
+"aip.puzzles.liars_dice" = ["*.json"]

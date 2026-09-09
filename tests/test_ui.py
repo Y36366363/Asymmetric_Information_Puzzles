@@ -377,8 +377,13 @@ class LocalGameUITests(unittest.TestCase):
         analysis = state["lastAnalysis"]
         self.assertAlmostEqual(sum(analysis["equilibriumDistribution"].values()), 1)
         self.assertAlmostEqual(sum(analysis["finalDistribution"].values()), 1)
-        self.assertGreaterEqual(analysis["exploitWeight"], 0)
-        self.assertLessEqual(analysis["exploitWeight"], 0.32)
+        self.assertEqual(
+            analysis["finalDistribution"], analysis["equilibriumDistribution"]
+        )
+        self.assertEqual(analysis["exploitWeight"], 0)
+        self.assertEqual(analysis["policy"], "subgame_perfect_minimax")
+        self.assertEqual(state["strategyEvidence"], "equilibrium_backed")
+        self.assertEqual(state["aiExploitability"], 0)
 
     def test_restricted_rps_exact_minimax_has_zero_symmetric_value(self) -> None:
         session = RestrictedRPSSession({"seed": 13})
@@ -388,6 +393,16 @@ class LocalGameUITests(unittest.TestCase):
         self.assertAlmostEqual(value, 0.0)
         self.assertAlmostEqual(sum(ai_mix), 1.0)
         self.assertAlmostEqual(sum(player_mix), 1.0)
+
+    def test_restricted_rps_solves_continuations_not_inventory_proportions(self) -> None:
+        session = RestrictedRPSSession({"seed": 17})
+        value, ai_mix, player_mix = session._solve_minimax(
+            (0, 1, 1), (0, 0, 2)
+        )
+        self.assertAlmostEqual(value, -1.0)
+        self.assertEqual(ai_mix, (0.0, 1.0, 0.0))
+        self.assertEqual(player_mix, (0.0, 0.0, 1.0))
+        self.assertNotEqual(ai_mix, (0.0, 0.5, 0.5))
 
     def test_restricted_rps_match_uses_every_card_once(self) -> None:
         created = self.service.create_session(
@@ -712,6 +727,37 @@ class LocalGameUITests(unittest.TestCase):
         session._ai_response()
         self.assertEqual(session.history[0]["action"], "challenge")
 
+    def test_one_die_liars_dice_activates_only_certified_cfr_policy(self) -> None:
+        created = self.service.create_session(
+            "liars-dice", {"mode": "epsilon-gto", "dice": 1, "seed": 7}
+        )
+        state = created["state"]
+        self.assertEqual(state["dicePerPlayer"], 1)
+        self.assertEqual(state["strategyEvidence"], "epsilon_equilibrium_backed")
+        self.assertTrue(state["cfrCertification"]["passed"])
+        self.assertLess(state["aiExploitability"], 0.01)
+        state = self.service.act(
+            created["sessionId"], "raise_bid", {"quantity": 1, "face": 2}
+        )
+        self.assertTrue(
+            all("cfrDistribution" not in item for item in state["history"])
+        )
+        if state["phase"] == "bidding":
+            self.assertEqual(state["currentBid"], [1, 3])
+
+    def test_one_die_liars_dice_enforces_the_certified_raise_tree(self) -> None:
+        created = self.service.create_session(
+            "liars-dice", {"mode": "epsilon-gto", "dice": 1, "seed": 9}
+        )
+        with self.assertRaises(ValueError):
+            self.service.act(
+                created["sessionId"], "raise_bid", {"quantity": 2, "face": 1}
+            )
+        with self.assertRaises(ValueError):
+            self.service.create_session(
+                "liars-dice", {"mode": "epsilon-gto", "dice": 5}
+            )
+
     def test_liars_dice_keeps_ai_private_confidence_hidden_until_settlement(self) -> None:
         session = LiarDiceSession({"seed": 23, "dice": 5})
         session.ai_dice = [1, 1, 2, 3, 4]
@@ -843,7 +889,7 @@ class LocalGameUITests(unittest.TestCase):
         self.assertIn('class="difficulty-control active" id="blackjackNormalMode" aria-pressed="true"', html)
         self.assertIn('class="difficulty-control" id="blackjackPracticeMode" aria-pressed="false"', html)
         self.assertIn('id="blackjackModeDescription"', html)
-        self.assertEqual(html.count('class="mode-contract'), 3)
+        self.assertEqual(html.count('class="mode-contract'), 4)
         self.assertIn('aria-describedby="blackjackModeDescription"', html)
         self.assertIn('aria-describedby="pokerModeDescription"', html)
         self.assertIn('aria-describedby="goofModeDescription"', html)

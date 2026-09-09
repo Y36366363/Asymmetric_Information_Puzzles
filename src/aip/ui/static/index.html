@@ -284,7 +284,7 @@
 
         <section class="rps-arena panel">
           <div class="rps-opponent">
-            <p class="eyebrow">BOUNDED EXPLOITATION AI</p>
+            <p class="eyebrow">STATE-BY-STATE GTO AI</p>
             <h2 id="rpsHeadline">选择一张有限卡牌</h2>
             <p id="rpsSubline">AI 同时隐藏出牌；使用过的卡不能再使用。</p>
             <div class="rps-reveal" id="rpsReveal"><span>?</span><b>VS</b><span>?</span></div>
@@ -327,6 +327,17 @@
           </div>
           <button class="secondary-button" id="newLiarMatch" data-i18n="restartMatch">重新开始比赛</button>
         </div>
+
+        <section class="poker-mode-panel panel" aria-labelledby="liarModeTitle">
+          <div>
+            <strong id="liarModeTitle">选择 AI 模式</strong>
+            <div class="mode-contract" id="liarModeDescription" aria-live="polite"></div>
+          </div>
+          <div class="poker-mode-switch" id="liarModeSwitch" role="group" aria-describedby="liarModeDescription">
+            <button class="difficulty-control active" id="liarHeuristicMode" aria-pressed="true">五骰启发式</button>
+            <button class="difficulty-control" id="liarGtoMode" aria-pressed="false">一骰 ε-GTO</button>
+          </div>
+        </section>
 
         <div class="liar-score panel">
           <div><span data-i18n="liarRound">回合</span><strong id="liarRound">1</strong></div>

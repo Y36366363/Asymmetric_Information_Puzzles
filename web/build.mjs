@@ -7,6 +7,7 @@ const root = resolve(here, "..");
 const staticRoot = resolve(root, "src/aip/ui/static");
 const runtime = await readFile(resolve(here, "worker-runtime.js"), "utf8");
 const goofspielPolicy = await readFile(resolve(here, "goofspiel-policy.json"), "utf8");
+const oneDieLiarPolicy = await readFile(resolve(root, "src/aip/puzzles/liars_dice/one_die_cfr_policy.json"), "utf8");
 const [html, css, app] = await Promise.all([
   readFile(resolve(staticRoot, "index.html"), "utf8"),
   readFile(resolve(staticRoot, "styles.css"), "utf8"),
@@ -15,6 +16,7 @@ const [html, css, app] = await Promise.all([
 
 const output = [
   `const GOOFSPIEL_POLICY = ${goofspielPolicy.trim()};`,
+  `const ONE_DIE_LIAR_POLICY = ${oneDieLiarPolicy.trim()};`,
   `const INDEX_HTML = ${JSON.stringify(html)};`,
   `const STYLES_CSS = ${JSON.stringify(css)};`,
   `const APP_JS = ${JSON.stringify(app)};`,

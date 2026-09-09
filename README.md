@@ -5,6 +5,61 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 09/09/2026
+
+- **CFR eligibility is now fail-closed** — Certification requires an explicit
+  declaration of a finite, two-player, zero/constant-sum, perfect-recall game.
+  Extra information sets, mismatched visit tables, duplicate actions, and
+  non-finite terminal utilities are rejected.
+- **Liar's Dice stability retest** — A four-seed audit found that 10,000
+  iterations could miss the auxiliary regret threshold despite passing exact
+  exploitability. The default was raised to 20,000 without weakening the gate;
+  the reissued policy has exploitability `0.00235386`.
+- **Method-selection audit** — Compared every local game with CFR, sequence-form
+  LP, backward induction, belief-state dynamic programming, and MCCFR. E-Card and
+  a fully specified single-round Love Letter are the next reasonable CFR targets;
+  exact small games retain their stronger existing solvers.
+  [Read today's audit](research/cfr_method_audit_2026-09-09.md).
+
+## Updates 09/08/2026
+
+- **One-die Liar's Dice ε-GTO is live** — Added a separately labelled reduced
+  ruleset with one die per player and stepwise bids. The AI samples a frozen CFR
+  policy only after its certificate passes; the existing five-die mode remains
+  an honestly labelled heuristic.
+- **Independent best-response certification** — Exhaustive traversal covers all
+  hidden opponent dice and every reachable public history. The current 20,000-
+  iteration profile covers all 348 information sets and has exploitability
+  `0.00235386`, below the declared `0.01` ceiling.
+- **Reusable CFR framework hardened** — Added seeded root chance-sampling CFR,
+  rejected non-finite regret diagnostics, negative exploitability, duplicate
+  artifact information sets, and stale browser-policy caches.
+- **No private-policy leakage** — Live state hides the AI's CFR distribution;
+  the distribution becomes available only in the post-round audit.
+  [Read the validation note](research/cfr_one_die_liars_dice_2026-09-08.md).
+
+## Updates 09/07/2026
+
+- **Shared CFR foundation** — Added a game-independent two-player zero-sum CFR
+  trainer with explicit chance nodes, information-set action validation, regret
+  matching, and reach-weighted average policies. A uniform certification gate
+  blocks activation without sufficient training, coverage, numerical validity,
+  low regret, and an independent exploitability result.
+- **Kuhn calibration adapter** — The first adapter reconstructs all 12 Kuhn
+  information sets and checks the learned policy with the existing exhaustive
+  best-response oracle. The default 50,000-iteration profile passes the declared
+  `0.01` exploitability ceiling; deliberately undertrained policies fail with
+  machine-readable reasons.
+- **Restricted RPS now executes GTO** — Removed the bounded exploitative overlay:
+  the AI's sampled distribution is now exactly the minimax distribution solved
+  by backward induction at every public remaining-inventory state.
+- **Public/runtime parity repaired** — Replaced the zero-backend browser's
+  inventory-proportion approximation with the same continuation-aware matrix-game
+  recursion used by the Python service.
+- **Executable evidence** — Added assertions that the displayed equilibrium and
+  actually sampled policy are identical, exploitative deviation is zero, and an
+  asymmetric continuation state is solved differently from naive inventory ratios.
+
 ## Updates 09/06/2026
 
 - **Liar's Dice private-information repair** — Removed the AI's private-dice
