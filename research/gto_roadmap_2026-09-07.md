@@ -19,7 +19,7 @@ policy; displaying equilibrium advice beside a different AI is insufficient.
 | Pirate Council | Backward induction under fixed voter assumptions | Subgame solution, not a mixed-strategy GTO opponent | Keep assumptions explicit |
 | Guess Who / Mastermind | Exact or bounded information-search policies | Single-agent search, not GTO | Keep regret/information labels separate |
 | Blackjack | Rule-scoped basic strategy | Decision optimum for the declared shoe model, not an opponent equilibrium | Add exact EV tables before expanding actions |
-| E-Card | Precommitted timing heuristic with cross-round adaptation | Not proved | Freeze a single-round finite extensive-form model, then solve sequence form or CFR |
+| E-Card | Exact single-round timing matrix plus precommitted cross-round heuristic | Single-round equilibrium solved; repeated adaptive mode not proved | Keep exact matrix primary and CFR as cross-check; separate modes before promotion |
 | Liar's Dice | Five-die heuristic plus certified one-die stepwise CFR profile | Reduced ε-GTO implemented; full game not proved | Keep independent best-response regression; expand rules only under a new certificate |
 | Love Letter | Public-belief heuristic | Not proved | Build the complete two-player finite tree, then use CFR/MCCFR with exploitability checks |
 | Battleship / Hidden Pursuit | Belief and search heuristics | Not proved | Define smaller finite variants; full-size exact GTO is currently impractical |
@@ -35,8 +35,9 @@ policy; displaying equilibrium advice beside a different AI is insufficient.
    frozen CFR profile is independently checked by exhaustive best responses and
    is exposed as ε-GTO only while its artifact passes the declared gate. Arbitrary
    jump raises and five-die play remain outside that certificate.
-3. Move to a frozen single-round E-Card model. Do not mix cross-round learning into
-   the equilibrium claim; expose adaptive play as a separate mode if retained.
+3. The frozen single-round E-Card timing model is now solved exactly and
+   independently reproduced by CFR. Do not mix cross-round learning into that
+   equilibrium claim; expose adaptive play as a separate mode if retained.
 4. Attempt Love Letter only after its legal action tree, deck-removal rules,
    information sets, and terminal utilities are covered by exhaustive tests.
 5. For full Battleship, Hidden Pursuit, and the investment tournament, prefer

@@ -67,7 +67,7 @@ has minimum visitation 3,193, regret diagnostic `0.011446`, and exploitability
 | Kuhn Poker | Strong | Sequence-form LP or closed-form equilibrium is exact at this size | Keep exact live policy; retain CFR as calibration test |
 | One-die stepwise Liar's Dice | Strong | Sequence-form LP would be the best independent exact-policy comparator; exhaustive best response already certifies the learned profile | Keep ε-GTO; add sequence-form cross-check before expanding rules |
 | Five-die Liar's Dice | Theoretically strong, tree much larger | MCCFR/CFR+ plus abstraction is more suitable than tabular full traversal | Keep heuristic until a separately scoped model and oracle exist |
-| Single-round E-Card | Strong after rules are frozen | Tiny sequence-form or normal-form LP may solve it exactly and should be tried before approximate CFR | Best next adapter; separate cross-round adaptation |
+| Single-round E-Card | Implemented on 2026-09-10 | Its sequence form collapses to an exactly solved 5×5 matrix; CFR reproduces it within ε=0.006 | Keep exact matrix as primary; separate cross-round adaptation |
 | Two-player Love Letter | Strong only for a complete, perfect-recall round model | Later chance events favor external-sampling MCCFR; sequence form is the exact small-tree baseline | Reasonable second target after exhaustive rules/state validation |
 | Goofspiel (4 cards) | Valid but unnecessary | Backward induction plus exact zero-sum matrix solving is exact | Keep current solver |
 | Restricted RPS | Valid but unnecessary | Backward induction plus exact matrix minimax is exact | Keep current solver |
@@ -84,10 +84,9 @@ has minimum visitation 3,193, regret diagnostic `0.011446`, and exploitability
 
 ## Next implementation order
 
-1. Freeze single-round E-Card utilities, chance events, simultaneous commitments,
-   and perfect-recall information sets; try an exact small-game solver first and
-   use CFR only as an independently compared implementation.
-2. Add a sequence-form LP oracle when a lightweight dependency policy is agreed.
+1. Preserve the exact single-round E-Card matrix and CFR cross-check added on
+   2026-09-10; expose an exact mode only if cross-round adaptation is disabled.
+2. Add a general sequence-form LP oracle when a lightweight dependency policy is agreed.
    Use it to cross-check Kuhn and one-die Liar's Dice values and policies.
 3. Before Love Letter, build exhaustive transition/information-set tests. Then add
    general external-sampling MCCFR because root-only chance sampling is insufficient.

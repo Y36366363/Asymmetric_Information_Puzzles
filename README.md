@@ -5,6 +5,22 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 09/10/2026
+
+- **Single-round E-Card solved exactly** — Reduced hidden special-card timing to
+  its complete 5×5 zero-sum matrix/sequence-form equivalent. Both roles use a
+  uniform timing equilibrium; the Emperor-seat value is exactly `-1/5` and exact
+  exploitability is zero.
+- **CFR cross-check added** — The shared trainer independently recovers the
+  uniform policy within ε=`0.006` at 10,000 iterations. The exact matrix remains
+  the primary solver because vanilla CFR converges much more slowly on a game
+  this small.
+- **Scope kept honest** — A fresh local round already uses the exact uniform AI
+  timing, but cross-round opponent adaptation deliberately departs from it. The
+  existing repeated mode therefore remains a `strong_heuristic`, not a falsely
+  promoted GTO match.
+  [Read today's comparison](research/e_card_exact_cfr_comparison_2026-09-10.md).
+
 ## Updates 09/09/2026
 
 - **CFR eligibility is now fail-closed** — Certification requires an explicit
