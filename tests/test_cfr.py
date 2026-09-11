@@ -9,6 +9,7 @@ from aip.core import (
     CFRThresholds,
     CFRTrainer,
     ChanceSamplingCFRTrainer,
+    ExternalSamplingCFRTrainer,
 )
 from aip.puzzles.kuhn_poker import (
     audit_policy,
@@ -231,6 +232,76 @@ class CFRFrameworkTests(unittest.TestCase):
         second = train_one_die_liar_cfr(50, seed=7)
         self.assertEqual(first.policy, second.policy)
         self.assertEqual(first.information_set_visits, second.information_set_visits)
+
+    def test_external_sampling_handles_later_private_chance_nodes(self) -> None:
+        class LaterChanceMatchingGame:
+            def initial_state(self):
+                return ("first", None, None, None)
+
+            def is_terminal(self, state):
+                return state[0] == "terminal"
+
+            def utility_player_zero(self, state):
+                _, first, signal, second = state
+                matches = first == second
+                return 1.0 if matches == (signal == 0) else -1.0
+
+            def current_player(self, state):
+                return {"first": 0, "chance": None, "second": 1}.get(state[0])
+
+            def chance_outcomes(self, state):
+                return ((0, 0.5), (1, 0.5)) if state[0] == "chance" else ()
+
+            def legal_actions(self, state):
+                return ("heads", "tails") if state[0] in {"first", "second"} else ()
+
+            def information_set(self, state):
+                return "root" if state[0] == "first" else ("signal", state[2])
+
+            def next_state(self, state, action):
+                stage, first, signal, _ = state
+                if stage == "first":
+                    return ("chance", action, None, None)
+                if stage == "chance":
+                    return ("second", first, action, None)
+                return ("terminal", first, signal, action)
+
+        first = ExternalSamplingCFRTrainer(
+            LaterChanceMatchingGame(), seed=11
+        ).train(50_000)
+        second = ExternalSamplingCFRTrainer(
+            LaterChanceMatchingGame(), seed=11
+        ).train(50_000)
+        self.assertEqual(first.policy, second.policy)
+        self.assertEqual(first.information_set_count, 3)
+        self.assertAlmostEqual(
+            first.policy[(0, "root")]["heads"], 0.5, delta=0.03
+        )
+        # The equilibrium is not unique: player one may use any mixture as long
+        # as it is the same after either signal, keeping player zero indifferent.
+        self.assertAlmostEqual(
+            first.policy[(1, ("signal", 0))]["heads"],
+            first.policy[(1, ("signal", 1))]["heads"],
+            delta=0.03,
+        )
+        first_heads = first.policy[(0, "root")]["heads"]
+        signal_zero_heads = first.policy[(1, ("signal", 0))]["heads"]
+        signal_one_heads = first.policy[(1, ("signal", 1))]["heads"]
+        exploitability = (
+            abs(signal_zero_heads - signal_one_heads)
+            + abs(2 * first_heads - 1)
+        ) / 2
+        self.assertLess(exploitability, 0.03)
+
+    def test_external_sampling_recovers_kuhn_against_exact_best_response(self) -> None:
+        from aip.puzzles.kuhn_poker.cfr import KuhnCFRGame
+
+        result = ExternalSamplingCFRTrainer(KuhnCFRGame(), seed=7).train(50_000)
+        exploitability = float(
+            audit_policy(kuhn_policy_from_cfr(result)).maximum_exploitability
+        )
+        self.assertEqual(result.information_set_count, 12)
+        self.assertLess(exploitability, 0.01)
 
     def test_certified_one_die_liar_artifact_passes_independent_best_response(self) -> None:
         source = (

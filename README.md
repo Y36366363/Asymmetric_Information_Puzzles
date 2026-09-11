@@ -5,6 +5,25 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 09/11/2026
+
+- **Stopping-time compression is now an executable gate** — A game must have a
+  finite horizon, fixed initial private information, no later private signals,
+  no strategic action before stopping, and a payoff determined only by the two
+  stopping times. Single-round E-Card passes as a complete 5×5 matrix; Love
+  Letter fails for four explicit structural reasons.
+- **General external-sampling MCCFR added** — The shared engine now samples
+  chance events anywhere in the tree and opponent actions while traversing all
+  actions of the updating player. A seeded 50,000-iteration Kuhn calibration
+  reaches independently measured exploitability `0.003770074`.
+- **A unified GTO routing layer now fails closed** — Finite two-player
+  zero/constant-sum perfect-recall games are routed to exact stopping-time
+  matrices, sequence-form LP, vanilla CFR, or external-sampling MCCFR according
+  to structure. Unsupported games are rejected rather than given a misleading
+  GTO label. Love Letter is method-ready, not solved: its full extensive-form
+  adapter and independent best-response oracle remain the next milestone.
+  [Read today's validation](research/stopping_time_and_gto_pipeline_2026-09-11.md).
+
 ## Updates 09/10/2026
 
 - **Single-round E-Card solved exactly** — Reduced hidden special-card timing to

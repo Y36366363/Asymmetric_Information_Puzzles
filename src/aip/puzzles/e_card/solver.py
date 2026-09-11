@@ -14,10 +14,29 @@ from dataclasses import dataclass
 from fractions import Fraction
 from typing import Mapping
 
+from aip.core.equilibrium import EquilibriumGameStructure, StoppingTimeStructure
 from aip.puzzles.goofspiel.solver import MatrixSolution, solve_zero_sum_matrix
 
 
 DUELS = (1, 2, 3, 4, 5)
+
+
+def e_card_equilibrium_structure() -> EquilibriumGameStructure:
+    return EquilibriumGameStructure(
+        players=2,
+        finite=True,
+        zero_sum_or_constant_sum=True,
+        perfect_recall=True,
+        chance_after_initial_state=False,
+        stopping_time=StoppingTimeStructure(
+            horizon=len(DUELS),
+            fixed_private_information_at_start=True,
+            no_new_private_information=True,
+            forced_continuation_before_stop=True,
+            payoff_depends_only_on_stopping_times=True,
+        ),
+        exact_tree_is_small=True,
+    )
 
 
 @dataclass(frozen=True, slots=True)

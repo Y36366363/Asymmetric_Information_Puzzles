@@ -38,8 +38,11 @@ policy; displaying equilibrium advice beside a different AI is insufficient.
 3. The frozen single-round E-Card timing model is now solved exactly and
    independently reproduced by CFR. Do not mix cross-round learning into that
    equilibrium claim; expose adaptive play as a separate mode if retained.
-4. Attempt Love Letter only after its legal action tree, deck-removal rules,
-   information sets, and terminal utilities are covered by exhaustive tests.
+4. The reusable stopping-time audit correctly rejects Love Letter because private
+   cards arrive during play and choices affect more than stopping time. Its solver
+   route is now external-sampling MCCFR, but implementation must wait until its legal
+   action tree, deck-removal rules, information sets, terminal utilities, and an
+   independent best-response oracle are covered by exhaustive tests.
 5. For full Battleship, Hidden Pursuit, and the investment tournament, prefer
    honest strong-policy labels until a tractable reduced game and an exploitability
    evaluator exist.

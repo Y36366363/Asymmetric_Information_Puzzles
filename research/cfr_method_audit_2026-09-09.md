@@ -7,8 +7,9 @@ finite two-player zero-sum extensive-form game. The average policy—not the cur
 regret-matching policy—is exported, consistent with the original CFR result. The
 one-die chance sampler samples the root deal from its true distribution and then
 traverses every player action, so it is an unbiased root chance-sampling
-specialization; it is not a general MCCFR implementation for games with later
-chance events.
+specialization. As of 2026-09-11, the shared engine also contains a general
+external-sampling MCCFR trainer that samples chance events anywhere in the tree
+and opponent actions while traversing every action of the updating player.
 
 The framework is therefore a sound small-game baseline, but it must not become a
 universal solver. The original CFR guarantee is for regret minimization in
@@ -42,9 +43,11 @@ Primary references:
    mismatched visit keys, extra information sets in exact adapters, invalid policy
    distributions, and negative/non-finite exploitability. Trainers reject duplicate
    actions, duplicate chance outcomes, and non-finite terminal utility.
-5. **Sampling scope: limitation retained.** `ChanceSamplingCFRTrainer` samples only
-   a root chance node. Love Letter has later card draws and needs full traversal or
-   a correctly importance-weighted external/outcome-sampling MCCFR implementation.
+5. **Sampling scope: extended on 2026-09-11.** `ChanceSamplingCFRTrainer` remains
+   intentionally root-only. `ExternalSamplingCFRTrainer` now supports later chance
+   nodes and has been calibrated on a synthetic later-private-chance game and Kuhn
+   Poker. This removes a solver limitation, but it does not supply Love Letter's
+   still-missing complete extensive-form adapter or independent best-response oracle.
 
 ## Cross-seed stability test
 
@@ -88,7 +91,8 @@ has minimum visitation 3,193, regret diagnostic `0.011446`, and exploitability
    2026-09-10; expose an exact mode only if cross-round adaptation is disabled.
 2. Add a general sequence-form LP oracle when a lightweight dependency policy is agreed.
    Use it to cross-check Kuhn and one-die Liar's Dice values and policies.
-3. Before Love Letter, build exhaustive transition/information-set tests. Then add
-   general external-sampling MCCFR because root-only chance sampling is insufficient.
+3. Before Love Letter, build exhaustive transition/information-set tests, then wire
+   the complete round model to the now-available external-sampling MCCFR trainer and
+   certify it with an independent best-response traversal.
 4. Treat reduced Battleship or Hidden Pursuit as separate research games with new
    rules and certificates. Do not transfer ε claims from reductions to full modes.

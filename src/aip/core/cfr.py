@@ -253,6 +253,112 @@ class ChanceSamplingCFRTrainer(CFRTrainer):
         return self.result()
 
 
+class ExternalSamplingCFRTrainer(CFRTrainer):
+    """External-sampling MCCFR for chance nodes anywhere in a sequential tree.
+
+    On each player update, all actions of that player are traversed while chance
+    and opponent actions are sampled from their current distributions. The
+    simple-average policy is accumulated at opponent nodes, matching the
+    standard two-player external-sampling algorithm.
+    """
+
+    def __init__(self, game: CFRGame[State], *, seed: int = 0) -> None:
+        super().__init__(game)
+        self._rng = random.Random(seed)
+
+    def train(self, iterations: int) -> CFRResult:
+        if iterations <= 0:
+            raise ValueError("MCCFR iterations must be positive")
+        root = self.game.initial_state()
+        for _ in range(iterations):
+            self._traverse_external(root, update_player=0, sampled_opponent_actions={})
+            self._traverse_external(root, update_player=1, sampled_opponent_actions={})
+            self.iterations += 1
+        return self.result()
+
+    def _sample(self, weighted_actions: tuple[tuple[Action, float], ...]) -> Action:
+        target = self._rng.random()
+        cumulative = 0.0
+        for action, probability in weighted_actions:
+            cumulative += probability
+            if target <= cumulative:
+                return action
+        return weighted_actions[-1][0]
+
+    def _traverse_external(
+        self,
+        state: State,
+        *,
+        update_player: int,
+        sampled_opponent_actions: dict[tuple[int, InformationSet], Action],
+    ) -> float:
+        if self.game.is_terminal(state):
+            utility = self.game.utility_player_zero(state)
+            if not isfinite(utility):
+                raise ValueError("terminal CFR utility must be finite")
+            return utility if update_player == 0 else -utility
+
+        player = self.game.current_player(state)
+        if player is None:
+            outcomes = self.game.chance_outcomes(state)
+            total_probability = sum(probability for _, probability in outcomes)
+            if (
+                not outcomes
+                or len({action for action, _ in outcomes}) != len(outcomes)
+                or any(
+                    not isfinite(probability) or probability < 0
+                    for _, probability in outcomes
+                )
+                or abs(total_probability - 1.0) > 1e-9
+            ):
+                raise ValueError(
+                    "chance outcomes must be finite, nonnegative, nonempty, and sum to one"
+                )
+            selected = self._sample(outcomes)
+            return self._traverse_external(
+                self.game.next_state(state, selected),
+                update_player=update_player,
+                sampled_opponent_actions=sampled_opponent_actions,
+            )
+        if player not in (0, 1):
+            raise ValueError("MCCFR current_player must be 0, 1, or None for chance")
+
+        actions = self.game.legal_actions(state)
+        information_set = self.game.information_set(state)
+        node = self._node(player, information_set, actions)
+        strategy = node.strategy()
+        if player != update_player:
+            for index, probability in enumerate(strategy):
+                node.strategy_sum[index] += probability
+            sample_key = (player, information_set)
+            if sample_key in sampled_opponent_actions:
+                selected = sampled_opponent_actions[sample_key]
+            else:
+                selected = self._sample(tuple(zip(actions, strategy)))
+                sampled_opponent_actions[sample_key] = selected
+            return self._traverse_external(
+                self.game.next_state(state, selected),
+                update_player=update_player,
+                sampled_opponent_actions=sampled_opponent_actions,
+            )
+
+        action_values = [
+            self._traverse_external(
+                self.game.next_state(state, action),
+                update_player=update_player,
+                sampled_opponent_actions=sampled_opponent_actions,
+            )
+            for action in actions
+        ]
+        node_value = sum(
+            probability * value for probability, value in zip(strategy, action_values)
+        )
+        for index, action_value in enumerate(action_values):
+            node.regrets[index] += action_value - node_value
+        node.visits += 1
+        return node_value
+
+
 @dataclass(frozen=True, slots=True)
 class CFRThresholds:
     min_iterations: int = 10_000
