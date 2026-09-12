@@ -105,9 +105,10 @@ rejects multiplayer general-sum games from this two-player pipeline.
 
 ## Next Love Letter milestone
 
-Before training, enumerate the full two-player round state: remaining multiset,
-burned card, both hands, public discards, protection, whose turn it is, legal card
-effects and targets, public observations, and terminal utility. Prove information
-sets do not contain unavailable opponent/deck information, cover every rule branch,
-and add an independent pure-best-response traversal. Only after that evaluator and
-the existing promotion gate pass should the runtime expose an ε-GTO Love Letter AI.
+As of 2026-09-12, the full immutable round state and all card transitions have been
+implemented, while a four-card river benchmark has passed complete information-set
+and independent pure-best-response certification. The remaining task is to finish
+the complete 16-card information-set inventory and best-response evaluation; its
+uncompressed tree exceeds one million histories. Only after that full-round
+evaluator and the existing promotion gate pass should the runtime expose an ε-GTO
+Love Letter AI.

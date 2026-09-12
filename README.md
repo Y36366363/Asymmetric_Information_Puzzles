@@ -5,6 +5,25 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 09/12/2026
+
+- **Love Letter extensive-form layer added** — Added an immutable two-player,
+  16-card round model with explicit setup/draw chance nodes, all eight card
+  effects, public observations, private observation memory, and terminal utility.
+- **Information sets and tree structure are now executable audits** — A complete
+  four-card river benchmark contains 1,081 histories, 624 terminal histories,
+  and 60 action-consistent information sets. All 60 merge multiple hidden worlds,
+  proving that opponent hands, draw order, and the burn card are not leaked.
+- **Independent best-response certification works end to end** — Uniform play is
+  correctly exposed at exploitability `0.375`; 20,000 iterations of seeded
+  external-sampling MCCFR reduce independently measured exploitability to
+  `0.000484423` and pass the scoped ε=`0.001` gate.
+- **The full-round boundary remains fail-closed** — The complete 16-card model
+  exceeds one million histories before enumeration finishes. It is implemented,
+  but neither exhaustively audited nor promoted to live GTO. The certificate is
+  explicitly restricted to the four-card benchmark.
+  [Read today's subgame audit](research/love_letter_extensive_subgame_2026-09-12.md).
+
 ## Updates 09/11/2026
 
 - **Stopping-time compression is now an executable gate** — A game must have a

@@ -39,10 +39,11 @@ policy; displaying equilibrium advice beside a different AI is insufficient.
    independently reproduced by CFR. Do not mix cross-round learning into that
    equilibrium claim; expose adaptive play as a separate mode if retained.
 4. The reusable stopping-time audit correctly rejects Love Letter because private
-   cards arrive during play and choices affect more than stopping time. Its solver
-   route is now external-sampling MCCFR, but implementation must wait until its legal
-   action tree, deck-removal rules, information sets, terminal utilities, and an
-   independent best-response oracle are covered by exhaustive tests.
+   cards arrive during play and choices affect more than stopping time. A complete
+   immutable round model now exists, and a four-card river benchmark has passed a
+   60-information-set audit plus independent best-response ε=`0.001` certification.
+   The full 16-card tree exceeds one million histories and remains unpromoted until
+   a canonical DAG/sequence-form inventory and complete best-response audit finish.
 5. For full Battleship, Hidden Pursuit, and the investment tournament, prefer
    honest strong-policy labels until a tractable reduced game and an exploitability
    evaluator exist.

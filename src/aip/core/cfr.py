@@ -326,6 +326,7 @@ class ExternalSamplingCFRTrainer(CFRTrainer):
         actions = self.game.legal_actions(state)
         information_set = self.game.information_set(state)
         node = self._node(player, information_set, actions)
+        node.visits += 1
         strategy = node.strategy()
         if player != update_player:
             for index, probability in enumerate(strategy):
@@ -355,7 +356,6 @@ class ExternalSamplingCFRTrainer(CFRTrainer):
         )
         for index, action_value in enumerate(action_values):
             node.regrets[index] += action_value - node_value
-        node.visits += 1
         return node_value
 
 
