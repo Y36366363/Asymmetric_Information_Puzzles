@@ -104,6 +104,14 @@
     "verified",
     "frozen"
   ],
+  "promotion_requirements": {
+    "candidate": "policy_exists_but_evidence_may_be_incomplete",
+    "labeled": "complete_game_and_algorithm_artifact",
+    "independently_checked": "independent_best_response_report_passed_and_profile_fingerprint_matches",
+    "verified": "second_method_agrees_with_declared_tolerance",
+    "frozen": "verified_reproducible_and_exact_artifact_frozen",
+    "epsilon_gto_runtime_minimum": "independently_checked"
+  },
   "process_boundary": {
     "transport": "versioned_json_files_and_subprocess",
     "governance_owner": "python_research_layer",

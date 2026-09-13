@@ -7,6 +7,20 @@
 
 ## Updates 09/13/2026
 
+- **Independent sequence-form certification is now operational** — Canonical
+  Kuhn is represented by 13 sequences and 7 flow constraints per player and
+  solved by a dependency-free two-phase LP. Its value is `-1/18`, primal-dual
+  gap is `5.27e-16`, and exhaustive best-response exploitability is zero.
+- **One common evaluator and promotion ladder now guard ε-GTO labels** — Reports
+  contain expected value, both best responses, NashConv, exploitability, and
+  action values. Policies progress through candidate, labeled, independently
+  checked, verified, and frozen; runtime ε-GTO requires the independent gate.
+  The one-die Liar's Dice runtime now performs that check across all 348
+  information sets before activating its certified mode.
+- **No LP dependency was added** — The small-game oracle uses an internal simplex
+  implementation. SciPy/HiGHS (BSD-3-Clause, compiled-wheel cost) remains the
+  documented optional scaling path; CVXOPT (GPLv3) was not added.
+  [Read the independent certification audit](research/independent_sequence_form_certification_2026-09-13.md).
 - **One composable regret-minimization trainer now supports four algorithms** —
   Vanilla CFR, CFR+ (RM+ with linear averaging), parameterized DCFR (default
   `1.5, 0, 2`), and existing external-sampling MCCFR share the same game adapter,

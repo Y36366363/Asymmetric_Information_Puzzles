@@ -1,0 +1,5651 @@
+{
+  "audit_version": "1.0.0",
+  "checks": {
+    "analytic_equilibrium_independent_br": true,
+    "analytic_sequence_value_agreement": true,
+    "kuhn_cfr_independent_br": true,
+    "one_die_liar_independent_br": true,
+    "runtime_requires_independently_checked": true,
+    "sequence_equilibrium_independent_br": true,
+    "sequence_form_flow": true,
+    "sequence_form_primal_dual_gap": true
+  },
+  "dependency_decision": {
+    "cvxopt_alternative": "GPLv3; not selected for the MIT application boundary",
+    "implementation": "dependency-free two-phase simplex",
+    "new_runtime_dependency": null,
+    "scipy_alternative": "BSD-3-Clause; optional future HiGHS backend; binary install cost"
+  },
+  "kuhn_analytic_equilibrium": {
+    "action_values": [
+      {
+        "information_set": "('J', '')",
+        "player": 0,
+        "values": [
+          {
+            "action": "'check'",
+            "value": -0.05555555555555555
+          },
+          {
+            "action": "'bet'",
+            "value": -0.05555555555555555
+          }
+        ]
+      },
+      {
+        "information_set": "('J', 'cb')",
+        "player": 0,
+        "values": [
+          {
+            "action": "'fold'",
+            "value": -0.05555555555555555
+          },
+          {
+            "action": "'call'",
+            "value": -0.16666666666666666
+          }
+        ]
+      },
+      {
+        "information_set": "('K', '')",
+        "player": 0,
+        "values": [
+          {
+            "action": "'check'",
+            "value": -0.05555555555555555
+          },
+          {
+            "action": "'bet'",
+            "value": -0.05555555555555555
+          }
+        ]
+      },
+      {
+        "information_set": "('K', 'cb')",
+        "player": 0,
+        "values": [
+          {
+            "action": "'fold'",
+            "value": -0.05555555555555555
+          },
+          {
+            "action": "'call'",
+            "value": -0.05555555555555555
+          }
+        ]
+      },
+      {
+        "information_set": "('Q', '')",
+        "player": 0,
+        "values": [
+          {
+            "action": "'check'",
+            "value": -0.05555555555555555
+          },
+          {
+            "action": "'bet'",
+            "value": -0.1111111111111111
+          }
+        ]
+      },
+      {
+        "information_set": "('Q', 'cb')",
+        "player": 0,
+        "values": [
+          {
+            "action": "'fold'",
+            "value": -0.05555555555555555
+          },
+          {
+            "action": "'call'",
+            "value": -0.05555555555555555
+          }
+        ]
+      },
+      {
+        "information_set": "('J', 'b')",
+        "player": 1,
+        "values": [
+          {
+            "action": "'fold'",
+            "value": 0.05555555555555555
+          },
+          {
+            "action": "'call'",
+            "value": -0.1111111111111111
+          }
+        ]
+      },
+      {
+        "information_set": "('J', 'c')",
+        "player": 1,
+        "values": [
+          {
+            "action": "'check'",
+            "value": 0.05555555555555555
+          },
+          {
+            "action": "'bet'",
+            "value": 0.05555555555555555
+          }
+        ]
+      },
+      {
+        "information_set": "('K', 'b')",
+        "player": 1,
+        "values": [
+          {
+            "action": "'fold'",
+            "value": -0.1111111111111111
+          },
+          {
+            "action": "'call'",
+            "value": 0.05555555555555555
+          }
+        ]
+      },
+      {
+        "information_set": "('K', 'c')",
+        "player": 1,
+        "values": [
+          {
+            "action": "'check'",
+            "value": -0.05555555555555555
+          },
+          {
+            "action": "'bet'",
+            "value": 0.05555555555555555
+          }
+        ]
+      },
+      {
+        "information_set": "('Q', 'b')",
+        "player": 1,
+        "values": [
+          {
+            "action": "'fold'",
+            "value": 0.05555555555555555
+          },
+          {
+            "action": "'call'",
+            "value": 0.05555555555555555
+          }
+        ]
+      },
+      {
+        "information_set": "('Q', 'c')",
+        "player": 1,
+        "values": [
+          {
+            "action": "'check'",
+            "value": 0.05555555555555555
+          },
+          {
+            "action": "'bet'",
+            "value": 0.05555555555555555
+          }
+        ]
+      }
+    ],
+    "best_response_player_0": -0.05555555555555555,
+    "best_response_player_1": 0.05555555555555555,
+    "evaluator_id": "kuhn_exhaustive_best_response_v1",
+    "evaluator_method": "independent_game_tree_best_response",
+    "expected_value_to_player_0": -0.05555555555555555,
+    "exploitability": 0.0,
+    "failures": [],
+    "maximum_unilateral_deviation_gain": 0.0,
+    "nash_conv": 0.0,
+    "passed": true,
+    "player_0_deviation_gain": 0.0,
+    "player_1_deviation_gain": 0.0,
+    "profile_fingerprint": "6a45573dc3049bf8e0580bb3825aa970522624da414c4b53fc155f1715f4d9ea"
+  },
+  "kuhn_cfr_candidate": {
+    "artifact": {
+      "algorithm": {
+        "algorithm_id": "vanilla_cfr",
+        "averaging_rule": "uniform_iteration_weighting",
+        "parameters": {},
+        "seed": null,
+        "traversal": "full_tree",
+        "update_schedule": "alternating_players"
+      },
+      "convergence_trace": [],
+      "game_id": "canonical_kuhn_poker",
+      "independent_evaluation": {
+        "action_values": [
+          {
+            "information_set": "('J', '')",
+            "player": 0,
+            "values": [
+              {
+                "action": "'check'",
+                "value": -0.055531757417192934
+              },
+              {
+                "action": "'bet'",
+                "value": -0.055688841565341866
+              }
+            ]
+          },
+          {
+            "information_set": "('J', 'cb')",
+            "player": 0,
+            "values": [
+              {
+                "action": "'fold'",
+                "value": -0.055559350553724324
+              },
+              {
+                "action": "'call'",
+                "value": -0.18856092496166826
+              }
+            ]
+          },
+          {
+            "information_set": "('K', '')",
+            "player": 0,
+            "values": [
+              {
+                "action": "'check'",
+                "value": -0.05558910667589867
+              },
+              {
+                "action": "'bet'",
+                "value": -0.05554695033064787
+              }
+            ]
+          },
+          {
+            "information_set": "('K', 'cb')",
+            "player": 0,
+            "values": [
+              {
+                "action": "'fold'",
+                "value": -0.1211075214614908
+              },
+              {
+                "action": "'call'",
+                "value": -0.05555934865371142
+              }
+            ]
+          },
+          {
+            "information_set": "('Q', '')",
+            "player": 0,
+            "values": [
+              {
+                "action": "'check'",
+                "value": -0.055521908251232106
+              },
+              {
+                "action": "'bet'",
+                "value": -0.11106056112865659
+              }
+            ]
+          },
+          {
+            "information_set": "('Q', 'cb')",
+            "player": 0,
+            "values": [
+              {
+                "action": "'fold'",
+                "value": -0.055541743365247934
+              },
+              {
+                "action": "'call'",
+                "value": -0.05558237904843064
+              }
+            ]
+          },
+          {
+            "information_set": "('J', 'b')",
+            "player": 1,
+            "values": [
+              {
+                "action": "'fold'",
+                "value": 0.055568582742379975
+              },
+              {
+                "action": "'call'",
+                "value": -0.04572102370401871
+              }
+            ]
+          },
+          {
+            "information_set": "('J', 'c')",
+            "player": 1,
+            "values": [
+              {
+                "action": "'check'",
+                "value": 0.0556079595049977
+              },
+              {
+                "action": "'bet'",
+                "value": 0.05547458989744553
+              }
+            ]
+          },
+          {
+            "information_set": "('K', 'b')",
+            "player": 1,
+            "values": [
+              {
+                "action": "'fold'",
+                "value": -0.04590101535304574
+              },
+              {
+                "action": "'call'",
+                "value": 0.055568591742412424
+              }
+            ]
+          },
+          {
+            "information_set": "('K', 'c')",
+            "player": 1,
+            "values": [
+              {
+                "action": "'check'",
+                "value": -0.03367423662017772
+              },
+              {
+                "action": "'bet'",
+                "value": 0.05557244293001267
+              }
+            ]
+          },
+          {
+            "information_set": "('Q', 'b')",
+            "player": 1,
+            "values": [
+              {
+                "action": "'fold'",
+                "value": 0.05558678951861114
+              },
+              {
+                "action": "'call'",
+                "value": 0.05551705412097306
+              }
+            ]
+          },
+          {
+            "information_set": "('Q', 'c')",
+            "player": 1,
+            "values": [
+              {
+                "action": "'check'",
+                "value": 0.05558643810360959
+              },
+              {
+                "action": "'bet'",
+                "value": -0.009898823473340522
+              }
+            ]
+          }
+        ],
+        "best_response_player_0": -0.055446564316005316,
+        "best_response_player_1": 0.05567321323173523,
+        "evaluator_id": "kuhn_exhaustive_best_response_v1",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": -0.05556351826205765,
+        "exploitability": 0.00011332445786495574,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 0.00011695394605233667,
+        "nash_conv": 0.00022664891572991147,
+        "passed": true,
+        "player_0_deviation_gain": 0.00011695394605233667,
+        "player_1_deviation_gain": 0.0001096949696775748,
+        "profile_fingerprint": "c1026ad7890c2e2b6784db1834ee42e8e79af4c45cc10b539fbff846185099d7"
+      },
+      "iterations": 10000,
+      "policy": [
+        {
+          "actions": [
+            {
+              "action": "'check'",
+              "probability": 0.7978099939491764
+            },
+            {
+              "action": "'bet'",
+              "probability": 0.20219000605082366
+            }
+          ],
+          "information_set": "('J', '')",
+          "player": 0,
+          "visits": 20000
+        },
+        {
+          "actions": [
+            {
+              "action": "'fold'",
+              "probability": 0.9999686642180599
+            },
+            {
+              "action": "'call'",
+              "probability": 3.133578194007005e-05
+            }
+          ],
+          "information_set": "('J', 'cb')",
+          "player": 0,
+          "visits": 20000
+        },
+        {
+          "actions": [
+            {
+              "action": "'check'",
+              "probability": 0.39301156946170057
+            },
+            {
+              "action": "'bet'",
+              "probability": 0.6069884305382994
+            }
+          ],
+          "information_set": "('K', '')",
+          "player": 0,
+          "visits": 20000
+        },
+        {
+          "actions": [
+            {
+              "action": "'fold'",
+              "probability": 6.36113589079376e-05
+            },
+            {
+              "action": "'call'",
+              "probability": 0.9999363886410921
+            }
+          ],
+          "information_set": "('K', 'cb')",
+          "player": 0,
+          "visits": 20000
+        },
+        {
+          "actions": [
+            {
+              "action": "'check'",
+              "probability": 0.9992507918599074
+            },
+            {
+              "action": "'bet'",
+              "probability": 0.0007492081400926782
+            }
+          ],
+          "information_set": "('Q', '')",
+          "player": 0,
+          "visits": 20000
+        },
+        {
+          "actions": [
+            {
+              "action": "'fold'",
+              "probability": 0.464143454613132
+            },
+            {
+              "action": "'call'",
+              "probability": 0.5358565453868681
+            }
+          ],
+          "information_set": "('Q', 'cb')",
+          "player": 0,
+          "visits": 20000
+        },
+        {
+          "actions": [
+            {
+              "action": "'fold'",
+              "probability": 0.99995
+            },
+            {
+              "action": "'call'",
+              "probability": 4.9999999999994026e-05
+            }
+          ],
+          "information_set": "('J', 'b')",
+          "player": 1,
+          "visits": 20000
+        },
+        {
+          "actions": [
+            {
+              "action": "'check'",
+              "probability": 0.6667813323011876
+            },
+            {
+              "action": "'bet'",
+              "probability": 0.3332186676988125
+            }
+          ],
+          "information_set": "('J', 'c')",
+          "player": 1,
+          "visits": 20000
+        },
+        {
+          "actions": [
+            {
+              "action": "'fold'",
+              "probability": 4.9999999999994026e-05
+            },
+            {
+              "action": "'call'",
+              "probability": 0.99995
+            }
+          ],
+          "information_set": "('K', 'b')",
+          "player": 1,
+          "visits": 20000
+        },
+        {
+          "actions": [
+            {
+              "action": "'check'",
+              "probability": 9.999999999998805e-05
+            },
+            {
+              "action": "'bet'",
+              "probability": 0.9999
+            }
+          ],
+          "information_set": "('K', 'c')",
+          "player": 1,
+          "visits": 20000
+        },
+        {
+          "actions": [
+            {
+              "action": "'fold'",
+              "probability": 0.666292050498407
+            },
+            {
+              "action": "'call'",
+              "probability": 0.33370794950159305
+            }
+          ],
+          "information_set": "('Q', 'b')",
+          "player": 1,
+          "visits": 20000
+        },
+        {
+          "actions": [
+            {
+              "action": "'check'",
+              "probability": 0.99965
+            },
+            {
+              "action": "'bet'",
+              "probability": 0.0003499999999999582
+            }
+          ],
+          "information_set": "('Q', 'c')",
+          "player": 1,
+          "visits": 20000
+        }
+      ],
+      "schema_version": "aip-regret-minimization-artifact-v1",
+      "training_diagnostics": {
+        "average_positive_regret": [
+          0.000988754043481099,
+          0.0009705573020886633
+        ],
+        "not_an_exploitability_measure": true
+      }
+    },
+    "promotion": {
+      "epsilon_gto_runtime_allowed": true,
+      "failures": [
+        "reproducibility_required",
+        "artifact_freeze_required"
+      ],
+      "level": "verified"
+    }
+  },
+  "kuhn_sequence_form": {
+    "flow_constraints_per_player": [
+      7,
+      7
+    ],
+    "independent_report": {
+      "action_values": [
+        {
+          "information_set": "('J', '')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'check'",
+              "value": -0.05555555555555555
+            },
+            {
+              "action": "'bet'",
+              "value": -0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('J', 'cb')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": -0.05555555555555555
+            },
+            {
+              "action": "'call'",
+              "value": -0.16666666666666666
+            }
+          ]
+        },
+        {
+          "information_set": "('K', '')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'check'",
+              "value": -0.1388888888888889
+            },
+            {
+              "action": "'bet'",
+              "value": -0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('K', 'cb')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": -0.05555555555555555
+            },
+            {
+              "action": "'call'",
+              "value": -0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('Q', '')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'check'",
+              "value": -0.05555555555555555
+            },
+            {
+              "action": "'bet'",
+              "value": -0.1111111111111111
+            }
+          ]
+        },
+        {
+          "information_set": "('Q', 'cb')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": -0.05555555555555555
+            },
+            {
+              "action": "'call'",
+              "value": -0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('J', 'b')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": 0.05555555555555555
+            },
+            {
+              "action": "'call'",
+              "value": -0.1111111111111111
+            }
+          ]
+        },
+        {
+          "information_set": "('J', 'c')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'check'",
+              "value": 0.05555555555555555
+            },
+            {
+              "action": "'bet'",
+              "value": 0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('K', 'b')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": -0.1111111111111111
+            },
+            {
+              "action": "'call'",
+              "value": 0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('K', 'c')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'check'",
+              "value": -0.05555555555555555
+            },
+            {
+              "action": "'bet'",
+              "value": 0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('Q', 'b')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": 0.05555555555555555
+            },
+            {
+              "action": "'call'",
+              "value": 0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('Q', 'c')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'check'",
+              "value": 0.05555555555555555
+            },
+            {
+              "action": "'bet'",
+              "value": 0.05555555555555555
+            }
+          ]
+        }
+      ],
+      "best_response_player_0": -0.05555555555555555,
+      "best_response_player_1": 0.05555555555555555,
+      "evaluator_id": "kuhn_exhaustive_best_response_v1",
+      "evaluator_method": "independent_game_tree_best_response",
+      "expected_value_to_player_0": -0.05555555555555555,
+      "exploitability": 0.0,
+      "failures": [],
+      "maximum_unilateral_deviation_gain": 0.0,
+      "nash_conv": 0.0,
+      "passed": true,
+      "player_0_deviation_gain": 0.0,
+      "player_1_deviation_gain": 0.0,
+      "profile_fingerprint": "5635c6e7e89a45d43696cab41e2ecbf3fe29336a5d656bc651a04aeadd5dd16a"
+    },
+    "maximum_flow_residual": 3.3306690738754696e-16,
+    "primal_dual_gap": 5.273559366969494e-16,
+    "sequences_per_player": [
+      13,
+      13
+    ],
+    "value_to_player_0": -0.055555555555556045
+  },
+  "one_die_liar": {
+    "independent_report": {
+      "action_values": [
+        {
+          "information_set": "(1, ((1, 1), (1, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 3)",
+              "value": -0.9981407685416077
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 1), (1, 2), (1, 3), (1, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9999999999999999
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.9991990949087158
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.9997286786149692
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9995744613773394
+            },
+            {
+              "action": "(2, 3)",
+              "value": -0.9994815576479108
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9997685704480375
+            },
+            {
+              "action": "(2, 5)",
+              "value": -0.9998098058387684
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9998842603997963
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 2), (1, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9999999999999999
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.6455732957532808
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 2), (1, 3), (1, 4), (1, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 6)",
+              "value": 0.5971301336601179
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.19121892622385148
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.19117379281140998
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9998137625728144
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.9996941388776616
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9998471235787543
+            },
+            {
+              "action": "(2, 6)",
+              "value": 0.999847006941479
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 3), (1, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.47874713549078324
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0000000000000002
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.7292290533055025
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9987583034127272
+            },
+            {
+              "action": "(2, 3)",
+              "value": -0.9975311698401672
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9993034144352045
+            },
+            {
+              "action": "(2, 5)",
+              "value": -0.9990507893326553
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9996514860710988
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 4), (1, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 6)",
+              "value": 0.6384525283142967
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.20980844552215144
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.2097203157000014
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9997421402031987
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.3848787767612706
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.3848790613891147
+            },
+            {
+              "action": "(2, 6)",
+              "value": 0.3848787385056388
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.43757167780894435
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9978562011212788
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.4992572785574517
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9975591222503805
+            },
+            {
+              "action": "(2, 5)",
+              "value": 9.305937594483779e-07
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9975586812188025
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.18613346584124682
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.1859519522453005
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.6734863783148783
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.5771396656152434
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.8835360017648971
+            },
+            {
+              "action": "(2, 6)",
+              "value": 0.8835342470782142
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ())",
+          "player": 0,
+          "values": [
+            {
+              "action": "(1, 1)",
+              "value": 0.04491131646791818
+            },
+            {
+              "action": "(1, 2)",
+              "value": 0.6670504060209942
+            },
+            {
+              "action": "(1, 3)",
+              "value": -0.07428129624524382
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.6668152109328579
+            },
+            {
+              "action": "(1, 5)",
+              "value": 0.2545502384326105
+            },
+            {
+              "action": "(1, 6)",
+              "value": 0.6667656961774608
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 1), (1, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 3)",
+              "value": 0.3032950943713321
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 1), (1, 2), (1, 3), (1, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.2991678931877306
+            },
+            {
+              "action": "(1, 5)",
+              "value": 0.303185594520615
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.30332331430402043
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.3033981942034518
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9995744613773394
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9996198006192933
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9998098641648829
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 2), (1, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.2909285425707748
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.17665089364440545
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 2), (1, 3), (1, 4), (1, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.3374159969879431
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.0033709754372867125
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.19105014174022808
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.9993635996075358
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 3), (1, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.08343326162866818
+            },
+            {
+              "action": "(1, 5)",
+              "value": 0.04260544163201578
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.21857237816609193
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.7346137688592527
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9987583034127272
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9981038488657594
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9990510247326151
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 4), (1, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.2767441723947796
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.08483125154063577
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 2)",
+              "value": 0.14098501471479621
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.28487038761185735
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.8391462278894278
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9978562011212788
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.07682939737948827
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 4)",
+              "value": -0.1626701271914721
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0000000000000002
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ())",
+          "player": 0,
+          "values": [
+            {
+              "action": "(1, 1)",
+              "value": -0.3766930850393563
+            },
+            {
+              "action": "(1, 2)",
+              "value": 0.3338959761654365
+            },
+            {
+              "action": "(1, 3)",
+              "value": -0.21259611248829505
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.17673471083041536
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.6289727076617972
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.18095971397691163
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 1), (1, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.30315119047869427
+            },
+            {
+              "action": "(1, 3)",
+              "value": 0.3035544707671968
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 1), (1, 2), (1, 3), (1, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.2991678931877306
+            },
+            {
+              "action": "(1, 5)",
+              "value": 0.303185594520615
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.30332331430402043
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.3032657452373629
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9999068574141063
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9998098641648829
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 2), (1, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9999999999999999
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.17665089364440545
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 2), (1, 3), (1, 4), (1, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.3374159969879431
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.0033709754372867125
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.1917133865087558
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9998137625728144
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.9993635996075358
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 3), (1, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.08343326162866818
+            },
+            {
+              "action": "(1, 5)",
+              "value": 0.04260544163201578
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.21857237816609193
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.7343619238895955
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9996243682816893
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9990510247326151
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 4), (1, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.2767441723947796
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.08483125154063577
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.42985981109826144
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9997421402031987
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.28487038761185735
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.6782924557788557
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.999256813260572
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.7839202035365322
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.6734863783148783
+            },
+            {
+              "action": "(2, 4)",
+              "value": -0.1626701271914721
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0000000000000002
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ())",
+          "player": 0,
+          "values": [
+            {
+              "action": "(1, 1)",
+              "value": -0.3765691060563107
+            },
+            {
+              "action": "(1, 2)",
+              "value": 0.10549829333984023
+            },
+            {
+              "action": "(1, 3)",
+              "value": 0.33413192819742454
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.17673471083041536
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.6289727076617972
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.18095971397691163
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 1), (1, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.30315119047869427
+            },
+            {
+              "action": "(1, 3)",
+              "value": 0.3032950943713321
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 1), (1, 2), (1, 3), (1, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9999999999999999
+            },
+            {
+              "action": "(1, 5)",
+              "value": 0.303185594520615
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.30332331430402043
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.3032657452373629
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9994297009289397
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9997685704480375
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9998098641648829
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 2), (1, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.2909285425707748
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.41708853380451044
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 2), (1, 3), (1, 4), (1, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.3374159969879431
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.0033709754372867125
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.19145610768355842
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.9998470832537614
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 3), (1, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 5)",
+              "value": 0.04260544163201578
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.21857237816609193
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.7343619238895955
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9971557732986394
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9993034144352045
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9990510247326151
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 4), (1, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.2767441723947796
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.08483125154063577
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 2)",
+              "value": 0.14028037780347702
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.6924394075084512
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.28487038761185735
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.6782924557788557
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 3)",
+              "value": -0.5000000000000001
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9975591222503805
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.4838837034711199
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.6258997926555177
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0000000000000002
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ())",
+          "player": 0,
+          "values": [
+            {
+              "action": "(1, 1)",
+              "value": -0.3766930850393563
+            },
+            {
+              "action": "(1, 2)",
+              "value": 0.3313661912983736
+            },
+            {
+              "action": "(1, 3)",
+              "value": -0.2422567369021603
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.3334821586811955
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.6289727076617972
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.18095971397691163
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 1), (1, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.30315119047869427
+            },
+            {
+              "action": "(1, 3)",
+              "value": 0.3036171429198772
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 1), (1, 2), (1, 3), (1, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.2991678931877306
+            },
+            {
+              "action": "(1, 5)",
+              "value": 0.3035078136439643
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.30332331430402043
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.3032657452373629
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9996198006192933
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9998843297290333
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 2), (1, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.2909285425707748
+            },
+            {
+              "action": "(1, 4)",
+              "value": -0.12315808582637996
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 2), (1, 3), (1, 4), (1, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.0033709754372867125
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.19145610768355842
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": -0.9998471722240615
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9998471235787543
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 3), (1, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.08343326162866818
+            },
+            {
+              "action": "(1, 5)",
+              "value": 0.3317635652885838
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.21857237816609193
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.7343619238895955
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9981038488657594
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9996518868366079
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 4), (1, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.08483125154063577
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 2)",
+              "value": 0.14028037780347702
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": -0.6924395306945573
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.3848790613891147
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.28487038761185735
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.6782924557788557
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9987802712031608
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.4838837034711199
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 4)",
+              "value": -0.9512406075855144
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.8835360017648971
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0000000000000002
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ())",
+          "player": 0,
+          "values": [
+            {
+              "action": "(1, 1)",
+              "value": -0.37653914947630396
+            },
+            {
+              "action": "(1, 2)",
+              "value": 0.21285108689352247
+            },
+            {
+              "action": "(1, 3)",
+              "value": -0.032188932579061746
+            },
+            {
+              "action": "(1, 4)",
+              "value": -0.15647583768784606
+            },
+            {
+              "action": "(1, 5)",
+              "value": 0.3337331704043543
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.18095971397691163
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 1), (1, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.30315119047869427
+            },
+            {
+              "action": "(1, 3)",
+              "value": 0.2992795199097867
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 1), (1, 2), (1, 3), (1, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.2991678931877306
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.30324282338685066
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.3032657452373629
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9996198006192933
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 5)",
+              "value": -0.9998842714029188
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9998842603997963
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 2), (1, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.2909285425707748
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.7595623598398951
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 2), (1, 3), (1, 4), (1, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.3374159969879431
+            },
+            {
+              "action": "(1, 6)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.19145610768355842
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.9993635996075358
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": 0.999847006941479
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 3), (1, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.08343326162866818
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.7722946242569435
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0000000000000002
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.7343619238895955
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9981038488657594
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 5)",
+              "value": -0.9996516514366482
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9996514860710988
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 4), (1, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.2767441723947796
+            },
+            {
+              "action": "(1, 6)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 2)",
+              "value": 0.14028037780347702
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": 0.3848787385056388
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 5), (1, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.6782924557788557
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 5)",
+              "value": -0.9987793406094013
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9975586812188025
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 6), (2, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.4838837034711199
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 4)",
+              "value": -0.1626701271914721
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0000000000000002
+            },
+            {
+              "action": "(2, 6)",
+              "value": 0.8835342470782142
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ())",
+          "player": 0,
+          "values": [
+            {
+              "action": "(1, 1)",
+              "value": -0.37676186947213425
+            },
+            {
+              "action": "(1, 2)",
+              "value": 0.6530872127695526
+            },
+            {
+              "action": "(1, 3)",
+              "value": -0.21259611248829505
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.8432525521492198
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.8329808913493274
+            },
+            {
+              "action": "(1, 6)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 1), (1, 2), (1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.7457602764478101
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 6)",
+              "value": 0.7293021438015669
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.7027775210187541
+            },
+            {
+              "action": "(2, 2)",
+              "value": 0.7141542220941834
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.8673260572232143
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.8669937434625752
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.7624374740491396
+            },
+            {
+              "action": "(2, 6)",
+              "value": 0.7597882569693386
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 1),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0000000000000002
+            },
+            {
+              "action": "(1, 2)",
+              "value": 0.7755903312713344
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 2), (1, 3), (1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 5)",
+              "value": 0.8715105368236391
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0000000000000002
+            },
+            {
+              "action": "(2, 1)",
+              "value": 0.8707854416495159
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9955095431206679
+            },
+            {
+              "action": "(2, 3)",
+              "value": -0.9665435229551205
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9982518450310309
+            },
+            {
+              "action": "(2, 5)",
+              "value": -0.9888515461092825
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9988480596923683
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 2),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9999999999999998
+            },
+            {
+              "action": "(1, 3)",
+              "value": 0.9537345359126478
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 3), (1, 4), (1, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9999999999999999
+            },
+            {
+              "action": "(1, 6)",
+              "value": 0.6405614212137369
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.09679204883073848
+            },
+            {
+              "action": "(2, 2)",
+              "value": 0.1083391827628093
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9332817489715518
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.9331146370847827
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9362970776591579
+            },
+            {
+              "action": "(2, 6)",
+              "value": 0.935586684177597
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 3),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.9980754025545224
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 4), (1, 5), (1, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(2, 1)",
+              "value": 0.9867202013301283
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.8372993454209346
+            },
+            {
+              "action": "(2, 3)",
+              "value": -0.8232838806759415
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9552863401109983
+            },
+            {
+              "action": "(2, 5)",
+              "value": -0.9430636320780947
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9530655377679438
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 4),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 5)",
+              "value": 0.9969703672447813
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.734327336363119
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.20726347970261194
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.3326809475529051
+            },
+            {
+              "action": "(2, 4)",
+              "value": -0.004243702777110641
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.3243906854644348
+            },
+            {
+              "action": "(2, 6)",
+              "value": -0.3391598432270845
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 5),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 6)",
+              "value": 0.9999492358443692
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9369119613136335
+            },
+            {
+              "action": "(2, 3)",
+              "value": -0.9524043135645733
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9675103962212249
+            },
+            {
+              "action": "(2, 5)",
+              "value": -0.9754444715977824
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9834772624001981
+            }
+          ]
+        },
+        {
+          "information_set": "(1, ((1, 6),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.7081776708904202
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 1), (1, 2), (1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.7789106002081001
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.8395088517705394
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.6453913937921824
+            },
+            {
+              "action": "(1, 6)",
+              "value": 0.9154029707050546
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999999
+            },
+            {
+              "action": "(2, 2)",
+              "value": 0.7369858431924474
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": -0.4449940616460128
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 1),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.3999735009400889
+            },
+            {
+              "action": "(1, 2)",
+              "value": 0.858339346405625
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 2), (1, 3), (1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9625368629026169
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.9224139908167819
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9220676141828721
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.948392786393503
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9955095431206679
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9752999307172828
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.988861231457366
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 2),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9999999999999998
+            },
+            {
+              "action": "(1, 3)",
+              "value": -0.9719987565557029
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 3), (1, 4), (1, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.24271612609338267
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.18453603090403572
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999999
+            },
+            {
+              "action": "(2, 2)",
+              "value": 0.13151284136207966
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.04081903433291311
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 3),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9936211266832888
+            },
+            {
+              "action": "(1, 4)",
+              "value": -0.9955337304002866
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 4), (1, 5), (1, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9939176159592519
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.9923162480404357
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.8372993454209346
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.7927580866173201
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999999
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9433113603217713
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 4),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9992798603525733
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.998167580937337
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            },
+            {
+              "action": "(2, 2)",
+              "value": 0.05631135151878068
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 5),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9987780046913913
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.9995180956693144
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9369119613136335
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9524090046914498
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9756244745879612
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(2, ((1, 6),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9922206764543738
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.9947808962123914
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 1), (1, 2), (1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.8395088517705394
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.6453913937921824
+            },
+            {
+              "action": "(1, 6)",
+              "value": 0.9154029707050546
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999999
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.9047286524583964
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.8673260572232143
+            },
+            {
+              "action": "(2, 4)",
+              "value": -0.4449940616460128
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 1),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.3999735009400889
+            },
+            {
+              "action": "(1, 2)",
+              "value": 0.6960591173203278
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 2), (1, 3), (1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9625368629026169
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.9224139908167819
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9220676141828721
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.9477474657858597
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9977456376631928
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.988861231457366
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 2),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9787116492262931
+            },
+            {
+              "action": "(1, 3)",
+              "value": 0.3077924581949657
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 3), (1, 4), (1, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.24271612609338267
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.18453603090403572
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999999
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.6393891889945064
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9332817489715518
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.04081903433291311
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 3),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 4)",
+              "value": -0.9955337304002866
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 4), (1, 5), (1, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9939176159592519
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.9914280102631555
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9184376389340713
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999999
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9433113603217713
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 4),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9992798603525733
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.9979649397428907
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.47362336721073817
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.3326809475529051
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 5),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9987780046913913
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.9995180956693144
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9682881936386079
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9756244745879612
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(3, ((1, 6),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9922206764543738
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.9946536778153885
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 1), (1, 2), (1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.7789106002081001
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.9205463772660349
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.6453913937921824
+            },
+            {
+              "action": "(1, 6)",
+              "value": 0.9154029707050546
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999999
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.6566835020751121
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.9336532153847646
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 1),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.3999735009400889
+            },
+            {
+              "action": "(1, 2)",
+              "value": 0.7675884755061734
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 2), (1, 3), (1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.9224139908167819
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9220676141828721
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.9477474657858597
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9642987263520125
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9982518450310309
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.988861231457366
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 2),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9787116492262931
+            },
+            {
+              "action": "(1, 3)",
+              "value": -0.9719987565557029
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 3), (1, 4), (1, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.24271612609338267
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.18453603090403572
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999999
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.3070633816057793
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.9666359396710099
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 3),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9936211266832888
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.9936574559501868
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 4), (1, 5), (1, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9939176159592519
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.9914280102631555
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.7419435780160802
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9552863401109983
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9433113603217713
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 4),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.9979649397428907
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.21004853598934553
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.33356095449067197
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 5),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9987780046913913
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.9995180956693144
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9286135070371752
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9675103962212249
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9756244745879612
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(4, ((1, 6),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9922206764543738
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.9946536778153885
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 1), (1, 2), (1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.7789106002081001
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.8395088517705394
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 6)",
+              "value": 0.9154029707050546
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999999
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.6566835020751121
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": -0.9340756936834497
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.7624374740491396
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 1),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.3999735009400889
+            },
+            {
+              "action": "(1, 2)",
+              "value": 0.6960591173203278
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 2), (1, 3), (1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9625368629026169
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.9112818175267179
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9220676141828721
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.9477474657858597
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9752999307172828
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9988641606386826
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 2),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9787116492262931
+            },
+            {
+              "action": "(1, 3)",
+              "value": -0.9679903721260885
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 3), (1, 4), (1, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9999999999999999
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.18453603090403572
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999999
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.3070633816057793
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            },
+            {
+              "action": "(2, 4)",
+              "value": -0.96684839294251
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9362970776591579
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 3),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9936211266832888
+            },
+            {
+              "action": "(1, 4)",
+              "value": -0.9955337304002866
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 4), (1, 5), (1, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9939176159592519
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.9914280102631555
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.7927580866173201
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999999
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9546435914206026
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 4),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9992798603525733
+            },
+            {
+              "action": "(1, 5)",
+              "value": 0.5456786899005371
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.21004853598934553
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": -0.33780465726778264
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.3243906854644348
+            },
+            {
+              "action": "(2, 6)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 5),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(1, 6)",
+              "value": -0.9995180956693144
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9524090046914498
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            },
+            {
+              "action": "(2, 5)",
+              "value": 0.9838586405954972
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(5, ((1, 6),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9922206764543738
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.9946536778153885
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 1), (1, 2), (1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.7789106002081001
+            },
+            {
+              "action": "(1, 4)",
+              "value": 0.9189624745045043
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.6453913937921824
+            },
+            {
+              "action": "(1, 6)",
+              "value": 0.9999999999999999
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999999
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.6566835020751121
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": -0.4449940616460128
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": 0.7597882569693386
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 1),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.3999735009400889
+            },
+            {
+              "action": "(1, 2)",
+              "value": 0.766190412728857
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 2), (1, 3), (1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9625368629026169
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.9479497384062029
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0000000000000002
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.9477474657858597
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9752999307172828
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 5)",
+              "value": -0.9988544752905989
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9988480596923683
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 2),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9787116492262931
+            },
+            {
+              "action": "(1, 3)",
+              "value": -0.9811934654745227
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 3), (1, 4), (1, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.24271612609338267
+            },
+            {
+              "action": "(1, 6)",
+              "value": 0.9999999999999999
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999999
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.3070633816057793
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.04081903433291311
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": 0.935586684177597
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 3),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9936211266832888
+            },
+            {
+              "action": "(1, 4)",
+              "value": -0.9891911863504734
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 4), (1, 5), (1, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.9914280102631555
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.7927580866173201
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999999
+            },
+            {
+              "action": "(2, 5)",
+              "value": -0.954395863176926
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 4), (1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9530655377679438
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 4),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9992798603525733
+            },
+            {
+              "action": "(1, 5)",
+              "value": -0.9979649397428907
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 5), (1, 6), (2, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            },
+            {
+              "action": "(2, 2)",
+              "value": -0.21004853598934553
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 4)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 5), (1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 6)",
+              "value": -0.3391598432270845
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 5),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9987780046913913
+            },
+            {
+              "action": "(1, 6)",
+              "value": 0.9999999999999998
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 6), (2, 1), (2, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 1.0
+            },
+            {
+              "action": "(2, 3)",
+              "value": 0.9524090046914498
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": 0.9999999999999998
+            },
+            {
+              "action": "(2, 5)",
+              "value": -0.9836786376053183
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 6), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -0.9834772624001981
+            }
+          ]
+        },
+        {
+          "information_set": "(6, ((1, 6),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "'challenge'",
+              "value": -1.0
+            },
+            {
+              "action": "(2, 1)",
+              "value": -0.9946536778153885
+            }
+          ]
+        }
+      ],
+      "best_response_player_0": 0.5003822732449008,
+      "best_response_player_1": -0.4956745460504672,
+      "evaluator_id": "one_die_liar_exhaustive_best_response_v1",
+      "evaluator_method": "independent_game_tree_best_response",
+      "expected_value_to_player_0": 0.497306731258938,
+      "exploitability": 0.0023538635972168154,
+      "failures": [],
+      "maximum_unilateral_deviation_gain": 0.0030755419859628264,
+      "nash_conv": 0.004707727194433631,
+      "passed": true,
+      "player_0_deviation_gain": 0.0030755419859628264,
+      "player_1_deviation_gain": 0.0016321852084708044,
+      "profile_fingerprint": "34defb06eabf05c43e0a0bf913a88021b24885b16166417639ea157cfd788c7b"
+    },
+    "promotion": {
+      "epsilon_gto_runtime_allowed": true,
+      "failures": [
+        "cross_method_agreement_required"
+      ],
+      "level": "independently_checked"
+    }
+  },
+  "passed": true
+}

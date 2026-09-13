@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import random
 import threading
 import uuid
@@ -11,6 +12,12 @@ from math import comb, isfinite
 from pathlib import Path
 from typing import Callable, Protocol
 
+from aip.core import (
+    PromotionEvidence,
+    decide_promotion,
+    run_independent_evaluation,
+    strategy_profile_fingerprint,
+)
 from aip.puzzles.cases.models import CLASSROOM_BANKER, CaseGameRules, RiskPreferences
 from aip.puzzles.cases.solver import CaseGameAnalyzer
 from aip.puzzles.mastermind.models import CodeRules
@@ -26,6 +33,7 @@ from aip.puzzles.goofspiel import GoofspielSolver
 from aip.puzzles.kuhn_poker import basic_policy, equilibrium_policy
 from aip.puzzles.liars_dice import (
     BIDS as ONE_DIE_LIAR_BIDS,
+    OneDieLiarIndependentEvaluator,
     certify_one_die_liar_cfr,
     load_one_die_liar_policy,
 )
@@ -1653,10 +1661,43 @@ def _certified_one_die_liar_policy():
     with artifact.open("r", encoding="utf-8") as handle:
         # The loader accepts a Path so retain one validation/decoding path for
         # source checkouts and installed packages.
-        result = load_one_die_liar_policy(Path(handle.name))
+        artifact_path = Path(handle.name)
+        declared = json.load(handle)
+        result = load_one_die_liar_policy(artifact_path)
+    if (
+        result.algorithm is None
+        or result.algorithm.algorithm_id != "root_chance_sampling_cfr"
+        or result.algorithm.traversal != "root_chance_sampling"
+        or result.algorithm.update_schedule != "alternating_players"
+        or result.algorithm.averaging_rule != "uniform_iteration_weighting"
+        or result.algorithm.seed != 20260908
+    ):
+        raise ValueError("epsilon-GTO artifact has unexpected algorithm metadata")
+    promotion_record = declared.get("promotion", {})
+    fingerprint = strategy_profile_fingerprint(result.policy)
+    if (
+        promotion_record.get("level")
+        not in {"independently_checked", "verified", "frozen"}
+        or promotion_record.get("profile_fingerprint") != fingerprint
+    ):
+        raise ValueError("epsilon-GTO artifact lacks matching independent promotion")
     gate = certify_one_die_liar_cfr(result)
     gate.require_passed()
-    return result, gate
+    independent_report = run_independent_evaluation(
+        OneDieLiarIndependentEvaluator(),
+        result.policy,
+        maximum_exploitability=0.01,
+    )
+    promotion = decide_promotion(
+        PromotionEvidence(
+            artifact_complete=True,
+            artifact_profile_fingerprint=fingerprint,
+            independent_report=independent_report,
+        )
+    )
+    if not promotion.epsilon_gto_runtime_allowed:
+        raise ValueError("epsilon-GTO runtime requires an independent evaluator")
+    return result, gate, independent_report, promotion
 
 
 class LiarDiceSession:
@@ -1670,7 +1711,12 @@ class LiarDiceSession:
         if self.mode == "epsilon-gto":
             if self.dice_per_player != 1:
                 raise ValueError("epsilon-gto mode requires exactly one die per player")
-            self.cfr_result, self.cfr_gate = _certified_one_die_liar_policy()
+            (
+                self.cfr_result,
+                self.cfr_gate,
+                self.independent_report,
+                self.promotion,
+            ) = _certified_one_die_liar_policy()
         elif self.dice_per_player < 2 or self.dice_per_player > 8:
             raise ValueError("heuristic mode requires between 2 and 8 dice")
         self.seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
@@ -1935,6 +1981,14 @@ class LiarDiceSession:
                     "maximumAveragePositiveRegret": self.cfr_gate.maximum_average_positive_regret,
                     "evaluation": self.cfr_gate.evaluation.to_report(),
                 }
+                if self.mode == "epsilon-gto" else None
+            ),
+            "independentEvaluation": (
+                self.independent_report.to_artifact()
+                if self.mode == "epsilon-gto" else None
+            ),
+            "promotion": (
+                self.promotion.to_artifact()
                 if self.mode == "epsilon-gto" else None
             ),
             "legalActions": (

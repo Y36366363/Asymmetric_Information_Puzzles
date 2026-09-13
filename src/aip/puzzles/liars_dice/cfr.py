@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Hashable, Mapping
 
 from aip.core.cfr import (
+    AlgorithmSpec,
     CFRCertificationGate,
     CFRGateReport,
     CFRGameProperties,
@@ -16,6 +17,13 @@ from aip.core.cfr import (
     CFRThresholds,
     ChanceSamplingCFRTrainer,
     EquilibriumEvaluation,
+)
+from aip.core.evaluation import ActionValueReport, StrategyProfile
+from aip.core.evaluation import (
+    PromotionEvidence,
+    decide_promotion,
+    run_independent_evaluation,
+    strategy_profile_fingerprint,
 )
 
 
@@ -122,6 +130,24 @@ def save_one_die_liar_policy(
 ) -> None:
     """Write a deterministic, runtime-loadable CFR artifact."""
 
+    certification.require_passed()
+    if result.algorithm is None:
+        raise ValueError("one-die Liar's Dice artifact requires algorithm metadata")
+    independent_report = run_independent_evaluation(
+        OneDieLiarIndependentEvaluator(),
+        result.policy,
+        maximum_exploitability=0.01,
+    )
+    fingerprint = strategy_profile_fingerprint(result.policy)
+    promotion = decide_promotion(
+        PromotionEvidence(
+            artifact_complete=True,
+            artifact_profile_fingerprint=fingerprint,
+            independent_report=independent_report,
+        )
+    )
+    if not promotion.epsilon_gto_runtime_allowed:
+        raise ValueError("one-die Liar's Dice policy failed independent promotion")
     records = []
     for (player, information_set), distribution in sorted(
         result.policy.items(), key=lambda item: repr(item[0])
@@ -147,6 +173,13 @@ def save_one_die_liar_policy(
             result.algorithm.to_artifact() if result.algorithm is not None else None
         ),
         "iterations": result.iterations,
+        "independentEvaluation": independent_report.to_artifact(),
+        "promotion": {
+            **promotion.to_artifact(),
+            "evaluator_id": independent_report.evaluator_id,
+            "maximum_exploitability": 0.01,
+            "profile_fingerprint": fingerprint,
+        },
         "averagePositiveRegret": list(result.average_positive_regret),
         "certification": {
             "passed": certification.passed,
@@ -196,16 +229,48 @@ def load_one_die_liar_policy(source: Path) -> CFRResult:
     regrets = tuple(float(value) for value in payload["averagePositiveRegret"])
     if len(regrets) != 2:
         raise ValueError("CFR artifact must contain two player regret diagnostics")
+    raw_algorithm = payload.get("algorithm")
+    algorithm = None
+    if raw_algorithm is not None:
+        required = {
+            "algorithm_id",
+            "parameters",
+            "traversal",
+            "update_schedule",
+            "averaging_rule",
+            "seed",
+        }
+        if not isinstance(raw_algorithm, dict) or set(raw_algorithm) != required:
+            raise ValueError("invalid one-die Liar's Dice algorithm metadata")
+        parameters = raw_algorithm["parameters"]
+        if not isinstance(parameters, dict):
+            raise ValueError("invalid one-die Liar's Dice algorithm parameters")
+        algorithm = AlgorithmSpec(
+            algorithm_id=str(raw_algorithm["algorithm_id"]),
+            parameters={str(key): float(value) for key, value in parameters.items()},
+            traversal=str(raw_algorithm["traversal"]),
+            update_schedule=str(raw_algorithm["update_schedule"]),
+            averaging_rule=str(raw_algorithm["averaging_rule"]),
+            seed=(
+                None
+                if raw_algorithm["seed"] is None
+                else int(raw_algorithm["seed"])
+            ),
+        )
     return CFRResult(
         iterations=int(payload["iterations"]),
         policy=policy,
         information_set_visits=visits,
         average_positive_regret=(regrets[0], regrets[1]),
+        algorithm=algorithm,
     )
 
 
 def _best_response_value(
-    policy: Mapping[tuple[int, Hashable], Mapping[Hashable, float]], hero: int
+    policy: Mapping[tuple[int, Hashable], Mapping[Hashable, float]],
+    hero: int,
+    *,
+    action_values: dict[tuple[int, Hashable], dict[Hashable, float]] | None = None,
 ) -> float:
     """Exactly traverse one player's best response to the fixed opponent."""
 
@@ -240,7 +305,17 @@ def _best_response_value(
             actor = game.current_player(state)
             actions = game.legal_actions(state)
             if actor == hero:
-                return max(transition_value(bids, weights, action) for action in actions)
+                returns = {
+                    action: transition_value(bids, weights, action)
+                    for action in actions
+                }
+                if action_values is not None:
+                    reach = sum(weights)
+                    action_values[(hero, (own_die, bids))] = {
+                        action: value / reach if reach > 0 else 0.0
+                        for action, value in returns.items()
+                    }
+                return max(returns.values())
             total = 0.0
             for action in actions:
                 next_weights = tuple(
@@ -266,28 +341,58 @@ def one_die_liar_evaluation(result: CFRResult) -> EquilibriumEvaluation:
 
     best_zero = _best_response_value(result.policy, 0)
     best_one = _best_response_value(result.policy, 1)
+    value_zero = _one_die_profile_value(result.policy)
+    return EquilibriumEvaluation(
+        player_0_deviation_gain=best_zero - value_zero,
+        player_1_deviation_gain=best_one + value_zero,
+    )
+
+
+def _one_die_profile_value(policy: StrategyProfile) -> float:
     game = OneDieLiarDiceCFRGame()
 
-    def profile_value(state: OneDieLiarState) -> float:
+    def recurse(state: OneDieLiarState) -> float:
         if game.is_terminal(state):
             return game.utility_player_zero(state)
         player = game.current_player(state)
         if player is None:
             return sum(
-                probability * profile_value(game.next_state(state, action))
+                probability * recurse(game.next_state(state, action))
                 for action, probability in game.chance_outcomes(state)
             )
-        distribution = result.policy[(player, game.information_set(state))]
+        distribution = policy[(player, game.information_set(state))]
         return sum(
-            float(distribution[action]) * profile_value(game.next_state(state, action))
+            float(distribution[action]) * recurse(game.next_state(state, action))
             for action in game.legal_actions(state)
         )
 
-    value_zero = profile_value(game.initial_state())
-    return EquilibriumEvaluation(
-        player_0_deviation_gain=best_zero - value_zero,
-        player_1_deviation_gain=best_one + value_zero,
-    )
+    return recurse(game.initial_state())
+
+
+class OneDieLiarIndependentEvaluator:
+    """Exact tree evaluator independent of CFR regrets and sampling history."""
+
+    evaluator_id = "one_die_liar_exhaustive_best_response_v1"
+
+    def expected_value(self, profile: StrategyProfile) -> float:
+        return _one_die_profile_value(profile)
+
+    def best_response(self, profile: StrategyProfile, player: int) -> float:
+        if player not in (0, 1):
+            raise ValueError("best-response player must be zero or one")
+        return _best_response_value(profile, player)
+
+    def nash_conv(self, profile: StrategyProfile) -> float:
+        return self.best_response(profile, 0) + self.best_response(profile, 1)
+
+    def exploitability(self, profile: StrategyProfile) -> float:
+        return self.nash_conv(profile) / 2.0
+
+    def action_values(self, profile: StrategyProfile) -> ActionValueReport:
+        values: dict[tuple[int, Hashable], dict[Hashable, float]] = {}
+        _best_response_value(profile, 0, action_values=values)
+        _best_response_value(profile, 1, action_values=values)
+        return values
 
 
 def required_one_die_information_sets() -> frozenset[tuple[int, Hashable]]:

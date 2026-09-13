@@ -33,6 +33,18 @@ from aip.core.cfr import (
     create_regret_minimization_trainer,
 )
 from aip.core.cfr_artifact import CFRArtifactExporter
+from aip.core.evaluation import (
+    ActionValueReport,
+    EquilibriumEvaluator,
+    IndependentEvaluationReport,
+    PromotionDecision,
+    PromotionEvidence,
+    PromotionLevel,
+    StrategyProfile,
+    decide_promotion,
+    run_independent_evaluation,
+    strategy_profile_fingerprint,
+)
 from aip.core.equilibrium import (
     EquilibriumGameStructure,
     EquilibriumMethod,
@@ -47,6 +59,7 @@ from aip.core.information import InformationSet, Observation
 
 __all__ = [
     "AlgorithmSpec",
+    "ActionValueReport",
     "AverageStrategyPolicy",
     "CFRCertificationGate",
     "CFRArtifactExporter",
@@ -69,12 +82,17 @@ __all__ = [
     "DynamicGame",
     "EquilibriumEvaluation",
     "EquilibriumGameStructure",
+    "EquilibriumEvaluator",
     "EquilibriumMethod",
     "FullTreeTraversal",
     "GameSolver",
     "InformationSet",
+    "IndependentEvaluationReport",
     "LinearAverageStrategy",
     "Observation",
+    "PromotionDecision",
+    "PromotionEvidence",
+    "PromotionLevel",
     "RegretMatchingPlusUpdate",
     "RegretMinimizationTrainer",
     "RegretUpdatePolicy",
@@ -82,11 +100,15 @@ __all__ = [
     "SolverRecommendation",
     "StoppingTimeAudit",
     "StoppingTimeStructure",
+    "StrategyProfile",
     "Transition",
     "TraversalPolicy",
     "UniformAverageStrategy",
     "VanillaRegretUpdate",
     "audit_stopping_time_compression",
     "create_regret_minimization_trainer",
+    "decide_promotion",
     "recommend_equilibrium_solver",
+    "run_independent_evaluation",
+    "strategy_profile_fingerprint",
 ]

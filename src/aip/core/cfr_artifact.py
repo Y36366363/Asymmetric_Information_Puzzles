@@ -9,6 +9,10 @@ from pathlib import Path
 from typing import Hashable
 
 from aip.core.cfr import CFRResult, EquilibriumEvaluation
+from aip.core.evaluation import (
+    IndependentEvaluationReport,
+    strategy_profile_fingerprint,
+)
 
 
 Encoder = Callable[[Hashable], object]
@@ -33,15 +37,39 @@ class CFRArtifactExporter:
         result: CFRResult,
         *,
         game_id: str,
-        independent_evaluation: EquilibriumEvaluation,
+        independent_evaluation: EquilibriumEvaluation | IndependentEvaluationReport,
     ) -> dict[str, object]:
         if result.algorithm is None:
             raise ValueError("solver artifact requires algorithm metadata")
         if not game_id:
             raise ValueError("solver artifact requires a nonempty game ID")
-        evaluation_report = independent_evaluation.to_report()
+        if isinstance(independent_evaluation, IndependentEvaluationReport):
+            if not independent_evaluation.passed:
+                raise ValueError(
+                    "solver artifact cannot promote a failed independent evaluation"
+                )
+            if independent_evaluation.profile_fingerprint != strategy_profile_fingerprint(
+                result.policy
+            ):
+                raise ValueError(
+                    "independent evaluation belongs to a different strategy profile"
+                )
+            evaluation_report = independent_evaluation.to_artifact()
+            common_metrics = {
+                name: float(evaluation_report[name])
+                for name in (
+                    "nash_conv",
+                    "exploitability",
+                    "player_0_deviation_gain",
+                    "player_1_deviation_gain",
+                    "maximum_unilateral_deviation_gain",
+                )
+            }
+        else:
+            evaluation_report = independent_evaluation.to_report()
+            common_metrics = evaluation_report
         if any(
-            not isfinite(value) or value < 0 for value in evaluation_report.values()
+            not isfinite(value) or value < 0 for value in common_metrics.values()
         ):
             raise ValueError(
                 "solver artifact requires finite, nonnegative independent evaluation"
@@ -54,7 +82,7 @@ class CFRArtifactExporter:
                     result.convergence_trace[-1].independent_evaluation[name] - value
                 )
                 > 1e-12
-                for name, value in evaluation_report.items()
+                for name, value in common_metrics.items()
             )
         ):
             raise ValueError("final checkpoint and independent evaluation disagree")
@@ -98,7 +126,7 @@ class CFRArtifactExporter:
         destination: Path,
         *,
         game_id: str,
-        independent_evaluation: EquilibriumEvaluation,
+        independent_evaluation: EquilibriumEvaluation | IndependentEvaluationReport,
     ) -> None:
         artifact = self.build(
             result,

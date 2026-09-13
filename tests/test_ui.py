@@ -736,6 +736,9 @@ class LocalGameUITests(unittest.TestCase):
         self.assertEqual(state["strategyEvidence"], "epsilon_equilibrium_backed")
         self.assertTrue(state["cfrCertification"]["passed"])
         self.assertLess(state["aiExploitability"], 0.01)
+        self.assertTrue(state["independentEvaluation"]["passed"])
+        self.assertEqual(state["promotion"]["level"], "independently_checked")
+        self.assertTrue(state["promotion"]["epsilon_gto_runtime_allowed"])
         self.assertEqual(
             set(state["cfrCertification"]["evaluation"]),
             {
