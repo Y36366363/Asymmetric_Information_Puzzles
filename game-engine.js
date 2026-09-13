@@ -4,6 +4,14 @@ const ONE_DIE_LIAR_POLICY = {
     0.011446044068636599,
     0.0031764250663055636
   ],
+  "algorithm": {
+    "algorithm_id": "root_chance_sampling_cfr",
+    "averaging_rule": "uniform_iteration_weighting",
+    "parameters": {},
+    "seed": 20260908,
+    "traversal": "root_chance_sampling",
+    "update_schedule": "alternating_players"
+  },
   "certification": {
     "exploitability": 0.0023538635972168154,
     "failures": [],
@@ -11,6 +19,12 @@ const ONE_DIE_LIAR_POLICY = {
   },
   "game": "one_die_stepwise_liars_dice",
   "iterations": 20000,
+  "promotion": {
+    "evaluator_id": "one_die_liar_exhaustive_best_response_v1",
+    "level": "independently_checked",
+    "maximum_exploitability": 0.01,
+    "profile_fingerprint": "34defb06eabf05c43e0a0bf913a88021b24885b16166417639ea157cfd788c7b"
+  },
   "policy": [
     {
       "bids": [
