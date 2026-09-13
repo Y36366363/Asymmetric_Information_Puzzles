@@ -1,0 +1,134 @@
+{
+  "aip": {
+    "evaluation": {
+      "exploitability": 0.00011332446084744537,
+      "maximum_unilateral_deviation_gain": 0.00011765768215757534,
+      "nash_conv": 0.00022664892169489074,
+      "player_0_deviation_gain": 0.0001089912395373154,
+      "player_1_deviation_gain": 0.00011765768215757534
+    },
+    "information_sets": 12,
+    "strategy": {
+      "P0:J:pb": {
+        "b": 3.133578194007005e-05,
+        "p": 0.9999686642180599
+      },
+      "P0:J:root": {
+        "b": 0.20219000605082366,
+        "p": 0.7978099939491764
+      },
+      "P0:K:pb": {
+        "b": 0.9999363886410921,
+        "p": 6.36113589079376e-05
+      },
+      "P0:K:root": {
+        "b": 0.6069884305382994,
+        "p": 0.39301156946170057
+      },
+      "P0:Q:pb": {
+        "b": 0.5358565453868681,
+        "p": 0.464143454613132
+      },
+      "P0:Q:root": {
+        "b": 0.0007492081400926782,
+        "p": 0.9992507918599074
+      },
+      "P1:J:b": {
+        "b": 4.9999999999994026e-05,
+        "p": 0.99995
+      },
+      "P1:J:p": {
+        "b": 0.3332186676988125,
+        "p": 0.6667813323011876
+      },
+      "P1:K:b": {
+        "b": 0.99995,
+        "p": 4.9999999999994026e-05
+      },
+      "P1:K:p": {
+        "b": 0.9999,
+        "p": 9.999999999998805e-05
+      },
+      "P1:Q:b": {
+        "b": 0.33370794950159305,
+        "p": 0.666292050498407
+      },
+      "P1:Q:p": {
+        "b": 0.0003499999999999582,
+        "p": 0.99965
+      }
+    },
+    "value_to_player_0": -0.0555635182619069
+  },
+  "algorithm": "alternating full-tree batched vanilla CFR",
+  "audit_version": "2.0.0",
+  "checks": {
+    "action_order_invariant": true,
+    "chance_order_invariant": true,
+    "exploitabilities_match": true,
+    "game_values_match": true,
+    "information_set_coverage_matches": true
+  },
+  "interpretation": "Kuhn equilibria need not have unique frequencies; value and exploitability are primary. Here the two batched vanilla CFR implementations also agree on strategy to floating-point precision.",
+  "iterations": 10000,
+  "maximum_action_order_strategy_difference": 0.0,
+  "maximum_chance_order_strategy_difference": 0.0,
+  "maximum_cross_project_strategy_difference": 6.783462680459706e-14,
+  "passed": true,
+  "poker_capability_lab": {
+    "exploitability": 0.00011332445786397041,
+    "information_sets": 12,
+    "nash_conv": 0.00022664891572794083,
+    "strategy": {
+      "P0:J:pb": {
+        "b": 3.13357819400708e-05,
+        "p": 0.99996866421806
+      },
+      "P0:J:root": {
+        "b": 0.20219000605084347,
+        "p": 0.7978099939491565
+      },
+      "P0:K:pb": {
+        "b": 0.999936388641092,
+        "p": 6.361135890794854e-05
+      },
+      "P0:K:root": {
+        "b": 0.6069884305383673,
+        "p": 0.3930115694616328
+      },
+      "P0:Q:pb": {
+        "b": 0.5358565453869201,
+        "p": 0.46414345461308
+      },
+      "P0:Q:root": {
+        "b": 0.0007492081400927675,
+        "p": 0.9992507918599073
+      },
+      "P1:J:b": {
+        "b": 5e-05,
+        "p": 0.99995
+      },
+      "P1:J:p": {
+        "b": 0.3332186676988064,
+        "p": 0.6667813323011935
+      },
+      "P1:K:b": {
+        "b": 0.99995,
+        "p": 5e-05
+      },
+      "P1:K:p": {
+        "b": 0.9999,
+        "p": 0.0001
+      },
+      "P1:Q:b": {
+        "b": 0.3337079495015372,
+        "p": 0.6662920504984627
+      },
+      "P1:Q:p": {
+        "b": 0.00035,
+        "p": 0.99965
+      }
+    },
+    "value_to_player_0": -0.055563518262057715
+  }
+}

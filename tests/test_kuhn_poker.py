@@ -16,13 +16,17 @@ class KuhnPokerStrategyTests(unittest.TestCase):
         audit = audit_policy(equilibrium_policy())
         self.assertEqual(audit.first_seat_best_response, game_value(True))
         self.assertEqual(audit.second_seat_best_response, game_value(False))
-        self.assertEqual(audit.maximum_exploitability, 0)
+        self.assertEqual(audit.nash_conv, 0)
+        self.assertEqual(audit.exploitability, 0)
+        self.assertEqual(audit.maximum_unilateral_deviation_gain, 0)
 
     def test_legacy_queen_call_frequency_was_exploitable_from_second_seat(self) -> None:
         audit = audit_policy(legacy_policy())
-        self.assertEqual(audit.first_seat_exploitability, 0)
+        self.assertEqual(audit.player_0_deviation_gain, 0)
         self.assertEqual(audit.second_seat_best_response, Fraction(1, 6))
-        self.assertEqual(audit.second_seat_exploitability, Fraction(1, 9))
+        self.assertEqual(audit.player_1_deviation_gain, Fraction(1, 9))
+        self.assertEqual(audit.nash_conv, Fraction(1, 9))
+        self.assertEqual(audit.exploitability, Fraction(1, 18))
 
     def test_equilibrium_uses_position_specific_queen_call_frequencies(self) -> None:
         policy = equilibrium_policy()
@@ -40,7 +44,7 @@ class KuhnPokerStrategyTests(unittest.TestCase):
     def test_basic_ai_exposes_additional_second_seat_value(self) -> None:
         audit = audit_policy(basic_policy())
         self.assertEqual(audit.second_seat_best_response, Fraction(1, 6))
-        self.assertEqual(audit.second_seat_exploitability, Fraction(1, 9))
+        self.assertEqual(audit.player_1_deviation_gain, Fraction(1, 9))
 
 
 if __name__ == "__main__":

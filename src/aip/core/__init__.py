@@ -11,6 +11,7 @@ from aip.core.cfr import (
     CFRResult,
     CFRThresholds,
     CFRTrainer,
+    EquilibriumEvaluation,
 )
 from aip.core.equilibrium import (
     EquilibriumGameStructure,
@@ -36,6 +37,7 @@ __all__ = [
     "CFRThresholds",
     "CFRTrainer",
     "DynamicGame",
+    "EquilibriumEvaluation",
     "EquilibriumGameStructure",
     "EquilibriumMethod",
     "GameSolver",

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from math import isfinite
+from math import fsum, isfinite
 import random
 from typing import Hashable, Mapping, Protocol, TypeVar
 
@@ -58,6 +58,29 @@ class _Node:
         return tuple(value / total for value in self.strategy_sum)
 
 
+@dataclass(slots=True)
+class _CFRBatch:
+    """Per-player full-tree deltas committed only after traversal finishes."""
+
+    regrets: dict[tuple[int, InformationSet], list[float]] = field(
+        default_factory=dict
+    )
+    strategy: dict[tuple[int, InformationSet], list[float]] = field(
+        default_factory=dict
+    )
+    visits: dict[tuple[int, InformationSet], int] = field(default_factory=dict)
+
+    @staticmethod
+    def _add(
+        table: dict[tuple[int, InformationSet], list[float]],
+        key: tuple[int, InformationSet],
+        values: tuple[float, ...],
+    ) -> None:
+        totals = table.setdefault(key, [0.0] * len(values))
+        for index, value in enumerate(values):
+            totals[index] += value
+
+
 @dataclass(frozen=True, slots=True)
 class CFRResult:
     iterations: int
@@ -71,7 +94,13 @@ class CFRResult:
 
 
 class CFRTrainer:
-    """Vanilla alternating-update CFR with chance and average-policy tracking."""
+    """Batched full-tree vanilla CFR with alternating player updates.
+
+    Each player traversal reads one fixed regret-matching strategy. Regret and
+    average-strategy deltas from every chance outcome are committed together
+    only after that complete traversal, making deterministic results independent
+    of chance and action enumeration order (up to floating-point roundoff).
+    """
 
     def __init__(self, game: CFRGame[State]) -> None:
         self.game = game
@@ -83,10 +112,31 @@ class CFRTrainer:
             raise ValueError("CFR iterations must be positive")
         root = self.game.initial_state()
         for _ in range(iterations):
-            self._traverse(root, 1.0, 1.0, 1.0, update_player=0)
-            self._traverse(root, 1.0, 1.0, 1.0, update_player=1)
+            for update_player in (0, 1):
+                batch = _CFRBatch()
+                self._traverse(
+                    root,
+                    1.0,
+                    1.0,
+                    1.0,
+                    update_player=update_player,
+                    batch=batch,
+                )
+                self._apply_batch(batch)
             self.iterations += 1
         return self.result()
+
+    def _apply_batch(self, batch: _CFRBatch) -> None:
+        for key, deltas in batch.regrets.items():
+            node = self._nodes[key]
+            for index, delta in enumerate(deltas):
+                node.regrets[index] += delta
+        for key, deltas in batch.strategy.items():
+            node = self._nodes[key]
+            for index, delta in enumerate(deltas):
+                node.strategy_sum[index] += delta
+        for key, visits in batch.visits.items():
+            self._nodes[key].visits += visits
 
     def result(self) -> CFRResult:
         policy: dict[tuple[int, InformationSet], dict[Action, float]] = {}
@@ -135,6 +185,7 @@ class CFRTrainer:
         chance_reach: float,
         *,
         update_player: int,
+        batch: _CFRBatch,
     ) -> float:
         if self.game.is_terminal(state):
             utility = self.game.utility_player_zero(state)
@@ -157,7 +208,7 @@ class CFRTrainer:
                 raise ValueError(
                     "chance outcomes must be finite, nonnegative, nonempty, and sum to one"
                 )
-            return sum(
+            return fsum(
                 probability
                 * self._traverse(
                     self.game.next_state(state, action),
@@ -165,6 +216,7 @@ class CFRTrainer:
                     reach_one,
                     chance_reach * probability,
                     update_player=update_player,
+                    batch=batch,
                 )
                 for action, probability in outcomes
             )
@@ -172,7 +224,8 @@ class CFRTrainer:
             raise ValueError("CFR current_player must be 0, 1, or None for chance")
 
         actions = self.game.legal_actions(state)
-        node = self._node(player, self.game.information_set(state), actions)
+        information_set = self.game.information_set(state)
+        node = self._node(player, information_set, actions)
         strategy = node.strategy()
         action_values: list[float] = []
         for action, probability in zip(actions, strategy):
@@ -185,23 +238,34 @@ class CFRTrainer:
                     next_one,
                     chance_reach,
                     update_player=update_player,
+                    batch=batch,
                 )
             )
-        node_value = sum(
+        node_value = fsum(
             probability * value for probability, value in zip(strategy, action_values)
         )
         if player == update_player:
             own_reach = reach_zero if player == 0 else reach_one
             opponent_reach = reach_one if player == 0 else reach_zero
             sign = 1.0 if player == 0 else -1.0
-            for index, (probability, action_value) in enumerate(
-                zip(strategy, action_values)
-            ):
-                node.regrets[index] += (
-                    chance_reach * opponent_reach * sign * (action_value - node_value)
-                )
-                node.strategy_sum[index] += chance_reach * own_reach * probability
-            node.visits += 1
+            key = (player, information_set)
+            batch._add(
+                batch.regrets,
+                key,
+                tuple(
+                    chance_reach
+                    * opponent_reach
+                    * sign
+                    * (action_value - node_value)
+                    for action_value in action_values
+                ),
+            )
+            batch._add(
+                batch.strategy,
+                key,
+                tuple(chance_reach * own_reach * probability for probability in strategy),
+            )
+            batch.visits[key] = batch.visits.get(key, 0) + 1
         return node_value
 
 
@@ -242,13 +306,16 @@ class ChanceSamplingCFRTrainer(CFRTrainer):
                         selected = action
                         break
                 sampled_state = self.game.next_state(root, selected)
+                batch = _CFRBatch()
                 self._traverse(
                     sampled_state,
                     1.0,
                     1.0,
                     1.0,
                     update_player=update_player,
+                    batch=batch,
                 )
+                self._apply_batch(batch)
             self.iterations += 1
         return self.result()
 
@@ -404,6 +471,39 @@ class CFRGameProperties:
 
 
 @dataclass(frozen=True, slots=True)
+class EquilibriumEvaluation:
+    """Independent two-player deviation gains with unambiguous metric names."""
+
+    player_0_deviation_gain: float
+    player_1_deviation_gain: float
+
+    @property
+    def nash_conv(self) -> float:
+        return self.player_0_deviation_gain + self.player_1_deviation_gain
+
+    @property
+    def exploitability(self) -> float:
+        return self.nash_conv / 2
+
+    @property
+    def maximum_unilateral_deviation_gain(self) -> float:
+        return max(self.player_0_deviation_gain, self.player_1_deviation_gain)
+
+    def to_report(self) -> dict[str, float]:
+        """Return the versioned cross-project metric vocabulary."""
+
+        return {
+            "nash_conv": self.nash_conv,
+            "exploitability": self.exploitability,
+            "player_0_deviation_gain": self.player_0_deviation_gain,
+            "player_1_deviation_gain": self.player_1_deviation_gain,
+            "maximum_unilateral_deviation_gain": (
+                self.maximum_unilateral_deviation_gain
+            ),
+        }
+
+
+@dataclass(frozen=True, slots=True)
 class CFRGateReport:
     passed: bool
     failures: tuple[str, ...]
@@ -411,7 +511,39 @@ class CFRGateReport:
     information_sets: int
     minimum_visits: int
     maximum_average_positive_regret: float
-    exploitability: float | None
+    evaluation: EquilibriumEvaluation | None
+
+    @property
+    def nash_conv(self) -> float | None:
+        return None if self.evaluation is None else self.evaluation.nash_conv
+
+    @property
+    def exploitability(self) -> float | None:
+        return None if self.evaluation is None else self.evaluation.exploitability
+
+    @property
+    def player_0_deviation_gain(self) -> float | None:
+        return (
+            None
+            if self.evaluation is None
+            else self.evaluation.player_0_deviation_gain
+        )
+
+    @property
+    def player_1_deviation_gain(self) -> float | None:
+        return (
+            None
+            if self.evaluation is None
+            else self.evaluation.player_1_deviation_gain
+        )
+
+    @property
+    def maximum_unilateral_deviation_gain(self) -> float | None:
+        return (
+            None
+            if self.evaluation is None
+            else self.evaluation.maximum_unilateral_deviation_gain
+        )
 
     def require_passed(self) -> None:
         """Prevent a policy from being activated when any evidence gate failed."""
@@ -436,7 +568,7 @@ class CFRCertificationGate:
         self,
         result: CFRResult,
         *,
-        exploitability: float | None,
+        evaluation: EquilibriumEvaluation | None,
         required_information_sets: frozenset[
             tuple[int, InformationSet]
         ] = frozenset(),
@@ -481,11 +613,19 @@ class CFRCertificationGate:
             failures.append("invalid_regret_diagnostic")
         elif maximum_regret > self.thresholds.max_average_positive_regret:
             failures.append("average_positive_regret_above_threshold")
-        if exploitability is None or not isfinite(exploitability):
+        gains = (
+            ()
+            if evaluation is None
+            else (
+                evaluation.player_0_deviation_gain,
+                evaluation.player_1_deviation_gain,
+            )
+        )
+        if evaluation is None or any(not isfinite(gain) for gain in gains):
             failures.append("independent_exploitability_required")
-        elif exploitability < -self.thresholds.probability_tolerance:
+        elif any(gain < -self.thresholds.probability_tolerance for gain in gains):
             failures.append("invalid_exploitability")
-        elif exploitability > self.thresholds.max_exploitability:
+        elif evaluation.exploitability > self.thresholds.max_exploitability:
             failures.append("exploitability_above_threshold")
         for distribution in result.policy.values():
             values = tuple(distribution.values())
@@ -503,5 +643,5 @@ class CFRCertificationGate:
             information_sets=result.information_set_count,
             minimum_visits=minimum_visits,
             maximum_average_positive_regret=maximum_regret,
-            exploitability=exploitability,
+            evaluation=evaluation,
         )

@@ -5,6 +5,24 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 09/13/2026
+
+- **Full-tree vanilla CFR now uses batched alternating updates** — Each player's
+  complete tree traversal reads one fixed policy, accumulates regret and average-
+  strategy deltas, and commits only after all chance outcomes have been visited.
+  Reversing Kuhn's chance or action enumeration now changes no policy probability
+  (`0.0`, previously about `0.011457449` for reversed chance order).
+- **Cross-project Kuhn parity passes** — At 10,000 iterations AIP reports value
+  `-0.055563518262`, NashConv `0.000226648922`, and exploitability
+  `0.000113324461`. These agree with PokerCapabilityLab to numerical precision;
+  the largest policy-frequency difference is `6.78e-14` across 12 information sets.
+- **Equilibrium reports now separate five metrics** — `nash_conv`,
+  `exploitability = nash_conv / 2`, both player deviation gains, and maximum
+  unilateral deviation gain are distinct fields. Existing thresholds were not
+  weakened, negative controls still fail, and multiplayer general-sum games remain
+  outside this certification route.
+  [Read today's batched-CFR audit](research/batched_full_tree_cfr_2026-09-13.md).
+
 ## Updates 09/12/2026
 
 - **Love Letter extensive-form layer added** — Added an immutable two-player,

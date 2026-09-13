@@ -15,6 +15,7 @@ from aip.core.cfr import (
     CFRResult,
     CFRThresholds,
     ChanceSamplingCFRTrainer,
+    EquilibriumEvaluation,
 )
 
 
@@ -147,7 +148,11 @@ def save_one_die_liar_policy(
         "certification": {
             "passed": certification.passed,
             "failures": list(certification.failures),
-            "exploitability": certification.exploitability,
+            "evaluation": (
+                certification.evaluation.to_report()
+                if certification.evaluation is not None
+                else None
+            ),
         },
         "policy": records,
     }
@@ -250,9 +255,36 @@ def _best_response_value(
 def one_die_liar_exploitability(result: CFRResult) -> float:
     """Return epsilon = half NashConv from independent exact best responses."""
 
+    return one_die_liar_evaluation(result).exploitability
+
+
+def one_die_liar_evaluation(result: CFRResult) -> EquilibriumEvaluation:
+    """Return exact deviation gains for both seats against the CFR profile."""
+
     best_zero = _best_response_value(result.policy, 0)
     best_one = _best_response_value(result.policy, 1)
-    return (best_zero + best_one) / 2
+    game = OneDieLiarDiceCFRGame()
+
+    def profile_value(state: OneDieLiarState) -> float:
+        if game.is_terminal(state):
+            return game.utility_player_zero(state)
+        player = game.current_player(state)
+        if player is None:
+            return sum(
+                probability * profile_value(game.next_state(state, action))
+                for action, probability in game.chance_outcomes(state)
+            )
+        distribution = result.policy[(player, game.information_set(state))]
+        return sum(
+            float(distribution[action]) * profile_value(game.next_state(state, action))
+            for action in game.legal_actions(state)
+        )
+
+    value_zero = profile_value(game.initial_state())
+    return EquilibriumEvaluation(
+        player_0_deviation_gain=best_zero - value_zero,
+        player_1_deviation_gain=best_one + value_zero,
+    )
 
 
 def required_one_die_information_sets() -> frozenset[tuple[int, Hashable]]:
@@ -286,7 +318,7 @@ def certify_one_die_liar_cfr(
     )
     return gate.evaluate(
         result,
-        exploitability=one_die_liar_exploitability(result),
+        evaluation=one_die_liar_evaluation(result),
         required_information_sets=required,
         exact_information_sets=True,
         game_properties=CFRGameProperties(

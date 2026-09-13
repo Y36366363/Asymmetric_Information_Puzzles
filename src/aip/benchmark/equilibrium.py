@@ -22,8 +22,8 @@ from aip.puzzles.kuhn_poker.solver import CARDS
 class KuhnEquilibriumMetrics:
     candidate_regret_first_seat: Fraction
     candidate_regret_second_seat: Fraction
-    exploitability_when_candidate_first: Fraction
-    exploitability_when_candidate_second: Fraction
+    opponent_deviation_gain_when_candidate_first: Fraction
+    opponent_deviation_gain_when_candidate_second: Fraction
     mean_information_set_tv_distance: Fraction
     equilibrium_support_violations: int
 
@@ -32,10 +32,10 @@ class KuhnEquilibriumMetrics:
         return max(self.candidate_regret_first_seat, self.candidate_regret_second_seat)
 
     @property
-    def maximum_exploitability(self) -> Fraction:
+    def maximum_unilateral_deviation_gain(self) -> Fraction:
         return max(
-            self.exploitability_when_candidate_first,
-            self.exploitability_when_candidate_second,
+            self.opponent_deviation_gain_when_candidate_first,
+            self.opponent_deviation_gain_when_candidate_second,
         )
 
 
@@ -73,8 +73,8 @@ def evaluate_kuhn_policy(policy: KuhnPolicy) -> KuhnEquilibriumMetrics:
         candidate_regret_second_seat=(
             game_value(False) - policy_value(policy, reference, hero_first=False)
         ),
-        exploitability_when_candidate_first=audit.second_seat_exploitability,
-        exploitability_when_candidate_second=audit.first_seat_exploitability,
+        opponent_deviation_gain_when_candidate_first=audit.player_1_deviation_gain,
+        opponent_deviation_gain_when_candidate_second=audit.player_0_deviation_gain,
         mean_information_set_tv_distance=sum(distances) / len(distances),
         equilibrium_support_violations=support_violations,
     )

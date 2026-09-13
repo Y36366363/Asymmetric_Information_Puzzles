@@ -14,6 +14,7 @@ from dataclasses import dataclass
 from fractions import Fraction
 from typing import Mapping
 
+from aip.core.cfr import EquilibriumEvaluation
 from aip.core.equilibrium import EquilibriumGameStructure, StoppingTimeStructure
 from aip.puzzles.goofspiel.solver import MatrixSolution, solve_zero_sum_matrix
 
@@ -71,6 +72,14 @@ def e_card_exploitability(
 ) -> float:
     """Return half NashConv using exact pure best-response enumeration."""
 
+    return e_card_evaluation(emperor_strategy, slave_strategy).exploitability
+
+
+def e_card_evaluation(
+    emperor_strategy: Mapping[int, float], slave_strategy: Mapping[int, float]
+) -> EquilibriumEvaluation:
+    """Return independently enumerated deviation gains for both E-Card seats."""
+
     matrix = e_card_payoff_matrix()
     row = tuple(float(emperor_strategy[duel]) for duel in DUELS)
     column = tuple(float(slave_strategy[duel]) for duel in DUELS)
@@ -82,7 +91,17 @@ def e_card_exploitability(
         sum(row[i] * float(matrix[i][j]) for i in range(len(DUELS)))
         for j in range(len(DUELS))
     )
-    return (best_emperor - worst_for_emperor) / 2
+    profile_value = e_card_expected_value(emperor_strategy, slave_strategy)
+    player_zero_gain = max(0.0, best_emperor - profile_value)
+    player_one_gain = max(0.0, profile_value - worst_for_emperor)
+    return EquilibriumEvaluation(
+        player_0_deviation_gain=(
+            0.0 if player_zero_gain <= 1e-12 else player_zero_gain
+        ),
+        player_1_deviation_gain=(
+            0.0 if player_one_gain <= 1e-12 else player_one_gain
+        ),
+    )
 
 
 def e_card_expected_value(

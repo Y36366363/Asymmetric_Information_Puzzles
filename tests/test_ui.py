@@ -736,6 +736,16 @@ class LocalGameUITests(unittest.TestCase):
         self.assertEqual(state["strategyEvidence"], "epsilon_equilibrium_backed")
         self.assertTrue(state["cfrCertification"]["passed"])
         self.assertLess(state["aiExploitability"], 0.01)
+        self.assertEqual(
+            set(state["cfrCertification"]["evaluation"]),
+            {
+                "nash_conv",
+                "exploitability",
+                "player_0_deviation_gain",
+                "player_1_deviation_gain",
+                "maximum_unilateral_deviation_gain",
+            },
+        )
         state = self.service.act(
             created["sessionId"], "raise_bid", {"quantity": 1, "face": 2}
         )

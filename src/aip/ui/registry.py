@@ -1933,7 +1933,7 @@ class LiarDiceSession:
                     "iterations": self.cfr_gate.iterations,
                     "informationSets": self.cfr_gate.information_sets,
                     "maximumAveragePositiveRegret": self.cfr_gate.maximum_average_positive_regret,
-                    "exploitability": self.cfr_gate.exploitability,
+                    "evaluation": self.cfr_gate.evaluation.to_report(),
                 }
                 if self.mode == "epsilon-gto" else None
             ),

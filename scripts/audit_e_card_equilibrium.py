@@ -31,7 +31,9 @@ def main() -> int:
         + ",".join(f"{float(value):.9f}" for value in exact.slave_strategy)
     )
     print(f"cfr_iterations={learned.iterations}")
-    print(f"cfr_exploitability={report.exploitability:.9f}")
+    assert report.evaluation is not None
+    for name, value in report.evaluation.to_report().items():
+        print(f"cfr_{name}={value:.9f}")
     print(f"cfr_emperor_value={e_card_cfr_value(learned):.9f}")
     print(f"cfr_max_average_positive_regret={report.maximum_average_positive_regret:.9f}")
     print(f"cfr_gate_passed={str(report.passed).lower()}")

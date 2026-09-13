@@ -35,6 +35,11 @@ makes every pure deviation indifferent.
 
 ## CFR cross-check
 
+> **2026-09-13 correction:** The figures below record the former immediate-update
+> traversal. After full-tree regret and average-strategy deltas were batched across
+> all histories, the same 10,000-iteration run recovers the exact uniform profile,
+> value `-0.2`, and zero exploitability. The exact matrix remains the primary solver.
+
 The shared trainer models the Emperor's commitment first and hides it from the
 Slave information set. There are exactly two information sets with five actions
 each. At 10,000 vanilla alternating-CFR iterations:

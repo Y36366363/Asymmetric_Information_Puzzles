@@ -15,6 +15,7 @@ from aip.core import (
     CFRGateReport,
     CFRResult,
     CFRThresholds,
+    EquilibriumEvaluation,
 )
 from aip.puzzles.love_letter.solver import CARD_COUNTS, Play
 
@@ -636,10 +637,39 @@ def love_letter_subgame_exploitability(
 ) -> float:
     """Return half NashConv from independent exhaustive best responses."""
 
-    return (
-        independent_best_response_value(game, result.policy, 0)
-        + independent_best_response_value(game, result.policy, 1)
-    ) / 2
+    return love_letter_subgame_evaluation(game, result).exploitability
+
+
+def love_letter_subgame_evaluation(
+    game: LoveLetterCFRGame, result: CFRResult
+) -> EquilibriumEvaluation:
+    """Return exact deviation gains for both seats in an enumerable subgame."""
+
+    @lru_cache(maxsize=None)
+    def profile_value(state: LoveLetterState) -> float:
+        if game.is_terminal(state):
+            return game.utility_player_zero(state)
+        player = game.current_player(state)
+        if player is None:
+            return sum(
+                probability * profile_value(game.next_state(state, action))
+                for action, probability in game.chance_outcomes(state)
+            )
+        distribution = result.policy[(player, game.information_set(state))]
+        return sum(
+            float(distribution[action]) * profile_value(game.next_state(state, action))
+            for action in game.legal_actions(state)
+        )
+
+    value_zero = profile_value(game.initial_state())
+    return EquilibriumEvaluation(
+        player_0_deviation_gain=(
+            independent_best_response_value(game, result.policy, 0) - value_zero
+        ),
+        player_1_deviation_gain=(
+            independent_best_response_value(game, result.policy, 1) + value_zero
+        ),
+    )
 
 
 def certify_love_letter_subgame(
@@ -662,7 +692,7 @@ def certify_love_letter_subgame(
     )
     return gate.evaluate(
         result,
-        exploitability=love_letter_subgame_exploitability(game, result),
+        evaluation=love_letter_subgame_evaluation(game, result),
         required_information_sets=required,
         exact_information_sets=True,
         game_properties=CFRGameProperties(

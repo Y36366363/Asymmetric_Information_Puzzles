@@ -13,6 +13,7 @@ from aip.core.cfr import (
     CFRResult,
     CFRThresholds,
     CFRTrainer,
+    EquilibriumEvaluation,
 )
 from aip.puzzles.kuhn_poker.solver import CARDS, KuhnPolicy, audit_policy
 
@@ -135,7 +136,11 @@ def certify_kuhn_cfr(
     """Gate CFR output using Kuhn's independent exhaustive best-response oracle."""
 
     policy = kuhn_policy_from_cfr(result)
-    exploitability = float(audit_policy(policy).maximum_exploitability)
+    audit = audit_policy(policy)
+    evaluation = EquilibriumEvaluation(
+        player_0_deviation_gain=float(audit.player_0_deviation_gain),
+        player_1_deviation_gain=float(audit.player_1_deviation_gain),
+    )
     gate = CFRCertificationGate(
         thresholds
         or CFRThresholds(
@@ -160,7 +165,7 @@ def certify_kuhn_cfr(
     )
     return gate.evaluate(
         result,
-        exploitability=exploitability,
+        evaluation=evaluation,
         required_information_sets=required_information_sets,
         exact_information_sets=True,
         game_properties=CFRGameProperties(

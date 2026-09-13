@@ -1,5 +1,10 @@
 # CFR method-selection audit — 2026-09-09
 
+> **2026-09-13 update:** The original immediate-update full-tree traversal was
+> chance-order dependent. It has been replaced by per-player batched traversal;
+> see `batched_full_tree_cfr_2026-09-13.md`. External-sampling MCCFR was not
+> changed by that correction.
+
 ## Conclusion
 
 The local regret update and reach weighting match vanilla alternating CFR for a

@@ -10,6 +10,7 @@ from .extensive import (
     complete_information_set_actions,
     independent_best_response_value,
     love_letter_subgame_exploitability,
+    love_letter_subgame_evaluation,
 )
 from .solver import CARD_NAMES, LoveLetterGame
 
@@ -25,4 +26,5 @@ __all__ = [
     "independent_best_response_value",
     "love_letter_equilibrium_structure",
     "love_letter_subgame_exploitability",
+    "love_letter_subgame_evaluation",
 ]

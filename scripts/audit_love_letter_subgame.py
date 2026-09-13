@@ -11,7 +11,7 @@ from aip.puzzles.love_letter import (
     audit_complete_tree,
     certify_love_letter_subgame,
     complete_information_set_actions,
-    love_letter_subgame_exploitability,
+    love_letter_subgame_evaluation,
 )
 
 
@@ -44,9 +44,9 @@ def main() -> None:
                     "maximumDepth": tree.maximum_depth,
                     "failures": list(tree.failures),
                 },
-                "uniformExploitability": love_letter_subgame_exploitability(
+                "uniformEvaluation": love_letter_subgame_evaluation(
                     game, uniform
-                ),
+                ).to_report(),
                 "mccfr": {
                     "iterations": result.iterations,
                     "seed": 20260912,
@@ -54,7 +54,7 @@ def main() -> None:
                     "averagePositiveRegret": list(
                         result.average_positive_regret
                     ),
-                    "exploitability": certification.exploitability,
+                    "evaluation": certification.evaluation.to_report(),
                     "certified": certification.passed,
                     "failures": list(certification.failures),
                 },

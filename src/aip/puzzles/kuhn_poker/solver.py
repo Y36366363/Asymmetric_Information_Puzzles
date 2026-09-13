@@ -28,12 +28,20 @@ class KuhnPolicy:
 class PolicyAudit:
     first_seat_best_response: Fraction
     second_seat_best_response: Fraction
-    first_seat_exploitability: Fraction
-    second_seat_exploitability: Fraction
+    player_0_deviation_gain: Fraction
+    player_1_deviation_gain: Fraction
 
     @property
-    def maximum_exploitability(self) -> Fraction:
-        return max(self.first_seat_exploitability, self.second_seat_exploitability)
+    def nash_conv(self) -> Fraction:
+        return self.player_0_deviation_gain + self.player_1_deviation_gain
+
+    @property
+    def exploitability(self) -> Fraction:
+        return self.nash_conv / 2
+
+    @property
+    def maximum_unilateral_deviation_gain(self) -> Fraction:
+        return max(self.player_0_deviation_gain, self.player_1_deviation_gain)
 
 
 def equilibrium_policy() -> KuhnPolicy:
@@ -200,6 +208,6 @@ def audit_policy(policy: KuhnPolicy) -> PolicyAudit:
     return PolicyAudit(
         first_seat_best_response=first,
         second_seat_best_response=second,
-        first_seat_exploitability=first - game_value(True),
-        second_seat_exploitability=second - game_value(False),
+        player_0_deviation_gain=first - game_value(True),
+        player_1_deviation_gain=second - game_value(False),
     )

@@ -1,0 +1,105 @@
+{
+  "id": "cross-project-gto-contract-v1",
+  "status": "first_blocking_gate_passed_in_aip_2026_09_13",
+  "scope": {
+    "supported_game_properties": {
+      "players": 2,
+      "finite": true,
+      "zero_sum_or_constant_sum": true,
+      "perfect_recall": true
+    },
+    "unsupported_without_separate_theory": [
+      "multiplayer_general_sum",
+      "imperfect_recall_abstraction",
+      "unbounded_or_continuous_game_without_discretization"
+    ]
+  },
+  "game_adapter": {
+    "required_operations": [
+      "initial_state",
+      "is_terminal",
+      "utility_player_zero",
+      "current_player",
+      "chance_outcomes",
+      "legal_actions",
+      "information_set",
+      "next_state"
+    ],
+    "chance_player_encoding": "null",
+    "terminal_utility_convention": "finite net utility to player zero",
+    "required_invariants": [
+      "chance_probabilities_are_finite_nonnegative_and_sum_to_one",
+      "information_set_actions_are_unique_and_consistent",
+      "perfect_recall_is_declared_and_tested",
+      "terminal_utility_is_finite",
+      "game_and_action_tree_are_content_hashed"
+    ]
+  },
+  "algorithm_registry": {
+    "vanilla_cfr": {
+      "update_schedule": "alternating_players",
+      "traversal": "full_tree",
+      "regret_updates": "batch_all_chance_outcomes_before_mutation",
+      "average_strategy": "linear_own_reach_and_chance_reach"
+    },
+    "cfr_plus": {
+      "update_schedule": "alternating_players",
+      "traversal": "full_tree",
+      "regret_updates": "batch_all_chance_outcomes_before_rm_plus_clipping",
+      "average_strategy": "linear_iteration_weighting",
+      "implementation_status": "not_yet_available_in_aip"
+    },
+    "dcfr_1_5_0_2": {
+      "update_schedule": "alternating_players",
+      "traversal": "full_tree",
+      "regret_updates": "batch_all_chance_outcomes_then_discount_alpha_1_5_beta_0",
+      "average_strategy": "discount_gamma_2",
+      "implementation_status": "not_yet_available_in_aip"
+    },
+    "external_sampling_mccfr": {
+      "update_schedule": "alternating_players",
+      "traversal": "all_updating_player_actions_sample_chance_and_opponent",
+      "randomness": "seeded_and_reported",
+      "average_strategy": "standard_external_sampling_average"
+    }
+  },
+  "method_routing": [
+    "prefer_exact_matrix_or_backward_induction_when_complete_and_cheaper",
+    "prefer_sequence_form_lp_for_small_perfect_recall_extensive_games",
+    "use_full_tree_cfr_plus_or_dcfr_when_the_complete_tree_fits_the_budget",
+    "use_mccfr_when_full_traversal_is_infeasible_not_merely_when_later_chance_exists",
+    "require_an_independent_evaluator_for_every_approximate_solver"
+  ],
+  "common_metrics": {
+    "nash_conv": "player_0_deviation_gain_plus_player_1_deviation_gain",
+    "exploitability": "nash_conv_divided_by_two_for_two_player_constant_sum_games",
+    "player_0_deviation_gain": "best_response_gain_for_player_zero",
+    "player_1_deviation_gain": "best_response_gain_for_player_one",
+    "maximum_unilateral_deviation_gain": "maximum_player_deviation_gain_reported_separately"
+  },
+  "artifact_layers": [
+    "game_spec",
+    "algorithm_spec",
+    "solver_artifact",
+    "independent_evaluation_report",
+    "promotion_decision"
+  ],
+  "promotion_ladder": [
+    "candidate",
+    "labeled",
+    "independently_checked",
+    "verified",
+    "frozen"
+  ],
+  "process_boundary": {
+    "transport": "versioned_json_files_and_subprocess",
+    "governance_owner": "python_research_layer",
+    "numerical_backend_policy": "replaceable_and_not_authoritative_for_its_own_acceptance",
+    "license_boundary": "AGPL_backends_remain_isolated_from_MIT_application_code"
+  },
+  "first_blocking_gate": {
+    "id": "batched_chance_update_order_invariance",
+    "status": "passed",
+    "required_test": "reversing chance or action enumeration must not materially change a deterministic full-tree CFR result"
+  }
+}

@@ -10,6 +10,7 @@ from aip.core import (
     CFRTrainer,
     ChanceSamplingCFRTrainer,
     ExternalSamplingCFRTrainer,
+    EquilibriumEvaluation,
 )
 from aip.puzzles.kuhn_poker import (
     audit_policy,
@@ -35,7 +36,7 @@ class CFRFrameworkTests(unittest.TestCase):
         policy = kuhn_policy_from_cfr(self.result)
         audit = audit_policy(policy)
         self.assertEqual(self.result.information_set_count, 12)
-        self.assertLess(float(audit.maximum_exploitability), 0.01)
+        self.assertLess(float(audit.exploitability), 0.01)
 
     def test_default_gate_promotes_the_converged_kuhn_policy(self) -> None:
         report = certify_kuhn_cfr(self.result)
@@ -55,7 +56,7 @@ class CFRFrameworkTests(unittest.TestCase):
             )
         ).evaluate(
             self.result,
-            exploitability=None,
+            evaluation=None,
             game_properties=CFRGameProperties(2, True, True, True),
         )
         self.assertFalse(report.passed)
@@ -74,7 +75,7 @@ class CFRFrameworkTests(unittest.TestCase):
             )
         ).evaluate(
             self.result,
-            exploitability=0,
+            evaluation=EquilibriumEvaluation(0, 0),
             required_information_sets=frozenset({(0, ("missing", "history"))}),
             game_properties=CFRGameProperties(2, True, True, True),
         )
@@ -113,7 +114,7 @@ class CFRFrameworkTests(unittest.TestCase):
         )
         report = gate.evaluate(
             malformed,
-            exploitability=-0.1,
+            evaluation=EquilibriumEvaluation(-0.1, 0),
             game_properties=CFRGameProperties(2, True, True, True),
         )
         self.assertFalse(report.passed)
@@ -138,7 +139,7 @@ class CFRFrameworkTests(unittest.TestCase):
         )
         report = gate.evaluate(
             malformed,
-            exploitability=0,
+            evaluation=EquilibriumEvaluation(0, 0),
             game_properties=CFRGameProperties(2, True, True, True),
         )
         self.assertIn("invalid_regret_diagnostic", report.failures)
@@ -164,7 +165,7 @@ class CFRFrameworkTests(unittest.TestCase):
         )
         report = gate.evaluate(
             malformed,
-            exploitability=0,
+            evaluation=EquilibriumEvaluation(0, 0),
             required_information_sets=frozenset({(0, "expected")}),
             exact_information_sets=True,
             game_properties=CFRGameProperties(2, True, True, True),
@@ -182,10 +183,12 @@ class CFRFrameworkTests(unittest.TestCase):
                 max_exploitability=1,
             )
         )
-        missing = gate.evaluate(self.result, exploitability=0)
+        missing = gate.evaluate(
+            self.result, evaluation=EquilibriumEvaluation(0, 0)
+        )
         unsupported = gate.evaluate(
             self.result,
-            exploitability=0,
+            evaluation=EquilibriumEvaluation(0, 0),
             game_properties=CFRGameProperties(3, True, False, True),
         )
         self.assertIn("game_properties_required", missing.failures)
@@ -298,7 +301,7 @@ class CFRFrameworkTests(unittest.TestCase):
 
         result = ExternalSamplingCFRTrainer(KuhnCFRGame(), seed=7).train(50_000)
         exploitability = float(
-            audit_policy(kuhn_policy_from_cfr(result)).maximum_exploitability
+            audit_policy(kuhn_policy_from_cfr(result)).exploitability
         )
         self.assertEqual(result.information_set_count, 12)
         self.assertLess(exploitability, 0.01)

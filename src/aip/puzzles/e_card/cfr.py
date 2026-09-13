@@ -17,6 +17,7 @@ from aip.puzzles.e_card.solver import (
     DUELS,
     e_card_expected_value,
     e_card_exploitability,
+    e_card_evaluation,
 )
 
 
@@ -125,7 +126,7 @@ def certify_e_card_cfr(
     )
     return gate.evaluate(
         result,
-        exploitability=e_card_cfr_exploitability(result),
+        evaluation=e_card_evaluation(*_strategies(result)),
         required_information_sets=required,
         exact_information_sets=True,
         game_properties=CFRGameProperties(

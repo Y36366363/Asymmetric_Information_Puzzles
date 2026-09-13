@@ -1,5 +1,11 @@
 # Shared CFR framework and promotion gate — 2026-09-07
 
+> **2026-09-13 update:** Full-tree vanilla CFR now batches each player's regret
+> and average-strategy deltas until its complete traversal finishes. Current
+> certification reports distinguish NashConv/2 exploitability from maximum
+> unilateral deviation gain. Historical figures below describe the original
+> implementation and are retained as failure evidence.
+
 ## Architecture
 
 The common engine lives in `aip.core.cfr`. A game adapter supplies only:
