@@ -143,6 +143,9 @@ def save_one_die_liar_policy(
     payload = {
         "schemaVersion": 1,
         "game": "one_die_stepwise_liars_dice",
+        "algorithm": (
+            result.algorithm.to_artifact() if result.algorithm is not None else None
+        ),
         "iterations": result.iterations,
         "averagePositiveRegret": list(result.average_positive_regret),
         "certification": {

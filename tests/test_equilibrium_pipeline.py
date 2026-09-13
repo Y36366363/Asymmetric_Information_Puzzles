@@ -51,6 +51,54 @@ class EquilibriumPipelineTests(unittest.TestCase):
         self.assertEqual(game.hands["ai"], [2, 6])
         self.assertEqual(game.deck, [])
 
+    def test_later_chance_uses_full_tree_when_it_fits_the_budget(self) -> None:
+        recommendation = recommend_equilibrium_solver(
+            EquilibriumGameStructure(
+                players=2,
+                finite=True,
+                zero_sum_or_constant_sum=True,
+                perfect_recall=True,
+                chance_after_initial_state=True,
+                estimated_full_tree_nodes=80_000,
+                full_tree_node_budget=100_000,
+            )
+        )
+        self.assertEqual(recommendation.primary, EquilibriumMethod.DCFR)
+        self.assertEqual(
+            recommendation.cross_check, EquilibriumMethod.EXTERNAL_SAMPLING_MCCFR
+        )
+        self.assertIn(
+            "estimated_full_tree_cost_within_resource_budget",
+            recommendation.reasons,
+        )
+
+    def test_tree_over_budget_routes_to_sampling_even_without_later_chance(self) -> None:
+        recommendation = recommend_equilibrium_solver(
+            EquilibriumGameStructure(
+                players=2,
+                finite=True,
+                zero_sum_or_constant_sum=True,
+                perfect_recall=True,
+                chance_after_initial_state=False,
+                estimated_full_tree_nodes=100_001,
+                full_tree_node_budget=100_000,
+            )
+        )
+        self.assertEqual(
+            recommendation.primary, EquilibriumMethod.EXTERNAL_SAMPLING_MCCFR
+        )
+        self.assertEqual(recommendation.cross_check, EquilibriumMethod.DCFR)
+
+    def test_invalid_tree_cost_or_budget_is_rejected(self) -> None:
+        with self.assertRaisesRegex(ValueError, "nodes must be positive"):
+            EquilibriumGameStructure(
+                2, True, True, True, True, estimated_full_tree_nodes=0
+            )
+        with self.assertRaisesRegex(ValueError, "budget must be positive"):
+            EquilibriumGameStructure(
+                2, True, True, True, True, full_tree_node_budget=0
+            )
+
     def test_multiplayer_general_sum_game_is_not_gto_gate_eligible(self) -> None:
         recommendation = recommend_equilibrium_solver(
             EquilibriumGameStructure(

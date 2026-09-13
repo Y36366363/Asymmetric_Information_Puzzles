@@ -1,0 +1,839 @@
+{
+  "audit_version": "1.0.0",
+  "checks": {
+    "cfr_plus_exploitability": true,
+    "cfr_plus_trace": true,
+    "cfr_plus_value": true,
+    "dcfr_exploitability": true,
+    "dcfr_trace": true,
+    "dcfr_value": true,
+    "vanilla_cfr_exploitability": true,
+    "vanilla_cfr_trace": true,
+    "vanilla_cfr_value": true
+  },
+  "kuhn": {
+    "cfr_plus": {
+      "external_reference": {
+        "exploitability": 9.632756981008128e-06,
+        "exploitability_trace_10_100_1000_10000": [
+          0.03268709066834479,
+          0.0011944041011115875,
+          8.73653225207903e-05,
+          9.632756981008128e-06
+        ],
+        "value_to_player_0": -0.055555559111169994
+      },
+      "solver_artifact": {
+        "algorithm": {
+          "algorithm_id": "cfr_plus",
+          "averaging_rule": "linear_iteration_weighting",
+          "parameters": {},
+          "seed": null,
+          "traversal": "full_tree",
+          "update_schedule": "alternating_players"
+        },
+        "convergence_trace": [
+          {
+            "independent_evaluation": {
+              "exploitability": 0.03268709066843239,
+              "maximum_unilateral_deviation_gain": 0.03788170234275053,
+              "nash_conv": 0.06537418133686478,
+              "player_0_deviation_gain": 0.03788170234275053,
+              "player_1_deviation_gain": 0.027492478994114247
+            },
+            "iteration": 10
+          },
+          {
+            "independent_evaluation": {
+              "exploitability": 0.0011944041009575152,
+              "maximum_unilateral_deviation_gain": 0.0016460376124608834,
+              "nash_conv": 0.0023888082019150303,
+              "player_0_deviation_gain": 0.0007427705894541471,
+              "player_1_deviation_gain": 0.0016460376124608834
+            },
+            "iteration": 100
+          },
+          {
+            "independent_evaluation": {
+              "exploitability": 8.738932425403543e-05,
+              "maximum_unilateral_deviation_gain": 0.00012535247167688005,
+              "nash_conv": 0.00017477864850807087,
+              "player_0_deviation_gain": 4.9426176831190814e-05,
+              "player_1_deviation_gain": 0.00012535247167688005
+            },
+            "iteration": 1000
+          },
+          {
+            "independent_evaluation": {
+              "exploitability": 9.62318738957693e-06,
+              "maximum_unilateral_deviation_gain": 1.0467566796968064e-05,
+              "nash_conv": 1.924637477915386e-05,
+              "player_0_deviation_gain": 1.0467566796968064e-05,
+              "player_1_deviation_gain": 8.778807982185796e-06
+            },
+            "iteration": 10000
+          }
+        ],
+        "game_id": "canonical_kuhn_poker",
+        "independent_evaluation": {
+          "exploitability": 9.62318738957693e-06,
+          "maximum_unilateral_deviation_gain": 1.0467566796968064e-05,
+          "nash_conv": 1.924637477915386e-05,
+          "player_0_deviation_gain": 1.0467566796968064e-05,
+          "player_1_deviation_gain": 8.778807982185796e-06
+        },
+        "iterations": 10000,
+        "policy": [
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 0.7774073501798574
+              },
+              {
+                "action": "'bet'",
+                "probability": 0.22259264982014254
+              }
+            ],
+            "information_set": "('J', '')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 0.9999999935690085
+              },
+              {
+                "action": "'call'",
+                "probability": 6.4309914857871325e-09
+              }
+            ],
+            "information_set": "('J', 'cb')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 0.33220270734579005
+              },
+              {
+                "action": "'bet'",
+                "probability": 0.6677972926542101
+              }
+            ],
+            "information_set": "('K', '')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 1.5049546374680852e-08
+              },
+              {
+                "action": "'call'",
+                "probability": 0.9999999849504537
+              }
+            ],
+            "information_set": "('K', 'cb')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 0.999999775150641
+              },
+              {
+                "action": "'bet'",
+                "probability": 2.2484935904817453e-07
+              }
+            ],
+            "information_set": "('Q', '')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 0.44402134399906235
+              },
+              {
+                "action": "'call'",
+                "probability": 0.5559786560009377
+              }
+            ],
+            "information_set": "('Q', 'cb')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 0.9999999900009999
+              },
+              {
+                "action": "'call'",
+                "probability": 9.999000099990002e-09
+              }
+            ],
+            "information_set": "('J', 'b')",
+            "player": 1,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 0.6666714508614792
+              },
+              {
+                "action": "'bet'",
+                "probability": 0.3333285491385208
+              }
+            ],
+            "information_set": "('J', 'c')",
+            "player": 1,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 9.999000099990002e-09
+              },
+              {
+                "action": "'call'",
+                "probability": 0.9999999900009999
+              }
+            ],
+            "information_set": "('K', 'b')",
+            "player": 1,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 2.999700029997e-08
+              },
+              {
+                "action": "'bet'",
+                "probability": 0.9999999700029997
+              }
+            ],
+            "information_set": "('K', 'c')",
+            "player": 1,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 0.66661342965639
+              },
+              {
+                "action": "'call'",
+                "probability": 0.33338657034360986
+              }
+            ],
+            "information_set": "('Q', 'b')",
+            "player": 1,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 0.999999900009999
+              },
+              {
+                "action": "'bet'",
+                "probability": 9.999000099990001e-08
+              }
+            ],
+            "information_set": "('Q', 'c')",
+            "player": 1,
+            "visits": 20000
+          }
+        ],
+        "schema_version": "aip-regret-minimization-artifact-v1",
+        "training_diagnostics": {
+          "average_positive_regret": [
+            0.00044035884992480844,
+            0.00042038691682697894
+          ],
+          "not_an_exploitability_measure": true
+        }
+      },
+      "value_to_player_0": -0.05555555549450159
+    },
+    "dcfr": {
+      "external_reference": {
+        "exploitability": 1.2347051583747048e-05,
+        "exploitability_trace_10_100_1000_10000": [
+          0.02188001426854977,
+          0.0012821110231544877,
+          0.00015782629441524892,
+          1.2347051583747048e-05
+        ],
+        "value_to_player_0": -0.055555554874280766
+      },
+      "solver_artifact": {
+        "algorithm": {
+          "algorithm_id": "dcfr",
+          "averaging_rule": "discounted_iteration_weighting",
+          "parameters": {
+            "alpha": 1.5,
+            "beta": 0.0,
+            "gamma": 2.0
+          },
+          "seed": null,
+          "traversal": "full_tree",
+          "update_schedule": "alternating_players"
+        },
+        "convergence_trace": [
+          {
+            "independent_evaluation": {
+              "exploitability": 0.021880014268522173,
+              "maximum_unilateral_deviation_gain": 0.025280790154925948,
+              "nash_conv": 0.043760028537044346,
+              "player_0_deviation_gain": 0.0184792383821184,
+              "player_1_deviation_gain": 0.025280790154925948
+            },
+            "iteration": 10
+          },
+          {
+            "independent_evaluation": {
+              "exploitability": 0.0012821163605644373,
+              "maximum_unilateral_deviation_gain": 0.0018713135065781766,
+              "nash_conv": 0.0025642327211288746,
+              "player_0_deviation_gain": 0.0006929192145506978,
+              "player_1_deviation_gain": 0.0018713135065781766
+            },
+            "iteration": 100
+          },
+          {
+            "independent_evaluation": {
+              "exploitability": 0.00015781694735346504,
+              "maximum_unilateral_deviation_gain": 0.00021597665085303381,
+              "nash_conv": 0.0003156338947069301,
+              "player_0_deviation_gain": 0.00021597665085303381,
+              "player_1_deviation_gain": 9.965724385389625e-05
+            },
+            "iteration": 1000
+          },
+          {
+            "independent_evaluation": {
+              "exploitability": 1.2347048626087598e-05,
+              "maximum_unilateral_deviation_gain": 1.6068995357453458e-05,
+              "nash_conv": 2.4694097252175196e-05,
+              "player_0_deviation_gain": 1.6068995357453458e-05,
+              "player_1_deviation_gain": 8.625101894721738e-06
+            },
+            "iteration": 10000
+          }
+        ],
+        "game_id": "canonical_kuhn_poker",
+        "independent_evaluation": {
+          "exploitability": 1.2347048626087598e-05,
+          "maximum_unilateral_deviation_gain": 1.6068995357453458e-05,
+          "nash_conv": 2.4694097252175196e-05,
+          "player_0_deviation_gain": 1.6068995357453458e-05,
+          "player_1_deviation_gain": 8.625101894721738e-06
+        },
+        "iterations": 10000,
+        "policy": [
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 0.7957878716094979
+              },
+              {
+                "action": "'bet'",
+                "probability": 0.20421212839050204
+              }
+            ],
+            "information_set": "('J', '')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 0.9999999999990576
+              },
+              {
+                "action": "'call'",
+                "probability": 9.42320861974085e-13
+              }
+            ],
+            "information_set": "('J', 'cb')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 0.38724718600931696
+              },
+              {
+                "action": "'bet'",
+                "probability": 0.612752813990683
+              }
+            ],
+            "information_set": "('K', '')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 1.9364569717119666e-12
+              },
+              {
+                "action": "'call'",
+                "probability": 0.9999999999980635
+              }
+            ],
+            "information_set": "('K', 'cb')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 0.9999999998723009
+              },
+              {
+                "action": "'bet'",
+                "probability": 1.2769901204121746e-10
+              }
+            ],
+            "information_set": "('Q', '')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 0.4624221991810139
+              },
+              {
+                "action": "'call'",
+                "probability": 0.5375778008189862
+              }
+            ],
+            "information_set": "('Q', 'cb')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 0.9999999999985002
+              },
+              {
+                "action": "'call'",
+                "probability": 1.4997750262471245e-12
+              }
+            ],
+            "information_set": "('J', 'b')",
+            "player": 1,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 0.6667000097050076
+              },
+              {
+                "action": "'bet'",
+                "probability": 0.3332999902949923
+              }
+            ],
+            "information_set": "('J', 'c')",
+            "player": 1,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 1.4997750262471245e-12
+              },
+              {
+                "action": "'call'",
+                "probability": 0.9999999999985002
+              }
+            ],
+            "information_set": "('K', 'b')",
+            "player": 1,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 7.498875131235708e-12
+              },
+              {
+                "action": "'bet'",
+                "probability": 0.9999999999925012
+              }
+            ],
+            "information_set": "('K', 'c')",
+            "player": 1,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 0.6666369387673173
+              },
+              {
+                "action": "'call'",
+                "probability": 0.3333630612326827
+              }
+            ],
+            "information_set": "('Q', 'b')",
+            "player": 1,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 0.9999999999550068
+              },
+              {
+                "action": "'bet'",
+                "probability": 4.4993250787413627e-11
+              }
+            ],
+            "information_set": "('Q', 'c')",
+            "player": 1,
+            "visits": 20000
+          }
+        ],
+        "schema_version": "aip-regret-minimization-artifact-v1",
+        "training_diagnostics": {
+          "average_positive_regret": [
+            0.00033830065322169384,
+            0.0003304103153664046
+          ],
+          "not_an_exploitability_measure": true
+        }
+      },
+      "value_to_player_0": -0.05555555487081845
+    },
+    "vanilla_cfr": {
+      "external_reference": {
+        "exploitability": 0.00011332445786397041,
+        "exploitability_trace_10_100_1000_10000": [
+          0.06869879381715763,
+          0.008225977315915806,
+          0.000937616646994377,
+          0.00011332445786397041
+        ],
+        "value_to_player_0": -0.055563518262057715
+      },
+      "solver_artifact": {
+        "algorithm": {
+          "algorithm_id": "vanilla_cfr",
+          "averaging_rule": "uniform_iteration_weighting",
+          "parameters": {},
+          "seed": null,
+          "traversal": "full_tree",
+          "update_schedule": "alternating_players"
+        },
+        "convergence_trace": [
+          {
+            "independent_evaluation": {
+              "exploitability": 0.06869879382376494,
+              "maximum_unilateral_deviation_gain": 0.07156604042364018,
+              "nash_conv": 0.13739758764752988,
+              "player_0_deviation_gain": 0.07156604042364018,
+              "player_1_deviation_gain": 0.0658315472238897
+            },
+            "iteration": 10
+          },
+          {
+            "independent_evaluation": {
+              "exploitability": 0.008225977315880859,
+              "maximum_unilateral_deviation_gain": 0.008914684376304166,
+              "nash_conv": 0.016451954631761717,
+              "player_0_deviation_gain": 0.008914684376304166,
+              "player_1_deviation_gain": 0.007537270255457551
+            },
+            "iteration": 100
+          },
+          {
+            "independent_evaluation": {
+              "exploitability": 0.0009376166466528084,
+              "maximum_unilateral_deviation_gain": 0.0011655206191593752,
+              "nash_conv": 0.0018752332933056168,
+              "player_0_deviation_gain": 0.0007097126741462417,
+              "player_1_deviation_gain": 0.0011655206191593752
+            },
+            "iteration": 1000
+          },
+          {
+            "independent_evaluation": {
+              "exploitability": 0.00011332446084744537,
+              "maximum_unilateral_deviation_gain": 0.00011765768215757534,
+              "nash_conv": 0.00022664892169489074,
+              "player_0_deviation_gain": 0.0001089912395373154,
+              "player_1_deviation_gain": 0.00011765768215757534
+            },
+            "iteration": 10000
+          }
+        ],
+        "game_id": "canonical_kuhn_poker",
+        "independent_evaluation": {
+          "exploitability": 0.00011332446084744537,
+          "maximum_unilateral_deviation_gain": 0.00011765768215757534,
+          "nash_conv": 0.00022664892169489074,
+          "player_0_deviation_gain": 0.0001089912395373154,
+          "player_1_deviation_gain": 0.00011765768215757534
+        },
+        "iterations": 10000,
+        "policy": [
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 0.7978099939491764
+              },
+              {
+                "action": "'bet'",
+                "probability": 0.20219000605082366
+              }
+            ],
+            "information_set": "('J', '')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 0.9999686642180599
+              },
+              {
+                "action": "'call'",
+                "probability": 3.133578194007005e-05
+              }
+            ],
+            "information_set": "('J', 'cb')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 0.39301156946170057
+              },
+              {
+                "action": "'bet'",
+                "probability": 0.6069884305382994
+              }
+            ],
+            "information_set": "('K', '')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 6.36113589079376e-05
+              },
+              {
+                "action": "'call'",
+                "probability": 0.9999363886410921
+              }
+            ],
+            "information_set": "('K', 'cb')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 0.9992507918599074
+              },
+              {
+                "action": "'bet'",
+                "probability": 0.0007492081400926782
+              }
+            ],
+            "information_set": "('Q', '')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 0.464143454613132
+              },
+              {
+                "action": "'call'",
+                "probability": 0.5358565453868681
+              }
+            ],
+            "information_set": "('Q', 'cb')",
+            "player": 0,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 0.99995
+              },
+              {
+                "action": "'call'",
+                "probability": 4.9999999999994026e-05
+              }
+            ],
+            "information_set": "('J', 'b')",
+            "player": 1,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 0.6667813323011876
+              },
+              {
+                "action": "'bet'",
+                "probability": 0.3332186676988125
+              }
+            ],
+            "information_set": "('J', 'c')",
+            "player": 1,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 4.9999999999994026e-05
+              },
+              {
+                "action": "'call'",
+                "probability": 0.99995
+              }
+            ],
+            "information_set": "('K', 'b')",
+            "player": 1,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 9.999999999998805e-05
+              },
+              {
+                "action": "'bet'",
+                "probability": 0.9999
+              }
+            ],
+            "information_set": "('K', 'c')",
+            "player": 1,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'fold'",
+                "probability": 0.666292050498407
+              },
+              {
+                "action": "'call'",
+                "probability": 0.33370794950159305
+              }
+            ],
+            "information_set": "('Q', 'b')",
+            "player": 1,
+            "visits": 20000
+          },
+          {
+            "actions": [
+              {
+                "action": "'check'",
+                "probability": 0.99965
+              },
+              {
+                "action": "'bet'",
+                "probability": 0.0003499999999999582
+              }
+            ],
+            "information_set": "('Q', 'c')",
+            "player": 1,
+            "visits": 20000
+          }
+        ],
+        "schema_version": "aip-regret-minimization-artifact-v1",
+        "training_diagnostics": {
+          "average_positive_regret": [
+            0.000988754043481099,
+            0.0009705573020886633
+          ],
+          "not_an_exploitability_measure": true
+        }
+      },
+      "value_to_player_0": -0.0555635182619069
+    }
+  },
+  "leduc_external_transfer_reference": {
+    "cfr_plus": {
+      "exploitability": 0.00026693843283845387,
+      "iterations": 1000,
+      "value_to_player_0": -0.08559351804667416
+    },
+    "dcfr": {
+      "exploitability": 0.00017627984350274128,
+      "iterations": 1000,
+      "value_to_player_0": -0.085606046946539
+    },
+    "information_sets_per_player": 144,
+    "reference_game_value_to_player_0": -0.085606424078,
+    "uniform_strategy_exploitability": 2.373611111111111,
+    "vanilla_cfr": {
+      "exploitability": 0.006599819789828439,
+      "iterations": 2000,
+      "value_to_player_0": -0.08648682757193757
+    }
+  },
+  "leduc_status": "reference recorded for the next adapter milestone; AIP does not claim Leduc parity until it has its own game tree and independent best response",
+  "passed": true,
+  "reference": {
+    "dependency_policy": "frozen_numeric_reference_only_no_source_import",
+    "id": "poker-capability-lab-regret-reference-v1",
+    "source_commit": "07e293db214e7c56ffe299833269f21e806dfa33"
+  }
+}

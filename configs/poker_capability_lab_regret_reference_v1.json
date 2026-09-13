@@ -1,0 +1,61 @@
+{
+  "reference_id": "poker-capability-lab-regret-reference-v1",
+  "source_commit": "07e293db214e7c56ffe299833269f21e806dfa33",
+  "source_files": [
+    "data/kuhn_gto_algorithm_comparison.json",
+    "data/gto_core_regression_release.json"
+  ],
+  "dependency_policy": "frozen_numeric_reference_only_no_source_import",
+  "kuhn_10000": {
+    "vanilla_cfr": {
+      "value_to_player_0": -0.055563518262057715,
+      "exploitability": 0.00011332445786397041,
+      "exploitability_trace_10_100_1000_10000": [
+        0.06869879381715763,
+        0.008225977315915806,
+        0.000937616646994377,
+        0.00011332445786397041
+      ]
+    },
+    "cfr_plus": {
+      "value_to_player_0": -0.055555559111169994,
+      "exploitability": 9.632756981008128e-06,
+      "exploitability_trace_10_100_1000_10000": [
+        0.03268709066834479,
+        0.0011944041011115875,
+        8.73653225207903e-05,
+        9.632756981008128e-06
+      ]
+    },
+    "dcfr": {
+      "value_to_player_0": -0.055555554874280766,
+      "exploitability": 1.2347051583747048e-05,
+      "exploitability_trace_10_100_1000_10000": [
+        0.02188001426854977,
+        0.0012821110231544877,
+        0.00015782629441524892,
+        1.2347051583747048e-05
+      ]
+    }
+  },
+  "leduc_release": {
+    "reference_game_value_to_player_0": -0.085606424078,
+    "information_sets_per_player": 144,
+    "uniform_strategy_exploitability": 2.373611111111111,
+    "vanilla_cfr": {
+      "iterations": 2000,
+      "value_to_player_0": -0.08648682757193757,
+      "exploitability": 0.006599819789828439
+    },
+    "cfr_plus": {
+      "iterations": 1000,
+      "value_to_player_0": -0.08559351804667416,
+      "exploitability": 0.00026693843283845387
+    },
+    "dcfr": {
+      "iterations": 1000,
+      "value_to_player_0": -0.085606046946539,
+      "exploitability": 0.00017627984350274128
+    }
+  }
+}

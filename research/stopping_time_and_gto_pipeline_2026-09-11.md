@@ -84,8 +84,9 @@ single universal solver. The reusable pipeline is:
    legal-action consistency, chance probabilities, and terminal utility.
 3. **Choose the strongest practical solver.** Prefer an exact matrix for complete
    stopping-time reductions, sequence-form LP for small perfect-recall trees,
-   vanilla CFR for manageable trees, and external-sampling MCCFR when later chance
-   or tree size makes full traversal unattractive.
+   a full-tree regret method when the measured tree fits the declared resource
+   budget, and external-sampling MCCFR when measured cost makes full traversal
+   unattractive. Later chance by itself does not decide between them.
 4. **Use an independent oracle.** Measure both players' best-response gains/NashConv
    with code separate from the trainer. Training regret alone is diagnostic, not a
    certificate.
@@ -98,10 +99,11 @@ single universal solver. The reusable pipeline is:
 7. **Regress scope and parity.** Test seeds, runtime/browser parity, artifact hashes,
    and rule scope. A certificate for a reduced game never transfers to a larger one.
 
-The new `recommend_equilibrium_solver` function implements the first routing layer.
-It sends E-Card to an exact matrix with vanilla CFR cross-check, Love Letter to
-external-sampling MCCFR with sequence-form as the intended exact comparator, and
-rejects multiplayer general-sum games from this two-player pipeline.
+The `recommend_equilibrium_solver` function implements the first routing layer.
+It sends E-Card to an exact matrix with vanilla CFR cross-check, keeps Love Letter
+on external sampling while its complete-tree estimate and resource budget remain
+unestablished, can select full-tree DCFR when a later-chance tree demonstrably fits,
+and rejects multiplayer general-sum games from this two-player pipeline.
 
 ## Next Love Letter milestone
 

@@ -7,6 +7,19 @@
 
 ## Updates 09/13/2026
 
+- **One composable regret-minimization trainer now supports four algorithms** —
+  Vanilla CFR, CFR+ (RM+ with linear averaging), parameterized DCFR (default
+  `1.5, 0, 2`), and existing external-sampling MCCFR share the same game adapter,
+  node store, policy interfaces, validation, checkpoint, and artifact contract.
+- **Kuhn algorithm traces match the frozen poker reference** — All three
+  deterministic full-tree methods match PokerCapabilityLab's exact-BR checkpoints
+  at 10, 100, 1,000, and 10,000 iterations within `5e-8`. Leduc values are saved
+  only as future adapter acceptance targets, not presented as AIP solver output.
+- **Later chance is now a cost-aware routing input** — A known full tree that fits
+  the declared node budget routes to DCFR; an over-budget tree routes to MCCFR;
+  an unknown estimate remains explicitly unresolved. Later private draws alone
+  no longer imply that full-tree solving is impossible.
+  [Read the composable-trainer audit](research/composable_regret_minimization_2026-09-13.md).
 - **Full-tree vanilla CFR now uses batched alternating updates** — Each player's
   complete tree traversal reads one fixed policy, accumulates regret and average-
   strategy deltas, and commits only after all chance outcomes have been visited.

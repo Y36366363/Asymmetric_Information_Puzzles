@@ -4,6 +4,7 @@ from .cfr import (
     KuhnCFRGame,
     KuhnCFRState,
     certify_kuhn_cfr,
+    evaluate_kuhn_cfr,
     kuhn_policy_from_cfr,
     train_kuhn_cfr,
 )
@@ -29,6 +30,7 @@ __all__ = [
     "best_response_value",
     "certify_kuhn_cfr",
     "equilibrium_policy",
+    "evaluate_kuhn_cfr",
     "game_value",
     "legacy_policy",
     "kuhn_policy_from_cfr",

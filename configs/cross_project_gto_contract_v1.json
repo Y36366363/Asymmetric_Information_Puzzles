@@ -47,14 +47,19 @@
       "traversal": "full_tree",
       "regret_updates": "batch_all_chance_outcomes_before_rm_plus_clipping",
       "average_strategy": "linear_iteration_weighting",
-      "implementation_status": "not_yet_available_in_aip"
+      "implementation_status": "available_in_composable_aip_trainer"
     },
-    "dcfr_1_5_0_2": {
+    "dcfr": {
+      "default_parameters": {
+        "alpha": 1.5,
+        "beta": 0,
+        "gamma": 2
+      },
       "update_schedule": "alternating_players",
       "traversal": "full_tree",
       "regret_updates": "batch_all_chance_outcomes_then_discount_alpha_1_5_beta_0",
       "average_strategy": "discount_gamma_2",
-      "implementation_status": "not_yet_available_in_aip"
+      "implementation_status": "available_in_composable_aip_trainer"
     },
     "external_sampling_mccfr": {
       "update_schedule": "alternating_players",
@@ -83,6 +88,14 @@
     "solver_artifact",
     "independent_evaluation_report",
     "promotion_decision"
+  ],
+  "required_algorithm_artifact_fields": [
+    "algorithm_id",
+    "parameters",
+    "traversal",
+    "update_schedule",
+    "averaging_rule",
+    "seed"
   ],
   "promotion_ladder": [
     "candidate",

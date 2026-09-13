@@ -10,6 +10,8 @@ class EquilibriumMethod(str, Enum):
     EXACT_MATRIX = "exact_matrix"
     SEQUENCE_FORM = "sequence_form_lp"
     VANILLA_CFR = "vanilla_cfr"
+    CFR_PLUS = "cfr_plus"
+    DCFR = "dcfr"
     EXTERNAL_SAMPLING_MCCFR = "external_sampling_mccfr"
     UNSUPPORTED = "unsupported_by_two_player_zero_sum_pipeline"
 
@@ -60,6 +62,20 @@ class EquilibriumGameStructure:
     chance_after_initial_state: bool
     stopping_time: StoppingTimeStructure | None = None
     exact_tree_is_small: bool = False
+    estimated_full_tree_nodes: int | None = None
+    full_tree_node_budget: int | None = None
+
+    def __post_init__(self) -> None:
+        if (
+            self.estimated_full_tree_nodes is not None
+            and self.estimated_full_tree_nodes <= 0
+        ):
+            raise ValueError("estimated full-tree nodes must be positive")
+        if (
+            self.full_tree_node_budget is not None
+            and self.full_tree_node_budget <= 0
+        ):
+            raise ValueError("full-tree node budget must be positive")
 
 
 @dataclass(frozen=True, slots=True)
@@ -103,12 +119,40 @@ def recommend_equilibrium_solver(
             EquilibriumMethod.VANILLA_CFR,
             ("small_perfect_recall_extensive_form",),
         )
+    full_tree_cost_known = (
+        structure.estimated_full_tree_nodes is not None
+        and structure.full_tree_node_budget is not None
+    )
+    full_tree_fits = (
+        full_tree_cost_known
+        and structure.estimated_full_tree_nodes <= structure.full_tree_node_budget
+    )
+    if full_tree_cost_known and not full_tree_fits:
+        return SolverRecommendation(
+            True,
+            EquilibriumMethod.EXTERNAL_SAMPLING_MCCFR,
+            EquilibriumMethod.DCFR,
+            ("estimated_full_tree_cost_exceeds_resource_budget",),
+        )
+    if structure.chance_after_initial_state and full_tree_fits:
+        return SolverRecommendation(
+            True,
+            EquilibriumMethod.DCFR,
+            EquilibriumMethod.EXTERNAL_SAMPLING_MCCFR,
+            (
+                "later_chance_supported_by_full_tree_traversal",
+                "estimated_full_tree_cost_within_resource_budget",
+            ),
+        )
     if structure.chance_after_initial_state:
         return SolverRecommendation(
             True,
             EquilibriumMethod.EXTERNAL_SAMPLING_MCCFR,
             EquilibriumMethod.SEQUENCE_FORM,
-            ("later_chance_events_make_root_sampling_incomplete",),
+            (
+                "later_chance_supported_by_both_full_tree_and_sampling",
+                "full_tree_cost_or_resource_budget_not_established",
+            ),
         )
     return SolverRecommendation(
         True,

@@ -129,18 +129,23 @@ def train_kuhn_cfr(iterations: int = 50_000) -> CFRResult:
     return CFRTrainer(KuhnCFRGame()).train(iterations)
 
 
+def evaluate_kuhn_cfr(result: CFRResult) -> EquilibriumEvaluation:
+    """Evaluate a trained profile with Kuhn's exhaustive best-response oracle."""
+
+    audit = audit_policy(kuhn_policy_from_cfr(result))
+    return EquilibriumEvaluation(
+        player_0_deviation_gain=float(audit.player_0_deviation_gain),
+        player_1_deviation_gain=float(audit.player_1_deviation_gain),
+    )
+
+
 def certify_kuhn_cfr(
     result: CFRResult,
     thresholds: CFRThresholds | None = None,
 ) -> CFRGateReport:
     """Gate CFR output using Kuhn's independent exhaustive best-response oracle."""
 
-    policy = kuhn_policy_from_cfr(result)
-    audit = audit_policy(policy)
-    evaluation = EquilibriumEvaluation(
-        player_0_deviation_gain=float(audit.player_0_deviation_gain),
-        player_1_deviation_gain=float(audit.player_1_deviation_gain),
-    )
+    evaluation = evaluate_kuhn_cfr(result)
     gate = CFRCertificationGate(
         thresholds
         or CFRThresholds(
