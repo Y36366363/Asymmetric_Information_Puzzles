@@ -56,6 +56,11 @@ from aip.core.equilibrium import (
 )
 from aip.core.game import DynamicGame, GameSolver, Transition
 from aip.core.information import InformationSet, Observation
+from aip.core.tree_evaluation import (
+    FullTreeBestResponseEvaluator,
+    FullTreeGameAudit,
+    audit_small_extensive_form,
+)
 
 __all__ = [
     "AlgorithmSpec",
@@ -85,6 +90,8 @@ __all__ = [
     "EquilibriumEvaluator",
     "EquilibriumMethod",
     "FullTreeTraversal",
+    "FullTreeBestResponseEvaluator",
+    "FullTreeGameAudit",
     "GameSolver",
     "InformationSet",
     "IndependentEvaluationReport",
@@ -106,6 +113,7 @@ __all__ = [
     "UniformAverageStrategy",
     "VanillaRegretUpdate",
     "audit_stopping_time_compression",
+    "audit_small_extensive_form",
     "create_regret_minimization_trainer",
     "decide_promotion",
     "recommend_equilibrium_solver",

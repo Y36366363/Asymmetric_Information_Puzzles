@@ -1,0 +1,1761 @@
+{
+  "audit_version": "game_compatibility_v1",
+  "checks": {
+    "e_card_exact_policy_is_frozen": true,
+    "e_card_matrix_and_tree_nash_conv_agree": true,
+    "e_card_matrix_and_tree_value_agree": true,
+    "kuhn_specialized_and_shared_nash_conv_agree": true,
+    "kuhn_specialized_and_shared_value_agree": true,
+    "love_letter_full_round_remains_out_of_scope": true,
+    "love_letter_later_chance_tree_passes_audit": true,
+    "love_letter_legacy_and_shared_nash_conv_agree": true,
+    "love_letter_subgame_passes_independent_gate": true
+  },
+  "e_card": {
+    "independent_report": {
+      "action_values": [
+        {
+          "information_set": "('emperor', 'choose_special_duel')",
+          "player": 0,
+          "values": [
+            {
+              "action": "1",
+              "value": -0.19999999999999996
+            },
+            {
+              "action": "2",
+              "value": -0.19999999999999996
+            },
+            {
+              "action": "3",
+              "value": -0.19999999999999996
+            },
+            {
+              "action": "4",
+              "value": -0.19999999999999996
+            },
+            {
+              "action": "5",
+              "value": -0.19999999999999996
+            }
+          ]
+        },
+        {
+          "information_set": "('slave', 'choose_special_duel')",
+          "player": 1,
+          "values": [
+            {
+              "action": "1",
+              "value": 0.19999999999999996
+            },
+            {
+              "action": "2",
+              "value": 0.19999999999999996
+            },
+            {
+              "action": "3",
+              "value": 0.19999999999999996
+            },
+            {
+              "action": "4",
+              "value": 0.19999999999999996
+            },
+            {
+              "action": "5",
+              "value": 0.19999999999999996
+            }
+          ]
+        }
+      ],
+      "best_response_player_0": -0.19999999999999996,
+      "best_response_player_1": 0.19999999999999996,
+      "evaluator_id": "e_card_full_tree_best_response_v1",
+      "evaluator_method": "independent_game_tree_best_response",
+      "expected_value_to_player_0": -0.19999999999999996,
+      "exploitability": 0.0,
+      "failures": [],
+      "maximum_unilateral_deviation_gain": 0.0,
+      "nash_conv": 0.0,
+      "passed": true,
+      "player_0_deviation_gain": 0.0,
+      "player_1_deviation_gain": 0.0,
+      "profile_fingerprint": "7334f772afaa897719ca1837b096646574f16fdf2e4edeec02603b83c3d60864"
+    },
+    "matrix_nash_conv": 0.0,
+    "promotion": {
+      "epsilon_gto_runtime_allowed": true,
+      "failures": [],
+      "level": "frozen"
+    },
+    "routing": {
+      "cross_check": "vanilla_cfr",
+      "eligible_for_gto_pipeline": true,
+      "primary": "exact_matrix",
+      "reasons": [
+        "complete_stopping_time_matrix_available"
+      ]
+    },
+    "runtime_scope": {
+      "multi_round_adaptation": "strong_heuristic_not_epsilon_gto",
+      "single_round_core": "frozen_exact_equilibrium"
+    },
+    "structure": "hidden_simultaneous_commitment_without_chance",
+    "tree_audit": {
+      "chance_histories": 0,
+      "decision_histories": 6,
+      "failures": [],
+      "histories": 31,
+      "information_sets": 2,
+      "maximum_depth": 2,
+      "passed": true,
+      "perfect_recall": true,
+      "terminal_histories": 25
+    }
+  },
+  "kuhn_poker": {
+    "sequence_form_value": -0.055555555555556045,
+    "shared_report": {
+      "action_values": [
+        {
+          "information_set": "('J', '')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'check'",
+              "value": -1.0
+            },
+            {
+              "action": "'bet'",
+              "value": -0.9999999999999994
+            }
+          ]
+        },
+        {
+          "information_set": "('J', 'cb')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": -1.0
+            },
+            {
+              "action": "'call'",
+              "value": -2.0
+            }
+          ]
+        },
+        {
+          "information_set": "('K', '')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'check'",
+              "value": 1.1666666666666667
+            },
+            {
+              "action": "'bet'",
+              "value": 1.1666666666666665
+            }
+          ]
+        },
+        {
+          "information_set": "('K', 'cb')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": -1.0
+            },
+            {
+              "action": "'call'",
+              "value": 2.0
+            }
+          ]
+        },
+        {
+          "information_set": "('Q', '')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'check'",
+              "value": -0.33333333333333326
+            },
+            {
+              "action": "'bet'",
+              "value": -0.5
+            }
+          ]
+        },
+        {
+          "information_set": "('Q', 'cb')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": -1.0
+            },
+            {
+              "action": "'call'",
+              "value": -0.9999999999999997
+            }
+          ]
+        },
+        {
+          "information_set": "('J', 'b')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": -1.0
+            },
+            {
+              "action": "'call'",
+              "value": -2.0
+            }
+          ]
+        },
+        {
+          "information_set": "('J', 'c')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'check'",
+              "value": -1.0
+            },
+            {
+              "action": "'bet'",
+              "value": -0.9999999999999998
+            }
+          ]
+        },
+        {
+          "information_set": "('K', 'b')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": -1.0
+            },
+            {
+              "action": "'call'",
+              "value": 2.0
+            }
+          ]
+        },
+        {
+          "information_set": "('K', 'c')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'check'",
+              "value": 1.0
+            },
+            {
+              "action": "'bet'",
+              "value": 1.4000000000000001
+            }
+          ]
+        },
+        {
+          "information_set": "('Q', 'b')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": -1.0
+            },
+            {
+              "action": "'call'",
+              "value": -1.0000000000000007
+            }
+          ]
+        },
+        {
+          "information_set": "('Q', 'c')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'check'",
+              "value": 1.0
+            },
+            {
+              "action": "'bet'",
+              "value": 1.0
+            }
+          ]
+        }
+      ],
+      "best_response_player_0": -0.05555555555555535,
+      "best_response_player_1": 0.055555555555555636,
+      "evaluator_id": "kuhn_shared_full_tree_v1",
+      "evaluator_method": "independent_game_tree_best_response",
+      "expected_value_to_player_0": -0.05555555555555555,
+      "exploitability": 1.4224732503009818e-16,
+      "failures": [],
+      "maximum_unilateral_deviation_gain": 2.0122792321330962e-16,
+      "nash_conv": 2.8449465006019636e-16,
+      "passed": true,
+      "player_0_deviation_gain": 2.0122792321330962e-16,
+      "player_1_deviation_gain": 8.326672684688674e-17,
+      "profile_fingerprint": "5635c6e7e89a45d43696cab41e2ecbf3fe29336a5d656bc651a04aeadd5dd16a"
+    },
+    "specialized_report": {
+      "action_values": [
+        {
+          "information_set": "('J', '')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'check'",
+              "value": -0.05555555555555555
+            },
+            {
+              "action": "'bet'",
+              "value": -0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('J', 'cb')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": -0.05555555555555555
+            },
+            {
+              "action": "'call'",
+              "value": -0.16666666666666666
+            }
+          ]
+        },
+        {
+          "information_set": "('K', '')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'check'",
+              "value": -0.1388888888888889
+            },
+            {
+              "action": "'bet'",
+              "value": -0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('K', 'cb')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": -0.05555555555555555
+            },
+            {
+              "action": "'call'",
+              "value": -0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('Q', '')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'check'",
+              "value": -0.05555555555555555
+            },
+            {
+              "action": "'bet'",
+              "value": -0.1111111111111111
+            }
+          ]
+        },
+        {
+          "information_set": "('Q', 'cb')",
+          "player": 0,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": -0.05555555555555555
+            },
+            {
+              "action": "'call'",
+              "value": -0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('J', 'b')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": 0.05555555555555555
+            },
+            {
+              "action": "'call'",
+              "value": -0.1111111111111111
+            }
+          ]
+        },
+        {
+          "information_set": "('J', 'c')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'check'",
+              "value": 0.05555555555555555
+            },
+            {
+              "action": "'bet'",
+              "value": 0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('K', 'b')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": -0.1111111111111111
+            },
+            {
+              "action": "'call'",
+              "value": 0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('K', 'c')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'check'",
+              "value": -0.05555555555555555
+            },
+            {
+              "action": "'bet'",
+              "value": 0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('Q', 'b')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'fold'",
+              "value": 0.05555555555555555
+            },
+            {
+              "action": "'call'",
+              "value": 0.05555555555555555
+            }
+          ]
+        },
+        {
+          "information_set": "('Q', 'c')",
+          "player": 1,
+          "values": [
+            {
+              "action": "'check'",
+              "value": 0.05555555555555555
+            },
+            {
+              "action": "'bet'",
+              "value": 0.05555555555555555
+            }
+          ]
+        }
+      ],
+      "best_response_player_0": -0.05555555555555555,
+      "best_response_player_1": 0.05555555555555555,
+      "evaluator_id": "kuhn_exhaustive_best_response_v1",
+      "evaluator_method": "independent_game_tree_best_response",
+      "expected_value_to_player_0": -0.05555555555555555,
+      "exploitability": 0.0,
+      "failures": [],
+      "maximum_unilateral_deviation_gain": 0.0,
+      "nash_conv": 0.0,
+      "passed": true,
+      "player_0_deviation_gain": 0.0,
+      "player_1_deviation_gain": 0.0,
+      "profile_fingerprint": "5635c6e7e89a45d43696cab41e2ecbf3fe29336a5d656bc651a04aeadd5dd16a"
+    },
+    "structure": "initial_private_chance_then_public_actions",
+    "tree_audit": {
+      "chance_histories": 1,
+      "decision_histories": 24,
+      "failures": [],
+      "histories": 55,
+      "information_sets": 12,
+      "maximum_depth": 4,
+      "passed": true,
+      "perfect_recall": true,
+      "terminal_histories": 30
+    }
+  },
+  "love_letter_four_card_subgame": {
+    "algorithm": {
+      "algorithm_id": "external_sampling_mccfr",
+      "averaging_rule": "uniform_iteration_weighting",
+      "parameters": {},
+      "seed": 20260912,
+      "traversal": "external_sampling",
+      "update_schedule": "alternating_players"
+    },
+    "certification_scope": "four_card_late_round_subgame_only",
+    "full_round_boundary": {
+      "certified": false,
+      "passed": true,
+      "reason": "complete tree exceeds 10000 histories"
+    },
+    "independent_report": {
+      "action_values": [
+        {
+          "information_set": "(0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "Play(card=1, target='ai', guess=2)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=3)",
+              "value": 0.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=4)",
+              "value": 0.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=5)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=6)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=7)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=8)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=2, target='ai', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "Play(card=1, target='ai', guess=2)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=3)",
+              "value": 0.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=4)",
+              "value": 0.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=5)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=6)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=7)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=8)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=2, target='ai', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "Play(card=1, target='ai', guess=2)",
+              "value": 0.0020895522388059973
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=3)",
+              "value": -0.9671839226199102
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=4)",
+              "value": 0.0009101941747572395
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=5)",
+              "value": -0.99759726851181
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=6)",
+              "value": -0.4993932038834952
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=7)",
+              "value": -0.4991044776119403
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=8)",
+              "value": -0.4996966019417476
+            },
+            {
+              "action": "Play(card=3, target='ai', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "Play(card=1, target='ai', guess=2)",
+              "value": 0.0020895522388059973
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=3)",
+              "value": -0.9671839226199102
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=4)",
+              "value": 0.0009101941747572395
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=5)",
+              "value": -0.99759726851181
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=6)",
+              "value": -0.4993932038834952
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=7)",
+              "value": -0.4991044776119403
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=8)",
+              "value": -0.4996966019417476
+            },
+            {
+              "action": "Play(card=3, target='ai', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "Play(card=1, target='ai', guess=2)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=3)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=4)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=5)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=6)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=7)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=8)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 1)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "Play(card=1, target='ai', guess=2)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=3)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=4)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=5)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=6)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=7)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='ai', guess=8)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(0, (5, 5, 6, 7), (2, 3), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "Play(card=2, target='ai', guess=None)",
+              "value": -0.8749258600237246
+            },
+            {
+              "action": "Play(card=3, target='ai', guess=None)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "(0, (5, 5, 6, 7), (2, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "Play(card=2, target='ai', guess=None)",
+              "value": -0.8749258600237246
+            },
+            {
+              "action": "Play(card=3, target='ai', guess=None)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "(0, (5, 5, 6, 7), (2, 4), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "Play(card=2, target='ai', guess=None)",
+              "value": -0.9989445114595897
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -0.9993259646227127
+            }
+          ]
+        },
+        {
+          "information_set": "(0, (5, 5, 6, 7), (2, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 2)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "Play(card=2, target='ai', guess=None)",
+              "value": -0.9989445114595897
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -0.9993259646227127
+            }
+          ]
+        },
+        {
+          "information_set": "(0, (5, 5, 6, 7), (3, 4), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 4)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "Play(card=3, target='ai', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(0, (5, 5, 6, 7), (3, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 3)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "Play(card=3, target='ai', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=1, target='player', guess=2)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=3)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=4)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=5)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=6)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=7)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=8)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=1, target='player', guess=2)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=3)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=4)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=5)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=6)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=7)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=8)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=1, target='player', guess=2)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=3)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=4)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=5)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=6)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=7)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=8)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=1, target='player', guess=2)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=3)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=4)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=5)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=6)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=7)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=8)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=1, target='player', guess=2)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=3)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=4)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=5)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=6)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=7)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=8)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=1, target='player', guess=2)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=3)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=4)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=5)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=6)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=7)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=8)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=1, target='player', guess=2)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=3)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=4)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=5)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=6)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=7)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=8)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 1)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=1, target='player', guess=2)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=3)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=4)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=5)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=6)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=7)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=1, target='player', guess=8)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 3), ('draw', 1, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 2), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 2), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 3), ('draw', 1, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 2), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 3), ('draw', 1, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 2), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 3), ('draw', 1, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 2), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 3), ('draw', 1, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 2), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 3), ('draw', 1, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": -1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 4), ('draw', 1, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 2), ('draw', 1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 4), ('draw', 1, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 2), ('draw', 1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 2), ('draw', 1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 4), ('draw', 1, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 2), ('draw', 1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 4), ('draw', 1, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 2), ('draw', 1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 4), ('draw', 1, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 2), ('draw', 1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 4), ('draw', 1, 2)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=2, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 3), ('draw', 1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 4), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 4), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 3), ('draw', 1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 3), ('draw', 1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 4), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 3), ('draw', 1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 4), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 3), ('draw', 1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 4), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 3), ('draw', 1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 4), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 4)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 3)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "Play(card=3, target='player', guess=None)",
+              "value": 1.0
+            },
+            {
+              "action": "Play(card=4, target=None, guess=None)",
+              "value": 1.0
+            }
+          ]
+        }
+      ],
+      "best_response_player_0": 0.16719084012986937,
+      "best_response_player_1": -0.16622199387948108,
+      "evaluator_id": "love_letter_full_tree_best_response_v1",
+      "evaluator_method": "independent_game_tree_best_response",
+      "expected_value_to_player_0": 0.16666669558347016,
+      "exploitability": 0.00048442312519414443,
+      "failures": [],
+      "maximum_unilateral_deviation_gain": 0.0005241445463992078,
+      "nash_conv": 0.0009688462503882889,
+      "passed": true,
+      "player_0_deviation_gain": 0.0005241445463992078,
+      "player_1_deviation_gain": 0.00044470170398908104,
+      "profile_fingerprint": "3b6a97fe91d2193fd257dbcf886ef551fbfe92872a47cd080ea8e8da9845e3f2"
+    },
+    "iterations": 20000,
+    "legacy_nash_conv": 0.0009688462503882889,
+    "promotion": {
+      "epsilon_gto_runtime_allowed": true,
+      "failures": [
+        "reproducibility_required",
+        "artifact_freeze_required"
+      ],
+      "level": "verified"
+    },
+    "routing_for_full_game": {
+      "cross_check": "sequence_form_lp",
+      "eligible_for_gto_pipeline": true,
+      "primary": "external_sampling_mccfr",
+      "reasons": [
+        "later_chance_supported_by_both_full_tree_and_sampling",
+        "full_tree_cost_or_resource_budget_not_established"
+      ]
+    },
+    "structure": "later_private_chance_and_card_effects",
+    "tree_audit": {
+      "chance_histories": 217,
+      "decision_histories": 240,
+      "failures": [],
+      "histories": 1081,
+      "information_sets": 60,
+      "maximum_depth": 5,
+      "passed": true,
+      "perfect_recall": true,
+      "terminal_histories": 624
+    }
+  },
+  "passed": true,
+  "scope": "small_finite_two_player_zero_sum_perfect_recall_games",
+  "shared_evaluator": {
+    "methods": [
+      "expected_value",
+      "best_response",
+      "nash_conv",
+      "exploitability",
+      "action_values"
+    ],
+    "structural_gates": [
+      "finite_tree_within_budget",
+      "two_players",
+      "finite_terminal_utility",
+      "valid_chance_distribution",
+      "information_set_action_consistency",
+      "perfect_recall",
+      "exact_normalized_policy_coverage"
+    ],
+    "training_regret_used": false
+  }
+}

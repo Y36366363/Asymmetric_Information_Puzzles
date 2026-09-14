@@ -16,6 +16,7 @@ from aip.core import (
     CFRResult,
     CFRThresholds,
     EquilibriumEvaluation,
+    FullTreeBestResponseEvaluator,
 )
 from aip.puzzles.love_letter.solver import CARD_COUNTS, Play
 
@@ -560,6 +561,21 @@ def complete_information_set_actions(
 
     traverse(game.initial_state())
     return tables
+
+
+class LoveLetterIndependentEvaluator(
+    FullTreeBestResponseEvaluator[LoveLetterState]
+):
+    """Common exact oracle for an exhaustively enumerable Love Letter tree."""
+
+    def __init__(
+        self, game: LoveLetterCFRGame, *, maximum_histories: int = 1_000_000
+    ) -> None:
+        super().__init__(
+            game,
+            evaluator_id="love_letter_full_tree_best_response_v1",
+            maximum_histories=maximum_histories,
+        )
 
 
 def independent_best_response_value(

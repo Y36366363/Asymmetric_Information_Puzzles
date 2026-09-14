@@ -1,6 +1,6 @@
 {
   "id": "cross-project-gto-contract-v1",
-  "status": "first_blocking_gate_passed_in_aip_2026_09_13",
+  "status": "cross_game_full_tree_evaluator_validated_in_aip_2026_09_14",
   "scope": {
     "supported_game_properties": {
       "players": 2,
@@ -30,8 +30,10 @@
     "required_invariants": [
       "chance_probabilities_are_finite_nonnegative_and_sum_to_one",
       "information_set_actions_are_unique_and_consistent",
-      "perfect_recall_is_declared_and_tested",
+      "perfect_recall_is_audited_from_each_players_own_information_action_history",
       "terminal_utility_is_finite",
+      "complete_tree_fits_the_declared_history_budget",
+      "strategy_profile_exactly_covers_audited_information_sets_and_actions",
       "game_and_action_tree_are_content_hashed"
     ]
   },

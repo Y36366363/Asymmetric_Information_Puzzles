@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Hashable
+from typing import Hashable, Mapping
 
 from aip.core import (
     CFRCertificationGate,
@@ -12,12 +12,19 @@ from aip.core import (
     CFRResult,
     CFRThresholds,
     CFRTrainer,
+    FullTreeBestResponseEvaluator,
+    PromotionDecision,
+    PromotionEvidence,
+    decide_promotion,
+    run_independent_evaluation,
+    strategy_profile_fingerprint,
 )
 from aip.puzzles.e_card.solver import (
     DUELS,
     e_card_expected_value,
     e_card_exploitability,
     e_card_evaluation,
+    solve_e_card_timing_game,
 )
 
 
@@ -71,6 +78,54 @@ class ECardTimingCFRGame:
         if state.emperor_timing is None:
             return ECardTimingState(emperor_timing=int(action))
         return ECardTimingState(state.emperor_timing, int(action))
+
+
+class ECardIndependentEvaluator(FullTreeBestResponseEvaluator[ECardTimingState]):
+    """Common full-tree oracle for the hidden simultaneous timing game."""
+
+    def __init__(self) -> None:
+        super().__init__(
+            ECardTimingCFRGame(),
+            evaluator_id="e_card_full_tree_best_response_v1",
+        )
+
+
+def e_card_profile(
+    emperor_strategy: Mapping[int, float], slave_strategy: Mapping[int, float]
+) -> dict:
+    """Translate matrix strategies into the shared behavioral profile shape."""
+
+    return {
+        (0, ("emperor", "choose_special_duel")): dict(emperor_strategy),
+        (1, ("slave", "choose_special_duel")): dict(slave_strategy),
+    }
+
+
+def exact_e_card_promotion() -> PromotionDecision:
+    """Freeze the analytic policy only when matrix and tree oracles agree."""
+
+    solution = solve_e_card_timing_game()
+    emperor = dict(zip(DUELS, map(float, solution.emperor_strategy)))
+    slave = dict(zip(DUELS, map(float, solution.slave_strategy)))
+    profile = e_card_profile(emperor, slave)
+    report = run_independent_evaluation(
+        ECardIndependentEvaluator(), profile, maximum_exploitability=1e-12
+    )
+    fingerprint = strategy_profile_fingerprint(profile)
+    return decide_promotion(
+        PromotionEvidence(
+            artifact_complete=True,
+            artifact_profile_fingerprint=fingerprint,
+            independent_report=report,
+            cross_method_agreement=(
+                abs(report.expected_value_to_player_0 - float(solution.emperor_value))
+                <= 1e-12
+                and e_card_exploitability(emperor, slave) == 0.0
+            ),
+            reproducible=True,
+            artifact_frozen=True,
+        )
+    )
 
 
 def train_e_card_cfr(iterations: int = 10_000) -> CFRResult:

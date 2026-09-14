@@ -67,6 +67,9 @@ class ECardEquilibriumTests(unittest.TestCase):
             session.ai_timing_distribution,
             tuple(map(float, exact.slave_strategy)),
         )
+        # The single-round core is exact, but the playable multi-round session
+        # adapts across rounds and therefore must not inherit an epsilon-GTO label.
+        self.assertEqual(session.snapshot()["strategyEvidence"], "strong_heuristic")
 
 
 if __name__ == "__main__":

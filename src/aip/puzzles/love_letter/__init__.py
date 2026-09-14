@@ -4,6 +4,7 @@ from .equilibrium import love_letter_equilibrium_structure
 from .extensive import (
     ExtensiveFormAudit,
     LoveLetterCFRGame,
+    LoveLetterIndependentEvaluator,
     LoveLetterState,
     audit_complete_tree,
     certify_love_letter_subgame,
@@ -18,6 +19,7 @@ __all__ = [
     "CARD_NAMES",
     "ExtensiveFormAudit",
     "LoveLetterCFRGame",
+    "LoveLetterIndependentEvaluator",
     "LoveLetterGame",
     "LoveLetterState",
     "audit_complete_tree",

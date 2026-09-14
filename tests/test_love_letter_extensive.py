@@ -1,8 +1,17 @@
 import unittest
 
-from aip.core import CFRResult, ExternalSamplingCFRTrainer
+from aip.core import (
+    CFRResult,
+    ExternalSamplingCFRTrainer,
+    PromotionEvidence,
+    PromotionLevel,
+    decide_promotion,
+    run_independent_evaluation,
+    strategy_profile_fingerprint,
+)
 from aip.puzzles.love_letter import (
     LoveLetterCFRGame,
+    LoveLetterIndependentEvaluator,
     LoveLetterState,
     audit_complete_tree,
     certify_love_letter_subgame,
@@ -115,7 +124,26 @@ class LoveLetterExtensiveFormTests(unittest.TestCase):
 
         result = ExternalSamplingCFRTrainer(game, seed=20260912).train(20_000)
         report = certify_love_letter_subgame(game, result)
+        independent = run_independent_evaluation(
+            LoveLetterIndependentEvaluator(game),
+            result.policy,
+            maximum_exploitability=0.001,
+        )
         self.assertTrue(report.passed, report.failures)
+        self.assertTrue(independent.passed, independent.failures)
+        self.assertAlmostEqual(independent.exploitability, report.exploitability)
+        self.assertEqual(len(independent.action_values), 60)
+        promotion = decide_promotion(
+            PromotionEvidence(
+                artifact_complete=True,
+                artifact_profile_fingerprint=strategy_profile_fingerprint(
+                    result.policy
+                ),
+                independent_report=independent,
+                cross_method_agreement=True,
+            )
+        )
+        self.assertEqual(promotion.level, PromotionLevel.VERIFIED)
         self.assertEqual(result.information_set_count, 60)
         self.assertGreaterEqual(min(result.information_set_visits.values()), 1_000)
         self.assertLessEqual(report.exploitability, 0.001)

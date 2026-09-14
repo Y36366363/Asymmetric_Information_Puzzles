@@ -5,6 +5,23 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 09/14/2026
+
+- **One full-tree evaluator now works across genuinely different games** — The
+  same independent oracle evaluates E-Card (no chance), Kuhn Poker (root private
+  chance), and the four-card Love Letter subgame (later private chance), without
+  reading trainer regrets or visit counts.
+- **Perfect recall is now an executable adapter gate** — Complete-tree auditing
+  rejects forgotten-action information sets, invalid chance distributions,
+  inconsistent actions, non-finite utilities, malformed policy coverage, cycles,
+  and trees beyond the declared resource budget before certification.
+- **Cross-method checks preserve scope** — E-Card's exact single-round core is
+  `frozen`, while its adaptive repeated runtime remains `strong_heuristic`.
+  Kuhn's shared-tree result matches its sequence-form and specialized oracle.
+  Love Letter's 20,000-iteration four-card policy is `verified` at exploitability
+  `0.000484423`, but the full 16-card round remains explicitly uncertified.
+  [Read today's compatibility audit](research/full_tree_game_compatibility_2026-09-14.md).
+
 ## Updates 09/13/2026
 
 - **Independent sequence-form certification is now operational** — Canonical
