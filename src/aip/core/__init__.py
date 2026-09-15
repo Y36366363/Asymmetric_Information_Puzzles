@@ -56,6 +56,12 @@ from aip.core.equilibrium import (
 )
 from aip.core.game import DynamicGame, GameSolver, Transition
 from aip.core.information import InformationSet, Observation
+from aip.core.sequence_form import (
+    SequenceForm,
+    SequenceFormSolution,
+    compile_sequence_form,
+    solve_sequence_form,
+)
 from aip.core.tree_evaluation import (
     FullTreeBestResponseEvaluator,
     FullTreeGameAudit,
@@ -63,6 +69,10 @@ from aip.core.tree_evaluation import (
 )
 
 __all__ = [
+    "SequenceForm",
+    "SequenceFormSolution",
+    "compile_sequence_form",
+    "solve_sequence_form",
     "AlgorithmSpec",
     "ActionValueReport",
     "AverageStrategyPolicy",

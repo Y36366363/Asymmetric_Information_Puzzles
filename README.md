@@ -5,6 +5,17 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 09/15/2026
+
+- **Generic sequence-form compilation now works from audited adapters** — One
+  core compiler creates realization sequences, flow constraints and chance-
+  weighted payoffs for Kuhn, E-Card and the four-card Love Letter subgame.
+- **Exact LP results pass independent best response** — Values match `-1/18`,
+  `-1/5` and `1/6` respectively; Love Letter's small subgame now has an exact
+  equilibrium instead of only a sampled candidate. Scope and runtime labels
+  are unchanged. No CFR variant or third-party dependency was added.
+  [Read the generic sequence-form audit](research/generic_sequence_form_2026-09-15.md).
+
 ## Updates 09/14/2026
 
 - **One full-tree evaluator now works across genuinely different games** — The

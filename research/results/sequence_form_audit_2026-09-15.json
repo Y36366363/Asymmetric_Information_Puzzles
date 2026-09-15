@@ -1,0 +1,5301 @@
+{
+  "date": "2026-09-15",
+  "games": {
+    "e_card_single_round": {
+      "expected_reference_value": -0.2,
+      "independent_report": {
+        "action_values": [
+          {
+            "information_set": "('emperor', 'choose_special_duel')",
+            "player": 0,
+            "values": [
+              {
+                "action": "1",
+                "value": -0.19999999999999984
+              },
+              {
+                "action": "2",
+                "value": -0.19999999999999998
+              },
+              {
+                "action": "3",
+                "value": -0.19999999999999998
+              },
+              {
+                "action": "4",
+                "value": -0.19999999999999998
+              },
+              {
+                "action": "5",
+                "value": -0.19999999999999998
+              }
+            ]
+          },
+          {
+            "information_set": "('slave', 'choose_special_duel')",
+            "player": 1,
+            "values": [
+              {
+                "action": "1",
+                "value": 0.19999999999999996
+              },
+              {
+                "action": "2",
+                "value": 0.19999999999999996
+              },
+              {
+                "action": "3",
+                "value": 0.19999999999999996
+              },
+              {
+                "action": "4",
+                "value": 0.19999999999999996
+              },
+              {
+                "action": "5",
+                "value": 0.19999999999999996
+              }
+            ]
+          }
+        ],
+        "best_response_player_0": -0.19999999999999984,
+        "best_response_player_1": 0.19999999999999996,
+        "evaluator_id": "e_card_single_round_independent_tree",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": -0.19999999999999998,
+        "exploitability": 6.938893903907228e-17,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 1.3877787807814457e-16,
+        "nash_conv": 1.3877787807814457e-16,
+        "passed": true,
+        "player_0_deviation_gain": 1.3877787807814457e-16,
+        "player_1_deviation_gain": 0.0,
+        "profile_fingerprint": "47f8c8e06dcbf2de59ca1838c8534df9f26155151858979467855567a9bb9542"
+      },
+      "maximum_flow_residual": 8.326672684688674e-17,
+      "passed": true,
+      "primal_dual_gap": 5.551115123125783e-17,
+      "representation": {
+        "flow_entries": [
+          [
+            [
+              0,
+              0,
+              1.0
+            ],
+            [
+              1,
+              0,
+              -1.0
+            ],
+            [
+              1,
+              1,
+              1.0
+            ],
+            [
+              1,
+              2,
+              1.0
+            ],
+            [
+              1,
+              3,
+              1.0
+            ],
+            [
+              1,
+              4,
+              1.0
+            ],
+            [
+              1,
+              5,
+              1.0
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              1.0
+            ],
+            [
+              1,
+              0,
+              -1.0
+            ],
+            [
+              1,
+              1,
+              1.0
+            ],
+            [
+              1,
+              2,
+              1.0
+            ],
+            [
+              1,
+              3,
+              1.0
+            ],
+            [
+              1,
+              4,
+              1.0
+            ],
+            [
+              1,
+              5,
+              1.0
+            ]
+          ]
+        ],
+        "flow_rhs": [
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0
+          ]
+        ],
+        "payoff_entries": [
+          [
+            1,
+            1,
+            -5.0
+          ],
+          [
+            1,
+            2,
+            1.0
+          ],
+          [
+            1,
+            3,
+            1.0
+          ],
+          [
+            1,
+            4,
+            1.0
+          ],
+          [
+            1,
+            5,
+            1.0
+          ],
+          [
+            2,
+            1,
+            1.0
+          ],
+          [
+            2,
+            2,
+            -5.0
+          ],
+          [
+            2,
+            3,
+            1.0
+          ],
+          [
+            2,
+            4,
+            1.0
+          ],
+          [
+            2,
+            5,
+            1.0
+          ],
+          [
+            3,
+            1,
+            1.0
+          ],
+          [
+            3,
+            2,
+            1.0
+          ],
+          [
+            3,
+            3,
+            -5.0
+          ],
+          [
+            3,
+            4,
+            1.0
+          ],
+          [
+            3,
+            5,
+            1.0
+          ],
+          [
+            4,
+            1,
+            1.0
+          ],
+          [
+            4,
+            2,
+            1.0
+          ],
+          [
+            4,
+            3,
+            1.0
+          ],
+          [
+            4,
+            4,
+            -5.0
+          ],
+          [
+            4,
+            5,
+            1.0
+          ],
+          [
+            5,
+            1,
+            1.0
+          ],
+          [
+            5,
+            2,
+            1.0
+          ],
+          [
+            5,
+            3,
+            1.0
+          ],
+          [
+            5,
+            4,
+            1.0
+          ],
+          [
+            5,
+            5,
+            -5.0
+          ]
+        ],
+        "payoff_shape": [
+          6,
+          6
+        ],
+        "schema_version": "sequence_form_v1",
+        "sequences": [
+          [
+            "()",
+            "((('emperor', 'choose_special_duel'), 1),)",
+            "((('emperor', 'choose_special_duel'), 2),)",
+            "((('emperor', 'choose_special_duel'), 3),)",
+            "((('emperor', 'choose_special_duel'), 4),)",
+            "((('emperor', 'choose_special_duel'), 5),)"
+          ],
+          [
+            "()",
+            "((('slave', 'choose_special_duel'), 1),)",
+            "((('slave', 'choose_special_duel'), 2),)",
+            "((('slave', 'choose_special_duel'), 3),)",
+            "((('slave', 'choose_special_duel'), 4),)",
+            "((('slave', 'choose_special_duel'), 5),)"
+          ]
+        ],
+        "tree_audit": {
+          "chance_histories": 0,
+          "decision_histories": 6,
+          "failures": [],
+          "histories": 31,
+          "information_sets": 2,
+          "maximum_depth": 2,
+          "passed": true,
+          "perfect_recall": true,
+          "terminal_histories": 25
+        }
+      },
+      "value": -0.19999999999999996
+    },
+    "kuhn": {
+      "expected_reference_value": -0.05555555555555555,
+      "independent_report": {
+        "action_values": [
+          {
+            "information_set": "('J', '')",
+            "player": 0,
+            "values": [
+              {
+                "action": "'check'",
+                "value": -1.0
+              },
+              {
+                "action": "'bet'",
+                "value": -0.9999999999999997
+              }
+            ]
+          },
+          {
+            "information_set": "('J', 'cb')",
+            "player": 0,
+            "values": [
+              {
+                "action": "'fold'",
+                "value": -1.0
+              },
+              {
+                "action": "'call'",
+                "value": -2.0
+              }
+            ]
+          },
+          {
+            "information_set": "('K', '')",
+            "player": 0,
+            "values": [
+              {
+                "action": "'check'",
+                "value": 1.1666666666666667
+              },
+              {
+                "action": "'bet'",
+                "value": 1.1666666666666665
+              }
+            ]
+          },
+          {
+            "information_set": "('K', 'cb')",
+            "player": 0,
+            "values": [
+              {
+                "action": "'fold'",
+                "value": -1.0
+              },
+              {
+                "action": "'call'",
+                "value": 2.0
+              }
+            ]
+          },
+          {
+            "information_set": "('Q', '')",
+            "player": 0,
+            "values": [
+              {
+                "action": "'check'",
+                "value": -0.33333333333333337
+              },
+              {
+                "action": "'bet'",
+                "value": -0.5
+              }
+            ]
+          },
+          {
+            "information_set": "('Q', 'cb')",
+            "player": 0,
+            "values": [
+              {
+                "action": "'fold'",
+                "value": -1.0
+              },
+              {
+                "action": "'call'",
+                "value": -1.0
+              }
+            ]
+          },
+          {
+            "information_set": "('J', 'b')",
+            "player": 1,
+            "values": [
+              {
+                "action": "'fold'",
+                "value": -1.0
+              },
+              {
+                "action": "'call'",
+                "value": -2.0
+              }
+            ]
+          },
+          {
+            "information_set": "('J', 'c')",
+            "player": 1,
+            "values": [
+              {
+                "action": "'check'",
+                "value": -1.0
+              },
+              {
+                "action": "'bet'",
+                "value": -1.0000000000000004
+              }
+            ]
+          },
+          {
+            "information_set": "('K', 'b')",
+            "player": 1,
+            "values": [
+              {
+                "action": "'fold'",
+                "value": -1.0
+              },
+              {
+                "action": "'call'",
+                "value": 2.0
+              }
+            ]
+          },
+          {
+            "information_set": "('K', 'c')",
+            "player": 1,
+            "values": [
+              {
+                "action": "'check'",
+                "value": 1.0
+              },
+              {
+                "action": "'bet'",
+                "value": 1.1666666666666672
+              }
+            ]
+          },
+          {
+            "information_set": "('Q', 'b')",
+            "player": 1,
+            "values": [
+              {
+                "action": "'fold'",
+                "value": -1.0
+              },
+              {
+                "action": "'call'",
+                "value": -1.7377049180327864
+              }
+            ]
+          },
+          {
+            "information_set": "('Q', 'c')",
+            "player": 1,
+            "values": [
+              {
+                "action": "'check'",
+                "value": 6.661338147750945e-16
+              },
+              {
+                "action": "'bet'",
+                "value": -0.499999999999999
+              }
+            ]
+          }
+        ],
+        "best_response_player_0": -0.05555555555555543,
+        "best_response_player_1": 0.055555555555555663,
+        "evaluator_id": "kuhn_independent_tree",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": -0.055555555555555525,
+        "exploitability": 1.1796119636642288e-16,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 1.3877787807814457e-16,
+        "nash_conv": 2.3592239273284576e-16,
+        "passed": true,
+        "player_0_deviation_gain": 9.71445146547012e-17,
+        "player_1_deviation_gain": 1.3877787807814457e-16,
+        "profile_fingerprint": "5d52a6018eb3cfab93cced72ba83cbbecdd8bea22a980aba7482471b8e141a91"
+      },
+      "maximum_flow_residual": 3.3306690738754696e-16,
+      "passed": true,
+      "primal_dual_gap": 1.8735013540549517e-16,
+      "representation": {
+        "flow_entries": [
+          [
+            [
+              0,
+              0,
+              1.0
+            ],
+            [
+              1,
+              0,
+              -1.0
+            ],
+            [
+              1,
+              1,
+              1.0
+            ],
+            [
+              1,
+              2,
+              1.0
+            ],
+            [
+              2,
+              2,
+              -1.0
+            ],
+            [
+              2,
+              7,
+              1.0
+            ],
+            [
+              2,
+              8,
+              1.0
+            ],
+            [
+              3,
+              0,
+              -1.0
+            ],
+            [
+              3,
+              3,
+              1.0
+            ],
+            [
+              3,
+              4,
+              1.0
+            ],
+            [
+              4,
+              4,
+              -1.0
+            ],
+            [
+              4,
+              9,
+              1.0
+            ],
+            [
+              4,
+              10,
+              1.0
+            ],
+            [
+              5,
+              0,
+              -1.0
+            ],
+            [
+              5,
+              5,
+              1.0
+            ],
+            [
+              5,
+              6,
+              1.0
+            ],
+            [
+              6,
+              6,
+              -1.0
+            ],
+            [
+              6,
+              11,
+              1.0
+            ],
+            [
+              6,
+              12,
+              1.0
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              1.0
+            ],
+            [
+              1,
+              0,
+              -1.0
+            ],
+            [
+              1,
+              1,
+              1.0
+            ],
+            [
+              1,
+              2,
+              1.0
+            ],
+            [
+              2,
+              0,
+              -1.0
+            ],
+            [
+              2,
+              3,
+              1.0
+            ],
+            [
+              2,
+              4,
+              1.0
+            ],
+            [
+              3,
+              0,
+              -1.0
+            ],
+            [
+              3,
+              5,
+              1.0
+            ],
+            [
+              3,
+              6,
+              1.0
+            ],
+            [
+              4,
+              0,
+              -1.0
+            ],
+            [
+              4,
+              7,
+              1.0
+            ],
+            [
+              4,
+              8,
+              1.0
+            ],
+            [
+              5,
+              0,
+              -1.0
+            ],
+            [
+              5,
+              9,
+              1.0
+            ],
+            [
+              5,
+              10,
+              1.0
+            ],
+            [
+              6,
+              0,
+              -1.0
+            ],
+            [
+              6,
+              11,
+              1.0
+            ],
+            [
+              6,
+              12,
+              1.0
+            ]
+          ]
+        ],
+        "flow_rhs": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "payoff_entries": [
+          [
+            1,
+            5,
+            -0.3333333333333333
+          ],
+          [
+            1,
+            6,
+            0.16666666666666666
+          ],
+          [
+            1,
+            9,
+            -0.3333333333333333
+          ],
+          [
+            1,
+            10,
+            0.16666666666666666
+          ],
+          [
+            2,
+            8,
+            -0.16666666666666666
+          ],
+          [
+            2,
+            12,
+            -0.16666666666666666
+          ],
+          [
+            3,
+            1,
+            0.3333333333333333
+          ],
+          [
+            3,
+            2,
+            0.16666666666666666
+          ],
+          [
+            3,
+            9,
+            0.3333333333333333
+          ],
+          [
+            3,
+            10,
+            0.16666666666666666
+          ],
+          [
+            4,
+            4,
+            0.16666666666666666
+          ],
+          [
+            4,
+            12,
+            0.16666666666666666
+          ],
+          [
+            5,
+            1,
+            0.3333333333333333
+          ],
+          [
+            5,
+            2,
+            0.16666666666666666
+          ],
+          [
+            5,
+            5,
+            -0.3333333333333333
+          ],
+          [
+            5,
+            6,
+            0.16666666666666666
+          ],
+          [
+            6,
+            4,
+            0.16666666666666666
+          ],
+          [
+            6,
+            8,
+            -0.16666666666666666
+          ],
+          [
+            7,
+            7,
+            -0.3333333333333333
+          ],
+          [
+            7,
+            11,
+            -0.3333333333333333
+          ],
+          [
+            8,
+            7,
+            -0.16666666666666666
+          ],
+          [
+            8,
+            11,
+            -0.16666666666666666
+          ],
+          [
+            9,
+            3,
+            0.3333333333333333
+          ],
+          [
+            9,
+            11,
+            0.3333333333333333
+          ],
+          [
+            10,
+            3,
+            -0.16666666666666666
+          ],
+          [
+            10,
+            11,
+            -0.16666666666666666
+          ],
+          [
+            11,
+            3,
+            0.3333333333333333
+          ],
+          [
+            11,
+            7,
+            -0.3333333333333333
+          ],
+          [
+            12,
+            3,
+            -0.16666666666666666
+          ],
+          [
+            12,
+            7,
+            -0.16666666666666666
+          ]
+        ],
+        "payoff_shape": [
+          13,
+          13
+        ],
+        "schema_version": "sequence_form_v1",
+        "sequences": [
+          [
+            "()",
+            "((('J', ''), 'bet'),)",
+            "((('J', ''), 'check'),)",
+            "((('K', ''), 'bet'),)",
+            "((('K', ''), 'check'),)",
+            "((('Q', ''), 'bet'),)",
+            "((('Q', ''), 'check'),)",
+            "((('J', ''), 'check'), (('J', 'cb'), 'call'))",
+            "((('J', ''), 'check'), (('J', 'cb'), 'fold'))",
+            "((('K', ''), 'check'), (('K', 'cb'), 'call'))",
+            "((('K', ''), 'check'), (('K', 'cb'), 'fold'))",
+            "((('Q', ''), 'check'), (('Q', 'cb'), 'call'))",
+            "((('Q', ''), 'check'), (('Q', 'cb'), 'fold'))"
+          ],
+          [
+            "()",
+            "((('J', 'b'), 'call'),)",
+            "((('J', 'b'), 'fold'),)",
+            "((('J', 'c'), 'bet'),)",
+            "((('J', 'c'), 'check'),)",
+            "((('K', 'b'), 'call'),)",
+            "((('K', 'b'), 'fold'),)",
+            "((('K', 'c'), 'bet'),)",
+            "((('K', 'c'), 'check'),)",
+            "((('Q', 'b'), 'call'),)",
+            "((('Q', 'b'), 'fold'),)",
+            "((('Q', 'c'), 'bet'),)",
+            "((('Q', 'c'), 'check'),)"
+          ]
+        ],
+        "tree_audit": {
+          "chance_histories": 1,
+          "decision_histories": 24,
+          "failures": [],
+          "histories": 55,
+          "information_sets": 12,
+          "maximum_depth": 4,
+          "passed": true,
+          "perfect_recall": true,
+          "terminal_histories": 30
+        }
+      },
+      "value": -0.055555555555555726
+    },
+    "love_letter_four_card_subgame": {
+      "expected_reference_value": 0.16666666666666666,
+      "independent_report": {
+        "action_values": [
+          {
+            "information_set": "(0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 2)))",
+            "player": 0,
+            "values": [
+              {
+                "action": "Play(card=1, target='ai', guess=2)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=3)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=4)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=5)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=6)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=7)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=8)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=2, target='ai', guess=None)",
+                "value": -1.0
+              }
+            ]
+          },
+          {
+            "information_set": "(0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 1)))",
+            "player": 0,
+            "values": [
+              {
+                "action": "Play(card=1, target='ai', guess=2)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=3)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=4)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=5)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=6)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=7)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=8)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=2, target='ai', guess=None)",
+                "value": -1.0
+              }
+            ]
+          },
+          {
+            "information_set": "(0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 3)))",
+            "player": 0,
+            "values": [
+              {
+                "action": "Play(card=1, target='ai', guess=2)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=3)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=4)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=5)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=6)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=7)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=8)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=3, target='ai', guess=None)",
+                "value": -1.0
+              }
+            ]
+          },
+          {
+            "information_set": "(0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 1)))",
+            "player": 0,
+            "values": [
+              {
+                "action": "Play(card=1, target='ai', guess=2)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=3)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=4)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=5)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=6)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=7)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=8)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=3, target='ai', guess=None)",
+                "value": -1.0
+              }
+            ]
+          },
+          {
+            "information_set": "(0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 4)))",
+            "player": 0,
+            "values": [
+              {
+                "action": "Play(card=1, target='ai', guess=2)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=3)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=4)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=5)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=6)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=7)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=8)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": -1.0
+              }
+            ]
+          },
+          {
+            "information_set": "(0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 1)))",
+            "player": 0,
+            "values": [
+              {
+                "action": "Play(card=1, target='ai', guess=2)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=3)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=4)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=5)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=6)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=7)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=1, target='ai', guess=8)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": -1.0
+              }
+            ]
+          },
+          {
+            "information_set": "(0, (5, 5, 6, 7), (2, 3), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 3)))",
+            "player": 0,
+            "values": [
+              {
+                "action": "Play(card=2, target='ai', guess=None)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=3, target='ai', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(0, (5, 5, 6, 7), (2, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 2)))",
+            "player": 0,
+            "values": [
+              {
+                "action": "Play(card=2, target='ai', guess=None)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=3, target='ai', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(0, (5, 5, 6, 7), (2, 4), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 4)))",
+            "player": 0,
+            "values": [
+              {
+                "action": "Play(card=2, target='ai', guess=None)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": -1.0
+              }
+            ]
+          },
+          {
+            "information_set": "(0, (5, 5, 6, 7), (2, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 2)))",
+            "player": 0,
+            "values": [
+              {
+                "action": "Play(card=2, target='ai', guess=None)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": -1.0
+              }
+            ]
+          },
+          {
+            "information_set": "(0, (5, 5, 6, 7), (3, 4), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 4)))",
+            "player": 0,
+            "values": [
+              {
+                "action": "Play(card=3, target='ai', guess=None)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 1.0
+              }
+            ]
+          },
+          {
+            "information_set": "(0, (5, 5, 6, 7), (3, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 3)))",
+            "player": 0,
+            "values": [
+              {
+                "action": "Play(card=3, target='ai', guess=None)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 1.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 2)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=1, target='player', guess=2)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=3)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=4)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=5)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=6)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=7)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=8)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 1)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=1, target='player', guess=2)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=3)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=4)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=5)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=6)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=7)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=8)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=1, target='player', guess=2)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=3)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=4)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=5)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=6)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=7)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=8)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": -1.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 1)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=1, target='player', guess=2)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=3)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=4)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=5)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=6)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=7)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=8)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": -1.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=1, target='player', guess=2)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=3)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=4)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=5)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=6)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=7)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=8)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 1)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=1, target='player', guess=2)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=3)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=4)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=5)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=6)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=7)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=8)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 4)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=1, target='player', guess=2)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=3)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=4)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=5)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=6)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=7)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=8)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 1)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=1, target='player', guess=2)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=3)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=4)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=5)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=6)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=7)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=1, target='player', guess=8)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 3), ('draw', 1, 2)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": -1.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": -1.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 2), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 2), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 3), ('draw', 1, 2)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 2), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 3), ('draw', 1, 2)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 2), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 3), ('draw', 1, 2)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 2), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 3), ('draw', 1, 2)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 2), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 3), ('draw', 1, 2)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 2)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 4), ('draw', 1, 2)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": -1.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 2), ('draw', 1, 4)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 4), ('draw', 1, 2)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 2), ('draw', 1, 4)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 2), ('draw', 1, 4)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 4), ('draw', 1, 2)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 2), ('draw', 1, 4)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 4), ('draw', 1, 2)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 2), ('draw', 1, 4)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 4), ('draw', 1, 2)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 2), ('draw', 1, 4)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 4), ('draw', 1, 2)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=2, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 3), ('draw', 1, 4)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 4), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 4), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 1.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 1.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 3), ('draw', 1, 4)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 3), ('draw', 1, 4)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 4), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 3), ('draw', 1, 4)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 4), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 3), ('draw', 1, 4)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 4), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 3), ('draw', 1, 4)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 4), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 4)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "information_set": "(1, (5, 5, 6, 7), (3, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 3)))",
+            "player": 1,
+            "values": [
+              {
+                "action": "Play(card=3, target='player', guess=None)",
+                "value": 0.0
+              },
+              {
+                "action": "Play(card=4, target=None, guess=None)",
+                "value": 0.0
+              }
+            ]
+          }
+        ],
+        "best_response_player_0": 0.16666666666666666,
+        "best_response_player_1": -0.16666666666666666,
+        "evaluator_id": "love_letter_four_card_subgame_independent_tree",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 0.16666666666666666,
+        "exploitability": 0.0,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 0.0,
+        "nash_conv": 0.0,
+        "passed": true,
+        "player_0_deviation_gain": 0.0,
+        "player_1_deviation_gain": 0.0,
+        "profile_fingerprint": "5dd80dffd4d1e05da4bddec2ebbe2bb01ad299c48c3de35bca53486f7f26aadb"
+      },
+      "maximum_flow_residual": 2.220446049250313e-16,
+      "passed": true,
+      "primal_dual_gap": 1.942890293094024e-16,
+      "representation": {
+        "flow_entries": [
+          [
+            [
+              0,
+              0,
+              1.0
+            ],
+            [
+              1,
+              0,
+              -1.0
+            ],
+            [
+              1,
+              1,
+              1.0
+            ],
+            [
+              1,
+              2,
+              1.0
+            ],
+            [
+              1,
+              3,
+              1.0
+            ],
+            [
+              1,
+              4,
+              1.0
+            ],
+            [
+              1,
+              5,
+              1.0
+            ],
+            [
+              1,
+              6,
+              1.0
+            ],
+            [
+              1,
+              7,
+              1.0
+            ],
+            [
+              1,
+              8,
+              1.0
+            ],
+            [
+              2,
+              0,
+              -1.0
+            ],
+            [
+              2,
+              9,
+              1.0
+            ],
+            [
+              2,
+              10,
+              1.0
+            ],
+            [
+              2,
+              11,
+              1.0
+            ],
+            [
+              2,
+              12,
+              1.0
+            ],
+            [
+              2,
+              13,
+              1.0
+            ],
+            [
+              2,
+              14,
+              1.0
+            ],
+            [
+              2,
+              15,
+              1.0
+            ],
+            [
+              2,
+              16,
+              1.0
+            ],
+            [
+              3,
+              0,
+              -1.0
+            ],
+            [
+              3,
+              17,
+              1.0
+            ],
+            [
+              3,
+              18,
+              1.0
+            ],
+            [
+              3,
+              19,
+              1.0
+            ],
+            [
+              3,
+              20,
+              1.0
+            ],
+            [
+              3,
+              21,
+              1.0
+            ],
+            [
+              3,
+              22,
+              1.0
+            ],
+            [
+              3,
+              23,
+              1.0
+            ],
+            [
+              3,
+              24,
+              1.0
+            ],
+            [
+              4,
+              0,
+              -1.0
+            ],
+            [
+              4,
+              25,
+              1.0
+            ],
+            [
+              4,
+              26,
+              1.0
+            ],
+            [
+              4,
+              27,
+              1.0
+            ],
+            [
+              4,
+              28,
+              1.0
+            ],
+            [
+              4,
+              29,
+              1.0
+            ],
+            [
+              4,
+              30,
+              1.0
+            ],
+            [
+              4,
+              31,
+              1.0
+            ],
+            [
+              4,
+              32,
+              1.0
+            ],
+            [
+              5,
+              0,
+              -1.0
+            ],
+            [
+              5,
+              33,
+              1.0
+            ],
+            [
+              5,
+              34,
+              1.0
+            ],
+            [
+              5,
+              35,
+              1.0
+            ],
+            [
+              5,
+              36,
+              1.0
+            ],
+            [
+              5,
+              37,
+              1.0
+            ],
+            [
+              5,
+              38,
+              1.0
+            ],
+            [
+              5,
+              39,
+              1.0
+            ],
+            [
+              5,
+              40,
+              1.0
+            ],
+            [
+              6,
+              0,
+              -1.0
+            ],
+            [
+              6,
+              41,
+              1.0
+            ],
+            [
+              6,
+              42,
+              1.0
+            ],
+            [
+              6,
+              43,
+              1.0
+            ],
+            [
+              6,
+              44,
+              1.0
+            ],
+            [
+              6,
+              45,
+              1.0
+            ],
+            [
+              6,
+              46,
+              1.0
+            ],
+            [
+              6,
+              47,
+              1.0
+            ],
+            [
+              6,
+              48,
+              1.0
+            ],
+            [
+              7,
+              0,
+              -1.0
+            ],
+            [
+              7,
+              49,
+              1.0
+            ],
+            [
+              7,
+              50,
+              1.0
+            ],
+            [
+              8,
+              0,
+              -1.0
+            ],
+            [
+              8,
+              51,
+              1.0
+            ],
+            [
+              8,
+              52,
+              1.0
+            ],
+            [
+              9,
+              0,
+              -1.0
+            ],
+            [
+              9,
+              53,
+              1.0
+            ],
+            [
+              9,
+              54,
+              1.0
+            ],
+            [
+              10,
+              0,
+              -1.0
+            ],
+            [
+              10,
+              55,
+              1.0
+            ],
+            [
+              10,
+              56,
+              1.0
+            ],
+            [
+              11,
+              0,
+              -1.0
+            ],
+            [
+              11,
+              57,
+              1.0
+            ],
+            [
+              11,
+              58,
+              1.0
+            ],
+            [
+              12,
+              0,
+              -1.0
+            ],
+            [
+              12,
+              59,
+              1.0
+            ],
+            [
+              12,
+              60,
+              1.0
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              1.0
+            ],
+            [
+              1,
+              0,
+              -1.0
+            ],
+            [
+              1,
+              1,
+              1.0
+            ],
+            [
+              1,
+              2,
+              1.0
+            ],
+            [
+              1,
+              3,
+              1.0
+            ],
+            [
+              1,
+              4,
+              1.0
+            ],
+            [
+              1,
+              5,
+              1.0
+            ],
+            [
+              1,
+              6,
+              1.0
+            ],
+            [
+              1,
+              7,
+              1.0
+            ],
+            [
+              1,
+              8,
+              1.0
+            ],
+            [
+              2,
+              0,
+              -1.0
+            ],
+            [
+              2,
+              9,
+              1.0
+            ],
+            [
+              2,
+              10,
+              1.0
+            ],
+            [
+              2,
+              11,
+              1.0
+            ],
+            [
+              2,
+              12,
+              1.0
+            ],
+            [
+              2,
+              13,
+              1.0
+            ],
+            [
+              2,
+              14,
+              1.0
+            ],
+            [
+              2,
+              15,
+              1.0
+            ],
+            [
+              2,
+              16,
+              1.0
+            ],
+            [
+              3,
+              0,
+              -1.0
+            ],
+            [
+              3,
+              17,
+              1.0
+            ],
+            [
+              3,
+              18,
+              1.0
+            ],
+            [
+              3,
+              19,
+              1.0
+            ],
+            [
+              3,
+              20,
+              1.0
+            ],
+            [
+              3,
+              21,
+              1.0
+            ],
+            [
+              3,
+              22,
+              1.0
+            ],
+            [
+              3,
+              23,
+              1.0
+            ],
+            [
+              3,
+              24,
+              1.0
+            ],
+            [
+              4,
+              0,
+              -1.0
+            ],
+            [
+              4,
+              25,
+              1.0
+            ],
+            [
+              4,
+              26,
+              1.0
+            ],
+            [
+              4,
+              27,
+              1.0
+            ],
+            [
+              4,
+              28,
+              1.0
+            ],
+            [
+              4,
+              29,
+              1.0
+            ],
+            [
+              4,
+              30,
+              1.0
+            ],
+            [
+              4,
+              31,
+              1.0
+            ],
+            [
+              4,
+              32,
+              1.0
+            ],
+            [
+              5,
+              0,
+              -1.0
+            ],
+            [
+              5,
+              33,
+              1.0
+            ],
+            [
+              5,
+              34,
+              1.0
+            ],
+            [
+              5,
+              35,
+              1.0
+            ],
+            [
+              5,
+              36,
+              1.0
+            ],
+            [
+              5,
+              37,
+              1.0
+            ],
+            [
+              5,
+              38,
+              1.0
+            ],
+            [
+              5,
+              39,
+              1.0
+            ],
+            [
+              5,
+              40,
+              1.0
+            ],
+            [
+              6,
+              0,
+              -1.0
+            ],
+            [
+              6,
+              41,
+              1.0
+            ],
+            [
+              6,
+              42,
+              1.0
+            ],
+            [
+              6,
+              43,
+              1.0
+            ],
+            [
+              6,
+              44,
+              1.0
+            ],
+            [
+              6,
+              45,
+              1.0
+            ],
+            [
+              6,
+              46,
+              1.0
+            ],
+            [
+              6,
+              47,
+              1.0
+            ],
+            [
+              6,
+              48,
+              1.0
+            ],
+            [
+              7,
+              0,
+              -1.0
+            ],
+            [
+              7,
+              49,
+              1.0
+            ],
+            [
+              7,
+              50,
+              1.0
+            ],
+            [
+              7,
+              51,
+              1.0
+            ],
+            [
+              7,
+              52,
+              1.0
+            ],
+            [
+              7,
+              53,
+              1.0
+            ],
+            [
+              7,
+              54,
+              1.0
+            ],
+            [
+              7,
+              55,
+              1.0
+            ],
+            [
+              7,
+              56,
+              1.0
+            ],
+            [
+              8,
+              0,
+              -1.0
+            ],
+            [
+              8,
+              57,
+              1.0
+            ],
+            [
+              8,
+              58,
+              1.0
+            ],
+            [
+              8,
+              59,
+              1.0
+            ],
+            [
+              8,
+              60,
+              1.0
+            ],
+            [
+              8,
+              61,
+              1.0
+            ],
+            [
+              8,
+              62,
+              1.0
+            ],
+            [
+              8,
+              63,
+              1.0
+            ],
+            [
+              8,
+              64,
+              1.0
+            ],
+            [
+              9,
+              0,
+              -1.0
+            ],
+            [
+              9,
+              65,
+              1.0
+            ],
+            [
+              9,
+              66,
+              1.0
+            ],
+            [
+              10,
+              0,
+              -1.0
+            ],
+            [
+              10,
+              67,
+              1.0
+            ],
+            [
+              10,
+              68,
+              1.0
+            ],
+            [
+              11,
+              0,
+              -1.0
+            ],
+            [
+              11,
+              69,
+              1.0
+            ],
+            [
+              11,
+              70,
+              1.0
+            ],
+            [
+              12,
+              0,
+              -1.0
+            ],
+            [
+              12,
+              71,
+              1.0
+            ],
+            [
+              12,
+              72,
+              1.0
+            ],
+            [
+              13,
+              0,
+              -1.0
+            ],
+            [
+              13,
+              73,
+              1.0
+            ],
+            [
+              13,
+              74,
+              1.0
+            ],
+            [
+              14,
+              0,
+              -1.0
+            ],
+            [
+              14,
+              75,
+              1.0
+            ],
+            [
+              14,
+              76,
+              1.0
+            ],
+            [
+              15,
+              0,
+              -1.0
+            ],
+            [
+              15,
+              77,
+              1.0
+            ],
+            [
+              15,
+              78,
+              1.0
+            ],
+            [
+              16,
+              0,
+              -1.0
+            ],
+            [
+              16,
+              79,
+              1.0
+            ],
+            [
+              16,
+              80,
+              1.0
+            ],
+            [
+              17,
+              0,
+              -1.0
+            ],
+            [
+              17,
+              81,
+              1.0
+            ],
+            [
+              17,
+              82,
+              1.0
+            ],
+            [
+              18,
+              0,
+              -1.0
+            ],
+            [
+              18,
+              83,
+              1.0
+            ],
+            [
+              18,
+              84,
+              1.0
+            ],
+            [
+              19,
+              0,
+              -1.0
+            ],
+            [
+              19,
+              85,
+              1.0
+            ],
+            [
+              19,
+              86,
+              1.0
+            ],
+            [
+              20,
+              0,
+              -1.0
+            ],
+            [
+              20,
+              87,
+              1.0
+            ],
+            [
+              20,
+              88,
+              1.0
+            ],
+            [
+              21,
+              0,
+              -1.0
+            ],
+            [
+              21,
+              89,
+              1.0
+            ],
+            [
+              21,
+              90,
+              1.0
+            ],
+            [
+              22,
+              0,
+              -1.0
+            ],
+            [
+              22,
+              91,
+              1.0
+            ],
+            [
+              22,
+              92,
+              1.0
+            ],
+            [
+              23,
+              0,
+              -1.0
+            ],
+            [
+              23,
+              93,
+              1.0
+            ],
+            [
+              23,
+              94,
+              1.0
+            ],
+            [
+              24,
+              0,
+              -1.0
+            ],
+            [
+              24,
+              95,
+              1.0
+            ],
+            [
+              24,
+              96,
+              1.0
+            ],
+            [
+              25,
+              0,
+              -1.0
+            ],
+            [
+              25,
+              97,
+              1.0
+            ],
+            [
+              25,
+              98,
+              1.0
+            ],
+            [
+              26,
+              0,
+              -1.0
+            ],
+            [
+              26,
+              99,
+              1.0
+            ],
+            [
+              26,
+              100,
+              1.0
+            ],
+            [
+              27,
+              0,
+              -1.0
+            ],
+            [
+              27,
+              101,
+              1.0
+            ],
+            [
+              27,
+              102,
+              1.0
+            ],
+            [
+              28,
+              0,
+              -1.0
+            ],
+            [
+              28,
+              103,
+              1.0
+            ],
+            [
+              28,
+              104,
+              1.0
+            ],
+            [
+              29,
+              0,
+              -1.0
+            ],
+            [
+              29,
+              105,
+              1.0
+            ],
+            [
+              29,
+              106,
+              1.0
+            ],
+            [
+              30,
+              0,
+              -1.0
+            ],
+            [
+              30,
+              107,
+              1.0
+            ],
+            [
+              30,
+              108,
+              1.0
+            ],
+            [
+              31,
+              0,
+              -1.0
+            ],
+            [
+              31,
+              109,
+              1.0
+            ],
+            [
+              31,
+              110,
+              1.0
+            ],
+            [
+              32,
+              0,
+              -1.0
+            ],
+            [
+              32,
+              111,
+              1.0
+            ],
+            [
+              32,
+              112,
+              1.0
+            ],
+            [
+              33,
+              0,
+              -1.0
+            ],
+            [
+              33,
+              113,
+              1.0
+            ],
+            [
+              33,
+              114,
+              1.0
+            ],
+            [
+              34,
+              0,
+              -1.0
+            ],
+            [
+              34,
+              115,
+              1.0
+            ],
+            [
+              34,
+              116,
+              1.0
+            ],
+            [
+              35,
+              0,
+              -1.0
+            ],
+            [
+              35,
+              117,
+              1.0
+            ],
+            [
+              35,
+              118,
+              1.0
+            ],
+            [
+              36,
+              0,
+              -1.0
+            ],
+            [
+              36,
+              119,
+              1.0
+            ],
+            [
+              36,
+              120,
+              1.0
+            ],
+            [
+              37,
+              0,
+              -1.0
+            ],
+            [
+              37,
+              121,
+              1.0
+            ],
+            [
+              37,
+              122,
+              1.0
+            ],
+            [
+              38,
+              0,
+              -1.0
+            ],
+            [
+              38,
+              123,
+              1.0
+            ],
+            [
+              38,
+              124,
+              1.0
+            ],
+            [
+              39,
+              0,
+              -1.0
+            ],
+            [
+              39,
+              125,
+              1.0
+            ],
+            [
+              39,
+              126,
+              1.0
+            ],
+            [
+              40,
+              0,
+              -1.0
+            ],
+            [
+              40,
+              127,
+              1.0
+            ],
+            [
+              40,
+              128,
+              1.0
+            ],
+            [
+              41,
+              0,
+              -1.0
+            ],
+            [
+              41,
+              129,
+              1.0
+            ],
+            [
+              41,
+              130,
+              1.0
+            ],
+            [
+              42,
+              0,
+              -1.0
+            ],
+            [
+              42,
+              131,
+              1.0
+            ],
+            [
+              42,
+              132,
+              1.0
+            ],
+            [
+              43,
+              0,
+              -1.0
+            ],
+            [
+              43,
+              133,
+              1.0
+            ],
+            [
+              43,
+              134,
+              1.0
+            ],
+            [
+              44,
+              0,
+              -1.0
+            ],
+            [
+              44,
+              135,
+              1.0
+            ],
+            [
+              44,
+              136,
+              1.0
+            ],
+            [
+              45,
+              0,
+              -1.0
+            ],
+            [
+              45,
+              137,
+              1.0
+            ],
+            [
+              45,
+              138,
+              1.0
+            ],
+            [
+              46,
+              0,
+              -1.0
+            ],
+            [
+              46,
+              139,
+              1.0
+            ],
+            [
+              46,
+              140,
+              1.0
+            ],
+            [
+              47,
+              0,
+              -1.0
+            ],
+            [
+              47,
+              141,
+              1.0
+            ],
+            [
+              47,
+              142,
+              1.0
+            ],
+            [
+              48,
+              0,
+              -1.0
+            ],
+            [
+              48,
+              143,
+              1.0
+            ],
+            [
+              48,
+              144,
+              1.0
+            ]
+          ]
+        ],
+        "flow_rhs": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "payoff_entries": [
+          [
+            1,
+            117,
+            -0.041666666666666664
+          ],
+          [
+            1,
+            118,
+            -0.041666666666666664
+          ],
+          [
+            1,
+            119,
+            -0.041666666666666664
+          ],
+          [
+            1,
+            120,
+            -0.041666666666666664
+          ],
+          [
+            2,
+            0,
+            0.041666666666666664
+          ],
+          [
+            2,
+            121,
+            -0.041666666666666664
+          ],
+          [
+            2,
+            122,
+            -0.041666666666666664
+          ],
+          [
+            3,
+            0,
+            0.041666666666666664
+          ],
+          [
+            3,
+            123,
+            -0.041666666666666664
+          ],
+          [
+            3,
+            124,
+            -0.041666666666666664
+          ],
+          [
+            4,
+            125,
+            -0.041666666666666664
+          ],
+          [
+            4,
+            126,
+            -0.041666666666666664
+          ],
+          [
+            4,
+            127,
+            -0.041666666666666664
+          ],
+          [
+            4,
+            128,
+            -0.041666666666666664
+          ],
+          [
+            5,
+            129,
+            -0.041666666666666664
+          ],
+          [
+            5,
+            130,
+            -0.041666666666666664
+          ],
+          [
+            5,
+            131,
+            -0.041666666666666664
+          ],
+          [
+            5,
+            132,
+            -0.041666666666666664
+          ],
+          [
+            6,
+            133,
+            -0.041666666666666664
+          ],
+          [
+            6,
+            134,
+            -0.041666666666666664
+          ],
+          [
+            6,
+            135,
+            -0.041666666666666664
+          ],
+          [
+            6,
+            136,
+            -0.041666666666666664
+          ],
+          [
+            7,
+            137,
+            -0.041666666666666664
+          ],
+          [
+            7,
+            138,
+            -0.041666666666666664
+          ],
+          [
+            7,
+            139,
+            -0.041666666666666664
+          ],
+          [
+            7,
+            140,
+            -0.041666666666666664
+          ],
+          [
+            8,
+            141,
+            -0.041666666666666664
+          ],
+          [
+            8,
+            142,
+            -0.041666666666666664
+          ],
+          [
+            8,
+            143,
+            -0.041666666666666664
+          ],
+          [
+            8,
+            144,
+            -0.041666666666666664
+          ],
+          [
+            9,
+            117,
+            -0.041666666666666664
+          ],
+          [
+            9,
+            118,
+            -0.041666666666666664
+          ],
+          [
+            9,
+            119,
+            -0.041666666666666664
+          ],
+          [
+            9,
+            120,
+            -0.041666666666666664
+          ],
+          [
+            10,
+            0,
+            0.041666666666666664
+          ],
+          [
+            10,
+            121,
+            -0.041666666666666664
+          ],
+          [
+            10,
+            122,
+            -0.041666666666666664
+          ],
+          [
+            11,
+            0,
+            0.041666666666666664
+          ],
+          [
+            11,
+            123,
+            -0.041666666666666664
+          ],
+          [
+            11,
+            124,
+            -0.041666666666666664
+          ],
+          [
+            12,
+            125,
+            -0.041666666666666664
+          ],
+          [
+            12,
+            126,
+            -0.041666666666666664
+          ],
+          [
+            12,
+            127,
+            -0.041666666666666664
+          ],
+          [
+            12,
+            128,
+            -0.041666666666666664
+          ],
+          [
+            13,
+            129,
+            -0.041666666666666664
+          ],
+          [
+            13,
+            130,
+            -0.041666666666666664
+          ],
+          [
+            13,
+            131,
+            -0.041666666666666664
+          ],
+          [
+            13,
+            132,
+            -0.041666666666666664
+          ],
+          [
+            14,
+            133,
+            -0.041666666666666664
+          ],
+          [
+            14,
+            134,
+            -0.041666666666666664
+          ],
+          [
+            14,
+            135,
+            -0.041666666666666664
+          ],
+          [
+            14,
+            136,
+            -0.041666666666666664
+          ],
+          [
+            15,
+            137,
+            -0.041666666666666664
+          ],
+          [
+            15,
+            138,
+            -0.041666666666666664
+          ],
+          [
+            15,
+            139,
+            -0.041666666666666664
+          ],
+          [
+            15,
+            140,
+            -0.041666666666666664
+          ],
+          [
+            16,
+            141,
+            -0.041666666666666664
+          ],
+          [
+            16,
+            142,
+            -0.041666666666666664
+          ],
+          [
+            16,
+            143,
+            -0.041666666666666664
+          ],
+          [
+            16,
+            144,
+            -0.041666666666666664
+          ],
+          [
+            17,
+            0,
+            0.041666666666666664
+          ],
+          [
+            17,
+            93,
+            -0.041666666666666664
+          ],
+          [
+            17,
+            94,
+            0.041666666666666664
+          ],
+          [
+            18,
+            95,
+            -0.041666666666666664
+          ],
+          [
+            18,
+            96,
+            0.041666666666666664
+          ],
+          [
+            18,
+            97,
+            -0.041666666666666664
+          ],
+          [
+            18,
+            98,
+            0.041666666666666664
+          ],
+          [
+            19,
+            0,
+            0.041666666666666664
+          ],
+          [
+            19,
+            99,
+            -0.041666666666666664
+          ],
+          [
+            19,
+            100,
+            0.041666666666666664
+          ],
+          [
+            20,
+            101,
+            -0.041666666666666664
+          ],
+          [
+            20,
+            102,
+            0.041666666666666664
+          ],
+          [
+            20,
+            103,
+            -0.041666666666666664
+          ],
+          [
+            20,
+            104,
+            0.041666666666666664
+          ],
+          [
+            21,
+            105,
+            -0.041666666666666664
+          ],
+          [
+            21,
+            106,
+            0.041666666666666664
+          ],
+          [
+            21,
+            107,
+            -0.041666666666666664
+          ],
+          [
+            21,
+            108,
+            0.041666666666666664
+          ],
+          [
+            22,
+            109,
+            -0.041666666666666664
+          ],
+          [
+            22,
+            110,
+            0.041666666666666664
+          ],
+          [
+            22,
+            111,
+            -0.041666666666666664
+          ],
+          [
+            22,
+            112,
+            0.041666666666666664
+          ],
+          [
+            23,
+            113,
+            -0.041666666666666664
+          ],
+          [
+            23,
+            114,
+            0.041666666666666664
+          ],
+          [
+            23,
+            115,
+            -0.041666666666666664
+          ],
+          [
+            23,
+            116,
+            0.041666666666666664
+          ],
+          [
+            24,
+            0,
+            -0.08333333333333333
+          ],
+          [
+            25,
+            0,
+            0.041666666666666664
+          ],
+          [
+            25,
+            93,
+            -0.041666666666666664
+          ],
+          [
+            25,
+            94,
+            0.041666666666666664
+          ],
+          [
+            26,
+            95,
+            -0.041666666666666664
+          ],
+          [
+            26,
+            96,
+            0.041666666666666664
+          ],
+          [
+            26,
+            97,
+            -0.041666666666666664
+          ],
+          [
+            26,
+            98,
+            0.041666666666666664
+          ],
+          [
+            27,
+            0,
+            0.041666666666666664
+          ],
+          [
+            27,
+            99,
+            -0.041666666666666664
+          ],
+          [
+            27,
+            100,
+            0.041666666666666664
+          ],
+          [
+            28,
+            101,
+            -0.041666666666666664
+          ],
+          [
+            28,
+            102,
+            0.041666666666666664
+          ],
+          [
+            28,
+            103,
+            -0.041666666666666664
+          ],
+          [
+            28,
+            104,
+            0.041666666666666664
+          ],
+          [
+            29,
+            105,
+            -0.041666666666666664
+          ],
+          [
+            29,
+            106,
+            0.041666666666666664
+          ],
+          [
+            29,
+            107,
+            -0.041666666666666664
+          ],
+          [
+            29,
+            108,
+            0.041666666666666664
+          ],
+          [
+            30,
+            109,
+            -0.041666666666666664
+          ],
+          [
+            30,
+            110,
+            0.041666666666666664
+          ],
+          [
+            30,
+            111,
+            -0.041666666666666664
+          ],
+          [
+            30,
+            112,
+            0.041666666666666664
+          ],
+          [
+            31,
+            113,
+            -0.041666666666666664
+          ],
+          [
+            31,
+            114,
+            0.041666666666666664
+          ],
+          [
+            31,
+            115,
+            -0.041666666666666664
+          ],
+          [
+            31,
+            116,
+            0.041666666666666664
+          ],
+          [
+            32,
+            0,
+            -0.08333333333333333
+          ],
+          [
+            33,
+            0,
+            0.041666666666666664
+          ],
+          [
+            33,
+            65,
+            0.041666666666666664
+          ],
+          [
+            33,
+            66,
+            0.041666666666666664
+          ],
+          [
+            34,
+            0,
+            0.041666666666666664
+          ],
+          [
+            34,
+            67,
+            0.041666666666666664
+          ],
+          [
+            34,
+            68,
+            0.041666666666666664
+          ],
+          [
+            35,
+            69,
+            0.041666666666666664
+          ],
+          [
+            35,
+            70,
+            0.041666666666666664
+          ],
+          [
+            35,
+            71,
+            0.041666666666666664
+          ],
+          [
+            35,
+            72,
+            0.041666666666666664
+          ],
+          [
+            36,
+            73,
+            0.041666666666666664
+          ],
+          [
+            36,
+            74,
+            0.041666666666666664
+          ],
+          [
+            36,
+            75,
+            0.041666666666666664
+          ],
+          [
+            36,
+            76,
+            0.041666666666666664
+          ],
+          [
+            37,
+            77,
+            0.041666666666666664
+          ],
+          [
+            37,
+            78,
+            0.041666666666666664
+          ],
+          [
+            37,
+            79,
+            0.041666666666666664
+          ],
+          [
+            37,
+            80,
+            0.041666666666666664
+          ],
+          [
+            38,
+            81,
+            0.041666666666666664
+          ],
+          [
+            38,
+            82,
+            0.041666666666666664
+          ],
+          [
+            38,
+            83,
+            0.041666666666666664
+          ],
+          [
+            38,
+            84,
+            0.041666666666666664
+          ],
+          [
+            39,
+            85,
+            0.041666666666666664
+          ],
+          [
+            39,
+            86,
+            0.041666666666666664
+          ],
+          [
+            39,
+            87,
+            0.041666666666666664
+          ],
+          [
+            39,
+            88,
+            0.041666666666666664
+          ],
+          [
+            40,
+            89,
+            -0.041666666666666664
+          ],
+          [
+            40,
+            90,
+            -0.041666666666666664
+          ],
+          [
+            40,
+            91,
+            -0.041666666666666664
+          ],
+          [
+            40,
+            92,
+            -0.041666666666666664
+          ],
+          [
+            41,
+            0,
+            0.041666666666666664
+          ],
+          [
+            41,
+            65,
+            0.041666666666666664
+          ],
+          [
+            41,
+            66,
+            0.041666666666666664
+          ],
+          [
+            42,
+            0,
+            0.041666666666666664
+          ],
+          [
+            42,
+            67,
+            0.041666666666666664
+          ],
+          [
+            42,
+            68,
+            0.041666666666666664
+          ],
+          [
+            43,
+            69,
+            0.041666666666666664
+          ],
+          [
+            43,
+            70,
+            0.041666666666666664
+          ],
+          [
+            43,
+            71,
+            0.041666666666666664
+          ],
+          [
+            43,
+            72,
+            0.041666666666666664
+          ],
+          [
+            44,
+            73,
+            0.041666666666666664
+          ],
+          [
+            44,
+            74,
+            0.041666666666666664
+          ],
+          [
+            44,
+            75,
+            0.041666666666666664
+          ],
+          [
+            44,
+            76,
+            0.041666666666666664
+          ],
+          [
+            45,
+            77,
+            0.041666666666666664
+          ],
+          [
+            45,
+            78,
+            0.041666666666666664
+          ],
+          [
+            45,
+            79,
+            0.041666666666666664
+          ],
+          [
+            45,
+            80,
+            0.041666666666666664
+          ],
+          [
+            46,
+            81,
+            0.041666666666666664
+          ],
+          [
+            46,
+            82,
+            0.041666666666666664
+          ],
+          [
+            46,
+            83,
+            0.041666666666666664
+          ],
+          [
+            46,
+            84,
+            0.041666666666666664
+          ],
+          [
+            47,
+            85,
+            0.041666666666666664
+          ],
+          [
+            47,
+            86,
+            0.041666666666666664
+          ],
+          [
+            47,
+            87,
+            0.041666666666666664
+          ],
+          [
+            47,
+            88,
+            0.041666666666666664
+          ],
+          [
+            48,
+            89,
+            -0.041666666666666664
+          ],
+          [
+            48,
+            90,
+            -0.041666666666666664
+          ],
+          [
+            48,
+            91,
+            -0.041666666666666664
+          ],
+          [
+            48,
+            92,
+            -0.041666666666666664
+          ],
+          [
+            49,
+            49,
+            -0.041666666666666664
+          ],
+          [
+            49,
+            50,
+            -0.041666666666666664
+          ],
+          [
+            49,
+            51,
+            -0.041666666666666664
+          ],
+          [
+            49,
+            52,
+            -0.041666666666666664
+          ],
+          [
+            49,
+            53,
+            -0.041666666666666664
+          ],
+          [
+            49,
+            54,
+            -0.041666666666666664
+          ],
+          [
+            49,
+            55,
+            -0.041666666666666664
+          ],
+          [
+            49,
+            56,
+            0.041666666666666664
+          ],
+          [
+            49,
+            57,
+            -0.041666666666666664
+          ],
+          [
+            49,
+            58,
+            -0.041666666666666664
+          ],
+          [
+            49,
+            59,
+            -0.041666666666666664
+          ],
+          [
+            49,
+            60,
+            -0.041666666666666664
+          ],
+          [
+            49,
+            61,
+            -0.041666666666666664
+          ],
+          [
+            49,
+            62,
+            -0.041666666666666664
+          ],
+          [
+            49,
+            63,
+            -0.041666666666666664
+          ],
+          [
+            49,
+            64,
+            0.041666666666666664
+          ],
+          [
+            51,
+            49,
+            -0.041666666666666664
+          ],
+          [
+            51,
+            50,
+            -0.041666666666666664
+          ],
+          [
+            51,
+            51,
+            -0.041666666666666664
+          ],
+          [
+            51,
+            52,
+            -0.041666666666666664
+          ],
+          [
+            51,
+            53,
+            -0.041666666666666664
+          ],
+          [
+            51,
+            54,
+            -0.041666666666666664
+          ],
+          [
+            51,
+            55,
+            -0.041666666666666664
+          ],
+          [
+            51,
+            56,
+            0.041666666666666664
+          ],
+          [
+            51,
+            57,
+            -0.041666666666666664
+          ],
+          [
+            51,
+            58,
+            -0.041666666666666664
+          ],
+          [
+            51,
+            59,
+            -0.041666666666666664
+          ],
+          [
+            51,
+            60,
+            -0.041666666666666664
+          ],
+          [
+            51,
+            61,
+            -0.041666666666666664
+          ],
+          [
+            51,
+            62,
+            -0.041666666666666664
+          ],
+          [
+            51,
+            63,
+            -0.041666666666666664
+          ],
+          [
+            51,
+            64,
+            0.041666666666666664
+          ],
+          [
+            53,
+            17,
+            0.041666666666666664
+          ],
+          [
+            53,
+            18,
+            0.041666666666666664
+          ],
+          [
+            53,
+            19,
+            -0.041666666666666664
+          ],
+          [
+            53,
+            20,
+            0.041666666666666664
+          ],
+          [
+            53,
+            21,
+            0.041666666666666664
+          ],
+          [
+            53,
+            22,
+            0.041666666666666664
+          ],
+          [
+            53,
+            23,
+            0.041666666666666664
+          ],
+          [
+            53,
+            24,
+            0.041666666666666664
+          ],
+          [
+            53,
+            25,
+            0.041666666666666664
+          ],
+          [
+            53,
+            26,
+            0.041666666666666664
+          ],
+          [
+            53,
+            27,
+            -0.041666666666666664
+          ],
+          [
+            53,
+            28,
+            0.041666666666666664
+          ],
+          [
+            53,
+            29,
+            0.041666666666666664
+          ],
+          [
+            53,
+            30,
+            0.041666666666666664
+          ],
+          [
+            53,
+            31,
+            0.041666666666666664
+          ],
+          [
+            53,
+            32,
+            0.041666666666666664
+          ],
+          [
+            54,
+            33,
+            -0.041666666666666664
+          ],
+          [
+            54,
+            34,
+            -0.041666666666666664
+          ],
+          [
+            54,
+            35,
+            -0.041666666666666664
+          ],
+          [
+            54,
+            36,
+            -0.041666666666666664
+          ],
+          [
+            54,
+            37,
+            -0.041666666666666664
+          ],
+          [
+            54,
+            38,
+            -0.041666666666666664
+          ],
+          [
+            54,
+            39,
+            -0.041666666666666664
+          ],
+          [
+            54,
+            40,
+            0.041666666666666664
+          ],
+          [
+            54,
+            41,
+            -0.041666666666666664
+          ],
+          [
+            54,
+            42,
+            -0.041666666666666664
+          ],
+          [
+            54,
+            43,
+            -0.041666666666666664
+          ],
+          [
+            54,
+            44,
+            -0.041666666666666664
+          ],
+          [
+            54,
+            45,
+            -0.041666666666666664
+          ],
+          [
+            54,
+            46,
+            -0.041666666666666664
+          ],
+          [
+            54,
+            47,
+            -0.041666666666666664
+          ],
+          [
+            54,
+            48,
+            0.041666666666666664
+          ],
+          [
+            55,
+            17,
+            0.041666666666666664
+          ],
+          [
+            55,
+            18,
+            0.041666666666666664
+          ],
+          [
+            55,
+            19,
+            -0.041666666666666664
+          ],
+          [
+            55,
+            20,
+            0.041666666666666664
+          ],
+          [
+            55,
+            21,
+            0.041666666666666664
+          ],
+          [
+            55,
+            22,
+            0.041666666666666664
+          ],
+          [
+            55,
+            23,
+            0.041666666666666664
+          ],
+          [
+            55,
+            24,
+            0.041666666666666664
+          ],
+          [
+            55,
+            25,
+            0.041666666666666664
+          ],
+          [
+            55,
+            26,
+            0.041666666666666664
+          ],
+          [
+            55,
+            27,
+            -0.041666666666666664
+          ],
+          [
+            55,
+            28,
+            0.041666666666666664
+          ],
+          [
+            55,
+            29,
+            0.041666666666666664
+          ],
+          [
+            55,
+            30,
+            0.041666666666666664
+          ],
+          [
+            55,
+            31,
+            0.041666666666666664
+          ],
+          [
+            55,
+            32,
+            0.041666666666666664
+          ],
+          [
+            56,
+            33,
+            -0.041666666666666664
+          ],
+          [
+            56,
+            34,
+            -0.041666666666666664
+          ],
+          [
+            56,
+            35,
+            -0.041666666666666664
+          ],
+          [
+            56,
+            36,
+            -0.041666666666666664
+          ],
+          [
+            56,
+            37,
+            -0.041666666666666664
+          ],
+          [
+            56,
+            38,
+            -0.041666666666666664
+          ],
+          [
+            56,
+            39,
+            -0.041666666666666664
+          ],
+          [
+            56,
+            40,
+            0.041666666666666664
+          ],
+          [
+            56,
+            41,
+            -0.041666666666666664
+          ],
+          [
+            56,
+            42,
+            -0.041666666666666664
+          ],
+          [
+            56,
+            43,
+            -0.041666666666666664
+          ],
+          [
+            56,
+            44,
+            -0.041666666666666664
+          ],
+          [
+            56,
+            45,
+            -0.041666666666666664
+          ],
+          [
+            56,
+            46,
+            -0.041666666666666664
+          ],
+          [
+            56,
+            47,
+            -0.041666666666666664
+          ],
+          [
+            56,
+            48,
+            0.041666666666666664
+          ],
+          [
+            57,
+            0,
+            0.08333333333333333
+          ],
+          [
+            58,
+            1,
+            0.041666666666666664
+          ],
+          [
+            58,
+            2,
+            0.041666666666666664
+          ],
+          [
+            58,
+            3,
+            0.041666666666666664
+          ],
+          [
+            58,
+            4,
+            0.041666666666666664
+          ],
+          [
+            58,
+            5,
+            0.041666666666666664
+          ],
+          [
+            58,
+            6,
+            0.041666666666666664
+          ],
+          [
+            58,
+            7,
+            0.041666666666666664
+          ],
+          [
+            58,
+            8,
+            0.041666666666666664
+          ],
+          [
+            58,
+            9,
+            0.041666666666666664
+          ],
+          [
+            58,
+            10,
+            0.041666666666666664
+          ],
+          [
+            58,
+            11,
+            0.041666666666666664
+          ],
+          [
+            58,
+            12,
+            0.041666666666666664
+          ],
+          [
+            58,
+            13,
+            0.041666666666666664
+          ],
+          [
+            58,
+            14,
+            0.041666666666666664
+          ],
+          [
+            58,
+            15,
+            0.041666666666666664
+          ],
+          [
+            58,
+            16,
+            0.041666666666666664
+          ],
+          [
+            59,
+            0,
+            0.08333333333333333
+          ],
+          [
+            60,
+            1,
+            0.041666666666666664
+          ],
+          [
+            60,
+            2,
+            0.041666666666666664
+          ],
+          [
+            60,
+            3,
+            0.041666666666666664
+          ],
+          [
+            60,
+            4,
+            0.041666666666666664
+          ],
+          [
+            60,
+            5,
+            0.041666666666666664
+          ],
+          [
+            60,
+            6,
+            0.041666666666666664
+          ],
+          [
+            60,
+            7,
+            0.041666666666666664
+          ],
+          [
+            60,
+            8,
+            0.041666666666666664
+          ],
+          [
+            60,
+            9,
+            0.041666666666666664
+          ],
+          [
+            60,
+            10,
+            0.041666666666666664
+          ],
+          [
+            60,
+            11,
+            0.041666666666666664
+          ],
+          [
+            60,
+            12,
+            0.041666666666666664
+          ],
+          [
+            60,
+            13,
+            0.041666666666666664
+          ],
+          [
+            60,
+            14,
+            0.041666666666666664
+          ],
+          [
+            60,
+            15,
+            0.041666666666666664
+          ],
+          [
+            60,
+            16,
+            0.041666666666666664
+          ]
+        ],
+        "payoff_shape": [
+          61,
+          145
+        ],
+        "schema_version": "sequence_form_v1",
+        "sequences": [
+          [
+            "()",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 2))), Play(card=1, target='ai', guess=2)),)",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 2))), Play(card=1, target='ai', guess=3)),)",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 2))), Play(card=1, target='ai', guess=4)),)",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 2))), Play(card=1, target='ai', guess=5)),)",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 2))), Play(card=1, target='ai', guess=6)),)",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 2))), Play(card=1, target='ai', guess=7)),)",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 2))), Play(card=1, target='ai', guess=8)),)",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 2))), Play(card=2, target='ai', guess=None)),)",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 1))), Play(card=1, target='ai', guess=2)),)",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 1))), Play(card=1, target='ai', guess=3)),)",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 1))), Play(card=1, target='ai', guess=4)),)",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 1))), Play(card=1, target='ai', guess=5)),)",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 1))), Play(card=1, target='ai', guess=6)),)",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 1))), Play(card=1, target='ai', guess=7)),)",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 1))), Play(card=1, target='ai', guess=8)),)",
+            "(((0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 1))), Play(card=2, target='ai', guess=None)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 3))), Play(card=1, target='ai', guess=2)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 3))), Play(card=1, target='ai', guess=3)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 3))), Play(card=1, target='ai', guess=4)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 3))), Play(card=1, target='ai', guess=5)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 3))), Play(card=1, target='ai', guess=6)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 3))), Play(card=1, target='ai', guess=7)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 3))), Play(card=1, target='ai', guess=8)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 3))), Play(card=3, target='ai', guess=None)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 1))), Play(card=1, target='ai', guess=2)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 1))), Play(card=1, target='ai', guess=3)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 1))), Play(card=1, target='ai', guess=4)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 1))), Play(card=1, target='ai', guess=5)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 1))), Play(card=1, target='ai', guess=6)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 1))), Play(card=1, target='ai', guess=7)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 1))), Play(card=1, target='ai', guess=8)),)",
+            "(((0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 1))), Play(card=3, target='ai', guess=None)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 4))), Play(card=1, target='ai', guess=2)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 4))), Play(card=1, target='ai', guess=3)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 4))), Play(card=1, target='ai', guess=4)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 4))), Play(card=1, target='ai', guess=5)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 4))), Play(card=1, target='ai', guess=6)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 4))), Play(card=1, target='ai', guess=7)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 4))), Play(card=1, target='ai', guess=8)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 1))), Play(card=1, target='ai', guess=2)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 1))), Play(card=1, target='ai', guess=3)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 1))), Play(card=1, target='ai', guess=4)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 1))), Play(card=1, target='ai', guess=5)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 1))), Play(card=1, target='ai', guess=6)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 1))), Play(card=1, target='ai', guess=7)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 1))), Play(card=1, target='ai', guess=8)),)",
+            "(((0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 1))), Play(card=4, target=None, guess=None)),)",
+            "(((0, (5, 5, 6, 7), (2, 3), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 3))), Play(card=2, target='ai', guess=None)),)",
+            "(((0, (5, 5, 6, 7), (2, 3), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 3))), Play(card=3, target='ai', guess=None)),)",
+            "(((0, (5, 5, 6, 7), (2, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 2))), Play(card=2, target='ai', guess=None)),)",
+            "(((0, (5, 5, 6, 7), (2, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 2))), Play(card=3, target='ai', guess=None)),)",
+            "(((0, (5, 5, 6, 7), (2, 4), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 4))), Play(card=2, target='ai', guess=None)),)",
+            "(((0, (5, 5, 6, 7), (2, 4), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((0, (5, 5, 6, 7), (2, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 2))), Play(card=2, target='ai', guess=None)),)",
+            "(((0, (5, 5, 6, 7), (2, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 2))), Play(card=4, target=None, guess=None)),)",
+            "(((0, (5, 5, 6, 7), (3, 4), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 4))), Play(card=3, target='ai', guess=None)),)",
+            "(((0, (5, 5, 6, 7), (3, 4), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((0, (5, 5, 6, 7), (3, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 3))), Play(card=3, target='ai', guess=None)),)",
+            "(((0, (5, 5, 6, 7), (3, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 3))), Play(card=4, target=None, guess=None)),)"
+          ],
+          [
+            "()",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 2))), Play(card=1, target='player', guess=2)),)",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 2))), Play(card=1, target='player', guess=3)),)",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 2))), Play(card=1, target='player', guess=4)),)",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 2))), Play(card=1, target='player', guess=5)),)",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 2))), Play(card=1, target='player', guess=6)),)",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 2))), Play(card=1, target='player', guess=7)),)",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 2))), Play(card=1, target='player', guess=8)),)",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 2))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 1))), Play(card=1, target='player', guess=2)),)",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 1))), Play(card=1, target='player', guess=3)),)",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 1))), Play(card=1, target='player', guess=4)),)",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 1))), Play(card=1, target='player', guess=5)),)",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 1))), Play(card=1, target='player', guess=6)),)",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 1))), Play(card=1, target='player', guess=7)),)",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 1))), Play(card=1, target='player', guess=8)),)",
+            "(((1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 1))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=1, target='player', guess=2)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=1, target='player', guess=3)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=1, target='player', guess=4)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=1, target='player', guess=5)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=1, target='player', guess=6)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=1, target='player', guess=7)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=1, target='player', guess=8)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=1, target='player', guess=2)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=1, target='player', guess=3)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=1, target='player', guess=4)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=1, target='player', guess=5)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=1, target='player', guess=6)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=1, target='player', guess=7)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=1, target='player', guess=8)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=1, target='player', guess=2)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=1, target='player', guess=3)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=1, target='player', guess=4)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=1, target='player', guess=5)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=1, target='player', guess=6)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=1, target='player', guess=7)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=1, target='player', guess=8)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=1, target='player', guess=2)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=1, target='player', guess=3)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=1, target='player', guess=4)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=1, target='player', guess=5)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=1, target='player', guess=6)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=1, target='player', guess=7)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=1, target='player', guess=8)),)",
+            "(((1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 1))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 4))), Play(card=1, target='player', guess=2)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 4))), Play(card=1, target='player', guess=3)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 4))), Play(card=1, target='player', guess=4)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 4))), Play(card=1, target='player', guess=5)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 4))), Play(card=1, target='player', guess=6)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 4))), Play(card=1, target='player', guess=7)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 4))), Play(card=1, target='player', guess=8)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 1))), Play(card=1, target='player', guess=2)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 1))), Play(card=1, target='player', guess=3)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 1))), Play(card=1, target='player', guess=4)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 1))), Play(card=1, target='player', guess=5)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 1))), Play(card=1, target='player', guess=6)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 1))), Play(card=1, target='player', guess=7)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 1))), Play(card=1, target='player', guess=8)),)",
+            "(((1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 1))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 3))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 2))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 2))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))), Play(card=2, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 4))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 4))), Play(card=4, target=None, guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 3))), Play(card=3, target='player', guess=None)),)",
+            "(((1, (5, 5, 6, 7), (3, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 3))), Play(card=4, target=None, guess=None)),)"
+          ]
+        ],
+        "tree_audit": {
+          "chance_histories": 217,
+          "decision_histories": 240,
+          "failures": [],
+          "histories": 1081,
+          "information_sets": 60,
+          "maximum_depth": 5,
+          "passed": true,
+          "perfect_recall": true,
+          "terminal_histories": 624
+        }
+      },
+      "value": 0.16666666666666666
+    }
+  },
+  "new_dependencies": [],
+  "passed": true,
+  "runtime_changes": false,
+  "schema_version": "generic_sequence_form_audit_v1",
+  "scope": "finite_two_player_zero_sum_perfect_recall_small_audited_trees"
+}
