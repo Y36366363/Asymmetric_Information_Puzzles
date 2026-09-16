@@ -5,6 +5,18 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 09/16/2026
+
+- **Sequence-form compilation and solving can now stay sparse internally** —
+  Coordinate storage and optional SciPy/HiGHS CSR LPs avoid dense Cartesian
+  payoff allocation. The base install retains its dependency-free simplex.
+- **Full Love Letter runtime now fails closed explicitly** — Local and browser
+  sessions expose heuristic/uncertified status and reject epsilon-GTO requests.
+  A complete-round audit exceeded one million histories in 44.38 seconds;
+  full-game certification remains unfinished rather than falsely promoted.
+  The sparse four-card subgame LP passes independent exploitability at zero.
+  [Read the sparse LP and full-round boundary report](research/sparse_love_letter_2026-09-16.md).
+
 ## Updates 09/15/2026
 
 - **Generic sequence-form compilation now works from audited adapters** — One

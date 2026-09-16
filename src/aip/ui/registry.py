@@ -2640,6 +2640,8 @@ class LoveLetterGameSession:
     """Player-facing two-player Love Letter match with a belief-only AI."""
 
     def __init__(self, options: dict[str, object]) -> None:
+        if options.get("mode", "heuristic") != "heuristic":
+            raise ValueError("full Love Letter is not independently certified; only heuristic mode is available")
         seed = int(options.get("seed", random.SystemRandom().randrange(2**32)))
         self.game = LoveLetterGame(random.Random(seed))
 
@@ -2690,6 +2692,9 @@ class LoveLetterGameSession:
             "matchWinner": game.round_winner if game.phase == "match_finished" else None,
             "legalActions": legal_actions,
             "strategyScope": "remaining-card belief heuristic without hidden-hand access",
+            "strategyEvidence": "heuristic",
+            "certificationStatus": "full_round_not_independently_certified",
+            "epsilonGtoRuntimeAllowed": False,
             "informationSet": {
                 "possibleCards": [{"value": value, "count": count, "probability": count / total if total else 0.0} for value, count in sorted(belief.items())],
                 "knownOpponentCard": game.known_hand["player"],

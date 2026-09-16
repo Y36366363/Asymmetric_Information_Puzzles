@@ -148,8 +148,12 @@ class LocalGameUITests(unittest.TestCase):
         self.assertLessEqual(state["round"], state["maxRounds"])
 
     def test_love_letter_hides_ai_hand_and_completes_a_match(self) -> None:
+        with self.assertRaisesRegex(ValueError, "not independently certified"):
+            self.service.create_session("love-letter", {"mode": "epsilon-gto"})
         created = self.service.create_session("love-letter", {"seed": 37})
         state = created["state"]
+        self.assertFalse(state["epsilonGtoRuntimeAllowed"])
+        self.assertEqual(state["strategyEvidence"], "heuristic")
         self.assertIsNone(state["opponentHand"])
         for _step in range(100):
             if state["phase"] == "match_finished":

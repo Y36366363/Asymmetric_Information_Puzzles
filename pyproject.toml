@@ -13,6 +13,7 @@ authors = [{name = "AIP Contributors"}]
 dependencies = []
 
 [project.optional-dependencies]
+sparse-lp = ["scipy>=1.13,<2"]
 llm = ["openai>=2.14.0,<3"]
 
 [project.scripts]

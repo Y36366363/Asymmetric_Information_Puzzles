@@ -9,6 +9,14 @@ from aip.core.tree_evaluation import audit_small_extensive_form
 
 
 @dataclass(frozen=True)
+class SparseMatrix:
+    """Dependency-free coordinate storage; never allocate implicit zero cells."""
+
+    shape: tuple
+    entries: tuple
+
+
+@dataclass(frozen=True)
 class SequenceForm:
     player_sequences: tuple
     information_sets: tuple
@@ -19,19 +27,18 @@ class SequenceForm:
 
     def to_artifact(self):
         """Sparse export; indices refer to the accompanying canonical sequences."""
+        def entries(matrix):
+            if isinstance(matrix, SparseMatrix):
+                return [list(entry) for entry in matrix.entries]
+            return [[i, j, v] for i, row in enumerate(matrix)
+                    for j, v in enumerate(row) if v]
         return {
             "schema_version": "sequence_form_v1",
             "sequences": [[repr(s) for s in seqs] for seqs in self.player_sequences],
             "flow_rhs": self.flow_rhs,
-            "flow_entries": [
-                [[i, j, v] for i, row in enumerate(matrix)
-                 for j, v in enumerate(row) if v]
-                for matrix in self.flow_matrices
-            ],
+            "flow_entries": [entries(matrix) for matrix in self.flow_matrices],
             "payoff_shape": list(map(len, self.player_sequences)),
-            "payoff_entries": [[i, j, v]
-                               for i, row in enumerate(self.payoff_matrix)
-                               for j, v in enumerate(row) if v],
+            "payoff_entries": entries(self.payoff_matrix),
             "tree_audit": self.audit.to_artifact(),
         }
 
@@ -39,6 +46,7 @@ class SequenceForm:
 def compile_sequence_form(
     game: ExtensiveFormGame, *, game_properties: CFRGameProperties,
     maximum_histories=100_000, maximum_matrix_cells=250_000,
+    sparse=False, maximum_nonzeros=1_000_000,
 ):
     """Require declared two-player zero sum and audited perfect recall.
 
@@ -49,8 +57,8 @@ def compile_sequence_form(
         or not game_properties.zero_sum_or_constant_sum
         or not game_properties.perfect_recall):
         raise ValueError("sequence form requires finite two-player zero-sum perfect recall")
-    if maximum_matrix_cells <= 0:
-        raise ValueError("matrix budget must be positive")
+    if maximum_matrix_cells <= 0 or maximum_nonzeros <= 0:
+        raise ValueError("matrix budgets must be positive")
     audit = audit_small_extensive_form(game, maximum_histories=maximum_histories)
     if not audit.passed:
         raise ValueError("adapter audit failed: " + ", ".join(audit.failures))
@@ -80,31 +88,47 @@ def compile_sequence_form(
 
     traverse(game.initial_state(), ((), ()), 1.0)
     ordered = tuple(tuple(sorted(s, key=lambda x: (len(x), repr(x)))) for s in sequences)
-    if len(ordered[0]) * len(ordered[1]) > maximum_matrix_cells:
+    if not sparse and len(ordered[0]) * len(ordered[1]) > maximum_matrix_cells:
         raise OverflowError("sequence payoff matrix exceeds declared cell budget")
     indices = tuple({s: i for i, s in enumerate(seqs)} for seqs in ordered)
     flows, rhs, definitions = [], [], []
     for player in (0, 1):
         rows = []
-        root = [0.0] * len(ordered[player])
-        root[0] = 1.0
-        rows.append(tuple(root))
+        coordinates = [(0, 0, 1.0)]
         infos = tuple(sorted(tables[player], key=repr))
         definitions.append(tuple((info, *tables[player][info]) for info in infos))
-        for info in infos:
+        for row_index, info in enumerate(infos, 1):
             parent, actions = tables[player][info]
-            row = [0.0] * len(ordered[player])
-            row[indices[player][parent]] = -1.0
+            coordinates.append((row_index, indices[player][parent], -1.0))
             for action in actions:
-                row[indices[player][parent + ((info, action),)]] = 1.0
-            rows.append(tuple(row))
-        flows.append(tuple(rows))
+                coordinates.append((row_index, indices[player][parent + ((info, action),)], 1.0))
+        if sparse:
+            flows.append(SparseMatrix((len(infos)+1, len(ordered[player])), tuple(coordinates)))
+        else:
+            rows = [[0.0] * len(ordered[player]) for _ in range(len(infos)+1)]
+            for i, j, v in coordinates:
+                rows[i][j] = v
+            flows.append(tuple(map(tuple, rows)))
         rhs.append((1.0,) + (0.0,) * len(infos))
-    payoff = [[0.0] * len(ordered[1]) for _ in ordered[0]]
+    payoff_entries = []
     for (zero, one), contributions in terminals.items():
-        payoff[indices[0][zero]][indices[1][one]] = fsum(contributions)
+        value = fsum(contributions)
+        if value:
+            payoff_entries.append((indices[0][zero], indices[1][one], value))
+    nonzeros = len(payoff_entries) + sum(
+        len(m.entries) if isinstance(m, SparseMatrix)
+        else sum(bool(v) for row in m for v in row) for m in flows)
+    if nonzeros > maximum_nonzeros:
+        raise OverflowError("sequence matrices exceed declared nonzero budget")
+    if sparse:
+        payoff = SparseMatrix(tuple(map(len, ordered)), tuple(sorted(payoff_entries)))
+    else:
+        payoff = [[0.0] * len(ordered[1]) for _ in ordered[0]]
+        for i, j, v in payoff_entries:
+            payoff[i][j] = v
+        payoff = tuple(map(tuple, payoff))
     return SequenceForm(ordered, tuple(definitions), tuple(flows), tuple(rhs),
-                        tuple(map(tuple, payoff)), audit)
+                        payoff, audit)
 
 
 def _maximize_plan(payoff, row_flow, row_rhs, column_flow, column_rhs):
@@ -131,12 +155,45 @@ class SequenceFormSolution:
     policy: dict
     maximum_flow_residual: float
     primal_dual_gap: float
+    backend: str = "internal_simplex"
 
 
-def solve_sequence_form(form: SequenceForm, *, tolerance=1e-8):
+def solve_sequence_form(form: SequenceForm, *, tolerance=1e-8,
+                        backend="internal_simplex", time_limit=60.0):
     """Solve both seats' LPs; refuse infeasible flow or primal-dual disagreement."""
     if not isfinite(tolerance) or tolerance <= 0:
         raise ValueError("LP tolerance must be finite and positive")
+    if backend not in {"internal_simplex", "scipy_highs"}:
+        raise ValueError("unknown sequence-form backend")
+    if not isfinite(time_limit) or time_limit <= 0:
+        raise ValueError("LP time limit must be finite and positive")
+    if backend == "scipy_highs":
+        from aip.core.sparse_lp import solve_sparse_plans
+        values, plans, residual = solve_sparse_plans(form, time_limit=time_limit)
+    else:
+        if isinstance(form.payoff_matrix, SparseMatrix):
+            raise ValueError("sparse representation requires scipy_highs backend")
+        values, plans, residual = _solve_dense_plans(form)
+    gap = abs(fsum(values))
+    if (not isfinite(residual) or not isfinite(gap)
+        or any(not isfinite(v) for plan in plans for v in plan)
+        or residual > tolerance or gap > tolerance):
+        raise ValueError("sequence-form LP failed flow or primal-dual gate")
+    policy = {}
+    for p in (0, 1):
+        index = {s: i for i, s in enumerate(form.player_sequences[p])}
+        for info, parent, actions in form.information_sets[p]:
+            weights = [plans[p][index[parent + ((info, a),)]] for a in actions]
+            total = fsum(weights)
+            policy[(p, info)] = dict(zip(actions, (
+                [w / total for w in weights] if total > 1e-12
+                else [1 / len(actions)] * len(actions))))
+    return SequenceFormSolution(values[0], tuple(
+        dict(zip(form.player_sequences[p], plans[p])) for p in (0, 1)),
+        policy, residual, gap, backend)
+
+
+def _solve_dense_plans(form):
     values, plans = [], []
     for player in (0, 1):
         payoff = form.payoff_matrix if player == 0 else tuple(
@@ -150,18 +207,4 @@ def solve_sequence_form(form: SequenceForm, *, tolerance=1e-8):
     residual = max(abs(fsum(a*b for a, b in zip(row, plans[p])) - target)
                    for p in (0, 1)
                    for row, target in zip(form.flow_matrices[p], form.flow_rhs[p]))
-    gap = abs(fsum(values))
-    if residual > tolerance or gap > tolerance:
-        raise ValueError("sequence-form LP failed flow or primal-dual gate")
-    policy = {}
-    for p in (0, 1):
-        index = {s: i for i, s in enumerate(form.player_sequences[p])}
-        for info, parent, actions in form.information_sets[p]:
-            weights = [plans[p][index[parent + ((info, a),)]] for a in actions]
-            total = fsum(weights)
-            policy[(p, info)] = dict(zip(actions, (
-                [w / total for w in weights] if total > 1e-12
-                else [1 / len(actions)] * len(actions))))
-    return SequenceFormSolution(values[0], tuple(
-        dict(zip(form.player_sequences[p], plans[p])) for p in (0, 1)),
-        policy, residual, gap)
+    return values, plans, residual

@@ -4,6 +4,17 @@ import test from "node:test";
 const worker = (await import("../dist/server/index.js")).default;
 const call = (path, init) => worker.fetch(new Request(`https://aip.test${path}`, init));
 
+test("full Love Letter refuses uncertified epsilon-GTO and labels heuristic scope", async () => {
+  const create = (options) => call("/api/sessions", {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId:"love-letter",options})});
+  const rejected = await create({mode:"epsilon-gto"});
+  assert.equal(rejected.status, 400);
+  const created = await create({mode:"heuristic"});
+  const {state} = await created.json();
+  assert.equal(state.strategyEvidence, "heuristic");
+  assert.equal(state.epsilonGtoRuntimeAllowed, false);
+  assert.equal(state.certificationStatus, "full_round_not_independently_certified");
+});
+
 test("serves the bilingual lobby and all playable descriptors", async () => {
   const health = await call("/api/health");
   assert.equal((await health.json()).apiVersion, 4);
