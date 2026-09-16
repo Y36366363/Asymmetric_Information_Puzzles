@@ -14603,7 +14603,7 @@ class GuessWhoSession{
 const LOVE_NAMES={1:"Guard",2:"Priest",3:"Baron",4:"Handmaid",5:"Prince",6:"King",7:"Countess",8:"Princess"};
 const LOVE_COUNTS={1:5,2:2,3:2,4:2,5:2,6:1,7:1,8:1};
 class LoveLetterSession{
-  constructor(){this.targetScore=4;this.scores={player:0,ai:0};this.round=0;this.startRound();}
+  constructor(options={}){if((options.mode??"heuristic")!=="heuristic")throw new Error("full Love Letter is not independently certified; only heuristic mode is available");this.targetScore=4;this.scores={player:0,ai:0};this.round=0;this.startRound();}
   other(actor){return actor==="player"?"ai":"player";}
   startRound(){
     this.round+=1;const deck=[];
@@ -14683,7 +14683,7 @@ class LoveLetterSession{
   }
   snapshot(){
     const finished=["round_finished","match_finished"].includes(this.phase),belief=this.belief("player"),total=Object.values(belief).reduce((a,b)=>a+b,0),suggestion=this.phase==="player_turn"?this.choose("player"):null;
-    return{gameId:"love-letter",phase:this.phase,roundNumber:this.round,targetScore:this.targetScore,scores:this.scores,playerHand:this.hands.player,opponentCardCount:this.hands.ai.length,opponentHand:finished?this.hands.ai:null,deckRemaining:this.deck.length,faceUpRemoved:this.faceUp,discards:this.discards,protected:this.protected,cardCatalog:Object.entries(LOVE_NAMES).map(([value,name])=>({value:Number(value),name,count:LOVE_COUNTS[value]})),legalCards:this.phase==="player_turn"?this.legalCards("player"):[],suggestedPlay:suggestion,history:this.history,roundResult:finished?{winner:this.roundWinner,reason:this.roundReason}:null,matchWinner:this.phase==="match_finished"?this.roundWinner:null,legalActions:this.phase==="player_turn"?["play_card"]:(this.phase==="round_finished"?["next_round"]:["new_match"]),strategyScope:"remaining-card belief heuristic without hidden-hand access",informationSet:{possibleCards:Object.entries(belief).map(([value,count])=>({value:Number(value),count,probability:total?count/total:0})),knownOpponentCard:this.known.player,publicHistory:this.history}};
+    return{gameId:"love-letter",strategyEvidence:"heuristic",certificationStatus:"full_round_not_independently_certified",epsilonGtoRuntimeAllowed:false,phase:this.phase,roundNumber:this.round,targetScore:this.targetScore,scores:this.scores,playerHand:this.hands.player,opponentCardCount:this.hands.ai.length,opponentHand:finished?this.hands.ai:null,deckRemaining:this.deck.length,faceUpRemoved:this.faceUp,discards:this.discards,protected:this.protected,cardCatalog:Object.entries(LOVE_NAMES).map(([value,name])=>({value:Number(value),name,count:LOVE_COUNTS[value]})),legalCards:this.phase==="player_turn"?this.legalCards("player"):[],suggestedPlay:suggestion,history:this.history,roundResult:finished?{winner:this.roundWinner,reason:this.roundReason}:null,matchWinner:this.phase==="match_finished"?this.roundWinner:null,legalActions:this.phase==="player_turn"?["play_card"]:(this.phase==="round_finished"?["next_round"]:["new_match"]),strategyScope:"remaining-card belief heuristic without hidden-hand access",informationSet:{possibleCards:Object.entries(belief).map(([value,count])=>({value:Number(value),count,probability:total?count/total:0})),knownOpponentCard:this.known.player,publicHistory:this.history}};
   }
 }
 
