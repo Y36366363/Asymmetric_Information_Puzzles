@@ -64,6 +64,7 @@ To run the local lobby:
 git clone https://github.com/Y36366363/Asymmetric_Information_Puzzles.git
 cd Asymmetric_Information_Puzzles
 PYTHONPATH=src python -m aip play
+```
 
 Research protocols, experiment artifacts, and evaluation reports are stored in [`research/`](research/). Technical and design documentation is stored in [`docs/`](docs/).
 
