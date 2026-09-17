@@ -1,0 +1,53 @@
+{
+  "checkpoint_path": "research/local_checkpoints/love_letter_full_round.sqlite",
+  "chunks": [
+    {
+      "chance_histories": 2368,
+      "complete": false,
+      "decision_histories": 2377,
+      "equilibrium_certified": false,
+      "failures": [],
+      "frontier_nodes": 82,
+      "histories": 8739,
+      "information_sets": 1586,
+      "maximum_depth": 26,
+      "revision": "1bf048581b0721ffc301eea458966c5c3dfd02a9857c96076f722937d0bc08d8",
+      "status": "paused",
+      "structural_audit_passed": false,
+      "terminal_histories": 3994
+    },
+    {
+      "chance_histories": 3108,
+      "complete": false,
+      "decision_histories": 3227,
+      "equilibrium_certified": false,
+      "failures": [],
+      "frontier_nodes": 77,
+      "histories": 11581,
+      "information_sets": 2148,
+      "maximum_depth": 26,
+      "revision": "1bf048581b0721ffc301eea458966c5c3dfd02a9857c96076f722937d0bc08d8",
+      "status": "paused",
+      "structural_audit_passed": false,
+      "terminal_histories": 5246
+    },
+    {
+      "chance_histories": 5055,
+      "complete": false,
+      "decision_histories": 5483,
+      "equilibrium_certified": false,
+      "failures": [],
+      "frontier_nodes": 77,
+      "histories": 18998,
+      "information_sets": 3285,
+      "maximum_depth": 26,
+      "revision": "1bf048581b0721ffc301eea458966c5c3dfd02a9857c96076f722937d0bc08d8",
+      "status": "paused",
+      "structural_audit_passed": false,
+      "terminal_histories": 8460
+    }
+  ],
+  "full_round_certified": false,
+  "subgame_exploitability": 0.0,
+  "subgame_value": 0.16666666666666663
+}

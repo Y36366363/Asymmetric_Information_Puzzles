@@ -49,6 +49,7 @@ def main() -> int:
             "--test",
             "web/tests/public-worker.test.mjs",
             "web/tests/static-build.test.mjs",
+            "web/tests/local-policy.test.mjs",
         ],
     )
     print("\nAIP verification passed.")

@@ -5,6 +5,17 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+## Updates 09/17/2026
+
+- **Full Love Letter auditing can now resume locally** — Transactional SQLite
+  checkpoints persist compact information-set/recall IDs and a replay frontier.
+  Real close/reopen runs reached 18,998 histories; partial progress cannot certify
+  a game and complete small-game statistics match the prior oracle.
+- **Local certified strategies now have a browser-format export path** — The
+  exact four-card subgame policy roundtrips through portable JSON and Node tests.
+  Scope guards remain explicit: this is not full-round GTO or a new browser AI.
+  [Read the checkpoint and export milestone](research/love_letter_local_checkpoint_2026-09-17.md).
+
 ## Updates 09/16/2026
 
 - **Sequence-form compilation and solving can now stay sparse internally** —
