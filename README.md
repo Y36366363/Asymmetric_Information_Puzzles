@@ -66,6 +66,12 @@ cd Asymmetric_Information_Puzzles
 PYTHONPATH=src python -m aip play
 ```
 
+To run the project verification script:
+
+    python scripts/verify.py
+
+The verification includes Python and browser-related checks. Node.js must be available for the browser checks; see the detailed Tests section for an explicit Node path.
+
 Research protocols, experiment artifacts, and evaluation reports are stored in [`research/`](research/). Technical and design documentation is stored in [`docs/`](docs/).
 
 <details>
