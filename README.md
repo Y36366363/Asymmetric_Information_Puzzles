@@ -5,6 +5,71 @@
 > · [Local lobby / 本地大厅](http://127.0.0.1:8765/)
 > · [GitHub repository](https://github.com/Y36366363/Asymmetric_Information_Puzzles)
 
+AIP is an auditable research platform for studying how AI agents reason, learn, and transfer strategic principles across heterogeneous asymmetric-information games.
+
+Rather than treating the number of implemented games as the main contribution, the project uses playable environments as controlled test beds for strategic decision-making, belief tracking, robustness, and cross-game transfer.
+
+## Research Question
+
+> Can a general strategic-reasoning agent transfer reusable principles across heterogeneous imperfect-information games, and can that transfer be evaluated with transparent, reproducible, and game-appropriate evidence?
+
+AIP separates three related goals:
+
+1. **Playable interaction** — bilingual browser games that expose hidden information, beliefs, decisions, and post-round feedback.
+2. **Strategic evaluation** — exact or bounded measurements of decision quality whenever the implemented game permits them.
+3. **Cross-game research** — controlled experiments testing whether experience or memory from one environment improves performance in a held-out environment.
+
+## Project at a Glance
+
+- A modular Python framework for asymmetric- and imperfect-information environments.
+- A bilingual browser-based laboratory with 15 playable games and puzzles.
+- Exact solvers and independent best-response checks for selected finite games.
+- Reproducible experiment runners with fixed conditions, seeds, traces, and usage accounting.
+- Evidence-aware metrics that distinguish exact optimality, bounded approximation, heuristic agreement, and exploratory observations.
+- Post-round audit interfaces that reveal strategic evidence without leaking private information during play.
+
+## Evaluation Framework
+
+| Dimension | What is evaluated | Example evidence |
+|---|---|---|
+| Decision quality | Whether an agent chooses strategically strong actions | Exact regret, policy agreement, expected value |
+| Belief quality | Whether reported beliefs match the hidden-state distribution | Brier score, log loss, calibration distance |
+| Exploitability | Whether another policy can systematically exploit the agent | Independent best-response evaluation |
+| Robustness | Whether results persist across randomness and opponent changes | Repeated seeds, opponent-shift tests |
+| Reliability | Whether an agent consistently completes valid decisions | Completion rate, retries, parse failures |
+| Transfer | Whether reusable strategic experience helps on a held-out game | Preregistered cross-game comparisons |
+
+Not every metric is valid for every game. Exact regret and exploitability are reported only when the implemented rules and solver support those claims.
+
+## Evidence Boundaries
+
+AIP uses explicit evidence labels:
+
+- **Exact** — derived from exhaustive enumeration, dynamic programming, linear programming, or an independently verified exact solver.
+- **ε-GTO / bounded** — accompanied by a declared numerical threshold and an independent exploitability check.
+- **Strong heuristic** — empirically or analytically motivated, but not claimed to be optimal.
+- **Exploratory** — useful for generating hypotheses, not for establishing a general research conclusion.
+
+Small pilot experiments demonstrate that the evaluation pipeline can detect policy differences, but they do not yet establish broad cross-game transfer or general model superiority.
+
+## Reproducibility
+
+The public browser version can be opened directly:
+
+- [Play AIP online](https://y36366363.github.io/Asymmetric_Information_Puzzles/)
+
+To run the local lobby:
+
+```bash
+git clone https://github.com/Y36366363/Asymmetric_Information_Puzzles.git
+cd Asymmetric_Information_Puzzles
+PYTHONPATH=src python -m aip play
+
+Research protocols, experiment artifacts, and evaluation reports are stored in [`research/`](research/). Technical and design documentation is stored in [`docs/`](docs/).
+
+<details>
+<summary><strong>Development log / 开发更新记录</strong></summary>
+
 ## Updates 09/17/2026
 
 - **Full Love Letter auditing can now resume locally** — Transactional SQLite
@@ -15,6 +80,7 @@
   exact four-card subgame policy roundtrips through portable JSON and Node tests.
   Scope guards remain explicit: this is not full-round GTO or a new browser AI.
   [Read the checkpoint and export milestone](research/love_letter_local_checkpoint_2026-09-17.md).
+
 
 ## Updates 09/16/2026
 
@@ -1090,6 +1156,10 @@
 - **Public-knowledge hat solver** — Added finite-world information sets,
   simultaneous public announcements, repeated world elimination, and explicit
   discovery-delay traces for arbitrary two-colour hat configurations.
+
+</details>
+
+## Detailed Game and Technical Documentation
 
 AIP is a modular Python environment for exploring dynamic games, backward
 induction, common knowledge, information sets, and robust strategies.
