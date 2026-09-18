@@ -32,12 +32,23 @@ class ResumableTreeAudit:
                                      decision_histories=0, maximum_depth=0, failures=[])
                 self._save()
                 self.connection.commit()
+            self._load_infos()
         except Exception:
             self.connection.close()
             raise
 
     def close(self):
         self.connection.close()
+
+    def _load_infos(self):
+        self._infos = {
+            (player, info): (identifier, actions, recall)
+            for identifier, player, info, actions, recall in self.connection.execute(
+                "SELECT id, player, info, actions, recall FROM infos"
+            )
+        }
+        self._persisted_info_ids = {value[0] for value in self._infos.values()}
+        self._next_info_id = max(self._persisted_info_ids, default=0) + 1
 
     def _save(self):
         self.connection.execute("INSERT OR REPLACE INTO progress VALUES (1, ?)",
@@ -73,8 +84,7 @@ class ResumableTreeAudit:
                 raise ValueError('invalid_checkpoint_action_index')
             if player is not None:
                 info = repr(self.game.information_set(state))
-                row = self.connection.execute("SELECT id FROM infos WHERE player=? AND info=?",
-                                              (player, info)).fetchone()
+                row = self._infos.get((player, info))
                 if row is None:
                     raise ValueError('checkpoint_ancestor_information_set_missing')
                 recall[player].append([row[0], index])
@@ -88,6 +98,9 @@ class ResumableTreeAudit:
             raise ValueError('chunk budgets must be positive and finite')
         # Restore in-memory progress if any operation fails before commit.
         original = json.dumps(self.progress)
+        original_infos = dict(self._infos)
+        original_next_info_id = self._next_info_id
+        original_persisted_info_ids = set(self._persisted_info_ids)
         started = monotonic()
         processed = 0
         try:
@@ -111,14 +124,15 @@ class ResumableTreeAudit:
                                 info = repr(self.game.information_set(state))
                                 serialized_actions = json.dumps([repr(a) for a in actions])
                                 serialized_recall = json.dumps(recall[player])
-                                row = self.connection.execute("SELECT actions, recall FROM infos WHERE player=? AND info=?",
-                                                              (player, info)).fetchone()
+                                row = self._infos.get((player, info))
                                 if row is None:
-                                    self.connection.execute("INSERT INTO infos(player,info,actions,recall) VALUES (?,?,?,?)",
-                                                            (player, info, serialized_actions, serialized_recall))
-                                elif row[0] != serialized_actions:
+                                    self._infos[(player, info)] = (
+                                        self._next_info_id, serialized_actions,
+                                        serialized_recall)
+                                    self._next_info_id += 1
+                                elif row[1] != serialized_actions:
                                     raise ValueError('inconsistent_information_set_actions')
-                                elif row[1] != serialized_recall:
+                                elif row[2] != serialized_recall:
                                     raise ValueError('imperfect_recall')
                             self.progress['frontier'].extend(path+[i] for i in reversed(range(len(actions))))
                     except ValueError as error:
@@ -126,9 +140,22 @@ class ResumableTreeAudit:
                     self.progress['histories'] += 1
                     self.progress['maximum_depth'] = max(self.progress['maximum_depth'], len(path))
                     processed += 1
+                fresh = [
+                    (identifier, player, info, actions, recall)
+                    for (player, info), (identifier, actions, recall) in self._infos.items()
+                    if identifier not in self._persisted_info_ids
+                ]
+                self.connection.executemany(
+                    "INSERT INTO infos(id,player,info,actions,recall) VALUES (?,?,?,?,?)",
+                    fresh,
+                )
+                self._persisted_info_ids.update(row[0] for row in fresh)
                 self._save()
         except Exception:
             self.progress = json.loads(original)
+            self._infos = original_infos
+            self._next_info_id = original_next_info_id
+            self._persisted_info_ids = original_persisted_info_ids
             raise
         return self.report()
 
@@ -136,7 +163,7 @@ class ResumableTreeAudit:
         complete = not self.progress['frontier'] and not self.progress['failures']
         return {k: v for k, v in self.progress.items() if k != 'frontier'} | {
             'frontier_nodes': len(self.progress['frontier']),
-            'information_sets': self.connection.execute('SELECT COUNT(*) FROM infos').fetchone()[0],
+            'information_sets': len(self._infos),
             'complete': complete,
             'structural_audit_passed': complete,
             'equilibrium_certified': False,

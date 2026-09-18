@@ -51,12 +51,14 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--chunks', type=int, default=3)
     parser.add_argument('--histories-per-chunk', type=int, default=10_000)
+    parser.add_argument('--refresh-subgame-policy', action='store_true',
+                        help='also regenerate the already-certified four-card policy')
     args = parser.parse_args()
     if args.chunks <= 0 or args.histories_per_chunk <= 0:
         parser.error('budgets must be positive')
     folder = ROOT/'research/local_checkpoints'
     folder.mkdir(exist_ok=True)
-    checkpoint = folder/'love_letter_full_round.sqlite'
+    checkpoint = folder/'love_letter_full_round_v2.sqlite'
     progress = []
     for _ in range(args.chunks):
         auditor = ResumableTreeAudit(LoveLetterCFRGame(), checkpoint, revision=revision())
@@ -74,10 +76,12 @@ def main():
     report = run_independent_evaluation(LoveLetterIndependentEvaluator(game),
                                         solution.policy, maximum_exploitability=1e-12)
     results = ROOT/'research/results'
-    (results/'love_letter_portable_subgame_2026-09-17.json').write_text(
-        json.dumps(portable_policy(solution.policy, report), indent=2, sort_keys=True)+'\n')
+    if args.refresh_subgame_policy:
+        (results/'love_letter_portable_subgame_2026-09-17.json').write_text(
+            json.dumps(portable_policy(solution.policy, report), indent=2, sort_keys=True)+'\n')
     (results/'love_letter_local_progress_2026-09-17.json').write_text(json.dumps(dict(
-        checkpoint_path='research/local_checkpoints/love_letter_full_round.sqlite',
+        updated_date='2026-09-18',
+        checkpoint_path='research/local_checkpoints/love_letter_full_round_v2.sqlite',
         chunks=progress, full_round_certified=False,
         subgame_value=solution.value_to_player_0, subgame_exploitability=report.exploitability,
     ), indent=2, sort_keys=True)+'\n')

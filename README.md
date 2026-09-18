@@ -77,6 +77,20 @@ Research protocols, experiment artifacts, and evaluation reports are stored in [
 <details>
 <summary><strong>Development log / 开发更新记录</strong></summary>
 
+## Updates 09/18/2026
+
+- **Full Love Letter validation is substantially farther, but still fails
+  closed** — The resumable structural audit now caches information-set metadata
+  and batches SQLite writes. Its current checkpoint covers 796,904 histories and
+  114,711 information sets at depth 26 with no detected failures; the frontier is
+  still open, so neither structural certification nor an ε-GTO label is granted.
+- **One-die Liar's Dice now has an exact local reference solution** — The generic
+  sparse sequence-form compiler plus SciPy/HiGHS solves 4,141 histories and 343
+  sequences per player at value `0.5`. Independent best response reports zero
+  exploitability, improving on the live CFR artifact's `0.002353864`; the runtime
+  remains unchanged while this research evidence is tested.
+  [Read today's local certification report](research/love_letter_and_exact_liar_2026-09-18.md).
+
 ## Updates 09/17/2026
 
 - **Full Love Letter auditing can now resume locally** — Transactional SQLite

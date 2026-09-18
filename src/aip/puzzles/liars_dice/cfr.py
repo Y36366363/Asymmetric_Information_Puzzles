@@ -25,6 +25,7 @@ from aip.core.evaluation import (
     run_independent_evaluation,
     strategy_profile_fingerprint,
 )
+from aip.core.sequence_form import compile_sequence_form, solve_sequence_form
 
 
 Bid = tuple[int, int]
@@ -112,6 +113,22 @@ class OneDieLiarDiceCFRGame:
             )
         assert isinstance(action, tuple)
         return OneDieLiarState(state.dice, state.bids + (action,))
+
+
+def solve_one_die_liar_exact(*, backend: str = "scipy_highs"):
+    """Solve the reduced game exactly; kept separate from the live CFR artifact."""
+
+    game = OneDieLiarDiceCFRGame()
+    representation = compile_sequence_form(
+        game,
+        game_properties=CFRGameProperties(2, True, True, True),
+        sparse=backend == "scipy_highs",
+        maximum_histories=10_000,
+        maximum_nonzeros=100_000,
+    )
+    return representation, solve_sequence_form(
+        representation, backend=backend, time_limit=30.0
+    )
 
 
 def train_one_die_liar_cfr(

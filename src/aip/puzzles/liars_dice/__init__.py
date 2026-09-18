@@ -12,6 +12,7 @@ from aip.puzzles.liars_dice.cfr import (
     one_die_liar_evaluation,
     required_one_die_information_sets,
     save_one_die_liar_policy,
+    solve_one_die_liar_exact,
     train_one_die_liar_cfr,
 )
 from aip.puzzles.liars_dice.models import DiceBid, LiarsDiceRules
@@ -32,5 +33,6 @@ __all__ = [
     "one_die_liar_evaluation",
     "required_one_die_information_sets",
     "save_one_die_liar_policy",
+    "solve_one_die_liar_exact",
     "train_one_die_liar_cfr",
 ]

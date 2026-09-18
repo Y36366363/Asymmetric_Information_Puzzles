@@ -67,6 +67,7 @@ from aip.core.tree_evaluation import (
     FullTreeGameAudit,
     audit_small_extensive_form,
 )
+from aip.core.resumable_audit import ResumableTreeAudit
 
 __all__ = [
     "SequenceForm",
@@ -113,6 +114,7 @@ __all__ = [
     "RegretMatchingPlusUpdate",
     "RegretMinimizationTrainer",
     "RegretUpdatePolicy",
+    "ResumableTreeAudit",
     "RootChanceSamplingTraversal",
     "SolverRecommendation",
     "StoppingTimeAudit",
