@@ -1826,3 +1826,19 @@ python scripts/verify.py
 
 If Node.js is not on `PATH`, pass it explicitly with
 `python scripts/verify.py --node /path/to/node` or set `AIP_NODE`.
+
+## License and trademark notice
+
+The original source code, tests, research notes, and documentation in this
+repository are released under the [MIT License](LICENSE).
+
+Game titles and other names used to identify or discuss established games —
+including Battleship, Guess Who?, Love Letter, and Mastermind — may be
+trademarks of their respective owners. They are used descriptively for
+research, comparison, and interoperability. The MIT License does not grant any
+trademark rights, and this project is not affiliated with, sponsored by, or
+endorsed by those owners.
+
+External papers, websites, APIs, and optional software dependencies referenced
+by the project remain subject to their own terms and licenses. Their citation
+or use does not place them under this repository's MIT License.
