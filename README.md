@@ -77,6 +77,25 @@ Research protocols, experiment artifacts, and evaluation reports are stored in [
 <details>
 <summary><strong>Development log / 开发更新记录</strong></summary>
 
+## Updates 09/19/2026
+
+- **Love Letter and one-die Liar's Dice now have a focused cross-algorithm
+  audit** — Exact sequence-form, Vanilla CFR, CFR+, DCFR, root-chance sampling,
+  external-sampling MCCFR and independent best response are compared without
+  treating training regret as exploitability. Both exact policies have zero
+  exploitability; all deterministic traces improve from 10 to 300 iterations.
+- **A deeper DCFR order-dependence bug was found and fixed** — Full-tree
+  traversal now canonicalizes chance and action enumeration while separately
+  rejecting inconsistent action declarations. Reversing either enumeration now
+  produces zero policy difference on both focus games and existing Kuhn tests.
+- **Incomplete sampled policies fail closed before best response** — At 20,000
+  iterations, the tested one-die external-sampling run covered only 324 of 348
+  information sets. The independent evaluator now rejects this explicitly;
+  exact sequence-form remains the preferred release method. Full Love Letter
+  remains uncertified at 1,012,965 audited histories and no browser strategy
+  was changed.
+  [Read the focused algorithm report](research/love_letter_liar_algorithm_validation_2026-09-19.md).
+
 ## Updates 09/18/2026
 
 - **Full Love Letter validation is substantially farther, but still fails

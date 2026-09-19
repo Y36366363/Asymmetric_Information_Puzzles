@@ -1,6 +1,7 @@
 """Advance persistent full-round audit and export independently checked local policy."""
 import argparse
 from dataclasses import asdict
+from datetime import date
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -80,7 +81,7 @@ def main():
         (results/'love_letter_portable_subgame_2026-09-17.json').write_text(
             json.dumps(portable_policy(solution.policy, report), indent=2, sort_keys=True)+'\n')
     (results/'love_letter_local_progress_2026-09-17.json').write_text(json.dumps(dict(
-        updated_date='2026-09-18',
+        updated_date=date.today().isoformat(),
         checkpoint_path='research/local_checkpoints/love_letter_full_round_v2.sqlite',
         chunks=progress, full_round_certified=False,
         subgame_value=solution.value_to_player_0, subgame_exploitability=report.exploitability,

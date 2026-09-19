@@ -1,0 +1,591 @@
+{
+  "certification_contract": {
+    "exploitability_source": "independent_best_response_only",
+    "training_regret_is_not_exploitability": true,
+    "web_runtime_modified": false
+  },
+  "date": "2026-09-19",
+  "love_letter": {
+    "deterministic_convergence": {
+      "cfr_plus": {
+        "algorithm": {
+          "algorithm_id": "cfr_plus",
+          "averaging_rule": "linear_iteration_weighting",
+          "parameters": {},
+          "seed": null,
+          "traversal": "full_tree",
+          "update_schedule": "alternating_players"
+        },
+        "trace": [
+          {
+            "best_response_player_0": 0.17348484848484846,
+            "best_response_player_1": -0.15984848484848488,
+            "elapsed_seconds": 0.3286187920020893,
+            "expected_value_to_player_0": 0.16817493112947657,
+            "exploitability": 0.006818181818181793,
+            "failures": [],
+            "iteration": 10,
+            "maximum_unilateral_deviation_gain": 0.00832644628099169,
+            "nash_conv": 0.013636363636363585,
+            "passed": true,
+            "player_0_deviation_gain": 0.005309917355371896,
+            "player_1_deviation_gain": 0.00832644628099169,
+            "profile_fingerprint": "0277acd0aa6514781e8c36fe75fa85ccc3d1096a6fe3d2e5954be8744b7cc7a8"
+          },
+          {
+            "best_response_player_0": 0.16674092409240923,
+            "best_response_player_1": -0.1665924092409241,
+            "elapsed_seconds": 2.693197541986592,
+            "expected_value_to_player_0": 0.16668316749991835,
+            "exploitability": 7.425742574256045e-05,
+            "failures": [],
+            "iteration": 100,
+            "maximum_unilateral_deviation_gain": 9.075825899423906e-05,
+            "nash_conv": 0.0001485148514851209,
+            "passed": true,
+            "player_0_deviation_gain": 5.775659249088183e-05,
+            "player_1_deviation_gain": 9.075825899423906e-05,
+            "profile_fingerprint": "9e2483f473faab40da88666b9d4dd37a3fcd2e87fff65e53cd5bbf31d0268a07"
+          },
+          {
+            "best_response_player_0": 0.16667497231450717,
+            "best_response_player_1": -0.16665836101882614,
+            "elapsed_seconds": 7.823275542003103,
+            "expected_value_to_player_0": 0.16666851235596694,
+            "exploitability": 8.30564784051746e-06,
+            "failures": [],
+            "iteration": 300,
+            "maximum_unilateral_deviation_gain": 1.0151337140801298e-05,
+            "nash_conv": 1.661129568103492e-05,
+            "passed": true,
+            "player_0_deviation_gain": 6.4599585402336235e-06,
+            "player_1_deviation_gain": 1.0151337140801298e-05,
+            "profile_fingerprint": "4894254dbdc9dfd0040340dd9b158512d0652a2efcf9d90b7bdf476ef2bb1987"
+          }
+        ]
+      },
+      "dcfr": {
+        "algorithm": {
+          "algorithm_id": "dcfr",
+          "averaging_rule": "discounted_iteration_weighting",
+          "parameters": {
+            "alpha": 1.5,
+            "beta": 0.0,
+            "gamma": 2.0
+          },
+          "seed": null,
+          "traversal": "full_tree",
+          "update_schedule": "alternating_players"
+        },
+        "trace": [
+          {
+            "best_response_player_0": 0.1683982683982684,
+            "best_response_player_1": -0.1656926406926407,
+            "elapsed_seconds": 0.33071112498873845,
+            "expected_value_to_player_0": 0.1672017880254058,
+            "exploitability": 0.0013528138528138556,
+            "failures": [],
+            "iteration": 10,
+            "maximum_unilateral_deviation_gain": 0.0015091473327651095,
+            "nash_conv": 0.002705627705627711,
+            "passed": true,
+            "player_0_deviation_gain": 0.0011964803728626017,
+            "player_1_deviation_gain": 0.0015091473327651095,
+            "profile_fingerprint": "ea9e95b4131da69f0eac757433fe3c4a3e00842a0b073099e0354d4a86f7f0db"
+          },
+          {
+            "best_response_player_0": 0.16666863701295506,
+            "best_response_player_1": -0.1666655583468794,
+            "elapsed_seconds": 2.680426083970815,
+            "expected_value_to_player_0": 0.1666672839307574,
+            "exploitability": 1.5393330378282721e-06,
+            "failures": [],
+            "iteration": 100,
+            "maximum_unilateral_deviation_gain": 1.7255838779817179e-06,
+            "nash_conv": 3.0786660756565443e-06,
+            "passed": true,
+            "player_0_deviation_gain": 1.3530821976748264e-06,
+            "player_1_deviation_gain": 1.7255838779817179e-06,
+            "profile_fingerprint": "d910059d14912786b26c70212b0b1fa8ad57438aabc5e6a8a03c1f08f9032359"
+          },
+          {
+            "best_response_player_0": 0.16666674037180557,
+            "best_response_player_1": -0.16666662520752598,
+            "elapsed_seconds": 7.811203041987028,
+            "expected_value_to_player_0": 0.1666666897571313,
+            "exploitability": 5.7582139792455855e-08,
+            "failures": [],
+            "iteration": 300,
+            "maximum_unilateral_deviation_gain": 6.454960532753518e-08,
+            "nash_conv": 1.1516427958491171e-07,
+            "passed": true,
+            "player_0_deviation_gain": 5.0614674257376535e-08,
+            "player_1_deviation_gain": 6.454960532753518e-08,
+            "profile_fingerprint": "7e29634d3e9c867bf5cd9f40a418713a3ce1b0da3b03286d86d24d8c51144961"
+          }
+        ]
+      },
+      "vanilla_cfr": {
+        "algorithm": {
+          "algorithm_id": "vanilla_cfr",
+          "averaging_rule": "uniform_iteration_weighting",
+          "parameters": {},
+          "seed": null,
+          "traversal": "full_tree",
+          "update_schedule": "alternating_players"
+        },
+        "trace": [
+          {
+            "best_response_player_0": 0.20416666666666664,
+            "best_response_player_1": -0.12916666666666668,
+            "elapsed_seconds": 0.3294817080022767,
+            "expected_value_to_player_0": 0.17708333333333331,
+            "exploitability": 0.03749999999999998,
+            "failures": [],
+            "iteration": 10,
+            "maximum_unilateral_deviation_gain": 0.047916666666666635,
+            "nash_conv": 0.07499999999999996,
+            "passed": true,
+            "player_0_deviation_gain": 0.02708333333333332,
+            "player_1_deviation_gain": 0.047916666666666635,
+            "profile_fingerprint": "6e7bb3e9ed7323ef7c16948bf5d54929939020ed847453786cc6cca74d4eb58c"
+          },
+          {
+            "best_response_player_0": 0.17041666666666663,
+            "best_response_player_1": -0.16291666666666663,
+            "elapsed_seconds": 2.681684083014261,
+            "expected_value_to_player_0": 0.1677083333333333,
+            "exploitability": 0.0037500000000000033,
+            "failures": [],
+            "iteration": 100,
+            "maximum_unilateral_deviation_gain": 0.004791666666666666,
+            "nash_conv": 0.007500000000000007,
+            "passed": true,
+            "player_0_deviation_gain": 0.0027083333333333404,
+            "player_1_deviation_gain": 0.004791666666666666,
+            "profile_fingerprint": "ce13ac427468e9006ec7e0abb2549753d52374ba29339a2ee118ac48984ca39a"
+          },
+          {
+            "best_response_player_0": 0.1679166666666667,
+            "best_response_player_1": -0.16541666666666666,
+            "elapsed_seconds": 7.798621791007463,
+            "expected_value_to_player_0": 0.1670138888888889,
+            "exploitability": 0.001250000000000015,
+            "failures": [],
+            "iteration": 300,
+            "maximum_unilateral_deviation_gain": 0.0015972222222222499,
+            "nash_conv": 0.00250000000000003,
+            "passed": true,
+            "player_0_deviation_gain": 0.0009027777777777801,
+            "player_1_deviation_gain": 0.0015972222222222499,
+            "profile_fingerprint": "fe2997ccb2d90eda6311afa563adf6ab99baf78a3ed55c7dfa32c85ab5b3a43c"
+          }
+        ]
+      }
+    },
+    "enumeration_invariance": {
+      "cfr_plus": {
+        "action_order_maximum_policy_difference": 0.0,
+        "chance_order_maximum_policy_difference": 0.0
+      },
+      "dcfr": {
+        "action_order_maximum_policy_difference": 0.0,
+        "chance_order_maximum_policy_difference": 0.0
+      },
+      "vanilla_cfr": {
+        "action_order_maximum_policy_difference": 0.0,
+        "chance_order_maximum_policy_difference": 0.0
+      }
+    },
+    "exact_four_card_subgame": {
+      "backend": "scipy_highs",
+      "independent_evaluation": {
+        "best_response_player_0": 0.16666666666666666,
+        "best_response_player_1": -0.16666666666666666,
+        "expected_value_to_player_0": 0.16666666666666666,
+        "exploitability": 0.0,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 0.0,
+        "nash_conv": 0.0,
+        "passed": true,
+        "player_0_deviation_gain": 0.0,
+        "player_1_deviation_gain": 0.0,
+        "profile_fingerprint": "3c7a75e9f40ebdb037b49a30909d112b764e2d122e316eb5cfb6a20998061a4b"
+      },
+      "legacy_oracle_metrics": {
+        "exploitability": 0.0,
+        "maximum_unilateral_deviation_gain": 0.0,
+        "nash_conv": 0.0,
+        "player_0_deviation_gain": 0.0,
+        "player_1_deviation_gain": 0.0
+      },
+      "maximum_flow_residual": 0.0,
+      "maximum_oracle_metric_difference": 0.0,
+      "payoff_nonzeros": 304,
+      "primal_dual_gap": 2.7755575615628914e-17,
+      "sequence_counts": [
+        61,
+        145
+      ],
+      "tree_audit": {
+        "chance_histories": 217,
+        "decision_histories": 240,
+        "failures": [],
+        "histories": 1081,
+        "information_sets": 60,
+        "maximum_depth": 5,
+        "passed": true,
+        "perfect_recall": true,
+        "terminal_histories": 624
+      }
+    },
+    "full_round_certified": false,
+    "full_round_checkpoint": {
+      "chance_histories": 269451,
+      "complete": false,
+      "decision_histories": 286397,
+      "equilibrium_certified": false,
+      "failures": [],
+      "frontier_nodes": 79,
+      "histories": 1012965,
+      "information_sets": 148226,
+      "maximum_depth": 26,
+      "revision": "dee5a084635f24d786ac04e47dc72b2458e20b384e7b85d6ccf2eb866d659156",
+      "status": "paused",
+      "structural_audit_passed": false,
+      "terminal_histories": 457117
+    },
+    "uniform_negative_control": {
+      "best_response_player_0": 0.5416666666666666,
+      "best_response_player_1": 0.20833333333333331,
+      "expected_value_to_player_0": 0.10416666666666666,
+      "exploitability": 0.375,
+      "failures": [
+        "exploitability_above_threshold"
+      ],
+      "maximum_unilateral_deviation_gain": 0.4375,
+      "nash_conv": 0.75,
+      "passed": false,
+      "player_0_deviation_gain": 0.4375,
+      "player_1_deviation_gain": 0.3125,
+      "profile_fingerprint": "4c2e00279a1641040c2657c3e138d2b9c640db143e090c49923c98a70ef09013"
+    }
+  },
+  "method_conclusions": {
+    "love_letter_four_card_subgame": "sequence-form LP is the primary oracle; DCFR and MCCFR are cross-checks",
+    "love_letter_full_round": "remain uncertified until the structural frontier closes and a complete candidate passes independent best response",
+    "one_die_liars_dice": "exact sequence-form dominates approximate CFR for release; deterministic DCFR is a strong cross-check and 20k external sampling lacks coverage"
+  },
+  "one_die_liars_dice": {
+    "deterministic_convergence": {
+      "cfr_plus": {
+        "algorithm": {
+          "algorithm_id": "cfr_plus",
+          "averaging_rule": "linear_iteration_weighting",
+          "parameters": {},
+          "seed": null,
+          "traversal": "full_tree",
+          "update_schedule": "alternating_players"
+        },
+        "trace": [
+          {
+            "best_response_player_0": 0.5059343434343434,
+            "best_response_player_1": -0.4198225258863664,
+            "elapsed_seconds": 0.25714699999662116,
+            "expected_value_to_player_0": 0.4400380557848554,
+            "exploitability": 0.04305590877398849,
+            "failures": [],
+            "iteration": 10,
+            "maximum_unilateral_deviation_gain": 0.06589628764948802,
+            "nash_conv": 0.08611181754797698,
+            "passed": true,
+            "player_0_deviation_gain": 0.06589628764948802,
+            "player_1_deviation_gain": 0.02021552989848896,
+            "profile_fingerprint": "da2f427f9df6302aa426c1c780fe250fe44f0ef62e3c4eafe4f161b1e0e812e5"
+          },
+          {
+            "best_response_player_0": 0.5000646314631463,
+            "best_response_player_1": -0.49912677998490107,
+            "elapsed_seconds": 2.290142707992345,
+            "expected_value_to_player_0": 0.49928972959314144,
+            "exploitability": 0.0004689257391226054,
+            "failures": [],
+            "iteration": 100,
+            "maximum_unilateral_deviation_gain": 0.0007749018700048405,
+            "nash_conv": 0.0009378514782452108,
+            "passed": true,
+            "player_0_deviation_gain": 0.0007749018700048405,
+            "player_1_deviation_gain": 0.0001629496082403703,
+            "profile_fingerprint": "13b2fd7759947821d23314456c1d980fc28eb82dd733cac4d1305b629677dfdd"
+          },
+          {
+            "best_response_player_0": 0.5000072289897871,
+            "best_response_player_1": -0.49990233087317276,
+            "elapsed_seconds": 6.7860093750059605,
+            "expected_value_to_player_0": 0.499920494099512,
+            "exploitability": 5.244905830717461e-05,
+            "failures": [],
+            "iteration": 300,
+            "maximum_unilateral_deviation_gain": 8.673489027510861e-05,
+            "nash_conv": 0.00010489811661434922,
+            "passed": true,
+            "player_0_deviation_gain": 8.673489027510861e-05,
+            "player_1_deviation_gain": 1.8163226339240612e-05,
+            "profile_fingerprint": "d4899234fa8373242f9e5f97b0c866a3dc6e3515f6d8b1bdbe40415cdfd1cfea"
+          }
+        ]
+      },
+      "dcfr": {
+        "algorithm": {
+          "algorithm_id": "dcfr",
+          "averaging_rule": "discounted_iteration_weighting",
+          "parameters": {
+            "alpha": 1.5,
+            "beta": 0.0,
+            "gamma": 2.0
+          },
+          "seed": null,
+          "traversal": "full_tree",
+          "update_schedule": "alternating_players"
+        },
+        "trace": [
+          {
+            "best_response_player_0": 0.5220971746037865,
+            "best_response_player_1": -0.4117746268976316,
+            "elapsed_seconds": 0.2615227090427652,
+            "expected_value_to_player_0": 0.44096603216292807,
+            "exploitability": 0.055161273853077425,
+            "failures": [],
+            "iteration": 10,
+            "maximum_unilateral_deviation_gain": 0.0811311424408584,
+            "nash_conv": 0.11032254770615485,
+            "passed": true,
+            "player_0_deviation_gain": 0.0811311424408584,
+            "player_1_deviation_gain": 0.029191405265296455,
+            "profile_fingerprint": "c9c2c4bc944aff1b630363f59e56a428faf326e07aecbb9641d56415d852d80b"
+          },
+          {
+            "best_response_player_0": 0.5000011288442278,
+            "best_response_player_1": -0.49979883812650644,
+            "elapsed_seconds": 2.315058417036198,
+            "expected_value_to_player_0": 0.49988779492478536,
+            "exploitability": 0.00010114535886066034,
+            "failures": [],
+            "iteration": 100,
+            "maximum_unilateral_deviation_gain": 0.00011333391944240434,
+            "nash_conv": 0.00020229071772132068,
+            "passed": true,
+            "player_0_deviation_gain": 0.00011333391944240434,
+            "player_1_deviation_gain": 8.895679827891634e-05,
+            "profile_fingerprint": "523cb8cbf47c44a4c8edf6155391c0b8bee99b9a550ba008b2aa3f3f14fb2d5b"
+          },
+          {
+            "best_response_player_0": 0.5000000422269024,
+            "best_response_player_1": -0.4999924750974403,
+            "elapsed_seconds": 6.86119837500155,
+            "expected_value_to_player_0": 0.4999957955244652,
+            "exploitability": 3.7835647310469067e-06,
+            "failures": [],
+            "iteration": 300,
+            "maximum_unilateral_deviation_gain": 4.246702437205041e-06,
+            "nash_conv": 7.5671294620938134e-06,
+            "passed": true,
+            "player_0_deviation_gain": 4.246702437205041e-06,
+            "player_1_deviation_gain": 3.3204270248887724e-06,
+            "profile_fingerprint": "24adca032ae236296a34ede658632ae0adcbe4817ceebe5a95d219b05e28e93d"
+          }
+        ]
+      },
+      "vanilla_cfr": {
+        "algorithm": {
+          "algorithm_id": "vanilla_cfr",
+          "averaging_rule": "uniform_iteration_weighting",
+          "parameters": {},
+          "seed": null,
+          "traversal": "full_tree",
+          "update_schedule": "alternating_players"
+        },
+        "trace": [
+          {
+            "best_response_player_0": 0.529861111111111,
+            "best_response_player_1": -0.37359288527322104,
+            "elapsed_seconds": 0.25132704101270065,
+            "expected_value_to_player_0": 0.4273394072065407,
+            "exploitability": 0.07813411291894498,
+            "failures": [],
+            "iteration": 10,
+            "maximum_unilateral_deviation_gain": 0.10252170390457033,
+            "nash_conv": 0.15626822583788996,
+            "passed": true,
+            "player_0_deviation_gain": 0.10252170390457033,
+            "player_1_deviation_gain": 0.053746521933319635,
+            "profile_fingerprint": "c5e215dd503b55bb6f4bf58cc36b84fdde40b35799d037b24078a197873e6714"
+          },
+          {
+            "best_response_player_0": 0.502986111111111,
+            "best_response_player_1": -0.4873552224931679,
+            "elapsed_seconds": 2.2544814159628004,
+            "expected_value_to_player_0": 0.49173803967812374,
+            "exploitability": 0.007815444308971548,
+            "failures": [],
+            "iteration": 100,
+            "maximum_unilateral_deviation_gain": 0.011248071432987283,
+            "nash_conv": 0.015630888617943095,
+            "passed": true,
+            "player_0_deviation_gain": 0.011248071432987283,
+            "player_1_deviation_gain": 0.004382817184955812,
+            "profile_fingerprint": "68174114190421c2a015e1bc090d7661cc622d6ebdf47472fd67dda4d2596fa9"
+          },
+          {
+            "best_response_player_0": 0.5009953703703703,
+            "best_response_player_1": -0.4957850741643894,
+            "elapsed_seconds": 6.749206790991593,
+            "expected_value_to_player_0": 0.4972242047786733,
+            "exploitability": 0.002605148102990479,
+            "failures": [],
+            "iteration": 300,
+            "maximum_unilateral_deviation_gain": 0.0037711655916970455,
+            "nash_conv": 0.005210296205980958,
+            "passed": true,
+            "player_0_deviation_gain": 0.0037711655916970455,
+            "player_1_deviation_gain": 0.0014391306142839122,
+            "profile_fingerprint": "410a77cefe136591b44aa7af802d853c48ab008ce2df18105473cc64da3f65f6"
+          }
+        ]
+      }
+    },
+    "enumeration_invariance": {
+      "cfr_plus": {
+        "action_order_maximum_policy_difference": 0.0,
+        "chance_order_maximum_policy_difference": 0.0
+      },
+      "dcfr": {
+        "action_order_maximum_policy_difference": 0.0,
+        "chance_order_maximum_policy_difference": 0.0
+      },
+      "vanilla_cfr": {
+        "action_order_maximum_policy_difference": 0.0,
+        "chance_order_maximum_policy_difference": 0.0
+      }
+    },
+    "exact_game": {
+      "backend": "scipy_highs",
+      "independent_evaluation": {
+        "best_response_player_0": 0.5,
+        "best_response_player_1": -0.5,
+        "expected_value_to_player_0": 0.5,
+        "exploitability": 0.0,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 0.0,
+        "nash_conv": 0.0,
+        "passed": true,
+        "player_0_deviation_gain": 0.0,
+        "player_1_deviation_gain": 0.0,
+        "profile_fingerprint": "206b1c53aad3e99e20edfad8da996ee96e07f533b4f9dbd1c87e1bf559ac59cc"
+      },
+      "legacy_oracle_metrics": {
+        "exploitability": 0.0,
+        "maximum_unilateral_deviation_gain": 0.0,
+        "nash_conv": 0.0,
+        "player_0_deviation_gain": 0.0,
+        "player_1_deviation_gain": 0.0
+      },
+      "maximum_flow_residual": 0.0,
+      "maximum_oracle_metric_difference": 0.0,
+      "payoff_nonzeros": 2052,
+      "primal_dual_gap": 0.0,
+      "sequence_counts": [
+        343,
+        343
+      ],
+      "tree_audit": {
+        "chance_histories": 1,
+        "decision_histories": 2088,
+        "failures": [],
+        "histories": 4141,
+        "information_sets": 348,
+        "maximum_depth": 14,
+        "passed": true,
+        "perfect_recall": true,
+        "terminal_histories": 2052
+      }
+    },
+    "uniform_negative_control": {
+      "best_response_player_0": 0.7708333333333334,
+      "best_response_player_1": 0.4351851851851852,
+      "expected_value_to_player_0": 0.015245225694444442,
+      "exploitability": 0.6030092592592593,
+      "failures": [
+        "exploitability_above_threshold"
+      ],
+      "maximum_unilateral_deviation_gain": 0.755588107638889,
+      "nash_conv": 1.2060185185185186,
+      "passed": false,
+      "player_0_deviation_gain": 0.755588107638889,
+      "player_1_deviation_gain": 0.4504304108796296,
+      "profile_fingerprint": "5f6a13cc756f5752b5b94791947091dff016be7f45460dac5af22122ea243833"
+    }
+  },
+  "passed": true,
+  "sampling": {
+    "liar_external_sampling": {
+      "algorithm": {
+        "algorithm_id": "external_sampling_mccfr",
+        "averaging_rule": "uniform_iteration_weighting",
+        "parameters": {},
+        "seed": 20260919,
+        "traversal": "external_sampling",
+        "update_schedule": "alternating_players"
+      },
+      "coverage_complete": false,
+      "elapsed_seconds": 2.311433124996256,
+      "independent_evaluator_rejected": true,
+      "information_sets": 324,
+      "missing_information_sets": 24,
+      "passed": false,
+      "rejection": "one-die strategy profile must cover exactly all audited information sets",
+      "required_information_sets": 348
+    },
+    "liar_root_chance_sampling": {
+      "algorithm": {
+        "algorithm_id": "root_chance_sampling_cfr",
+        "averaging_rule": "uniform_iteration_weighting",
+        "parameters": {},
+        "seed": 20260908,
+        "traversal": "root_chance_sampling",
+        "update_schedule": "alternating_players"
+      },
+      "elapsed_seconds": 12.866073708981276,
+      "exploitability": 0.0023538635972168154,
+      "failures": [],
+      "gate_passed": true,
+      "matches_frozen_runtime_fingerprint": true,
+      "maximum_unilateral_deviation_gain": 0.0030755419859628264,
+      "nash_conv": 0.004707727194433631,
+      "player_0_deviation_gain": 0.0030755419859628264,
+      "player_1_deviation_gain": 0.0016321852084708044
+    },
+    "love_letter_external_sampling": {
+      "algorithm": {
+        "algorithm_id": "external_sampling_mccfr",
+        "averaging_rule": "uniform_iteration_weighting",
+        "parameters": {},
+        "seed": 20260912,
+        "traversal": "external_sampling",
+        "update_schedule": "alternating_players"
+      },
+      "elapsed_seconds": 4.296227165963501,
+      "exploitability": 0.00048442312519414443,
+      "failures": [],
+      "gate_passed": true,
+      "maximum_unilateral_deviation_gain": 0.0005241445463992078,
+      "nash_conv": 0.0009688462503882889,
+      "player_0_deviation_gain": 0.0005241445463992078,
+      "player_1_deviation_gain": 0.00044470170398908104
+    }
+  },
+  "scope": [
+    "love_letter",
+    "one_die_stepwise_liars_dice"
+  ]
+}

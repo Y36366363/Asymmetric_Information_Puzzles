@@ -302,6 +302,9 @@ class RegretMinimizationTrainer(Generic[State]):
         self.average_strategy_policy = average_strategy_policy
         self.seed = seed
         self._nodes: dict[tuple[int, InformationSet], _Node] = {}
+        self._full_tree_declared_actions: dict[
+            tuple[int, InformationSet], tuple[Action, ...]
+        ] = {}
         self.iterations = 0
         self._convergence_trace: list[CFRCheckpoint] = []
 
@@ -449,20 +452,23 @@ class RegretMinimizationTrainer(Generic[State]):
             return utility
         player = self.game.current_player(state)
         if player is None:
-            outcomes = self.game.chance_outcomes(state)
-            total_probability = sum(probability for _, probability in outcomes)
+            raw_outcomes = self.game.chance_outcomes(state)
+            total_probability = fsum(
+                probability for _, probability in raw_outcomes
+            )
             if (
-                not outcomes
-                or len({action for action, _ in outcomes}) != len(outcomes)
+                not raw_outcomes
+                or len({action for action, _ in raw_outcomes}) != len(raw_outcomes)
                 or any(
                     not isfinite(probability) or probability < 0
-                    for _, probability in outcomes
+                    for _, probability in raw_outcomes
                 )
                 or abs(total_probability - 1.0) > 1e-9
             ):
                 raise ValueError(
                     "chance outcomes must be finite, nonnegative, nonempty, and sum to one"
                 )
+            outcomes = tuple(sorted(raw_outcomes, key=lambda item: repr(item[0])))
             return fsum(
                 probability
                 * self._traverse_full_tree(
@@ -478,8 +484,17 @@ class RegretMinimizationTrainer(Generic[State]):
         if player not in (0, 1):
             raise ValueError("CFR current_player must be 0, 1, or None for chance")
 
-        actions = self.game.legal_actions(state)
+        declared_actions = self.game.legal_actions(state)
         information_set = self.game.information_set(state)
+        key = (player, information_set)
+        previous_actions = self._full_tree_declared_actions.setdefault(
+            key, declared_actions
+        )
+        if previous_actions != declared_actions:
+            raise ValueError(
+                f"information set {information_set!r} has inconsistent legal actions"
+            )
+        actions = tuple(sorted(declared_actions, key=repr))
         node = self._node(player, information_set, actions)
         strategy = node.strategy()
         action_values: list[float] = []
@@ -503,7 +518,6 @@ class RegretMinimizationTrainer(Generic[State]):
             own_reach = reach_zero if player == 0 else reach_one
             opponent_reach = reach_one if player == 0 else reach_zero
             sign = 1.0 if player == 0 else -1.0
-            key = (player, information_set)
             batch._add(
                 batch.regrets,
                 key,

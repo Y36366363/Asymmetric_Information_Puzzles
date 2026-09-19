@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from functools import lru_cache
 import json
+from math import fsum, isfinite
 from pathlib import Path
 from typing import Hashable, Mapping
 
@@ -291,6 +292,7 @@ def _best_response_value(
 ) -> float:
     """Exactly traverse one player's best response to the fixed opponent."""
 
+    _validate_one_die_profile(policy)
     game = OneDieLiarDiceCFRGame()
 
     def value_for_own_die(own_die: int) -> float:
@@ -366,6 +368,7 @@ def one_die_liar_evaluation(result: CFRResult) -> EquilibriumEvaluation:
 
 
 def _one_die_profile_value(policy: StrategyProfile) -> float:
+    _validate_one_die_profile(policy)
     game = OneDieLiarDiceCFRGame()
 
     def recurse(state: OneDieLiarState) -> float:
@@ -425,6 +428,32 @@ def required_one_die_information_sets() -> frozenset[tuple[int, Hashable]]:
         for history in histories
         for die in FACES
     )
+
+
+def _validate_one_die_profile(profile: StrategyProfile) -> None:
+    required = required_one_die_information_sets()
+    if set(profile) != set(required):
+        raise ValueError(
+            "one-die strategy profile must cover exactly all audited information sets"
+        )
+    game = OneDieLiarDiceCFRGame()
+    for key in required:
+        player, (die, bids) = key
+        dice = (die, 1) if player == 0 else (1, die)
+        actions = game.legal_actions(OneDieLiarState(dice=dice, bids=bids))
+        distribution = profile[key]
+        if set(distribution) != set(actions):
+            raise ValueError(
+                f"one-die strategy actions do not match information set {key!r}"
+            )
+        probabilities = tuple(float(distribution[action]) for action in actions)
+        if (
+            any(not isfinite(value) or value < 0 for value in probabilities)
+            or abs(fsum(probabilities) - 1.0) > 1e-9
+        ):
+            raise ValueError(
+                "one-die strategy probabilities must be finite, nonnegative, and sum to one"
+            )
 
 
 def certify_one_die_liar_cfr(
