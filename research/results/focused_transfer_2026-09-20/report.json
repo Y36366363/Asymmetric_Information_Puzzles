@@ -1,0 +1,11 @@
+{
+  "analysis": null,
+  "completedCells": 32,
+  "model": "gpt-5.6-luna",
+  "preregistrationSha256": "e018a8f3c028df0fbcf6d380293b2f4f093c29624c2248f9cbf209759d192fae",
+  "resolvedModels": [],
+  "runStatus": "infrastructure_or_completion_failure",
+  "schemaVersion": "aip-focused-transfer-report-v1",
+  "transportFailures": 32,
+  "validDecisions": 0
+}

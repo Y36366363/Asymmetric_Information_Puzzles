@@ -1,0 +1,230 @@
+{
+  "cellOrder": [
+    {
+      "arm": "same_game",
+      "probeId": "nico-after-2"
+    },
+    {
+      "arm": "abstract_memory",
+      "probeId": "nico-after-1"
+    },
+    {
+      "arm": "same_game",
+      "probeId": "ada-after-2"
+    },
+    {
+      "arm": "abstract_memory",
+      "probeId": "talia-after-1"
+    },
+    {
+      "arm": "surface_experience",
+      "probeId": "hugo-after-1"
+    },
+    {
+      "arm": "abstract_memory",
+      "probeId": "nico-after-2"
+    },
+    {
+      "arm": "surface_experience",
+      "probeId": "nico-after-1"
+    },
+    {
+      "arm": "no_memory",
+      "probeId": "hugo-after-1"
+    },
+    {
+      "arm": "no_memory",
+      "probeId": "talia-after-1"
+    },
+    {
+      "arm": "surface_experience",
+      "probeId": "nico-after-2"
+    },
+    {
+      "arm": "surface_experience",
+      "probeId": "ada-after-1"
+    },
+    {
+      "arm": "surface_experience",
+      "probeId": "ada-after-2"
+    },
+    {
+      "arm": "no_memory",
+      "probeId": "nico-after-2"
+    },
+    {
+      "arm": "abstract_memory",
+      "probeId": "talia-after-2"
+    },
+    {
+      "arm": "same_game",
+      "probeId": "ada-after-1"
+    },
+    {
+      "arm": "abstract_memory",
+      "probeId": "ada-after-1"
+    },
+    {
+      "arm": "no_memory",
+      "probeId": "hugo-after-2"
+    },
+    {
+      "arm": "abstract_memory",
+      "probeId": "hugo-after-2"
+    },
+    {
+      "arm": "no_memory",
+      "probeId": "nico-after-1"
+    },
+    {
+      "arm": "same_game",
+      "probeId": "hugo-after-1"
+    },
+    {
+      "arm": "surface_experience",
+      "probeId": "talia-after-2"
+    },
+    {
+      "arm": "no_memory",
+      "probeId": "ada-after-1"
+    },
+    {
+      "arm": "same_game",
+      "probeId": "talia-after-1"
+    },
+    {
+      "arm": "same_game",
+      "probeId": "talia-after-2"
+    },
+    {
+      "arm": "abstract_memory",
+      "probeId": "ada-after-2"
+    },
+    {
+      "arm": "abstract_memory",
+      "probeId": "hugo-after-1"
+    },
+    {
+      "arm": "same_game",
+      "probeId": "hugo-after-2"
+    },
+    {
+      "arm": "surface_experience",
+      "probeId": "talia-after-1"
+    },
+    {
+      "arm": "no_memory",
+      "probeId": "talia-after-2"
+    },
+    {
+      "arm": "surface_experience",
+      "probeId": "hugo-after-2"
+    },
+    {
+      "arm": "no_memory",
+      "probeId": "ada-after-2"
+    },
+    {
+      "arm": "same_game",
+      "probeId": "nico-after-1"
+    }
+  ],
+  "date": "2026-09-20",
+  "interpretationRule": "Use paired probe differences and a fixed-seed 10000-resample paired bootstrap interval. Label benefit only when the entire 95% interval is below zero, harm only when entirely above zero; otherwise inconclusive. This small panel cannot establish general transfer.",
+  "maxAttemptsPerCell": 1,
+  "maxOutputTokens": 4096,
+  "maxProviderCalls": 32,
+  "memoryBlockCharacters": 690,
+  "memoryPrompts": {
+    "abstract_memory": "Prior-memory condition: abstract_memory.\nLessons from hidden-card and hidden-die games: maintain a probability distribution over hidden states consistent with public observations; update it after new evidence. Evaluate an information-gathering action by its possible observations and the quality of later decisions, not by its label. Opponent modeling and bluff thresholds matter only when an opponent can act strategically; do not invent one in a truthful environment.\n.................................................................................................................................................................................................\nEnd of prior-memory block.",
+    "no_memory": "Prior-memory condition: no_memory.\nNo earlier game records, advice, or examples are available. Use only the current public state and legal actions.\n...................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................\nEnd of prior-memory block.",
+    "same_game": "Prior-memory condition: same_game.\nEarlier Guess Who practice: after truthful yes/no answers, retain only consistent names and keep their probabilities equal. For each legal question, count yes and no among remaining profiles. Choose a near-even split; then repeat with the updated candidates. This target-game advice is a supervised positive control, not cross-game transfer.\n..............................................................................................................................................................................................................................................................................................\nEnd of prior-memory block.",
+    "surface_experience": "Prior-memory condition: surface_experience.\nEarlier play records: a four-card Love Letter contest involved private hands, a draw, a card play and a final comparison. A one-die Liar's Dice contest involved private die faces, bids and a challenge. Both used turn-taking and a hidden random deal. These are surface descriptions of source games, with no recommendation for this new game.\n.......................................................................................................................................................................................................................................................................................\nEnd of prior-memory block."
+  },
+  "model": "gpt-5.6-luna",
+  "noMemoryLeakageRule": "Only same_game may mention Guess Who or target-specific solutions. Neither source-game memory arm may contain target-game names or examples.",
+  "primaryEndpoint": "Mean exact expected-turn action regret across all eight frozen target probes, with failed or invalid completions assigned that probe's preregistered failure penalty; abstract_memory minus no_memory. Negative is beneficial.",
+  "probes": [
+    {
+      "depth": 1,
+      "failurePenaltyTurns": 1.0,
+      "id": "ada-after-1",
+      "publicStateSha256": "f7955def9595b82d076152d8ee381d21b191aff03860dc0c2043f53ccd335b96",
+      "secret": "Ada"
+    },
+    {
+      "depth": 2,
+      "failurePenaltyTurns": 1.0,
+      "id": "ada-after-2",
+      "publicStateSha256": "84cf15d0325315d403b3a374a689b6d8d0e840266962a9c107d29b80e682f3bc",
+      "secret": "Ada"
+    },
+    {
+      "depth": 1,
+      "failurePenaltyTurns": 1.0,
+      "id": "hugo-after-1",
+      "publicStateSha256": "8b977a73a6086c89c0fa2938cbaa0034713eebe01d9dbe92f456be4dca6ecbd7",
+      "secret": "Hugo"
+    },
+    {
+      "depth": 2,
+      "failurePenaltyTurns": 1.0,
+      "id": "hugo-after-2",
+      "publicStateSha256": "6f3db8ea4a6a6a929b75665650beb1a83a0fc88233418f5b0c91ea0bb8106e25",
+      "secret": "Hugo"
+    },
+    {
+      "depth": 1,
+      "failurePenaltyTurns": 1.0,
+      "id": "nico-after-1",
+      "publicStateSha256": "f7955def9595b82d076152d8ee381d21b191aff03860dc0c2043f53ccd335b96",
+      "secret": "Nico"
+    },
+    {
+      "depth": 2,
+      "failurePenaltyTurns": 1.0,
+      "id": "nico-after-2",
+      "publicStateSha256": "84cf15d0325315d403b3a374a689b6d8d0e840266962a9c107d29b80e682f3bc",
+      "secret": "Nico"
+    },
+    {
+      "depth": 1,
+      "failurePenaltyTurns": 1.0,
+      "id": "talia-after-1",
+      "publicStateSha256": "8b977a73a6086c89c0fa2938cbaa0034713eebe01d9dbe92f456be4dca6ecbd7",
+      "secret": "Talia"
+    },
+    {
+      "depth": 2,
+      "failurePenaltyTurns": 1.0,
+      "id": "talia-after-2",
+      "publicStateSha256": "6f3db8ea4a6a6a929b75665650beb1a83a0fc88233418f5b0c91ea0bb8106e25",
+      "secret": "Talia"
+    }
+  ],
+  "reasoningEffort": "low",
+  "schemaVersion": "aip-focused-transfer-prereg-v1",
+  "secondaryEndpoints": [
+    "same_game positive control",
+    "surface_experience contrast",
+    "valid response rate",
+    "valid-only exact regret",
+    "belief Brier score"
+  ],
+  "sourceArtifacts": [
+    {
+      "path": "research/results/love_letter_liar_algorithm_audit_2026-09-19.json",
+      "sha256": "db10e7cbf6ad7dc63ccfd7d34af6873337d670578ee42c00291e84a6e8227160"
+    },
+    {
+      "path": "research/results/one_die_liar_exact_2026-09-18.json",
+      "sha256": "35d9e40431173fe1521769c9613d0d75b5b2018c79f17559b83188bce2998af4"
+    }
+  ],
+  "sourceGames": [
+    "love-letter-four-card-subgame",
+    "one-die-liars-dice"
+  ],
+  "sourceScope": "Only certified small games; full Love Letter is uncertified.",
+  "targetGame": "guess-who"
+}

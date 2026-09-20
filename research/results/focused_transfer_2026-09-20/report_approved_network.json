@@ -1,0 +1,100 @@
+{
+  "analysis": {
+    "contrastsVersusNoMemory": {
+      "abstract_memory": {
+        "interpretation": "inconclusive",
+        "meanDifferenceTurns": -0.12499999999999994,
+        "pairedBootstrap95": [
+          -0.375,
+          1.6653345369377348e-16
+        ],
+        "probeDifferencesTurns": [
+          4.440892098500626e-16,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0
+        ]
+      },
+      "same_game": {
+        "interpretation": "inconclusive",
+        "meanDifferenceTurns": -0.24999999999999994,
+        "pairedBootstrap95": [
+          -0.5833333333333333,
+          0.02083333333333348
+        ],
+        "probeDifferencesTurns": [
+          0.16666666666666696,
+          -1.0,
+          0.0,
+          0.0,
+          4.440892098500626e-16,
+          -1.0,
+          -0.16666666666666696,
+          0.0
+        ]
+      },
+      "surface_experience": {
+        "interpretation": "inconclusive",
+        "meanDifferenceTurns": -0.20833333333333326,
+        "pairedBootstrap95": [
+          -0.5,
+          0.08333333333333348
+        ],
+        "probeDifferencesTurns": [
+          0.16666666666666696,
+          -1.0,
+          0.0,
+          0.0,
+          0.16666666666666696,
+          -1.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "summaries": {
+      "abstract_memory": {
+        "meanBeliefBrier": 0.8809523809523809,
+        "meanPenalizedRegretTurns": 0.14583333333333343,
+        "meanValidRegretTurns": 0.023809523809523916,
+        "totalTokens": 12006,
+        "validDecisions": 7
+      },
+      "no_memory": {
+        "meanBeliefBrier": 0.8888888888888888,
+        "meanPenalizedRegretTurns": 0.27083333333333337,
+        "meanValidRegretTurns": 0.02777777777777783,
+        "totalTokens": 10840,
+        "validDecisions": 6
+      },
+      "same_game": {
+        "meanBeliefBrier": 0.875,
+        "meanPenalizedRegretTurns": 0.020833333333333426,
+        "meanValidRegretTurns": 0.020833333333333426,
+        "totalTokens": 10129,
+        "validDecisions": 8
+      },
+      "surface_experience": {
+        "meanBeliefBrier": 0.875,
+        "meanPenalizedRegretTurns": 0.06250000000000011,
+        "meanValidRegretTurns": 0.06250000000000011,
+        "totalTokens": 10569,
+        "validDecisions": 8
+      }
+    }
+  },
+  "completedCells": 32,
+  "model": "gpt-5.6-luna",
+  "preregistrationSha256": "e018a8f3c028df0fbcf6d380293b2f4f093c29624c2248f9cbf209759d192fae",
+  "resolvedModels": [
+    "gpt-5.6-luna"
+  ],
+  "runStatus": "complete",
+  "schemaVersion": "aip-focused-transfer-report-v1",
+  "transportFailures": 0,
+  "validDecisions": 29
+}
