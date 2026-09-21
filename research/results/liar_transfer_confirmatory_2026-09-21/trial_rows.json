@@ -1,0 +1,4806 @@
+{
+  "preregistrationSha256": "f3dbe4b38bd867397cc8e8b76acc86d79d119fac86c8edc83766aaeb9fb59de3",
+  "rows": [
+    {
+      "actionId": "raise:1:4",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-12",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 3187.207542010583,
+            "outcome": "success",
+            "output_characters": 404,
+            "output_sha256": "d3cdeb5ead21e9ee601952cedf52c31010050af644e58d68cc6d91a23f7cdfcd",
+            "output_tokens": 215,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_05d9a4030b34a69e016ab17328c13c87d2a689d1e72d0a1dc6",
+            "response_status": "completed",
+            "total_tokens": 1025
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.99,
+        "inputTokens": 810,
+        "outputTokens": 215,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3187.207542010583,
+        "totalTokens": 1025,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-03",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 8131.638666964136,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "9f9b4cc2c761e2497b1b85167d3e629daa77b430dfbdf209d503413207117c9c",
+            "output_tokens": 237,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_044ea42392805535016ab1732c0b5887d2b9bf62341ae6624b",
+            "response_status": "completed",
+            "total_tokens": 1082
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.97,
+        "inputTokens": 845,
+        "outputTokens": 237,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 8131.638666964136,
+        "totalTokens": 1082,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.16666666666666666,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 1.3333333333333333,
+      "probeId": "liar-probe-07",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2573.51162499981,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "147cfb3966f6823433460c69bf4d3d111439bb04ce06946aac09b7e7ed46335a",
+            "output_tokens": 228,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0007f46affdf8b4d016ab17333c7f087d294d09802987e8bf1",
+            "response_status": "completed",
+            "total_tokens": 1143
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.83,
+        "inputTokens": 915,
+        "outputTokens": 228,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2573.51162499981,
+        "totalTokens": 1143,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.16666666666666666,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 1.3333333333333333,
+      "probeId": "liar-probe-07",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2853.1985839945264,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "147cfb3966f6823433460c69bf4d3d111439bb04ce06946aac09b7e7ed46335a",
+            "output_tokens": 234,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_09f6bd1703343047016ab173365df087d2869f5a58af683e6e",
+            "response_status": "completed",
+            "total_tokens": 1149
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.83,
+        "inputTokens": 915,
+        "outputTokens": 234,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2853.1985839945264,
+        "totalTokens": 1149,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-03",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 3171.7362919589505,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "7d4985b2f69e8a4c054689fc75943b29e5f4343ab598204ae525dc2dcf4845c3",
+            "output_tokens": 251,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_09a1dc6fae43fd42016ab1733933a487d2ae9f0e93fb663e06",
+            "response_status": "completed",
+            "total_tokens": 1096
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.88,
+        "inputTokens": 845,
+        "outputTokens": 251,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3171.7362919589505,
+        "totalTokens": 1096,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-03",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 2252.6661249576136,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "d369c3519c211d0a1bda29d0a457f42b1e2b6650db9588a8caffcf504d7a0624",
+            "output_tokens": 207,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0c4b3b84bf8165b0016ab1733c5f1087d28f42129ed8705727",
+            "response_status": "completed",
+            "total_tokens": 1052
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.98,
+        "inputTokens": 845,
+        "outputTokens": 207,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2252.6661249576136,
+        "totalTokens": 1052,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:4",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-12",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 2764.162875013426,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "7a6fac4faf8a6047142c618ee35f71bcc623308ecbc2a48777cc66cf6e9836aa",
+            "output_tokens": 206,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0a40720f0825c7a2016ab1733ea58487d29ec8c79359fd2043",
+            "response_status": "completed",
+            "total_tokens": 1016
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.99,
+        "inputTokens": 810,
+        "outputTokens": 206,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2764.162875013426,
+        "totalTokens": 1016,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-04",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 2245.634374965448,
+            "outcome": "success",
+            "output_characters": 361,
+            "output_sha256": "f467904683e59383768edaa8f262c4803a56a5a6cb730822a85fdb0d4f5b77d4",
+            "output_tokens": 233,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0a27ad53cf264463016ab1734165fc87d2b3ead06eb4a52448",
+            "response_status": "completed",
+            "total_tokens": 1218
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.9,
+        "inputTokens": 985,
+        "outputTokens": 233,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2245.634374965448,
+        "totalTokens": 1218,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:3"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 2.0,
+      "probeId": "liar-probe-10",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 2725.720792019274,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "58889a82da82bfc72a35c86628635f65ad1f96731b3d4b649210fffc670c81c6",
+            "output_tokens": 206,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0fcc69b64df4de19016ab17343a2b087d28819c5df2808b355",
+            "response_status": "completed",
+            "total_tokens": 1016
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.84,
+        "inputTokens": 810,
+        "outputTokens": 206,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2725.720792019274,
+        "totalTokens": 1016,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:6",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-11",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 2387.3354580136947,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "6f1df944d466f37e67de601c6e5a3a249e1ed4239234f9d9d81159d4d1d6bcb8",
+            "output_tokens": 255,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0e26ef7083ac5a41016ab173465d9887d2a35c686d0d023840",
+            "response_status": "completed",
+            "total_tokens": 1065
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.99,
+        "inputTokens": 810,
+        "outputTokens": 255,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2387.3354580136947,
+        "totalTokens": 1065,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-01",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 9398.193083005026,
+            "outcome": "success",
+            "output_characters": 361,
+            "output_sha256": "dd1cd9d6536b16e58dd35e12f97639b3c3dfffc23aaba7d092e157518ebc544c",
+            "output_tokens": 935,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_07e6057fe8e59b6a016ab17348dea487d2a48c5c9c88da54a7",
+            "response_status": "completed",
+            "total_tokens": 1850
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.8,
+        "inputTokens": 915,
+        "outputTokens": 935,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 9398.193083005026,
+        "totalTokens": 1850,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.8332667,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-06",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 3702.877792005893,
+            "outcome": "success",
+            "output_characters": 326,
+            "output_sha256": "d401ad9700079770da3cbeb34f287645dfd9c277612024463c839b3e63f6db5a",
+            "output_tokens": 295,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_05b7570e096de988016ab1735224f087d2bfe9d2dab908331c",
+            "response_status": "completed",
+            "total_tokens": 1280
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.83,
+        "inputTokens": 985,
+        "outputTokens": 295,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3702.877792005893,
+        "totalTokens": 1280,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:3"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 2.0,
+      "probeId": "liar-probe-10",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": true,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 2641.6840000310913,
+            "outcome": "success",
+            "output_characters": 326,
+            "output_sha256": "4376a242d2f57353bb10b65a7638ae3c4913b8d3d9f59b02ece28c5aa3f95757",
+            "output_tokens": 205,
+            "raw_belief_probability_sum": 1.0002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0c09309b3e6eebdd016ab17355d9e887d2b4ff355e090a8dcb",
+            "response_status": "completed",
+            "total_tokens": 1015
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.67,
+        "inputTokens": 810,
+        "outputTokens": 205,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2641.6840000310913,
+        "totalTokens": 1015,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:2:4",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.32000000000000006,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 1.0,
+      "probeId": "liar-probe-02",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 10293.572083988693,
+            "outcome": "success",
+            "output_characters": 308,
+            "output_sha256": "dd951e9fead2a9b5b183021aa3927f2bfabf941956be95270e7faebaa0884fb6",
+            "output_tokens": 979,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_00a7a0bdb2f24eee016ab1735880d087d2a1ece91e70e45748",
+            "response_status": "completed",
+            "total_tokens": 1894
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.64,
+        "inputTokens": 915,
+        "outputTokens": 979,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 10293.572083988693,
+        "totalTokens": 1894,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.08333333333333334,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 1.5,
+      "probeId": "liar-probe-08",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 6600.881333986763,
+            "outcome": "success",
+            "output_characters": 361,
+            "output_sha256": "dd1cd9d6536b16e58dd35e12f97639b3c3dfffc23aaba7d092e157518ebc544c",
+            "output_tokens": 603,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0b0ec0f1c99e1ab3016ab17362d55887d29969177d76e65c13",
+            "response_status": "completed",
+            "total_tokens": 1448
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.8,
+        "inputTokens": 845,
+        "outputTokens": 603,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 6600.881333986763,
+        "totalTokens": 1448,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 1055,
+      "inputTokenMatch": true,
+      "observedInputTokens": 1055,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-05",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 1055,
+            "latency_ms": 3029.580292000901,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "283fd4e81421e19aa474a654ffa1407086d15ba16268753fdc7eefc5f64f177d",
+            "output_tokens": 278,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_048e43d4b7000798016ab17369659c87d28b5cdc867fe61d79",
+            "response_status": "completed",
+            "total_tokens": 1333
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.85,
+        "inputTokens": 1055,
+        "outputTokens": 278,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3029.580292000901,
+        "totalTokens": 1333,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-03",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 5254.309999989346,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "d369c3519c211d0a1bda29d0a457f42b1e2b6650db9588a8caffcf504d7a0624",
+            "output_tokens": 299,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_03d0a18b51963de3016ab1736cf08c87d2a4776da8d613b7f2",
+            "response_status": "completed",
+            "total_tokens": 1144
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.98,
+        "inputTokens": 845,
+        "outputTokens": 299,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 5254.309999989346,
+        "totalTokens": 1144,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:6",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-11",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 4029.0740830241702,
+            "outcome": "success",
+            "output_characters": 404,
+            "output_sha256": "51a877dce5774c7c4706b10d58930718350fbd5bbde12d92999c3ea49ba4941d",
+            "output_tokens": 384,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_01302b71c2f19e56016ab17371b30887d2b040454f96122fd1",
+            "response_status": "completed",
+            "total_tokens": 1194
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.99,
+        "inputTokens": 810,
+        "outputTokens": 384,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 4029.0740830241702,
+        "totalTokens": 1194,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.08333333326666667,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 1.5,
+      "probeId": "liar-probe-08",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 2592.8015829995275,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "97d8a29cf90249547445227e8c9ff983a2aa17ce8ea2c11b462acd5ed69d1121",
+            "output_tokens": 214,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0278fad7b87c9e98016ab17375ce1887d2a76e0667e79d3b77",
+            "response_status": "completed",
+            "total_tokens": 1059
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.83,
+        "inputTokens": 845,
+        "outputTokens": 214,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2592.8015829995275,
+        "totalTokens": 1059,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.08333333333333334,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 1.5,
+      "probeId": "liar-probe-08",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 2114.425750041846,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "147cfb3966f6823433460c69bf4d3d111439bb04ce06946aac09b7e7ed46335a",
+            "output_tokens": 190,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0b4d250a2d6a7f2e016ab17378506c87d2876ec810f7466747",
+            "response_status": "completed",
+            "total_tokens": 1035
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.83,
+        "inputTokens": 845,
+        "outputTokens": 190,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2114.425750041846,
+        "totalTokens": 1035,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-03",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 2779.835791036021,
+            "outcome": "success",
+            "output_characters": 403,
+            "output_sha256": "a9a4637c3efeeb2e064e7bb2c270bfd53302da1e0aa14a44f2f488ac9392134a",
+            "output_tokens": 265,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0192529a82a901ec016ab1737a6c4087d29c769a28e249fb68",
+            "response_status": "completed",
+            "total_tokens": 1110
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 1.0,
+        "inputTokens": 845,
+        "outputTokens": 265,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2779.835791036021,
+        "totalTokens": 1110,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-02",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2953.310834011063,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "283fd4e81421e19aa474a654ffa1407086d15ba16268753fdc7eefc5f64f177d",
+            "output_tokens": 260,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0be7958168d3ae74016ab1737d37f487d2be75fdfc3e2e6e2c",
+            "response_status": "completed",
+            "total_tokens": 1175
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.85,
+        "inputTokens": 915,
+        "outputTokens": 260,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2953.310834011063,
+        "totalTokens": 1175,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-04",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 2257.2593330405653,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "147cfb3966f6823433460c69bf4d3d111439bb04ce06946aac09b7e7ed46335a",
+            "output_tokens": 224,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_095f340164c0ba4a016ab173802b9887d287fce8aaf478cb4b",
+            "response_status": "completed",
+            "total_tokens": 1209
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.83,
+        "inputTokens": 985,
+        "outputTokens": 224,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2257.2593330405653,
+        "totalTokens": 1209,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 2.0,
+      "probeId": "liar-probe-11",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 3181.841332989279,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "afb8b7ec63317c0b8d4e844eb7b5eef5dc96aaf3b5f9025bbf7c732b7109d712",
+            "output_tokens": 257,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0ed8a0db2a8982db016ab1738269a487d2b858ee59039b4ae5",
+            "response_status": "completed",
+            "total_tokens": 1067
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.76,
+        "inputTokens": 810,
+        "outputTokens": 257,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3181.841332989279,
+        "totalTokens": 1067,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-01",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2829.6514580142684,
+            "outcome": "success",
+            "output_characters": 401,
+            "output_sha256": "d263b8e450737eb2b8a2b91b7fd9e8876b8f0856bf1caf689907d22838de2d3a",
+            "output_tokens": 228,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_07efe149b98a34f5016ab173859acc87d2b5cbe644ef757637",
+            "response_status": "completed",
+            "total_tokens": 1143
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 1.0,
+        "inputTokens": 915,
+        "outputTokens": 228,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2829.6514580142684,
+        "totalTokens": 1143,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:4",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.08333333333333334,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-08",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 2988.045250007417,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "7a6fac4faf8a6047142c618ee35f71bcc623308ecbc2a48777cc66cf6e9836aa",
+            "output_tokens": 266,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_01d8d17f4caef664016ab173886f7c87d297076e5bbbbc4789",
+            "response_status": "completed",
+            "total_tokens": 1111
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.99,
+        "inputTokens": 845,
+        "outputTokens": 266,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2988.045250007417,
+        "totalTokens": 1111,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.16660003333333331,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 1.3333333333333333,
+      "probeId": "liar-probe-07",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2480.5265000322834,
+            "outcome": "success",
+            "output_characters": 326,
+            "output_sha256": "d25c5b1eee4cd20af4fd9a4da1421357235a7d13b5abc406a0411143f21b96f1",
+            "output_tokens": 221,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_00d3fb32300cda83016ab1738b707487d283f415d665190754",
+            "response_status": "completed",
+            "total_tokens": 1136
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.86,
+        "inputTokens": 915,
+        "outputTokens": 221,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2480.5265000322834,
+        "totalTokens": 1136,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 2.0,
+      "probeId": "liar-probe-12",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 3766.6080000344664,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "58889a82da82bfc72a35c86628635f65ad1f96731b3d4b649210fffc670c81c6",
+            "output_tokens": 368,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0ef91cbcf502fd82016ab1738ded0487d290e325f80164aba9",
+            "response_status": "completed",
+            "total_tokens": 1178
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.84,
+        "inputTokens": 810,
+        "outputTokens": 368,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3766.6080000344664,
+        "totalTokens": 1178,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-01",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 3501.3685830053873,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "dd81efa7d7ac4cabc5338efa455569751e2ba7b0ca696e073181b58734f2cdbc",
+            "output_tokens": 342,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0bf80f201bef036d016ab17391ae7887d29b7d121dc208c310",
+            "response_status": "completed",
+            "total_tokens": 1257
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.74,
+        "inputTokens": 915,
+        "outputTokens": 342,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3501.3685830053873,
+        "totalTokens": 1257,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.16666666666666666,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 1.3333333333333333,
+      "probeId": "liar-probe-09",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2637.3244999558665,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "a89a63547b22e8311653122951eb5be41abd2e80614afd44d2d8c059bfcbb876",
+            "output_tokens": 232,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_06b66c4aab182c58016ab173952ae087d2a3675a2c7f6274ca",
+            "response_status": "completed",
+            "total_tokens": 1147
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.92,
+        "inputTokens": 915,
+        "outputTokens": 232,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2637.3244999558665,
+        "totalTokens": 1147,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:3"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 2.0,
+      "probeId": "liar-probe-10",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 1887.5906670000404,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "147cfb3966f6823433460c69bf4d3d111439bb04ce06946aac09b7e7ed46335a",
+            "output_tokens": 193,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_00849275266cd980016ab17397dbac87d2bac7cc4762a66d25",
+            "response_status": "completed",
+            "total_tokens": 1003
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.83,
+        "inputTokens": 810,
+        "outputTokens": 193,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 1887.5906670000404,
+        "totalTokens": 1003,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.16666666666666666,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 1.3333333333333333,
+      "probeId": "liar-probe-07",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 3282.144083001185,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "147cfb3966f6823433460c69bf4d3d111439bb04ce06946aac09b7e7ed46335a",
+            "output_tokens": 209,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0d764105e919ac8b016ab17399db6c87d291eed5482ba78566",
+            "response_status": "completed",
+            "total_tokens": 1124
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.83,
+        "inputTokens": 915,
+        "outputTokens": 209,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3282.144083001185,
+        "totalTokens": 1124,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-03",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 2382.4543330119923,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "05ececd8005559059f3399ea6c7650030a93cfde3fe45b4e1ab0a520957bfc72",
+            "output_tokens": 222,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0742a1fb3d3047b6016ab1739cfd3487d2bbe23357599dac4d",
+            "response_status": "completed",
+            "total_tokens": 1067
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.99,
+        "inputTokens": 845,
+        "outputTokens": 222,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2382.4543330119923,
+        "totalTokens": 1067,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:4",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-12",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 3102.2439169464633,
+            "outcome": "success",
+            "output_characters": 404,
+            "output_sha256": "d3cdeb5ead21e9ee601952cedf52c31010050af644e58d68cc6d91a23f7cdfcd",
+            "output_tokens": 284,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0519e17ab34c3031016ab1739f68d487d2813aad3540895976",
+            "response_status": "completed",
+            "total_tokens": 1094
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.99,
+        "inputTokens": 810,
+        "outputTokens": 284,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3102.2439169464633,
+        "totalTokens": 1094,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 1055,
+      "inputTokenMatch": true,
+      "observedInputTokens": 1055,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-05",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 1055,
+            "latency_ms": 3081.83654100867,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "e2761d290ddeb44fd0cc95cfbf324156301a543fa5e0cdd0b4a5dc864be1a5a8",
+            "output_tokens": 257,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_03d5288aa8232f82016ab173a27aac87d28fbd191e946ea9e1",
+            "response_status": "completed",
+            "total_tokens": 1312
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.78,
+        "inputTokens": 1055,
+        "outputTokens": 257,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3081.83654100867,
+        "totalTokens": 1312,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.16666666666666666,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 1.3333333333333333,
+      "probeId": "liar-probe-09",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2435.9194999560714,
+            "outcome": "success",
+            "output_characters": 361,
+            "output_sha256": "dd1cd9d6536b16e58dd35e12f97639b3c3dfffc23aaba7d092e157518ebc544c",
+            "output_tokens": 230,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_06636adde4c84588016ab173a590f887d2a834d45642d22287",
+            "response_status": "completed",
+            "total_tokens": 1145
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.8,
+        "inputTokens": 915,
+        "outputTokens": 230,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2435.9194999560714,
+        "totalTokens": 1145,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:6",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.16666666666666666,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-09",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 4295.135249965824,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "6f1df944d466f37e67de601c6e5a3a249e1ed4239234f9d9d81159d4d1d6bcb8",
+            "output_tokens": 494,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0d3e704f531dd1ff016ab173a8110487d2a59776d6f5c44b37",
+            "response_status": "completed",
+            "total_tokens": 1409
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.99,
+        "inputTokens": 915,
+        "outputTokens": 494,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 4295.135249965824,
+        "totalTokens": 1409,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-04",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 2888.639750017319,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "dfbd1738df7d14ac6f73d3f10688a191d06542df07ae7456776542032807d1e6",
+            "output_tokens": 267,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_01a8af120ce8073b016ab173ac4c5487d2996646de3f40d4d0",
+            "response_status": "completed",
+            "total_tokens": 1252
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.95,
+        "inputTokens": 985,
+        "outputTokens": 267,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2888.639750017319,
+        "totalTokens": 1252,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 2.0,
+      "probeId": "liar-probe-11",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 2122.816250019241,
+            "outcome": "success",
+            "output_characters": 361,
+            "output_sha256": "f467904683e59383768edaa8f262c4803a56a5a6cb730822a85fdb0d4f5b77d4",
+            "output_tokens": 205,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_028ce13acb055328016ab173af320c87d2bd0910176b236818",
+            "response_status": "completed",
+            "total_tokens": 1015
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.9,
+        "inputTokens": 810,
+        "outputTokens": 205,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2122.816250019241,
+        "totalTokens": 1015,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-06",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 7271.228583005723,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "9f9b4cc2c761e2497b1b85167d3e629daa77b430dfbdf209d503413207117c9c",
+            "output_tokens": 252,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_09ff40759c34846d016ab173b1ac1487d2a68bd036f8563707",
+            "response_status": "completed",
+            "total_tokens": 1237
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.97,
+        "inputTokens": 985,
+        "outputTokens": 252,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 7271.228583005723,
+        "totalTokens": 1237,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-02",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2710.9353340347297,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "2c5608cadc3634564161150ebbbed9a0ebec7a5e3ccdef153ecf1aba4d59965e",
+            "output_tokens": 220,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0dbea60cb5f9a6d0016ab173b896f487d28b72d7bc953cc7f8",
+            "response_status": "completed",
+            "total_tokens": 1135
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.82,
+        "inputTokens": 915,
+        "outputTokens": 220,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2710.9353340347297,
+        "totalTokens": 1135,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-01",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2300.0788330100477,
+            "outcome": "success",
+            "output_characters": 361,
+            "output_sha256": "f467904683e59383768edaa8f262c4803a56a5a6cb730822a85fdb0d4f5b77d4",
+            "output_tokens": 217,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_069ee81b09d2dfc0016ab173bb50e887d293e400802e8d3a49",
+            "response_status": "completed",
+            "total_tokens": 1132
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.9,
+        "inputTokens": 915,
+        "outputTokens": 217,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2300.0788330100477,
+        "totalTokens": 1132,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.08333333333333334,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 1.5,
+      "probeId": "liar-probe-08",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 2834.5996249699965,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "7d4985b2f69e8a4c054689fc75943b29e5f4343ab598204ae525dc2dcf4845c3",
+            "output_tokens": 233,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0fd7b5edfedcb010016ab173bd9e5887d2a9462eea32dc5624",
+            "response_status": "completed",
+            "total_tokens": 1078
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.88,
+        "inputTokens": 845,
+        "outputTokens": 233,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2834.5996249699965,
+        "totalTokens": 1078,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:3"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 2.0,
+      "probeId": "liar-probe-10",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": true,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 2643.526582978666,
+            "outcome": "success",
+            "output_characters": 344,
+            "output_sha256": "06a2beb422adf856e0050f77460352f228b4709a6b35da3a23dfb1ea518c6036",
+            "output_tokens": 195,
+            "raw_belief_probability_sum": 1.0000002000000001,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0778cafecb2893d8016ab173c0753487d2b2631f26b4aebb38",
+            "response_status": "completed",
+            "total_tokens": 1005
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.83,
+        "inputTokens": 810,
+        "outputTokens": 195,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2643.526582978666,
+        "totalTokens": 1005,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:4",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-12",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 2094.6489999769256,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "7a6fac4faf8a6047142c618ee35f71bcc623308ecbc2a48777cc66cf6e9836aa",
+            "output_tokens": 201,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0cdedd10e6e11d2b016ab173c31ed087d29762da333f16de87",
+            "response_status": "completed",
+            "total_tokens": 1011
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.99,
+        "inputTokens": 810,
+        "outputTokens": 201,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2094.6489999769256,
+        "totalTokens": 1011,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 1055,
+      "inputTokenMatch": true,
+      "observedInputTokens": 1055,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-05",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 1055,
+            "latency_ms": 3040.5936670140363,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "147cfb3966f6823433460c69bf4d3d111439bb04ce06946aac09b7e7ed46335a",
+            "output_tokens": 280,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_03e78e9dfdb3f7ca016ab173c5344087d2885b1e2f2b8f3709",
+            "response_status": "completed",
+            "total_tokens": 1335
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.83,
+        "inputTokens": 1055,
+        "outputTokens": 280,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3040.5936670140363,
+        "totalTokens": 1335,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 2.0,
+      "probeId": "liar-probe-11",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 2193.090458982624,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "a89a63547b22e8311653122951eb5be41abd2e80614afd44d2d8c059bfcbb876",
+            "output_tokens": 207,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_09b33c2a1f202fae016ab173c83f3887d2946f71aeecda5661",
+            "response_status": "completed",
+            "total_tokens": 1017
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.92,
+        "inputTokens": 810,
+        "outputTokens": 207,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2193.090458982624,
+        "totalTokens": 1017,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-06",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 2439.170291996561,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "177a16dd1434cbee47d4cda50fe28902c210e2f0c71530d6fbb1bef541e1e5d7",
+            "output_tokens": 226,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_04023967619ee3fc016ab173ca6e6487d2bde94d982aed4c83",
+            "response_status": "completed",
+            "total_tokens": 1211
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.67,
+        "inputTokens": 985,
+        "outputTokens": 226,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2439.170291996561,
+        "totalTokens": 1211,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:3",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:3"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-10",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 3375.256958999671,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "b2774e893f87b9cd7e2fe174265c89f9a29209c0fa0172f87ec727c779c902a3",
+            "output_tokens": 314,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_085b3aba124fbd3d016ab173cce38887d281de94e481b87f49",
+            "response_status": "completed",
+            "total_tokens": 1124
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.98,
+        "inputTokens": 810,
+        "outputTokens": 314,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3375.256958999671,
+        "totalTokens": 1124,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:6",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-11",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 2352.7514999732375,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "6f1df944d466f37e67de601c6e5a3a249e1ed4239234f9d9d81159d4d1d6bcb8",
+            "output_tokens": 197,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0be967b7f5711fb3016ab173d03d6087d2b9719c0d53f3e6ed",
+            "response_status": "completed",
+            "total_tokens": 1007
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.99,
+        "inputTokens": 810,
+        "outputTokens": 197,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2352.7514999732375,
+        "totalTokens": 1007,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-02",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": true,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2867.6637079915963,
+            "outcome": "success",
+            "output_characters": 326,
+            "output_sha256": "4376a242d2f57353bb10b65a7638ae3c4913b8d3d9f59b02ece28c5aa3f95757",
+            "output_tokens": 204,
+            "raw_belief_probability_sum": 1.0002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0580d0cfa89bd76e016ab173d2b68c87d2979bd539ab210adb",
+            "response_status": "completed",
+            "total_tokens": 1119
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.67,
+        "inputTokens": 915,
+        "outputTokens": 204,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2867.6637079915963,
+        "totalTokens": 1119,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:6",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.16666666666666666,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-09",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 5929.361541988328,
+            "outcome": "success",
+            "output_characters": 401,
+            "output_sha256": "e77e4b24b7757dcd23939e0b2171b74777571920ff251c948c1d3e723711908b",
+            "output_tokens": 560,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_08da0c6c366ed451016ab173d57dd487d2bda3cc6d1b818bd6",
+            "response_status": "completed",
+            "total_tokens": 1475
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 1.0,
+        "inputTokens": 915,
+        "outputTokens": 560,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 5929.361541988328,
+        "totalTokens": 1475,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 1055,
+      "inputTokenMatch": true,
+      "observedInputTokens": 1055,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-05",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 1055,
+            "latency_ms": 3526.2605830212124,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "e2761d290ddeb44fd0cc95cfbf324156301a543fa5e0cdd0b4a5dc864be1a5a8",
+            "output_tokens": 215,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_04f60e84679e970f016ab173db650087d298f02833d459b037",
+            "response_status": "completed",
+            "total_tokens": 1270
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.78,
+        "inputTokens": 1055,
+        "outputTokens": 215,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3526.2605830212124,
+        "totalTokens": 1270,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.3334667,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-02",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2747.118750005029,
+            "outcome": "success",
+            "output_characters": 326,
+            "output_sha256": "d401ad9700079770da3cbeb34f287645dfd9c277612024463c839b3e63f6db5a",
+            "output_tokens": 215,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0777f4274889b9ad016ab173deea1087d2bf795f02d61805f4",
+            "response_status": "completed",
+            "total_tokens": 1130
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.83,
+        "inputTokens": 915,
+        "outputTokens": 215,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2747.118750005029,
+        "totalTokens": 1130,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-02",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2092.464207962621,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "a89a63547b22e8311653122951eb5be41abd2e80614afd44d2d8c059bfcbb876",
+            "output_tokens": 231,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0ce5790a8fc8e541016ab173e1ac1c87d2bec44410909c439c",
+            "response_status": "completed",
+            "total_tokens": 1146
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.92,
+        "inputTokens": 915,
+        "outputTokens": 231,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2092.464207962621,
+        "totalTokens": 1146,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.8333333332666667,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-04",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 2927.1225840202533,
+            "outcome": "success",
+            "output_characters": 361,
+            "output_sha256": "3a1100839fc13d530073df8c76d35748f53a0245beee699234f542f7f48a960c",
+            "output_tokens": 253,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_066f363f6e2e78a9016ab173e3ca6c87d2aa8d60529774e0d0",
+            "response_status": "completed",
+            "total_tokens": 1238
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.9,
+        "inputTokens": 985,
+        "outputTokens": 253,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2927.1225840202533,
+        "totalTokens": 1238,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:4",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.08333333333333334,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-08",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 1798.6667499644682,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "7a6fac4faf8a6047142c618ee35f71bcc623308ecbc2a48777cc66cf6e9836aa",
+            "output_tokens": 203,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0cef81190827c733016ab173e6b28087d2b4bb69ea9ad91304",
+            "response_status": "completed",
+            "total_tokens": 1048
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.99,
+        "inputTokens": 845,
+        "outputTokens": 203,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 1798.6667499644682,
+        "totalTokens": 1048,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.8332667,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:3"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 2.0,
+      "probeId": "liar-probe-10",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 6354.436416993849,
+            "outcome": "success",
+            "output_characters": 326,
+            "output_sha256": "cec7455c24ae80e2d4e7dd2d7df4432d08bb51e0b7cae7f69cedc83cc6cbc3d0",
+            "output_tokens": 307,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0632385b09346f42016ab173e8898887d2ae8ea0409786b0b5",
+            "response_status": "completed",
+            "total_tokens": 1117
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.67,
+        "inputTokens": 810,
+        "outputTokens": 307,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 6354.436416993849,
+        "totalTokens": 1117,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 1055,
+      "inputTokenMatch": true,
+      "observedInputTokens": 1055,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-05",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 1055,
+            "latency_ms": 2554.4697500299662,
+            "outcome": "success",
+            "output_characters": 361,
+            "output_sha256": "dd1cd9d6536b16e58dd35e12f97639b3c3dfffc23aaba7d092e157518ebc544c",
+            "output_tokens": 251,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0b785eb83c27b430016ab173eef5cc87d2835f2d45dbb45b82",
+            "response_status": "completed",
+            "total_tokens": 1306
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.8,
+        "inputTokens": 1055,
+        "outputTokens": 251,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2554.4697500299662,
+        "totalTokens": 1306,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-06",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": true,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 3653.469207987655,
+            "outcome": "success",
+            "output_characters": 326,
+            "output_sha256": "4376a242d2f57353bb10b65a7638ae3c4913b8d3d9f59b02ece28c5aa3f95757",
+            "output_tokens": 241,
+            "raw_belief_probability_sum": 1.0002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0bcb9acad7c93841016ab173f16ef487d2a31a30cfc2e8d48d",
+            "response_status": "completed",
+            "total_tokens": 1226
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.67,
+        "inputTokens": 985,
+        "outputTokens": 241,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3653.469207987655,
+        "totalTokens": 1226,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-04",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 3201.3971250271425,
+            "outcome": "success",
+            "output_characters": 361,
+            "output_sha256": "f467904683e59383768edaa8f262c4803a56a5a6cb730822a85fdb0d4f5b77d4",
+            "output_tokens": 237,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_07c4e0fb41da9d25016ab173f516f887d283abc95fcea8c4b0",
+            "response_status": "completed",
+            "total_tokens": 1222
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.9,
+        "inputTokens": 985,
+        "outputTokens": 237,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3201.3971250271425,
+        "totalTokens": 1222,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 1055,
+      "inputTokenMatch": true,
+      "observedInputTokens": 1055,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-05",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 1055,
+            "latency_ms": 2946.2790000252426,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "e2761d290ddeb44fd0cc95cfbf324156301a543fa5e0cdd0b4a5dc864be1a5a8",
+            "output_tokens": 248,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0730a53cff208633016ab173f84d3487d2b2a45e31f57f26ed",
+            "response_status": "completed",
+            "total_tokens": 1303
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.78,
+        "inputTokens": 1055,
+        "outputTokens": 248,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2946.2790000252426,
+        "totalTokens": 1303,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:4",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.08333333333333334,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-08",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 3635.5116249760613,
+            "outcome": "success",
+            "output_characters": 404,
+            "output_sha256": "d3cdeb5ead21e9ee601952cedf52c31010050af644e58d68cc6d91a23f7cdfcd",
+            "output_tokens": 270,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0c2155f25b921850016ab173fb575087d2be576bcd70925058",
+            "response_status": "completed",
+            "total_tokens": 1115
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.99,
+        "inputTokens": 845,
+        "outputTokens": 270,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3635.5116249760613,
+        "totalTokens": 1115,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 2.0,
+      "probeId": "liar-probe-11",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 3137.1016670018435,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "8d3356e78e60225adcf3b51e51abb8be6666b2f0dcc2a3915e87430ffa92ea47",
+            "output_tokens": 250,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_075e0393d2b1cea5016ab173fee24c87d29b28fa0216bb6063",
+            "response_status": "completed",
+            "total_tokens": 1060
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.75,
+        "inputTokens": 810,
+        "outputTokens": 250,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3137.1016670018435,
+        "totalTokens": 1060,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 1055,
+      "inputTokenMatch": true,
+      "observedInputTokens": 1055,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-05",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 1055,
+            "latency_ms": 2863.9312500017695,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "147cfb3966f6823433460c69bf4d3d111439bb04ce06946aac09b7e7ed46335a",
+            "output_tokens": 268,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0beedd5e6ca61b43016ab1740201a487d282ca1ae8dc88099f",
+            "response_status": "completed",
+            "total_tokens": 1323
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.83,
+        "inputTokens": 1055,
+        "outputTokens": 268,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2863.9312500017695,
+        "totalTokens": 1323,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-01",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 3335.81266697729,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "58889a82da82bfc72a35c86628635f65ad1f96731b3d4b649210fffc670c81c6",
+            "output_tokens": 292,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0c0c4647beaf77ef016ab17404e49c87d287073bc4bb4d9479",
+            "response_status": "completed",
+            "total_tokens": 1207
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.84,
+        "inputTokens": 915,
+        "outputTokens": 292,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3335.81266697729,
+        "totalTokens": 1207,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.16660003333333331,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 1.3333333333333333,
+      "probeId": "liar-probe-07",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 7161.479667003732,
+            "outcome": "success",
+            "output_characters": 326,
+            "output_sha256": "497e8572d90c9b1385f3816d01f9cac92460976c639afb989ef867ca002a69a7",
+            "output_tokens": 631,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0e65b80a036e4f76016ab17408386c87d2a3deac76984a3c0e",
+            "response_status": "completed",
+            "total_tokens": 1546
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.62,
+        "inputTokens": 915,
+        "outputTokens": 631,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 7161.479667003732,
+        "totalTokens": 1546,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:4",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-12",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 2794.641666987445,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "7a6fac4faf8a6047142c618ee35f71bcc623308ecbc2a48777cc66cf6e9836aa",
+            "output_tokens": 251,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0d82fa0be561520b016ab1740f5ea887d2ac505d0c78358915",
+            "response_status": "completed",
+            "total_tokens": 1061
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.99,
+        "inputTokens": 810,
+        "outputTokens": 251,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2794.641666987445,
+        "totalTokens": 1061,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-03",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 2263.1912090000696,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "05ececd8005559059f3399ea6c7650030a93cfde3fe45b4e1ab0a520957bfc72",
+            "output_tokens": 226,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_02e5259ee8b5646d016ab17412434887d2afe99a6030021c02",
+            "response_status": "completed",
+            "total_tokens": 1071
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.99,
+        "inputTokens": 845,
+        "outputTokens": 226,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2263.1912090000696,
+        "totalTokens": 1071,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:6",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.16666666666666666,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-09",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 3761.7054589791223,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "6f1df944d466f37e67de601c6e5a3a249e1ed4239234f9d9d81159d4d1d6bcb8",
+            "output_tokens": 273,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0f84b186b1b31556016ab17414a8a887d290aa9b06cf576764",
+            "response_status": "completed",
+            "total_tokens": 1188
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.99,
+        "inputTokens": 915,
+        "outputTokens": 273,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3761.7054589791223,
+        "totalTokens": 1188,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:6",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.16666666666666666,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-09",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2483.7427079910412,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "6f1df944d466f37e67de601c6e5a3a249e1ed4239234f9d9d81159d4d1d6bcb8",
+            "output_tokens": 283,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_00137e8e303774cf016ab1741833b887d2b7ee56182c466ebb",
+            "response_status": "completed",
+            "total_tokens": 1198
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.99,
+        "inputTokens": 915,
+        "outputTokens": 283,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2483.7427079910412,
+        "totalTokens": 1198,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:4",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.08333333333333334,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-08",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 4103.322334005497,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "ee1cf619dfd62bd113edead3bce4476cd4868caad1879e1157e528ac3138be53",
+            "output_tokens": 445,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_055342c83660e4a8016ab1741aaff887d2bf13d4fd50e87b89",
+            "response_status": "completed",
+            "total_tokens": 1290
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.93,
+        "inputTokens": 845,
+        "outputTokens": 445,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 4103.322334005497,
+        "totalTokens": 1290,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:6",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-11",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 4178.147082973737,
+            "outcome": "success",
+            "output_characters": 404,
+            "output_sha256": "51a877dce5774c7c4706b10d58930718350fbd5bbde12d92999c3ea49ba4941d",
+            "output_tokens": 216,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_047d2216dff5fd99016ab1741f06a087d28da401ebf81cdb54",
+            "response_status": "completed",
+            "total_tokens": 1026
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.99,
+        "inputTokens": 810,
+        "outputTokens": 216,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 4178.147082973737,
+        "totalTokens": 1026,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:6",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.16666666666666666,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-07",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 10507.556041993666,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "6f1df944d466f37e67de601c6e5a3a249e1ed4239234f9d9d81159d4d1d6bcb8",
+            "output_tokens": 1010,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_00ef95f7406a7fc5016ab17423074c87d2a982a5bab9eeae73",
+            "response_status": "completed",
+            "total_tokens": 1925
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.99,
+        "inputTokens": 915,
+        "outputTokens": 1010,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 10507.556041993666,
+        "totalTokens": 1925,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:3"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 2.0,
+      "probeId": "liar-probe-10",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 2073.6911660060287,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "177a16dd1434cbee47d4cda50fe28902c210e2f0c71530d6fbb1bef541e1e5d7",
+            "output_tokens": 197,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0f9074aad86bc7e2016ab1742d817887d2960ba81f4aaf9c15",
+            "response_status": "completed",
+            "total_tokens": 1007
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.67,
+        "inputTokens": 810,
+        "outputTokens": 197,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2073.6911660060287,
+        "totalTokens": 1007,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:6",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.16666666666666666,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-09",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2562.458875006996,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "6f1df944d466f37e67de601c6e5a3a249e1ed4239234f9d9d81159d4d1d6bcb8",
+            "output_tokens": 245,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0f3928a4d8262ee7016ab1742f924087d2b3ab9130cf86c86b",
+            "response_status": "completed",
+            "total_tokens": 1160
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.99,
+        "inputTokens": 915,
+        "outputTokens": 245,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2562.458875006996,
+        "totalTokens": 1160,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:6",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.16666666666666666,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-09",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 6883.143624989316,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "6f1df944d466f37e67de601c6e5a3a249e1ed4239234f9d9d81159d4d1d6bcb8",
+            "output_tokens": 647,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0954a3d4db9aa3e5016ab1743226f087d2b6fc4bc2eed37840",
+            "response_status": "completed",
+            "total_tokens": 1562
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.99,
+        "inputTokens": 915,
+        "outputTokens": 647,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 6883.143624989316,
+        "totalTokens": 1562,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-01",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2529.743999999482,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "58889a82da82bfc72a35c86628635f65ad1f96731b3d4b649210fffc670c81c6",
+            "output_tokens": 220,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_00280c6939d13f0d016ab17439079087d2a86ec694cfc2f2d2",
+            "response_status": "completed",
+            "total_tokens": 1135
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.84,
+        "inputTokens": 915,
+        "outputTokens": 220,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2529.743999999482,
+        "totalTokens": 1135,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-04",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 3293.9402910415083,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "2c5608cadc3634564161150ebbbed9a0ebec7a5e3ccdef153ecf1aba4d59965e",
+            "output_tokens": 318,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_057a59ad4ddd9f6e016ab1743b8e3c87d284f9c2e0a0be708d",
+            "response_status": "completed",
+            "total_tokens": 1303
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.82,
+        "inputTokens": 985,
+        "outputTokens": 318,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3293.9402910415083,
+        "totalTokens": 1303,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.8332667,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:3"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 2.0,
+      "probeId": "liar-probe-10",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 3620.1527919620275,
+            "outcome": "success",
+            "output_characters": 326,
+            "output_sha256": "cec7455c24ae80e2d4e7dd2d7df4432d08bb51e0b7cae7f69cedc83cc6cbc3d0",
+            "output_tokens": 220,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_00006d7f8825b9da016ab1743ee7c887d2a01de02c640390cf",
+            "response_status": "completed",
+            "total_tokens": 1030
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.67,
+        "inputTokens": 810,
+        "outputTokens": 220,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3620.1527919620275,
+        "totalTokens": 1030,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.16666666666666666,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 1.3333333333333333,
+      "probeId": "liar-probe-07",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2908.630667021498,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "2c5608cadc3634564161150ebbbed9a0ebec7a5e3ccdef153ecf1aba4d59965e",
+            "output_tokens": 306,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0ea41dd255a6fcfa016ab1744280c487d2b09bc06ea19a878b",
+            "response_status": "completed",
+            "total_tokens": 1221
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.82,
+        "inputTokens": 915,
+        "outputTokens": 306,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2908.630667021498,
+        "totalTokens": 1221,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.3334667,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-02",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2554.932542028837,
+            "outcome": "success",
+            "output_characters": 326,
+            "output_sha256": "cec7455c24ae80e2d4e7dd2d7df4432d08bb51e0b7cae7f69cedc83cc6cbc3d0",
+            "output_tokens": 203,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0c88a862dcae42d0016ab17445756c87d2b1d64c225ae575e2",
+            "response_status": "completed",
+            "total_tokens": 1118
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.67,
+        "inputTokens": 915,
+        "outputTokens": 203,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2554.932542028837,
+        "totalTokens": 1118,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 1055,
+      "inputTokenMatch": true,
+      "observedInputTokens": 1055,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-05",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 1055,
+            "latency_ms": 2701.7254999955185,
+            "outcome": "success",
+            "output_characters": 361,
+            "output_sha256": "dd1cd9d6536b16e58dd35e12f97639b3c3dfffc23aaba7d092e157518ebc544c",
+            "output_tokens": 235,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0e8c3ca724ea86f6016ab17447f1dc87d28ea910a7b325fdfc",
+            "response_status": "completed",
+            "total_tokens": 1290
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.8,
+        "inputTokens": 1055,
+        "outputTokens": 235,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2701.7254999955185,
+        "totalTokens": 1290,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-06",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 2371.6438749688677,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "df87edb4d63e8d59e9b12a35d9e1600a72a5580f569e311530141ee827b105fc",
+            "output_tokens": 217,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0e24765adaf6b6ec016ab1744aa4ac87d284c2c552e27a390d",
+            "response_status": "completed",
+            "total_tokens": 1202
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.93,
+        "inputTokens": 985,
+        "outputTokens": 217,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2371.6438749688677,
+        "totalTokens": 1202,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 2.0,
+      "probeId": "liar-probe-12",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 2634.8797499667853,
+            "outcome": "success",
+            "output_characters": 361,
+            "output_sha256": "f467904683e59383768edaa8f262c4803a56a5a6cb730822a85fdb0d4f5b77d4",
+            "output_tokens": 257,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0bc158144b1b6b8f016ab1744d082487d29255eb799ed757e1",
+            "response_status": "completed",
+            "total_tokens": 1067
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.9,
+        "inputTokens": 810,
+        "outputTokens": 257,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2634.8797499667853,
+        "totalTokens": 1067,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-06",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 1899.727750045713,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "177a16dd1434cbee47d4cda50fe28902c210e2f0c71530d6fbb1bef541e1e5d7",
+            "output_tokens": 203,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0f48407a81cce488016ab1744fb1cc87d2b372ad8baafd230b",
+            "response_status": "completed",
+            "total_tokens": 1188
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.67,
+        "inputTokens": 985,
+        "outputTokens": 203,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 1899.727750045713,
+        "totalTokens": 1188,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "same_game",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-06",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 2069.0802080207504,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "147cfb3966f6823433460c69bf4d3d111439bb04ce06946aac09b7e7ed46335a",
+            "output_tokens": 214,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_06354d3050fe7feb016ab1745190d087d2b2f76b415f56e6f6",
+            "response_status": "completed",
+            "total_tokens": 1199
+          }
+        ],
+        "condition": "single_game_prompted",
+        "finalConfidence": 0.83,
+        "inputTokens": 985,
+        "outputTokens": 214,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2069.0802080207504,
+        "totalTokens": 1199,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "raise:1:4",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 810,
+      "inputTokenMatch": true,
+      "observedInputTokens": 810,
+      "optimalActionIds": [
+        "raise:1:4"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-12",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 810,
+            "latency_ms": 2136.2765000085346,
+            "outcome": "success",
+            "output_characters": 361,
+            "output_sha256": "3c2d6f2e2695be8724ea4ad3bc225887dd896f895cf5827265e5037e6c97ac47",
+            "output_tokens": 212,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_08e7401905a357ed016ab17453a59487d2b95100c351d57d0f",
+            "response_status": "completed",
+            "total_tokens": 1022
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 1.0,
+        "inputTokens": 810,
+        "outputTokens": 212,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2136.2765000085346,
+        "totalTokens": 1022,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-06",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 1857.679291977547,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "147cfb3966f6823433460c69bf4d3d111439bb04ce06946aac09b7e7ed46335a",
+            "output_tokens": 210,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0c4c3019757fcc61016ab17455caf487d2bd3c8e477ffefae9",
+            "response_status": "completed",
+            "total_tokens": 1195
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.83,
+        "inputTokens": 985,
+        "outputTokens": 210,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 1857.679291977547,
+        "totalTokens": 1195,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.16666666666666666,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "raise:1:6"
+      ],
+      "optimalPolicyAgreement": false,
+      "penalizedActionRegret": 1.3333333333333333,
+      "probeId": "liar-probe-07",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2835.3852090076543,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "2e88acbfd12a44adaff954f42c8a83a44293d5395c528b3df2897d81c436b4f4",
+            "output_tokens": 278,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0fb46197baef37a7016ab17457a52887d2813cb42ada02aca1",
+            "response_status": "completed",
+            "total_tokens": 1193
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.86,
+        "inputTokens": 915,
+        "outputTokens": 278,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2835.3852090076543,
+        "totalTokens": 1193,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 845,
+      "inputTokenMatch": true,
+      "observedInputTokens": 845,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-03",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 845,
+            "latency_ms": 1940.0977909681387,
+            "outcome": "success",
+            "output_characters": 403,
+            "output_sha256": "a9a4637c3efeeb2e064e7bb2c270bfd53302da1e0aa14a44f2f488ac9392134a",
+            "output_tokens": 226,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0904094f74a6f09f016ab1745a7b0c87d2b8afef21c00c227d",
+            "response_status": "completed",
+            "total_tokens": 1071
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 1.0,
+        "inputTokens": 845,
+        "outputTokens": 226,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 1940.0977909681387,
+        "totalTokens": 1071,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-01",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 2092.87483303342,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "58889a82da82bfc72a35c86628635f65ad1f96731b3d4b649210fffc670c81c6",
+            "output_tokens": 210,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_099c830036e07645016ab1745c744087d283198151efbfc027",
+            "response_status": "completed",
+            "total_tokens": 1125
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.84,
+        "inputTokens": 915,
+        "outputTokens": 210,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 2092.87483303342,
+        "totalTokens": 1125,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-02",
+      "repeat": 2,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 3228.3088749973103,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "e2761d290ddeb44fd0cc95cfbf324156301a543fa5e0cdd0b4a5dc864be1a5a8",
+            "output_tokens": 266,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_04b36b5209134a71016ab1745e8f5087d2a4e5cf4e89737a92",
+            "response_status": "completed",
+            "total_tokens": 1181
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.78,
+        "inputTokens": 915,
+        "outputTokens": 266,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3228.3088749973103,
+        "totalTokens": 1181,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "no_memory",
+      "beliefBrierToExactPosterior": 0.8333333333333334,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-04",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 3053.2121669966727,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "177a16dd1434cbee47d4cda50fe28902c210e2f0c71530d6fbb1bef541e1e5d7",
+            "output_tokens": 266,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0756bb36ac097577016ab17461d73887d2bbd423128b421ac7",
+            "response_status": "completed",
+            "total_tokens": 1251
+          }
+        ],
+        "condition": "generic",
+        "finalConfidence": 0.67,
+        "inputTokens": 985,
+        "outputTokens": 266,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 3053.2121669966727,
+        "totalTokens": 1251,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "surface_experience",
+      "beliefBrierToExactPosterior": 0.33333333333333337,
+      "expectedInputTokens": 915,
+      "inputTokenMatch": true,
+      "observedInputTokens": 915,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-01",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 915,
+            "latency_ms": 5748.648749955464,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "147cfb3966f6823433460c69bf4d3d111439bb04ce06946aac09b7e7ed46335a",
+            "output_tokens": 225,
+            "raw_belief_probability_sum": 1.0000000002,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0b38f666b8d1b013016ab17464d1e887d282662e70ce5984ab",
+            "response_status": "completed",
+            "total_tokens": 1140
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.83,
+        "inputTokens": 915,
+        "outputTokens": 225,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 5748.648749955464,
+        "totalTokens": 1140,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    },
+    {
+      "actionId": "challenge",
+      "arm": "abstract_memory",
+      "beliefBrierToExactPosterior": 0.8333333332666667,
+      "expectedInputTokens": 985,
+      "inputTokenMatch": true,
+      "observedInputTokens": 985,
+      "optimalActionIds": [
+        "challenge"
+      ],
+      "optimalPolicyAgreement": true,
+      "penalizedActionRegret": 0.0,
+      "probeId": "liar-probe-04",
+      "repeat": 1,
+      "status": "valid",
+      "telemetry": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "belief_normalized": false,
+            "error_message": null,
+            "error_type": null,
+            "incomplete_reason": null,
+            "input_tokens": 985,
+            "latency_ms": 6068.1487080291845,
+            "outcome": "success",
+            "output_characters": 362,
+            "output_sha256": "99e44df99684592873939c84ef6c84a48cd3107114705da2ebb017b9639b5193",
+            "output_tokens": 531,
+            "raw_belief_probability_sum": 1.0,
+            "resolved_model": "gpt-5.6-luna",
+            "response_id": "resp_0cbf48a9a3dffed6016ab1746a96bc87d2a3da4f8cfe5b0bca",
+            "response_status": "completed",
+            "total_tokens": 1516
+          }
+        ],
+        "condition": "cross_game_experience",
+        "finalConfidence": 0.68,
+        "inputTokens": 985,
+        "outputTokens": 531,
+        "parseFailureCount": 0,
+        "provider": "openai-responses",
+        "requestedModel": "gpt-5.6-luna",
+        "retryCount": 0,
+        "totalLatencyMs": 6068.1487080291845,
+        "totalTokens": 1516,
+        "transportFailureCount": 0,
+        "validationFailureCount": 0
+      }
+    }
+  ],
+  "schemaVersion": "aip-liar-transfer-rows-v1"
+}

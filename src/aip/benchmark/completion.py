@@ -251,6 +251,23 @@ def _public_agent_input(decision: AgentInput) -> dict[str, object]:
     }
 
 
+def completion_input_text(decision: AgentInput) -> str:
+    """Serialize exactly the public decision payload sent to completion models."""
+
+    return json.dumps(
+        _public_agent_input(decision), sort_keys=True, separators=(",", ":")
+    )
+
+
+def completion_instructions(condition_prompt: str = "") -> str:
+    """Build the exact instruction string, exposed for token-budget audits."""
+
+    prompt = condition_prompt.strip()
+    if not prompt:
+        return GENERIC_STRATEGIC_PROMPT
+    return f"{GENERIC_STRATEGIC_PROMPT}\n{prompt}\n"
+
+
 def _validate_adapter_belief(decision_input: AgentInput, chosen: AgentDecision) -> None:
     if chosen.belief is None:
         return
@@ -387,9 +404,7 @@ class CompletionBackedAgent:
 
     @property
     def instructions(self) -> str:
-        if not self.condition_prompt:
-            return GENERIC_STRATEGIC_PROMPT
-        return f"{GENERIC_STRATEGIC_PROMPT}\n{self.condition_prompt}\n"
+        return completion_instructions(self.condition_prompt)
 
     def agent_metadata(self) -> dict[str, object]:
         metadata = {
@@ -428,9 +443,7 @@ class CompletionBackedAgent:
         attempts: list[CompletionAttempt] = []
         correction = ""
         for attempt_number in range(1, self.max_attempts + 1):
-            input_text = json.dumps(
-                _public_agent_input(decision), sort_keys=True, separators=(",", ":")
-            )
+            input_text = completion_input_text(decision)
             if correction:
                 input_text += "\nCorrection required: " + correction
             request = CompletionRequest(

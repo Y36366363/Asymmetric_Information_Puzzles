@@ -1,0 +1,1100 @@
+{
+  "basePromptSha256": {
+    "abstract_memory": "7fe3d3fb36e155e5abc2b1ecfad9f8f05972d0958a55e9f60cebfb81a4e8a6c0",
+    "no_memory": "98e0bfc66fb44e1715b617befa9398399582d5f45a34d6ed8883f594ee570a13",
+    "same_game": "e3bd077cfb0188d6db1b3bf78c979bc28e093bf2af2490ee0efc8e6dbea39778",
+    "surface_experience": "f2def3b41284851caf890d762699ab9b51b22f26d0bee97cd3c3e051a22658e6"
+  },
+  "cellOrder": [
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-12",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-03",
+      "repeat": 2
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-07",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-07",
+      "repeat": 2
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-03",
+      "repeat": 2
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-03",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-12",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-04",
+      "repeat": 1
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-10",
+      "repeat": 1
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-11",
+      "repeat": 1
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-01",
+      "repeat": 1
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-06",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-10",
+      "repeat": 2
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-02",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-08",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1055,
+      "probeId": "liar-probe-05",
+      "repeat": 1
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-03",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-11",
+      "repeat": 1
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-08",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-08",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-03",
+      "repeat": 2
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-02",
+      "repeat": 1
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-04",
+      "repeat": 2
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-11",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-01",
+      "repeat": 1
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-08",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-07",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-12",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-01",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-09",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-10",
+      "repeat": 2
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-07",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-03",
+      "repeat": 1
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-12",
+      "repeat": 2
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 1055,
+      "probeId": "liar-probe-05",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-09",
+      "repeat": 1
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-09",
+      "repeat": 2
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-04",
+      "repeat": 1
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-11",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-06",
+      "repeat": 1
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-02",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-01",
+      "repeat": 1
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-08",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-10",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-12",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1055,
+      "probeId": "liar-probe-05",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-11",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-06",
+      "repeat": 2
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-10",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-11",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-02",
+      "repeat": 1
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-09",
+      "repeat": 2
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 1055,
+      "probeId": "liar-probe-05",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-02",
+      "repeat": 2
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-02",
+      "repeat": 2
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-04",
+      "repeat": 2
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-08",
+      "repeat": 2
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-10",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 1055,
+      "probeId": "liar-probe-05",
+      "repeat": 2
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-06",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-04",
+      "repeat": 2
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 1055,
+      "probeId": "liar-probe-05",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-08",
+      "repeat": 1
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-11",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 1055,
+      "probeId": "liar-probe-05",
+      "repeat": 1
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-01",
+      "repeat": 2
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-07",
+      "repeat": 2
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-12",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-03",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-09",
+      "repeat": 2
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-09",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-08",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-11",
+      "repeat": 1
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-07",
+      "repeat": 1
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-10",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-09",
+      "repeat": 1
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-09",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-01",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-04",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-10",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-07",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-02",
+      "repeat": 1
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 1055,
+      "probeId": "liar-probe-05",
+      "repeat": 1
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-06",
+      "repeat": 2
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-12",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-06",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-06",
+      "repeat": 1
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 810,
+      "probeId": "liar-probe-12",
+      "repeat": 2
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-06",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-07",
+      "repeat": 1
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 845,
+      "probeId": "liar-probe-03",
+      "repeat": 1
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-01",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-02",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-04",
+      "repeat": 1
+    },
+    {
+      "arm": "surface_experience",
+      "expectedInputTokens": 915,
+      "probeId": "liar-probe-01",
+      "repeat": 1
+    },
+    {
+      "arm": "abstract_memory",
+      "expectedInputTokens": 985,
+      "probeId": "liar-probe-04",
+      "repeat": 1
+    }
+  ],
+  "controls": {
+    "fullLoveLetterUsed": false,
+    "sameGame": "positive control excluded from transfer claim",
+    "surfaceExperience": "negative/control arm with raw cross-game records",
+    "tokenLength": "exact provider-counted full input tokens equal within every probe"
+  },
+  "date": "2026-09-21",
+  "interpretationRule": "A fixed-seed 10000-resample paired bootstrap interval wholly below zero is benefit, wholly above zero is harm, otherwise inconclusive.",
+  "maxAttemptsPerCell": 1,
+  "maxOutputTokens": 4096,
+  "maxProviderCalls": 96,
+  "model": "gpt-5.6-luna",
+  "paddingToken": " PAD",
+  "paddingTokenCounts": {
+    "abstract_memory": 209,
+    "no_memory": 300,
+    "same_game": 158,
+    "surface_experience": 15
+  },
+  "primaryEndpoint": "Mean exact conditional action regret against the independently solved equilibrium opponent, including preregistered penalties for invalid outputs; abstract_memory minus no_memory, paired by probe and repeat.",
+  "probes": [
+    {
+      "bids": [
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 1.0,
+        "raise:2:4": -1.0
+      },
+      "exactPosterior": {
+        "1": 0.5,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.5
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-probe-01",
+      "ownDie": 6,
+      "player": 0,
+      "publicStateSha256": "e2ed61d285c21d6ad56d19bfe44f01563efb070a2495f22534f11f28d465f476"
+    },
+    {
+      "bids": [
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 0.0,
+        "raise:2:4": -1.0
+      },
+      "exactPosterior": {
+        "1": 0.5,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.5
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-probe-02",
+      "ownDie": 3,
+      "player": 0,
+      "publicStateSha256": "0198c567488c903411c35e9ffd35a22dc73d83fe2208dc45b2945632057538de"
+    },
+    {
+      "bids": [
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 1.0,
+        "raise:2:2": 0.0
+      },
+      "exactPosterior": {
+        "1": 0.5,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.5
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-probe-03",
+      "ownDie": 3,
+      "player": 0,
+      "publicStateSha256": "10600c162c11e68c051386ae672e8b4bf31e662b9b8419c82b62a0cd34fa520c"
+    },
+    {
+      "bids": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 1.0,
+        "raise:2:1": -1.0
+      },
+      "exactPosterior": {
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 1.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-probe-04",
+      "ownDie": 2,
+      "player": 0,
+      "publicStateSha256": "0daef61a996170e69fe579e20faab8de9621e1c334857d7ee0a7e303b4c347aa"
+    },
+    {
+      "bids": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 1.0,
+        "raise:2:6": 0.0
+      },
+      "exactPosterior": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-probe-05",
+      "ownDie": 6,
+      "player": 0,
+      "publicStateSha256": "777e0c257f140123790b1ec3a29418166a925aa5b36fedefd8575f9e78276932"
+    },
+    {
+      "bids": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 1.0,
+        "raise:2:1": -1.0
+      },
+      "exactPosterior": {
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 1.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-probe-06",
+      "ownDie": 5,
+      "player": 0,
+      "publicStateSha256": "889728f019b878c5e493ac5fdc07c20f53717115c889a6d14476c49cf4e61838"
+    },
+    {
+      "bids": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": -0.3333333333333333,
+        "raise:1:6": 1.0
+      },
+      "exactPosterior": {
+        "1": 0.3333333333333333,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.3333333333333333,
+        "5": 0.3333333333333333,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-probe-07",
+      "ownDie": 6,
+      "player": 0,
+      "publicStateSha256": "7f93f952d78d7de3c33375194b1a7381b3dff6c22c3988ab2c8654341417e884"
+    },
+    {
+      "bids": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": -1.0,
+        "raise:1:4": 0.5
+      },
+      "exactPosterior": {
+        "1": 0.25,
+        "2": 0.0,
+        "3": 0.25,
+        "4": 0.25,
+        "5": 0.25,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-probe-08",
+      "ownDie": 1,
+      "player": 0,
+      "publicStateSha256": "26ccbc13e47fe439f66c7bdd09cc46da784bfd3061c0fc0ffa48d897ec5782f0"
+    },
+    {
+      "bids": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": -1.0,
+        "raise:1:6": 0.3333333333333333
+      },
+      "exactPosterior": {
+        "1": 0.3333333333333333,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.3333333333333333,
+        "5": 0.3333333333333333,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-probe-09",
+      "ownDie": 5,
+      "player": 0,
+      "publicStateSha256": "fc2b66cbd2ff01f8e2557c04b7ed2bde3aae57ad1c7d8ee904f0daa18e63212f"
+    },
+    {
+      "bids": [
+        [
+          1,
+          2
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": -1.0,
+        "raise:1:3": 1.0
+      },
+      "exactPosterior": {
+        "1": 0.0,
+        "2": 1.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-probe-10",
+      "ownDie": 3,
+      "player": 1,
+      "publicStateSha256": "25ccc425f67dc9e692d9a974222bc150d135c64c234c35839e6c8ecad662ba69"
+    },
+    {
+      "bids": [
+        [
+          1,
+          5
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": -1.0,
+        "raise:1:6": 1.0
+      },
+      "exactPosterior": {
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 1.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-probe-11",
+      "ownDie": 1,
+      "player": 1,
+      "publicStateSha256": "34165671ebe07d8c4343acfdd85e12dee0e1c91facf73e5bd84fd975b7eecdca"
+    },
+    {
+      "bids": [
+        [
+          1,
+          3
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": -1.0,
+        "raise:1:4": 1.0
+      },
+      "exactPosterior": {
+        "1": 0.0,
+        "2": 0.0,
+        "3": 1.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-probe-12",
+      "ownDie": 1,
+      "player": 1,
+      "publicStateSha256": "11e8fa89957b335c237d9ccaf8b253b04588dccadb6ed8c3f61619232bc77e69"
+    }
+  ],
+  "prompts": {
+    "abstract_memory": "Prior-memory condition: abstract_memory. An audit of exact records from a hidden-card game and a truthful information-acquisition game supports this domain-neutral memo: keep beliefs conditional on public observations; compare actions by expected downstream utility; distinguish evidence generated by nature from evidence generated by a strategic opponent; and challenge a claim only when its posterior failure probability and continuation value justify it. Source-record SHA-256: 8000a3c1dc65212ef03a3ce95eb493c62d361a4b2076c9f153ee6379477f4f36.\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD",
+    "no_memory": "Prior-memory condition: no_memory. No prior records or strategic advice are supplied. Solve the current decision only from its public rules and state.\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD",
+    "same_game": "Prior-memory condition: same_game positive control. These exact one-die Liar's Dice training records are disjoint from the test probes:\n[{\"bestAction\":\"raise:1:6\",\"bids\":[[1,2],[1,3],[1,4],[1,5]],\"ownDie\":1,\"player\":0},{\"bestAction\":\"raise:1:5\",\"bids\":[[1,3],[1,4]],\"ownDie\":1,\"player\":0},{\"bestAction\":\"raise:2:1\",\"bids\":[[1,3],[1,4],[1,5],[1,6]],\"ownDie\":1,\"player\":0},{\"bestAction\":\"raise:1:6\",\"bids\":[[1,4],[1,5]],\"ownDie\":1,\"player\":0}]\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD",
+    "surface_experience": "Prior-memory condition: surface_experience. Here are mechanically exported records from two other audited games. Treat them as records without an added cross-game lesson:\n{\"guessWhoExactEpisodes\":[{\"action\":\"ask_question:glasses\",\"actionRegret\":0.0,\"candidateCount\":24,\"publicObservation\":{\"answer\":false,\"kind\":\"answer\",\"questionId\":\"glasses\",\"remainingCandidates\":12}},{\"action\":\"ask_question:glasses\",\"actionRegret\":0.0,\"candidateCount\":24,\"publicObservation\":{\"answer\":true,\"kind\":\"answer\",\"questionId\":\"glasses\",\"remainingCandidates\":12}}],\"loveLetterFourCardExactDecisions\":[{\"informationSet\":\"(0, (0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 2))))\",\"positiveProbabilityActions\":[{\"action\":\"Play(card=1, target='ai', guess=3)\",\"probability\":1.0}]},{\"informationSet\":\"(0, (0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 1))))\",\"positiveProbabilityActions\":[{\"action\":\"Play(card=1, target='ai', guess=3)\",\"probability\":1.0}]}]}\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD"
+  },
+  "reasoningEffort": "low",
+  "repeats": 2,
+  "schemaVersion": "aip-liar-transfer-prereg-v1",
+  "seed": 20260921,
+  "sourceExperienceRecords": {
+    "guessWhoExactEpisodes": [
+      {
+        "action": "ask_question:glasses",
+        "actionRegret": 0.0,
+        "candidateCount": 24,
+        "publicObservation": {
+          "answer": false,
+          "kind": "answer",
+          "questionId": "glasses",
+          "remainingCandidates": 12
+        }
+      },
+      {
+        "action": "ask_question:glasses",
+        "actionRegret": 0.0,
+        "candidateCount": 24,
+        "publicObservation": {
+          "answer": true,
+          "kind": "answer",
+          "questionId": "glasses",
+          "remainingCandidates": 12
+        }
+      }
+    ],
+    "loveLetterFourCardExactDecisions": [
+      {
+        "informationSet": "(0, (0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 2))))",
+        "positiveProbabilityActions": [
+          {
+            "action": "Play(card=1, target='ai', guess=3)",
+            "probability": 1.0
+          }
+        ]
+      },
+      {
+        "informationSet": "(0, (0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 1))))",
+        "positiveProbabilityActions": [
+          {
+            "action": "Play(card=1, target='ai', guess=3)",
+            "probability": 1.0
+          }
+        ]
+      }
+    ],
+    "provenance": {
+      "fullLoveLetterUsed": false,
+      "guessWho": "exact dynamic-programming oracle",
+      "loveLetter": "audited sequence-form LP policy"
+    },
+    "schemaVersion": "aip-source-experience-v1"
+  },
+  "sourceExperienceSha256": "8000a3c1dc65212ef03a3ce95eb493c62d361a4b2076c9f153ee6379477f4f36",
+  "sourceGames": [
+    "guess-who",
+    "love-letter-four-card-subgame"
+  ],
+  "targetGame": "one-die-liars-dice"
+}
