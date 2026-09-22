@@ -56,7 +56,7 @@ def decode_action(value: str) -> Hashable:
     return int(quantity), int(face)
 
 
-def _posterior(profile, hero: int, own_die: int, bids: tuple[tuple[int, int], ...]):
+def _opponent_reach_weights(profile, hero: int, bids: tuple[tuple[int, int], ...]):
     weights = {opponent_die: 1 / 6 for opponent_die in range(1, 7)}
     prefix: tuple[tuple[int, int], ...] = ()
     for bid in bids:
@@ -66,6 +66,20 @@ def _posterior(profile, hero: int, own_die: int, bids: tuple[tuple[int, int], ..
                 distribution = profile[(actor, (opponent_die, prefix))]
                 weights[opponent_die] *= float(distribution[bid])
         prefix += (bid,)
+    return weights
+
+
+def opponent_reach_mass(
+    profile, hero: int, bids: tuple[tuple[int, int], ...]
+) -> float:
+    """Return chance/opponent reach for one player's public bid history."""
+
+    return sum(_opponent_reach_weights(profile, hero, bids).values())
+
+
+def _posterior(profile, hero: int, own_die: int, bids: tuple[tuple[int, int], ...]):
+    del own_die
+    weights = _opponent_reach_weights(profile, hero, bids)
     total = sum(weights.values())
     if total <= 0:
         raise ValueError("probe information set has zero opponent reach")
@@ -165,10 +179,12 @@ class LiarProbe:
         }
 
 
-def build_oracle_probes() -> tuple[LiarProbe, ...]:
+def candidate_oracle_probes() -> tuple[LiarProbe, ...]:
+    """Return every reachable, discriminating probe under the exact profile."""
+
     _, solution = solve_one_die_liar_exact()
     values = OneDieLiarIndependentEvaluator().action_values(solution.policy)
-    groups: dict[str, list[LiarProbe]] = {"challenge": [], "raise": []}
+    candidates = []
     for (player, information_set), action_values in values.items():
         own_die, bids = information_set
         if not bids or len(action_values) != 2:
@@ -177,19 +193,25 @@ def build_oracle_probes() -> tuple[LiarProbe, ...]:
         gap = max(encoded.values()) - min(encoded.values())
         if gap < 0.25:
             continue
-        best = min(
-            (key for key, value in encoded.items() if abs(value - max(encoded.values())) <= 1e-12)
-        )
-        group = "challenge" if best == "challenge" else "raise"
-        probe = LiarProbe(
-            probe_id="",
+        candidates.append(LiarProbe(
+            probe_id=(
+                "liar-candidate-"
+                + digest({"player": player, "ownDie": own_die, "bids": bids})[:12]
+            ),
             player=player,
             own_die=own_die,
             bids=bids,
             exact_action_values=encoded,
             exact_posterior=_posterior(solution.policy, player, own_die, bids),
-        )
-        groups[group].append(probe)
+        ))
+    return tuple(candidates)
+
+
+def build_oracle_probes() -> tuple[LiarProbe, ...]:
+    groups: dict[str, list[LiarProbe]] = {"challenge": [], "raise": []}
+    for probe in candidate_oracle_probes():
+        best = max(probe.exact_action_values, key=probe.exact_action_values.get)
+        groups["challenge" if best == "challenge" else "raise"].append(probe)
     rank = lambda probe: digest({
         "seed": SEED,
         "player": probe.player,
@@ -216,6 +238,61 @@ def build_oracle_probes() -> tuple[LiarProbe, ...]:
     if len(probes) != PROBE_COUNT:
         raise ValueError("insufficient balanced Liar's Dice probes")
     return tuple(probes)
+
+
+def select_profile_invariant_probes(
+    profiles: Mapping[str, Mapping[tuple[int, Hashable], Mapping[Hashable, float]]],
+    *,
+    count: int = 30,
+    minimum_action_value_gap: float = 0.25,
+) -> tuple[tuple[LiarProbe, ...], dict[str, object]]:
+    """Select a balanced panel only where all reference profiles agree."""
+
+    if count < 2 or count % 2:
+        raise ValueError("profile-invariant panel size must be an even number >= 2")
+    candidates = candidate_oracle_probes()
+    audit = compare_probe_oracles(candidates, profiles)
+    rows = {row["probeId"]: row for row in audit["probes"]}
+    eligible = [
+        probe for probe in candidates
+        if rows[probe.probe_id]["profileInvariant"]
+        and min(rows[probe.probe_id]["actionValueGaps"].values())
+        >= minimum_action_value_gap
+    ]
+    groups = {"challenge": [], "raise": []}
+    for probe in eligible:
+        labels = next(iter(rows[probe.probe_id]["bestActionIds"].values()))
+        if len(labels) != 1:
+            continue
+        groups["challenge" if labels[0] == "challenge" else "raise"].append(probe)
+    rank = lambda probe: digest({
+        "seed": SEED,
+        "panel": "profile_invariant_v1",
+        "probe": probe.probe_id,
+    })
+    per_action = count // 2
+    challenge = sorted(groups["challenge"], key=rank)[:per_action]
+    raise_player_one = sorted(
+        (probe for probe in groups["raise"] if probe.player == 1), key=rank
+    )[: min(5, per_action)]
+    raise_player_zero = sorted(
+        (probe for probe in groups["raise"] if probe.player == 0), key=rank
+    )[: per_action - len(raise_player_one)]
+    selected = challenge + raise_player_zero + raise_player_one
+    if len(challenge) != per_action or len(selected) != count:
+        raise ValueError("insufficient profile-invariant probes for balanced panel")
+    return tuple(selected), {
+        "candidateAudit": audit,
+        "minimumActionValueGap": minimum_action_value_gap,
+        "selectedProbeIds": [probe.probe_id for probe in selected],
+        "selectedProbes": len(selected),
+        "challengeOptimal": len(challenge),
+        "raiseOptimal": len(raise_player_zero) + len(raise_player_one),
+        "playerOneRaiseProbes": len(raise_player_one),
+        "allSelectedProfileInvariant": all(
+            rows[probe.probe_id]["profileInvariant"] for probe in selected
+        ),
+    }
 
 
 def source_experience_records() -> dict[str, object]:
@@ -294,6 +371,58 @@ def target_oracle_metadata() -> dict[str, object]:
         "primalDualGap": solution.primal_dual_gap,
         "maximumFlowResidual": solution.maximum_flow_residual,
         "treeAudit": form.audit.to_artifact(),
+    }
+
+
+def compare_probe_oracles(
+    probes: tuple[LiarProbe, ...],
+    profiles: Mapping[str, Mapping[tuple[int, Hashable], Mapping[Hashable, float]]],
+) -> dict[str, object]:
+    """Check whether conditional best-action labels survive profile choice.
+
+    A zero-sum game can have multiple equilibria with different off-path or
+    conditional behavior. Probe labels intended for agent evaluation should be
+    treated as profile-sensitive unless all supplied independently evaluated
+    profiles select the same action.
+    """
+
+    if len(profiles) < 2:
+        raise ValueError("oracle comparison requires at least two profiles")
+    evaluator = OneDieLiarIndependentEvaluator()
+    value_tables = {
+        name: evaluator.action_values(profile) for name, profile in profiles.items()
+    }
+    rows = []
+    for probe in probes:
+        key = (probe.player, (probe.own_die, probe.bids))
+        labels = {}
+        gaps = {}
+        for name, table in value_tables.items():
+            values = table[key]
+            maximum = max(values.values())
+            best = sorted(
+                action_id(action)
+                for action, value in values.items()
+                if abs(value - maximum) <= 1e-12
+            )
+            labels[name] = best
+            gaps[name] = maximum - min(values.values())
+        first = next(iter(labels.values()))
+        stable = all(label == first for label in labels.values())
+        rows.append({
+            "probeId": probe.probe_id,
+            "bestActionIds": labels,
+            "actionValueGaps": gaps,
+            "profileInvariant": stable,
+        })
+    unstable = [row["probeId"] for row in rows if not row["profileInvariant"]]
+    return {
+        "profiles": list(profiles),
+        "probes": rows,
+        "profileInvariantProbes": len(rows) - len(unstable),
+        "totalProbes": len(rows),
+        "unstableProbeIds": unstable,
+        "allProbeLabelsInvariant": not unstable,
     }
 
 

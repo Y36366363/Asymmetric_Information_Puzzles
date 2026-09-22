@@ -1,0 +1,1775 @@
+{
+  "date": "2026-09-22",
+  "decision": {
+    "allowedParallelWork": "Build a Goofspiel adapter and oracle audit without running a new efficacy experiment; keep E-Card as an exact solver control.",
+    "nextStep": "optimize_current_method_before_expanding_primary_game_count",
+    "requiredBeforeExpansion": [
+      "use the newly selected 30-probe profile-invariant panel",
+      "redesign and independently pilot a same-game positive control that discriminates from no memory",
+      "raise repeat stability above the preregistered threshold",
+      "use at least 30 independent robust probes for an effect near 0.25, subject to simulation-based power analysis"
+    ]
+  },
+  "horizontalCandidateAssessment": [
+    {
+      "exactOneSidedExploitability": 0.0,
+      "exactValue": 0.0,
+      "game": "goofspiel-four-card",
+      "missing": "completion adapter and profile-invariant per-state action-regret audit",
+      "readiness": "best_next_horizontal_target_after_method_gates",
+      "reason": "Exact dynamic equilibrium; simultaneous hidden commitment is structurally distinct from sequential Liar's Dice."
+    },
+    {
+      "game": "kuhn-poker",
+      "missing": "token-balanced completion adapter and equilibrium-family action-label robustness",
+      "readiness": "ready_secondary_adversarial_target",
+      "reason": "Exact sequence form and exhaustive best response already exist; useful bluffing replication but structurally closer to Liar's Dice."
+    },
+    {
+      "game": "single-round-e-card",
+      "readiness": "solver_control_not_primary_agent_target",
+      "reason": "Exact stopping-time matrix is valuable for algorithm comparison, but equilibrium action values are tied and provide little decision discrimination."
+    },
+    {
+      "game": "mastermind",
+      "readiness": "secondary_only",
+      "reason": "Belief filtering is exact but the current decision policy is heuristic, so it cannot support the same exact-regret primary endpoint."
+    },
+    {
+      "game": "full-love-letter",
+      "readiness": "blocked",
+      "reason": "Structural traversal and independent certification remain incomplete; four-card subgame may remain a source/control only."
+    }
+  ],
+  "inputs": {
+    "guessWhoReport": "/Users/jialiangyao/Documents/Python Projects/Asymmetric_Information_Puzzles/research/results/focused_transfer_2026-09-20/report_approved_network.json",
+    "liarPlan": "/Users/jialiangyao/Documents/Python Projects/Asymmetric_Information_Puzzles/research/results/liar_transfer_confirmatory_2026-09-21/preregistration.json",
+    "liarReport": "/Users/jialiangyao/Documents/Python Projects/Asymmetric_Information_Puzzles/research/results/liar_transfer_confirmatory_2026-09-21/report.json",
+    "liarRows": "/Users/jialiangyao/Documents/Python Projects/Asymmetric_Information_Puzzles/research/results/liar_transfer_confirmatory_2026-09-21/trial_rows.json"
+  },
+  "liarOracleProfileRobustness": {
+    "allProbeLabelsInvariant": false,
+    "gateRule": "Every selected probe must have the same best-action set across all accepted low-exploitability reference profiles.",
+    "probes": [
+      {
+        "actionValueGaps": {
+          "dcfr_300": 0.9999999999999999,
+          "exact_sequence_form": 2.0,
+          "frozen_runtime_cfr": 1.1626701271914723
+        },
+        "bestActionIds": {
+          "dcfr_300": [
+            "challenge"
+          ],
+          "exact_sequence_form": [
+            "challenge"
+          ],
+          "frozen_runtime_cfr": [
+            "challenge"
+          ]
+        },
+        "probeId": "liar-probe-01",
+        "profileInvariant": true
+      },
+      {
+        "actionValueGaps": {
+          "dcfr_300": 0.9999986815986679,
+          "exact_sequence_form": 1.0,
+          "frozen_runtime_cfr": 0.5108162511234062
+        },
+        "bestActionIds": {
+          "dcfr_300": [
+            "raise:2:4"
+          ],
+          "exact_sequence_form": [
+            "challenge"
+          ],
+          "frozen_runtime_cfr": [
+            "raise:2:4"
+          ]
+        },
+        "probeId": "liar-probe-02",
+        "profileInvariant": false
+      },
+      {
+        "actionValueGaps": {
+          "dcfr_300": 1.5000000846812693,
+          "exact_sequence_form": 1.0,
+          "frozen_runtime_cfr": 1.7839202035365325
+        },
+        "bestActionIds": {
+          "dcfr_300": [
+            "challenge"
+          ],
+          "exact_sequence_form": [
+            "challenge"
+          ],
+          "frozen_runtime_cfr": [
+            "challenge"
+          ]
+        },
+        "probeId": "liar-probe-03",
+        "profileInvariant": true
+      },
+      {
+        "actionValueGaps": {
+          "dcfr_300": 0.6955846184795125,
+          "exact_sequence_form": 2.0,
+          "frozen_runtime_cfr": 0.6067215085074722
+        },
+        "bestActionIds": {
+          "dcfr_300": [
+            "challenge"
+          ],
+          "exact_sequence_form": [
+            "challenge"
+          ],
+          "frozen_runtime_cfr": [
+            "challenge"
+          ]
+        },
+        "probeId": "liar-probe-04",
+        "profileInvariant": true
+      },
+      {
+        "actionValueGaps": {
+          "dcfr_300": 0.5732962923105401,
+          "exact_sequence_form": 1.0,
+          "frozen_runtime_cfr": 0.6151212614943612
+        },
+        "bestActionIds": {
+          "dcfr_300": [
+            "challenge"
+          ],
+          "exact_sequence_form": [
+            "challenge"
+          ],
+          "frozen_runtime_cfr": [
+            "challenge"
+          ]
+        },
+        "probeId": "liar-probe-05",
+        "profileInvariant": true
+      },
+      {
+        "actionValueGaps": {
+          "dcfr_300": 0.6955807387118169,
+          "exact_sequence_form": 2.0,
+          "frozen_runtime_cfr": 0.6065890595413833
+        },
+        "bestActionIds": {
+          "dcfr_300": [
+            "challenge"
+          ],
+          "exact_sequence_form": [
+            "challenge"
+          ],
+          "frozen_runtime_cfr": [
+            "challenge"
+          ]
+        },
+        "probeId": "liar-probe-06",
+        "profileInvariant": true
+      },
+      {
+        "actionValueGaps": {
+          "dcfr_300": 0.6721649186682701,
+          "exact_sequence_form": 1.3333333333333333,
+          "frozen_runtime_cfr": 0.6625840030120569
+        },
+        "bestActionIds": {
+          "dcfr_300": [
+            "raise:1:6"
+          ],
+          "exact_sequence_form": [
+            "raise:1:6"
+          ],
+          "frozen_runtime_cfr": [
+            "raise:1:6"
+          ]
+        },
+        "probeId": "liar-probe-07",
+        "profileInvariant": true
+      },
+      {
+        "actionValueGaps": {
+          "dcfr_300": 1.615879610356084,
+          "exact_sequence_form": 1.5,
+          "frozen_runtime_cfr": 1.6455732957532807
+        },
+        "bestActionIds": {
+          "dcfr_300": [
+            "raise:1:4"
+          ],
+          "exact_sequence_form": [
+            "raise:1:4"
+          ],
+          "frozen_runtime_cfr": [
+            "raise:1:4"
+          ]
+        },
+        "probeId": "liar-probe-08",
+        "profileInvariant": true
+      },
+      {
+        "actionValueGaps": {
+          "dcfr_300": 1.3948689901294207,
+          "exact_sequence_form": 1.3333333333333333,
+          "frozen_runtime_cfr": 0.9966290245627133
+        },
+        "bestActionIds": {
+          "dcfr_300": [
+            "raise:1:6"
+          ],
+          "exact_sequence_form": [
+            "raise:1:6"
+          ],
+          "frozen_runtime_cfr": [
+            "raise:1:6"
+          ]
+        },
+        "probeId": "liar-probe-09",
+        "profileInvariant": true
+      },
+      {
+        "actionValueGaps": {
+          "dcfr_300": 1.726788234914895,
+          "exact_sequence_form": 2.0,
+          "frozen_runtime_cfr": 1.2865041074212589
+        },
+        "bestActionIds": {
+          "dcfr_300": [
+            "raise:1:3"
+          ],
+          "exact_sequence_form": [
+            "raise:1:3"
+          ],
+          "frozen_runtime_cfr": [
+            "raise:1:3"
+          ]
+        },
+        "probeId": "liar-probe-10",
+        "profileInvariant": true
+      },
+      {
+        "actionValueGaps": {
+          "dcfr_300": 1.9999998936558998,
+          "exact_sequence_form": 2.0,
+          "frozen_runtime_cfr": 1.9999492358443693
+        },
+        "bestActionIds": {
+          "dcfr_300": [
+            "raise:1:6"
+          ],
+          "exact_sequence_form": [
+            "raise:1:6"
+          ],
+          "frozen_runtime_cfr": [
+            "raise:1:6"
+          ]
+        },
+        "probeId": "liar-probe-11",
+        "profileInvariant": true
+      },
+      {
+        "actionValueGaps": {
+          "dcfr_300": 1.9999999245343054,
+          "exact_sequence_form": 2.0,
+          "frozen_runtime_cfr": 1.9980754025545224
+        },
+        "bestActionIds": {
+          "dcfr_300": [
+            "raise:1:4"
+          ],
+          "exact_sequence_form": [
+            "raise:1:4"
+          ],
+          "frozen_runtime_cfr": [
+            "raise:1:4"
+          ]
+        },
+        "probeId": "liar-probe-12",
+        "profileInvariant": true
+      }
+    ],
+    "profileInvariantProbes": 11,
+    "profileQuality": [
+      {
+        "expectedValueToPlayer0": 0.5,
+        "exploitability": 0.0,
+        "maximumUnilateralDeviationGain": 0.0,
+        "name": "exact_sequence_form",
+        "nashConv": 0.0,
+        "profileFingerprint": "206b1c53aad3e99e20edfad8da996ee96e07f533b4f9dbd1c87e1bf559ac59cc"
+      },
+      {
+        "expectedValueToPlayer0": 0.497306731258938,
+        "exploitability": 0.0023538635972168154,
+        "maximumUnilateralDeviationGain": 0.0030755419859628264,
+        "name": "frozen_runtime_cfr",
+        "nashConv": 0.004707727194433631,
+        "profileFingerprint": "34defb06eabf05c43e0a0bf913a88021b24885b16166417639ea157cfd788c7b"
+      },
+      {
+        "expectedValueToPlayer0": 0.4999957955244652,
+        "exploitability": 3.7835647310469067e-06,
+        "maximumUnilateralDeviationGain": 4.246702437205041e-06,
+        "name": "dcfr_300",
+        "nashConv": 7.5671294620938134e-06,
+        "profileFingerprint": "24adca032ae236296a34ede658632ae0adcbe4817ceebe5a95d219b05e28e93d"
+      }
+    ],
+    "profiles": [
+      "exact_sequence_form",
+      "frozen_runtime_cfr",
+      "dcfr_300"
+    ],
+    "totalProbes": 12,
+    "unstableProbeIds": [
+      "liar-probe-02"
+    ]
+  },
+  "methodGates": {
+    "abstract_transfer_replicated_across_targets": false,
+    "all_conditions_repeat_agreement_at_least_0_8": false,
+    "all_liar_outputs_valid": true,
+    "all_selected_probe_labels_profile_invariant": false,
+    "liar_run_complete": true,
+    "provider_token_counts_exact": true,
+    "same_game_positive_control_detectably_better": false
+  },
+  "nextProfileInvariantPanel": {
+    "allSelectedProfileInvariant": true,
+    "candidateProbesAudited": 61,
+    "candidateProfileSensitiveProbes": [
+      "liar-candidate-6613330e649a",
+      "liar-candidate-857548eb2b40",
+      "liar-candidate-ce6f989001e5",
+      "liar-candidate-96710865ef0e",
+      "liar-candidate-78b0ee1342db"
+    ],
+    "challengeOptimal": 15,
+    "minimumActionValueGapAcrossProfiles": 0.25,
+    "playerOneRaiseProbes": 5,
+    "raiseOptimal": 15,
+    "selectedProbeCount": 30,
+    "selectedProbes": [
+      {
+        "bids": [
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 1.0,
+          "raise:2:6": 0.0
+        },
+        "exactPosterior": {
+          "1": 0.5,
+          "2": 0.5,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-ab3ce09187d5",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.11681930324973933,
+          "exact_sequence_form": 0.3333333333333333,
+          "frozen_runtime_cfr": 0.12019999296464982
+        },
+        "ownDie": 6,
+        "player": 0,
+        "publicStateSha256": "777e0c257f140123790b1ec3a29418166a925aa5b36fedefd8575f9e78276932"
+      },
+      {
+        "bids": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 1.0,
+          "raise:2:1": -1.0
+        },
+        "exactPosterior": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 1.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-5a0ce291dcd2",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.6215681460442875,
+          "exact_sequence_form": 0.16666666666666666,
+          "frozen_runtime_cfr": 0.47760913455198595
+        },
+        "ownDie": 5,
+        "player": 0,
+        "publicStateSha256": "889728f019b878c5e493ac5fdc07c20f53717115c889a6d14476c49cf4e61838"
+      },
+      {
+        "bids": [
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 0.0,
+          "raise:2:6": -1.0
+        },
+        "exactPosterior": {
+          "1": 0.5,
+          "2": 0.5,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-278704c5885f",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.11681930324973933,
+          "exact_sequence_form": 0.3333333333333333,
+          "frozen_runtime_cfr": 0.12019999296464982
+        },
+        "ownDie": 5,
+        "player": 0,
+        "publicStateSha256": "d5394ba193b6313b04bff3dd6ec2977eae49dc3d1a593fcf134ac67dba0f7455"
+      },
+      {
+        "bids": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 1.0,
+          "raise:2:6": -1.0
+        },
+        "exactPosterior": {
+          "1": 0.5,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.5,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-5a48647f6c16",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.16666628780290244,
+          "exact_sequence_form": 0.3333333333333333,
+          "frozen_runtime_cfr": 0.16637302015740602
+        },
+        "ownDie": 2,
+        "player": 0,
+        "publicStateSha256": "bd8fde3e23d27b5de0867df65e9f6262bd1a995cc7be1bb55fc2a3dcd4794897"
+      },
+      {
+        "bids": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 1.0,
+          "raise:2:5": -1.0
+        },
+        "exactPosterior": {
+          "1": 1.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-69fe6df134c5",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.081389212741685,
+          "exact_sequence_form": 0.08333333333333333,
+          "frozen_runtime_cfr": 0.08243542515392653
+        },
+        "ownDie": 6,
+        "player": 0,
+        "publicStateSha256": "237626742b464a0ff574b654d00bddf912e5053adf2703e33c01edb161ea57a5"
+      },
+      {
+        "bids": [
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 1.0,
+          "raise:2:5": -1.0
+        },
+        "exactPosterior": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 1.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-b72116dca9ce",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 8.360926694711485e-07,
+          "exact_sequence_form": 0.16666666666666666,
+          "frozen_runtime_cfr": 0.04170519213685329
+        },
+        "ownDie": 6,
+        "player": 0,
+        "publicStateSha256": "16331a3bfbff9d4e5101fc37a5ff9f8fa05956d12a0f8f6da99f4d82c24724bf"
+      },
+      {
+        "bids": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 1.0,
+          "raise:2:6": -1.0
+        },
+        "exactPosterior": {
+          "1": 0.5,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.5,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-fbaba1b5822c",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.16666628780290244,
+          "exact_sequence_form": 0.3333333333333333,
+          "frozen_runtime_cfr": 0.16637302015740602
+        },
+        "ownDie": 3,
+        "player": 0,
+        "publicStateSha256": "f406c75528c874591f997da3756401595990d881b8d59799db3dbc018485b398"
+      },
+      {
+        "bids": [
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 1.0,
+          "raise:2:2": 0.0
+        },
+        "exactPosterior": {
+          "1": 0.5,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.5
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-8a53bc70763f",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.3333336291405028,
+          "exact_sequence_form": 0.3333333333333333,
+          "frozen_runtime_cfr": 0.4094458855799792
+        },
+        "ownDie": 3,
+        "player": 0,
+        "publicStateSha256": "10600c162c11e68c051386ae672e8b4bf31e662b9b8419c82b62a0cd34fa520c"
+      },
+      {
+        "bids": [
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 1.0,
+          "raise:2:4": -1.0
+        },
+        "exactPosterior": {
+          "1": 0.5,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.5
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-1d7187bbd41a",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.16666678634313659,
+          "exact_sequence_form": 0.3333333333333333,
+          "frozen_runtime_cfr": 0.10566084704726322
+        },
+        "ownDie": 5,
+        "player": 0,
+        "publicStateSha256": "23ee3dc61333c670e819d1294481fbaef1a13b25bf24e8a7f0bef55479b03a4f"
+      },
+      {
+        "bids": [
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 1.0,
+          "raise:2:4": 0.0
+        },
+        "exactPosterior": {
+          "1": 0.5,
+          "2": 0.5,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-511820f72f1f",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.23363860649947865,
+          "exact_sequence_form": 0.3333333333333333,
+          "frozen_runtime_cfr": 0.24039998592929965
+        },
+        "ownDie": 5,
+        "player": 0,
+        "publicStateSha256": "d4a717a7d771687fc1dadfc76bab110eaf3723f41aebfffdb4032afa86f11460"
+      },
+      {
+        "bids": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 1.0,
+          "raise:2:1": -1.0
+        },
+        "exactPosterior": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 1.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-636a30b4a72e",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.6215681460442875,
+          "exact_sequence_form": 0.16666666666666666,
+          "frozen_runtime_cfr": 0.47760913455198595
+        },
+        "ownDie": 3,
+        "player": 0,
+        "publicStateSha256": "a86077fa36ab5f3e5522787986cab62f803c68ca66390ba2ef9216c875695179"
+      },
+      {
+        "bids": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 1.0,
+          "raise:1:5": -1.0
+        },
+        "exactPosterior": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 1.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-6858c439642c",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.6215682151428552,
+          "exact_sequence_form": 0.16666666666666666,
+          "frozen_runtime_cfr": 0.47773565222411807
+        },
+        "ownDie": 6,
+        "player": 0,
+        "publicStateSha256": "4a3f186d6924d740dcd201b5c233ebed8b561b1b6c533dd856773b1dda32cfdb"
+      },
+      {
+        "bids": [
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 1.0,
+          "raise:2:4": -1.0
+        },
+        "exactPosterior": {
+          "1": 0.5,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.5
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-c846f02723e7",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.16666678634313659,
+          "exact_sequence_form": 0.3333333333333333,
+          "frozen_runtime_cfr": 0.10566084704726322
+        },
+        "ownDie": 6,
+        "player": 0,
+        "publicStateSha256": "e2ed61d285c21d6ad56d19bfe44f01563efb070a2495f22534f11f28d465f476"
+      },
+      {
+        "bids": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 1.0,
+          "raise:2:6": -1.0
+        },
+        "exactPosterior": {
+          "1": 0.5,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.5,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-2acefce73779",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.16666628780290244,
+          "exact_sequence_form": 0.3333333333333333,
+          "frozen_runtime_cfr": 0.16637302015740602
+        },
+        "ownDie": 4,
+        "player": 0,
+        "publicStateSha256": "d4d442901ce27eb97790281d39eae25ada3e1ecdad1cb62d8368075654d2fb01"
+      },
+      {
+        "bids": [
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 1.0,
+          "raise:2:6": -1.0
+        },
+        "exactPosterior": {
+          "1": 0.5,
+          "2": 0.5,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-e5a6548d0b43",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.11681930324973933,
+          "exact_sequence_form": 0.3333333333333333,
+          "frozen_runtime_cfr": 0.12019999296464982
+        },
+        "ownDie": 3,
+        "player": 0,
+        "publicStateSha256": "cdcb6260ff0a639efc5e48c788313631d103ef1bb87e71473baf204543584b0d"
+      },
+      {
+        "bids": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": -1.0,
+          "raise:1:5": -0.6000000000000001
+        },
+        "exactPosterior": {
+          "1": 0.4,
+          "2": 0.0,
+          "3": 0.2,
+          "4": 0.4,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-d2211f4726b3",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.6666688981514209,
+          "exact_sequence_form": 0.41666666666666663,
+          "frozen_runtime_cfr": 0.7264807284909459
+        },
+        "ownDie": 4,
+        "player": 0,
+        "publicStateSha256": "a4de569593ff9784fd1740970b1f6d7e76b52537bf29b2afd602f114499c20c5"
+      },
+      {
+        "bids": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": -1.0,
+          "raise:1:4": 0.5
+        },
+        "exactPosterior": {
+          "1": 0.25,
+          "2": 0.0,
+          "3": 0.25,
+          "4": 0.25,
+          "5": 0.25,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-565ecf784c07",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.8677832168482382,
+          "exact_sequence_form": 0.6666666666666666,
+          "frozen_runtime_cfr": 0.9394032390607819
+        },
+        "ownDie": 1,
+        "player": 0,
+        "publicStateSha256": "26ccbc13e47fe439f66c7bdd09cc46da784bfd3061c0fc0ffa48d897ec5782f0"
+      },
+      {
+        "bids": [
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": -1.0,
+          "raise:1:6": 0.5
+        },
+        "exactPosterior": {
+          "1": 0.25,
+          "2": 0.25,
+          "3": 0.25,
+          "4": 0.0,
+          "5": 0.25,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-6e2525ca0ecc",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.845454086189341,
+          "exact_sequence_form": 0.6666666666666666,
+          "frozen_runtime_cfr": 0.9215519818564315
+        },
+        "ownDie": 1,
+        "player": 0,
+        "publicStateSha256": "f8c9b2e160d08ec0dd1bde5950a1eec5e8f361d05de87797b4c3dca9a7a210bf"
+      },
+      {
+        "bids": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 0.0,
+          "raise:2:4": 1.0
+        },
+        "exactPosterior": {
+          "1": 0.5,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.5,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-9fdd1ad62df9",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.21970706385745475,
+          "exact_sequence_form": 0.3333333333333333,
+          "frozen_runtime_cfr": 0.16642597693592515
+        },
+        "ownDie": 3,
+        "player": 0,
+        "publicStateSha256": "b0a7adecad2b1a26527599a3afe32234923d000355e7b9f5ddc7981d489c628a"
+      },
+      {
+        "bids": [
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": -1.0,
+          "raise:2:1": 0.3333333333333333
+        },
+        "exactPosterior": {
+          "1": 0.3333333333333333,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.3333333333333333,
+          "6": 0.3333333333333333
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-bc0aa8e6e2fd",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.7026088081887493,
+          "exact_sequence_form": 0.5,
+          "frozen_runtime_cfr": 0.5185478909152945
+        },
+        "ownDie": 1,
+        "player": 0,
+        "publicStateSha256": "c7436c2b92bac310da920eee1874801690d130896e00f8cb3511b2e4620b42dc"
+      },
+      {
+        "bids": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": -1.0,
+          "raise:1:3": 1.0
+        },
+        "exactPosterior": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 1.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-2603318ef892",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.6215683533399906,
+          "exact_sequence_form": 0.16666666666666666,
+          "frozen_runtime_cfr": 0.4779886875683823
+        },
+        "ownDie": 2,
+        "player": 0,
+        "publicStateSha256": "288147d3b0cde2aa3003320daa17b1fc55a0d825c6fc65e2aadea76924366aab"
+      },
+      {
+        "bids": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": -0.3333333333333333,
+          "raise:1:6": 1.0
+        },
+        "exactPosterior": {
+          "1": 0.3333333333333333,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.3333333333333333,
+          "5": 0.3333333333333333,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-4ab3e40b5521",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.7074728489857893,
+          "exact_sequence_form": 0.5,
+          "frozen_runtime_cfr": 0.8264445216612754
+        },
+        "ownDie": 6,
+        "player": 0,
+        "publicStateSha256": "7f93f952d78d7de3c33375194b1a7381b3dff6c22c3988ab2c8654341417e884"
+      },
+      {
+        "bids": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": 0.0,
+          "raise:1:4": 0.5000000000000001
+        },
+        "exactPosterior": {
+          "1": 0.25,
+          "2": 0.0,
+          "3": 0.25,
+          "4": 0.25,
+          "5": 0.25,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-9b9c25db3e2d",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.8677832168482382,
+          "exact_sequence_form": 0.6666666666666666,
+          "frozen_runtime_cfr": 0.9394032390607819
+        },
+        "ownDie": 6,
+        "player": 0,
+        "publicStateSha256": "6c702a8e058fdaaaa07c3ef650f1cb6a093691da9ded9bb9a75546541bfc2f43"
+      },
+      {
+        "bids": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": -1.0,
+          "raise:1:6": 0.3333333333333333
+        },
+        "exactPosterior": {
+          "1": 0.3333333333333333,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.3333333333333333,
+          "5": 0.3333333333333333,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-8c656f0dbb48",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.7074728489857893,
+          "exact_sequence_form": 0.5,
+          "frozen_runtime_cfr": 0.8264445216612754
+        },
+        "ownDie": 1,
+        "player": 0,
+        "publicStateSha256": "45f5cab29871bf1f6403f3b05047a52aa3e0ff55822722559dd330ed6bb2beda"
+      },
+      {
+        "bids": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": -1.0,
+          "raise:2:3": 1.0
+        },
+        "exactPosterior": {
+          "1": 1.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-8eccc1a27cc8",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.16277842548337,
+          "exact_sequence_form": 0.08333333333333333,
+          "frozen_runtime_cfr": 0.08251365433355398
+        },
+        "ownDie": 2,
+        "player": 0,
+        "publicStateSha256": "f8d15797fe893bd12f0babf567c07403ffdaa823da9434b80933a35959234881"
+      },
+      {
+        "bids": [
+          [
+            1,
+            3
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": -1.0,
+          "raise:1:4": 1.0
+        },
+        "exactPosterior": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 1.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-f0fbea115a34",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.1666675911224871,
+          "exact_sequence_form": 0.16666666666666666,
+          "frozen_runtime_cfr": 0.1669783900094397
+        },
+        "ownDie": 4,
+        "player": 1,
+        "publicStateSha256": "1694736eeffb448bb56727fa3635d25ac68b57e38a04974ebd13818391c15863"
+      },
+      {
+        "bids": [
+          [
+            1,
+            3
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": -1.0,
+          "raise:1:4": 1.0
+        },
+        "exactPosterior": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 1.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-10fdc60eea32",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.1666675911224871,
+          "exact_sequence_form": 0.16666666666666666,
+          "frozen_runtime_cfr": 0.1669783900094397
+        },
+        "ownDie": 1,
+        "player": 1,
+        "publicStateSha256": "11e8fa89957b335c237d9ccaf8b253b04588dccadb6ed8c3f61619232bc77e69"
+      },
+      {
+        "bids": [
+          [
+            1,
+            4
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": -1.0,
+          "raise:1:5": 1.0
+        },
+        "exactPosterior": {
+          "1": 0.5,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.5,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-bc68dc87d921",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.21951324540073983,
+          "exact_sequence_form": 0.3333333333333333,
+          "frozen_runtime_cfr": 0.2126135039724803
+        },
+        "ownDie": 1,
+        "player": 1,
+        "publicStateSha256": "f1db32aefdfdf6f230fafa60d73b81c5f69fc34126a494b24a3d17764dfcc400"
+      },
+      {
+        "bids": [
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": -1.0,
+          "raise:2:1": 1.0
+        },
+        "exactPosterior": {
+          "1": 1.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-1a7245ea6c01",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.05284978122169412,
+          "exact_sequence_form": 0.16666666666666666,
+          "frozen_runtime_cfr": 0.04850531637186833
+        },
+        "ownDie": 1,
+        "player": 1,
+        "publicStateSha256": "a833e9ebaa8c43d4e67a34ba555cd140baa9b6eebcf78b45cd63ec2f3c7f1a48"
+      },
+      {
+        "bids": [
+          [
+            1,
+            2
+          ]
+        ],
+        "exactActionValues": {
+          "challenge": -1.0,
+          "raise:1:3": 1.0
+        },
+        "exactPosterior": {
+          "1": 0.0,
+          "2": 1.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        },
+        "failurePenalty": 2.0,
+        "id": "liar-candidate-d173e215734d",
+        "opponentReachMassByProfile": {
+          "dcfr_300": 0.1930374163016897,
+          "exact_sequence_form": 0.16666666666666666,
+          "frozen_runtime_cfr": 0.2579509230915901
+        },
+        "ownDie": 1,
+        "player": 1,
+        "publicStateSha256": "fed811c1de58e67f21f2a9876f10345adcf3a5ecb6b1c17a65002aaa9fb9d085"
+      }
+    ]
+  },
+  "passedMethodGates": 3,
+  "planningDiagnostics": {
+    "abstract_memory": {
+      "approximateProbesFor80PercentPowerAtAbsoluteEffect0_25": 26,
+      "clusterMeanDifference": 0.0069444444444444475,
+      "clusterStandardDeviation": 0.4529063460023035,
+      "observedIndependentProbeClusters": 12,
+      "warning": "Normal approximation based on this exploratory sample; use only for planning and preregister a simulation-based calculation before inference."
+    },
+    "same_game": {
+      "approximateProbesFor80PercentPowerAtAbsoluteEffect0_25": 69,
+      "clusterMeanDifference": -0.013888888888888895,
+      "clusterStandardDeviation": 0.740114423767947,
+      "observedIndependentProbeClusters": 12,
+      "warning": "Normal approximation based on this exploratory sample; use only for planning and preregister a simulation-based calculation before inference."
+    },
+    "surface_experience": {
+      "approximateProbesFor80PercentPowerAtAbsoluteEffect0_25": 29,
+      "clusterMeanDifference": -0.0625,
+      "clusterStandardDeviation": 0.47821875937501845,
+      "observedIndependentProbeClusters": 12,
+      "warning": "Normal approximation based on this exploratory sample; use only for planning and preregister a simulation-based calculation before inference."
+    }
+  },
+  "profileInvariantSensitivity": {
+    "contrastsVersusNoMemory": {
+      "abstract_memory": {
+        "clusterBootstrap95": [
+          -0.26515151515151514,
+          0.21212121212121213
+        ],
+        "independentProbeClusters": 11,
+        "interpretation": "inconclusive",
+        "meanDifference": -0.03787878787878787
+      },
+      "same_game": {
+        "clusterBootstrap95": [
+          -0.45454545454545453,
+          0.42424242424242425
+        ],
+        "independentProbeClusters": 11,
+        "interpretation": "inconclusive",
+        "meanDifference": -0.015151515151515159
+      },
+      "surface_experience": {
+        "clusterBootstrap95": [
+          -0.3409090909090909,
+          0.20454545454545456
+        ],
+        "independentProbeClusters": 11,
+        "interpretation": "inconclusive",
+        "meanDifference": -0.06818181818181818
+      }
+    },
+    "notReplacementForPreregisteredPrimary": true,
+    "retainedProbeIds": [
+      "liar-probe-01",
+      "liar-probe-03",
+      "liar-probe-04",
+      "liar-probe-05",
+      "liar-probe-06",
+      "liar-probe-07",
+      "liar-probe-08",
+      "liar-probe-09",
+      "liar-probe-10",
+      "liar-probe-11",
+      "liar-probe-12"
+    ],
+    "scope": "post-hoc robustness check excluding profile-sensitive oracle labels"
+  },
+  "schemaVersion": "aip-transfer-methodology-audit-v1",
+  "totalMethodGates": 7
+}
