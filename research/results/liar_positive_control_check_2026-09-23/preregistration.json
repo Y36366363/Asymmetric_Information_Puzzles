@@ -1,0 +1,2613 @@
+{
+  "basePromptSha256": {
+    "no_memory": "3948e56ea64d8272ced8479ef2186f6883bb59edcabb496f4abff2ef79325125",
+    "same_game_positive_control": "3c77f7d0975d1e0ea05a21a94ae8bda5c67cc730540a0a8233efb50b896cf48d"
+  },
+  "cellOrder": [
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1731,
+      "probeId": "liar-candidate-8c656f0dbb48",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1801,
+      "probeId": "liar-candidate-8eccc1a27cc8",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1871,
+      "probeId": "liar-candidate-278704c5885f",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1941,
+      "probeId": "liar-candidate-5a48647f6c16",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1871,
+      "probeId": "liar-candidate-69fe6df134c5",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1626,
+      "probeId": "liar-candidate-bc68dc87d921",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1801,
+      "probeId": "liar-candidate-b72116dca9ce",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1626,
+      "probeId": "liar-candidate-d173e215734d",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1801,
+      "probeId": "liar-candidate-8eccc1a27cc8",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1801,
+      "probeId": "liar-candidate-b72116dca9ce",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1871,
+      "probeId": "liar-candidate-278704c5885f",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1626,
+      "probeId": "liar-candidate-d173e215734d",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1626,
+      "probeId": "liar-candidate-bc68dc87d921",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1696,
+      "probeId": "liar-candidate-1a7245ea6c01",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1661,
+      "probeId": "liar-candidate-9b9c25db3e2d",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1801,
+      "probeId": "liar-candidate-5a0ce291dcd2",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1626,
+      "probeId": "liar-candidate-bc68dc87d921",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1626,
+      "probeId": "liar-candidate-d173e215734d",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1871,
+      "probeId": "liar-candidate-69fe6df134c5",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1941,
+      "probeId": "liar-candidate-5a48647f6c16",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1696,
+      "probeId": "liar-candidate-1a7245ea6c01",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1801,
+      "probeId": "liar-candidate-5a0ce291dcd2",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1661,
+      "probeId": "liar-candidate-9b9c25db3e2d",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1731,
+      "probeId": "liar-candidate-8c656f0dbb48",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1871,
+      "probeId": "liar-candidate-278704c5885f",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1871,
+      "probeId": "liar-candidate-69fe6df134c5",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1661,
+      "probeId": "liar-candidate-9b9c25db3e2d",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1871,
+      "probeId": "liar-candidate-ab3ce09187d5",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1801,
+      "probeId": "liar-candidate-5a0ce291dcd2",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1871,
+      "probeId": "liar-candidate-278704c5885f",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1731,
+      "probeId": "liar-candidate-8c656f0dbb48",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1801,
+      "probeId": "liar-candidate-8eccc1a27cc8",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1801,
+      "probeId": "liar-candidate-5a0ce291dcd2",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1696,
+      "probeId": "liar-candidate-1a7245ea6c01",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1871,
+      "probeId": "liar-candidate-ab3ce09187d5",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1626,
+      "probeId": "liar-candidate-bc68dc87d921",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1696,
+      "probeId": "liar-candidate-1a7245ea6c01",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1801,
+      "probeId": "liar-candidate-8eccc1a27cc8",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1871,
+      "probeId": "liar-candidate-ab3ce09187d5",
+      "repeat": 1
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1871,
+      "probeId": "liar-candidate-ab3ce09187d5",
+      "repeat": 2
+    },
+    {
+      "arm": "no_memory",
+      "expectedInputTokens": 1941,
+      "probeId": "liar-candidate-5a48647f6c16",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1731,
+      "probeId": "liar-candidate-8c656f0dbb48",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1661,
+      "probeId": "liar-candidate-9b9c25db3e2d",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1626,
+      "probeId": "liar-candidate-d173e215734d",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1801,
+      "probeId": "liar-candidate-b72116dca9ce",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1871,
+      "probeId": "liar-candidate-69fe6df134c5",
+      "repeat": 1
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1941,
+      "probeId": "liar-candidate-5a48647f6c16",
+      "repeat": 2
+    },
+    {
+      "arm": "same_game_positive_control",
+      "expectedInputTokens": 1801,
+      "probeId": "liar-candidate-b72116dca9ce",
+      "repeat": 1
+    }
+  ],
+  "certificationScope": {
+    "fullLoveLetterCertified": false,
+    "runtimeLabelsChanged": false
+  },
+  "date": "2026-09-23",
+  "fullPanelAudit": {
+    "allSelectedProfileInvariant": true,
+    "candidateAudit": {
+      "allProbeLabelsInvariant": false,
+      "probes": [
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.5288395478921173,
+            "exact_sequence_form": 1.3333333333333333,
+            "frozen_runtime_cfr": 1.597130133660118
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:6"
+            ],
+            "exact_sequence_form": [
+              "raise:1:6"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:6"
+            ]
+          },
+          "probeId": "liar-candidate-8c656f0dbb48",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.615879610356084,
+            "exact_sequence_form": 1.5,
+            "frozen_runtime_cfr": 1.6455732957532807
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:4"
+            ],
+            "exact_sequence_form": [
+              "raise:1:4"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:4"
+            ]
+          },
+          "probeId": "liar-candidate-565ecf784c07",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.4488205681928493,
+            "exact_sequence_form": 0.6666666666666667,
+            "frozen_runtime_cfr": 0.27077094669449775
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:2:1"
+            ],
+            "exact_sequence_form": [
+              "raise:2:1"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:2:1"
+            ]
+          },
+          "probeId": "liar-candidate-04e28b913111",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.6938791586553419,
+            "exact_sequence_form": 1.2,
+            "frozen_runtime_cfr": 0.5212528645092167
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:5"
+            ],
+            "exact_sequence_form": [
+              "raise:1:5"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:5"
+            ]
+          },
+          "probeId": "liar-candidate-238ea1378888",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.6057345855452452,
+            "exact_sequence_form": 1.5,
+            "frozen_runtime_cfr": 1.6384525283142968
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:6"
+            ],
+            "exact_sequence_form": [
+              "raise:1:6"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:6"
+            ]
+          },
+          "probeId": "liar-candidate-6e2525ca0ecc",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.3829201101928378,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 0.99756005284414
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:2:5"
+            ]
+          },
+          "probeId": "liar-candidate-6613330e649a",
+          "profileInvariant": false
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.4744238479983205,
+            "exact_sequence_form": 1.3333333333333333,
+            "frozen_runtime_cfr": 0.5624283221910557
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:2:1"
+            ],
+            "exact_sequence_form": [
+              "raise:2:1"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:2:1"
+            ]
+          },
+          "probeId": "liar-candidate-bc0aa8e6e2fd",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.6955846184795125,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 0.6067215085074722
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-7e7d50622b15",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.2318610063771798,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.3032950943713322
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:3"
+            ],
+            "exact_sequence_form": [
+              "raise:1:3"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:3"
+            ]
+          },
+          "probeId": "liar-candidate-2603318ef892",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.9999999999999996,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 2.0
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-5a48647f6c16",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.06703390879769089,
+            "exact_sequence_form": 0.6666666666666666,
+            "frozen_runtime_cfr": 0.3407869724252298
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:6"
+            ],
+            "exact_sequence_form": [
+              "raise:1:6"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-857548eb2b40",
+          "profileInvariant": false
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.9999995472057267,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.9968621522784866
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:2:3"
+            ],
+            "exact_sequence_form": [
+              "raise:2:3"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:2:3"
+            ]
+          },
+          "probeId": "liar-candidate-8eccc1a27cc8",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 2.0,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 2.0
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-fe2874e67506",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.9999999999999999,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.1626701271914723
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-08113432a902",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.6955807387118169,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 0.6065890595413833
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-636a30b4a72e",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.9999999999999996,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 2.0
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-fbaba1b5822c",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.034336501765579,
+            "exact_sequence_form": 1.0,
+            "frozen_runtime_cfr": 1.9991773621803501
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:2:4"
+            ],
+            "exact_sequence_form": [
+              "raise:2:4"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:2:4"
+            ]
+          },
+          "probeId": "liar-candidate-9fdd1ad62df9",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.06703390879769089,
+            "exact_sequence_form": 0.6666666666666666,
+            "frozen_runtime_cfr": 0.3407869724252298
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:6"
+            ],
+            "exact_sequence_form": [
+              "raise:1:6"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-ce6f989001e5",
+          "profileInvariant": false
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.137187188776501,
+            "exact_sequence_form": 1.0,
+            "frozen_runtime_cfr": 1.1766508936444053
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:4"
+            ],
+            "exact_sequence_form": [
+              "raise:1:4"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:4"
+            ]
+          },
+          "probeId": "liar-candidate-bbb4032147ef",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 2.0,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 2.0
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-e5a6548d0b43",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.6174451693213324,
+            "exact_sequence_form": 1.0,
+            "frozen_runtime_cfr": 0.9997421402031987
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:2:4"
+            ],
+            "exact_sequence_form": [
+              "raise:2:4"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:2:4"
+            ]
+          },
+          "probeId": "liar-candidate-329cdbc7371a",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.9999986815986679,
+            "exact_sequence_form": 1.0,
+            "frozen_runtime_cfr": 0.5108162511234062
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:2:4"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:2:4"
+            ]
+          },
+          "probeId": "liar-candidate-96710865ef0e",
+          "profileInvariant": false
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.5000000846812693,
+            "exact_sequence_form": 1.0,
+            "frozen_runtime_cfr": 1.7839202035365325
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-8a53bc70763f",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.6955807387118169,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 0.6065890595413833
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-d85792fa09db",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.2318610579282827,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.303185594520615
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:5"
+            ],
+            "exact_sequence_form": [
+              "raise:1:5"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:5"
+            ]
+          },
+          "probeId": "liar-candidate-4a293ec2bac4",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.9999999999999996,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 2.0
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-2acefce73779",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.06703390879769089,
+            "exact_sequence_form": 0.6666666666666666,
+            "frozen_runtime_cfr": 0.3407869724252298
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:6"
+            ],
+            "exact_sequence_form": [
+              "raise:1:6"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-78b0ee1342db",
+          "profileInvariant": false
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.2748991517924573,
+            "exact_sequence_form": 0.5,
+            "frozen_runtime_cfr": 0.12615999123373567
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:4"
+            ],
+            "exact_sequence_form": [
+              "raise:1:4"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:4"
+            ]
+          },
+          "probeId": "liar-candidate-c7bd7fd780bf",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.9999997736028633,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.9983544391678196
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:2:5"
+            ],
+            "exact_sequence_form": [
+              "raise:2:5"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:2:5"
+            ]
+          },
+          "probeId": "liar-candidate-5227f9dc069a",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.6840395298250587,
+            "exact_sequence_form": 0.3999999999999999,
+            "frozen_runtime_cfr": 1.0426054416320159
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:5"
+            ],
+            "exact_sequence_form": [
+              "raise:1:5"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:5"
+            ]
+          },
+          "probeId": "liar-candidate-d2211f4726b3",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 2.0,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 2.0
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-6aada1dab715",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.4919617065123347e-06,
+            "exact_sequence_form": 1.0,
+            "frozen_runtime_cfr": 0.37410020734448257
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-7513a69dc6f4",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.6955807387118169,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 0.6065890595413833
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-5a0ce291dcd2",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 2.726888133630645e-06,
+            "exact_sequence_form": 1.0,
+            "frozen_runtime_cfr": 0.00015287642124572898
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-472f65226024",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.9999979314259884,
+            "exact_sequence_form": 1.0,
+            "frozen_runtime_cfr": 1.9998471722240616
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-49d5f05d5f66",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.3948689901294207,
+            "exact_sequence_form": 1.3333333333333333,
+            "frozen_runtime_cfr": 0.9966290245627133
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:6"
+            ],
+            "exact_sequence_form": [
+              "raise:1:6"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:6"
+            ]
+          },
+          "probeId": "liar-candidate-e4abfa2a03b2",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 3.0787688806305955e-07,
+            "exact_sequence_form": 0.8,
+            "frozen_runtime_cfr": 0.24833030365991562
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:5"
+            ],
+            "exact_sequence_form": [
+              "raise:1:5"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:5"
+            ]
+          },
+          "probeId": "liar-candidate-8412f20ab087",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.5732961345773212,
+            "exact_sequence_form": 1.0,
+            "frozen_runtime_cfr": 0.6151209386108853
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-278704c5885f",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.7133519327113393,
+            "exact_sequence_form": 1.0,
+            "frozen_runtime_cfr": 1.6924395306945574
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-511820f72f1f",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.124935144785587,
+            "exact_sequence_form": 1.0,
+            "frozen_runtime_cfr": 0.9151687484593642
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:6"
+            ],
+            "exact_sequence_form": [
+              "raise:1:6"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:6"
+            ]
+          },
+          "probeId": "liar-candidate-55f1672b303f",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.9999985080382934,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.9512406075855147
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-1d7187bbd41a",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.6955807354974939,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 0.6024107165745813
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-6858c439642c",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 4.726673361155065e-06,
+            "exact_sequence_form": 1.0,
+            "frozen_runtime_cfr": 0.00015299305852101153
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-7e3d0096b907",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.6721649186682701,
+            "exact_sequence_form": 1.3333333333333333,
+            "frozen_runtime_cfr": 0.6625840030120569
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:6"
+            ],
+            "exact_sequence_form": [
+              "raise:1:6"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:6"
+            ]
+          },
+          "probeId": "liar-candidate-4ab3e40b5521",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.39876999900080146,
+            "exact_sequence_form": 0.5000000000000001,
+            "frozen_runtime_cfr": 0.4686338172691203
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:4"
+            ],
+            "exact_sequence_form": [
+              "raise:1:4"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:4"
+            ]
+          },
+          "probeId": "liar-candidate-9b9c25db3e2d",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.9999997736028634,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.9996516514366482
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-69fe6df134c5",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.5799563694075703,
+            "exact_sequence_form": 0.6666666666666667,
+            "frozen_runtime_cfr": 0.2656380761104047
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:2:1"
+            ],
+            "exact_sequence_form": [
+              "raise:2:1"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:2:1"
+            ]
+          },
+          "probeId": "liar-candidate-1e1927832fec",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.5732962923105401,
+            "exact_sequence_form": 1.0,
+            "frozen_runtime_cfr": 0.6151212614943612
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-ab3ce09187d5",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.7885308507040514,
+            "exact_sequence_form": 1.0,
+            "frozen_runtime_cfr": 0.7232558276052203
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:6"
+            ],
+            "exact_sequence_form": [
+              "raise:1:6"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:6"
+            ]
+          },
+          "probeId": "liar-candidate-22726e94de37",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.6005509641873283,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.9987793406094014
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-b72116dca9ce",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 4.7599327519520784e-06,
+            "exact_sequence_form": 0.6666666666666667,
+            "frozen_runtime_cfr": 0.32170754422114434
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:2:1"
+            ],
+            "exact_sequence_form": [
+              "raise:2:1"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:2:1"
+            ]
+          },
+          "probeId": "liar-candidate-2bbbd90e13f9",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 0.9999999999999999,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.1626701271914723
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "challenge"
+            ],
+            "exact_sequence_form": [
+              "challenge"
+            ],
+            "frozen_runtime_cfr": [
+              "challenge"
+            ]
+          },
+          "probeId": "liar-candidate-c846f02723e7",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.9999039900512035,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.9537345359126475
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:3"
+            ],
+            "exact_sequence_form": [
+              "raise:1:3"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:3"
+            ]
+          },
+          "probeId": "liar-candidate-d173e215734d",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.9999999245343054,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.9980754025545224
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:4"
+            ],
+            "exact_sequence_form": [
+              "raise:1:4"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:4"
+            ]
+          },
+          "probeId": "liar-candidate-10fdc60eea32",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.9999500170581788,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.9867202013301282
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:2:1"
+            ],
+            "exact_sequence_form": [
+              "raise:2:1"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:2:1"
+            ]
+          },
+          "probeId": "liar-candidate-1a7245ea6c01",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.9999879661587836,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.9969703672447814
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:5"
+            ],
+            "exact_sequence_form": [
+              "raise:1:5"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:5"
+            ]
+          },
+          "probeId": "liar-candidate-bc68dc87d921",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.9999998936558998,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.9999492358443693
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:6"
+            ],
+            "exact_sequence_form": [
+              "raise:1:6"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:6"
+            ]
+          },
+          "probeId": "liar-candidate-8806a29afe77",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.726788234914895,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.2865041074212589
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:3"
+            ],
+            "exact_sequence_form": [
+              "raise:1:3"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:3"
+            ]
+          },
+          "probeId": "liar-candidate-6d54274cc0e7",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.9999789153423944,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.9872785826334756
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:4"
+            ],
+            "exact_sequence_form": [
+              "raise:1:4"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:4"
+            ]
+          },
+          "probeId": "liar-candidate-f0fbea115a34",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.5184842972929586,
+            "exact_sequence_form": 1.0,
+            "frozen_runtime_cfr": 1.5449585502531105
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:5"
+            ],
+            "exact_sequence_form": [
+              "raise:1:5"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:5"
+            ]
+          },
+          "probeId": "liar-candidate-838edaa89135",
+          "profileInvariant": true
+        },
+        {
+          "actionValueGaps": {
+            "dcfr_300": 1.9999915495774805,
+            "exact_sequence_form": 2.0,
+            "frozen_runtime_cfr": 1.998778004691391
+          },
+          "bestActionIds": {
+            "dcfr_300": [
+              "raise:1:6"
+            ],
+            "exact_sequence_form": [
+              "raise:1:6"
+            ],
+            "frozen_runtime_cfr": [
+              "raise:1:6"
+            ]
+          },
+          "probeId": "liar-candidate-7f3d114d07c0",
+          "profileInvariant": true
+        }
+      ],
+      "profileInvariantProbes": 56,
+      "profiles": [
+        "exact_sequence_form",
+        "frozen_runtime_cfr",
+        "dcfr_300"
+      ],
+      "totalProbes": 61,
+      "unstableProbeIds": [
+        "liar-candidate-6613330e649a",
+        "liar-candidate-857548eb2b40",
+        "liar-candidate-ce6f989001e5",
+        "liar-candidate-96710865ef0e",
+        "liar-candidate-78b0ee1342db"
+      ]
+    },
+    "challengeOptimal": 15,
+    "minimumActionValueGap": 0.25,
+    "playerOneRaiseProbes": 5,
+    "raiseOptimal": 15,
+    "selectedProbeIds": [
+      "liar-candidate-ab3ce09187d5",
+      "liar-candidate-5a0ce291dcd2",
+      "liar-candidate-278704c5885f",
+      "liar-candidate-5a48647f6c16",
+      "liar-candidate-69fe6df134c5",
+      "liar-candidate-b72116dca9ce",
+      "liar-candidate-fbaba1b5822c",
+      "liar-candidate-8a53bc70763f",
+      "liar-candidate-1d7187bbd41a",
+      "liar-candidate-511820f72f1f",
+      "liar-candidate-636a30b4a72e",
+      "liar-candidate-6858c439642c",
+      "liar-candidate-c846f02723e7",
+      "liar-candidate-2acefce73779",
+      "liar-candidate-e5a6548d0b43",
+      "liar-candidate-d2211f4726b3",
+      "liar-candidate-565ecf784c07",
+      "liar-candidate-6e2525ca0ecc",
+      "liar-candidate-9fdd1ad62df9",
+      "liar-candidate-bc0aa8e6e2fd",
+      "liar-candidate-2603318ef892",
+      "liar-candidate-4ab3e40b5521",
+      "liar-candidate-9b9c25db3e2d",
+      "liar-candidate-8c656f0dbb48",
+      "liar-candidate-8eccc1a27cc8",
+      "liar-candidate-f0fbea115a34",
+      "liar-candidate-10fdc60eea32",
+      "liar-candidate-bc68dc87d921",
+      "liar-candidate-1a7245ea6c01",
+      "liar-candidate-d173e215734d"
+    ],
+    "selectedProbes": 30
+  },
+  "fullPanelSize": 30,
+  "gate": {
+    "allCellsValid": true,
+    "inputTokenMismatches": 0,
+    "minimumOptimalActionRateLift": 0.15,
+    "minimumPositiveControlOptimalActionRate": 0.85,
+    "minimumRepeatActionAgreementEachArm": 0.8,
+    "positiveControlMeanRegretMustBeLower": true
+  },
+  "manipulationPanelSize": 12,
+  "maxAttemptsPerCell": 1,
+  "maxOutputTokens": 4096,
+  "maxProviderCalls": 48,
+  "model": "gpt-5.6-luna",
+  "nextStepRule": "Run the 30-state four-condition main experiment only if every gate passes; otherwise retain the failed evidence and do not expand model calls.",
+  "paddingToken": " PAD",
+  "paddingTokenCounts": {
+    "no_memory": 1128,
+    "same_game_positive_control": 15
+  },
+  "positiveControlMaterial": {
+    "challengeBestExamples": 8,
+    "exampleCount": 16,
+    "examples": [
+      {
+        "bestAction": "challenge",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": 1.0,
+          "raise:2:4": 0.0
+        },
+        "ownDie": 4,
+        "player": 0,
+        "publicBids": [
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      {
+        "bestAction": "challenge",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": 1.0,
+          "raise:2:6": -1.0
+        },
+        "ownDie": 4,
+        "player": 0,
+        "publicBids": [
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            5
+          ]
+        ]
+      },
+      {
+        "bestAction": "challenge",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": 1.0,
+          "raise:2:4": 0.0
+        },
+        "ownDie": 5,
+        "player": 0,
+        "publicBids": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      {
+        "bestAction": "challenge",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": 1.0,
+          "raise:2:6": 0.0
+        },
+        "ownDie": 6,
+        "player": 0,
+        "publicBids": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            5
+          ]
+        ]
+      },
+      {
+        "bestAction": "challenge",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": 1.0,
+          "raise:2:4": -1.0
+        },
+        "ownDie": 2,
+        "player": 0,
+        "publicBids": [
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      {
+        "bestAction": "challenge",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": 1.0,
+          "raise:2:6": -1.0
+        },
+        "ownDie": 2,
+        "player": 0,
+        "publicBids": [
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            5
+          ]
+        ]
+      },
+      {
+        "bestAction": "challenge",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": 1.0,
+          "raise:2:1": -1.0
+        },
+        "ownDie": 2,
+        "player": 0,
+        "publicBids": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ]
+        ]
+      },
+      {
+        "bestAction": "challenge",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": 1.0,
+          "raise:2:1": -1.0
+        },
+        "ownDie": 4,
+        "player": 0,
+        "publicBids": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ]
+        ]
+      },
+      {
+        "bestAction": "raise:1:6",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": 0.0,
+          "raise:1:6": 1.0
+        },
+        "ownDie": 6,
+        "player": 0,
+        "publicBids": [
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ]
+        ]
+      },
+      {
+        "bestAction": "raise:1:5",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": -1.0,
+          "raise:1:5": 1.0
+        },
+        "ownDie": 4,
+        "player": 0,
+        "publicBids": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ]
+        ]
+      },
+      {
+        "bestAction": "raise:1:5",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": -1.0,
+          "raise:1:5": 0.2
+        },
+        "ownDie": 1,
+        "player": 0,
+        "publicBids": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ]
+        ]
+      },
+      {
+        "bestAction": "raise:1:6",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": -1.0,
+          "raise:1:6": 1.0
+        },
+        "ownDie": 1,
+        "player": 1,
+        "publicBids": [
+          [
+            1,
+            5
+          ]
+        ]
+      },
+      {
+        "bestAction": "raise:1:3",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": -1.0,
+          "raise:1:3": 1.0
+        },
+        "ownDie": 3,
+        "player": 1,
+        "publicBids": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      {
+        "bestAction": "raise:1:5",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": -1.0,
+          "raise:1:5": 0.0
+        },
+        "ownDie": 5,
+        "player": 1,
+        "publicBids": [
+          [
+            1,
+            4
+          ]
+        ]
+      },
+      {
+        "bestAction": "raise:1:6",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": -1.0,
+          "raise:1:6": 1.0
+        },
+        "ownDie": 6,
+        "player": 1,
+        "publicBids": [
+          [
+            1,
+            5
+          ]
+        ]
+      },
+      {
+        "bestAction": "raise:2:1",
+        "legalActionValuesAgainstExactOpponent": {
+          "challenge": -1.0,
+          "raise:2:1": -0.3333333333333333
+        },
+        "ownDie": 6,
+        "player": 0,
+        "publicBids": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ]
+        ]
+      }
+    ],
+    "raiseBestExamples": 8,
+    "schemaVersion": "aip-liar-positive-control-material-v1",
+    "selectionSeed": 20260923,
+    "testDisjoint": true,
+    "testProbeIds": [
+      "liar-candidate-10fdc60eea32",
+      "liar-candidate-1a7245ea6c01",
+      "liar-candidate-1d7187bbd41a",
+      "liar-candidate-2603318ef892",
+      "liar-candidate-278704c5885f",
+      "liar-candidate-2acefce73779",
+      "liar-candidate-4ab3e40b5521",
+      "liar-candidate-511820f72f1f",
+      "liar-candidate-565ecf784c07",
+      "liar-candidate-5a0ce291dcd2",
+      "liar-candidate-5a48647f6c16",
+      "liar-candidate-636a30b4a72e",
+      "liar-candidate-6858c439642c",
+      "liar-candidate-69fe6df134c5",
+      "liar-candidate-6e2525ca0ecc",
+      "liar-candidate-8a53bc70763f",
+      "liar-candidate-8c656f0dbb48",
+      "liar-candidate-8eccc1a27cc8",
+      "liar-candidate-9b9c25db3e2d",
+      "liar-candidate-9fdd1ad62df9",
+      "liar-candidate-ab3ce09187d5",
+      "liar-candidate-b72116dca9ce",
+      "liar-candidate-bc0aa8e6e2fd",
+      "liar-candidate-bc68dc87d921",
+      "liar-candidate-c846f02723e7",
+      "liar-candidate-d173e215734d",
+      "liar-candidate-d2211f4726b3",
+      "liar-candidate-e5a6548d0b43",
+      "liar-candidate-f0fbea115a34",
+      "liar-candidate-fbaba1b5822c"
+    ]
+  },
+  "positiveControlMaterialSha256": "9f98f4dac8e89c1078ab2ac73904e065248eb00b571e2de3779a2649466b1c38",
+  "probes": [
+    {
+      "bids": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 1.0,
+        "raise:2:6": 0.0
+      },
+      "exactPosterior": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-ab3ce09187d5",
+      "ownDie": 6,
+      "player": 0,
+      "publicStateSha256": "777e0c257f140123790b1ec3a29418166a925aa5b36fedefd8575f9e78276932"
+    },
+    {
+      "bids": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 1.0,
+        "raise:2:1": -1.0
+      },
+      "exactPosterior": {
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 1.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-5a0ce291dcd2",
+      "ownDie": 5,
+      "player": 0,
+      "publicStateSha256": "889728f019b878c5e493ac5fdc07c20f53717115c889a6d14476c49cf4e61838"
+    },
+    {
+      "bids": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 0.0,
+        "raise:2:6": -1.0
+      },
+      "exactPosterior": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-278704c5885f",
+      "ownDie": 5,
+      "player": 0,
+      "publicStateSha256": "d5394ba193b6313b04bff3dd6ec2977eae49dc3d1a593fcf134ac67dba0f7455"
+    },
+    {
+      "bids": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 1.0,
+        "raise:2:6": -1.0
+      },
+      "exactPosterior": {
+        "1": 0.5,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.5,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-5a48647f6c16",
+      "ownDie": 2,
+      "player": 0,
+      "publicStateSha256": "bd8fde3e23d27b5de0867df65e9f6262bd1a995cc7be1bb55fc2a3dcd4794897"
+    },
+    {
+      "bids": [
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 1.0,
+        "raise:2:5": -1.0
+      },
+      "exactPosterior": {
+        "1": 1.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-69fe6df134c5",
+      "ownDie": 6,
+      "player": 0,
+      "publicStateSha256": "237626742b464a0ff574b654d00bddf912e5053adf2703e33c01edb161ea57a5"
+    },
+    {
+      "bids": [
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 1.0,
+        "raise:2:5": -1.0
+      },
+      "exactPosterior": {
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 1.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-b72116dca9ce",
+      "ownDie": 6,
+      "player": 0,
+      "publicStateSha256": "16331a3bfbff9d4e5101fc37a5ff9f8fa05956d12a0f8f6da99f4d82c24724bf"
+    },
+    {
+      "bids": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 0.0,
+        "raise:1:4": 0.5000000000000001
+      },
+      "exactPosterior": {
+        "1": 0.25,
+        "2": 0.0,
+        "3": 0.25,
+        "4": 0.25,
+        "5": 0.25,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-9b9c25db3e2d",
+      "ownDie": 6,
+      "player": 0,
+      "publicStateSha256": "6c702a8e058fdaaaa07c3ef650f1cb6a093691da9ded9bb9a75546541bfc2f43"
+    },
+    {
+      "bids": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": -1.0,
+        "raise:1:6": 0.3333333333333333
+      },
+      "exactPosterior": {
+        "1": 0.3333333333333333,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.3333333333333333,
+        "5": 0.3333333333333333,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-8c656f0dbb48",
+      "ownDie": 1,
+      "player": 0,
+      "publicStateSha256": "45f5cab29871bf1f6403f3b05047a52aa3e0ff55822722559dd330ed6bb2beda"
+    },
+    {
+      "bids": [
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": -1.0,
+        "raise:2:3": 1.0
+      },
+      "exactPosterior": {
+        "1": 1.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-8eccc1a27cc8",
+      "ownDie": 2,
+      "player": 0,
+      "publicStateSha256": "f8d15797fe893bd12f0babf567c07403ffdaa823da9434b80933a35959234881"
+    },
+    {
+      "bids": [
+        [
+          1,
+          4
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": -1.0,
+        "raise:1:5": 1.0
+      },
+      "exactPosterior": {
+        "1": 0.5,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.5,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-bc68dc87d921",
+      "ownDie": 1,
+      "player": 1,
+      "publicStateSha256": "f1db32aefdfdf6f230fafa60d73b81c5f69fc34126a494b24a3d17764dfcc400"
+    },
+    {
+      "bids": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": -1.0,
+        "raise:2:1": 1.0
+      },
+      "exactPosterior": {
+        "1": 1.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-1a7245ea6c01",
+      "ownDie": 1,
+      "player": 1,
+      "publicStateSha256": "a833e9ebaa8c43d4e67a34ba555cd140baa9b6eebcf78b45cd63ec2f3c7f1a48"
+    },
+    {
+      "bids": [
+        [
+          1,
+          2
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": -1.0,
+        "raise:1:3": 1.0
+      },
+      "exactPosterior": {
+        "1": 0.0,
+        "2": 1.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-d173e215734d",
+      "ownDie": 1,
+      "player": 1,
+      "publicStateSha256": "fed811c1de58e67f21f2a9876f10345adcf3a5ecb6b1c17a65002aaa9fb9d085"
+    }
+  ],
+  "prompts": {
+    "no_memory": "Condition: no_memory. Solve only from the current rules and public decision state.\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD",
+    "same_game_positive_control": "Prior-memory condition: same_game_stratified_positive_control. The records below are exact one-die Liar's Dice decisions selected mechanically from information sets disjoint from every test state. Each value is conditional expected utility against the exact equilibrium opponent; choose the legal action with the larger value. Do not default to challenge: a bid can be plausible because of either player's die, and ones are wild only for faces 2-6. Match the current player, own die, and full public bid history to the strategic pattern in these worked records.\n[{\"bestAction\":\"challenge\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":1.0,\"raise:2:4\":0.0},\"ownDie\":4,\"player\":0,\"publicBids\":[[1,6],[2,1],[2,2],[2,3]]},{\"bestAction\":\"challenge\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":1.0,\"raise:2:6\":-1.0},\"ownDie\":4,\"player\":0,\"publicBids\":[[1,4],[1,5],[1,6],[2,1],[2,2],[2,3],[2,4],[2,5]]},{\"bestAction\":\"challenge\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":1.0,\"raise:2:4\":0.0},\"ownDie\":5,\"player\":0,\"publicBids\":[[1,2],[1,3],[1,4],[1,5],[1,6],[2,1],[2,2],[2,3]]},{\"bestAction\":\"challenge\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":1.0,\"raise:2:6\":0.0},\"ownDie\":6,\"player\":0,\"publicBids\":[[1,2],[1,3],[1,4],[1,5],[1,6],[2,1],[2,2],[2,3],[2,4],[2,5]]},{\"bestAction\":\"challenge\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":1.0,\"raise:2:4\":-1.0},\"ownDie\":2,\"player\":0,\"publicBids\":[[1,6],[2,1],[2,2],[2,3]]},{\"bestAction\":\"challenge\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":1.0,\"raise:2:6\":-1.0},\"ownDie\":2,\"player\":0,\"publicBids\":[[1,4],[1,5],[1,6],[2,1],[2,2],[2,3],[2,4],[2,5]]},{\"bestAction\":\"challenge\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":1.0,\"raise:2:1\":-1.0},\"ownDie\":2,\"player\":0,\"publicBids\":[[1,1],[1,2],[1,3],[1,4],[1,5],[1,6]]},{\"bestAction\":\"challenge\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":1.0,\"raise:2:1\":-1.0},\"ownDie\":4,\"player\":0,\"publicBids\":[[1,1],[1,2],[1,3],[1,4],[1,5],[1,6]]},{\"bestAction\":\"raise:1:6\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":0.0,\"raise:1:6\":1.0},\"ownDie\":6,\"player\":0,\"publicBids\":[[1,4],[1,5]]},{\"bestAction\":\"raise:1:5\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":-1.0,\"raise:1:5\":1.0},\"ownDie\":4,\"player\":0,\"publicBids\":[[1,1],[1,2],[1,3],[1,4]]},{\"bestAction\":\"raise:1:5\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":-1.0,\"raise:1:5\":0.2},\"ownDie\":1,\"player\":0,\"publicBids\":[[1,3],[1,4]]},{\"bestAction\":\"raise:1:6\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":-1.0,\"raise:1:6\":1.0},\"ownDie\":1,\"player\":1,\"publicBids\":[[1,5]]},{\"bestAction\":\"raise:1:3\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":-1.0,\"raise:1:3\":1.0},\"ownDie\":3,\"player\":1,\"publicBids\":[[1,2]]},{\"bestAction\":\"raise:1:5\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":-1.0,\"raise:1:5\":0.0},\"ownDie\":5,\"player\":1,\"publicBids\":[[1,4]]},{\"bestAction\":\"raise:1:6\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":-1.0,\"raise:1:6\":1.0},\"ownDie\":6,\"player\":1,\"publicBids\":[[1,5]]},{\"bestAction\":\"raise:2:1\",\"legalActionValuesAgainstExactOpponent\":{\"challenge\":-1.0,\"raise:2:1\":-0.3333333333333333},\"ownDie\":6,\"player\":0,\"publicBids\":[[1,3],[1,4],[1,5],[1,6]]}]\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD"
+  },
+  "reasoningEffort": "low",
+  "repeats": 2,
+  "schemaVersion": "aip-liar-positive-control-prereg-v1",
+  "seed": 20260923
+}

@@ -295,6 +295,102 @@ def select_profile_invariant_probes(
     }
 
 
+def build_consensus_reference_profiles():
+    """Return the three independently audited profiles used by probe gates."""
+
+    from pathlib import Path
+
+    from aip.core import create_regret_minimization_trainer
+    from aip.puzzles.liars_dice import load_one_die_liar_policy
+
+    _, exact = solve_one_die_liar_exact()
+    frozen = load_one_die_liar_policy(
+        Path(__file__).resolve().parents[1]
+        / "puzzles/liars_dice/one_die_cfr_policy.json"
+    )
+    dcfr = create_regret_minimization_trainer(
+        OneDieLiarDiceCFRGame(), "dcfr"
+    ).train(300)
+    return {
+        "exact_sequence_form": exact.policy,
+        "frozen_runtime_cfr": frozen.policy,
+        "dcfr_300": dcfr.policy,
+    }
+
+
+def positive_control_material(
+    test_panel: tuple[LiarProbe, ...],
+    profiles: Mapping[str, Mapping[tuple[int, Hashable], Mapping[Hashable, float]]],
+    *,
+    examples_per_action: int = 8,
+) -> dict[str, object]:
+    """Create stratified, mechanically selected, test-disjoint examples."""
+
+    if examples_per_action < 1:
+        raise ValueError("positive control needs examples from both action classes")
+    excluded = {probe.probe_id for probe in test_panel}
+    candidates = tuple(
+        probe for probe in candidate_oracle_probes() if probe.probe_id not in excluded
+    )
+    audit = compare_probe_oracles(candidates, profiles)
+    rows = {row["probeId"]: row for row in audit["probes"]}
+    groups = {"challenge": [], "raise": []}
+    for probe in candidates:
+        row = rows[probe.probe_id]
+        if not row["profileInvariant"]:
+            continue
+        labels = next(iter(row["bestActionIds"].values()))
+        if len(labels) != 1:
+            continue
+        groups["challenge" if labels[0] == "challenge" else "raise"].append(probe)
+    rank = lambda probe: digest({
+        "seed": 20260923,
+        "purpose": "same_game_positive_control",
+        "probe": probe.probe_id,
+    })
+    selected = []
+    for label in ("challenge", "raise"):
+        selected.extend(sorted(groups[label], key=rank)[:examples_per_action])
+    if len(selected) != examples_per_action * 2:
+        raise ValueError("insufficient disjoint positive-control examples")
+    examples = []
+    for probe in selected:
+        values = probe.exact_action_values
+        examples.append({
+            "player": probe.player,
+            "ownDie": probe.own_die,
+            "publicBids": [list(bid) for bid in probe.bids],
+            "legalActionValuesAgainstExactOpponent": dict(values),
+            "bestAction": max(values, key=values.get),
+        })
+    return {
+        "schemaVersion": "aip-liar-positive-control-material-v1",
+        "selectionSeed": 20260923,
+        "testProbeIds": sorted(excluded),
+        "examples": examples,
+        "exampleCount": len(examples),
+        "challengeBestExamples": examples_per_action,
+        "raiseBestExamples": examples_per_action,
+        "testDisjoint": not excluded.intersection(probe.probe_id for probe in selected),
+    }
+
+
+def positive_control_prompt(material: Mapping[str, object]) -> str:
+    """Build a strong target-game control from audited, disjoint records."""
+
+    return (
+        "Prior-memory condition: same_game_stratified_positive_control. The records "
+        "below are exact one-die Liar's Dice decisions selected mechanically from "
+        "information sets disjoint from every test state. Each value is conditional "
+        "expected utility against the exact equilibrium opponent; choose the legal "
+        "action with the larger value. Do not default to challenge: a bid can be "
+        "plausible because of either player's die, and ones are wild only for faces "
+        "2-6. Match the current player, own die, and full public bid history to the "
+        "strategic pattern in these worked records.\n"
+        + canonical_json(material["examples"])
+    )
+
+
 def source_experience_records() -> dict[str, object]:
     """Generate auditable records rather than hand-written fictional episodes."""
 

@@ -1,0 +1,44 @@
+{
+  "completedCells": 48,
+  "contrasts": {
+    "meanExactActionRegretDifference": -0.2152777777777778,
+    "optimalActionRateLift": 0.16666666666666674
+  },
+  "fullLoveLetterCertified": false,
+  "gateChecks": {
+    "allCellsValid": true,
+    "inputTokenMismatchesZero": true,
+    "optimalActionRateLift": true,
+    "positiveControlMeanRegretLower": true,
+    "positiveControlOptimalActionRate": false,
+    "repeatActionAgreementEachArm": true
+  },
+  "gatePassed": false,
+  "inputTokenMismatches": 0,
+  "nextStep": "stop_before_main_experiment",
+  "preregistrationSha256": "dff66beb8bf03d7cdddde39e5bee327a3134a7420656fd4db7b98a82249d507a",
+  "resolvedModels": [
+    "gpt-5.6-luna"
+  ],
+  "runStatus": "complete",
+  "schemaVersion": "aip-liar-positive-control-report-v1",
+  "summaries": {
+    "no_memory": {
+      "cells": 24,
+      "meanExactActionRegret": 0.4861111111111111,
+      "optimalActionRate": 0.6666666666666666,
+      "repeatActionAgreement": 0.8333333333333334,
+      "repeatAgreementProbeCount": 10,
+      "validDecisions": 24
+    },
+    "same_game_positive_control": {
+      "cells": 24,
+      "meanExactActionRegret": 0.2708333333333333,
+      "optimalActionRate": 0.8333333333333334,
+      "repeatActionAgreement": 0.8333333333333334,
+      "repeatAgreementProbeCount": 10,
+      "validDecisions": 24
+    }
+  },
+  "validDecisions": 48
+}

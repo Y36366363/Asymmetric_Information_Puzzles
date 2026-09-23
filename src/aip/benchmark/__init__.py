@@ -43,6 +43,11 @@ from aip.benchmark.equilibrium import (
     evaluate_goofspiel_policy,
     evaluate_kuhn_policy,
 )
+from aip.benchmark.goofspiel import (
+    GoofspielProbe,
+    build_goofspiel_oracle_probes,
+    candidate_goofspiel_probes,
+)
 from aip.benchmark.mastermind import (
     BELIEF_TARGET as MASTERMIND_BELIEF_TARGET,
     CROSS_GAME_MEMORY_V1,
@@ -125,6 +130,7 @@ __all__ = [
     "GENERIC_STRATEGIC_PROMPT",
     "GenericWeakRandomAgent",
     "GoofspielEquilibriumMetrics",
+    "GoofspielProbe",
     "GroundTruthProfile",
     "CROSS_GAME_MEMORY_V1",
     "FROZEN_TRANSFER_BUNDLE_V1",
@@ -165,6 +171,8 @@ __all__ = [
     "V1_ENVIRONMENTS",
     "environment_spec",
     "evaluate_goofspiel_policy",
+    "build_goofspiel_oracle_probes",
+    "candidate_goofspiel_probes",
     "evaluate_kuhn_policy",
     "audit_mastermind_holdout",
     "default_protocol",

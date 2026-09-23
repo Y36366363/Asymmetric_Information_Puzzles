@@ -9,12 +9,22 @@ from aip.benchmark.liar_transfer import (
     REPEATS,
     analyze_results,
     base_memory_prompts,
+    build_consensus_reference_profiles,
     build_oracle_probes,
+    positive_control_material,
+    positive_control_prompt,
+    select_profile_invariant_probes,
     source_experience_records,
     target_oracle_metadata,
 )
 from aip.benchmark.types import AgentDecision, BeliefOutput
 from scripts.run_liar_transfer_confirmatory import _pad_prompts
+from scripts.run_liar_positive_control_check import (
+    ARMS as CHECK_ARMS,
+    REPEATS as CHECK_REPEATS,
+    build_report as build_check_report,
+    manipulation_panel,
+)
 
 
 def test_probe_panel_balances_challenge_raise_and_player_one_decisions():
@@ -53,6 +63,60 @@ def test_target_oracle_is_independent_exact_and_zero_gap():
     assert oracle["treeAudit"]["passed"] is True
     assert oracle["exploitability"] == pytest.approx(0)
     assert oracle["primalDualGap"] == pytest.approx(0)
+
+
+def test_positive_control_material_is_balanced_disjoint_and_deterministic():
+    probes, full_panel, audit, profiles = manipulation_panel()
+    material = positive_control_material(full_panel, profiles)
+    assert len(probes) == 12
+    assert audit["selectedProbes"] == 30
+    assert material == positive_control_material(full_panel, profiles)
+    assert material["testDisjoint"] is True
+    assert material["challengeBestExamples"] == 8
+    assert material["raiseBestExamples"] == 8
+    assert "Do not default to challenge" in positive_control_prompt(material)
+
+
+def test_consensus_profiles_generate_a_profile_invariant_30_state_panel():
+    profiles = build_consensus_reference_profiles()
+    probes, audit = select_profile_invariant_probes(profiles, count=30)
+    assert len(probes) == 30
+    assert audit["allSelectedProfileInvariant"] is True
+    assert audit["challengeOptimal"] == audit["raiseOptimal"] == 15
+
+
+def test_positive_control_gate_requires_repeatability_and_effect():
+    probes = manipulation_panel()[0]
+    plan = {
+        "maxProviderCalls": len(probes) * len(CHECK_ARMS) * CHECK_REPEATS,
+        "probes": [probe.to_artifact() for probe in probes],
+    }
+    rows = []
+    for probe in probes:
+        best = max(probe.exact_action_values, key=probe.exact_action_values.get)
+        worst = min(probe.exact_action_values, key=probe.exact_action_values.get)
+        for arm in CHECK_ARMS:
+            for repeat in range(1, CHECK_REPEATS + 1):
+                is_control = arm == "same_game_positive_control"
+                rows.append({
+                    "probeId": probe.probe_id,
+                    "arm": arm,
+                    "repeat": repeat,
+                    "status": "valid",
+                    "actionId": best if is_control else worst,
+                    "penalizedActionRegret": 0.0 if is_control else 1.0,
+                    "optimalPolicyAgreement": is_control,
+                    "inputTokenMatch": True,
+                    "telemetry": {"attempts": [{"resolved_model": "model"}]},
+                })
+    report = build_check_report(plan, rows)
+    assert report["gatePassed"] is True
+    changed = 0
+    for row in rows:
+        if row["arm"] == "no_memory" and row["repeat"] == 1 and changed < 3:
+            row["actionId"] = "different"
+            changed += 1
+    assert build_check_report(plan, rows)["gateChecks"]["repeatActionAgreementEachArm"] is False
 
 
 class _TokenCounter:
