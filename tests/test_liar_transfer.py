@@ -6,6 +6,7 @@ import pytest
 
 from aip.benchmark.liar_transfer import (
     ARMS,
+    ExactLiarDecisionProgram,
     REPEATS,
     analyze_results,
     base_memory_prompts,
@@ -19,6 +20,13 @@ from aip.benchmark.liar_transfer import (
 )
 from aip.benchmark.types import AgentDecision, BeliefOutput
 from scripts.run_liar_transfer_confirmatory import _pad_prompts
+from scripts.run_liar_program_control_check import (
+    ARMS as PROGRAM_ARMS,
+    REPEATS as PROGRAM_REPEATS,
+    _pad_cell_prompts,
+    build_report as build_program_report,
+    fresh_panel,
+)
 from scripts.run_liar_positive_control_check import (
     ARMS as CHECK_ARMS,
     REPEATS as CHECK_REPEATS,
@@ -119,6 +127,66 @@ def test_positive_control_gate_requires_repeatability_and_effect():
     assert build_check_report(plan, rows)["gateChecks"]["repeatActionAgreementEachArm"] is False
 
 
+def test_exact_decision_program_recomputes_advice_from_information_set():
+    program = ExactLiarDecisionProgram()
+    for probe in fresh_panel()[0]:
+        advice = program.advise(probe.player, probe.own_die, probe.bids)
+        optimum = max(probe.exact_action_values.values())
+        expected = sorted(
+            action for action, value in probe.exact_action_values.items()
+            if abs(value - optimum) <= 1e-12
+        )
+        assert advice["recommendedActionIds"] == expected
+        assert advice["certificationScope"] == "manipulation_control_only"
+        assert "Follow its recommendedActionIds exactly" in program.prompt_for(probe)
+
+
+def test_program_control_panel_is_fresh_balanced_and_prior_disjoint():
+    fresh, prior, full, audit = fresh_panel()
+    assert len(full) == 30
+    assert len(fresh) == len(prior) == 12
+    assert not {probe.probe_id for probe in fresh}.intersection(
+        probe.probe_id for probe in prior
+    )
+    labels = [
+        max(probe.exact_action_values, key=probe.exact_action_values.get)
+        for probe in fresh
+    ]
+    assert sum(label == "challenge" for label in labels) == 6
+    assert sum(label.startswith("raise:") for label in labels) == 6
+    assert audit["allSelectedProfileInvariant"] is True
+
+
+def test_program_control_gate_accepts_only_strong_repeatable_manipulation():
+    probes = fresh_panel()[0]
+    plan = {
+        "maxProviderCalls": len(probes) * len(PROGRAM_ARMS) * PROGRAM_REPEATS,
+        "probes": [probe.to_artifact() for probe in probes],
+    }
+    rows = []
+    for probe in probes:
+        best = max(probe.exact_action_values, key=probe.exact_action_values.get)
+        worst = min(probe.exact_action_values, key=probe.exact_action_values.get)
+        for arm in PROGRAM_ARMS:
+            assisted = arm == "oracle_assisted_same_game"
+            for repeat in range(1, PROGRAM_REPEATS + 1):
+                rows.append({
+                    "probeId": probe.probe_id,
+                    "arm": arm,
+                    "repeat": repeat,
+                    "status": "valid",
+                    "actionId": best if assisted else worst,
+                    "penalizedActionRegret": 0.0 if assisted else 1.0,
+                    "optimalPolicyAgreement": assisted,
+                    "inputTokenMatch": True,
+                })
+    report = build_program_report(plan, rows)
+    assert report["gatePassed"] is True
+    assert report["claimRestriction"] == (
+        "oracle-assisted condition is not transfer evidence"
+    )
+
+
 class _TokenCounter:
     def count(self, *, instructions, input, **kwargs):
         del kwargs
@@ -137,6 +205,17 @@ def test_padding_uses_provider_counter_to_make_prompts_exactly_equal():
     }
     assert len(counts) == 1
     assert all(amount >= 0 for amount in amounts.values())
+
+
+def test_cell_padding_accepts_explicit_four_arm_schedule():
+    arms = ("a", "b", "c", "d")
+    base = {("probe", arm): arm + (" word" * index) for index, arm in enumerate(arms)}
+    prompts, amounts, counts = _pad_cell_prompts(
+        _FakeClient(), base, {"probe": "input"}, arms=arms
+    )
+    assert set(prompts) == {("probe", arm) for arm in arms}
+    assert set(amounts) == set(prompts)
+    assert len({counts[("probe", arm)] for arm in arms}) == 1
 
 
 def test_analysis_keeps_invalid_output_penalties_in_primary_endpoint():

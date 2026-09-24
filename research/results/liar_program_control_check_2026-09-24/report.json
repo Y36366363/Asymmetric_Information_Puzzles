@@ -1,0 +1,42 @@
+{
+  "claimRestriction": "oracle-assisted condition is not transfer evidence",
+  "completedCells": 48,
+  "contrasts": {
+    "meanExactActionRegretDifference": -0.22916666666666666,
+    "optimalActionRateLift": 0.16666666666666663
+  },
+  "fullLoveLetterCertified": false,
+  "gateChecks": {
+    "allCellsValid": true,
+    "assistedMeanRegretLower": true,
+    "assistedOptimalActionRate": true,
+    "inputTokenMismatchesZero": true,
+    "optimalActionRateLift": true,
+    "repeatActionAgreementEachArm": true
+  },
+  "gatePassed": true,
+  "inputTokenMismatches": 0,
+  "nextStep": "prepare_four_condition_30_state_experiment",
+  "preregistrationSha256": "11f07602addf85c1b53ec3df8241adc79b5e85faf0b06d7bff9795620d5f87d6",
+  "runStatus": "complete",
+  "schemaVersion": "aip-liar-program-control-report-v1",
+  "summaries": {
+    "no_memory": {
+      "cells": 24,
+      "meanExactActionRegret": 0.22916666666666666,
+      "optimalActionRate": 0.8333333333333334,
+      "repeatActionAgreement": 0.8333333333333334,
+      "repeatAgreementProbeCount": 10,
+      "validDecisions": 24
+    },
+    "oracle_assisted_same_game": {
+      "cells": 24,
+      "meanExactActionRegret": 0.0,
+      "optimalActionRate": 1.0,
+      "repeatActionAgreement": 1.0,
+      "repeatAgreementProbeCount": 12,
+      "validDecisions": 24
+    }
+  },
+  "validDecisions": 48
+}

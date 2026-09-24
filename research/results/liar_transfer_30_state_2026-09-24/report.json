@@ -1,0 +1,161 @@
+{
+  "analysis": {
+    "contrastsVersusNoMemory": {
+      "abstract_memory": {
+        "interpretation": "inconclusive",
+        "meanDifference": 0.09055555555555556,
+        "pairedBootstrap95": [
+          -0.09166666666666666,
+          0.28
+        ]
+      },
+      "same_game": {
+        "interpretation": "benefit",
+        "meanDifference": -0.37333333333333335,
+        "pairedBootstrap95": [
+          -0.5538888888888889,
+          -0.20833333333333334
+        ]
+      },
+      "surface_experience": {
+        "interpretation": "inconclusive",
+        "meanDifference": 0.12777777777777777,
+        "pairedBootstrap95": [
+          -0.03722222222222222,
+          0.30444444444444446
+        ]
+      }
+    },
+    "summaries": {
+      "abstract_memory": {
+        "exploratorySubgroups": {
+          "challenge_optimal": {
+            "challengeSelectionRate": 0.9666666666666667,
+            "decisions": 30,
+            "meanPenalizedActionRegret": 0.06666666666666667,
+            "optimalActionRate": 0.9666666666666667
+          },
+          "raise_optimal": {
+            "challengeSelectionRate": 0.5666666666666667,
+            "decisions": 30,
+            "meanPenalizedActionRegret": 0.8611111111111112,
+            "optimalActionRate": 0.43333333333333335
+          }
+        },
+        "meanBeliefBrierToExactPosterior": null,
+        "meanPenalizedActionRegret": 0.4638888888888889,
+        "optimalActionRate": 0.7,
+        "repeatActionAgreementRate": 0.7333333333333333,
+        "totalDecisions": 60,
+        "validDecisions": 60
+      },
+      "no_memory": {
+        "exploratorySubgroups": {
+          "challenge_optimal": {
+            "challengeSelectionRate": 1,
+            "decisions": 30,
+            "meanPenalizedActionRegret": 0.0,
+            "optimalActionRate": 1
+          },
+          "raise_optimal": {
+            "challengeSelectionRate": 0.5333333333333333,
+            "decisions": 30,
+            "meanPenalizedActionRegret": 0.7466666666666667,
+            "optimalActionRate": 0.4666666666666667
+          }
+        },
+        "meanBeliefBrierToExactPosterior": null,
+        "meanPenalizedActionRegret": 0.37333333333333335,
+        "optimalActionRate": 0.7333333333333333,
+        "repeatActionAgreementRate": 0.8,
+        "totalDecisions": 60,
+        "validDecisions": 60
+      },
+      "same_game": {
+        "exploratorySubgroups": {
+          "challenge_optimal": {
+            "challengeSelectionRate": 1,
+            "decisions": 30,
+            "meanPenalizedActionRegret": 0.0,
+            "optimalActionRate": 1
+          },
+          "raise_optimal": {
+            "challengeSelectionRate": 0,
+            "decisions": 30,
+            "meanPenalizedActionRegret": 0.0,
+            "optimalActionRate": 1
+          }
+        },
+        "meanBeliefBrierToExactPosterior": null,
+        "meanPenalizedActionRegret": 0.0,
+        "optimalActionRate": 1,
+        "repeatActionAgreementRate": 1,
+        "totalDecisions": 60,
+        "validDecisions": 60
+      },
+      "surface_experience": {
+        "exploratorySubgroups": {
+          "challenge_optimal": {
+            "challengeSelectionRate": 1,
+            "decisions": 30,
+            "meanPenalizedActionRegret": 0.0,
+            "optimalActionRate": 1
+          },
+          "raise_optimal": {
+            "challengeSelectionRate": 0.6666666666666666,
+            "decisions": 30,
+            "meanPenalizedActionRegret": 1.0022222222222221,
+            "optimalActionRate": 0.3333333333333333
+          }
+        },
+        "meanBeliefBrierToExactPosterior": null,
+        "meanPenalizedActionRegret": 0.5011111111111111,
+        "optimalActionRate": 0.6666666666666666,
+        "repeatActionAgreementRate": 0.8666666666666667,
+        "totalDecisions": 60,
+        "validDecisions": 60
+      }
+    }
+  },
+  "completedCells": 240,
+  "fullLoveLetterCertified": false,
+  "inputTokenMismatches": 0,
+  "preregistrationSha256": "ff669033b41b6253384e909a4c9705b31ee7825d7e4d9c4ec4bc8cf43a6c1003",
+  "primaryConclusion": "inconclusive",
+  "qualityGateChecks": {
+    "allCellsValid": true,
+    "inputTokenMismatchesZero": true,
+    "repeatActionAgreementEachArm": false
+  },
+  "qualityGatePassed": false,
+  "resolvedModels": [
+    "gpt-5.6-luna"
+  ],
+  "runStatus": "complete",
+  "sameGameExcludedFromTransferClaim": true,
+  "schemaVersion": "aip-liar-transfer-30-state-report-v1",
+  "targetOracle": {
+    "evaluatorId": "one_die_liar_exhaustive_best_response_v1",
+    "evaluatorMethod": "independent_game_tree_best_response",
+    "expectedValueToPlayer0": 0.5,
+    "exploitability": 0.0,
+    "maximumFlowResidual": 0.0,
+    "nashConv": 0.0,
+    "primalDualGap": 0.0,
+    "profileFingerprint": "206b1c53aad3e99e20edfad8da996ee96e07f533b4f9dbd1c87e1bf559ac59cc",
+    "solverBackend": "scipy_highs",
+    "treeAudit": {
+      "chance_histories": 1,
+      "decision_histories": 2088,
+      "failures": [],
+      "histories": 4141,
+      "information_sets": 348,
+      "maximum_depth": 14,
+      "passed": true,
+      "perfect_recall": true,
+      "terminal_histories": 2052
+    }
+  },
+  "transportFailures": 0,
+  "validDecisions": 240
+}

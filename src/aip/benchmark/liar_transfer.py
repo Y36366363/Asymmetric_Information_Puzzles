@@ -391,6 +391,62 @@ def positive_control_prompt(material: Mapping[str, object]) -> str:
     )
 
 
+class ExactLiarDecisionProgram:
+    """Reusable, information-set-only decision aid for manipulation controls.
+
+    This is deliberately an oracle-assisted positive control, not a learned
+    memory condition. It may establish that an agent follows a valid strategic
+    signal, but it cannot by itself support a transfer or GTO claim.
+    """
+
+    program_id = "one_die_liar_exact_decision_program_v1"
+
+    def __init__(self) -> None:
+        _, solution = solve_one_die_liar_exact()
+        self._policy = solution.policy
+        self._values = OneDieLiarIndependentEvaluator().action_values(solution.policy)
+
+    def advise(
+        self,
+        player: int,
+        own_die: int,
+        bids: tuple[tuple[int, int], ...],
+    ) -> dict[str, object]:
+        key = (player, (own_die, bids))
+        if key not in self._values:
+            raise ValueError("decision program received an unknown information set")
+        values = {
+            action_id(action): float(value)
+            for action, value in self._values[key].items()
+        }
+        optimum = max(values.values())
+        best = sorted(
+            action for action, value in values.items()
+            if abs(value - optimum) <= 1e-12
+        )
+        return {
+            "programId": self.program_id,
+            "player": player,
+            "ownDie": own_die,
+            "publicBids": [list(bid) for bid in bids],
+            "actionValuesAgainstExactEquilibriumOpponent": values,
+            "recommendedActionIds": best,
+            "recommendationRule": "maximize conditional expected utility",
+            "certificationScope": "manipulation_control_only",
+        }
+
+    def prompt_for(self, probe: LiarProbe) -> str:
+        advice = self.advise(probe.player, probe.own_die, probe.bids)
+        return (
+            "Condition: oracle_assisted_same_game_positive_control. An audited, "
+            "deterministic one-die Liar's Dice decision program has evaluated only "
+            "the legal information visible in the current state. Follow its "
+            "recommendedActionIds exactly. This is an instruction-following "
+            "manipulation control, not a memory-transfer condition. Program output:\n"
+            + canonical_json(advice)
+        )
+
+
 def source_experience_records() -> dict[str, object]:
     """Generate auditable records rather than hand-written fictional episodes."""
 
