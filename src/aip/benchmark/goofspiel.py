@@ -10,6 +10,7 @@ from itertools import combinations
 from typing import Mapping
 
 from aip.benchmark.types import ActionSpec, AgentDecision, AgentInput
+from aip.benchmark.value_decomposition import ValueDecomposition
 from aip.puzzles.goofspiel import GoofspielSolver
 
 
@@ -215,3 +216,60 @@ def build_goofspiel_oracle_probes(count: int = 30) -> tuple[GoofspielProbe, ...]
     if len(selected) != count:
         raise ValueError("insufficient nontrivial Goofspiel states")
     return tuple(selected)
+
+
+class GoofspielValueDecompositionOracle:
+    """Exact opponent-bid posterior → immediate/future bid values → action."""
+
+    oracle_id = "goofspiel_four_card_value_decomposition_v1"
+
+    def __init__(self, solver: GoofspielSolver | None = None) -> None:
+        self.solver = solver or GoofspielSolver(4)
+
+    def decompose(self, probe: GoofspielProbe) -> ValueDecomposition:
+        next_prizes = tuple(
+            prize for prize in probe.remaining_prizes
+            if prize != probe.current_prize
+        )
+        immediate = {}
+        continuation = {}
+        for player_bid in probe.player_cards:
+            action = _action_id(player_bid)
+            next_player = tuple(
+                card for card in probe.player_cards if card != player_bid
+            )
+            immediate_value = Fraction(0)
+            continuation_value = Fraction(0)
+            for opponent_bid in probe.opponent_cards:
+                probability = probe.opponent_bid_belief[str(opponent_bid)]
+                next_opponent = tuple(
+                    card for card in probe.opponent_cards if card != opponent_bid
+                )
+                immediate_value += probability * probe.current_prize * (
+                    (player_bid > opponent_bid) - (player_bid < opponent_bid)
+                )
+                continuation_value += probability * self.solver.state_value(
+                    next_player, next_opponent, next_prizes
+                )
+            immediate[action] = float(immediate_value)
+            continuation[action] = float(continuation_value)
+        total = {
+            action: immediate[action] + continuation[action]
+            for action in immediate
+        }
+        optimum = max(total.values())
+        chosen = sorted(
+            action for action, value in total.items()
+            if abs(value - optimum) <= 1e-12
+        )[0]
+        return ValueDecomposition(
+            posterior_target="opponent_current_bid",
+            posterior={
+                label: float(probability)
+                for label, probability in probe.opponent_bid_belief.items()
+            },
+            immediate_action_values=immediate,
+            continuation_action_values=continuation,
+            total_action_values=total,
+            chosen_action_id=chosen,
+        )

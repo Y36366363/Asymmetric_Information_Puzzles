@@ -45,8 +45,18 @@ from aip.benchmark.equilibrium import (
 )
 from aip.benchmark.goofspiel import (
     GoofspielProbe,
+    GoofspielValueDecompositionOracle,
     build_goofspiel_oracle_probes,
     candidate_goofspiel_probes,
+)
+from aip.benchmark.liar_transfer import LiarValueDecompositionOracle
+from aip.benchmark.value_decomposition import (
+    VALUE_DECOMPOSITION_JSON_SCHEMA,
+    ValueDecomposition,
+    ValueDecompositionOracle,
+    ValueDecompositionScore,
+    parse_value_decomposition,
+    score_value_decomposition,
 )
 from aip.benchmark.mastermind import (
     BELIEF_TARGET as MASTERMIND_BELIEF_TARGET,
@@ -131,6 +141,7 @@ __all__ = [
     "GenericWeakRandomAgent",
     "GoofspielEquilibriumMetrics",
     "GoofspielProbe",
+    "GoofspielValueDecompositionOracle",
     "GroundTruthProfile",
     "CROSS_GAME_MEMORY_V1",
     "FROZEN_TRANSFER_BUNDLE_V1",
@@ -142,6 +153,7 @@ __all__ = [
     "FrozenTransferBundle",
     "MetricEligibility",
     "LeakageAudit",
+    "LiarValueDecompositionOracle",
     "KuhnEquilibriumMetrics",
     "MASTERMIND_BELIEF_TARGET",
     "MastermindBenchmarkAdapter",
@@ -191,4 +203,10 @@ __all__ = [
     "verify_frozen_smoke_protocol",
     "verify_frozen_ceiling_diagnostic",
     "validate_decision",
+    "ValueDecomposition",
+    "ValueDecompositionOracle",
+    "ValueDecompositionScore",
+    "VALUE_DECOMPOSITION_JSON_SCHEMA",
+    "parse_value_decomposition",
+    "score_value_decomposition",
 ]

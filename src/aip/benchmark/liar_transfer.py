@@ -10,9 +10,11 @@ from statistics import mean
 from typing import Hashable, Mapping
 
 from aip.benchmark.types import ActionEvent, ActionSpec, AgentDecision, AgentInput
+from aip.benchmark.value_decomposition import ValueDecomposition
 from aip.puzzles.liars_dice import (
     OneDieLiarDiceCFRGame,
     OneDieLiarIndependentEvaluator,
+    OneDieLiarState,
     solve_one_die_liar_exact,
 )
 
@@ -444,6 +446,55 @@ class ExactLiarDecisionProgram:
             "recommendedActionIds exactly. This is an instruction-following "
             "manipulation control, not a memory-transfer condition. Program output:\n"
             + canonical_json(advice)
+        )
+
+
+class LiarValueDecompositionOracle:
+    """Exact posterior → challenge/raise values → action decomposition."""
+
+    oracle_id = "one_die_liar_value_decomposition_v1"
+
+    def decompose(self, probe: LiarProbe) -> ValueDecomposition:
+        game = OneDieLiarDiceCFRGame()
+        immediate = {action: 0.0 for action in probe.exact_action_values}
+        continuation = {action: 0.0 for action in probe.exact_action_values}
+        if "challenge" in probe.exact_action_values:
+            challenge_value = 0.0
+            for opponent_die, probability in probe.exact_posterior.items():
+                dice = (
+                    (probe.own_die, int(opponent_die))
+                    if probe.player == 0
+                    else (int(opponent_die), probe.own_die)
+                )
+                terminal = OneDieLiarState(
+                    dice=dice,
+                    bids=probe.bids,
+                    challenger=probe.player,
+                )
+                utility = game.utility_player_zero(terminal)
+                challenge_value += probability * (
+                    utility if probe.player == 0 else -utility
+                )
+            immediate["challenge"] = challenge_value
+        for action, value in probe.exact_action_values.items():
+            if action != "challenge":
+                continuation[action] = float(value)
+        total = {
+            action: immediate[action] + continuation[action]
+            for action in probe.exact_action_values
+        }
+        optimum = max(total.values())
+        chosen = sorted(
+            action for action, value in total.items()
+            if abs(value - optimum) <= 1e-12
+        )[0]
+        return ValueDecomposition(
+            posterior_target="opponent_die",
+            posterior=dict(probe.exact_posterior),
+            immediate_action_values=immediate,
+            continuation_action_values=continuation,
+            total_action_values=total,
+            chosen_action_id=chosen,
         )
 
 
