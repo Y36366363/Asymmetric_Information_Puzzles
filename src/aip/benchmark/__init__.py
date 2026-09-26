@@ -50,6 +50,11 @@ from aip.benchmark.goofspiel import (
     candidate_goofspiel_probes,
 )
 from aip.benchmark.liar_transfer import LiarValueDecompositionOracle
+from aip.benchmark.love_letter import (
+    LoveLetterDecompositionPanel,
+    LoveLetterValueDecompositionOracle,
+    love_letter_action_id,
+)
 from aip.benchmark.value_decomposition import (
     VALUE_DECOMPOSITION_JSON_SCHEMA,
     ValueDecomposition,
@@ -154,6 +159,8 @@ __all__ = [
     "MetricEligibility",
     "LeakageAudit",
     "LiarValueDecompositionOracle",
+    "LoveLetterValueDecompositionOracle",
+    "LoveLetterDecompositionPanel",
     "KuhnEquilibriumMetrics",
     "MASTERMIND_BELIEF_TARGET",
     "MastermindBenchmarkAdapter",
@@ -197,6 +204,7 @@ __all__ = [
     "make_guess_who_completion_pair",
     "make_mastermind_completion_pair",
     "load_dotenv_value",
+    "love_letter_action_id",
     "parse_completion_decision",
     "summarize_guess_who_traces",
     "summarize_mastermind_traces",

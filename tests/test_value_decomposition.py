@@ -15,6 +15,12 @@ from aip.benchmark.liar_transfer import (
     build_consensus_reference_profiles,
     select_profile_invariant_probes,
 )
+from aip.benchmark.love_letter import (
+    LoveLetterValueDecompositionOracle,
+    love_letter_action_id,
+)
+from aip.core import CFRGameProperties, compile_sequence_form, solve_sequence_form
+from aip.puzzles.love_letter import LoveLetterCFRGame, LoveLetterIndependentEvaluator
 from aip.benchmark.value_decomposition import (
     ValueDecomposition,
     parse_value_decomposition,
@@ -58,6 +64,46 @@ def test_goofspiel_decomposition_reconstructs_all_30_exact_probe_values():
         assert score_value_decomposition(
             decomposition, decomposition
         ).final_action_regret == pytest.approx(0)
+
+
+def test_love_letter_subgame_decomposes_all_60_information_sets():
+    game = LoveLetterCFRGame.late_round_subgame()
+    solution = solve_sequence_form(
+        compile_sequence_form(
+            game,
+            game_properties=CFRGameProperties(2, True, True, True),
+            sparse=True,
+        ),
+        backend="scipy_highs",
+    )
+    evaluator = LoveLetterIndependentEvaluator(game)
+    exact_values = evaluator.action_values(solution.policy)
+    panel = LoveLetterValueDecompositionOracle(game).decompose_all(
+        solution.policy
+    )
+    decompositions = panel.decompositions
+    assert panel.total_information_sets == 60
+    assert len(decompositions) + len(panel.zero_reach_information_sets) == 60
+    assert panel.zero_reach_information_sets
+    assert set(decompositions).union(panel.zero_reach_information_sets) == set(exact_values)
+    assert any(
+        abs(value) > 1e-12
+        for decomposition in decompositions.values()
+        for value in decomposition.immediate_action_values.values()
+    )
+    assert any(
+        abs(value) > 1e-12
+        for decomposition in decompositions.values()
+        for value in decomposition.continuation_action_values.values()
+    )
+    for key, decomposition in decompositions.items():
+        assert sum(decomposition.posterior.values()) == pytest.approx(1)
+        assert decomposition.maximum_additivity_residual < 1e-12
+        expected = {
+            love_letter_action_id(action): value
+            for action, value in exact_values[key].items()
+        }
+        assert decomposition.total_action_values == pytest.approx(expected)
 
 
 def test_scorer_localizes_posterior_continuation_additivity_and_action_errors():

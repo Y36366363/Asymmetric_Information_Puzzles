@@ -1,0 +1,104 @@
+{
+  "conclusion": {
+    "basicConstructionComplete": [
+      "one-die-stepwise-liars-dice",
+      "goofspiel-four-card",
+      "kuhn-poker",
+      "e-card-single-round",
+      "love-letter-four-card-subgame"
+    ],
+    "nextPriority": "structured intermediate-output check on Liar and Goofspiel; continue bounded Love Letter full-round audit independently",
+    "notComplete": [
+      "five-die-liars-dice",
+      "love-letter-full-round"
+    ]
+  },
+  "date": "2026-09-26",
+  "games": {
+    "e-card-single-round": {
+      "exploitability": 0.0,
+      "remainingWork": [
+        "retain as exact solver control, not primary agent task"
+      ],
+      "runtimeScope": "multi-round adaptation remains strong heuristic",
+      "solver": "exact_timing_matrix",
+      "status": "complete_solver_control"
+    },
+    "five-die-liars-dice": {
+      "independentEvaluator": false,
+      "remainingWork": [
+        "freeze exact rules and action abstraction",
+        "build scalable candidate and independent best response"
+      ],
+      "runtimeEpsilonGtoAllowed": false,
+      "solver": "transparent_probability_heuristic",
+      "status": "heuristic_only_not_gto",
+      "valueDecomposition": "not_applicable_to_current_heuristic_rules"
+    },
+    "goofspiel-four-card": {
+      "exploitability": 0.0,
+      "independentEvaluator": true,
+      "remainingWork": [
+        "structured-model intermediate-output experiment"
+      ],
+      "runtimeExactEquilibriumMode": true,
+      "solver": "exact_backward_induction_zero_sum_matrices",
+      "status": "complete_exact_solver_and_benchmark",
+      "valueDecomposition": "complete_30_state_panel"
+    },
+    "kuhn-poker": {
+      "independentEvaluator": true,
+      "maximumUnilateralDeviationGain": 0.0,
+      "remainingWork": [
+        "optional second adversarial model target"
+      ],
+      "solver": "analytic_plus_sequence_form_plus_best_response",
+      "status": "complete_exact_reference"
+    },
+    "love-letter-four-card-subgame": {
+      "expectedValueToPlayer0": 0.16666666666666666,
+      "exploitability": 0.0,
+      "histories": 1081,
+      "independentEvaluator": true,
+      "informationSets": 60,
+      "remainingWork": [
+        "do not generalize certificate to full round"
+      ],
+      "runtimeFullRoundAllowed": false,
+      "solver": "sparse_sequence_form_scipy_highs",
+      "status": "complete_certified_research_subgame",
+      "valueDecomposition": "17_positive_reach_43_zero_reach_information_sets"
+    },
+    "love-letter-full-round": {
+      "frontierNodes": 75,
+      "historiesTraversed": 1142965,
+      "independentEvaluator": false,
+      "informationSetsObserved": 165139,
+      "maximumDepth": 26,
+      "remainingWork": [
+        "close resumable structural audit",
+        "compile and solve complete candidate",
+        "run complete independent best response",
+        "bind profile fingerprint to promotion evidence"
+      ],
+      "runtimeEpsilonGtoAllowed": false,
+      "solver": "none_complete",
+      "status": "blocked_on_complete_structural_enumeration",
+      "structuralAuditComplete": false,
+      "structuralFailures": []
+    },
+    "one-die-stepwise-liars-dice": {
+      "exploitability": 0.0,
+      "independentEvaluator": true,
+      "remainingWork": [
+        "structured-model intermediate-output experiment",
+        "new certificate required for any expanded bidding rules"
+      ],
+      "runtimeEpsilonGtoAllowed": true,
+      "solver": "exact_sequence_form_plus_certified_runtime_cfr",
+      "status": "complete_declared_variant",
+      "valueDecomposition": "complete_30_state_panel"
+    }
+  },
+  "schemaVersion": "aip-game-readiness-v1"
+}

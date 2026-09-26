@@ -1836,6 +1836,796 @@
         }
       ]
     },
+    "love-letter-four-card-subgame": {
+      "allSelfScoresWithinTolerance": true,
+      "exactActionValueInformationSets": 60,
+      "maximumAdditivityResidual": 0.0,
+      "maximumTotalValueReconstructionError": 0.0,
+      "oracleId": "love_letter_four_card_value_decomposition_v1",
+      "rows": [
+        {
+          "actions": 8,
+          "informationSet": "(0, (0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 3))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:1:ai:2": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:3": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:4": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:5": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:6": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:7": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:8": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:3:ai:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 8,
+          "informationSet": "(0, (0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 4))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:1:ai:2": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:3": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:4": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:5": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:6": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:7": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:8": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:4:none:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 8,
+          "informationSet": "(0, (0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 2))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:1:ai:2": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:3": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:4": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:5": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:6": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:7": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:8": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:2:ai:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 2,
+          "informationSet": "(0, (0, (5, 5, 6, 7), (2, 3), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 3))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:2:ai:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:3:ai:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 2,
+          "informationSet": "(0, (0, (5, 5, 6, 7), (2, 4), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 4))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:2:ai:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:4:none:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 8,
+          "informationSet": "(0, (0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 1))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:1:ai:2": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:3": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:4": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:5": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:6": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:7": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:8": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:2:ai:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 2,
+          "informationSet": "(0, (0, (5, 5, 6, 7), (2, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 2))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:2:ai:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:3:ai:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 2,
+          "informationSet": "(0, (0, (5, 5, 6, 7), (3, 4), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 4))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:3:ai:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:4:none:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 8,
+          "informationSet": "(0, (0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 1))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:1:ai:2": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:3": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:4": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:5": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:6": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:7": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:8": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:3:ai:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 2,
+          "informationSet": "(0, (0, (5, 5, 6, 7), (2, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 2))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:2:ai:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:4:none:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 2,
+          "informationSet": "(0, (0, (5, 5, 6, 7), (3, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 3))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:3:ai:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:4:none:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 8,
+          "informationSet": "(0, (0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 1))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:1:ai:2": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:3": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:4": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:5": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:6": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:7": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:ai:8": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:4:none:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 2,
+          "informationSet": "(1, (1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:2:player:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:3:player:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 2,
+          "informationSet": "(1, (1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:3:player:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:4:none:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 2,
+          "informationSet": "(1, (1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:2:player:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:4:none:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 8,
+          "informationSet": "(1, (1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 3))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:1:player:2": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:player:3": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:player:4": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:player:5": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:player:6": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:player:7": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:player:8": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:3:player:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        },
+        {
+          "actions": 8,
+          "informationSet": "(1, (1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 1))))",
+          "maximumAdditivityResidual": 0.0,
+          "maximumTotalValueReconstructionError": 0.0,
+          "posteriorStates": 2,
+          "selfScore": {
+            "continuationValueMae": 0.0,
+            "decisionConsistentWithReportedValues": true,
+            "finalActionRegret": 0.0,
+            "immediateValueMae": 0.0,
+            "maximumAdditivityResidual": 0.0,
+            "optimalActionAgreement": true,
+            "perActionErrors": {
+              "play:1:player:2": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:player:3": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:player:4": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:player:5": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:player:6": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:player:7": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:1:player:8": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              },
+              "play:3:player:none": {
+                "continuationAbsoluteError": 0.0,
+                "immediateAbsoluteError": 0.0,
+                "totalAbsoluteError": 0.0
+              }
+            },
+            "posteriorBrier": 0.0,
+            "totalValueMae": 0.0
+          }
+        }
+      ],
+      "scoredReachableInformationSets": 17,
+      "totalInformationSets": 60,
+      "zeroReachInformationSetKeys": [
+        "(1, (1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 2))))",
+        "(1, (1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 1))))",
+        "(1, (1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 3))))",
+        "(1, (1, (5, 5, 6, 7), (1, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 1))))",
+        "(1, (1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 4))))",
+        "(1, (1, (5, 5, 6, 7), (1, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 1))))",
+        "(1, (1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))))",
+        "(1, (1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))))",
+        "(1, (1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))))",
+        "(1, (1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))))",
+        "(1, (1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))))",
+        "(1, (1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))))",
+        "(1, (1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))))",
+        "(1, (1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))))",
+        "(1, (1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))))",
+        "(1, (1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 2), ('draw', 1, 3))))",
+        "(1, (1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))))",
+        "(1, (1, (5, 5, 6, 7), (2, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 2), ('draw', 1, 3))))",
+        "(1, (1, (5, 5, 6, 7), (2, 3), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 3), ('draw', 1, 2))))",
+        "(1, (1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))))",
+        "(1, (1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))))",
+        "(1, (1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))))",
+        "(1, (1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))))",
+        "(1, (1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))))",
+        "(1, (1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))))",
+        "(1, (1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))))",
+        "(1, (1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))))",
+        "(1, (1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))))",
+        "(1, (1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 2), ('draw', 1, 4))))",
+        "(1, (1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))))",
+        "(1, (1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))))",
+        "(1, (1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))))",
+        "(1, (1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 4, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))))",
+        "(1, (1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))))",
+        "(1, (1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 5, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))))",
+        "(1, (1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))))",
+        "(1, (1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 6, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))))",
+        "(1, (1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))))",
+        "(1, (1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 7, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))))",
+        "(1, (1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 3), ('draw', 1, 4))))",
+        "(1, (1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 8, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))))",
+        "(1, (1, (5, 5, 6, 7), (3, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 4))))",
+        "(1, (1, (5, 5, 6, 7), (3, 4), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 4), ('draw', 1, 3))))"
+      ],
+      "zeroReachInformationSets": 43
+    },
     "one-die-liars-dice": {
       "allSelfScoresWithinTolerance": true,
       "maximumAdditivityResidual": 0.0,
@@ -4873,5 +5663,6 @@
     "total_action_values",
     "final_action"
   ],
-  "schemaVersion": "aip-value-decomposition-audit-v1"
+  "schemaVersion": "aip-value-decomposition-audit-v1",
+  "updatedDate": "2026-09-26"
 }
