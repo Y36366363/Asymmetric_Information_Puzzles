@@ -1,0 +1,703 @@
+{
+  "arms": [
+    "unaided_structured",
+    "oracle_assisted_structured"
+  ],
+  "basePromptSha256": {
+    "liar-candidate-278704c5885f": {
+      "oracle_assisted_structured": "36b742011d9903ed6cf68edb8d9229579786f85b91007ee863b45bb13318a479",
+      "unaided_structured": "ea74af96c68c8e8fdc99139fe09d407521bff361e452652a2bd2893b59c01500"
+    },
+    "liar-candidate-4ab3e40b5521": {
+      "oracle_assisted_structured": "cb7d89bf726a92b2bfc89e04365c2de04464cf29b2617d5c904dba63066e5ef2",
+      "unaided_structured": "ea74af96c68c8e8fdc99139fe09d407521bff361e452652a2bd2893b59c01500"
+    },
+    "liar-candidate-9fdd1ad62df9": {
+      "oracle_assisted_structured": "951b2e6e95035dad7d6192631653387fa91a84b04c22f803156e5e5df40604a3",
+      "unaided_structured": "ea74af96c68c8e8fdc99139fe09d407521bff361e452652a2bd2893b59c01500"
+    },
+    "liar-candidate-ab3ce09187d5": {
+      "oracle_assisted_structured": "17fc67ca131ec4bb608dcc2bdef1edc7c188e26d238d172f40fea32814e60166",
+      "unaided_structured": "ea74af96c68c8e8fdc99139fe09d407521bff361e452652a2bd2893b59c01500"
+    },
+    "liar-candidate-e5a6548d0b43": {
+      "oracle_assisted_structured": "41ffeb93d23718020a0671084815f2fd11ba83b1b89366ea5f72b7874863537c",
+      "unaided_structured": "ea74af96c68c8e8fdc99139fe09d407521bff361e452652a2bd2893b59c01500"
+    },
+    "liar-candidate-f0fbea115a34": {
+      "oracle_assisted_structured": "0d1910d24aa36f731000b4dbb227aac2fae655cf28a7fce9e5ce43d5ea57f1e7",
+      "unaided_structured": "ea74af96c68c8e8fdc99139fe09d407521bff361e452652a2bd2893b59c01500"
+    }
+  },
+  "cellOrder": [
+    {
+      "arm": "unaided_structured",
+      "expectedInputTokens": 959,
+      "probeId": "liar-candidate-9fdd1ad62df9",
+      "repeat": 1
+    },
+    {
+      "arm": "oracle_assisted_structured",
+      "expectedInputTokens": 955,
+      "probeId": "liar-candidate-ab3ce09187d5",
+      "repeat": 1
+    },
+    {
+      "arm": "unaided_structured",
+      "expectedInputTokens": 957,
+      "probeId": "liar-candidate-278704c5885f",
+      "repeat": 2
+    },
+    {
+      "arm": "unaided_structured",
+      "expectedInputTokens": 955,
+      "probeId": "liar-candidate-ab3ce09187d5",
+      "repeat": 2
+    },
+    {
+      "arm": "oracle_assisted_structured",
+      "expectedInputTokens": 716,
+      "probeId": "liar-candidate-f0fbea115a34",
+      "repeat": 1
+    },
+    {
+      "arm": "unaided_structured",
+      "expectedInputTokens": 846,
+      "probeId": "liar-candidate-4ab3e40b5521",
+      "repeat": 2
+    },
+    {
+      "arm": "unaided_structured",
+      "expectedInputTokens": 957,
+      "probeId": "liar-candidate-e5a6548d0b43",
+      "repeat": 1
+    },
+    {
+      "arm": "unaided_structured",
+      "expectedInputTokens": 957,
+      "probeId": "liar-candidate-278704c5885f",
+      "repeat": 1
+    },
+    {
+      "arm": "unaided_structured",
+      "expectedInputTokens": 846,
+      "probeId": "liar-candidate-4ab3e40b5521",
+      "repeat": 1
+    },
+    {
+      "arm": "oracle_assisted_structured",
+      "expectedInputTokens": 959,
+      "probeId": "liar-candidate-9fdd1ad62df9",
+      "repeat": 2
+    },
+    {
+      "arm": "oracle_assisted_structured",
+      "expectedInputTokens": 846,
+      "probeId": "liar-candidate-4ab3e40b5521",
+      "repeat": 1
+    },
+    {
+      "arm": "unaided_structured",
+      "expectedInputTokens": 716,
+      "probeId": "liar-candidate-f0fbea115a34",
+      "repeat": 2
+    },
+    {
+      "arm": "unaided_structured",
+      "expectedInputTokens": 955,
+      "probeId": "liar-candidate-ab3ce09187d5",
+      "repeat": 1
+    },
+    {
+      "arm": "unaided_structured",
+      "expectedInputTokens": 957,
+      "probeId": "liar-candidate-e5a6548d0b43",
+      "repeat": 2
+    },
+    {
+      "arm": "unaided_structured",
+      "expectedInputTokens": 959,
+      "probeId": "liar-candidate-9fdd1ad62df9",
+      "repeat": 2
+    },
+    {
+      "arm": "oracle_assisted_structured",
+      "expectedInputTokens": 957,
+      "probeId": "liar-candidate-278704c5885f",
+      "repeat": 2
+    },
+    {
+      "arm": "unaided_structured",
+      "expectedInputTokens": 716,
+      "probeId": "liar-candidate-f0fbea115a34",
+      "repeat": 1
+    },
+    {
+      "arm": "oracle_assisted_structured",
+      "expectedInputTokens": 959,
+      "probeId": "liar-candidate-9fdd1ad62df9",
+      "repeat": 1
+    },
+    {
+      "arm": "oracle_assisted_structured",
+      "expectedInputTokens": 846,
+      "probeId": "liar-candidate-4ab3e40b5521",
+      "repeat": 2
+    },
+    {
+      "arm": "oracle_assisted_structured",
+      "expectedInputTokens": 957,
+      "probeId": "liar-candidate-e5a6548d0b43",
+      "repeat": 1
+    },
+    {
+      "arm": "oracle_assisted_structured",
+      "expectedInputTokens": 957,
+      "probeId": "liar-candidate-e5a6548d0b43",
+      "repeat": 2
+    },
+    {
+      "arm": "oracle_assisted_structured",
+      "expectedInputTokens": 957,
+      "probeId": "liar-candidate-278704c5885f",
+      "repeat": 1
+    },
+    {
+      "arm": "oracle_assisted_structured",
+      "expectedInputTokens": 716,
+      "probeId": "liar-candidate-f0fbea115a34",
+      "repeat": 2
+    },
+    {
+      "arm": "oracle_assisted_structured",
+      "expectedInputTokens": 955,
+      "probeId": "liar-candidate-ab3ce09187d5",
+      "repeat": 2
+    }
+  ],
+  "claimRestriction": "The assisted arm tests schema and signal following only; it is excluded from independent solving, transfer, equilibrium, and GTO claims.",
+  "date": "2026-09-27",
+  "game": "liar",
+  "gate": {
+    "allCellsValid": true,
+    "inputTokenMismatches": 0,
+    "maximumAssistedAdditivityResidual": 1e-06,
+    "maximumAssistedContinuationValueMae": 1e-06,
+    "maximumAssistedImmediateValueMae": 1e-06,
+    "maximumAssistedPosteriorBrier": 1e-06,
+    "maximumAssistedTotalValueMae": 1e-06,
+    "minimumAssistedOptimalActionRate": 0.95,
+    "minimumRepeatActionAgreementEachArm": 0.8
+  },
+  "maxAttemptsPerCell": 1,
+  "maxOutputTokens": 4096,
+  "maxProviderCalls": 24,
+  "model": "gpt-5.6-luna",
+  "nextStepRule": "Goofspiel may be prepared only after every Liar gate passes.",
+  "oracleId": "one_die_liar_value_decomposition_v1",
+  "paddingToken": " PAD",
+  "paddingTokenCounts": {
+    "liar-candidate-278704c5885f": {
+      "oracle_assisted_structured": 16,
+      "unaided_structured": 199
+    },
+    "liar-candidate-4ab3e40b5521": {
+      "oracle_assisted_structured": 16,
+      "unaided_structured": 228
+    },
+    "liar-candidate-9fdd1ad62df9": {
+      "oracle_assisted_structured": 16,
+      "unaided_structured": 201
+    },
+    "liar-candidate-ab3ce09187d5": {
+      "oracle_assisted_structured": 16,
+      "unaided_structured": 197
+    },
+    "liar-candidate-e5a6548d0b43": {
+      "oracle_assisted_structured": 16,
+      "unaided_structured": 199
+    },
+    "liar-candidate-f0fbea115a34": {
+      "oracle_assisted_structured": 16,
+      "unaided_structured": 203
+    }
+  },
+  "prerequisite": null,
+  "probeCount": 6,
+  "probes": [
+    {
+      "bids": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 1.0,
+        "raise:2:6": -1.0
+      },
+      "exactPosterior": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-e5a6548d0b43",
+      "ownDie": 3,
+      "player": 0,
+      "publicStateSha256": "cdcb6260ff0a639efc5e48c788313631d103ef1bb87e71473baf204543584b0d"
+    },
+    {
+      "bids": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 1.0,
+        "raise:2:6": 0.0
+      },
+      "exactPosterior": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-ab3ce09187d5",
+      "ownDie": 6,
+      "player": 0,
+      "publicStateSha256": "777e0c257f140123790b1ec3a29418166a925aa5b36fedefd8575f9e78276932"
+    },
+    {
+      "bids": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 0.0,
+        "raise:2:6": -1.0
+      },
+      "exactPosterior": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-278704c5885f",
+      "ownDie": 5,
+      "player": 0,
+      "publicStateSha256": "d5394ba193b6313b04bff3dd6ec2977eae49dc3d1a593fcf134ac67dba0f7455"
+    },
+    {
+      "bids": [
+        [
+          1,
+          3
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": -1.0,
+        "raise:1:4": 1.0
+      },
+      "exactPosterior": {
+        "1": 0.0,
+        "2": 0.0,
+        "3": 1.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-f0fbea115a34",
+      "ownDie": 4,
+      "player": 1,
+      "publicStateSha256": "1694736eeffb448bb56727fa3635d25ac68b57e38a04974ebd13818391c15863"
+    },
+    {
+      "bids": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": -0.3333333333333333,
+        "raise:1:6": 1.0
+      },
+      "exactPosterior": {
+        "1": 0.3333333333333333,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.3333333333333333,
+        "5": 0.3333333333333333,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-4ab3e40b5521",
+      "ownDie": 6,
+      "player": 0,
+      "publicStateSha256": "7f93f952d78d7de3c33375194b1a7381b3dff6c22c3988ab2c8654341417e884"
+    },
+    {
+      "bids": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "exactActionValues": {
+        "challenge": 0.0,
+        "raise:2:4": 1.0
+      },
+      "exactPosterior": {
+        "1": 0.5,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.5,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "failurePenalty": 2.0,
+      "id": "liar-candidate-9fdd1ad62df9",
+      "ownDie": 3,
+      "player": 0,
+      "publicStateSha256": "b0a7adecad2b1a26527599a3afe32234923d000355e7b9f5ddc7981d489c628a"
+    }
+  ],
+  "prompts": {
+    "liar-candidate-278704c5885f": {
+      "oracle_assisted_structured": "You are completing an auditable two-player zero-sum strategic calculation. Use only the supplied rules, observation, information state, public history, and legal actions. Return the exact required JSON shape. The posterior must use every supplied belief-state label exactly once and sum to one. For every legal action, report immediate_value (utility resolved by that action now), continuation_value (expected utility from later play), and total_value (their sum), all from the acting player's perspective. chosen_action_id must be a legal action maximizing the reported total_value. Do not emit explanations or private reasoning.\nCondition: oracle_assisted_structured. This is a positive-control instruction-following check, not evidence of independent game-solving or transfer. Reproduce the independently computed reference below exactly in the required response shape.\nREFERENCE={\"action_values\":[{\"action_id\":\"challenge\",\"continuation_value\":0.0,\"immediate_value\":0.0,\"total_value\":0.0},{\"action_id\":\"raise:2:6\",\"continuation_value\":-1.0,\"immediate_value\":0.0,\"total_value\":-1.0}],\"chosen_action_id\":\"challenge\",\"posterior\":{\"probabilities\":[{\"probability\":0.5,\"state\":\"1\"},{\"probability\":0.5,\"state\":\"2\"},{\"probability\":0.0,\"state\":\"3\"},{\"probability\":0.0,\"state\":\"4\"},{\"probability\":0.0,\"state\":\"5\"},{\"probability\":0.0,\"state\":\"6\"}],\"target\":\"opponent_die\"}}\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD",
+      "unaided_structured": "You are completing an auditable two-player zero-sum strategic calculation. Use only the supplied rules, observation, information state, public history, and legal actions. Return the exact required JSON shape. The posterior must use every supplied belief-state label exactly once and sum to one. For every legal action, report immediate_value (utility resolved by that action now), continuation_value (expected utility from later play), and total_value (their sum), all from the acting player's perspective. chosen_action_id must be a legal action maximizing the reported total_value. Do not emit explanations or private reasoning.\nCondition: unaided_structured_liar. Compute every field yourself.\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD"
+    },
+    "liar-candidate-4ab3e40b5521": {
+      "oracle_assisted_structured": "You are completing an auditable two-player zero-sum strategic calculation. Use only the supplied rules, observation, information state, public history, and legal actions. Return the exact required JSON shape. The posterior must use every supplied belief-state label exactly once and sum to one. For every legal action, report immediate_value (utility resolved by that action now), continuation_value (expected utility from later play), and total_value (their sum), all from the acting player's perspective. chosen_action_id must be a legal action maximizing the reported total_value. Do not emit explanations or private reasoning.\nCondition: oracle_assisted_structured. This is a positive-control instruction-following check, not evidence of independent game-solving or transfer. Reproduce the independently computed reference below exactly in the required response shape.\nREFERENCE={\"action_values\":[{\"action_id\":\"challenge\",\"continuation_value\":0.0,\"immediate_value\":-0.3333333333333333,\"total_value\":-0.3333333333333333},{\"action_id\":\"raise:1:6\",\"continuation_value\":1.0,\"immediate_value\":0.0,\"total_value\":1.0}],\"chosen_action_id\":\"raise:1:6\",\"posterior\":{\"probabilities\":[{\"probability\":0.3333333333333333,\"state\":\"1\"},{\"probability\":0.0,\"state\":\"2\"},{\"probability\":0.0,\"state\":\"3\"},{\"probability\":0.3333333333333333,\"state\":\"4\"},{\"probability\":0.3333333333333333,\"state\":\"5\"},{\"probability\":0.0,\"state\":\"6\"}],\"target\":\"opponent_die\"}}\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD",
+      "unaided_structured": "You are completing an auditable two-player zero-sum strategic calculation. Use only the supplied rules, observation, information state, public history, and legal actions. Return the exact required JSON shape. The posterior must use every supplied belief-state label exactly once and sum to one. For every legal action, report immediate_value (utility resolved by that action now), continuation_value (expected utility from later play), and total_value (their sum), all from the acting player's perspective. chosen_action_id must be a legal action maximizing the reported total_value. Do not emit explanations or private reasoning.\nCondition: unaided_structured_liar. Compute every field yourself.\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD"
+    },
+    "liar-candidate-9fdd1ad62df9": {
+      "oracle_assisted_structured": "You are completing an auditable two-player zero-sum strategic calculation. Use only the supplied rules, observation, information state, public history, and legal actions. Return the exact required JSON shape. The posterior must use every supplied belief-state label exactly once and sum to one. For every legal action, report immediate_value (utility resolved by that action now), continuation_value (expected utility from later play), and total_value (their sum), all from the acting player's perspective. chosen_action_id must be a legal action maximizing the reported total_value. Do not emit explanations or private reasoning.\nCondition: oracle_assisted_structured. This is a positive-control instruction-following check, not evidence of independent game-solving or transfer. Reproduce the independently computed reference below exactly in the required response shape.\nREFERENCE={\"action_values\":[{\"action_id\":\"challenge\",\"continuation_value\":0.0,\"immediate_value\":0.0,\"total_value\":0.0},{\"action_id\":\"raise:2:4\",\"continuation_value\":1.0,\"immediate_value\":0.0,\"total_value\":1.0}],\"chosen_action_id\":\"raise:2:4\",\"posterior\":{\"probabilities\":[{\"probability\":0.5,\"state\":\"1\"},{\"probability\":0.0,\"state\":\"2\"},{\"probability\":0.0,\"state\":\"3\"},{\"probability\":0.5,\"state\":\"4\"},{\"probability\":0.0,\"state\":\"5\"},{\"probability\":0.0,\"state\":\"6\"}],\"target\":\"opponent_die\"}}\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD",
+      "unaided_structured": "You are completing an auditable two-player zero-sum strategic calculation. Use only the supplied rules, observation, information state, public history, and legal actions. Return the exact required JSON shape. The posterior must use every supplied belief-state label exactly once and sum to one. For every legal action, report immediate_value (utility resolved by that action now), continuation_value (expected utility from later play), and total_value (their sum), all from the acting player's perspective. chosen_action_id must be a legal action maximizing the reported total_value. Do not emit explanations or private reasoning.\nCondition: unaided_structured_liar. Compute every field yourself.\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD"
+    },
+    "liar-candidate-ab3ce09187d5": {
+      "oracle_assisted_structured": "You are completing an auditable two-player zero-sum strategic calculation. Use only the supplied rules, observation, information state, public history, and legal actions. Return the exact required JSON shape. The posterior must use every supplied belief-state label exactly once and sum to one. For every legal action, report immediate_value (utility resolved by that action now), continuation_value (expected utility from later play), and total_value (their sum), all from the acting player's perspective. chosen_action_id must be a legal action maximizing the reported total_value. Do not emit explanations or private reasoning.\nCondition: oracle_assisted_structured. This is a positive-control instruction-following check, not evidence of independent game-solving or transfer. Reproduce the independently computed reference below exactly in the required response shape.\nREFERENCE={\"action_values\":[{\"action_id\":\"challenge\",\"continuation_value\":0.0,\"immediate_value\":1.0,\"total_value\":1.0},{\"action_id\":\"raise:2:6\",\"continuation_value\":0.0,\"immediate_value\":0.0,\"total_value\":0.0}],\"chosen_action_id\":\"challenge\",\"posterior\":{\"probabilities\":[{\"probability\":0.5,\"state\":\"1\"},{\"probability\":0.5,\"state\":\"2\"},{\"probability\":0.0,\"state\":\"3\"},{\"probability\":0.0,\"state\":\"4\"},{\"probability\":0.0,\"state\":\"5\"},{\"probability\":0.0,\"state\":\"6\"}],\"target\":\"opponent_die\"}}\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD",
+      "unaided_structured": "You are completing an auditable two-player zero-sum strategic calculation. Use only the supplied rules, observation, information state, public history, and legal actions. Return the exact required JSON shape. The posterior must use every supplied belief-state label exactly once and sum to one. For every legal action, report immediate_value (utility resolved by that action now), continuation_value (expected utility from later play), and total_value (their sum), all from the acting player's perspective. chosen_action_id must be a legal action maximizing the reported total_value. Do not emit explanations or private reasoning.\nCondition: unaided_structured_liar. Compute every field yourself.\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD"
+    },
+    "liar-candidate-e5a6548d0b43": {
+      "oracle_assisted_structured": "You are completing an auditable two-player zero-sum strategic calculation. Use only the supplied rules, observation, information state, public history, and legal actions. Return the exact required JSON shape. The posterior must use every supplied belief-state label exactly once and sum to one. For every legal action, report immediate_value (utility resolved by that action now), continuation_value (expected utility from later play), and total_value (their sum), all from the acting player's perspective. chosen_action_id must be a legal action maximizing the reported total_value. Do not emit explanations or private reasoning.\nCondition: oracle_assisted_structured. This is a positive-control instruction-following check, not evidence of independent game-solving or transfer. Reproduce the independently computed reference below exactly in the required response shape.\nREFERENCE={\"action_values\":[{\"action_id\":\"challenge\",\"continuation_value\":0.0,\"immediate_value\":1.0,\"total_value\":1.0},{\"action_id\":\"raise:2:6\",\"continuation_value\":-1.0,\"immediate_value\":0.0,\"total_value\":-1.0}],\"chosen_action_id\":\"challenge\",\"posterior\":{\"probabilities\":[{\"probability\":0.5,\"state\":\"1\"},{\"probability\":0.5,\"state\":\"2\"},{\"probability\":0.0,\"state\":\"3\"},{\"probability\":0.0,\"state\":\"4\"},{\"probability\":0.0,\"state\":\"5\"},{\"probability\":0.0,\"state\":\"6\"}],\"target\":\"opponent_die\"}}\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD",
+      "unaided_structured": "You are completing an auditable two-player zero-sum strategic calculation. Use only the supplied rules, observation, information state, public history, and legal actions. Return the exact required JSON shape. The posterior must use every supplied belief-state label exactly once and sum to one. For every legal action, report immediate_value (utility resolved by that action now), continuation_value (expected utility from later play), and total_value (their sum), all from the acting player's perspective. chosen_action_id must be a legal action maximizing the reported total_value. Do not emit explanations or private reasoning.\nCondition: unaided_structured_liar. Compute every field yourself.\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD"
+    },
+    "liar-candidate-f0fbea115a34": {
+      "oracle_assisted_structured": "You are completing an auditable two-player zero-sum strategic calculation. Use only the supplied rules, observation, information state, public history, and legal actions. Return the exact required JSON shape. The posterior must use every supplied belief-state label exactly once and sum to one. For every legal action, report immediate_value (utility resolved by that action now), continuation_value (expected utility from later play), and total_value (their sum), all from the acting player's perspective. chosen_action_id must be a legal action maximizing the reported total_value. Do not emit explanations or private reasoning.\nCondition: oracle_assisted_structured. This is a positive-control instruction-following check, not evidence of independent game-solving or transfer. Reproduce the independently computed reference below exactly in the required response shape.\nREFERENCE={\"action_values\":[{\"action_id\":\"challenge\",\"continuation_value\":0.0,\"immediate_value\":-1.0,\"total_value\":-1.0},{\"action_id\":\"raise:1:4\",\"continuation_value\":1.0,\"immediate_value\":0.0,\"total_value\":1.0}],\"chosen_action_id\":\"raise:1:4\",\"posterior\":{\"probabilities\":[{\"probability\":0.0,\"state\":\"1\"},{\"probability\":0.0,\"state\":\"2\"},{\"probability\":1.0,\"state\":\"3\"},{\"probability\":0.0,\"state\":\"4\"},{\"probability\":0.0,\"state\":\"5\"},{\"probability\":0.0,\"state\":\"6\"}],\"target\":\"opponent_die\"}}\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD",
+      "unaided_structured": "You are completing an auditable two-player zero-sum strategic calculation. Use only the supplied rules, observation, information state, public history, and legal actions. Return the exact required JSON shape. The posterior must use every supplied belief-state label exactly once and sum to one. For every legal action, report immediate_value (utility resolved by that action now), continuation_value (expected utility from later play), and total_value (their sum), all from the acting player's perspective. chosen_action_id must be a legal action maximizing the reported total_value. Do not emit explanations or private reasoning.\nCondition: unaided_structured_liar. Compute every field yourself.\nNeutral padding tokens follow and carry no game information: PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD PAD"
+    }
+  },
+  "reasoningEffort": "low",
+  "references": {
+    "liar-candidate-278704c5885f": {
+      "chosenActionId": "challenge",
+      "continuationActionValues": {
+        "challenge": 0.0,
+        "raise:2:6": -1.0
+      },
+      "immediateActionValues": {
+        "challenge": 0.0,
+        "raise:2:6": 0.0
+      },
+      "maximumAdditivityResidual": 0.0,
+      "optimalActionIdsFromReportedTotals": [
+        "challenge"
+      ],
+      "posterior": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "posteriorTarget": "opponent_die",
+      "totalActionValues": {
+        "challenge": 0.0,
+        "raise:2:6": -1.0
+      }
+    },
+    "liar-candidate-4ab3e40b5521": {
+      "chosenActionId": "raise:1:6",
+      "continuationActionValues": {
+        "challenge": 0.0,
+        "raise:1:6": 1.0
+      },
+      "immediateActionValues": {
+        "challenge": -0.3333333333333333,
+        "raise:1:6": 0.0
+      },
+      "maximumAdditivityResidual": 0.0,
+      "optimalActionIdsFromReportedTotals": [
+        "raise:1:6"
+      ],
+      "posterior": {
+        "1": 0.3333333333333333,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.3333333333333333,
+        "5": 0.3333333333333333,
+        "6": 0.0
+      },
+      "posteriorTarget": "opponent_die",
+      "totalActionValues": {
+        "challenge": -0.3333333333333333,
+        "raise:1:6": 1.0
+      }
+    },
+    "liar-candidate-9fdd1ad62df9": {
+      "chosenActionId": "raise:2:4",
+      "continuationActionValues": {
+        "challenge": 0.0,
+        "raise:2:4": 1.0
+      },
+      "immediateActionValues": {
+        "challenge": 0.0,
+        "raise:2:4": 0.0
+      },
+      "maximumAdditivityResidual": 0.0,
+      "optimalActionIdsFromReportedTotals": [
+        "raise:2:4"
+      ],
+      "posterior": {
+        "1": 0.5,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.5,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "posteriorTarget": "opponent_die",
+      "totalActionValues": {
+        "challenge": 0.0,
+        "raise:2:4": 1.0
+      }
+    },
+    "liar-candidate-ab3ce09187d5": {
+      "chosenActionId": "challenge",
+      "continuationActionValues": {
+        "challenge": 0.0,
+        "raise:2:6": 0.0
+      },
+      "immediateActionValues": {
+        "challenge": 1.0,
+        "raise:2:6": 0.0
+      },
+      "maximumAdditivityResidual": 0.0,
+      "optimalActionIdsFromReportedTotals": [
+        "challenge"
+      ],
+      "posterior": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "posteriorTarget": "opponent_die",
+      "totalActionValues": {
+        "challenge": 1.0,
+        "raise:2:6": 0.0
+      }
+    },
+    "liar-candidate-e5a6548d0b43": {
+      "chosenActionId": "challenge",
+      "continuationActionValues": {
+        "challenge": 0.0,
+        "raise:2:6": -1.0
+      },
+      "immediateActionValues": {
+        "challenge": 1.0,
+        "raise:2:6": 0.0
+      },
+      "maximumAdditivityResidual": 0.0,
+      "optimalActionIdsFromReportedTotals": [
+        "challenge"
+      ],
+      "posterior": {
+        "1": 0.5,
+        "2": 0.5,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "posteriorTarget": "opponent_die",
+      "totalActionValues": {
+        "challenge": 1.0,
+        "raise:2:6": -1.0
+      }
+    },
+    "liar-candidate-f0fbea115a34": {
+      "chosenActionId": "raise:1:4",
+      "continuationActionValues": {
+        "challenge": 0.0,
+        "raise:1:4": 1.0
+      },
+      "immediateActionValues": {
+        "challenge": -1.0,
+        "raise:1:4": 0.0
+      },
+      "maximumAdditivityResidual": 0.0,
+      "optimalActionIdsFromReportedTotals": [
+        "raise:1:4"
+      ],
+      "posterior": {
+        "1": 0.0,
+        "2": 0.0,
+        "3": 1.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0
+      },
+      "posteriorTarget": "opponent_die",
+      "totalActionValues": {
+        "challenge": -1.0,
+        "raise:1:4": 1.0
+      }
+    }
+  },
+  "repeats": 2,
+  "schemaVersion": "aip-structured-value-manipulation-prereg-v1",
+  "seed": 20260927
+}

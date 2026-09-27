@@ -1,0 +1,53 @@
+{
+  "claimRestriction": "The assisted arm tests schema and signal following only; it is excluded from independent solving, transfer, equilibrium, and GTO claims.",
+  "completedCells": 24,
+  "date": "2026-09-27",
+  "fullLoveLetterCertified": false,
+  "game": "liar",
+  "gateChecks": {
+    "allCellsValid": true,
+    "assistedAdditivityResidual": true,
+    "assistedContinuationValueMae": true,
+    "assistedImmediateValueMae": true,
+    "assistedOptimalActionRate": true,
+    "assistedPosteriorBrier": true,
+    "assistedTotalValueMae": true,
+    "inputTokenMismatchesZero": true,
+    "repeatActionAgreementEachArm": false
+  },
+  "gatePassed": false,
+  "inputTokenMismatches": 0,
+  "nextStep": "stop_and_retain_failed_evidence",
+  "preregistrationSha256": "2f737699fc724ffa72d1797ef1d47c4da67465ab80f802801603d37df18fec56",
+  "runStatus": "complete",
+  "schemaVersion": "aip-structured-value-manipulation-report-v1",
+  "summaries": {
+    "oracle_assisted_structured": {
+      "cells": 12,
+      "decisionConsistencyRate": 1,
+      "maximumAdditivityResidual": 0.0,
+      "meanContinuationValueMae": 0.0,
+      "meanFinalActionRegret": 0.0,
+      "meanImmediateValueMae": 0.0,
+      "meanPosteriorBrier": 0.0,
+      "meanTotalValueMae": 0.0,
+      "optimalActionRate": 1,
+      "repeatActionAgreement": 1,
+      "validCells": 12
+    },
+    "unaided_structured": {
+      "cells": 12,
+      "decisionConsistencyRate": 1,
+      "maximumAdditivityResidual": 0.0,
+      "meanContinuationValueMae": 0.3333333333333333,
+      "meanFinalActionRegret": 0.4166666666666667,
+      "meanImmediateValueMae": 0.3611111111111111,
+      "meanPosteriorBrier": 0.3888888888888889,
+      "meanTotalValueMae": 0.6944444444444444,
+      "optimalActionRate": 0.6666666666666666,
+      "repeatActionAgreement": 0.6666666666666666,
+      "validCells": 12
+    }
+  },
+  "validCells": 24
+}

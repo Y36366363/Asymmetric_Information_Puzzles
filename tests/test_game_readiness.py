@@ -25,6 +25,15 @@ def test_love_letter_subgame_pass_does_not_promote_incomplete_full_round():
     assert subgame["informationSets"] == 60
     assert subgame["runtimeFullRoundAllowed"] is False
     assert full["status"] == "blocked_on_complete_structural_enumeration"
-    assert full["historiesTraversed"] == 1_142_965
+    assert full["historiesTraversed"] == 1_242_965
     assert full["structuralAuditComplete"] is False
     assert full["runtimeEpsilonGtoAllowed"] is False
+
+
+def test_failed_liar_structured_gate_blocks_goofspiel_horizontal_run():
+    games = report()["games"]
+    liar = games["one-die-stepwise-liars-dice"]
+    goofspiel = games["goofspiel-four-card"]
+    assert liar["structuredManipulationCheck"] == "failed_retained"
+    assert liar["structuredUnaidedRepeatActionAgreement"] == 2 / 3
+    assert goofspiel["structuredExperimentStatus"] == "blocked_by_liar_gate"

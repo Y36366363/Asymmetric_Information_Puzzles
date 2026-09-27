@@ -129,6 +129,29 @@ class ValueDecomposition:
             "maximumAdditivityResidual": self.maximum_additivity_residual,
         }
 
+    def to_response_payload(self) -> dict[str, object]:
+        """Serialize in the strict model-response shape used by experiments."""
+
+        return {
+            "posterior": {
+                "target": self.posterior_target,
+                "probabilities": [
+                    {"state": state, "probability": probability}
+                    for state, probability in sorted(self.posterior.items())
+                ],
+            },
+            "action_values": [
+                {
+                    "action_id": action,
+                    "immediate_value": self.immediate_action_values[action],
+                    "continuation_value": self.continuation_action_values[action],
+                    "total_value": self.total_action_values[action],
+                }
+                for action in sorted(self.total_action_values)
+            ],
+            "chosen_action_id": self.chosen_action_id,
+        }
+
 
 class ValueDecompositionOracle(Protocol):
     oracle_id: str

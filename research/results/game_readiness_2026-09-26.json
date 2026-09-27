@@ -7,13 +7,13 @@
       "e-card-single-round",
       "love-letter-four-card-subgame"
     ],
-    "nextPriority": "structured intermediate-output check on Liar and Goofspiel; continue bounded Love Letter full-round audit independently",
+    "nextPriority": "repair the failed Liar structured repeatability gate before Goofspiel; continue bounded Love Letter full-round audit independently",
     "notComplete": [
       "five-die-liars-dice",
       "love-letter-full-round"
     ]
   },
-  "date": "2026-09-26",
+  "date": "2026-09-27",
   "games": {
     "e-card-single-round": {
       "exploitability": 0.0,
@@ -39,11 +39,12 @@
       "exploitability": 0.0,
       "independentEvaluator": true,
       "remainingWork": [
-        "structured-model intermediate-output experiment"
+        "run the identical structured protocol only after the Liar gate passes"
       ],
       "runtimeExactEquilibriumMode": true,
       "solver": "exact_backward_induction_zero_sum_matrices",
       "status": "complete_exact_solver_and_benchmark",
+      "structuredExperimentStatus": "blocked_by_liar_gate",
       "valueDecomposition": "complete_30_state_panel"
     },
     "kuhn-poker": {
@@ -70,10 +71,10 @@
       "valueDecomposition": "17_positive_reach_43_zero_reach_information_sets"
     },
     "love-letter-full-round": {
-      "frontierNodes": 75,
-      "historiesTraversed": 1142965,
+      "frontierNodes": 81,
+      "historiesTraversed": 1242965,
       "independentEvaluator": false,
-      "informationSetsObserved": 165139,
+      "informationSetsObserved": 180660,
       "maximumDepth": 26,
       "remainingWork": [
         "close resumable structural audit",
@@ -91,12 +92,14 @@
       "exploitability": 0.0,
       "independentEvaluator": true,
       "remainingWork": [
-        "structured-model intermediate-output experiment",
+        "redesign and preregister the unstable unaided structured control",
         "new certificate required for any expanded bidding rules"
       ],
       "runtimeEpsilonGtoAllowed": true,
       "solver": "exact_sequence_form_plus_certified_runtime_cfr",
       "status": "complete_declared_variant",
+      "structuredManipulationCheck": "failed_retained",
+      "structuredUnaidedRepeatActionAgreement": 0.6666666666666666,
       "valueDecomposition": "complete_30_state_panel"
     }
   },

@@ -26,6 +26,14 @@ from aip.benchmark.value_decomposition import (
     parse_value_decomposition,
     score_value_decomposition,
 )
+from scripts.run_structured_value_manipulation import (
+    ARMS,
+    PROBE_COUNT,
+    REPEATS,
+    _game_material,
+    build_report,
+    require_liar_gate,
+)
 
 
 def test_liar_decomposition_reconstructs_every_invariant_probe_value():
@@ -184,3 +192,81 @@ def test_strict_parser_accepts_complete_rows_and_rejects_duplicates():
     payload["action_values"].append(dict(payload["action_values"][0]))
     with pytest.raises(ValueError, match="unique"):
         parse_value_decomposition(json.dumps(payload))
+
+
+def test_response_payload_round_trips_without_changing_decomposition():
+    reference = ValueDecomposition(
+        "hidden", {"b": 0.25, "a": 0.75},
+        {"stop": 0.5, "go": 0.0},
+        {"stop": 0.0, "go": 1.0},
+        {"stop": 0.5, "go": 1.0},
+        "go",
+    )
+    parsed = parse_value_decomposition(json.dumps(reference.to_response_payload()))
+    assert parsed == reference
+
+
+def _structured_rows(*, assisted_error=0.0, baseline_repeat=True):
+    rows = []
+    for probe_index in range(PROBE_COUNT):
+        for arm in ARMS:
+            for repeat in range(1, REPEATS + 1):
+                action = "best"
+                if arm == "unaided_structured" and not baseline_repeat and repeat == 2:
+                    action = "other"
+                error = assisted_error if arm == "oracle_assisted_structured" else 0.2
+                rows.append({
+                    "probeId": f"probe-{probe_index}",
+                    "arm": arm,
+                    "repeat": repeat,
+                    "status": "valid",
+                    "chosenActionId": action,
+                    "inputTokenMatch": True,
+                    "score": {
+                        "posteriorBrier": error,
+                        "immediateValueMae": error,
+                        "continuationValueMae": error,
+                        "totalValueMae": error,
+                        "maximumAdditivityResidual": error,
+                        "finalActionRegret": 0.0,
+                        "optimalActionAgreement": True,
+                        "decisionConsistentWithReportedValues": True,
+                    },
+                })
+    return rows
+
+
+def test_structured_manipulation_gate_passes_exact_control_and_keeps_negative_controls():
+    plan = {
+        "game": "liar",
+        "maxProviderCalls": PROBE_COUNT * len(ARMS) * REPEATS,
+        "claimRestriction": "control only",
+    }
+    passed = build_report(plan, _structured_rows())
+    assert passed["gatePassed"] is True
+    assert passed["nextStep"] == "prepare_same_protocol_goofspiel"
+    assert passed["fullLoveLetterCertified"] is False
+
+    inaccurate = build_report(plan, _structured_rows(assisted_error=1e-3))
+    assert inaccurate["gatePassed"] is False
+    assert inaccurate["gateChecks"]["assistedTotalValueMae"] is False
+
+    unstable = build_report(plan, _structured_rows(baseline_repeat=False))
+    assert unstable["gatePassed"] is False
+    assert unstable["gateChecks"]["repeatActionAgreementEachArm"] is False
+
+
+def test_horizontal_panels_are_six_states_and_goofspiel_requires_passed_liar(tmp_path):
+    liar, _ = _game_material("liar")
+    goofspiel, _ = _game_material("goofspiel")
+    assert len(liar) == len(goofspiel) == PROBE_COUNT
+    assert {len(probe.player_cards) for probe in goofspiel} == {2, 3, 4}
+
+    report_path = tmp_path / "liar.json"
+    report_path.write_text(json.dumps({
+        "schemaVersion": "aip-structured-value-manipulation-report-v1",
+        "game": "liar",
+        "gatePassed": False,
+    }))
+    with pytest.raises(ValueError, match="blocked"):
+        require_liar_gate(report_path)

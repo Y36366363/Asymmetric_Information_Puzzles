@@ -29,6 +29,9 @@ from aip.puzzles.love_letter import LoveLetterCFRGame, LoveLetterIndependentEval
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "research/results/game_readiness_2026-09-26.json"
 LOVE_PROGRESS = ROOT / "research/results/love_letter_local_progress_2026-09-17.json"
+LIAR_STRUCTURED = (
+    ROOT / "research/results/liar_structured_manipulation_2026-09-27/report.json"
+)
 
 
 def report() -> dict[str, object]:
@@ -60,6 +63,11 @@ def report() -> dict[str, object]:
     )
     progress = json.loads(LOVE_PROGRESS.read_text(encoding="utf-8"))
     latest = progress["chunks"][-1]
+    structured = (
+        json.loads(LIAR_STRUCTURED.read_text(encoding="utf-8"))
+        if LIAR_STRUCTURED.exists()
+        else None
+    )
 
     games = {
         "one-die-stepwise-liars-dice": {
@@ -69,8 +77,20 @@ def report() -> dict[str, object]:
             "exploitability": liar_report.exploitability,
             "runtimeEpsilonGtoAllowed": True,
             "valueDecomposition": "complete_30_state_panel",
+            "structuredManipulationCheck": (
+                "not_run" if structured is None
+                else "passed" if structured["gatePassed"] else "failed_retained"
+            ),
+            "structuredUnaidedRepeatActionAgreement": (
+                None if structured is None else structured["summaries"]
+                ["unaided_structured"]["repeatActionAgreement"]
+            ),
             "remainingWork": [
-                "structured-model intermediate-output experiment",
+                (
+                    "structured-model intermediate-output experiment"
+                    if structured is None
+                    else "redesign and preregister the unstable unaided structured control"
+                ),
                 "new certificate required for any expanded bidding rules",
             ],
         },
@@ -92,7 +112,14 @@ def report() -> dict[str, object]:
             "exploitability": float(goof.exploitability),
             "runtimeExactEquilibriumMode": True,
             "valueDecomposition": "complete_30_state_panel",
-            "remainingWork": ["structured-model intermediate-output experiment"],
+            "structuredExperimentStatus": (
+                "blocked_by_liar_gate"
+                if structured is not None and not structured["gatePassed"]
+                else "ready_after_liar_gate"
+            ),
+            "remainingWork": [
+                "run the identical structured protocol only after the Liar gate passes"
+            ],
         },
         "kuhn-poker": {
             "status": "complete_exact_reference",
@@ -146,7 +173,7 @@ def report() -> dict[str, object]:
     }
     return {
         "schemaVersion": "aip-game-readiness-v1",
-        "date": "2026-09-26",
+        "date": "2026-09-27",
         "games": games,
         "conclusion": {
             "basicConstructionComplete": [
@@ -158,7 +185,7 @@ def report() -> dict[str, object]:
             ],
             "notComplete": ["five-die-liars-dice", "love-letter-full-round"],
             "nextPriority": (
-                "structured intermediate-output check on Liar and Goofspiel; "
+                "repair the failed Liar structured repeatability gate before Goofspiel; "
                 "continue bounded Love Letter full-round audit independently"
             ),
         },
