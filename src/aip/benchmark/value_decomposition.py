@@ -59,6 +59,63 @@ VALUE_DECOMPOSITION_JSON_SCHEMA: Mapping[str, object] = {
     "additionalProperties": False,
 }
 
+CONDITIONED_VALUE_DECOMPOSITION_JSON_SCHEMA: Mapping[str, object] = {
+    "type": "object",
+    "properties": {
+        "belief_update": {
+            "type": "object",
+            "properties": {
+                "target": {"type": "string"},
+                "base_prior": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "state": {"type": "string"},
+                            "probability": {"type": "number", "minimum": 0, "maximum": 1},
+                        },
+                        "required": ["state", "probability"],
+                        "additionalProperties": False,
+                    },
+                },
+                "policy_reach_weights": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "state": {"type": "string"},
+                            "weight": {"type": "number", "minimum": 0},
+                        },
+                        "required": ["state", "weight"],
+                        "additionalProperties": False,
+                    },
+                },
+                "conditioned_posterior": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "state": {"type": "string"},
+                            "probability": {"type": "number", "minimum": 0, "maximum": 1},
+                        },
+                        "required": ["state", "probability"],
+                        "additionalProperties": False,
+                    },
+                },
+            },
+            "required": [
+                "target", "base_prior", "policy_reach_weights",
+                "conditioned_posterior",
+            ],
+            "additionalProperties": False,
+        },
+        "action_values": VALUE_DECOMPOSITION_JSON_SCHEMA["properties"]["action_values"],
+        "chosen_action_id": {"type": "string"},
+    },
+    "required": ["belief_update", "action_values", "chosen_action_id"],
+    "additionalProperties": False,
+}
+
 
 @dataclass(frozen=True, slots=True)
 class ValueDecomposition:
@@ -153,6 +210,64 @@ class ValueDecomposition:
         }
 
 
+@dataclass(frozen=True, slots=True)
+class ConditionedValueDecomposition:
+    """Separate a declared prior from fixed-policy Bayesian conditioning."""
+
+    base_prior: Mapping[str, float]
+    policy_reach_weights: Mapping[str, float]
+    values: ValueDecomposition
+
+    def __post_init__(self) -> None:
+        labels = set(self.values.posterior)
+        if set(self.base_prior) != labels or set(self.policy_reach_weights) != labels:
+            raise ValueError("prior, reach weights, and posterior must share labels")
+        if any(not isfinite(value) or value < 0 for value in self.policy_reach_weights.values()):
+            raise ValueError("policy reach weights must be finite and nonnegative")
+        if abs(sum(self.base_prior.values()) - 1.0) > TOLERANCE:
+            raise ValueError("base prior probabilities must sum to 1")
+        if any(not isfinite(value) or value < 0 or value > 1 for value in self.base_prior.values()):
+            raise ValueError("base prior probabilities must be finite and between 0 and 1")
+        unnormalized = {
+            label: self.base_prior[label] * self.policy_reach_weights[label]
+            for label in labels
+        }
+        mass = sum(unnormalized.values())
+        if mass <= 0:
+            raise ValueError("fixed policy gives the observation zero reach")
+        expected = {label: value / mass for label, value in unnormalized.items()}
+        if any(
+            abs(expected[label] - self.values.posterior[label]) > TOLERANCE
+            for label in labels
+        ):
+            raise ValueError("conditioned posterior does not match prior times reach")
+
+    def to_artifact(self) -> dict[str, object]:
+        return {
+            "basePrior": dict(self.base_prior),
+            "policyReachWeights": dict(self.policy_reach_weights),
+            "conditioned": self.values.to_artifact(),
+        }
+
+    def to_response_payload(self) -> dict[str, object]:
+        payload = self.values.to_response_payload()
+        return {
+            "belief_update": {
+                "target": self.values.posterior_target,
+                "base_prior": [
+                    {"state": label, "probability": probability}
+                    for label, probability in sorted(self.base_prior.items())
+                ],
+                "policy_reach_weights": [
+                    {"state": label, "weight": weight}
+                    for label, weight in sorted(self.policy_reach_weights.items())
+                ],
+                "conditioned_posterior": payload["posterior"]["probabilities"],
+            },
+            "action_values": payload["action_values"],
+            "chosen_action_id": payload["chosen_action_id"],
+        }
+
 class ValueDecompositionOracle(Protocol):
     oracle_id: str
 
@@ -185,6 +300,37 @@ class ValueDecompositionScore:
                 action: dict(errors) for action, errors in self.per_action_errors.items()
             },
         }
+
+
+@dataclass(frozen=True, slots=True)
+class ConditionedValueDecompositionScore:
+    base_prior_brier: float
+    policy_reach_weight_mae: float
+    value_score: ValueDecompositionScore
+
+    def to_artifact(self) -> dict[str, object]:
+        return {
+            "basePriorBrier": self.base_prior_brier,
+            "policyReachWeightMae": self.policy_reach_weight_mae,
+            **self.value_score.to_artifact(),
+        }
+
+
+def condition_value_decomposition(
+    values: ValueDecomposition,
+    base_prior: Mapping[str, float],
+) -> ConditionedValueDecomposition:
+    """Bind an exact posterior to an explicit prior and relative policy reach."""
+
+    if set(base_prior) != set(values.posterior):
+        raise ValueError("base prior labels differ from posterior")
+    if any(probability <= 0 for probability in base_prior.values()):
+        raise ValueError("reference base prior must have full support")
+    weights = {
+        label: values.posterior[label] / base_prior[label]
+        for label in base_prior
+    }
+    return ConditionedValueDecomposition(dict(base_prior), weights, values)
 
 
 def score_value_decomposition(
@@ -238,6 +384,28 @@ def score_value_decomposition(
             candidate.chosen_action_id in candidate.optimal_action_ids
         ),
         per_action_errors=errors,
+    )
+
+
+def score_conditioned_value_decomposition(
+    candidate: ConditionedValueDecomposition,
+    reference: ConditionedValueDecomposition,
+) -> ConditionedValueDecompositionScore:
+    if set(candidate.base_prior) != set(reference.base_prior):
+        raise ValueError("candidate base-prior labels differ from reference")
+    return ConditionedValueDecompositionScore(
+        base_prior_brier=sum(
+            (candidate.base_prior[label] - reference.base_prior[label]) ** 2
+            for label in reference.base_prior
+        ),
+        policy_reach_weight_mae=mean(
+            abs(
+                candidate.policy_reach_weights[label]
+                - reference.policy_reach_weights[label]
+            )
+            for label in reference.policy_reach_weights
+        ),
+        value_score=score_value_decomposition(candidate.values, reference.values),
     )
 
 
@@ -296,4 +464,57 @@ def parse_value_decomposition(output_text: str) -> ValueDecomposition:
         continuation_action_values=continuation,
         total_action_values=total,
         chosen_action_id=chosen,
+    )
+
+
+def parse_conditioned_value_decomposition(
+    output_text: str,
+) -> ConditionedValueDecomposition:
+    """Parse the explicit prior/reach/posterior structured response."""
+
+    payload = json.loads(output_text)
+    if not isinstance(payload, dict) or set(payload) != {
+        "belief_update", "action_values", "chosen_action_id"
+    }:
+        raise ValueError("conditioned decomposition has unknown or missing fields")
+    update = payload["belief_update"]
+    if not isinstance(update, dict) or set(update) != {
+        "target", "base_prior", "policy_reach_weights", "conditioned_posterior"
+    }:
+        raise ValueError("belief update has unknown or missing fields")
+
+    def rows_to_mapping(rows, value_field: str) -> dict[str, float]:
+        if not isinstance(rows, list):
+            raise ValueError("belief components must be arrays")
+        result = {}
+        for row in rows:
+            if not isinstance(row, dict) or set(row) != {"state", value_field}:
+                raise ValueError("belief row has unknown or missing fields")
+            label = row["state"]
+            value = row[value_field]
+            if not isinstance(label, str) or not label or label in result:
+                raise ValueError("belief labels must be unique nonempty strings")
+            if isinstance(value, bool) or not isinstance(value, (int, float)):
+                raise ValueError("belief values must be numeric")
+            result[label] = float(value)
+        return result
+
+    base_prior = rows_to_mapping(update["base_prior"], "probability")
+    weights = rows_to_mapping(update["policy_reach_weights"], "weight")
+    posterior = rows_to_mapping(update["conditioned_posterior"], "probability")
+    standard_payload = {
+        "posterior": {
+            "target": update["target"],
+            "probabilities": [
+                {"state": label, "probability": probability}
+                for label, probability in posterior.items()
+            ],
+        },
+        "action_values": payload["action_values"],
+        "chosen_action_id": payload["chosen_action_id"],
+    }
+    return ConditionedValueDecomposition(
+        base_prior,
+        weights,
+        parse_value_decomposition(json.dumps(standard_payload, allow_nan=False)),
     )

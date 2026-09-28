@@ -1,0 +1,42 @@
+{
+  "claimRestriction": "The model receives fixed reach weights and continuation anchors. This tests Bayesian normalization, immediate payoff calculation, value composition, and action selection\u2014not equilibrium discovery.",
+  "completedCells": 12,
+  "date": "2026-09-28",
+  "fullLoveLetterCertified": false,
+  "game": "liar",
+  "gateChecks": {
+    "additivityResidual": true,
+    "allCellsValid": true,
+    "basePriorBrier": true,
+    "conditionedPosteriorBrier": true,
+    "continuationValueMae": true,
+    "immediateValueMae": false,
+    "inputTokenMismatchesZero": false,
+    "optimalActionRate": true,
+    "policyReachWeightMae": true,
+    "repeatActionAgreement": true,
+    "totalValueMae": false
+  },
+  "gatePassed": false,
+  "inputTokenMismatches": 12,
+  "nextStep": "stop_and_retain_failed_evidence",
+  "preregistrationSha256": "11aa3dca412b53caf72383ad9db1ec94089b742561843509d0008aca5c213b50",
+  "protocolId": "fixed_policy_belief_value_v1",
+  "runStatus": "complete",
+  "schemaVersion": "aip-fixed-policy-value-report-v1",
+  "summary": {
+    "cells": 12,
+    "decisionConsistencyRate": 1,
+    "maximumAdditivityResidual": 0.0,
+    "meanBasePriorBrier": 3.3333338849358295e-21,
+    "meanConditionedPosteriorBrier": 2.7777782374465246e-22,
+    "meanContinuationValueMae": 0.0,
+    "meanFinalActionRegret": 0.0,
+    "meanImmediateValueMae": 0.08333333333472222,
+    "meanPolicyReachWeightMae": 0.0,
+    "meanTotalValueMae": 0.08333333333472222,
+    "optimalActionRate": 1,
+    "repeatActionAgreement": 1,
+    "validCells": 12
+  }
+}

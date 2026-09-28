@@ -1,0 +1,1046 @@
+{
+  "preregistrationSha256": "05075674cc9a709d1dba538e7b1b3a6e9dbdd34e8996372524ac0e74e98fecbf",
+  "rows": [
+    {
+      "chosenActionId": "bid:1",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.5,
+          "4": 0.5
+        },
+        "conditioned": {
+          "chosenActionId": "bid:1",
+          "continuationActionValues": {
+            "bid:1": 0.0,
+            "bid:4": -2.0
+          },
+          "immediateActionValues": {
+            "bid:1": 0.0,
+            "bid:4": 1.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "bid:1"
+          ],
+          "posterior": {
+            "1": 1.0,
+            "4": 0.0
+          },
+          "posteriorTarget": "opponent_current_bid",
+          "totalActionValues": {
+            "bid:1": 0.0,
+            "bid:4": -1.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 2.0,
+          "4": 0.0
+        }
+      },
+      "expectedInputTokens": 717,
+      "incompleteReason": null,
+      "inputTokenMatch": true,
+      "latencyMs": 2674.842750071548,
+      "observedInputTokens": 717,
+      "outputSha256": "90e984fec58ecbe504b6f4cb67e6c8d6d1e39dac2ebd184cffd66f4b1428ef70",
+      "outputTokens": 244,
+      "probeId": "goofspiel-probe-d304edd797b9",
+      "repeat": 2,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_001c06d550cf5c82016aba9278316487d283e54974068e5f55",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "bid:1": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:4": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 961
+    },
+    {
+      "chosenActionId": "bid:1",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.25,
+          "2": 0.25,
+          "3": 0.25,
+          "4": 0.25
+        },
+        "conditioned": {
+          "chosenActionId": "bid:1",
+          "continuationActionValues": {
+            "bid:1": 0.0,
+            "bid:2": -1.007836407836408,
+            "bid:3": -2.969647359385112,
+            "bid:4": -5.255208039823424
+          },
+          "immediateActionValues": {
+            "bid:1": 0.0,
+            "bid:2": 1.0,
+            "bid:3": 1.0,
+            "bid:4": 1.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "bid:1"
+          ],
+          "posterior": {
+            "1": 1.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0
+          },
+          "posteriorTarget": "opponent_current_bid",
+          "totalActionValues": {
+            "bid:1": 0.0,
+            "bid:2": -0.00783640783640796,
+            "bid:3": -1.969647359385112,
+            "bid:4": -4.255208039823424
+          }
+        },
+        "policyReachWeights": {
+          "1": 4.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        }
+      },
+      "expectedInputTokens": 908,
+      "incompleteReason": null,
+      "inputTokenMatch": true,
+      "latencyMs": 3231.6691669402644,
+      "observedInputTokens": 908,
+      "outputSha256": "b1e0941546614ca30b6e25b0c565ce976d2d44c011254d2e970370b3caa7cf19",
+      "outputTokens": 435,
+      "probeId": "goofspiel-probe-f77b461c5b31",
+      "repeat": 1,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_05514a9472298bba016aba927a80b887d2bea26f38ce74e7c0",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "bid:1": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:2": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 2.7755575615628914e-17
+          },
+          "bid:3": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:4": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 6.938893903907228e-18
+      },
+      "status": "valid",
+      "totalTokens": 1343
+    },
+    {
+      "chosenActionId": "bid:1",
+      "decomposition": {
+        "basePrior": {
+          "2": 0.3333333333333333,
+          "3": 0.3333333333333333,
+          "4": 0.3333333333333333
+        },
+        "conditioned": {
+          "chosenActionId": "bid:1",
+          "continuationActionValues": {
+            "bid:1": -1.625,
+            "bid:2": -2.21875,
+            "bid:3": -3.25
+          },
+          "immediateActionValues": {
+            "bid:1": -2.0,
+            "bid:2": -2.0,
+            "bid:3": -0.375
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "bid:1",
+            "bid:3"
+          ],
+          "posterior": {
+            "2": 0.0,
+            "3": 0.8125,
+            "4": 0.1875
+          },
+          "posteriorTarget": "opponent_current_bid",
+          "totalActionValues": {
+            "bid:1": -3.625,
+            "bid:2": -4.21875,
+            "bid:3": -3.625
+          }
+        },
+        "policyReachWeights": {
+          "2": 0.0,
+          "3": 2.4375,
+          "4": 0.5625
+        }
+      },
+      "expectedInputTokens": 807,
+      "incompleteReason": null,
+      "inputTokenMatch": true,
+      "latencyMs": 3179.8605419462547,
+      "observedInputTokens": 807,
+      "outputSha256": "515b8983e9011a0b1feffc940c808b3e2ecef7f1af4ebd70ca6bdeec915a12e7",
+      "outputTokens": 419,
+      "probeId": "goofspiel-probe-8ed38f706f08",
+      "repeat": 2,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_0ab19f788aa64866016aba927dc68087d2a0a9ae9955991a5c",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "bid:1": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:2": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:3": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 1226
+    },
+    {
+      "chosenActionId": "bid:1",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.5,
+          "4": 0.5
+        },
+        "conditioned": {
+          "chosenActionId": "bid:1",
+          "continuationActionValues": {
+            "bid:1": 0.0,
+            "bid:4": -2.0
+          },
+          "immediateActionValues": {
+            "bid:1": 0.0,
+            "bid:4": 1.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "bid:1"
+          ],
+          "posterior": {
+            "1": 1.0,
+            "4": 0.0
+          },
+          "posteriorTarget": "opponent_current_bid",
+          "totalActionValues": {
+            "bid:1": 0.0,
+            "bid:4": -1.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 2.0,
+          "4": 0.0
+        }
+      },
+      "expectedInputTokens": 717,
+      "incompleteReason": null,
+      "inputTokenMatch": true,
+      "latencyMs": 1750.9879589779302,
+      "observedInputTokens": 717,
+      "outputSha256": "90e984fec58ecbe504b6f4cb67e6c8d6d1e39dac2ebd184cffd66f4b1428ef70",
+      "outputTokens": 242,
+      "probeId": "goofspiel-probe-d304edd797b9",
+      "repeat": 1,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_02cbfeb657bfd3f7016aba9280f11487d2b7dbf2fcd14d3bca",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "bid:1": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:4": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 959
+    },
+    {
+      "chosenActionId": "bid:4",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.5,
+          "4": 0.5
+        },
+        "conditioned": {
+          "chosenActionId": "bid:4",
+          "continuationActionValues": {
+            "bid:1": 1.0,
+            "bid:4": 0.0
+          },
+          "immediateActionValues": {
+            "bid:1": -4.0,
+            "bid:4": 0.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "bid:4"
+          ],
+          "posterior": {
+            "1": 0.0,
+            "4": 1.0
+          },
+          "posteriorTarget": "opponent_current_bid",
+          "totalActionValues": {
+            "bid:1": -3.0,
+            "bid:4": 0.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 0.0,
+          "4": 2.0
+        }
+      },
+      "expectedInputTokens": 716,
+      "incompleteReason": null,
+      "inputTokenMatch": true,
+      "latencyMs": 2160.655166953802,
+      "observedInputTokens": 716,
+      "outputSha256": "1b4d62d0ec892561c3dbf1392f741cbe90a230429ccabf3bf155b89430266520",
+      "outputTokens": 244,
+      "probeId": "goofspiel-probe-3e3f3fca15ab",
+      "repeat": 2,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_0008c2bec26e63e1016aba9282afac87d2823965b50f1e654f",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "bid:1": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:4": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 960
+    },
+    {
+      "chosenActionId": "bid:1",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.25,
+          "2": 0.25,
+          "3": 0.25,
+          "4": 0.25
+        },
+        "conditioned": {
+          "chosenActionId": "bid:1",
+          "continuationActionValues": {
+            "bid:1": 0.0,
+            "bid:2": -1.007836407836408,
+            "bid:3": -2.969647359385112,
+            "bid:4": -5.255208039823424
+          },
+          "immediateActionValues": {
+            "bid:1": 0.0,
+            "bid:2": 1.0,
+            "bid:3": 1.0,
+            "bid:4": 1.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "bid:1"
+          ],
+          "posterior": {
+            "1": 1.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0
+          },
+          "posteriorTarget": "opponent_current_bid",
+          "totalActionValues": {
+            "bid:1": 0.0,
+            "bid:2": -0.007836407836408,
+            "bid:3": -1.969647359385112,
+            "bid:4": -4.255208039823424
+          }
+        },
+        "policyReachWeights": {
+          "1": 4.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        }
+      },
+      "expectedInputTokens": 908,
+      "incompleteReason": null,
+      "inputTokenMatch": true,
+      "latencyMs": 3172.703833086416,
+      "observedInputTokens": 908,
+      "outputSha256": "4c7053b38d4f4fa85e8d8526804d90dea19cd6bba4ee1208a0a7521b70fce616",
+      "outputTokens": 405,
+      "probeId": "goofspiel-probe-f77b461c5b31",
+      "repeat": 2,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_0694e44796bb0914016aba9284dab887d2aca979f7617491a7",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "bid:1": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:2": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 6.765421556309548e-17
+          },
+          "bid:3": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:4": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 1.691355389077387e-17
+      },
+      "status": "valid",
+      "totalTokens": 1313
+    },
+    {
+      "chosenActionId": "bid:2",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.25,
+          "2": 0.25,
+          "3": 0.25,
+          "4": 0.25
+        },
+        "conditioned": {
+          "chosenActionId": "bid:2",
+          "continuationActionValues": {
+            "bid:1": 1.3258142896822012,
+            "bid:2": 0.37957829493984546,
+            "bid:3": -0.9462359947423558,
+            "bid:4": -3.2790550313776023
+          },
+          "immediateActionValues": {
+            "bid:1": -1.3258142896822012,
+            "bid:2": -0.3795782949398454,
+            "bid:3": 0.9462359947423558,
+            "bid:4": 2.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "bid:1",
+            "bid:2",
+            "bid:3"
+          ],
+          "posterior": {
+            "1": 0.3370928551588994,
+            "2": 0.1360251422122785,
+            "3": 0.5268820026288221,
+            "4": 0.0
+          },
+          "posteriorTarget": "opponent_current_bid",
+          "totalActionValues": {
+            "bid:1": 0.0,
+            "bid:2": 5.551115123125783e-17,
+            "bid:3": 0.0,
+            "bid:4": -1.2790550313776023
+          }
+        },
+        "policyReachWeights": {
+          "1": 1.3483714206355977,
+          "2": 0.544100568849114,
+          "3": 2.1075280105152885,
+          "4": 0.0
+        }
+      },
+      "expectedInputTokens": 929,
+      "incompleteReason": null,
+      "inputTokenMatch": true,
+      "latencyMs": 6132.706749951467,
+      "observedInputTokens": 929,
+      "outputSha256": "4d7d9269f1a40ca5770434418e964ff6d27e80f06661279c0d43a3f2485e6bed",
+      "outputTokens": 653,
+      "probeId": "goofspiel-probe-80dc736797cf",
+      "repeat": 2,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_09ca31d0df6dffe4016aba92880b1c87d2acebe831053ac840",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 1.3877787807814457e-17,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "bid:1": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:2": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 5.551115123125783e-17,
+            "totalAbsoluteError": 5.551115123125783e-17
+          },
+          "bid:3": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:4": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 1.3877787807814457e-17
+      },
+      "status": "valid",
+      "totalTokens": 1582
+    },
+    {
+      "chosenActionId": "bid:3",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.25,
+          "2": 0.25,
+          "3": 0.25,
+          "4": 0.25
+        },
+        "conditioned": {
+          "chosenActionId": "bid:3",
+          "continuationActionValues": {
+            "bid:1": 1.3258142896822012,
+            "bid:2": 0.37957829493984546,
+            "bid:3": -0.9462359947423558,
+            "bid:4": -3.2790550313776023
+          },
+          "immediateActionValues": {
+            "bid:1": -1.3258142896822012,
+            "bid:2": -0.37957829493984546,
+            "bid:3": 0.9462359947423559,
+            "bid:4": 2.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "bid:1",
+            "bid:2",
+            "bid:3"
+          ],
+          "posterior": {
+            "1": 0.3370928551588994,
+            "2": 0.1360251422122785,
+            "3": 0.5268820026288221,
+            "4": 0.0
+          },
+          "posteriorTarget": "opponent_current_bid",
+          "totalActionValues": {
+            "bid:1": 0.0,
+            "bid:2": 0.0,
+            "bid:3": 1.1102230246251565e-16,
+            "bid:4": -1.2790550313776023
+          }
+        },
+        "policyReachWeights": {
+          "1": 1.3483714206355977,
+          "2": 0.544100568849114,
+          "3": 2.1075280105152885,
+          "4": 0.0
+        }
+      },
+      "expectedInputTokens": 929,
+      "incompleteReason": null,
+      "inputTokenMatch": true,
+      "latencyMs": 4608.505583018996,
+      "observedInputTokens": 929,
+      "outputSha256": "fd674957d9674f3948d43332d662cee05ce0a0f00252e6fa70be7d275fa0b625",
+      "outputTokens": 630,
+      "probeId": "goofspiel-probe-80dc736797cf",
+      "repeat": 1,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_035b34fe72175a90016aba928e2b8487d28f21715c96ca1394",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 2.7755575615628914e-17,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "bid:1": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:2": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:3": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 1.1102230246251565e-16,
+            "totalAbsoluteError": 1.1102230246251565e-16
+          },
+          "bid:4": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 2.7755575615628914e-17
+      },
+      "status": "valid",
+      "totalTokens": 1559
+    },
+    {
+      "chosenActionId": "bid:2",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.3333333333333333,
+          "2": 0.3333333333333333,
+          "3": 0.3333333333333333
+        },
+        "conditioned": {
+          "chosenActionId": "bid:2",
+          "continuationActionValues": {
+            "bid:1": 1.4301075268817205,
+            "bid:2": 1.0,
+            "bid:4": -1.5806451612903225
+          },
+          "immediateActionValues": {
+            "bid:1": -1.2903225806451613,
+            "bid:2": 1.4193548387096775,
+            "bid:4": 4.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "bid:2",
+            "bid:4"
+          ],
+          "posterior": {
+            "1": 0.6774193548387096,
+            "2": 0.0,
+            "3": 0.3225806451612903
+          },
+          "posteriorTarget": "opponent_current_bid",
+          "totalActionValues": {
+            "bid:1": 0.13978494623655924,
+            "bid:2": 2.4193548387096775,
+            "bid:4": 2.4193548387096775
+          }
+        },
+        "policyReachWeights": {
+          "1": 2.032258064516129,
+          "2": 0.0,
+          "3": 0.967741935483871
+        }
+      },
+      "expectedInputTokens": 817,
+      "incompleteReason": null,
+      "inputTokenMatch": true,
+      "latencyMs": 3998.7009160686284,
+      "observedInputTokens": 817,
+      "outputSha256": "1c28fdcb8cad16f4cde6447979319c01710c21282b1da38c75e9a3dcdd067ac4",
+      "outputTokens": 518,
+      "probeId": "goofspiel-probe-7f21bb4b8f65",
+      "repeat": 2,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_09ba7f6e326cbb33016aba9292c6c087d298a9def1910deafb",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "bid:1": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:2": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:4": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 1335
+    },
+    {
+      "chosenActionId": "bid:1",
+      "decomposition": {
+        "basePrior": {
+          "2": 0.3333333333333333,
+          "3": 0.3333333333333333,
+          "4": 0.3333333333333333
+        },
+        "conditioned": {
+          "chosenActionId": "bid:1",
+          "continuationActionValues": {
+            "bid:1": -1.625,
+            "bid:2": -2.21875,
+            "bid:3": -3.25
+          },
+          "immediateActionValues": {
+            "bid:1": -2.0,
+            "bid:2": -2.0,
+            "bid:3": -0.375
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "bid:1",
+            "bid:3"
+          ],
+          "posterior": {
+            "2": 0.0,
+            "3": 0.8125,
+            "4": 0.1875
+          },
+          "posteriorTarget": "opponent_current_bid",
+          "totalActionValues": {
+            "bid:1": -3.625,
+            "bid:2": -4.21875,
+            "bid:3": -3.625
+          }
+        },
+        "policyReachWeights": {
+          "2": 0.0,
+          "3": 2.4375,
+          "4": 0.5625
+        }
+      },
+      "expectedInputTokens": 807,
+      "incompleteReason": null,
+      "inputTokenMatch": true,
+      "latencyMs": 3141.515374998562,
+      "observedInputTokens": 807,
+      "outputSha256": "515b8983e9011a0b1feffc940c808b3e2ecef7f1af4ebd70ca6bdeec915a12e7",
+      "outputTokens": 407,
+      "probeId": "goofspiel-probe-8ed38f706f08",
+      "repeat": 1,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_0f944fdcd391bb7b016aba9296d4e487d2838c00e98660a51c",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "bid:1": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:2": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:3": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 1214
+    },
+    {
+      "chosenActionId": "bid:4",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.5,
+          "4": 0.5
+        },
+        "conditioned": {
+          "chosenActionId": "bid:4",
+          "continuationActionValues": {
+            "bid:1": 1.0,
+            "bid:4": 0.0
+          },
+          "immediateActionValues": {
+            "bid:1": -4.0,
+            "bid:4": 0.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "bid:4"
+          ],
+          "posterior": {
+            "1": 0.0,
+            "4": 1.0
+          },
+          "posteriorTarget": "opponent_current_bid",
+          "totalActionValues": {
+            "bid:1": -3.0,
+            "bid:4": 0.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 0.0,
+          "4": 2.0
+        }
+      },
+      "expectedInputTokens": 716,
+      "incompleteReason": null,
+      "inputTokenMatch": true,
+      "latencyMs": 4920.665874960832,
+      "observedInputTokens": 716,
+      "outputSha256": "1b4d62d0ec892561c3dbf1392f741cbe90a230429ccabf3bf155b89430266520",
+      "outputTokens": 241,
+      "probeId": "goofspiel-probe-3e3f3fca15ab",
+      "repeat": 1,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_002019ed038a6f0b016aba929b045487d2987eff2debd95c4c",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "bid:1": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:4": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 957
+    },
+    {
+      "chosenActionId": "bid:2",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.3333333333333333,
+          "2": 0.3333333333333333,
+          "3": 0.3333333333333333
+        },
+        "conditioned": {
+          "chosenActionId": "bid:2",
+          "continuationActionValues": {
+            "bid:1": 1.4301075268817205,
+            "bid:2": 1.0,
+            "bid:4": -1.5806451612903225
+          },
+          "immediateActionValues": {
+            "bid:1": -1.2903225806451613,
+            "bid:2": 1.4193548387096775,
+            "bid:4": 4.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "bid:2",
+            "bid:4"
+          ],
+          "posterior": {
+            "1": 0.6774193548387096,
+            "2": 0.0,
+            "3": 0.3225806451612903
+          },
+          "posteriorTarget": "opponent_current_bid",
+          "totalActionValues": {
+            "bid:1": 0.1397849462365592,
+            "bid:2": 2.4193548387096775,
+            "bid:4": 2.4193548387096775
+          }
+        },
+        "policyReachWeights": {
+          "1": 2.032258064516129,
+          "2": 0.0,
+          "3": 0.967741935483871
+        }
+      },
+      "expectedInputTokens": 817,
+      "incompleteReason": null,
+      "inputTokenMatch": true,
+      "latencyMs": 4335.559249971993,
+      "observedInputTokens": 817,
+      "outputSha256": "20e3a103cbd7e322330518918a39431efa35340b827b57a52f4fc5ca83913897",
+      "outputTokens": 555,
+      "probeId": "goofspiel-probe-7f21bb4b8f65",
+      "repeat": 1,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_0cdd823dbd01d712016aba929eeed487d2bf0e393384e9e8f1",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "bid:1": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 2.7755575615628914e-17
+          },
+          "bid:2": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "bid:4": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 9.25185853854297e-18
+      },
+      "status": "valid",
+      "totalTokens": 1372
+    }
+  ],
+  "schemaVersion": "aip-fixed-policy-value-rows-v1"
+}

@@ -1,0 +1,1051 @@
+{
+  "preregistrationSha256": "11aa3dca412b53caf72383ad9db1ec94089b742561843509d0008aca5c213b50",
+  "rows": [
+    {
+      "chosenActionId": "raise:1:4",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.16666666666666666,
+          "2": 0.16666666666666666,
+          "3": 0.16666666666666666,
+          "4": 0.16666666666666666,
+          "5": 0.16666666666666666,
+          "6": 0.16666666666666666
+        },
+        "conditioned": {
+          "chosenActionId": "raise:1:4",
+          "continuationActionValues": {
+            "challenge": 0.0,
+            "raise:1:4": 1.0
+          },
+          "immediateActionValues": {
+            "challenge": -1.0,
+            "raise:1:4": 0.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "raise:1:4"
+          ],
+          "posterior": {
+            "1": 0.0,
+            "2": 0.0,
+            "3": 1.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0
+          },
+          "posteriorTarget": "opponent_die",
+          "totalActionValues": {
+            "challenge": -1.0,
+            "raise:1:4": 1.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 6.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        }
+      },
+      "expectedInputTokens": 734,
+      "incompleteReason": null,
+      "inputTokenMatch": false,
+      "latencyMs": 5619.8685830459,
+      "observedInputTokens": 732,
+      "outputSha256": "bcd5d72b181f6ef3a795113b34755ab2a3fe510392fb938aeb84f29e5919baab",
+      "outputTokens": 478,
+      "probeId": "liar-candidate-f0fbea115a34",
+      "repeat": 1,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_08149c2fd56d01a5016aba905f0bec87d2a80abdf554cbaff2",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "challenge": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "raise:1:4": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 1210
+    },
+    {
+      "chosenActionId": "challenge",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.1666666667,
+          "2": 0.1666666667,
+          "3": 0.1666666667,
+          "4": 0.1666666667,
+          "5": 0.1666666667,
+          "6": 0.1666666667
+        },
+        "conditioned": {
+          "chosenActionId": "challenge",
+          "continuationActionValues": {
+            "challenge": 0.0,
+            "raise:2:6": -1.0
+          },
+          "immediateActionValues": {
+            "challenge": 0.0,
+            "raise:2:6": 0.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "challenge"
+          ],
+          "posterior": {
+            "1": 0.5,
+            "2": 0.5,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0
+          },
+          "posteriorTarget": "opponent_die",
+          "totalActionValues": {
+            "challenge": 0.0,
+            "raise:2:6": -1.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 3.0,
+          "2": 3.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        }
+      },
+      "expectedInputTokens": 980,
+      "incompleteReason": null,
+      "inputTokenMatch": false,
+      "latencyMs": 5277.167042018846,
+      "observedInputTokens": 978,
+      "outputSha256": "13d874da112b36987af479a2e5a7024c7ecf8d566654249e5cb7268bf9b48df3",
+      "outputTokens": 498,
+      "probeId": "liar-candidate-278704c5885f",
+      "repeat": 2,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_05dfd0fcb28cc6d5016aba906401e887d29b69532ed5b7798a",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 6.666667769871659e-21,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "challenge": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "raise:2:6": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 1476
+    },
+    {
+      "chosenActionId": "raise:1:6",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.16666666666666666,
+          "2": 0.16666666666666666,
+          "3": 0.16666666666666666,
+          "4": 0.16666666666666666,
+          "5": 0.16666666666666666,
+          "6": 0.16666666666666666
+        },
+        "conditioned": {
+          "chosenActionId": "raise:1:6",
+          "continuationActionValues": {
+            "challenge": 0.0,
+            "raise:1:6": 1.0
+          },
+          "immediateActionValues": {
+            "challenge": -0.3333333333333333,
+            "raise:1:6": 0.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "raise:1:6"
+          ],
+          "posterior": {
+            "1": 0.3333333333333333,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.3333333333333333,
+            "5": 0.3333333333333333,
+            "6": 0.0
+          },
+          "posteriorTarget": "opponent_die",
+          "totalActionValues": {
+            "challenge": -0.3333333333333333,
+            "raise:1:6": 1.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 2.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 2.0,
+          "5": 2.0,
+          "6": 0.0
+        }
+      },
+      "expectedInputTokens": 839,
+      "incompleteReason": null,
+      "inputTokenMatch": false,
+      "latencyMs": 5293.69774996303,
+      "observedInputTokens": 837,
+      "outputSha256": "33ed7cf14223bc7d00e87bbc9340f11c6b6fad5fb0ca7b8424a98ea5c8e378dd",
+      "outputTokens": 551,
+      "probeId": "liar-candidate-4ab3e40b5521",
+      "repeat": 2,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_09bad34676ed17c0016aba90694f1487d28c39515460566815",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "challenge": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "raise:1:6": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 1388
+    },
+    {
+      "chosenActionId": "challenge",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.16666666666666666,
+          "2": 0.16666666666666666,
+          "3": 0.16666666666666666,
+          "4": 0.16666666666666666,
+          "5": 0.16666666666666666,
+          "6": 0.16666666666666666
+        },
+        "conditioned": {
+          "chosenActionId": "challenge",
+          "continuationActionValues": {
+            "challenge": 0.0,
+            "raise:2:6": -1.0
+          },
+          "immediateActionValues": {
+            "challenge": 1.0,
+            "raise:2:6": 0.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "challenge"
+          ],
+          "posterior": {
+            "1": 0.5,
+            "2": 0.5,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0
+          },
+          "posteriorTarget": "opponent_die",
+          "totalActionValues": {
+            "challenge": 1.0,
+            "raise:2:6": -1.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 3.0,
+          "2": 3.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        }
+      },
+      "expectedInputTokens": 980,
+      "incompleteReason": null,
+      "inputTokenMatch": false,
+      "latencyMs": 6653.060916927643,
+      "observedInputTokens": 978,
+      "outputSha256": "432cf3c85ad1abaa83e46dc2cadb3a9fb08451f217d49f3877c5bb973f5d68f9",
+      "outputTokens": 624,
+      "probeId": "liar-candidate-e5a6548d0b43",
+      "repeat": 2,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_0ca210cb5111374b016aba906e91e887d29fff4a8660e06563",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "challenge": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "raise:2:6": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 1602
+    },
+    {
+      "chosenActionId": "challenge",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.16666666666666666,
+          "2": 0.16666666666666666,
+          "3": 0.16666666666666666,
+          "4": 0.16666666666666666,
+          "5": 0.16666666666666666,
+          "6": 0.16666666666666666
+        },
+        "conditioned": {
+          "chosenActionId": "challenge",
+          "continuationActionValues": {
+            "challenge": 0.0,
+            "raise:2:6": 0.0
+          },
+          "immediateActionValues": {
+            "challenge": 1.0,
+            "raise:2:6": 0.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "challenge"
+          ],
+          "posterior": {
+            "1": 0.5,
+            "2": 0.5,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0
+          },
+          "posteriorTarget": "opponent_die",
+          "totalActionValues": {
+            "challenge": 1.0,
+            "raise:2:6": 0.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 3.0,
+          "2": 3.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        }
+      },
+      "expectedInputTokens": 979,
+      "incompleteReason": null,
+      "inputTokenMatch": false,
+      "latencyMs": 5171.652625082061,
+      "observedInputTokens": 977,
+      "outputSha256": "99a2d1534ce75829bfb260bf7cf0122d8cfa0be1b31b63731dcf3e6d6944cf81",
+      "outputTokens": 499,
+      "probeId": "liar-candidate-ab3ce09187d5",
+      "repeat": 1,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_0206681b49f58258016aba90753c4887d2a00c7a8817947f6b",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "challenge": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "raise:2:6": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 1476
+    },
+    {
+      "chosenActionId": "raise:1:4",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.16666666666666666,
+          "2": 0.16666666666666666,
+          "3": 0.16666666666666666,
+          "4": 0.16666666666666666,
+          "5": 0.16666666666666666,
+          "6": 0.16666666666666666
+        },
+        "conditioned": {
+          "chosenActionId": "raise:1:4",
+          "continuationActionValues": {
+            "challenge": 0.0,
+            "raise:1:4": 1.0
+          },
+          "immediateActionValues": {
+            "challenge": -1.0,
+            "raise:1:4": 0.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "raise:1:4"
+          ],
+          "posterior": {
+            "1": 0.0,
+            "2": 0.0,
+            "3": 1.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0
+          },
+          "posteriorTarget": "opponent_die",
+          "totalActionValues": {
+            "challenge": -1.0,
+            "raise:1:4": 1.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 6.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        }
+      },
+      "expectedInputTokens": 734,
+      "incompleteReason": null,
+      "inputTokenMatch": false,
+      "latencyMs": 4744.528667069972,
+      "observedInputTokens": 732,
+      "outputSha256": "5068284d52ffe9fc682bf7eb7f646e6c83a389f537b9c977ebe2e916525470e9",
+      "outputTokens": 450,
+      "probeId": "liar-candidate-f0fbea115a34",
+      "repeat": 2,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_00aca6bef8d08d71016aba907a6ae487d2848595f0480fdb87",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "challenge": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "raise:1:4": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 1182
+    },
+    {
+      "chosenActionId": "raise:2:4",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.1666666667,
+          "2": 0.1666666667,
+          "3": 0.1666666667,
+          "4": 0.1666666667,
+          "5": 0.1666666667,
+          "6": 0.1666666667
+        },
+        "conditioned": {
+          "chosenActionId": "raise:2:4",
+          "continuationActionValues": {
+            "challenge": 0.0,
+            "raise:2:4": 1.0
+          },
+          "immediateActionValues": {
+            "challenge": 0.0,
+            "raise:2:4": 0.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "raise:2:4"
+          ],
+          "posterior": {
+            "1": 0.5,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.5,
+            "5": 0.0,
+            "6": 0.0
+          },
+          "posteriorTarget": "opponent_die",
+          "totalActionValues": {
+            "challenge": 0.0,
+            "raise:2:4": 1.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 3.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 3.0,
+          "5": 0.0,
+          "6": 0.0
+        }
+      },
+      "expectedInputTokens": 979,
+      "incompleteReason": null,
+      "inputTokenMatch": false,
+      "latencyMs": 4396.152042085305,
+      "observedInputTokens": 977,
+      "outputSha256": "6b46d3dbdd373dec7003a79b472ada8ccf7e21be2ac5d787271e830d8a5f9b87",
+      "outputTokens": 472,
+      "probeId": "liar-candidate-9fdd1ad62df9",
+      "repeat": 2,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_0e1499e505ac88de016aba907f28c487d29dd225453c0d0293",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 6.666667769871659e-21,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "challenge": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "raise:2:4": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 1449
+    },
+    {
+      "chosenActionId": "challenge",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.1666666667,
+          "2": 0.1666666667,
+          "3": 0.1666666667,
+          "4": 0.1666666667,
+          "5": 0.1666666667,
+          "6": 0.1666666667
+        },
+        "conditioned": {
+          "chosenActionId": "challenge",
+          "continuationActionValues": {
+            "challenge": 0.0,
+            "raise:2:6": 0.0
+          },
+          "immediateActionValues": {
+            "challenge": 0.0,
+            "raise:2:6": 0.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "challenge",
+            "raise:2:6"
+          ],
+          "posterior": {
+            "1": 0.5,
+            "2": 0.5,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0
+          },
+          "posteriorTarget": "opponent_die",
+          "totalActionValues": {
+            "challenge": 0.0,
+            "raise:2:6": 0.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 3.0,
+          "2": 3.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        }
+      },
+      "expectedInputTokens": 979,
+      "incompleteReason": null,
+      "inputTokenMatch": false,
+      "latencyMs": 4892.075291951187,
+      "observedInputTokens": 977,
+      "outputSha256": "9c39d88211cfe8cd7a0398a655240a16d77fb06e0824a98e3484810d15a0659f",
+      "outputTokens": 477,
+      "probeId": "liar-candidate-ab3ce09187d5",
+      "repeat": 2,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_0b3066b3219ca37b016aba90838c6887d29d735f32f1488fbb",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 6.666667769871659e-21,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.5,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "challenge": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 1.0,
+            "totalAbsoluteError": 1.0
+          },
+          "raise:2:6": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.5
+      },
+      "status": "valid",
+      "totalTokens": 1454
+    },
+    {
+      "chosenActionId": "challenge",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.16666666666666666,
+          "2": 0.16666666666666666,
+          "3": 0.16666666666666666,
+          "4": 0.16666666666666666,
+          "5": 0.16666666666666666,
+          "6": 0.16666666666666666
+        },
+        "conditioned": {
+          "chosenActionId": "challenge",
+          "continuationActionValues": {
+            "challenge": 0.0,
+            "raise:2:6": -1.0
+          },
+          "immediateActionValues": {
+            "challenge": 0.0,
+            "raise:2:6": 0.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "challenge"
+          ],
+          "posterior": {
+            "1": 0.5,
+            "2": 0.5,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0
+          },
+          "posteriorTarget": "opponent_die",
+          "totalActionValues": {
+            "challenge": 0.0,
+            "raise:2:6": -1.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 3.0,
+          "2": 3.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        }
+      },
+      "expectedInputTokens": 980,
+      "incompleteReason": null,
+      "inputTokenMatch": false,
+      "latencyMs": 5345.572374993935,
+      "observedInputTokens": 978,
+      "outputSha256": "3cdeb6884e4add8f6f0f511250238e84c24279ab135537557ac824dfecff13a6",
+      "outputTokens": 524,
+      "probeId": "liar-candidate-e5a6548d0b43",
+      "repeat": 1,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_0ecf4079154c7a8b016aba9088933887d285b05167c8bcf819",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 0.0,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.5,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "challenge": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 1.0,
+            "totalAbsoluteError": 1.0
+          },
+          "raise:2:6": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.5
+      },
+      "status": "valid",
+      "totalTokens": 1502
+    },
+    {
+      "chosenActionId": "challenge",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.1666666667,
+          "2": 0.1666666667,
+          "3": 0.1666666667,
+          "4": 0.1666666667,
+          "5": 0.1666666667,
+          "6": 0.1666666667
+        },
+        "conditioned": {
+          "chosenActionId": "challenge",
+          "continuationActionValues": {
+            "challenge": 0.0,
+            "raise:2:6": -1.0
+          },
+          "immediateActionValues": {
+            "challenge": 0.0,
+            "raise:2:6": 0.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "challenge"
+          ],
+          "posterior": {
+            "1": 0.5,
+            "2": 0.5,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0
+          },
+          "posteriorTarget": "opponent_die",
+          "totalActionValues": {
+            "challenge": 0.0,
+            "raise:2:6": -1.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 3.0,
+          "2": 3.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0
+        }
+      },
+      "expectedInputTokens": 980,
+      "incompleteReason": null,
+      "inputTokenMatch": false,
+      "latencyMs": 4603.011667029932,
+      "observedInputTokens": 978,
+      "outputSha256": "13f41a7b639c8888749849c92e54b38cecbc70d2957c66e48e3ae717dc4dfc68",
+      "outputTokens": 491,
+      "probeId": "liar-candidate-278704c5885f",
+      "repeat": 1,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_003d217ebb79f4b8016aba908ddf5487d2be5d6f31e4806c41",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 6.666667769871659e-21,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "challenge": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "raise:2:6": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 1469
+    },
+    {
+      "chosenActionId": "raise:1:6",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.1666666667,
+          "2": 0.1666666667,
+          "3": 0.1666666667,
+          "4": 0.1666666667,
+          "5": 0.1666666667,
+          "6": 0.1666666667
+        },
+        "conditioned": {
+          "chosenActionId": "raise:1:6",
+          "continuationActionValues": {
+            "challenge": 0.0,
+            "raise:1:6": 1.0
+          },
+          "immediateActionValues": {
+            "challenge": -0.3333333333,
+            "raise:1:6": 0.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "raise:1:6"
+          ],
+          "posterior": {
+            "1": 0.3333333333,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.3333333333,
+            "5": 0.3333333333,
+            "6": 0.0
+          },
+          "posteriorTarget": "opponent_die",
+          "totalActionValues": {
+            "challenge": -0.3333333333,
+            "raise:1:6": 1.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 2.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 2.0,
+          "5": 2.0,
+          "6": 0.0
+        }
+      },
+      "expectedInputTokens": 839,
+      "incompleteReason": null,
+      "inputTokenMatch": false,
+      "latencyMs": 4685.329125029966,
+      "observedInputTokens": 837,
+      "outputSha256": "0b24b957dd1ee13f027083b01b638e70382c53b8cfab5c3bb9aa6707862ad17c",
+      "outputTokens": 556,
+      "probeId": "liar-candidate-4ab3e40b5521",
+      "repeat": 1,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_0ddb80e993899220016aba90927e7c87d289023414e51dba4b",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 6.666667769871659e-21,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 1.666666804567285e-11,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "challenge": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 3.33333360913457e-11,
+            "totalAbsoluteError": 3.33333360913457e-11
+          },
+          "raise:1:6": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 3.3333338849358295e-21,
+        "totalValueMae": 1.666666804567285e-11
+      },
+      "status": "valid",
+      "totalTokens": 1393
+    },
+    {
+      "chosenActionId": "raise:2:4",
+      "decomposition": {
+        "basePrior": {
+          "1": 0.1666666667,
+          "2": 0.1666666667,
+          "3": 0.1666666667,
+          "4": 0.1666666667,
+          "5": 0.1666666667,
+          "6": 0.1666666667
+        },
+        "conditioned": {
+          "chosenActionId": "raise:2:4",
+          "continuationActionValues": {
+            "challenge": 0.0,
+            "raise:2:4": 1.0
+          },
+          "immediateActionValues": {
+            "challenge": 0.0,
+            "raise:2:4": 0.0
+          },
+          "maximumAdditivityResidual": 0.0,
+          "optimalActionIdsFromReportedTotals": [
+            "raise:2:4"
+          ],
+          "posterior": {
+            "1": 0.5,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.5,
+            "5": 0.0,
+            "6": 0.0
+          },
+          "posteriorTarget": "opponent_die",
+          "totalActionValues": {
+            "challenge": 0.0,
+            "raise:2:4": 1.0
+          }
+        },
+        "policyReachWeights": {
+          "1": 3.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 3.0,
+          "5": 0.0,
+          "6": 0.0
+        }
+      },
+      "expectedInputTokens": 979,
+      "incompleteReason": null,
+      "inputTokenMatch": false,
+      "latencyMs": 5059.768082923256,
+      "observedInputTokens": 977,
+      "outputSha256": "6b46d3dbdd373dec7003a79b472ada8ccf7e21be2ac5d787271e830d8a5f9b87",
+      "outputTokens": 527,
+      "probeId": "liar-candidate-9fdd1ad62df9",
+      "repeat": 1,
+      "resolvedModel": "gpt-5.6-luna",
+      "responseId": "resp_0a032ab7a5fc9db1016aba909735cc87d2b82fe306ba7bd860",
+      "responseStatus": "completed",
+      "score": {
+        "basePriorBrier": 6.666667769871659e-21,
+        "continuationValueMae": 0.0,
+        "decisionConsistentWithReportedValues": true,
+        "finalActionRegret": 0.0,
+        "immediateValueMae": 0.0,
+        "maximumAdditivityResidual": 0.0,
+        "optimalActionAgreement": true,
+        "perActionErrors": {
+          "challenge": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          },
+          "raise:2:4": {
+            "continuationAbsoluteError": 0.0,
+            "immediateAbsoluteError": 0.0,
+            "totalAbsoluteError": 0.0
+          }
+        },
+        "policyReachWeightMae": 0.0,
+        "posteriorBrier": 0.0,
+        "totalValueMae": 0.0
+      },
+      "status": "valid",
+      "totalTokens": 1504
+    }
+  ],
+  "schemaVersion": "aip-fixed-policy-value-rows-v1"
+}

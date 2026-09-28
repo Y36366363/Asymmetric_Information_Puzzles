@@ -7,13 +7,13 @@
       "e-card-single-round",
       "love-letter-four-card-subgame"
     ],
-    "nextPriority": "repair the failed Liar structured repeatability gate before Goofspiel; continue bounded Love Letter full-round audit independently",
+    "nextPriority": "define Love Letter card-combinatorial priors for the 17 positive-reach nodes; continue bounded Love Letter full-round audit independently",
     "notComplete": [
       "five-die-liars-dice",
       "love-letter-full-round"
     ]
   },
-  "date": "2026-09-27",
+  "date": "2026-09-28",
   "games": {
     "e-card-single-round": {
       "exploitability": 0.0,
@@ -37,14 +37,15 @@
     },
     "goofspiel-four-card": {
       "exploitability": 0.0,
+      "fixedPolicyV2Check": "passed",
+      "fixedPolicyV2RepeatActionAgreement": 0.8333333333333334,
       "independentEvaluator": true,
       "remainingWork": [
-        "run the identical structured protocol only after the Liar gate passes"
+        "retain exact-tie-aware interpretation of repeat action differences"
       ],
       "runtimeExactEquilibriumMode": true,
       "solver": "exact_backward_induction_zero_sum_matrices",
       "status": "complete_exact_solver_and_benchmark",
-      "structuredExperimentStatus": "blocked_by_liar_gate",
       "valueDecomposition": "complete_30_state_panel"
     },
     "kuhn-poker": {
@@ -63,18 +64,20 @@
       "independentEvaluator": true,
       "informationSets": 60,
       "remainingWork": [
+        "derive card-combinatorial base prior before fixed-policy conditioning",
         "do not generalize certificate to full round"
       ],
       "runtimeFullRoundAllowed": false,
       "solver": "sparse_sequence_form_scipy_highs",
       "status": "complete_certified_research_subgame",
+      "structuredExperimentStatus": "ready_for_prior_semantics_design",
       "valueDecomposition": "17_positive_reach_43_zero_reach_information_sets"
     },
     "love-letter-full-round": {
-      "frontierNodes": 81,
-      "historiesTraversed": 1242965,
+      "frontierNodes": 80,
+      "historiesTraversed": 1302965,
       "independentEvaluator": false,
-      "informationSetsObserved": 180660,
+      "informationSetsObserved": 188348,
       "maximumDepth": 26,
       "remainingWork": [
         "close resumable structural audit",
@@ -90,16 +93,18 @@
     },
     "one-die-stepwise-liars-dice": {
       "exploitability": 0.0,
+      "fixedPolicyV1Check": "failed_retained",
+      "fixedPolicyV2Check": "passed",
+      "fixedPolicyV2RepeatActionAgreement": 1,
       "independentEvaluator": true,
+      "originalAmbiguousPosteriorCheck": "failed_retained",
       "remainingWork": [
-        "redesign and preregister the unstable unaided structured control",
+        "retain supplied-policy scope; do not relabel it as equilibrium discovery",
         "new certificate required for any expanded bidding rules"
       ],
       "runtimeEpsilonGtoAllowed": true,
       "solver": "exact_sequence_form_plus_certified_runtime_cfr",
       "status": "complete_declared_variant",
-      "structuredManipulationCheck": "failed_retained",
-      "structuredUnaidedRepeatActionAgreement": 0.6666666666666666,
       "valueDecomposition": "complete_30_state_panel"
     }
   },

@@ -22,8 +22,12 @@ from aip.benchmark.love_letter import (
 from aip.core import CFRGameProperties, compile_sequence_form, solve_sequence_form
 from aip.puzzles.love_letter import LoveLetterCFRGame, LoveLetterIndependentEvaluator
 from aip.benchmark.value_decomposition import (
+    ConditionedValueDecomposition,
     ValueDecomposition,
+    condition_value_decomposition,
+    parse_conditioned_value_decomposition,
     parse_value_decomposition,
+    score_conditioned_value_decomposition,
     score_value_decomposition,
 )
 from scripts.run_structured_value_manipulation import (
@@ -91,6 +95,8 @@ def test_love_letter_subgame_decomposes_all_60_information_sets():
     )
     decompositions = panel.decompositions
     assert panel.total_information_sets == 60
+    assert len(decompositions) == 17
+    assert len(panel.zero_reach_information_sets) == 43
     assert len(decompositions) + len(panel.zero_reach_information_sets) == 60
     assert panel.zero_reach_information_sets
     assert set(decompositions).union(panel.zero_reach_information_sets) == set(exact_values)
@@ -204,6 +210,37 @@ def test_response_payload_round_trips_without_changing_decomposition():
     )
     parsed = parse_value_decomposition(json.dumps(reference.to_response_payload()))
     assert parsed == reference
+
+
+def test_conditioned_decomposition_separates_prior_reach_and_posterior():
+    values = ValueDecomposition(
+        "hidden", {"a": 0.75, "b": 0.25},
+        {"stop": 0.5, "go": 0.0},
+        {"stop": 0.0, "go": 1.0},
+        {"stop": 0.5, "go": 1.0},
+        "go",
+    )
+    reference = condition_value_decomposition(values, {"a": 0.5, "b": 0.5})
+    assert reference.policy_reach_weights == {"a": 1.5, "b": 0.5}
+    parsed = parse_conditioned_value_decomposition(
+        json.dumps(reference.to_response_payload())
+    )
+    assert parsed == reference
+    score = score_conditioned_value_decomposition(parsed, reference)
+    assert score.base_prior_brier == 0
+    assert score.policy_reach_weight_mae == 0
+    assert score.value_score.total_value_mae == 0
+
+
+def test_conditioned_decomposition_rejects_inconsistent_bayes_update():
+    values = ValueDecomposition(
+        "hidden", {"a": 0.75, "b": 0.25},
+        {"x": 0.0}, {"x": 0.0}, {"x": 0.0}, "x",
+    )
+    with pytest.raises(ValueError, match="prior times reach"):
+        ConditionedValueDecomposition(
+            {"a": 0.5, "b": 0.5}, {"a": 1.0, "b": 1.0}, values
+        )
 
 
 def _structured_rows(*, assisted_error=0.0, baseline_repeat=True):

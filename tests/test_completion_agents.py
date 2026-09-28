@@ -256,6 +256,7 @@ class CompletionAgentTests(unittest.TestCase):
                 PromptCondition.GENERIC,
                 "instructions",
                 "input",
+                response_schema_name="custom_audit_schema",
             )
         )
         self.assertEqual(response.total_tokens, 26)
@@ -267,6 +268,7 @@ class CompletionAgentTests(unittest.TestCase):
         self.assertEqual(calls[0]["max_output_tokens"], 4096)
         output_format = calls[0]["text"]["format"]
         self.assertEqual(output_format["type"], "json_schema")
+        self.assertEqual(output_format["name"], "custom_audit_schema")
         self.assertTrue(output_format["strict"])
 
     def test_dotenv_loader_reads_only_literal_requested_value(self):

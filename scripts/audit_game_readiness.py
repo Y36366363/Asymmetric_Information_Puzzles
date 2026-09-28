@@ -29,8 +29,17 @@ from aip.puzzles.love_letter import LoveLetterCFRGame, LoveLetterIndependentEval
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "research/results/game_readiness_2026-09-26.json"
 LOVE_PROGRESS = ROOT / "research/results/love_letter_local_progress_2026-09-17.json"
-LIAR_STRUCTURED = (
+LIAR_STRUCTURED_ORIGINAL = (
     ROOT / "research/results/liar_structured_manipulation_2026-09-27/report.json"
+)
+LIAR_FIXED_POLICY_V1 = (
+    ROOT / "research/results/liar_fixed_policy_value_check_2026-09-28/report.json"
+)
+LIAR_FIXED_POLICY_V2 = (
+    ROOT / "research/results/liar_fixed_policy_value_check_v2_2026-09-28/report.json"
+)
+GOOFSPIEL_FIXED_POLICY_V2 = (
+    ROOT / "research/results/goofspiel_fixed_policy_value_check_v2_2026-09-28/report.json"
 )
 
 
@@ -63,11 +72,13 @@ def report() -> dict[str, object]:
     )
     progress = json.loads(LOVE_PROGRESS.read_text(encoding="utf-8"))
     latest = progress["chunks"][-1]
-    structured = (
-        json.loads(LIAR_STRUCTURED.read_text(encoding="utf-8"))
-        if LIAR_STRUCTURED.exists()
-        else None
-    )
+    def load_optional(path: Path):
+        return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+
+    structured_original = load_optional(LIAR_STRUCTURED_ORIGINAL)
+    fixed_v1 = load_optional(LIAR_FIXED_POLICY_V1)
+    fixed_v2 = load_optional(LIAR_FIXED_POLICY_V2)
+    goof_fixed_v2 = load_optional(GOOFSPIEL_FIXED_POLICY_V2)
 
     games = {
         "one-die-stepwise-liars-dice": {
@@ -77,20 +88,25 @@ def report() -> dict[str, object]:
             "exploitability": liar_report.exploitability,
             "runtimeEpsilonGtoAllowed": True,
             "valueDecomposition": "complete_30_state_panel",
-            "structuredManipulationCheck": (
-                "not_run" if structured is None
-                else "passed" if structured["gatePassed"] else "failed_retained"
+            "originalAmbiguousPosteriorCheck": (
+                "not_run" if structured_original is None
+                else "passed" if structured_original["gatePassed"]
+                else "failed_retained"
             ),
-            "structuredUnaidedRepeatActionAgreement": (
-                None if structured is None else structured["summaries"]
-                ["unaided_structured"]["repeatActionAgreement"]
+            "fixedPolicyV1Check": (
+                "not_run" if fixed_v1 is None
+                else "passed" if fixed_v1["gatePassed"] else "failed_retained"
+            ),
+            "fixedPolicyV2Check": (
+                "not_run" if fixed_v2 is None
+                else "passed" if fixed_v2["gatePassed"] else "failed_retained"
+            ),
+            "fixedPolicyV2RepeatActionAgreement": (
+                None if fixed_v2 is None
+                else fixed_v2["summary"]["repeatActionAgreement"]
             ),
             "remainingWork": [
-                (
-                    "structured-model intermediate-output experiment"
-                    if structured is None
-                    else "redesign and preregister the unstable unaided structured control"
-                ),
+                "retain supplied-policy scope; do not relabel it as equilibrium discovery",
                 "new certificate required for any expanded bidding rules",
             ],
         },
@@ -112,13 +128,17 @@ def report() -> dict[str, object]:
             "exploitability": float(goof.exploitability),
             "runtimeExactEquilibriumMode": True,
             "valueDecomposition": "complete_30_state_panel",
-            "structuredExperimentStatus": (
-                "blocked_by_liar_gate"
-                if structured is not None and not structured["gatePassed"]
-                else "ready_after_liar_gate"
+            "fixedPolicyV2Check": (
+                "not_run" if goof_fixed_v2 is None
+                else "passed" if goof_fixed_v2["gatePassed"]
+                else "failed_retained"
+            ),
+            "fixedPolicyV2RepeatActionAgreement": (
+                None if goof_fixed_v2 is None
+                else goof_fixed_v2["summary"]["repeatActionAgreement"]
             ),
             "remainingWork": [
-                "run the identical structured protocol only after the Liar gate passes"
+                "retain exact-tie-aware interpretation of repeat action differences"
             ],
         },
         "kuhn-poker": {
@@ -150,7 +170,11 @@ def report() -> dict[str, object]:
             "exploitability": love_report.exploitability,
             "runtimeFullRoundAllowed": False,
             "valueDecomposition": "17_positive_reach_43_zero_reach_information_sets",
-            "remainingWork": ["do not generalize certificate to full round"],
+            "structuredExperimentStatus": "ready_for_prior_semantics_design",
+            "remainingWork": [
+                "derive card-combinatorial base prior before fixed-policy conditioning",
+                "do not generalize certificate to full round",
+            ],
         },
         "love-letter-full-round": {
             "status": "blocked_on_complete_structural_enumeration",
@@ -173,7 +197,7 @@ def report() -> dict[str, object]:
     }
     return {
         "schemaVersion": "aip-game-readiness-v1",
-        "date": "2026-09-27",
+        "date": "2026-09-28",
         "games": games,
         "conclusion": {
             "basicConstructionComplete": [
@@ -185,7 +209,7 @@ def report() -> dict[str, object]:
             ],
             "notComplete": ["five-die-liars-dice", "love-letter-full-round"],
             "nextPriority": (
-                "repair the failed Liar structured repeatability gate before Goofspiel; "
+                "define Love Letter card-combinatorial priors for the 17 positive-reach nodes; "
                 "continue bounded Love Letter full-round audit independently"
             ),
         },

@@ -96,6 +96,11 @@ class CompletionRequest:
     response_schema: Mapping[str, object] = field(
         default_factory=lambda: DECISION_JSON_SCHEMA
     )
+    response_schema_name: str = "aip_agent_decision"
+
+    def __post_init__(self) -> None:
+        if not self.response_schema_name:
+            raise ValueError("response_schema_name cannot be empty")
 
 
 @dataclass(frozen=True, slots=True)
@@ -661,7 +666,7 @@ class OpenAIResponsesBackend:
             text={
                 "format": {
                     "type": "json_schema",
-                    "name": "aip_agent_decision",
+                    "name": request.response_schema_name,
                     "strict": True,
                     "schema": request.response_schema,
                 }
