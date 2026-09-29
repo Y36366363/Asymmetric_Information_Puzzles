@@ -25,9 +25,14 @@ def test_love_letter_subgame_pass_does_not_promote_incomplete_full_round():
     assert subgame["informationSets"] == 60
     assert subgame["runtimeFullRoundAllowed"] is False
     assert full["status"] == "blocked_on_complete_structural_enumeration"
-    assert full["historiesTraversed"] == 1_302_965
+    assert full["historiesTraversed"] == 1_352_853
     assert full["structuralAuditComplete"] is False
     assert full["runtimeEpsilonGtoAllowed"] is False
+    prior = subgame["combinatorialPrior"]
+    assert prior["status"] == "implemented_and_independently_audited"
+    assert prior["positiveReachInformationSets"] == 17
+    assert prior["zeroReachInformationSets"] == 43
+    assert prior["usesUniformActionBaseline"] is False
 
 
 def test_redefined_liar_gate_and_identical_goofspiel_protocol_pass():

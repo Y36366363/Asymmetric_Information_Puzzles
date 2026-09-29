@@ -51,6 +51,7 @@ from aip.benchmark.goofspiel import (
 )
 from aip.benchmark.liar_transfer import LiarValueDecompositionOracle
 from aip.benchmark.love_letter import (
+    LoveLetterConditionedDecompositionPanel,
     LoveLetterDecompositionPanel,
     LoveLetterValueDecompositionOracle,
     love_letter_action_id,
@@ -160,6 +161,7 @@ __all__ = [
     "LeakageAudit",
     "LiarValueDecompositionOracle",
     "LoveLetterValueDecompositionOracle",
+    "LoveLetterConditionedDecompositionPanel",
     "LoveLetterDecompositionPanel",
     "KuhnEquilibriumMetrics",
     "MASTERMIND_BELIEF_TARGET",

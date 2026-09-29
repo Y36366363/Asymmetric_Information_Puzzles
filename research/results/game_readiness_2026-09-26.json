@@ -7,13 +7,13 @@
       "e-card-single-round",
       "love-letter-four-card-subgame"
     ],
-    "nextPriority": "define Love Letter card-combinatorial priors for the 17 positive-reach nodes; continue bounded Love Letter full-round audit independently",
+    "nextPriority": "freeze a Love Letter panel with explicit policy-conditioning semantics; continue bounded Love Letter full-round audit independently",
     "notComplete": [
       "five-die-liars-dice",
       "love-letter-full-round"
     ]
   },
-  "date": "2026-09-28",
+  "date": "2026-09-29",
   "games": {
     "e-card-single-round": {
       "exploitability": 0.0,
@@ -58,26 +58,34 @@
       "status": "complete_exact_reference"
     },
     "love-letter-four-card-subgame": {
+      "combinatorialPrior": {
+        "methodId": "love_letter_chance_reach_combinatorial_prior_v1",
+        "policyConditioningShiftOnPositiveReachPanel": false,
+        "positiveReachInformationSets": 17,
+        "status": "implemented_and_independently_audited",
+        "usesUniformActionBaseline": false,
+        "zeroReachInformationSets": 43
+      },
       "expectedValueToPlayer0": 0.16666666666666666,
       "exploitability": 0.0,
       "histories": 1081,
       "independentEvaluator": true,
       "informationSets": 60,
       "remainingWork": [
-        "derive card-combinatorial base prior before fixed-policy conditioning",
+        "decide whether to retain the equilibrium panel with no belief shift or preregister a fixed non-equilibrium policy",
         "do not generalize certificate to full round"
       ],
       "runtimeFullRoundAllowed": false,
       "solver": "sparse_sequence_form_scipy_highs",
       "status": "complete_certified_research_subgame",
-      "structuredExperimentStatus": "ready_for_prior_semantics_design",
+      "structuredExperimentStatus": "ready_for_fixed_policy_panel_design",
       "valueDecomposition": "17_positive_reach_43_zero_reach_information_sets"
     },
     "love-letter-full-round": {
-      "frontierNodes": 80,
-      "historiesTraversed": 1302965,
+      "frontierNodes": 73,
+      "historiesTraversed": 1352853,
       "independentEvaluator": false,
-      "informationSetsObserved": 188348,
+      "informationSetsObserved": 195167,
       "maximumDepth": 26,
       "remainingWork": [
         "close resumable structural audit",

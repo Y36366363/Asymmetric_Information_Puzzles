@@ -1837,19 +1837,89 @@
       ]
     },
     "love-letter-four-card-subgame": {
+      "allBasePriorsNormalized": true,
       "allSelfScoresWithinTolerance": true,
+      "basePriorSource": "adapter chance reach using remaining-card multiplicities, removals, private observations, and public trajectory; never a uniform action baseline",
+      "basePriorSupportSizes": [
+        2
+      ],
       "exactActionValueInformationSets": 60,
       "maximumAdditivityResidual": 0.0,
+      "maximumBayesReconstructionError": 0.0,
       "maximumTotalValueReconstructionError": 0.0,
       "oracleId": "love_letter_four_card_value_decomposition_v1",
+      "priorMethodId": "love_letter_chance_reach_combinatorial_prior_v1",
       "rows": [
         {
           "actions": 8,
+          "basePrior": {
+            "((0, 0, 0, 1, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5,
+            "((0, 1, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 0, 0, 1, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5,
+              "((0, 1, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:1:ai:2",
+              "continuationActionValues": {
+                "play:1:ai:2": -0.5,
+                "play:1:ai:3": -1.0,
+                "play:1:ai:4": -0.5,
+                "play:1:ai:5": -1.0,
+                "play:1:ai:6": -1.0,
+                "play:1:ai:7": -1.0,
+                "play:1:ai:8": -1.0,
+                "play:3:ai:none": 0.0
+              },
+              "immediateActionValues": {
+                "play:1:ai:2": 0.5,
+                "play:1:ai:3": 0.0,
+                "play:1:ai:4": 0.5,
+                "play:1:ai:5": 0.0,
+                "play:1:ai:6": 0.0,
+                "play:1:ai:7": 0.0,
+                "play:1:ai:8": 0.0,
+                "play:3:ai:none": -1.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:1:ai:2",
+                "play:1:ai:4"
+              ],
+              "posterior": {
+                "((0, 0, 0, 1, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5,
+                "((0, 1, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:1:ai:2": 0.0,
+                "play:1:ai:3": -1.0,
+                "play:1:ai:4": 0.0,
+                "play:1:ai:5": -1.0,
+                "play:1:ai:6": -1.0,
+                "play:1:ai:7": -1.0,
+                "play:1:ai:8": -1.0,
+                "play:3:ai:none": -1.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 0, 0, 1, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 1.0,
+              "((0, 1, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 1.0
+            }
+          },
           "informationSet": "(0, (0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 3))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 0, 0, 1, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 1.0,
+            "((0, 1, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -1898,17 +1968,86 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 8,
+          "basePrior": {
+            "((0, 0, 1, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5,
+            "((0, 1, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 0, 1, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5,
+              "((0, 1, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:1:ai:2",
+              "continuationActionValues": {
+                "play:1:ai:2": 0.5,
+                "play:1:ai:3": 0.5,
+                "play:1:ai:4": 1.0,
+                "play:1:ai:5": 1.0,
+                "play:1:ai:6": 1.0,
+                "play:1:ai:7": 1.0,
+                "play:1:ai:8": 1.0,
+                "play:4:none:none": -1.0
+              },
+              "immediateActionValues": {
+                "play:1:ai:2": 0.5,
+                "play:1:ai:3": 0.5,
+                "play:1:ai:4": 0.0,
+                "play:1:ai:5": 0.0,
+                "play:1:ai:6": 0.0,
+                "play:1:ai:7": 0.0,
+                "play:1:ai:8": 0.0,
+                "play:4:none:none": 0.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:1:ai:2",
+                "play:1:ai:3",
+                "play:1:ai:4",
+                "play:1:ai:5",
+                "play:1:ai:6",
+                "play:1:ai:7",
+                "play:1:ai:8"
+              ],
+              "posterior": {
+                "((0, 0, 1, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5,
+                "((0, 1, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:1:ai:2": 1.0,
+                "play:1:ai:3": 1.0,
+                "play:1:ai:4": 1.0,
+                "play:1:ai:5": 1.0,
+                "play:1:ai:6": 1.0,
+                "play:1:ai:7": 1.0,
+                "play:1:ai:8": 1.0,
+                "play:4:none:none": -1.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 0, 1, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 1.0,
+              "((0, 1, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 1.0
+            }
+          },
           "informationSet": "(0, (0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 4))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 0, 1, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 1.0,
+            "((0, 1, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -1957,17 +2096,81 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 8,
+          "basePrior": {
+            "((0, 0, 0, 1, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5,
+            "((0, 0, 1, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 0, 0, 1, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5,
+              "((0, 0, 1, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:1:ai:3",
+              "continuationActionValues": {
+                "play:1:ai:2": -1.0,
+                "play:1:ai:3": -0.5,
+                "play:1:ai:4": -0.5,
+                "play:1:ai:5": -1.0,
+                "play:1:ai:6": -1.0,
+                "play:1:ai:7": -1.0,
+                "play:1:ai:8": -1.0,
+                "play:2:ai:none": -1.0
+              },
+              "immediateActionValues": {
+                "play:1:ai:2": 0.0,
+                "play:1:ai:3": 0.5,
+                "play:1:ai:4": 0.5,
+                "play:1:ai:5": 0.0,
+                "play:1:ai:6": 0.0,
+                "play:1:ai:7": 0.0,
+                "play:1:ai:8": 0.0,
+                "play:2:ai:none": 0.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:1:ai:3",
+                "play:1:ai:4"
+              ],
+              "posterior": {
+                "((0, 0, 0, 1, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5,
+                "((0, 0, 1, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:1:ai:2": -1.0,
+                "play:1:ai:3": 0.0,
+                "play:1:ai:4": 0.0,
+                "play:1:ai:5": -1.0,
+                "play:1:ai:6": -1.0,
+                "play:1:ai:7": -1.0,
+                "play:1:ai:8": -1.0,
+                "play:2:ai:none": -1.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 0, 0, 1, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 1.0,
+              "((0, 0, 1, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 1.0
+            }
+          },
           "informationSet": "(0, (0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 1), ('draw', 0, 2))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 0, 0, 1, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 1.0,
+            "((0, 0, 1, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -2016,17 +2219,62 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 2,
+          "basePrior": {
+            "((0, 0, 0, 1, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+            "((1, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 0, 0, 1, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+              "((1, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:3:ai:none",
+              "continuationActionValues": {
+                "play:2:ai:none": -1.0,
+                "play:3:ai:none": 0.0
+              },
+              "immediateActionValues": {
+                "play:2:ai:none": 0.0,
+                "play:3:ai:none": 0.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:3:ai:none"
+              ],
+              "posterior": {
+                "((0, 0, 0, 1, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+                "((1, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:2:ai:none": -1.0,
+                "play:3:ai:none": 0.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 0, 0, 1, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 1.0,
+              "((1, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 1.0
+            }
+          },
           "informationSet": "(0, (0, (5, 5, 6, 7), (2, 3), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 3))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 0, 0, 1, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 1.0,
+            "((1, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -2045,17 +2293,63 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 2,
+          "basePrior": {
+            "((0, 0, 1, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+            "((1, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 0, 1, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+              "((1, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:2:ai:none",
+              "continuationActionValues": {
+                "play:2:ai:none": -1.0,
+                "play:4:none:none": -1.0
+              },
+              "immediateActionValues": {
+                "play:2:ai:none": 0.0,
+                "play:4:none:none": 0.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:2:ai:none",
+                "play:4:none:none"
+              ],
+              "posterior": {
+                "((0, 0, 1, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+                "((1, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:2:ai:none": -1.0,
+                "play:4:none:none": -1.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 0, 1, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 1.0,
+              "((1, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 1.0
+            }
+          },
           "informationSet": "(0, (0, (5, 5, 6, 7), (2, 4), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 4))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 0, 1, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 1.0,
+            "((1, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -2074,17 +2368,81 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 8,
+          "basePrior": {
+            "((0, 0, 0, 1, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5,
+            "((0, 0, 1, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 0, 0, 1, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5,
+              "((0, 0, 1, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:1:ai:3",
+              "continuationActionValues": {
+                "play:1:ai:2": -1.0,
+                "play:1:ai:3": -0.5,
+                "play:1:ai:4": -0.5,
+                "play:1:ai:5": -1.0,
+                "play:1:ai:6": -1.0,
+                "play:1:ai:7": -1.0,
+                "play:1:ai:8": -1.0,
+                "play:2:ai:none": -1.0
+              },
+              "immediateActionValues": {
+                "play:1:ai:2": 0.0,
+                "play:1:ai:3": 0.5,
+                "play:1:ai:4": 0.5,
+                "play:1:ai:5": 0.0,
+                "play:1:ai:6": 0.0,
+                "play:1:ai:7": 0.0,
+                "play:1:ai:8": 0.0,
+                "play:2:ai:none": 0.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:1:ai:3",
+                "play:1:ai:4"
+              ],
+              "posterior": {
+                "((0, 0, 0, 1, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5,
+                "((0, 0, 1, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:1:ai:2": -1.0,
+                "play:1:ai:3": 0.0,
+                "play:1:ai:4": 0.0,
+                "play:1:ai:5": -1.0,
+                "play:1:ai:6": -1.0,
+                "play:1:ai:7": -1.0,
+                "play:1:ai:8": -1.0,
+                "play:2:ai:none": -1.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 0, 0, 1, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 1.0,
+              "((0, 0, 1, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 1.0
+            }
+          },
           "informationSet": "(0, (0, (5, 5, 6, 7), (1, 2), (False, False), 1, (0, 0), (), (('initial_hand', 2), ('draw', 0, 1))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 0, 0, 1, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 1.0,
+            "((0, 0, 1, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -2133,17 +2491,62 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 2,
+          "basePrior": {
+            "((0, 0, 0, 1, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+            "((1, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 0, 0, 1, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+              "((1, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:3:ai:none",
+              "continuationActionValues": {
+                "play:2:ai:none": -1.0,
+                "play:3:ai:none": 0.0
+              },
+              "immediateActionValues": {
+                "play:2:ai:none": 0.0,
+                "play:3:ai:none": 0.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:3:ai:none"
+              ],
+              "posterior": {
+                "((0, 0, 0, 1, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+                "((1, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:2:ai:none": -1.0,
+                "play:3:ai:none": 0.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 0, 0, 1, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 1.0,
+              "((1, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 1.0
+            }
+          },
           "informationSet": "(0, (0, (5, 5, 6, 7), (2, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 2))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 0, 0, 1, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 1.0,
+            "((1, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -2162,17 +2565,63 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 2,
+          "basePrior": {
+            "((0, 1, 0, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+            "((1, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 1, 0, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+              "((1, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:3:ai:none",
+              "continuationActionValues": {
+                "play:3:ai:none": 0.0,
+                "play:4:none:none": 1.0
+              },
+              "immediateActionValues": {
+                "play:3:ai:none": 1.0,
+                "play:4:none:none": 0.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:3:ai:none",
+                "play:4:none:none"
+              ],
+              "posterior": {
+                "((0, 1, 0, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+                "((1, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:3:ai:none": 1.0,
+                "play:4:none:none": 1.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 1, 0, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 1.0,
+              "((1, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 1.0
+            }
+          },
           "informationSet": "(0, (0, (5, 5, 6, 7), (3, 4), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 4))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 1, 0, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 1.0,
+            "((1, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -2191,17 +2640,81 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 8,
+          "basePrior": {
+            "((0, 0, 0, 1, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5,
+            "((0, 1, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 0, 0, 1, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5,
+              "((0, 1, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:1:ai:2",
+              "continuationActionValues": {
+                "play:1:ai:2": -0.5,
+                "play:1:ai:3": -1.0,
+                "play:1:ai:4": -0.5,
+                "play:1:ai:5": -1.0,
+                "play:1:ai:6": -1.0,
+                "play:1:ai:7": -1.0,
+                "play:1:ai:8": -1.0,
+                "play:3:ai:none": 0.0
+              },
+              "immediateActionValues": {
+                "play:1:ai:2": 0.5,
+                "play:1:ai:3": 0.0,
+                "play:1:ai:4": 0.5,
+                "play:1:ai:5": 0.0,
+                "play:1:ai:6": 0.0,
+                "play:1:ai:7": 0.0,
+                "play:1:ai:8": 0.0,
+                "play:3:ai:none": -1.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:1:ai:2",
+                "play:1:ai:4"
+              ],
+              "posterior": {
+                "((0, 0, 0, 1, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5,
+                "((0, 1, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:1:ai:2": 0.0,
+                "play:1:ai:3": -1.0,
+                "play:1:ai:4": 0.0,
+                "play:1:ai:5": -1.0,
+                "play:1:ai:6": -1.0,
+                "play:1:ai:7": -1.0,
+                "play:1:ai:8": -1.0,
+                "play:3:ai:none": -1.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 0, 0, 1, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 1.0,
+              "((0, 1, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 1.0
+            }
+          },
           "informationSet": "(0, (0, (5, 5, 6, 7), (1, 3), (False, False), 1, (0, 0), (), (('initial_hand', 3), ('draw', 0, 1))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 0, 0, 1, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 1.0,
+            "((0, 1, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4),))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -2250,17 +2763,63 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 2,
+          "basePrior": {
+            "((0, 0, 1, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+            "((1, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 0, 1, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+              "((1, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:2:ai:none",
+              "continuationActionValues": {
+                "play:2:ai:none": -1.0,
+                "play:4:none:none": -1.0
+              },
+              "immediateActionValues": {
+                "play:2:ai:none": 0.0,
+                "play:4:none:none": 0.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:2:ai:none",
+                "play:4:none:none"
+              ],
+              "posterior": {
+                "((0, 0, 1, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+                "((1, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:2:ai:none": -1.0,
+                "play:4:none:none": -1.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 0, 1, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 1.0,
+              "((1, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 1.0
+            }
+          },
           "informationSet": "(0, (0, (5, 5, 6, 7), (2, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 2))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 0, 1, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 1.0,
+            "((1, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -2279,17 +2838,63 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 2,
+          "basePrior": {
+            "((0, 1, 0, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+            "((1, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 1, 0, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+              "((1, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:3:ai:none",
+              "continuationActionValues": {
+                "play:3:ai:none": 0.0,
+                "play:4:none:none": 1.0
+              },
+              "immediateActionValues": {
+                "play:3:ai:none": 1.0,
+                "play:4:none:none": 0.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:3:ai:none",
+                "play:4:none:none"
+              ],
+              "posterior": {
+                "((0, 1, 0, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 0.5,
+                "((1, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:3:ai:none": 1.0,
+                "play:4:none:none": 1.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 1, 0, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 1.0,
+              "((1, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 1.0
+            }
+          },
           "informationSet": "(0, (0, (5, 5, 6, 7), (3, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 3))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 1, 0, 0, 0, 0, 0, 0), 8, (1,), (('initial_hand', 1),))": 1.0,
+            "((1, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -2308,17 +2913,86 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 8,
+          "basePrior": {
+            "((0, 0, 1, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5,
+            "((0, 1, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 0, 1, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5,
+              "((0, 1, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:1:ai:2",
+              "continuationActionValues": {
+                "play:1:ai:2": 0.5,
+                "play:1:ai:3": 0.5,
+                "play:1:ai:4": 1.0,
+                "play:1:ai:5": 1.0,
+                "play:1:ai:6": 1.0,
+                "play:1:ai:7": 1.0,
+                "play:1:ai:8": 1.0,
+                "play:4:none:none": -1.0
+              },
+              "immediateActionValues": {
+                "play:1:ai:2": 0.5,
+                "play:1:ai:3": 0.5,
+                "play:1:ai:4": 0.0,
+                "play:1:ai:5": 0.0,
+                "play:1:ai:6": 0.0,
+                "play:1:ai:7": 0.0,
+                "play:1:ai:8": 0.0,
+                "play:4:none:none": 0.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:1:ai:2",
+                "play:1:ai:3",
+                "play:1:ai:4",
+                "play:1:ai:5",
+                "play:1:ai:6",
+                "play:1:ai:7",
+                "play:1:ai:8"
+              ],
+              "posterior": {
+                "((0, 0, 1, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 0.5,
+                "((0, 1, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:1:ai:2": 1.0,
+                "play:1:ai:3": 1.0,
+                "play:1:ai:4": 1.0,
+                "play:1:ai:5": 1.0,
+                "play:1:ai:6": 1.0,
+                "play:1:ai:7": 1.0,
+                "play:1:ai:8": 1.0,
+                "play:4:none:none": -1.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 0, 1, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 1.0,
+              "((0, 1, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 1.0
+            }
+          },
           "informationSet": "(0, (0, (5, 5, 6, 7), (1, 4), (False, False), 1, (0, 0), (), (('initial_hand', 4), ('draw', 0, 1))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 0, 1, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2),))": 1.0,
+            "((0, 1, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3),))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -2367,17 +3041,63 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 2,
+          "basePrior": {
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 1), ('draw', 0, 4), ('action', 0, 1, 'ai', 2)))": 0.5,
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4), ('draw', 0, 1), ('action', 0, 1, 'ai', 2)))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 1), ('draw', 0, 4), ('action', 0, 1, 'ai', 2)))": 0.5,
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4), ('draw', 0, 1), ('action', 0, 1, 'ai', 2)))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:2:player:none",
+              "continuationActionValues": {
+                "play:2:player:none": 0.0,
+                "play:3:player:none": 0.0
+              },
+              "immediateActionValues": {
+                "play:2:player:none": -1.0,
+                "play:3:player:none": -1.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:2:player:none",
+                "play:3:player:none"
+              ],
+              "posterior": {
+                "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 1), ('draw', 0, 4), ('action', 0, 1, 'ai', 2)))": 0.5,
+                "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4), ('draw', 0, 1), ('action', 0, 1, 'ai', 2)))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:2:player:none": -1.0,
+                "play:3:player:none": -1.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 1), ('draw', 0, 4), ('action', 0, 1, 'ai', 2)))": 1.0,
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4), ('draw', 0, 1), ('action', 0, 1, 'ai', 2)))": 1.0
+            }
+          },
           "informationSet": "(1, (1, (5, 5, 6, 7), (2, 3), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 3), ('draw', 1, 2))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 1), ('draw', 0, 4), ('action', 0, 1, 'ai', 2)))": 1.0,
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4), ('draw', 0, 1), ('action', 0, 1, 'ai', 2)))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -2396,17 +3116,63 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 2,
+          "basePrior": {
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 1), ('draw', 0, 2), ('action', 0, 1, 'ai', 3)))": 0.5,
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2), ('draw', 0, 1), ('action', 0, 1, 'ai', 3)))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 1), ('draw', 0, 2), ('action', 0, 1, 'ai', 3)))": 0.5,
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2), ('draw', 0, 1), ('action', 0, 1, 'ai', 3)))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:3:player:none",
+              "continuationActionValues": {
+                "play:3:player:none": 0.0,
+                "play:4:none:none": 0.0
+              },
+              "immediateActionValues": {
+                "play:3:player:none": 1.0,
+                "play:4:none:none": 1.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:3:player:none",
+                "play:4:none:none"
+              ],
+              "posterior": {
+                "((0, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 1), ('draw', 0, 2), ('action', 0, 1, 'ai', 3)))": 0.5,
+                "((0, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2), ('draw', 0, 1), ('action', 0, 1, 'ai', 3)))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:3:player:none": 1.0,
+                "play:4:none:none": 1.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 1), ('draw', 0, 2), ('action', 0, 1, 'ai', 3)))": 1.0,
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2), ('draw', 0, 1), ('action', 0, 1, 'ai', 3)))": 1.0
+            }
+          },
           "informationSet": "(1, (1, (5, 5, 6, 7), (3, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 3, 'miss'),), (('initial_hand', 4), ('draw', 1, 3))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 1), ('draw', 0, 2), ('action', 0, 1, 'ai', 3)))": 1.0,
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (2,), (('initial_hand', 2), ('draw', 0, 1), ('action', 0, 1, 'ai', 3)))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -2425,17 +3191,62 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 2,
+          "basePrior": {
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 1), ('draw', 0, 3), ('action', 0, 1, 'ai', 2)))": 0.5,
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3), ('draw', 0, 1), ('action', 0, 1, 'ai', 2)))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 1), ('draw', 0, 3), ('action', 0, 1, 'ai', 2)))": 0.5,
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3), ('draw', 0, 1), ('action', 0, 1, 'ai', 2)))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:2:player:none",
+              "continuationActionValues": {
+                "play:2:player:none": 0.0,
+                "play:4:none:none": 0.0
+              },
+              "immediateActionValues": {
+                "play:2:player:none": 1.0,
+                "play:4:none:none": -1.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:2:player:none"
+              ],
+              "posterior": {
+                "((0, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 1), ('draw', 0, 3), ('action', 0, 1, 'ai', 2)))": 0.5,
+                "((0, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3), ('draw', 0, 1), ('action', 0, 1, 'ai', 2)))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:2:player:none": 1.0,
+                "play:4:none:none": -1.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 1), ('draw', 0, 3), ('action', 0, 1, 'ai', 2)))": 1.0,
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3), ('draw', 0, 1), ('action', 0, 1, 'ai', 2)))": 1.0
+            }
+          },
           "informationSet": "(1, (1, (5, 5, 6, 7), (2, 4), (False, False), 0, (1, 0), ((0, 1, 'ai', 2, 'miss'),), (('initial_hand', 4), ('draw', 1, 2))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 1), ('draw', 0, 3), ('action', 0, 1, 'ai', 2)))": 1.0,
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (3,), (('initial_hand', 3), ('draw', 0, 1), ('action', 0, 1, 'ai', 2)))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -2454,17 +3265,80 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 8,
+          "basePrior": {
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 2), ('draw', 0, 4), ('action', 0, 2, 'ai', None), ('priest', 0, 1)))": 0.5,
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4), ('draw', 0, 2), ('action', 0, 2, 'ai', None), ('priest', 0, 1)))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 2), ('draw', 0, 4), ('action', 0, 2, 'ai', None), ('priest', 0, 1)))": 0.5,
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4), ('draw', 0, 2), ('action', 0, 2, 'ai', None), ('priest', 0, 1)))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:1:player:4",
+              "continuationActionValues": {
+                "play:1:player:2": 0.0,
+                "play:1:player:3": 0.0,
+                "play:1:player:4": 0.0,
+                "play:1:player:5": 0.0,
+                "play:1:player:6": 0.0,
+                "play:1:player:7": 0.0,
+                "play:1:player:8": 0.0,
+                "play:3:player:none": 0.0
+              },
+              "immediateActionValues": {
+                "play:1:player:2": -1.0,
+                "play:1:player:3": -1.0,
+                "play:1:player:4": 1.0,
+                "play:1:player:5": -1.0,
+                "play:1:player:6": -1.0,
+                "play:1:player:7": -1.0,
+                "play:1:player:8": -1.0,
+                "play:3:player:none": -1.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:1:player:4"
+              ],
+              "posterior": {
+                "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 2), ('draw', 0, 4), ('action', 0, 2, 'ai', None), ('priest', 0, 1)))": 0.5,
+                "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4), ('draw', 0, 2), ('action', 0, 2, 'ai', None), ('priest', 0, 1)))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:1:player:2": -1.0,
+                "play:1:player:3": -1.0,
+                "play:1:player:4": 1.0,
+                "play:1:player:5": -1.0,
+                "play:1:player:6": -1.0,
+                "play:1:player:7": -1.0,
+                "play:1:player:8": -1.0,
+                "play:3:player:none": -1.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 2), ('draw', 0, 4), ('action', 0, 2, 'ai', None), ('priest', 0, 1)))": 1.0,
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4), ('draw', 0, 2), ('action', 0, 2, 'ai', None), ('priest', 0, 1)))": 1.0
+            }
+          },
           "informationSet": "(1, (1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 1), ('draw', 1, 3))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 2), ('draw', 0, 4), ('action', 0, 2, 'ai', None), ('priest', 0, 1)))": 1.0,
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4), ('draw', 0, 2), ('action', 0, 2, 'ai', None), ('priest', 0, 1)))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -2513,17 +3387,80 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         },
         {
           "actions": 8,
+          "basePrior": {
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 2), ('draw', 0, 4), ('action', 0, 2, 'ai', None), ('priest', 0, 3)))": 0.5,
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4), ('draw', 0, 2), ('action', 0, 2, 'ai', None), ('priest', 0, 3)))": 0.5
+          },
+          "decomposition": {
+            "basePrior": {
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 2), ('draw', 0, 4), ('action', 0, 2, 'ai', None), ('priest', 0, 3)))": 0.5,
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4), ('draw', 0, 2), ('action', 0, 2, 'ai', None), ('priest', 0, 3)))": 0.5
+            },
+            "conditioned": {
+              "chosenActionId": "play:1:player:4",
+              "continuationActionValues": {
+                "play:1:player:2": 0.0,
+                "play:1:player:3": 0.0,
+                "play:1:player:4": 0.0,
+                "play:1:player:5": 0.0,
+                "play:1:player:6": 0.0,
+                "play:1:player:7": 0.0,
+                "play:1:player:8": 0.0,
+                "play:3:player:none": 0.0
+              },
+              "immediateActionValues": {
+                "play:1:player:2": -1.0,
+                "play:1:player:3": -1.0,
+                "play:1:player:4": 1.0,
+                "play:1:player:5": -1.0,
+                "play:1:player:6": -1.0,
+                "play:1:player:7": -1.0,
+                "play:1:player:8": -1.0,
+                "play:3:player:none": -1.0
+              },
+              "maximumAdditivityResidual": 0.0,
+              "optimalActionIdsFromReportedTotals": [
+                "play:1:player:4"
+              ],
+              "posterior": {
+                "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 2), ('draw', 0, 4), ('action', 0, 2, 'ai', None), ('priest', 0, 3)))": 0.5,
+                "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4), ('draw', 0, 2), ('action', 0, 2, 'ai', None), ('priest', 0, 3)))": 0.5
+              },
+              "posteriorTarget": "love_letter_hidden_world",
+              "totalActionValues": {
+                "play:1:player:2": -1.0,
+                "play:1:player:3": -1.0,
+                "play:1:player:4": 1.0,
+                "play:1:player:5": -1.0,
+                "play:1:player:6": -1.0,
+                "play:1:player:7": -1.0,
+                "play:1:player:8": -1.0,
+                "play:3:player:none": -1.0
+              }
+            },
+            "policyReachWeights": {
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 2), ('draw', 0, 4), ('action', 0, 2, 'ai', None), ('priest', 0, 3)))": 1.0,
+              "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4), ('draw', 0, 2), ('action', 0, 2, 'ai', None), ('priest', 0, 3)))": 1.0
+            }
+          },
           "informationSet": "(1, (1, (5, 5, 6, 7), (1, 3), (False, False), 0, (2, 0), ((0, 2, 'ai', None, 'seen'),), (('initial_hand', 3), ('draw', 1, 1))))",
           "maximumAdditivityResidual": 0.0,
+          "maximumBayesReconstructionError": 0.0,
           "maximumTotalValueReconstructionError": 0.0,
+          "policyReachWeights": {
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 2), ('draw', 0, 4), ('action', 0, 2, 'ai', None), ('priest', 0, 3)))": 1.0,
+            "((0, 0, 0, 0, 0, 0, 0, 0), 8, (4,), (('initial_hand', 4), ('draw', 0, 2), ('action', 0, 2, 'ai', None), ('priest', 0, 3)))": 1.0
+          },
           "posteriorStates": 2,
           "selfScore": {
+            "basePriorBrier": 0.0,
             "continuationValueMae": 0.0,
             "decisionConsistentWithReportedValues": true,
             "finalActionRegret": 0.0,
@@ -2572,12 +3509,15 @@
                 "totalAbsoluteError": 0.0
               }
             },
+            "policyReachWeightMae": 0.0,
             "posteriorBrier": 0.0,
             "totalValueMae": 0.0
           }
         }
       ],
       "scoredReachableInformationSets": 17,
+      "statesWithNonuniformBasePrior": 0,
+      "statesWithPolicyConditioningShift": 0,
       "totalInformationSets": 60,
       "zeroReachInformationSetKeys": [
         "(1, (1, (5, 5, 6, 7), (1, 2), (True, False), 0, (4, 0), ((0, 4, None, None, 'protected'),), (('initial_hand', 1), ('draw', 1, 2))))",
@@ -5657,12 +6597,14 @@
   },
   "passed": true,
   "pipeline": [
-    "posterior",
+    "base_prior",
+    "fixed_policy_reach",
+    "conditioned_posterior",
     "immediate_action_values",
     "continuation_action_values",
     "total_action_values",
     "final_action"
   ],
   "schemaVersion": "aip-value-decomposition-audit-v1",
-  "updatedDate": "2026-09-26"
+  "updatedDate": "2026-09-29"
 }

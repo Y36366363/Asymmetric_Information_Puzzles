@@ -3,6 +3,7 @@
 import json
 
 import math
+from collections import Counter, defaultdict
 
 import pytest
 
@@ -20,7 +21,11 @@ from aip.benchmark.love_letter import (
     love_letter_action_id,
 )
 from aip.core import CFRGameProperties, compile_sequence_form, solve_sequence_form
-from aip.puzzles.love_letter import LoveLetterCFRGame, LoveLetterIndependentEvaluator
+from aip.puzzles.love_letter import (
+    LoveLetterCFRGame,
+    LoveLetterIndependentEvaluator,
+    complete_information_set_actions,
+)
 from aip.benchmark.value_decomposition import (
     ConditionedValueDecomposition,
     ValueDecomposition,
@@ -118,6 +123,94 @@ def test_love_letter_subgame_decomposes_all_60_information_sets():
             for action, value in exact_values[key].items()
         }
         assert decomposition.total_action_values == pytest.approx(expected)
+
+
+def test_love_letter_conditioned_panel_derives_prior_from_chance_not_policy():
+    game = LoveLetterCFRGame.late_round_subgame()
+    form = compile_sequence_form(
+        game,
+        game_properties=CFRGameProperties(2, True, True, True),
+        sparse=True,
+    )
+    equilibrium = solve_sequence_form(form, backend="scipy_highs").policy
+    oracle = LoveLetterValueDecompositionOracle(game)
+    panel = oracle.decompose_conditioned_all(equilibrium)
+    assert panel.prior_method_id == "love_letter_chance_reach_combinatorial_prior_v1"
+    assert len(panel.decompositions) == 17
+    assert len(panel.zero_reach_information_sets) == 43
+
+    for (hero, information_set), decomposition in panel.decompositions.items():
+        assert sum(decomposition.base_prior.values()) == pytest.approx(1)
+        normalizer = sum(
+            decomposition.base_prior[world]
+            * decomposition.policy_reach_weights[world]
+            for world in decomposition.base_prior
+        )
+        assert decomposition.values.posterior == pytest.approx({
+            world: decomposition.base_prior[world]
+            * decomposition.policy_reach_weights[world]
+            / normalizer
+            for world in decomposition.base_prior
+        })
+
+        contributions = oracle._counterfactual_contributions(
+            equilibrium, hero
+        )[information_set]
+        chance_by_world = defaultdict(float)
+        for state, (chance_mass, _) in contributions.items():
+            chance_by_world[repr(game.hidden_world(state, hero))] += chance_mass
+            cards = []
+            for card, count in enumerate(state.remaining, start=1):
+                cards.extend([card] * count)
+            cards.extend(state.hands[0])
+            cards.extend(state.hands[1])
+            cards.extend(event[1] for event in state.public_history)
+            assert Counter(cards) == Counter((1, 2, 3, 4))
+            assert state.public_history == information_set[6]
+        total_chance = sum(chance_by_world.values())
+        assert decomposition.base_prior == pytest.approx({
+            world: mass / total_chance for world, mass in chance_by_world.items()
+        })
+
+    uniform = {
+        key: {action: 1 / len(actions) for action in actions}
+        for key, actions in complete_information_set_actions(game).items()
+    }
+    uniform_panel = oracle.decompose_conditioned_all(uniform)
+    assert len(uniform_panel.decompositions) == 60
+    for key, decomposition in panel.decompositions.items():
+        assert uniform_panel.decompositions[key].base_prior == pytest.approx(
+            decomposition.base_prior
+        )
+
+
+def test_love_letter_opening_prior_matches_24_order_combinatorics():
+    game = LoveLetterCFRGame.late_round_subgame()
+    solution = solve_sequence_form(
+        compile_sequence_form(
+            game,
+            game_properties=CFRGameProperties(2, True, True, True),
+            sparse=True,
+        ),
+        backend="scipy_highs",
+    )
+    oracle = LoveLetterValueDecompositionOracle(game)
+    panel = oracle.decompose_conditioned_all(solution.policy)
+    opening = [
+        (key, value) for key, value in panel.decompositions.items()
+        if key[0] == 0 and key[1][6] == ()
+    ]
+    assert len(opening) == 12
+    for (hero, information_set), decomposition in opening:
+        assert len(decomposition.base_prior) == 2
+        assert tuple(decomposition.base_prior.values()) == pytest.approx((0.5, 0.5))
+        contributions = oracle._counterfactual_contributions(
+            solution.policy, hero
+        )[information_set]
+        assert all(
+            chance == pytest.approx(1 / 24)
+            for chance, _ in contributions.values()
+        )
 
 
 def test_scorer_localizes_posterior_continuation_additivity_and_action_errors():

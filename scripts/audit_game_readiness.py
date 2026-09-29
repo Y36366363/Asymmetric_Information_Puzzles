@@ -170,9 +170,17 @@ def report() -> dict[str, object]:
             "exploitability": love_report.exploitability,
             "runtimeFullRoundAllowed": False,
             "valueDecomposition": "17_positive_reach_43_zero_reach_information_sets",
-            "structuredExperimentStatus": "ready_for_prior_semantics_design",
+            "combinatorialPrior": {
+                "status": "implemented_and_independently_audited",
+                "methodId": "love_letter_chance_reach_combinatorial_prior_v1",
+                "positiveReachInformationSets": 17,
+                "zeroReachInformationSets": 43,
+                "usesUniformActionBaseline": False,
+                "policyConditioningShiftOnPositiveReachPanel": False,
+            },
+            "structuredExperimentStatus": "ready_for_fixed_policy_panel_design",
             "remainingWork": [
-                "derive card-combinatorial base prior before fixed-policy conditioning",
+                "decide whether to retain the equilibrium panel with no belief shift or preregister a fixed non-equilibrium policy",
                 "do not generalize certificate to full round",
             ],
         },
@@ -197,7 +205,7 @@ def report() -> dict[str, object]:
     }
     return {
         "schemaVersion": "aip-game-readiness-v1",
-        "date": "2026-09-28",
+        "date": "2026-09-29",
         "games": games,
         "conclusion": {
             "basicConstructionComplete": [
@@ -209,7 +217,7 @@ def report() -> dict[str, object]:
             ],
             "notComplete": ["five-die-liars-dice", "love-letter-full-round"],
             "nextPriority": (
-                "define Love Letter card-combinatorial priors for the 17 positive-reach nodes; "
+                "freeze a Love Letter panel with explicit policy-conditioning semantics; "
                 "continue bounded Love Letter full-round audit independently"
             ),
         },

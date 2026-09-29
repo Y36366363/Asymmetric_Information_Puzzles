@@ -19,7 +19,10 @@ from aip.benchmark.love_letter import (
     LoveLetterValueDecompositionOracle,
     love_letter_action_id,
 )
-from aip.benchmark.value_decomposition import score_value_decomposition
+from aip.benchmark.value_decomposition import (
+    score_conditioned_value_decomposition,
+    score_value_decomposition,
+)
 from aip.core import CFRGameProperties, compile_sequence_form, solve_sequence_form
 from aip.puzzles.love_letter import LoveLetterCFRGame, LoveLetterIndependentEvaluator
 
@@ -95,12 +98,17 @@ def build_report():
     love_values = LoveLetterIndependentEvaluator(love_game).action_values(
         love_solution.policy
     )
-    love_panel = LoveLetterValueDecompositionOracle(love_game).decompose_all(
+    love_panel = LoveLetterValueDecompositionOracle(
+        love_game
+    ).decompose_conditioned_all(
         love_solution.policy
     )
     love_rows = []
-    for key, reference in love_panel.decompositions.items():
-        self_score = score_value_decomposition(reference, reference)
+    for key, conditioned in love_panel.decompositions.items():
+        reference = conditioned.values
+        self_score = score_conditioned_value_decomposition(
+            conditioned, conditioned
+        )
         expected = {
             love_letter_action_id(action): value
             for action, value in love_values[key].items()
@@ -109,16 +117,39 @@ def build_report():
             abs(reference.total_action_values[action] - expected[action])
             for action in expected
         )
+        normalization = sum(
+            conditioned.base_prior[world]
+            * conditioned.policy_reach_weights[world]
+            for world in conditioned.base_prior
+        )
+        bayes_error = max(
+            abs(
+                reference.posterior[world]
+                - conditioned.base_prior[world]
+                * conditioned.policy_reach_weights[world]
+                / normalization
+            )
+            for world in conditioned.base_prior
+        )
         love_rows.append({
             "informationSet": repr(key),
             "posteriorStates": len(reference.posterior),
+            "basePrior": dict(conditioned.base_prior),
+            "policyReachWeights": dict(conditioned.policy_reach_weights),
+            "maximumBayesReconstructionError": bayes_error,
             "actions": len(reference.total_action_values),
             "maximumAdditivityResidual": reference.maximum_additivity_residual,
             "maximumTotalValueReconstructionError": reconstruction,
             "selfScore": self_score.to_artifact(),
+            "decomposition": conditioned.to_artifact(),
         })
     love = {
         "oracleId": LoveLetterValueDecompositionOracle.oracle_id,
+        "priorMethodId": love_panel.prior_method_id,
+        "basePriorSource": (
+            "adapter chance reach using remaining-card multiplicities, removals, "
+            "private observations, and public trajectory; never a uniform action baseline"
+        ),
         "totalInformationSets": love_panel.total_information_sets,
         "scoredReachableInformationSets": len(love_panel.decompositions),
         "zeroReachInformationSets": len(love_panel.zero_reach_information_sets),
@@ -131,8 +162,34 @@ def build_report():
         "maximumTotalValueReconstructionError": max(
             row["maximumTotalValueReconstructionError"] for row in love_rows
         ),
+        "maximumBayesReconstructionError": max(
+            row["maximumBayesReconstructionError"] for row in love_rows
+        ),
+        "allBasePriorsNormalized": all(
+            abs(sum(row["basePrior"].values()) - 1) <= 1e-12
+            for row in love_rows
+        ),
+        "basePriorSupportSizes": sorted({
+            len(row["basePrior"]) for row in love_rows
+        }),
+        "statesWithNonuniformBasePrior": sum(
+            max(row["basePrior"].values()) - min(row["basePrior"].values()) > 1e-12
+            for row in love_rows
+        ),
+        "statesWithPolicyConditioningShift": sum(
+            max(
+                abs(
+                    row["decomposition"]["basePrior"][world]
+                    - row["decomposition"]["conditioned"]["posterior"][world]
+                )
+                for world in row["basePrior"]
+            ) > 1e-12
+            for row in love_rows
+        ),
         "allSelfScoresWithinTolerance": all(
-            row["selfScore"]["posteriorBrier"] <= 1e-12
+            row["selfScore"]["basePriorBrier"] <= 1e-12
+            and row["selfScore"]["policyReachWeightMae"] <= 1e-12
+            and row["selfScore"]["posteriorBrier"] <= 1e-12
             and row["selfScore"]["finalActionRegret"] <= 1e-12
             and row["selfScore"]["optimalActionAgreement"]
             for row in love_rows
@@ -150,15 +207,19 @@ def build_report():
         and love["allSelfScoresWithinTolerance"]
         and love["maximumTotalValueReconstructionError"] < 1e-12
         and love["maximumAdditivityResidual"] < 1e-12
+        and love["maximumBayesReconstructionError"] < 1e-12
+        and love["allBasePriorsNormalized"]
         and love["scoredReachableInformationSets"] + love["zeroReachInformationSets"]
         == love["totalInformationSets"]
     )
     return {
         "schemaVersion": "aip-value-decomposition-audit-v1",
         "date": "2026-09-25",
-        "updatedDate": "2026-09-26",
+        "updatedDate": "2026-09-29",
         "pipeline": [
-            "posterior",
+            "base_prior",
+            "fixed_policy_reach",
+            "conditioned_posterior",
             "immediate_action_values",
             "continuation_action_values",
             "total_action_values",

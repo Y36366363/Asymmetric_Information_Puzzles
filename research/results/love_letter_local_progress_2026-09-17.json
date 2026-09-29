@@ -2,53 +2,53 @@
   "checkpoint_path": "research/local_checkpoints/love_letter_full_round_v2.sqlite",
   "chunks": [
     {
-      "chance_histories": 334069,
+      "chance_histories": 349722,
       "complete": false,
-      "decision_histories": 360880,
+      "decision_histories": 378449,
       "equilibrium_certified": false,
       "failures": [],
-      "frontier_nodes": 75,
-      "histories": 1262965,
-      "information_sets": 183252,
+      "frontier_nodes": 72,
+      "histories": 1322965,
+      "information_sets": 191405,
       "maximum_depth": 26,
       "revision": "dee5a084635f24d786ac04e47dc72b2458e20b384e7b85d6ccf2eb866d659156",
       "status": "paused",
       "structural_audit_passed": false,
-      "terminal_histories": 568016
+      "terminal_histories": 594794
     },
     {
-      "chance_histories": 339107,
+      "chance_histories": 353917,
       "complete": false,
-      "decision_histories": 367071,
+      "decision_histories": 382818,
+      "equilibrium_certified": false,
+      "failures": [],
+      "frontier_nodes": 76,
+      "histories": 1338597,
+      "information_sets": 193563,
+      "maximum_depth": 26,
+      "revision": "dee5a084635f24d786ac04e47dc72b2458e20b384e7b85d6ccf2eb866d659156",
+      "status": "paused",
+      "structural_audit_passed": false,
+      "terminal_histories": 601862
+    },
+    {
+      "chance_histories": 357633,
+      "complete": false,
+      "decision_histories": 387045,
       "equilibrium_certified": false,
       "failures": [],
       "frontier_nodes": 73,
-      "histories": 1282965,
-      "information_sets": 185936,
+      "histories": 1352853,
+      "information_sets": 195167,
       "maximum_depth": 26,
       "revision": "dee5a084635f24d786ac04e47dc72b2458e20b384e7b85d6ccf2eb866d659156",
       "status": "paused",
       "structural_audit_passed": false,
-      "terminal_histories": 576787
-    },
-    {
-      "chance_histories": 344287,
-      "complete": false,
-      "decision_histories": 372873,
-      "equilibrium_certified": false,
-      "failures": [],
-      "frontier_nodes": 80,
-      "histories": 1302965,
-      "information_sets": 188348,
-      "maximum_depth": 26,
-      "revision": "dee5a084635f24d786ac04e47dc72b2458e20b384e7b85d6ccf2eb866d659156",
-      "status": "paused",
-      "structural_audit_passed": false,
-      "terminal_histories": 585805
+      "terminal_histories": 608175
     }
   ],
   "full_round_certified": false,
   "subgame_exploitability": 0.0,
   "subgame_value": 0.16666666666666663,
-  "updated_date": "2026-09-28"
+  "updated_date": "2026-09-29"
 }
