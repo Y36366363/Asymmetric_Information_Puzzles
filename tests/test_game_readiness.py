@@ -1,6 +1,8 @@
 """Regression tests for evidence-backed game readiness classifications."""
 
-from scripts.audit_game_readiness import report
+import json
+
+from scripts.audit_game_readiness import LOVE_PROGRESS, report
 
 
 def test_readiness_keeps_exact_variants_separate_from_larger_uncertified_games():
@@ -25,7 +27,10 @@ def test_love_letter_subgame_pass_does_not_promote_incomplete_full_round():
     assert subgame["informationSets"] == 60
     assert subgame["runtimeFullRoundAllowed"] is False
     assert full["status"] == "blocked_on_complete_structural_enumeration"
-    assert full["historiesTraversed"] == 1_352_853
+    latest_checkpoint = json.loads(LOVE_PROGRESS.read_text())["chunks"][-1]
+    assert full["historiesTraversed"] == latest_checkpoint["histories"]
+    assert full["historiesTraversed"] >= 1_352_853
+    assert latest_checkpoint["complete"] is False
     assert full["structuralAuditComplete"] is False
     assert full["runtimeEpsilonGtoAllowed"] is False
     prior = subgame["combinatorialPrior"]

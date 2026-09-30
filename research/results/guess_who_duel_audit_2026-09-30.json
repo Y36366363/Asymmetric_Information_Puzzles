@@ -1,0 +1,41 @@
+{
+  "actions_per_player": 18,
+  "characters": [
+    "Ada",
+    "Hugo",
+    "Nico"
+  ],
+  "checks": {
+    "independent_best_response": true,
+    "no_pure_saddle": true,
+    "normalized": true,
+    "zero_symmetric_value": true
+  },
+  "exploitability": 5.551115123125783e-17,
+  "maximum_unilateral_deviation_gain": 5.551115123125783e-17,
+  "model": "simultaneous_secret_and_fixed_question_priority_commitment",
+  "nash_conv": 1.1102230246251565e-16,
+  "passed": true,
+  "payoff": "win=+1, simultaneous identification=0, loss=-1",
+  "player_0_deviation_gain": 5.551115123125783e-17,
+  "player_0_secret_marginals": {
+    "Ada": 0.33333333333333337,
+    "Hugo": 0.3333333333333333,
+    "Nico": 0.3333333333333333
+  },
+  "player_1_deviation_gain": 5.551115123125783e-17,
+  "player_1_secret_marginals": {
+    "Ada": 0.33333333333333337,
+    "Hugo": 0.3333333333333333,
+    "Nico": 0.3333333333333333
+  },
+  "pure_maximin": -1.0,
+  "pure_minimax": 1.0,
+  "questions": [
+    "hair_black",
+    "hair_brown",
+    "hair_blond"
+  ],
+  "scope": "three-character restricted normal-form game; not full adaptive Guess Who",
+  "value": 0.0
+}

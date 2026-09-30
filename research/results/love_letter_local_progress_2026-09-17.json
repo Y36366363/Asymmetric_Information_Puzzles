@@ -2,53 +2,38 @@
   "checkpoint_path": "research/local_checkpoints/love_letter_full_round_v2.sqlite",
   "chunks": [
     {
-      "chance_histories": 349722,
+      "chance_histories": 360301,
       "complete": false,
-      "decision_histories": 378449,
+      "decision_histories": 389872,
       "equilibrium_certified": false,
       "failures": [],
-      "frontier_nodes": 72,
-      "histories": 1322965,
-      "information_sets": 191405,
+      "frontier_nodes": 74,
+      "histories": 1362853,
+      "information_sets": 196444,
       "maximum_depth": 26,
       "revision": "dee5a084635f24d786ac04e47dc72b2458e20b384e7b85d6ccf2eb866d659156",
       "status": "paused",
       "structural_audit_passed": false,
-      "terminal_histories": 594794
+      "terminal_histories": 612680
     },
     {
-      "chance_histories": 353917,
+      "chance_histories": 362981,
       "complete": false,
-      "decision_histories": 382818,
+      "decision_histories": 392618,
       "equilibrium_certified": false,
       "failures": [],
-      "frontier_nodes": 76,
-      "histories": 1338597,
-      "information_sets": 193563,
+      "frontier_nodes": 75,
+      "histories": 1372853,
+      "information_sets": 197617,
       "maximum_depth": 26,
       "revision": "dee5a084635f24d786ac04e47dc72b2458e20b384e7b85d6ccf2eb866d659156",
       "status": "paused",
       "structural_audit_passed": false,
-      "terminal_histories": 601862
-    },
-    {
-      "chance_histories": 357633,
-      "complete": false,
-      "decision_histories": 387045,
-      "equilibrium_certified": false,
-      "failures": [],
-      "frontier_nodes": 73,
-      "histories": 1352853,
-      "information_sets": 195167,
-      "maximum_depth": 26,
-      "revision": "dee5a084635f24d786ac04e47dc72b2458e20b384e7b85d6ccf2eb866d659156",
-      "status": "paused",
-      "structural_audit_passed": false,
-      "terminal_histories": 608175
+      "terminal_histories": 617254
     }
   ],
   "full_round_certified": false,
   "subgame_exploitability": 0.0,
   "subgame_value": 0.16666666666666663,
-  "updated_date": "2026-09-29"
+  "updated_date": "2026-09-30"
 }
