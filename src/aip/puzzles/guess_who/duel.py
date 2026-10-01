@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from math import isclose
+from typing import Hashable
 
 from aip.core.linear_program import maximize_linear_program
 
@@ -141,4 +142,142 @@ class GuessWhoDuel:
         return DuelEquilibrium(
             self.actions, row_strategy, column_strategy, value,
             gain_0, gain_1, max(gain_0, gain_1), nash_conv, nash_conv / 2,
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class AdaptiveDuelState:
+    """State for simultaneous-round play represented as hidden sequential moves."""
+
+    stage: str = "player_0_secret"
+    secrets: tuple[int | None, int | None] = (None, None)
+    candidates: tuple[int, int] = (0, 0)
+    transcript: tuple[tuple[int, bool, int, bool], ...] = ()
+    pending_player_0_question: int | None = None
+    utility: float | None = None
+
+
+class AdaptiveGuessWhoGame:
+    """Tiny adaptive duel with simultaneous secret and question choices.
+
+    Sequential nodes encode simultaneous choices by hiding player 0's pending
+    choice from player 1. Questions and truthful answers become public only
+    after both players commit for the round.
+    """
+
+    def __init__(
+        self,
+        roster: tuple[Character, ...],
+        questions: tuple[Question, ...],
+    ) -> None:
+        self.detective = GuessWhoSolver(roster, questions)
+        self.roster = roster
+        self.questions = questions
+        self._full_mask = self.detective.full_candidate_mask
+
+    def initial_state(self) -> AdaptiveDuelState:
+        return AdaptiveDuelState()
+
+    def is_terminal(self, state: AdaptiveDuelState) -> bool:
+        return state.stage == "terminal"
+
+    def utility_player_zero(self, state: AdaptiveDuelState) -> float:
+        if not self.is_terminal(state) or state.utility is None:
+            raise ValueError("utility is defined only at terminal adaptive duel states")
+        return state.utility
+
+    def current_player(self, state: AdaptiveDuelState) -> int | None:
+        return {
+            "player_0_secret": 0,
+            "player_1_secret": 1,
+            "player_0_question": 0,
+            "player_1_question": 1,
+            "terminal": None,
+        }[state.stage]
+
+    def chance_outcomes(
+        self, state: AdaptiveDuelState
+    ) -> tuple[tuple[Hashable, float], ...]:
+        return ()
+
+    def _valid_questions(self, candidates: int) -> tuple[int, ...]:
+        valid = []
+        for index in range(len(self.questions)):
+            yes, no = self.detective._split(candidates, index)
+            if yes and no:
+                valid.append(index)
+        return tuple(valid)
+
+    def legal_actions(self, state: AdaptiveDuelState) -> tuple[Hashable, ...]:
+        if state.stage in {"player_0_secret", "player_1_secret"}:
+            return tuple(range(len(self.roster)))
+        if state.stage == "player_0_question":
+            return self._valid_questions(state.candidates[0])
+        if state.stage == "player_1_question":
+            return self._valid_questions(state.candidates[1])
+        return ()
+
+    def information_set(self, state: AdaptiveDuelState) -> Hashable:
+        if state.stage == "player_0_secret":
+            return "select_secret"
+        if state.stage == "player_1_secret":
+            # Player 0's earlier secret selection is deliberately hidden.
+            return "select_secret"
+        player = self.current_player(state)
+        if player not in (0, 1):
+            raise ValueError("terminal adaptive duel state has no information set")
+        own_secret = state.secrets[player]
+        # At player 1's node the pending player-0 question is deliberately
+        # omitted, which implements simultaneous question selection.
+        return "ask", own_secret, state.transcript
+
+    def next_state(
+        self, state: AdaptiveDuelState, action: Hashable
+    ) -> AdaptiveDuelState:
+        if action not in self.legal_actions(state):
+            raise ValueError(f"illegal adaptive Guess Who action: {action!r}")
+        choice = int(action)
+        if state.stage == "player_0_secret":
+            return AdaptiveDuelState(
+                stage="player_1_secret", secrets=(choice, None)
+            )
+        if state.stage == "player_1_secret":
+            return AdaptiveDuelState(
+                stage="player_0_question",
+                secrets=(state.secrets[0], choice),
+                candidates=(self._full_mask, self._full_mask),
+            )
+        if state.stage == "player_0_question":
+            return AdaptiveDuelState(
+                stage="player_1_question",
+                secrets=state.secrets,
+                candidates=state.candidates,
+                transcript=state.transcript,
+                pending_player_0_question=choice,
+            )
+        if state.stage != "player_1_question":
+            raise ValueError("terminal adaptive duel state has no transition")
+        question_zero = state.pending_player_0_question
+        if question_zero is None or state.secrets[0] is None or state.secrets[1] is None:
+            raise ValueError("adaptive duel round is missing committed private state")
+        answer_zero = bool(self.detective._yes_masks[question_zero] & (1 << state.secrets[1]))
+        answer_one = bool(self.detective._yes_masks[choice] & (1 << state.secrets[0]))
+        split_zero = self.detective._split(state.candidates[0], question_zero)
+        split_one = self.detective._split(state.candidates[1], choice)
+        candidates = (
+            split_zero[0] if answer_zero else split_zero[1],
+            split_one[0] if answer_one else split_one[1],
+        )
+        transcript = state.transcript + ((question_zero, answer_zero, choice, answer_one),)
+        solved_zero = candidates[0].bit_count() == 1
+        solved_one = candidates[1].bit_count() == 1
+        if solved_zero or solved_one:
+            utility = float(solved_zero and not solved_one) - float(solved_one and not solved_zero)
+            return AdaptiveDuelState(
+                stage="terminal", secrets=state.secrets, candidates=candidates,
+                transcript=transcript, utility=utility,
+            )
+        return AdaptiveDuelState(
+            stage="player_0_question", secrets=state.secrets,
+            candidates=candidates, transcript=transcript,
         )

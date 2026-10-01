@@ -82,10 +82,10 @@
       "valueDecomposition": "17_positive_reach_43_zero_reach_information_sets"
     },
     "love-letter-full-round": {
-      "frontierNodes": 73,
-      "historiesTraversed": 1352853,
+      "frontierNodes": 77,
+      "historiesTraversed": 1391622,
       "independentEvaluator": false,
-      "informationSetsObserved": 195167,
+      "informationSetsObserved": 200936,
       "maximumDepth": 26,
       "remainingWork": [
         "close resumable structural audit",
