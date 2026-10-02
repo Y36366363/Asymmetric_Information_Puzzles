@@ -13,6 +13,7 @@ from aip.core import (
     run_independent_evaluation,
     solve_sequence_form,
 )
+from aip.core.tree_evaluation import FullTreeBestResponseEvaluator
 from aip.puzzles.e_card import (
     DUELS,
     e_card_exploitability,
@@ -24,6 +25,11 @@ from aip.puzzles.liars_dice import (
     solve_one_die_liar_exact,
 )
 from aip.puzzles.love_letter import LoveLetterCFRGame, LoveLetterIndependentEvaluator
+from aip.puzzles.guess_who import (
+    DEFAULT_QUESTIONS,
+    DEFAULT_ROSTER,
+    StrategicGuessWhoGame,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -54,6 +60,24 @@ def report() -> dict[str, object]:
     kuhn = evaluate_kuhn_policy(equilibrium_policy())
     e_card = solve_e_card_timing_game()
     e_card_profile = dict(zip(DUELS, map(float, e_card.emperor_strategy)))
+
+    guess_game = StrategicGuessWhoGame(
+        (DEFAULT_ROSTER[0], DEFAULT_ROSTER[6], DEFAULT_ROSTER[12]),
+        DEFAULT_QUESTIONS[:3],
+    )
+    guess_form = compile_sequence_form(
+        guess_game,
+        game_properties=CFRGameProperties(2, True, True, True),
+        sparse=True,
+    )
+    guess_solution = solve_sequence_form(guess_form, backend="scipy_highs")
+    guess_report = run_independent_evaluation(
+        FullTreeBestResponseEvaluator(
+            guess_game, evaluator_id="strategic_guess_who_v1"
+        ),
+        guess_solution.policy,
+        maximum_exploitability=1e-10,
+    )
 
     love_game = LoveLetterCFRGame.late_round_subgame()
     love_solution = solve_sequence_form(
@@ -160,6 +184,22 @@ def report() -> dict[str, object]:
             "runtimeScope": "multi-round adaptation remains strong heuristic",
             "remainingWork": ["retain as exact solver control, not primary agent task"],
         },
+        "guess-who-strategic-three-character": {
+            "status": "complete_certified_research_subgame",
+            "solver": "sparse_sequence_form_scipy_highs_plus_full_tree_best_response",
+            "independentEvaluator": True,
+            "histories": guess_form.audit.histories,
+            "informationSets": guess_form.audit.information_sets,
+            "expectedValueToPlayer0": guess_report.expected_value_to_player_0,
+            "exploitability": guess_report.exploitability,
+            "explicitGuessAction": True,
+            "incorrectGuessPenalty": "immediate_loss",
+            "runtimeEpsilonGtoAllowed": False,
+            "remainingWork": [
+                "freeze signaling and simultaneous-guess conventions before scaling",
+                "do not generalize certificate to the 24-character game",
+            ],
+        },
         "love-letter-four-card-subgame": {
             "status": "complete_certified_research_subgame",
             "solver": "sparse_sequence_form_scipy_highs",
@@ -205,7 +245,7 @@ def report() -> dict[str, object]:
     }
     return {
         "schemaVersion": "aip-game-readiness-v1",
-        "date": "2026-09-29",
+        "date": "2026-10-02",
         "games": games,
         "conclusion": {
             "basicConstructionComplete": [
@@ -213,12 +253,14 @@ def report() -> dict[str, object]:
                 "goofspiel-four-card",
                 "kuhn-poker",
                 "e-card-single-round",
+                "guess-who-strategic-three-character",
                 "love-letter-four-card-subgame",
             ],
             "notComplete": ["five-die-liars-dice", "love-letter-full-round"],
             "nextPriority": (
-                "freeze a Love Letter panel with explicit policy-conditioning semantics; "
-                "continue bounded Love Letter full-round audit independently"
+                "freeze strategic Guess Who rule conventions and a Love Letter panel with "
+                "explicit policy-conditioning semantics; continue bounded Love Letter "
+                "full-round audit independently"
             ),
         },
     }

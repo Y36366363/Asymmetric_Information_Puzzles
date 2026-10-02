@@ -5,15 +5,16 @@
       "goofspiel-four-card",
       "kuhn-poker",
       "e-card-single-round",
+      "guess-who-strategic-three-character",
       "love-letter-four-card-subgame"
     ],
-    "nextPriority": "freeze a Love Letter panel with explicit policy-conditioning semantics; continue bounded Love Letter full-round audit independently",
+    "nextPriority": "freeze strategic Guess Who rule conventions and a Love Letter panel with explicit policy-conditioning semantics; continue bounded Love Letter full-round audit independently",
     "notComplete": [
       "five-die-liars-dice",
       "love-letter-full-round"
     ]
   },
-  "date": "2026-09-29",
+  "date": "2026-10-02",
   "games": {
     "e-card-single-round": {
       "exploitability": 0.0,
@@ -47,6 +48,22 @@
       "solver": "exact_backward_induction_zero_sum_matrices",
       "status": "complete_exact_solver_and_benchmark",
       "valueDecomposition": "complete_30_state_panel"
+    },
+    "guess-who-strategic-three-character": {
+      "expectedValueToPlayer0": 0.0,
+      "explicitGuessAction": true,
+      "exploitability": 1.1102230246251565e-16,
+      "histories": 1651,
+      "incorrectGuessPenalty": "immediate_loss",
+      "independentEvaluator": true,
+      "informationSets": 404,
+      "remainingWork": [
+        "freeze signaling and simultaneous-guess conventions before scaling",
+        "do not generalize certificate to the 24-character game"
+      ],
+      "runtimeEpsilonGtoAllowed": false,
+      "solver": "sparse_sequence_form_scipy_highs_plus_full_tree_best_response",
+      "status": "complete_certified_research_subgame"
     },
     "kuhn-poker": {
       "independentEvaluator": true,
@@ -82,10 +99,10 @@
       "valueDecomposition": "17_positive_reach_43_zero_reach_information_sets"
     },
     "love-letter-full-round": {
-      "frontierNodes": 77,
-      "historiesTraversed": 1391622,
+      "frontierNodes": 74,
+      "historiesTraversed": 1411622,
       "independentEvaluator": false,
-      "informationSetsObserved": 200936,
+      "informationSetsObserved": 203799,
       "maximumDepth": 26,
       "remainingWork": [
         "close resumable structural audit",

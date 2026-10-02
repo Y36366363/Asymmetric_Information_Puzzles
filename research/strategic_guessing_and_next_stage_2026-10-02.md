@@ -1,0 +1,99 @@
+# Strategic guessing and next-stage preparation — 2026-10-02
+
+## Outcome
+
+The three-character adversarial Guess Who research game now supports an
+explicit identity guess at every decision point. A correct unilateral guess
+wins immediately; an incorrect unilateral guess loses. If both players guess
+in the same simultaneous round, one correct guess defeats one incorrect guess,
+while equal correctness is a draw. These conventions are part of the certified
+rules rather than an implementation detail.
+
+The model closes the main boundary left by the 2026-10-01 experiment. Players
+may now act on strategic beliefs before truthful questions mechanically reduce
+their public candidate set to one. Same-round actions remain hidden until both
+players commit, so the sequential tree representation does not grant player 1
+an artificial observation advantage.
+
+## Exact certificate and behavioral result
+
+The complete tree contains 1,651 histories, 972 terminal histories, 404
+information sets and maximum depth eight. The sparse sequence form has 301
+sequences per player and a 301×301 payoff matrix with 666 nonzero entries.
+SciPy/HiGHS returns value zero, a primal-dual gap of zero and maximum flow
+residual near `1.1e-16`. An independent full-tree best response, which never
+reads training regret, reports exploitability near `1.1e-16` over all 404
+information sets.
+
+The equilibrium produces both a positive and a zero result:
+
+- no player blind-guesses in the first round;
+- after public evidence, 77.78% of terminal outcomes contain a guess while the
+  guesser's public candidate set still has two identities;
+- the expected number of rounds in which both players ask is 1.1111;
+- only 62 of the 404 information sets have positive equilibrium reach;
+- the first-round action distribution is identical across private secrets
+  (maximum L1 difference zero), so this symmetric instance does **not** show
+  equilibrium secret-signaling through the opening question.
+
+The early ambiguous guesses are therefore evidence for a race/challenge
+threshold, not evidence that public questions already serve as equilibrium
+signals. That distinction matters: the new mechanic adds strategic timing, but
+we should not claim an information-signaling result from this roster.
+
+## CFR/DCFR cross-check
+
+Exact sequence form remains the primary solver. Independent exploitability of
+the regret-minimization cross-check is:
+
+| Algorithm | 100 iterations | 1,000 | 3,000 |
+|---|---:|---:|---:|
+| Vanilla CFR | 0.0181873 | 0.00204960 | 0.000982222 |
+| CFR+ | 0.0102674 | 0.00138514 | 0.000383627 |
+| DCFR (1.5, 0, 2) | 0.0106025 | 0.00120426 | 0.000356619 |
+
+All three pass the declared 0.001 cross-check gate at 3,000 iterations. A
+ten-iteration Vanilla CFR negative control has exploitability about 0.1060 and
+is rejected. DCFR is marginally best at this final budget, but the difference
+from CFR+ is too small and too game-specific to justify a general ranking.
+
+## Other games and readiness
+
+The focused 47-test group covering one-die Liar's Dice, its fixed-policy/value
+decomposition, four-card Goofspiel, Kuhn regret minimization and the shared
+readiness report remains green. The readiness registry now lists this exact
+three-character Guess Who scope as a certified research subgame, while
+explicitly keeping runtime ε-GTO disabled and refusing transfer to the
+24-character game.
+
+The full-round Love Letter structural traversal advanced to 1,411,622
+histories, 634,569 terminals and 203,799 observed information sets. It has no
+structural failures, but 74 frontier nodes remain and `complete=false`.
+Consequently there is still no full-round candidate policy, complete independent
+best response or runtime ε-GTO permission. The four-card late-round certificate
+remains a separate scope.
+
+## Prepared next work
+
+The next Guess Who experiment should change one strategic ingredient at a time:
+
+1. freeze the simultaneous-guess and wrong-guess conventions used here;
+2. introduce an asymmetric roster or question cost that can make opening
+   policies depend on the protected private identity;
+3. preregister the primary signaling endpoint as maximum root-policy L1 distance
+   by private secret, with independent exploitability as a mandatory validity
+   gate;
+4. compare exact sequence form with CFR+/DCFR only after the small exact oracle
+   passes;
+5. stop before a 24-character expansion unless abstraction error and resource
+   budgets have independent gates.
+
+For Love Letter, continue bounded structural traversal independently. For
+Liar's Dice and Goofspiel, retain the existing exact/fixed-policy panels instead
+of adding another CFR variant. This keeps the project focused on cross-game
+mechanisms—belief, risky commitment, challenge thresholds and information
+acquisition—rather than increasing the game count.
+
+The reproducible record is
+`research/results/strategic_guess_who_audit_2026-10-02.json`, generated by
+`scripts/audit_strategic_guess_who.py`.

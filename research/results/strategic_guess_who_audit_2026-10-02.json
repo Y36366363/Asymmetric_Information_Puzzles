@@ -1,0 +1,4999 @@
+{
+  "checks": {
+    "all_cfr_cross_checks": true,
+    "exact_independent_gate": true,
+    "no_blind_guessing": true,
+    "positive_ambiguous_guessing": true,
+    "root_policy_has_no_private_secret_signal": true,
+    "tree_audit": true,
+    "undertrained_negative_control_rejected": true,
+    "zero_symmetric_value": true
+  },
+  "equilibrium_behavior": {
+    "ambiguous_terminal_guess_probability": 0.777777777777778,
+    "blind_guess_action_mass": 0.0,
+    "expected_both_ask_rounds": 1.1111111111111118,
+    "maximum_root_policy_l1_by_private_secret": 0.0,
+    "positive_reach_information_sets": 62,
+    "terminal_reach": 1.0000000000000004
+  },
+  "model": "three-character simultaneous adaptive duel with explicit guesses",
+  "passed": true,
+  "regret_minimization_cross_check": {
+    "cfr_plus": {
+      "algorithm": {
+        "algorithm_id": "cfr_plus",
+        "averaging_rule": "linear_iteration_weighting",
+        "parameters": {},
+        "seed": null,
+        "traversal": "full_tree",
+        "update_schedule": "alternating_players"
+      },
+      "final_passes_cross_check_gate": true,
+      "trace": [
+        {
+          "expected_value_to_player_0": 0.00019304821003700003,
+          "exploitability": 0.010267448026911097,
+          "iteration": 100,
+          "nash_conv": 0.020534896053822194
+        },
+        {
+          "expected_value_to_player_0": 2.360393620250663e-06,
+          "exploitability": 0.0013851360665275737,
+          "iteration": 1000,
+          "nash_conv": 0.0027702721330551475
+        },
+        {
+          "expected_value_to_player_0": 1.950275233832314e-07,
+          "exploitability": 0.00038362661255225846,
+          "iteration": 3000,
+          "nash_conv": 0.0007672532251045169
+        }
+      ]
+    },
+    "dcfr": {
+      "algorithm": {
+        "algorithm_id": "dcfr",
+        "averaging_rule": "discounted_iteration_weighting",
+        "parameters": {
+          "alpha": 1.5,
+          "beta": 0.0,
+          "gamma": 2.0
+        },
+        "seed": null,
+        "traversal": "full_tree",
+        "update_schedule": "alternating_players"
+      },
+      "final_passes_cross_check_gate": true,
+      "trace": [
+        {
+          "expected_value_to_player_0": -2.6232261686121288e-05,
+          "exploitability": 0.010602493514845908,
+          "iteration": 100,
+          "nash_conv": 0.021204987029691817
+        },
+        {
+          "expected_value_to_player_0": -3.6646438508067077e-07,
+          "exploitability": 0.0012042550973731863,
+          "iteration": 1000,
+          "nash_conv": 0.0024085101947463727
+        },
+        {
+          "expected_value_to_player_0": 8.429597325423851e-08,
+          "exploitability": 0.00035661904538870394,
+          "iteration": 3000,
+          "nash_conv": 0.0007132380907774079
+        }
+      ]
+    },
+    "vanilla_cfr": {
+      "algorithm": {
+        "algorithm_id": "vanilla_cfr",
+        "averaging_rule": "uniform_iteration_weighting",
+        "parameters": {},
+        "seed": null,
+        "traversal": "full_tree",
+        "update_schedule": "alternating_players"
+      },
+      "final_passes_cross_check_gate": true,
+      "trace": [
+        {
+          "expected_value_to_player_0": 0.000682825791468735,
+          "exploitability": 0.018187275503193767,
+          "iteration": 100,
+          "nash_conv": 0.036374551006387534
+        },
+        {
+          "expected_value_to_player_0": 8.662953822653491e-05,
+          "exploitability": 0.002049598890819442,
+          "iteration": 1000,
+          "nash_conv": 0.004099197781638884
+        },
+        {
+          "expected_value_to_player_0": 2.8595200076843812e-05,
+          "exploitability": 0.0009822220742829804,
+          "iteration": 3000,
+          "nash_conv": 0.001964444148565961
+        }
+      ]
+    }
+  },
+  "rules": {
+    "both_guess_equal_correctness": "draw",
+    "correct_unilateral_guess": "win",
+    "incorrect_unilateral_guess": "loss",
+    "same_round_opponent_action_visible": false
+  },
+  "scope": "research subgame only; no runtime epsilon-GTO label",
+  "sequence_form": {
+    "backend": "scipy_highs",
+    "independent_evaluation": {
+      "action_values": [
+        {
+          "information_set": "'select_secret'",
+          "player": 0,
+          "values": [
+            {
+              "action": "0",
+              "value": 1.1102230246251565e-16
+            },
+            {
+              "action": "1",
+              "value": 5.551115123125783e-17
+            },
+            {
+              "action": "2",
+              "value": 5.551115123125783e-17
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 0, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 1, False), (1, False, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 1, False), (1, False, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 1, False), (1, True, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 1, False), (1, True, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 1, False), (2, False, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 1, False), (2, False, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 1, False), (2, True, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 1, False), (2, True, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 1, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 1.6653345369377346e-16
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 2, False), (1, False, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 2, False), (1, False, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 2, False), (1, True, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 2, False), (1, True, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 2, False), (2, False, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 2, False), (2, False, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 2, False), (2, True, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 2, False), (2, True, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, False, 2, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 1.6653345369377346e-16
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, True, 0, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, True, 1, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, True, 2, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 0, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (0, False, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (0, False, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (0, True, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (0, True, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (2, False, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (2, False, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (2, True, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (2, True, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 2)",
+              "value": -1.6653345369377346e-16
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (0, False, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (0, False, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (0, True, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (0, True, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (2, False, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (2, False, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (2, True, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (2, True, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, True, 0, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, True, 1, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, True, 2, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 0, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (0, False, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (0, False, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (0, True, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (0, True, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (1, False, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (1, False, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (1, True, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (1, True, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (0, False, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (0, False, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (0, True, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (0, True, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (1, False, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (1, False, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (1, True, 0, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (1, True, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, True, 0, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, True, 1, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, True, 2, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ())",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -0.3333333333333334
+            },
+            {
+              "action": "('guess', 1)",
+              "value": -0.3333333333333334
+            },
+            {
+              "action": "('guess', 2)",
+              "value": -0.3333333333333332
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 1.1102230246251565e-16
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 5.551115123125783e-17
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (1, False, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (1, False, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (1, True, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (1, True, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (2, False, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (2, False, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (2, True, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (2, True, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 1, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": -0.5000000000000001
+            },
+            {
+              "action": "('guess', 2)",
+              "value": -0.49999999999999994
+            },
+            {
+              "action": "('ask', 1)",
+              "value": -1.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (1, False, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (1, False, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (1, True, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (1, True, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (2, False, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (2, False, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (2, True, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (2, True, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 2)",
+              "value": -1.6653345369377346e-16
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, True, 0, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, True, 1, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, True, 2, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 0, False), (0, False, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 0, False), (0, False, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 0, False), (0, True, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 0, False), (0, True, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 0, False), (2, False, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 0, False), (2, False, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 0, False), (2, True, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 0, False), (2, True, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 0, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 1, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -0.5000000000000001
+            },
+            {
+              "action": "('guess', 2)",
+              "value": -0.49999999999999994
+            },
+            {
+              "action": "('ask', 0)",
+              "value": -1.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 2, False), (0, False, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 2, False), (0, False, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 2, False), (0, True, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 2, False), (0, True, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 2, False), (2, False, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 2, False), (2, False, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 2, False), (2, True, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 2, False), (2, True, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, False, 2, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, True, 0, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, True, 1, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, True, 2, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (0, False, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (0, False, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (0, True, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (0, True, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (1, False, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (1, False, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (1, True, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (1, True, 2, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 1, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -0.5
+            },
+            {
+              "action": "('guess', 1)",
+              "value": -0.5
+            },
+            {
+              "action": "('ask', 0)",
+              "value": -1.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (0, False, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (0, False, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (0, True, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (0, True, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (1, False, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (1, False, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (1, True, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (1, True, 1, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, True, 0, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, True, 1, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, True, 2, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ())",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -0.3333333333333334
+            },
+            {
+              "action": "('guess', 1)",
+              "value": -0.3333333333333334
+            },
+            {
+              "action": "('guess', 2)",
+              "value": -0.3333333333333332
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 5.551115123125783e-17
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 5.551115123125783e-17
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (1, False, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (1, False, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (1, True, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (1, True, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (2, False, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (2, False, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (2, True, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (2, True, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (1, False, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (1, False, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (1, True, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (1, True, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (2, False, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (2, False, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (2, True, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (2, True, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 2)",
+              "value": -1.6653345369377346e-16
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 2, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": -0.5000000000000001
+            },
+            {
+              "action": "('guess', 2)",
+              "value": -0.49999999999999994
+            },
+            {
+              "action": "('ask', 1)",
+              "value": -1.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, True, 0, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, True, 1, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, True, 2, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (0, False, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (0, False, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (0, True, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (0, True, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (2, False, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (2, False, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (2, True, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (2, True, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (0, False, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (0, False, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (0, True, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (0, True, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (2, False, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (2, False, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (2, True, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (2, True, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 1.6653345369377346e-16
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 2, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -0.5000000000000001
+            },
+            {
+              "action": "('guess', 2)",
+              "value": -0.49999999999999994
+            },
+            {
+              "action": "('ask', 0)",
+              "value": -1.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, True, 0, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, True, 1, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, True, 2, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 0, False), (0, False, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 0, False), (0, False, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 0, False), (0, True, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 0, False), (0, True, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 0, False), (1, False, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 0, False), (1, False, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 0, False), (1, True, 1, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 0, False), (1, True, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 0, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 1, False), (0, False, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 1, False), (0, False, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 1, False), (0, True, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 1, False), (0, True, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 1, False), (1, False, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 1, False), (1, False, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 1, False), (1, True, 0, False)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 1, False), (1, True, 2, True)))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 1, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, False, 2, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -0.5
+            },
+            {
+              "action": "('guess', 1)",
+              "value": -0.5
+            },
+            {
+              "action": "('ask', 0)",
+              "value": -1.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, True, 0, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, True, 1, False),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, True, 2, True),))",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ())",
+          "player": 0,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -0.3333333333333334
+            },
+            {
+              "action": "('guess', 1)",
+              "value": -0.3333333333333334
+            },
+            {
+              "action": "('guess', 2)",
+              "value": -0.3333333333333332
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 5.551115123125783e-17
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 5.551115123125783e-17
+            }
+          ]
+        },
+        {
+          "information_set": "'select_secret'",
+          "player": 1,
+          "values": [
+            {
+              "action": "0",
+              "value": 1.1102230246251565e-16
+            },
+            {
+              "action": "1",
+              "value": 5.551115123125783e-17
+            },
+            {
+              "action": "2",
+              "value": 5.551115123125783e-17
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, True, 0, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, True, 0, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, True, 1, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, True, 1, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, True, 2, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((0, True, 2, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 0, False), (0, True, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 0, False), (0, True, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 0, False), (0, True, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 0, False), (0, True, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 0, False), (2, False, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 0, False), (2, False, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 0, False), (2, False, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 0, False), (2, False, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 0, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 1.6653345369377346e-16
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 0, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (0, True, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (0, True, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (0, True, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (0, True, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (2, False, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (2, False, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (2, False, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False), (2, False, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 2)",
+              "value": -1.6653345369377346e-16
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 1, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (0, True, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (0, True, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (0, True, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (0, True, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (2, False, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (2, False, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (2, False, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False), (2, False, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((1, False, 2, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 0, False), (0, True, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 0, False), (0, True, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 0, False), (0, True, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 0, False), (0, True, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 0, False), (1, False, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 0, False), (1, False, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 0, False), (1, False, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 0, False), (1, False, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 0, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 1.6653345369377346e-16
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 0, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (0, True, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (0, True, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (0, True, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (0, True, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (1, False, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (1, False, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (1, False, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False), (1, False, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 1, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (0, True, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (0, True, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (0, True, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (0, True, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (1, False, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (1, False, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (1, False, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False), (1, False, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ((2, False, 2, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 0, ())",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -0.3333333333333334
+            },
+            {
+              "action": "('guess', 1)",
+              "value": -0.3333333333333334
+            },
+            {
+              "action": "('guess', 2)",
+              "value": -0.3333333333333332
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 1.1102230246251565e-16
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 5.551115123125783e-17
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (1, True, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (1, True, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (1, True, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (1, True, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (2, False, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (2, False, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (2, False, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False), (2, False, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 0, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 1, False), (1, True, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 1, False), (1, True, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 1, False), (1, True, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 1, False), (1, True, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 1, False), (2, False, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 1, False), (2, False, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 1, False), (2, False, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 1, False), (2, False, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 1, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 1, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (1, True, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (1, True, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (1, True, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (1, True, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (2, False, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (2, False, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (2, False, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False), (2, False, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((0, False, 2, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, True, 0, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": -0.5000000000000001
+            },
+            {
+              "action": "('guess', 2)",
+              "value": -0.49999999999999994
+            },
+            {
+              "action": "('ask', 1)",
+              "value": -1.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, True, 0, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, True, 1, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -0.5000000000000001
+            },
+            {
+              "action": "('guess', 2)",
+              "value": -0.49999999999999994
+            },
+            {
+              "action": "('ask', 0)",
+              "value": -1.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, True, 1, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, True, 2, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -0.5
+            },
+            {
+              "action": "('guess', 1)",
+              "value": -0.5
+            },
+            {
+              "action": "('ask', 0)",
+              "value": -1.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((1, True, 2, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (0, False, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (0, False, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (0, False, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (0, False, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (1, True, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (1, True, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (1, True, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False), (1, True, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 2)",
+              "value": -1.6653345369377346e-16
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 0, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 1, False), (0, False, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 1, False), (0, False, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 1, False), (0, False, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 1, False), (0, False, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 1, False), (1, True, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 1, False), (1, True, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 1, False), (1, True, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 1, False), (1, True, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 1, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 1, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (0, False, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (0, False, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (0, False, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (0, False, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (1, True, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (1, True, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (1, True, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False), (1, True, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ((2, False, 2, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 1, ())",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -0.3333333333333334
+            },
+            {
+              "action": "('guess', 1)",
+              "value": -0.3333333333333334
+            },
+            {
+              "action": "('guess', 2)",
+              "value": -0.3333333333333332
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 5.551115123125783e-17
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 5.551115123125783e-17
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (1, False, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (1, False, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (1, False, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (1, False, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (2, True, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (2, True, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (2, True, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False), (2, True, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 0, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (1, False, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (1, False, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (1, False, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (1, False, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (2, True, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (2, True, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (2, True, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False), (2, True, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 1, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 2, False), (1, False, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 2, False), (1, False, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 2, False), (1, False, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 2, False), (1, False, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 2, False), (2, True, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 2, False), (2, True, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 2, False), (2, True, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 2, False), (2, True, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 2, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((0, False, 2, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (0, False, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (0, False, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (0, False, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (0, False, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (2, True, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (2, True, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (2, True, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False), (2, True, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": -1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 2)",
+              "value": -1.6653345369377346e-16
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 0, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (0, False, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (0, False, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (0, False, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (0, False, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (2, True, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (2, True, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (2, True, 2, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False), (2, True, 2, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 2)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 1.6653345369377346e-16
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 1.6653345369377346e-16
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 1, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 2, False), (0, False, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 2, False), (0, False, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 2, False), (0, False, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 2, False), (0, False, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 2, False), (2, True, 0, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 2, False), (2, True, 0, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 2, False), (2, True, 1, False)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 2, False), (2, True, 1, True)))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 2, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((1, False, 2, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, True, 0, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": -0.5000000000000001
+            },
+            {
+              "action": "('guess', 2)",
+              "value": -0.49999999999999994
+            },
+            {
+              "action": "('ask', 1)",
+              "value": -1.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, True, 0, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, True, 1, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -0.5000000000000001
+            },
+            {
+              "action": "('guess', 2)",
+              "value": -0.49999999999999994
+            },
+            {
+              "action": "('ask', 0)",
+              "value": -1.0
+            },
+            {
+              "action": "('ask', 2)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, True, 1, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 1)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, True, 2, False),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -0.5
+            },
+            {
+              "action": "('guess', 1)",
+              "value": -0.5
+            },
+            {
+              "action": "('ask', 0)",
+              "value": -1.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": -1.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ((2, True, 2, True),))",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 2)",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "information_set": "('act', 2, ())",
+          "player": 1,
+          "values": [
+            {
+              "action": "('guess', 0)",
+              "value": -0.3333333333333334
+            },
+            {
+              "action": "('guess', 1)",
+              "value": -0.3333333333333334
+            },
+            {
+              "action": "('guess', 2)",
+              "value": -0.3333333333333332
+            },
+            {
+              "action": "('ask', 0)",
+              "value": 0.0
+            },
+            {
+              "action": "('ask', 1)",
+              "value": 5.551115123125783e-17
+            },
+            {
+              "action": "('ask', 2)",
+              "value": 5.551115123125783e-17
+            }
+          ]
+        }
+      ],
+      "best_response_player_0": 1.1102230246251565e-16,
+      "best_response_player_1": 1.1102230246251565e-16,
+      "evaluator_id": "strategic_guess_who_v1",
+      "evaluator_method": "independent_game_tree_best_response",
+      "expected_value_to_player_0": 0.0,
+      "exploitability": 1.1102230246251565e-16,
+      "failures": [],
+      "maximum_unilateral_deviation_gain": 1.1102230246251565e-16,
+      "nash_conv": 2.220446049250313e-16,
+      "passed": true,
+      "player_0_deviation_gain": 1.1102230246251565e-16,
+      "player_1_deviation_gain": 1.1102230246251565e-16,
+      "profile_fingerprint": "62a5feb85d786e0b77a6a67b4b26dffbd73a1ca46618ee5ffa15fede8b2ac16a"
+    },
+    "maximum_flow_residual": 1.1102230246251565e-16,
+    "payoff_nonzeros": 666,
+    "payoff_shape": [
+      301,
+      301
+    ],
+    "player_0_sequences": 301,
+    "player_1_sequences": 301,
+    "primal_dual_gap": 0.0,
+    "value_to_player_0": -0.0
+  },
+  "solver_router": "sparse_sequence_form_lp_primary_cfr_cross_check",
+  "tree_audit": {
+    "chance_histories": 0,
+    "decision_histories": 679,
+    "failures": [],
+    "histories": 1651,
+    "information_sets": 404,
+    "maximum_depth": 8,
+    "passed": true,
+    "perfect_recall": true,
+    "terminal_histories": 972
+  },
+  "undertrained_negative_control": {
+    "exploitability": 0.10603377894574172,
+    "iterations": 10,
+    "passed_gate": false
+  }
+}

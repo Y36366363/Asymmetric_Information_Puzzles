@@ -6,6 +6,8 @@ from .duel import (
     DuelAction,
     DuelEquilibrium,
     GuessWhoDuel,
+    StrategicGuessState,
+    StrategicGuessWhoGame,
 )
 from .models import DEFAULT_QUESTIONS, DEFAULT_ROSTER, Character, Question
 from .solver import GuessWhoRun, GuessWhoSolver, PolicySummary, QuestionScore
@@ -19,6 +21,8 @@ __all__ = [
     "DuelAction",
     "DuelEquilibrium",
     "GuessWhoDuel",
+    "StrategicGuessState",
+    "StrategicGuessWhoGame",
     "GuessWhoRun",
     "GuessWhoSolver",
     "PolicySummary",

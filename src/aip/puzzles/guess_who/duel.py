@@ -281,3 +281,173 @@ class AdaptiveGuessWhoGame:
             stage="player_0_question", secrets=state.secrets,
             candidates=candidates, transcript=transcript,
         )
+
+
+@dataclass(frozen=True, slots=True)
+class StrategicGuessState:
+    """Adaptive duel state with explicit, fallible identity guesses."""
+
+    stage: str = "player_0_secret"
+    secrets: tuple[int | None, int | None] = (None, None)
+    candidates: tuple[int, int] = (0, 0)
+    transcript: tuple[tuple[int, bool, int, bool], ...] = ()
+    pending_player_0_action: tuple[str, int] | None = None
+    utility: float | None = None
+
+
+class StrategicGuessWhoGame:
+    """Tiny duel where public question choices can inform later guesses.
+
+    A guess is always available for every publicly feasible opponent identity.
+    A correct unilateral guess wins and an incorrect unilateral guess loses.
+    If both players guess in the same round, equal correctness is a draw; only
+    one correct guess wins. This convention is explicit because changing the
+    wrong-guess penalty changes the equilibrium.
+    """
+
+    def __init__(
+        self,
+        roster: tuple[Character, ...],
+        questions: tuple[Question, ...],
+    ) -> None:
+        self.detective = GuessWhoSolver(roster, questions)
+        self.roster = roster
+        self.questions = questions
+        self._full_mask = self.detective.full_candidate_mask
+
+    def initial_state(self) -> StrategicGuessState:
+        return StrategicGuessState()
+
+    def is_terminal(self, state: StrategicGuessState) -> bool:
+        return state.stage == "terminal"
+
+    def utility_player_zero(self, state: StrategicGuessState) -> float:
+        if not self.is_terminal(state) or state.utility is None:
+            raise ValueError("utility is defined only at terminal strategic Guess Who states")
+        return state.utility
+
+    def current_player(self, state: StrategicGuessState) -> int | None:
+        return {
+            "player_0_secret": 0,
+            "player_1_secret": 1,
+            "player_0_action": 0,
+            "player_1_action": 1,
+            "terminal": None,
+        }[state.stage]
+
+    def chance_outcomes(
+        self, state: StrategicGuessState
+    ) -> tuple[tuple[Hashable, float], ...]:
+        return ()
+
+    def _round_actions(self, candidates: int) -> tuple[tuple[str, int], ...]:
+        guesses = tuple(
+            ("guess", index)
+            for index in range(len(self.roster))
+            if candidates & (1 << index)
+        )
+        questions = []
+        for index in range(len(self.questions)):
+            yes, no = self.detective._split(candidates, index)
+            if yes and no:
+                questions.append(("ask", index))
+        return guesses + tuple(questions)
+
+    def legal_actions(self, state: StrategicGuessState) -> tuple[Hashable, ...]:
+        if state.stage in {"player_0_secret", "player_1_secret"}:
+            return tuple(range(len(self.roster)))
+        if state.stage == "player_0_action":
+            return self._round_actions(state.candidates[0])
+        if state.stage == "player_1_action":
+            return self._round_actions(state.candidates[1])
+        return ()
+
+    def information_set(self, state: StrategicGuessState) -> Hashable:
+        if state.stage in {"player_0_secret", "player_1_secret"}:
+            return "select_secret"
+        player = self.current_player(state)
+        if player not in (0, 1):
+            raise ValueError("terminal strategic Guess Who state has no information set")
+        return "act", state.secrets[player], state.transcript
+
+    @staticmethod
+    def _guess_utility(
+        action_zero: tuple[str, int],
+        action_one: tuple[str, int],
+        secrets: tuple[int | None, int | None],
+    ) -> float | None:
+        zero_guesses = action_zero[0] == "guess"
+        one_guesses = action_one[0] == "guess"
+        if not zero_guesses and not one_guesses:
+            return None
+        if secrets[0] is None or secrets[1] is None:
+            raise ValueError("guess resolution requires both private identities")
+        correct_zero = zero_guesses and action_zero[1] == secrets[1]
+        correct_one = one_guesses and action_one[1] == secrets[0]
+        if zero_guesses and one_guesses:
+            return float(correct_zero) - float(correct_one)
+        if zero_guesses:
+            return 1.0 if correct_zero else -1.0
+        return -1.0 if correct_one else 1.0
+
+    def next_state(
+        self, state: StrategicGuessState, action: Hashable
+    ) -> StrategicGuessState:
+        if action not in self.legal_actions(state):
+            raise ValueError(f"illegal strategic Guess Who action: {action!r}")
+        if state.stage == "player_0_secret":
+            return StrategicGuessState(
+                stage="player_1_secret", secrets=(int(action), None)
+            )
+        if state.stage == "player_1_secret":
+            return StrategicGuessState(
+                stage="player_0_action",
+                secrets=(state.secrets[0], int(action)),
+                candidates=(self._full_mask, self._full_mask),
+            )
+        chosen = action
+        if not isinstance(chosen, tuple) or len(chosen) != 2:
+            raise ValueError("round action must be an ask or guess tuple")
+        round_action = (str(chosen[0]), int(chosen[1]))
+        if state.stage == "player_0_action":
+            return StrategicGuessState(
+                stage="player_1_action",
+                secrets=state.secrets,
+                candidates=state.candidates,
+                transcript=state.transcript,
+                pending_player_0_action=round_action,
+            )
+        if state.stage != "player_1_action" or state.pending_player_0_action is None:
+            raise ValueError("strategic Guess Who round is missing player 0's action")
+        action_zero = state.pending_player_0_action
+        action_one = round_action
+        utility = self._guess_utility(action_zero, action_one, state.secrets)
+        if utility is not None:
+            return StrategicGuessState(
+                stage="terminal", secrets=state.secrets,
+                candidates=state.candidates, transcript=state.transcript,
+                utility=utility,
+            )
+        question_zero, question_one = action_zero[1], action_one[1]
+        if state.secrets[0] is None or state.secrets[1] is None:
+            raise ValueError("question resolution requires both private identities")
+        answer_zero = bool(
+            self.detective._yes_masks[question_zero] & (1 << state.secrets[1])
+        )
+        answer_one = bool(
+            self.detective._yes_masks[question_one] & (1 << state.secrets[0])
+        )
+        split_zero = self.detective._split(state.candidates[0], question_zero)
+        split_one = self.detective._split(state.candidates[1], question_one)
+        candidates = (
+            split_zero[0] if answer_zero else split_zero[1],
+            split_one[0] if answer_one else split_one[1],
+        )
+        return StrategicGuessState(
+            stage="player_0_action",
+            secrets=state.secrets,
+            candidates=candidates,
+            transcript=state.transcript + (
+                (question_zero, answer_zero, question_one, answer_one),
+            ),
+        )

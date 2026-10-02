@@ -17,6 +17,13 @@ def test_readiness_keeps_exact_variants_separate_from_larger_uncertified_games()
     assert games["goofspiel-four-card"]["exploitability"] == 0
     assert games["kuhn-poker"]["maximumUnilateralDeviationGain"] == 0
     assert games["e-card-single-round"]["exploitability"] == 0
+    guess = games["guess-who-strategic-three-character"]
+    assert guess["status"] == "complete_certified_research_subgame"
+    assert guess["histories"] == 1_651
+    assert guess["informationSets"] == 404
+    assert guess["exploitability"] < 1e-10
+    assert guess["explicitGuessAction"] is True
+    assert guess["runtimeEpsilonGtoAllowed"] is False
 
 
 def test_love_letter_subgame_pass_does_not_promote_incomplete_full_round():
