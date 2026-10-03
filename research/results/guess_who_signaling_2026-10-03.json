@@ -1,0 +1,208 @@
+{
+  "checks": {
+    "all_cfr_cross_checks": false,
+    "endpoint_enumeration_invariance": true,
+    "frozen_rules_match": true,
+    "independent_exploitability_gate": true,
+    "reversed_independent_exploitability_gate": true,
+    "tree_audit": true,
+    "undertrained_negative_control_rejected": true
+  },
+  "equilibrium_behavior": {
+    "ambiguous_terminal_guess_probability": 0.6666666666666661,
+    "blind_guess_action_mass": 0,
+    "expected_both_ask_rounds": 1.2222222222222219,
+    "maximum_root_policy_l1_by_private_secret": 1.1102230246251565e-16,
+    "positive_reach_information_sets": 102,
+    "terminal_reach": 0.9999999999999988
+  },
+  "experiment_id": "guess_who_asymmetric_roster_signaling_v1",
+  "frozen_rules": {
+    "automatic_singleton_terminal": false,
+    "both_guess_equal_correctness": "draw",
+    "both_guess_one_correct": "correct_guesser_wins",
+    "correct_unilateral_guess": "immediate_win",
+    "incorrect_unilateral_guess": "immediate_loss",
+    "players": 2,
+    "question_and_answer_reveal": "after_both_round_actions_commit",
+    "question_cost": 0,
+    "repeated_uninformative_questions": "illegal",
+    "round_actions": [
+      "ask_truthful_binary_question",
+      "guess_publicly_feasible_identity"
+    ],
+    "round_timing": "simultaneous_encoded_by_hidden_sequential_nodes",
+    "rules_id": "strategic_guess_who_simultaneous_v1",
+    "secret_selection": "simultaneous_private_encoded_by_hidden_sequential_nodes",
+    "utility": "zero_sum_win_plus_1_draw_0_loss_minus_1"
+  },
+  "passed": false,
+  "preregistration": "configs/guess_who_signaling_preregistration_2026-10-03.json",
+  "primary_endpoint": {
+    "by_player": {
+      "0": 0,
+      "1": 1.1102230246251565e-16
+    },
+    "classification": "zero_result",
+    "name": "maximum_within_seat_root_policy_l1_by_private_secret",
+    "null_result_threshold": 1e-08,
+    "positive_signal_threshold": 1e-06,
+    "reversed_enumeration_value": 5.551115123125783e-17,
+    "scope_warning": "one canonical equilibrium and its reversed enumeration do not characterize every equilibrium when equilibria are nonunique",
+    "value": 1.1102230246251565e-16
+  },
+  "regret_minimization_cross_check": {
+    "cfr_plus": {
+      "algorithm": {
+        "algorithm_id": "cfr_plus",
+        "averaging_rule": "linear_iteration_weighting",
+        "parameters": {},
+        "seed": null,
+        "traversal": "full_tree",
+        "update_schedule": "alternating_players"
+      },
+      "independent_evaluation": {
+        "best_response_player_0": 0.0005068811410387219,
+        "best_response_player_1": 0.0003464305394264844,
+        "evaluator_id": "guess_who_asymmetric_signaling_cfr_v1",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 6.343794958224174e-07,
+        "exploitability": 0.00042665584023260307,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 0.0005062467615428994,
+        "nash_conv": 0.0008533116804652061,
+        "passed": true,
+        "player_0_deviation_gain": 0.0005062467615428994,
+        "player_1_deviation_gain": 0.0003470649189223068,
+        "profile_fingerprint": "c637bbb16cce48c1290fbd70590d5e57734cceb57c9cf8e6e944d2646fd567d2",
+        "action_value_information_sets": 1000
+      },
+      "iterations": 3000
+    },
+    "dcfr": {
+      "algorithm": {
+        "algorithm_id": "dcfr",
+        "averaging_rule": "discounted_iteration_weighting",
+        "parameters": {
+          "alpha": 1.5,
+          "beta": 0,
+          "gamma": 2
+        },
+        "seed": null,
+        "traversal": "full_tree",
+        "update_schedule": "alternating_players"
+      },
+      "independent_evaluation": {
+        "best_response_player_0": 0.00024280462299694494,
+        "best_response_player_1": 0.0003874919353166386,
+        "evaluator_id": "guess_who_asymmetric_signaling_cfr_v1",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": -5.557041052204924e-08,
+        "exploitability": 0.00031514827915679177,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 0.00038743636490611656,
+        "nash_conv": 0.0006302965583135835,
+        "passed": true,
+        "player_0_deviation_gain": 0.00024286019340746698,
+        "player_1_deviation_gain": 0.00038743636490611656,
+        "profile_fingerprint": "7dd06b7c993d48901e63e669f110a9da74d86701367d643bdf3ca33c26b0e2c9",
+        "action_value_information_sets": 1000
+      },
+      "iterations": 3000
+    },
+    "vanilla_cfr": {
+      "algorithm": {
+        "algorithm_id": "vanilla_cfr",
+        "averaging_rule": "uniform_iteration_weighting",
+        "parameters": {},
+        "seed": null,
+        "traversal": "full_tree",
+        "update_schedule": "alternating_players"
+      },
+      "independent_evaluation": {
+        "best_response_player_0": 0.001251067179403965,
+        "best_response_player_1": 0.0009328494853487607,
+        "evaluator_id": "guess_who_asymmetric_signaling_cfr_v1",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 0.00015433897536049423,
+        "exploitability": 0.0010919583323763628,
+        "failures": [
+          "exploitability_above_threshold"
+        ],
+        "maximum_unilateral_deviation_gain": 0.0010967282040434709,
+        "nash_conv": 0.0021839166647527257,
+        "passed": false,
+        "player_0_deviation_gain": 0.0010967282040434709,
+        "player_1_deviation_gain": 0.0010871884607092548,
+        "profile_fingerprint": "b202d8805704a94af14408aef0c79665743ec2b896a8ab12e9562ee983d0d3b6",
+        "action_value_information_sets": 1000
+      },
+      "iterations": 3000
+    }
+  },
+  "runtime_epsilon_gto_allowed": false,
+  "sequence_form": {
+    "backend": "scipy_highs",
+    "independent_evaluation": {
+      "best_response_player_0": 1.3877787807814457e-16,
+      "best_response_player_1": 2.0816681711721685e-16,
+      "evaluator_id": "guess_who_asymmetric_signaling_v1",
+      "evaluator_method": "independent_game_tree_best_response",
+      "expected_value_to_player_0": -1.5419764230904926e-18,
+      "exploitability": 1.734723475976807e-16,
+      "failures": [],
+      "maximum_unilateral_deviation_gain": 2.0662484069412636e-16,
+      "nash_conv": 3.469446951953614e-16,
+      "passed": true,
+      "player_0_deviation_gain": 1.4031985450123506e-16,
+      "player_1_deviation_gain": 2.0662484069412636e-16,
+      "profile_fingerprint": "5d8e1ba2908d87a8e97da757c871f6d0c60ecf511394fd29d943f1007e23acd8",
+      "action_value_information_sets": 1000
+    },
+    "maximum_flow_residual": 3.608224830031759e-16,
+    "payoff_nonzeros": 1244,
+    "payoff_shape": [
+      689,
+      689
+    ],
+    "player_0_sequences": 689,
+    "player_1_sequences": 689,
+    "primal_dual_gap": 0,
+    "value_to_player_0": -0
+  },
+  "target": {
+    "question_ids": [
+      "hair_black",
+      "hair_brown",
+      "glasses",
+      "hat"
+    ],
+    "roster_indices": [
+      0,
+      1,
+      6
+    ],
+    "roster_names": [
+      "Ada",
+      "Bruno",
+      "Hugo"
+    ],
+    "structural_reason": "useful questions isolate the three identities with asymmetric multiplicities 1, 1, and 2"
+  },
+  "tree_audit": {
+    "chance_histories": 0,
+    "decision_histories": 1500,
+    "failures": [],
+    "histories": 3397,
+    "information_sets": 1000,
+    "maximum_depth": 8,
+    "passed": true,
+    "perfect_recall": true,
+    "terminal_histories": 1897
+  },
+  "undertrained_negative_control": {
+    "exploitability": 0.17504676340665776,
+    "iterations": 10,
+    "passed_gate": false
+  }
+}

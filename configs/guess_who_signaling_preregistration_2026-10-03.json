@@ -1,0 +1,36 @@
+{
+  "experiment_id": "guess_who_asymmetric_roster_signaling_v1",
+  "frozen_before_outcome_evaluation": true,
+  "rules_id": "strategic_guess_who_simultaneous_v1",
+  "target": {
+    "roster_indices": [0, 1, 6],
+    "roster_names": ["Ada", "Bruno", "Hugo"],
+    "question_ids": ["hair_black", "hair_brown", "glasses", "hat"],
+    "structural_reason": "useful questions isolate the three identities with asymmetric multiplicities 1, 1, and 2"
+  },
+  "solver": {
+    "primary": "automatically_compiled_sparse_sequence_form_scipy_highs",
+    "independent_evaluator": "full_tree_best_response",
+    "maximum_exploitability": 1e-10,
+    "cfr_cross_check_algorithms": ["vanilla_cfr", "cfr_plus", "dcfr"],
+    "cfr_iterations": 3000,
+    "cfr_maximum_exploitability": 0.001
+  },
+  "primary_endpoint": {
+    "name": "maximum_within_seat_root_policy_l1_by_private_secret",
+    "positive_signal_threshold": 1e-6,
+    "null_result_threshold": 1e-8,
+    "interpretation": "positive only if the independently certified equilibrium opening policy materially depends on the protected private identity"
+  },
+  "secondary_endpoints": [
+    "ambiguous_terminal_guess_probability",
+    "blind_guess_action_mass",
+    "expected_both_ask_rounds",
+    "equilibrium_value"
+  ],
+  "reporting": {
+    "retain_positive_zero_and_ambiguous_results": true,
+    "no_runtime_epsilon_gto_promotion": true,
+    "no_transfer_to_24_character_game": true
+  }
+}

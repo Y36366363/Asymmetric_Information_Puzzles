@@ -1,0 +1,8 @@
+{
+  "algorithm_id": "vanilla_cfr",
+  "exploitability": 0.0006091724441069086,
+  "iterations": 5000,
+  "label": "posthoc_budget_diagnostic_not_preregistered",
+  "passed_original_0_001_threshold": true,
+  "relationship_to_preregistered_result": "diagnostic only; does not change the failed 3000-iteration Vanilla CFR cross-check"
+}

@@ -47,6 +47,7 @@ LIAR_FIXED_POLICY_V2 = (
 GOOFSPIEL_FIXED_POLICY_V2 = (
     ROOT / "research/results/goofspiel_fixed_policy_value_check_v2_2026-09-28/report.json"
 )
+GUESS_SIGNALING = ROOT / "research/results/guess_who_signaling_2026-10-03.json"
 
 
 def report() -> dict[str, object]:
@@ -103,6 +104,7 @@ def report() -> dict[str, object]:
     fixed_v1 = load_optional(LIAR_FIXED_POLICY_V1)
     fixed_v2 = load_optional(LIAR_FIXED_POLICY_V2)
     goof_fixed_v2 = load_optional(GOOFSPIEL_FIXED_POLICY_V2)
+    guess_signaling = load_optional(GUESS_SIGNALING)
 
     games = {
         "one-die-stepwise-liars-dice": {
@@ -194,9 +196,18 @@ def report() -> dict[str, object]:
             "exploitability": guess_report.exploitability,
             "explicitGuessAction": True,
             "incorrectGuessPenalty": "immediate_loss",
+            "frozenRulesId": StrategicGuessWhoGame.RULES_ID,
+            "signalingExperimentStatus": (
+                "not_run" if guess_signaling is None
+                else "valid_zero_result_with_cfr_crosscheck_failure_retained"
+            ),
+            "maximumRootPolicyL1ByPrivateSecret": (
+                None if guess_signaling is None
+                else guess_signaling["primary_endpoint"]["value"]
+            ),
             "runtimeEpsilonGtoAllowed": False,
             "remainingWork": [
-                "freeze signaling and simultaneous-guess conventions before scaling",
+                "preregister a private type-dependent question-cost experiment if signaling remains the target",
                 "do not generalize certificate to the 24-character game",
             ],
         },
@@ -258,9 +269,9 @@ def report() -> dict[str, object]:
             ],
             "notComplete": ["five-die-liars-dice", "love-letter-full-round"],
             "nextPriority": (
-                "freeze strategic Guess Who rule conventions and a Love Letter panel with "
-                "explicit policy-conditioning semantics; continue bounded Love Letter "
-                "full-round audit independently"
+                "use the retained Guess Who zero result to preregister a private-cost "
+                "signaling experiment; freeze a Love Letter panel with explicit policy-"
+                "conditioning semantics; continue bounded full-round audit independently"
             ),
         },
     }

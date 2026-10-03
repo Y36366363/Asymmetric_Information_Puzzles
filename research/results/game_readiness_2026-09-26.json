@@ -8,7 +8,7 @@
       "guess-who-strategic-three-character",
       "love-letter-four-card-subgame"
     ],
-    "nextPriority": "freeze strategic Guess Who rule conventions and a Love Letter panel with explicit policy-conditioning semantics; continue bounded Love Letter full-round audit independently",
+    "nextPriority": "use the retained Guess Who zero result to preregister a private-cost signaling experiment; freeze a Love Letter panel with explicit policy-conditioning semantics; continue bounded full-round audit independently",
     "notComplete": [
       "five-die-liars-dice",
       "love-letter-full-round"
@@ -53,15 +53,18 @@
       "expectedValueToPlayer0": 0.0,
       "explicitGuessAction": true,
       "exploitability": 1.1102230246251565e-16,
+      "frozenRulesId": "strategic_guess_who_simultaneous_v1",
       "histories": 1651,
       "incorrectGuessPenalty": "immediate_loss",
       "independentEvaluator": true,
       "informationSets": 404,
+      "maximumRootPolicyL1ByPrivateSecret": 1.1102230246251565e-16,
       "remainingWork": [
-        "freeze signaling and simultaneous-guess conventions before scaling",
+        "preregister a private type-dependent question-cost experiment if signaling remains the target",
         "do not generalize certificate to the 24-character game"
       ],
       "runtimeEpsilonGtoAllowed": false,
+      "signalingExperimentStatus": "valid_zero_result_with_cfr_crosscheck_failure_retained",
       "solver": "sparse_sequence_form_scipy_highs_plus_full_tree_best_response",
       "status": "complete_certified_research_subgame"
     },
@@ -99,10 +102,10 @@
       "valueDecomposition": "17_positive_reach_43_zero_reach_information_sets"
     },
     "love-letter-full-round": {
-      "frontierNodes": 74,
-      "historiesTraversed": 1411622,
+      "frontierNodes": 70,
+      "historiesTraversed": 1431622,
       "independentEvaluator": false,
-      "informationSetsObserved": 203799,
+      "informationSetsObserved": 206752,
       "maximumDepth": 26,
       "remainingWork": [
         "close resumable structural audit",

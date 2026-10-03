@@ -1,4 +1,6 @@
 import unittest
+import json
+from pathlib import Path
 
 from aip.core import (
     CFRGameProperties,
@@ -116,6 +118,32 @@ class StrategicGuessWhoTests(unittest.TestCase):
         self.assertEqual(self.game.legal_actions(ask), self.game.legal_actions(guess))
         with self.assertRaises(ValueError):
             self.game.next_state(state, ("guess", 99))
+
+    def test_frozen_rules_contract_matches_versioned_configuration(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        frozen = json.loads(
+            (root / "configs/strategic_guess_who_rules_v1.json").read_text()
+        )
+        self.assertEqual(frozen, StrategicGuessWhoGame.rules_contract())
+        self.assertEqual(frozen["rules_id"], StrategicGuessWhoGame.RULES_ID)
+        self.assertFalse(frozen["automatic_singleton_terminal"])
+        self.assertEqual(frozen["question_cost"], 0.0)
+
+    def test_signal_preregistration_is_bound_to_frozen_rules(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        preregistration = json.loads(
+            (root / "configs/guess_who_signaling_preregistration_2026-10-03.json")
+            .read_text()
+        )
+        self.assertTrue(preregistration["frozen_before_outcome_evaluation"])
+        self.assertEqual(preregistration["rules_id"], self.game.RULES_ID)
+        self.assertEqual(
+            preregistration["primary_endpoint"]["name"],
+            "maximum_within_seat_root_policy_l1_by_private_secret",
+        )
+        self.assertEqual(
+            preregistration["solver"]["maximum_exploitability"], 1e-10
+        )
 
 
 if __name__ == "__main__":

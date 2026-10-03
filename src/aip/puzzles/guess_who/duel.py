@@ -305,6 +305,29 @@ class StrategicGuessWhoGame:
     wrong-guess penalty changes the equilibrium.
     """
 
+    RULES_ID = "strategic_guess_who_simultaneous_v1"
+
+    @classmethod
+    def rules_contract(cls) -> dict[str, object]:
+        """Return the frozen semantic contract used by certified artifacts."""
+
+        return {
+            "rules_id": cls.RULES_ID,
+            "players": 2,
+            "utility": "zero_sum_win_plus_1_draw_0_loss_minus_1",
+            "secret_selection": "simultaneous_private_encoded_by_hidden_sequential_nodes",
+            "round_actions": ["ask_truthful_binary_question", "guess_publicly_feasible_identity"],
+            "round_timing": "simultaneous_encoded_by_hidden_sequential_nodes",
+            "question_and_answer_reveal": "after_both_round_actions_commit",
+            "correct_unilateral_guess": "immediate_win",
+            "incorrect_unilateral_guess": "immediate_loss",
+            "both_guess_one_correct": "correct_guesser_wins",
+            "both_guess_equal_correctness": "draw",
+            "automatic_singleton_terminal": False,
+            "question_cost": 0.0,
+            "repeated_uninformative_questions": "illegal",
+        }
+
     def __init__(
         self,
         roster: tuple[Character, ...],

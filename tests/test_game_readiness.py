@@ -23,6 +23,11 @@ def test_readiness_keeps_exact_variants_separate_from_larger_uncertified_games()
     assert guess["informationSets"] == 404
     assert guess["exploitability"] < 1e-10
     assert guess["explicitGuessAction"] is True
+    assert guess["frozenRulesId"] == "strategic_guess_who_simultaneous_v1"
+    assert guess["signalingExperimentStatus"] == (
+        "valid_zero_result_with_cfr_crosscheck_failure_retained"
+    )
+    assert guess["maximumRootPolicyL1ByPrivateSecret"] < 1e-8
     assert guess["runtimeEpsilonGtoAllowed"] is False
 
 

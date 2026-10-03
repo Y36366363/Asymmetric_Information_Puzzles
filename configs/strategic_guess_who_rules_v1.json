@@ -1,0 +1,19 @@
+{
+  "automatic_singleton_terminal": false,
+  "both_guess_equal_correctness": "draw",
+  "both_guess_one_correct": "correct_guesser_wins",
+  "correct_unilateral_guess": "immediate_win",
+  "incorrect_unilateral_guess": "immediate_loss",
+  "players": 2,
+  "question_and_answer_reveal": "after_both_round_actions_commit",
+  "question_cost": 0.0,
+  "repeated_uninformative_questions": "illegal",
+  "round_actions": [
+    "ask_truthful_binary_question",
+    "guess_publicly_feasible_identity"
+  ],
+  "round_timing": "simultaneous_encoded_by_hidden_sequential_nodes",
+  "rules_id": "strategic_guess_who_simultaneous_v1",
+  "secret_selection": "simultaneous_private_encoded_by_hidden_sequential_nodes",
+  "utility": "zero_sum_win_plus_1_draw_0_loss_minus_1"
+}
