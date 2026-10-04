@@ -8,13 +8,13 @@
       "guess-who-strategic-three-character",
       "love-letter-four-card-subgame"
     ],
-    "nextPriority": "use the retained Guess Who zero result to preregister a private-cost signaling experiment; freeze a Love Letter panel with explicit policy-conditioning semantics; continue bounded full-round audit independently",
+    "nextPriority": "interpret the retained Guess Who private-cost zero result before any stronger signaling mechanism; freeze a Love Letter panel with explicit policy-conditioning semantics; continue bounded full-round audit",
     "notComplete": [
       "five-die-liars-dice",
       "love-letter-full-round"
     ]
   },
-  "date": "2026-10-02",
+  "date": "2026-10-04",
   "games": {
     "e-card-single-round": {
       "exploitability": 0.0,
@@ -59,8 +59,11 @@
       "independentEvaluator": true,
       "informationSets": 404,
       "maximumRootPolicyL1ByPrivateSecret": 1.1102230246251565e-16,
+      "privateCostExperimentStatus": "valid_zero_result_all_preregistered_crosschecks_passed",
+      "privateCostMaximumRootPolicyL1": 5.551115123125783e-17,
+      "privateCostRulesId": "strategic_guess_who_private_question_cost_v2",
       "remainingWork": [
-        "preregister a private type-dependent question-cost experiment if signaling remains the target",
+        "retain the private-cost zero result before considering stronger signaling mechanisms",
         "do not generalize certificate to the 24-character game"
       ],
       "runtimeEpsilonGtoAllowed": false,
@@ -102,10 +105,10 @@
       "valueDecomposition": "17_positive_reach_43_zero_reach_information_sets"
     },
     "love-letter-full-round": {
-      "frontierNodes": 70,
-      "historiesTraversed": 1431622,
+      "frontierNodes": 69,
+      "historiesTraversed": 1451622,
       "independentEvaluator": false,
-      "informationSetsObserved": 206752,
+      "informationSetsObserved": 209410,
       "maximumDepth": 26,
       "remainingWork": [
         "close resumable structural audit",

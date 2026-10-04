@@ -1,0 +1,10 @@
+{
+  "base_rules_id": "strategic_guess_who_simultaneous_v1",
+  "cost_schedule_source": "experiment_configuration",
+  "question_cost_range": "finite_nonnegative",
+  "question_cost_timing": "charged_for_every_committed_ask_even_if_same_round_guess_ends_game",
+  "question_cost_visibility": "own_private_identity_schedule_known_to_owner",
+  "rules_id": "strategic_guess_who_private_question_cost_v2",
+  "utility_player_0": "terminal_outcome_minus_player_0_cost_plus_player_1_cost",
+  "zero_sum": true
+}

@@ -28,6 +28,13 @@ def test_readiness_keeps_exact_variants_separate_from_larger_uncertified_games()
         "valid_zero_result_with_cfr_crosscheck_failure_retained"
     )
     assert guess["maximumRootPolicyL1ByPrivateSecret"] < 1e-8
+    assert guess["privateCostExperimentStatus"] == (
+        "valid_zero_result_all_preregistered_crosschecks_passed"
+    )
+    assert guess["privateCostMaximumRootPolicyL1"] < 1e-8
+    assert guess["privateCostRulesId"] == (
+        "strategic_guess_who_private_question_cost_v2"
+    )
     assert guess["runtimeEpsilonGtoAllowed"] is False
 
 

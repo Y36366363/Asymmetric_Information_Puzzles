@@ -7,8 +7,8 @@ final guess costs a round. This is not the adaptive, alternating full game.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from math import isclose
+from dataclasses import dataclass, replace
+from math import isclose, isfinite
 from typing import Hashable
 
 from aip.core.linear_program import maximize_linear_program
@@ -292,6 +292,7 @@ class StrategicGuessState:
     candidates: tuple[int, int] = (0, 0)
     transcript: tuple[tuple[int, bool, int, bool], ...] = ()
     pending_player_0_action: tuple[str, int] | None = None
+    question_costs_paid: tuple[float, float] = (0.0, 0.0)
     utility: float | None = None
 
 
@@ -420,13 +421,15 @@ class StrategicGuessWhoGame:
             raise ValueError(f"illegal strategic Guess Who action: {action!r}")
         if state.stage == "player_0_secret":
             return StrategicGuessState(
-                stage="player_1_secret", secrets=(int(action), None)
+                stage="player_1_secret", secrets=(int(action), None),
+                question_costs_paid=state.question_costs_paid,
             )
         if state.stage == "player_1_secret":
             return StrategicGuessState(
                 stage="player_0_action",
                 secrets=(state.secrets[0], int(action)),
                 candidates=(self._full_mask, self._full_mask),
+                question_costs_paid=state.question_costs_paid,
             )
         chosen = action
         if not isinstance(chosen, tuple) or len(chosen) != 2:
@@ -439,6 +442,7 @@ class StrategicGuessWhoGame:
                 candidates=state.candidates,
                 transcript=state.transcript,
                 pending_player_0_action=round_action,
+                question_costs_paid=state.question_costs_paid,
             )
         if state.stage != "player_1_action" or state.pending_player_0_action is None:
             raise ValueError("strategic Guess Who round is missing player 0's action")
@@ -449,6 +453,7 @@ class StrategicGuessWhoGame:
             return StrategicGuessState(
                 stage="terminal", secrets=state.secrets,
                 candidates=state.candidates, transcript=state.transcript,
+                question_costs_paid=state.question_costs_paid,
                 utility=utility,
             )
         question_zero, question_one = action_zero[1], action_one[1]
@@ -470,7 +475,79 @@ class StrategicGuessWhoGame:
             stage="player_0_action",
             secrets=state.secrets,
             candidates=candidates,
+            question_costs_paid=state.question_costs_paid,
             transcript=state.transcript + (
                 (question_zero, answer_zero, question_one, answer_one),
             ),
         )
+
+
+class PrivateCostStrategicGuessWhoGame(StrategicGuessWhoGame):
+    """Versioned zero-sum variant with private identity-dependent ask costs."""
+
+    RULES_ID = "strategic_guess_who_private_question_cost_v2"
+
+    @classmethod
+    def rules_contract(cls) -> dict[str, object]:
+        return {
+            "rules_id": cls.RULES_ID,
+            "base_rules_id": StrategicGuessWhoGame.RULES_ID,
+            "question_cost_visibility": "own_private_identity_schedule_known_to_owner",
+            "question_cost_timing": "charged_for_every_committed_ask_even_if_same_round_guess_ends_game",
+            "question_cost_range": "finite_nonnegative",
+            "utility_player_0": "terminal_outcome_minus_player_0_cost_plus_player_1_cost",
+            "zero_sum": True,
+            "cost_schedule_source": "experiment_configuration",
+        }
+
+    def __init__(
+        self,
+        roster: tuple[Character, ...],
+        questions: tuple[Question, ...],
+        question_costs: tuple[tuple[float, ...], ...],
+    ) -> None:
+        super().__init__(roster, questions)
+        if (
+            len(question_costs) != len(roster)
+            or any(len(row) != len(questions) for row in question_costs)
+            or any(
+                not isfinite(value) or value < 0
+                for row in question_costs
+                for value in row
+            )
+        ):
+            raise ValueError(
+                "private question costs must be a finite nonnegative roster-by-question matrix"
+            )
+        self.question_costs = tuple(
+            tuple(float(value) for value in row) for row in question_costs
+        )
+
+    def next_state(
+        self, state: StrategicGuessState, action: Hashable
+    ) -> StrategicGuessState:
+        child = super().next_state(state, action)
+        if state.stage != "player_1_action":
+            return child
+        action_zero = state.pending_player_0_action
+        if action_zero is None or state.secrets[0] is None or state.secrets[1] is None:
+            raise ValueError("private-cost round requires both secrets and committed actions")
+        if not isinstance(action, tuple) or len(action) != 2:
+            raise ValueError("private-cost round action must be an ask or guess tuple")
+        action_one = (str(action[0]), int(action[1]))
+        incremental_zero = (
+            self.question_costs[state.secrets[0]][action_zero[1]]
+            if action_zero[0] == "ask" else 0.0
+        )
+        incremental_one = (
+            self.question_costs[state.secrets[1]][action_one[1]]
+            if action_one[0] == "ask" else 0.0
+        )
+        totals = (
+            state.question_costs_paid[0] + incremental_zero,
+            state.question_costs_paid[1] + incremental_one,
+        )
+        utility = child.utility
+        if utility is not None:
+            utility = utility - totals[0] + totals[1]
+        return replace(child, question_costs_paid=totals, utility=utility)

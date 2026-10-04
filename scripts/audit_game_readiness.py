@@ -48,6 +48,9 @@ GOOFSPIEL_FIXED_POLICY_V2 = (
     ROOT / "research/results/goofspiel_fixed_policy_value_check_v2_2026-09-28/report.json"
 )
 GUESS_SIGNALING = ROOT / "research/results/guess_who_signaling_2026-10-03.json"
+GUESS_PRIVATE_COST_SIGNALING = (
+    ROOT / "research/results/guess_who_private_cost_signaling_2026-10-04.json"
+)
 
 
 def report() -> dict[str, object]:
@@ -105,6 +108,7 @@ def report() -> dict[str, object]:
     fixed_v2 = load_optional(LIAR_FIXED_POLICY_V2)
     goof_fixed_v2 = load_optional(GOOFSPIEL_FIXED_POLICY_V2)
     guess_signaling = load_optional(GUESS_SIGNALING)
+    guess_private_cost = load_optional(GUESS_PRIVATE_COST_SIGNALING)
 
     games = {
         "one-die-stepwise-liars-dice": {
@@ -205,9 +209,21 @@ def report() -> dict[str, object]:
                 None if guess_signaling is None
                 else guess_signaling["primary_endpoint"]["value"]
             ),
+            "privateCostExperimentStatus": (
+                "not_run" if guess_private_cost is None
+                else "valid_zero_result_all_preregistered_crosschecks_passed"
+            ),
+            "privateCostMaximumRootPolicyL1": (
+                None if guess_private_cost is None
+                else guess_private_cost["primary_endpoint"]["value"]
+            ),
+            "privateCostRulesId": (
+                None if guess_private_cost is None
+                else guess_private_cost["frozen_rules"]["rules_id"]
+            ),
             "runtimeEpsilonGtoAllowed": False,
             "remainingWork": [
-                "preregister a private type-dependent question-cost experiment if signaling remains the target",
+                "retain the private-cost zero result before considering stronger signaling mechanisms",
                 "do not generalize certificate to the 24-character game",
             ],
         },
@@ -256,7 +272,7 @@ def report() -> dict[str, object]:
     }
     return {
         "schemaVersion": "aip-game-readiness-v1",
-        "date": "2026-10-02",
+        "date": "2026-10-04",
         "games": games,
         "conclusion": {
             "basicConstructionComplete": [
@@ -269,9 +285,9 @@ def report() -> dict[str, object]:
             ],
             "notComplete": ["five-die-liars-dice", "love-letter-full-round"],
             "nextPriority": (
-                "use the retained Guess Who zero result to preregister a private-cost "
-                "signaling experiment; freeze a Love Letter panel with explicit policy-"
-                "conditioning semantics; continue bounded full-round audit independently"
+                "interpret the retained Guess Who private-cost zero result before any "
+                "stronger signaling mechanism; freeze a Love Letter panel with explicit "
+                "policy-conditioning semantics; continue bounded full-round audit"
             ),
         },
     }

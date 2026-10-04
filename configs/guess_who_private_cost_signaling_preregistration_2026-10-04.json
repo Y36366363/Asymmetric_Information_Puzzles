@@ -1,0 +1,52 @@
+{
+  "experiment_id": "guess_who_private_question_cost_signaling_v2",
+  "frozen_before_outcome_evaluation": true,
+  "rules_id": "strategic_guess_who_private_question_cost_v2",
+  "design_basis": "the retained 2026-10-03 zero result showed that public question multiplicity alone did not induce opening-policy dependence",
+  "target": {
+    "roster_indices": [0, 1, 6],
+    "roster_names": ["Ada", "Bruno", "Hugo"],
+    "question_ids": ["hair_black", "hair_brown", "glasses", "hat"]
+  },
+  "private_question_costs": {
+    "units_relative_to_terminal_win": 1.0,
+    "maximum_single_question_cost": 0.02,
+    "matrix_by_roster_and_question_order": [
+      [0.00, 0.02, 0.01, 0.02],
+      [0.02, 0.00, 0.02, 0.01],
+      [0.01, 0.02, 0.00, 0.02]
+    ],
+    "charged_when_same_round_opponent_guess_ends_game": true
+  },
+  "solver": {
+    "primary": "automatically_compiled_sparse_sequence_form_scipy_highs",
+    "independent_evaluator": "full_tree_best_response",
+    "maximum_exploitability": 1e-10,
+    "cfr_cross_check_algorithms": ["vanilla_cfr", "cfr_plus", "dcfr"],
+    "cfr_iterations": 5000,
+    "cfr_maximum_exploitability": 0.001,
+    "budget_basis": "the labeled 2026-10-03 posthoc diagnostic showed Vanilla CFR passed 0.001 at 5000 but not 3000 iterations"
+  },
+  "primary_endpoint": {
+    "name": "maximum_within_seat_root_policy_l1_by_private_secret",
+    "positive_signal_threshold": 1e-6,
+    "null_result_threshold": 1e-8,
+    "interpretation": "positive only when an independently certified canonical equilibrium opening policy materially depends on the protected private identity"
+  },
+  "secondary_endpoints": [
+    "expected_question_cost_by_seat",
+    "ambiguous_terminal_guess_probability",
+    "blind_guess_action_mass",
+    "expected_both_ask_rounds",
+    "equilibrium_value"
+  ],
+  "robustness": {
+    "reverse_roster_and_question_enumeration": true,
+    "retain_nonunique_equilibrium_scope_warning": true
+  },
+  "reporting": {
+    "retain_positive_zero_ambiguous_and_failed_results": true,
+    "no_runtime_epsilon_gto_promotion": true,
+    "no_transfer_to_24_character_game": true
+  }
+}

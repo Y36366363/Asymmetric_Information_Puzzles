@@ -6,6 +6,7 @@ from .duel import (
     DuelAction,
     DuelEquilibrium,
     GuessWhoDuel,
+    PrivateCostStrategicGuessWhoGame,
     StrategicGuessState,
     StrategicGuessWhoGame,
 )
@@ -21,6 +22,7 @@ __all__ = [
     "DuelAction",
     "DuelEquilibrium",
     "GuessWhoDuel",
+    "PrivateCostStrategicGuessWhoGame",
     "StrategicGuessState",
     "StrategicGuessWhoGame",
     "GuessWhoRun",
