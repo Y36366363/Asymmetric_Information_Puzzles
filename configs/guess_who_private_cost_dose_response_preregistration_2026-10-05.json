@@ -1,0 +1,59 @@
+{
+  "experiment_id": "guess_who_private_question_cost_dose_response_v2",
+  "frozen_before_outcome_evaluation": true,
+  "rules_id": "strategic_guess_who_private_question_cost_v2",
+  "design_basis": "the preregistered 2026-10-04 single-dose experiment produced an independently certified zero result at maximum single-question cost 0.02; this experiment fixes an ex-ante dose grid instead of tuning one cost after observing outcomes",
+  "target": {
+    "roster_indices": [0, 1, 6],
+    "roster_names": ["Ada", "Bruno", "Hugo"],
+    "question_ids": ["hair_black", "hair_brown", "glasses", "hat"]
+  },
+  "private_question_cost_shape": {
+    "integer_matrix_by_roster_and_question_order": [
+      [0, 2, 1, 2],
+      [2, 0, 2, 1],
+      [1, 2, 0, 2]
+    ],
+    "unit_cost_levels": [0.0, 0.005, 0.01, 0.02, 0.04, 0.08, 0.16],
+    "maximum_single_question_cost_by_level": [0.0, 0.01, 0.02, 0.04, 0.08, 0.16, 0.32],
+    "units_relative_to_terminal_win": 1.0,
+    "charged_when_same_round_opponent_guess_ends_game": true
+  },
+  "solver": {
+    "primary": "automatically_compiled_sparse_sequence_form_scipy_highs",
+    "independent_evaluator": "full_tree_best_response",
+    "maximum_exploitability": 1e-10,
+    "reverse_roster_and_question_enumeration_at_every_dose": true,
+    "cfr_cross_check_unit_cost": 0.16,
+    "cfr_cross_check_algorithms": ["vanilla_cfr", "cfr_plus", "dcfr"],
+    "cfr_iterations": 5000,
+    "cfr_maximum_exploitability": 0.001,
+    "undertrained_negative_control_iterations": 10
+  },
+  "primary_endpoint": {
+    "name": "maximum_within_seat_root_policy_l1_by_private_secret",
+    "positive_signal_threshold": 1e-6,
+    "null_result_threshold": 1e-8,
+    "primary_summary": "smallest_preregistered_unit_cost_with_positive_signal_or_none_in_grid",
+    "interpretation": "positive only when an independently certified canonical equilibrium opening policy materially depends on the protected private identity"
+  },
+  "secondary_endpoints": [
+    "expected_question_cost_by_seat",
+    "ambiguous_terminal_guess_probability",
+    "blind_guess_action_mass",
+    "expected_both_ask_rounds",
+    "equilibrium_value"
+  ],
+  "robustness": {
+    "retain_nonunique_equilibrium_scope_warning": true,
+    "report_nonmonotonic_dose_response": true,
+    "do_not_select_or_refine_dose_grid_after_outcomes": true
+  },
+  "reporting": {
+    "all_preregistered_levels_are_primary_grid": true,
+    "retain_positive_zero_ambiguous_and_failed_results": true,
+    "no_posthoc_single_cost_replacement": true,
+    "no_runtime_epsilon_gto_promotion": true,
+    "no_transfer_to_24_character_game": true
+  }
+}

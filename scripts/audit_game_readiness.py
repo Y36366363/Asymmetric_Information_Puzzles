@@ -51,6 +51,9 @@ GUESS_SIGNALING = ROOT / "research/results/guess_who_signaling_2026-10-03.json"
 GUESS_PRIVATE_COST_SIGNALING = (
     ROOT / "research/results/guess_who_private_cost_signaling_2026-10-04.json"
 )
+GUESS_PRIVATE_COST_DOSE_RESPONSE = (
+    ROOT / "research/results/guess_who_private_cost_dose_response_2026-10-05.json"
+)
 
 
 def report() -> dict[str, object]:
@@ -109,6 +112,9 @@ def report() -> dict[str, object]:
     goof_fixed_v2 = load_optional(GOOFSPIEL_FIXED_POLICY_V2)
     guess_signaling = load_optional(GUESS_SIGNALING)
     guess_private_cost = load_optional(GUESS_PRIVATE_COST_SIGNALING)
+    guess_private_cost_dose_response = load_optional(
+        GUESS_PRIVATE_COST_DOSE_RESPONSE
+    )
 
     games = {
         "one-die-stepwise-liars-dice": {
@@ -221,9 +227,29 @@ def report() -> dict[str, object]:
                 None if guess_private_cost is None
                 else guess_private_cost["frozen_rules"]["rules_id"]
             ),
+            "privateCostDoseResponseStatus": (
+                "not_run"
+                if guess_private_cost_dose_response is None
+                else "valid_zero_result_none_in_preregistered_grid"
+            ),
+            "privateCostDoseResponseFirstPositiveUnitCost": (
+                None
+                if guess_private_cost_dose_response is None
+                else guess_private_cost_dose_response["primary_endpoint"]
+                ["smallest_preregistered_unit_cost_with_positive_signal"]
+            ),
+            "privateCostDoseResponseMaximumSingleCost": (
+                None
+                if guess_private_cost_dose_response is None
+                else max(
+                    level["maximum_single_question_cost"]
+                    for level in guess_private_cost_dose_response["dose_response"]
+                )
+            ),
             "runtimeEpsilonGtoAllowed": False,
             "remainingWork": [
-                "retain the private-cost zero result before considering stronger signaling mechanisms",
+                "retain the fixed-grid private-cost zero result and pause this cost-shape signaling branch",
+                "use a new rules ID and separate preregistration for any structurally different signaling mechanism",
                 "do not generalize certificate to the 24-character game",
             ],
         },
@@ -272,7 +298,7 @@ def report() -> dict[str, object]:
     }
     return {
         "schemaVersion": "aip-game-readiness-v1",
-        "date": "2026-10-04",
+        "date": "2026-10-05",
         "games": games,
         "conclusion": {
             "basicConstructionComplete": [
@@ -285,8 +311,8 @@ def report() -> dict[str, object]:
             ],
             "notComplete": ["five-die-liars-dice", "love-letter-full-round"],
             "nextPriority": (
-                "interpret the retained Guess Who private-cost zero result before any "
-                "stronger signaling mechanism; freeze a Love Letter panel with explicit "
+                "retain the preregistered Guess Who dose-response zero result and pause "
+                "that cost-shape branch; freeze a Love Letter panel with explicit "
                 "policy-conditioning semantics; continue bounded full-round audit"
             ),
         },

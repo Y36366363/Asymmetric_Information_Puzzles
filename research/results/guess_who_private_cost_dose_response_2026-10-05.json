@@ -1,0 +1,783 @@
+{
+  "checks": {
+    "all_cfr_cross_checks": true,
+    "all_doses_enumeration_invariant": true,
+    "all_doses_exactly_certified": true,
+    "frozen_rules_match": true,
+    "undertrained_negative_control_rejected": true
+  },
+  "dose_response": [
+    {
+      "checks": {
+        "enumeration_invariance": true,
+        "exact_certification": true
+      },
+      "classification": "zero_result",
+      "dose_index": 0,
+      "equilibrium_behavior": {
+        "ambiguous_terminal_guess_probability": 0.6666666666666661,
+        "blind_guess_action_mass": 0.0,
+        "expected_both_ask_rounds": 1.2222222222222219,
+        "expected_question_cost_by_seat": {
+          "player_0": 0.0,
+          "player_1": 0.0
+        },
+        "maximum_root_policy_l1_by_private_secret": 1.1102230246251565e-16,
+        "positive_reach_information_sets": 102,
+        "terminal_reach": 0.9999999999999988
+      },
+      "independent_evaluation": {
+        "action_value_information_sets": 1000,
+        "best_response_player_0": 1.3877787807814457e-16,
+        "best_response_player_1": 2.0816681711721685e-16,
+        "evaluator_id": "guess_who_private_cost_dose_0_v2",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": -1.5419764230904926e-18,
+        "exploitability": 1.734723475976807e-16,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 2.0662484069412636e-16,
+        "nash_conv": 3.469446951953614e-16,
+        "passed": true,
+        "player_0_deviation_gain": 1.4031985450123506e-16,
+        "player_1_deviation_gain": 2.0662484069412636e-16,
+        "profile_fingerprint": "5d8e1ba2908d87a8e97da757c871f6d0c60ecf511394fd29d943f1007e23acd8"
+      },
+      "maximum_single_question_cost": 0.0,
+      "primary_endpoint": 1.1102230246251565e-16,
+      "primary_endpoint_by_player": {
+        "0": 0.0,
+        "1": 1.1102230246251565e-16
+      },
+      "reversed_enumeration_endpoint": 5.551115123125783e-17,
+      "reversed_independent_evaluation": {
+        "action_value_information_sets": 1000,
+        "best_response_player_0": 4.625929269271486e-17,
+        "best_response_player_1": 1.1102230246251565e-16,
+        "evaluator_id": "guess_who_private_cost_dose_0_reversed_v2",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 3.0839528461809894e-18,
+        "exploitability": 7.864079757761525e-17,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 1.1410625530869663e-16,
+        "nash_conv": 1.572815951552305e-16,
+        "passed": true,
+        "player_0_deviation_gain": 4.3175339846533866e-17,
+        "player_1_deviation_gain": 1.1410625530869663e-16,
+        "profile_fingerprint": "b8df21bb25f1443fbb5514a1f1ffd2546c4a8c8cd8d7e6f25fa8359fda3d0769"
+      },
+      "reversed_value_to_player_0": -0.0,
+      "sequence_form": {
+        "backend": "scipy_highs",
+        "maximum_flow_residual": 3.608224830031759e-16,
+        "payoff_nonzeros": 1244,
+        "payoff_shape": [
+          689,
+          689
+        ],
+        "player_0_sequences": 689,
+        "player_1_sequences": 689,
+        "primal_dual_gap": 0.0
+      },
+      "tree_audit": {
+        "chance_histories": 0,
+        "decision_histories": 1500,
+        "failures": [],
+        "histories": 3397,
+        "information_sets": 1000,
+        "maximum_depth": 8,
+        "passed": true,
+        "perfect_recall": true,
+        "terminal_histories": 1897
+      },
+      "unit_cost": 0.0,
+      "value_to_player_0": -0.0
+    },
+    {
+      "checks": {
+        "enumeration_invariance": true,
+        "exact_certification": true
+      },
+      "classification": "zero_result",
+      "dose_index": 1,
+      "equilibrium_behavior": {
+        "ambiguous_terminal_guess_probability": 0.8888888888888888,
+        "blind_guess_action_mass": 0.0,
+        "expected_both_ask_rounds": 1.0,
+        "expected_question_cost_by_seat": {
+          "player_0": 0.005,
+          "player_1": 0.005000000000000001
+        },
+        "maximum_root_policy_l1_by_private_secret": 6.661338147750939e-16,
+        "positive_reach_information_sets": 54,
+        "terminal_reach": 1.0
+      },
+      "independent_evaluation": {
+        "action_value_information_sets": 1000,
+        "best_response_player_0": 9.280770596475918e-17,
+        "best_response_player_1": 2.5153490401663703e-16,
+        "evaluator_id": "guess_who_private_cost_dose_1_v2",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": -3.4694469519536265e-18,
+        "exploitability": 1.721713049906981e-16,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 2.480654570646834e-16,
+        "nash_conv": 3.443426099813962e-16,
+        "passed": true,
+        "player_0_deviation_gain": 9.62771529167128e-17,
+        "player_1_deviation_gain": 2.480654570646834e-16,
+        "profile_fingerprint": "4fc39605c9e652d833141d85bfa4d02bf5712f782fc9e5b353aed5e5d8b5f75e"
+      },
+      "maximum_single_question_cost": 0.01,
+      "primary_endpoint": 6.661338147750939e-16,
+      "primary_endpoint_by_player": {
+        "0": 6.661338147750939e-16,
+        "1": 3.885780586188048e-16
+      },
+      "reversed_enumeration_endpoint": 1.6653345369377348e-16,
+      "reversed_independent_evaluation": {
+        "action_value_information_sets": 1000,
+        "best_response_player_0": 1.1102230246251565e-16,
+        "best_response_player_1": 1.942890293094024e-16,
+        "evaluator_id": "guess_who_private_cost_dose_1_reversed_v2",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": -1.6985834035606272e-18,
+        "exploitability": 1.5265566588595902e-16,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 1.9259044590584176e-16,
+        "nash_conv": 3.0531133177191805e-16,
+        "passed": true,
+        "player_0_deviation_gain": 1.1272088586607629e-16,
+        "player_1_deviation_gain": 1.9259044590584176e-16,
+        "profile_fingerprint": "a5a956794747ff2746d933b143c79b7fd95c6e92f9d8a32174a57d86ade43bf0"
+      },
+      "reversed_value_to_player_0": -0.0,
+      "sequence_form": {
+        "backend": "scipy_highs",
+        "maximum_flow_residual": 2.220446049250313e-16,
+        "payoff_nonzeros": 1662,
+        "payoff_shape": [
+          689,
+          689
+        ],
+        "player_0_sequences": 689,
+        "player_1_sequences": 689,
+        "primal_dual_gap": 0.0
+      },
+      "tree_audit": {
+        "chance_histories": 0,
+        "decision_histories": 1500,
+        "failures": [],
+        "histories": 3397,
+        "information_sets": 1000,
+        "maximum_depth": 8,
+        "passed": true,
+        "perfect_recall": true,
+        "terminal_histories": 1897
+      },
+      "unit_cost": 0.005,
+      "value_to_player_0": -0.0
+    },
+    {
+      "checks": {
+        "enumeration_invariance": true,
+        "exact_certification": true
+      },
+      "classification": "zero_result",
+      "dose_index": 2,
+      "equilibrium_behavior": {
+        "ambiguous_terminal_guess_probability": 0.8888888888888892,
+        "blind_guess_action_mass": 0.0,
+        "expected_both_ask_rounds": 1.0000000000000002,
+        "expected_question_cost_by_seat": {
+          "player_0": 0.01,
+          "player_1": 0.010000000000000002
+        },
+        "maximum_root_policy_l1_by_private_secret": 5.551115123125783e-17,
+        "positive_reach_information_sets": 54,
+        "terminal_reach": 1.0000000000000002
+      },
+      "independent_evaluation": {
+        "action_value_information_sets": 1000,
+        "best_response_player_0": 6.483528991463317e-17,
+        "best_response_player_1": 1.0039712117215771e-16,
+        "evaluator_id": "guess_who_private_cost_dose_2_v2",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": -3.0116727013486247e-18,
+        "exploitability": 8.261620554339544e-17,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 9.738544847080908e-17,
+        "nash_conv": 1.6523241108679088e-16,
+        "passed": true,
+        "player_0_deviation_gain": 6.78469626159818e-17,
+        "player_1_deviation_gain": 9.738544847080908e-17,
+        "profile_fingerprint": "1e7fc250d0fb11a3dc84a825621246a386aa8be28fe6c4f9c6909defdd96ff61"
+      },
+      "maximum_single_question_cost": 0.02,
+      "primary_endpoint": 5.551115123125783e-17,
+      "primary_endpoint_by_player": {
+        "0": 5.551115123125783e-17,
+        "1": 5.551115123125783e-17
+      },
+      "reversed_enumeration_endpoint": 2.7755575615628914e-16,
+      "reversed_independent_evaluation": {
+        "action_value_information_sets": 1000,
+        "best_response_player_0": 1.693523793422358e-16,
+        "best_response_player_1": 9.194034422677078e-17,
+        "evaluator_id": "guess_who_private_cost_dose_2_reversed_v2",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 2.5779918323544167e-18,
+        "exploitability": 1.3064636178450328e-16,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 1.6677438750988137e-16,
+        "nash_conv": 2.6129272356900657e-16,
+        "passed": true,
+        "player_0_deviation_gain": 1.6677438750988137e-16,
+        "player_1_deviation_gain": 9.451833605912519e-17,
+        "profile_fingerprint": "cae34cb55819518a997b9411ed834b6cfc90eb50ad4aa388d24a88653d72737f"
+      },
+      "reversed_value_to_player_0": -0.0,
+      "sequence_form": {
+        "backend": "scipy_highs",
+        "maximum_flow_residual": 8.326672684688674e-17,
+        "payoff_nonzeros": 1662,
+        "payoff_shape": [
+          689,
+          689
+        ],
+        "player_0_sequences": 689,
+        "player_1_sequences": 689,
+        "primal_dual_gap": 0.0
+      },
+      "tree_audit": {
+        "chance_histories": 0,
+        "decision_histories": 1500,
+        "failures": [],
+        "histories": 3397,
+        "information_sets": 1000,
+        "maximum_depth": 8,
+        "passed": true,
+        "perfect_recall": true,
+        "terminal_histories": 1897
+      },
+      "unit_cost": 0.01,
+      "value_to_player_0": -0.0
+    },
+    {
+      "checks": {
+        "enumeration_invariance": true,
+        "exact_certification": true
+      },
+      "classification": "zero_result",
+      "dose_index": 3,
+      "equilibrium_behavior": {
+        "ambiguous_terminal_guess_probability": 0.8888888888888891,
+        "blind_guess_action_mass": 0.0,
+        "expected_both_ask_rounds": 1.0000000000000004,
+        "expected_question_cost_by_seat": {
+          "player_0": 0.020000000000000004,
+          "player_1": 0.02
+        },
+        "maximum_root_policy_l1_by_private_secret": 5.551115123125783e-17,
+        "positive_reach_information_sets": 54,
+        "terminal_reach": 1.0
+      },
+      "independent_evaluation": {
+        "action_value_information_sets": 1000,
+        "best_response_player_0": 7.719519468096792e-17,
+        "best_response_player_1": 6.591949208711867e-17,
+        "evaluator_id": "guess_who_private_cost_dose_3_v2",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 3.1321396094025673e-18,
+        "exploitability": 7.155734338404329e-17,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 7.406305507156534e-17,
+        "nash_conv": 1.4311468676808659e-16,
+        "passed": true,
+        "player_0_deviation_gain": 7.406305507156534e-17,
+        "player_1_deviation_gain": 6.905163169652124e-17,
+        "profile_fingerprint": "e7105d2dd24f7bad697446492c4d3e0ea099e28adf49d7c2a340ad58d345c95d"
+      },
+      "maximum_single_question_cost": 0.04,
+      "primary_endpoint": 5.551115123125783e-17,
+      "primary_endpoint_by_player": {
+        "0": 5.551115123125783e-17,
+        "1": 0.0
+      },
+      "reversed_enumeration_endpoint": 3.3306690738754696e-16,
+      "reversed_independent_evaluation": {
+        "action_value_information_sets": 1000,
+        "best_response_player_0": 1.7867651802561113e-16,
+        "best_response_player_1": 1.448494102440634e-16,
+        "evaluator_id": "guess_who_private_cost_dose_3_reversed_v2",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": -7.276201246458282e-18,
+        "exploitability": 1.6176296413483726e-16,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 1.859527192720694e-16,
+        "nash_conv": 3.235259282696745e-16,
+        "passed": true,
+        "player_0_deviation_gain": 1.859527192720694e-16,
+        "player_1_deviation_gain": 1.3757320899760512e-16,
+        "profile_fingerprint": "455153d91bb5e07006246a7e0a839365dc348b16298d9122e73afd10d6361d7b"
+      },
+      "reversed_value_to_player_0": -0.0,
+      "sequence_form": {
+        "backend": "scipy_highs",
+        "maximum_flow_residual": 1.1102230246251565e-16,
+        "payoff_nonzeros": 1662,
+        "payoff_shape": [
+          689,
+          689
+        ],
+        "player_0_sequences": 689,
+        "player_1_sequences": 689,
+        "primal_dual_gap": 0.0
+      },
+      "tree_audit": {
+        "chance_histories": 0,
+        "decision_histories": 1500,
+        "failures": [],
+        "histories": 3397,
+        "information_sets": 1000,
+        "maximum_depth": 8,
+        "passed": true,
+        "perfect_recall": true,
+        "terminal_histories": 1897
+      },
+      "unit_cost": 0.02,
+      "value_to_player_0": -0.0
+    },
+    {
+      "checks": {
+        "enumeration_invariance": true,
+        "exact_certification": true
+      },
+      "classification": "zero_result",
+      "dose_index": 4,
+      "equilibrium_behavior": {
+        "ambiguous_terminal_guess_probability": 0.8888888888888892,
+        "blind_guess_action_mass": 0.0,
+        "expected_both_ask_rounds": 1.0000000000000002,
+        "expected_question_cost_by_seat": {
+          "player_0": 0.04000000000000001,
+          "player_1": 0.04
+        },
+        "maximum_root_policy_l1_by_private_secret": 5.551115123125783e-17,
+        "positive_reach_information_sets": 54,
+        "terminal_reach": 1.0000000000000002
+      },
+      "independent_evaluation": {
+        "action_value_information_sets": 1000,
+        "best_response_player_0": 5.551115123125783e-17,
+        "best_response_player_1": 9.020562075079397e-17,
+        "evaluator_id": "guess_who_private_cost_dose_4_v2",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": -1.2239437858280804e-17,
+        "exploitability": 7.28583859910259e-17,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 7.796618289251316e-17,
+        "nash_conv": 1.457167719820518e-16,
+        "passed": true,
+        "player_0_deviation_gain": 6.775058908953864e-17,
+        "player_1_deviation_gain": 7.796618289251316e-17,
+        "profile_fingerprint": "a6857dc572f1c89cfe1536bbbd2324bf6768fd035fe7b01ef379a96dc2ee9ef0"
+      },
+      "maximum_single_question_cost": 0.08,
+      "primary_endpoint": 5.551115123125783e-17,
+      "primary_endpoint_by_player": {
+        "0": 5.551115123125783e-17,
+        "1": 0.0
+      },
+      "reversed_enumeration_endpoint": 1.6653345369377348e-16,
+      "reversed_independent_evaluation": {
+        "action_value_information_sets": 1000,
+        "best_response_player_0": 2.0122792321330962e-16,
+        "best_response_player_1": 1.1102230246251565e-16,
+        "evaluator_id": "guess_who_private_cost_dose_4_reversed_v2",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 1.541976423090502e-18,
+        "exploitability": 1.5612511283791264e-16,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 1.9968594679021913e-16,
+        "nash_conv": 3.122502256758253e-16,
+        "passed": true,
+        "player_0_deviation_gain": 1.9968594679021913e-16,
+        "player_1_deviation_gain": 1.1256427888560614e-16,
+        "profile_fingerprint": "471bc1cf632e6a530cb40717e2eb8040c8b126f2acb6660b95553abc03be9b0b"
+      },
+      "reversed_value_to_player_0": -0.0,
+      "sequence_form": {
+        "backend": "scipy_highs",
+        "maximum_flow_residual": 1.1102230246251565e-16,
+        "payoff_nonzeros": 1662,
+        "payoff_shape": [
+          689,
+          689
+        ],
+        "player_0_sequences": 689,
+        "player_1_sequences": 689,
+        "primal_dual_gap": 0.0
+      },
+      "tree_audit": {
+        "chance_histories": 0,
+        "decision_histories": 1500,
+        "failures": [],
+        "histories": 3397,
+        "information_sets": 1000,
+        "maximum_depth": 8,
+        "passed": true,
+        "perfect_recall": true,
+        "terminal_histories": 1897
+      },
+      "unit_cost": 0.04,
+      "value_to_player_0": -0.0
+    },
+    {
+      "checks": {
+        "enumeration_invariance": true,
+        "exact_certification": true
+      },
+      "classification": "zero_result",
+      "dose_index": 5,
+      "equilibrium_behavior": {
+        "ambiguous_terminal_guess_probability": 0.8888888888888888,
+        "blind_guess_action_mass": 0.0,
+        "expected_both_ask_rounds": 1.0000000000000002,
+        "expected_question_cost_by_seat": {
+          "player_0": 0.08000000000000002,
+          "player_1": 0.08
+        },
+        "maximum_root_policy_l1_by_private_secret": 2.7755575615628914e-16,
+        "positive_reach_information_sets": 54,
+        "terminal_reach": 1.0000000000000002
+      },
+      "independent_evaluation": {
+        "action_value_information_sets": 1000,
+        "best_response_player_0": 1.405126015541214e-16,
+        "best_response_player_1": 1.3183898417423734e-16,
+        "evaluator_id": "guess_who_private_cost_dose_5_v2",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 1.5419764230905009e-18,
+        "exploitability": 1.3617579286417936e-16,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 1.389706251310309e-16,
+        "nash_conv": 2.723515857283587e-16,
+        "passed": true,
+        "player_0_deviation_gain": 1.389706251310309e-16,
+        "player_1_deviation_gain": 1.3338096059732783e-16,
+        "profile_fingerprint": "c8e41f5c2e846effa28ece1ee6d50e354049bccd594751970e64ecc63e72f851"
+      },
+      "maximum_single_question_cost": 0.16,
+      "primary_endpoint": 2.7755575615628914e-16,
+      "primary_endpoint_by_player": {
+        "0": 2.7755575615628914e-16,
+        "1": 2.220446049250313e-16
+      },
+      "reversed_enumeration_endpoint": 1.6653345369377348e-16,
+      "reversed_independent_evaluation": {
+        "action_value_information_sets": 1000,
+        "best_response_player_0": 6.938893903907228e-17,
+        "best_response_player_1": 1.1102230246251565e-16,
+        "evaluator_id": "guess_who_private_cost_dose_5_reversed_v2",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 3.083952846180991e-18,
+        "exploitability": 9.020562075079397e-17,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 1.1410625530869663e-16,
+        "nash_conv": 1.8041124150158794e-16,
+        "passed": true,
+        "player_0_deviation_gain": 6.630498619289129e-17,
+        "player_1_deviation_gain": 1.1410625530869663e-16,
+        "profile_fingerprint": "54ef12066333960dd0c101c15e9206e8a8bc9f1c7786a02202cef153c93b5190"
+      },
+      "reversed_value_to_player_0": -0.0,
+      "sequence_form": {
+        "backend": "scipy_highs",
+        "maximum_flow_residual": 1.6653345369377348e-16,
+        "payoff_nonzeros": 1662,
+        "payoff_shape": [
+          689,
+          689
+        ],
+        "player_0_sequences": 689,
+        "player_1_sequences": 689,
+        "primal_dual_gap": 0.0
+      },
+      "tree_audit": {
+        "chance_histories": 0,
+        "decision_histories": 1500,
+        "failures": [],
+        "histories": 3397,
+        "information_sets": 1000,
+        "maximum_depth": 8,
+        "passed": true,
+        "perfect_recall": true,
+        "terminal_histories": 1897
+      },
+      "unit_cost": 0.08,
+      "value_to_player_0": -0.0
+    },
+    {
+      "checks": {
+        "enumeration_invariance": true,
+        "exact_certification": true
+      },
+      "classification": "zero_result",
+      "dose_index": 6,
+      "equilibrium_behavior": {
+        "ambiguous_terminal_guess_probability": 0.8888888888888892,
+        "blind_guess_action_mass": 0.0,
+        "expected_both_ask_rounds": 1.0000000000000004,
+        "expected_question_cost_by_seat": {
+          "player_0": 0.16000000000000003,
+          "player_1": 0.16000000000000003
+        },
+        "maximum_root_policy_l1_by_private_secret": 6.106226635438361e-16,
+        "positive_reach_information_sets": 54,
+        "terminal_reach": 1.0000000000000004
+      },
+      "independent_evaluation": {
+        "action_value_information_sets": 1000,
+        "best_response_player_0": 9.71445146547012e-17,
+        "best_response_player_1": 2.8680761469483207e-16,
+        "evaluator_id": "guess_who_private_cost_dose_6_v2",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 1.5419764230904953e-17,
+        "exploitability": 1.9197606467476664e-16,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 3.02227378925737e-16,
+        "nash_conv": 3.8395212934953327e-16,
+        "passed": true,
+        "player_0_deviation_gain": 8.172475042379625e-17,
+        "player_1_deviation_gain": 3.02227378925737e-16,
+        "profile_fingerprint": "b6ff5ba8f9d7d6415ef8fae01a09de49e5e20d6168b6b3c2f8f58a54c53d9076"
+      },
+      "maximum_single_question_cost": 0.32,
+      "primary_endpoint": 6.106226635438361e-16,
+      "primary_endpoint_by_player": {
+        "0": 6.106226635438361e-16,
+        "1": 0.0
+      },
+      "reversed_enumeration_endpoint": 3.885780586188048e-16,
+      "reversed_independent_evaluation": {
+        "action_value_information_sets": 1000,
+        "best_response_player_0": 1.1796119636642288e-16,
+        "best_response_player_1": 9.71445146547012e-17,
+        "evaluator_id": "guess_who_private_cost_dose_6_reversed_v2",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 1.734723475976807e-17,
+        "exploitability": 1.0755285551056204e-16,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 1.1449174941446927e-16,
+        "nash_conv": 2.1510571102112408e-16,
+        "passed": true,
+        "player_0_deviation_gain": 1.0061396160665481e-16,
+        "player_1_deviation_gain": 1.1449174941446927e-16,
+        "profile_fingerprint": "739ed81e5d7ddf2115588d53913ce96d52ed40b74d659c6292b79f297ee91bd8"
+      },
+      "reversed_value_to_player_0": -0.0,
+      "sequence_form": {
+        "backend": "scipy_highs",
+        "maximum_flow_residual": 1.3877787807814457e-16,
+        "payoff_nonzeros": 1662,
+        "payoff_shape": [
+          689,
+          689
+        ],
+        "player_0_sequences": 689,
+        "player_1_sequences": 689,
+        "primal_dual_gap": 0.0
+      },
+      "tree_audit": {
+        "chance_histories": 0,
+        "decision_histories": 1500,
+        "failures": [],
+        "histories": 3397,
+        "information_sets": 1000,
+        "maximum_depth": 8,
+        "passed": true,
+        "perfect_recall": true,
+        "terminal_histories": 1897
+      },
+      "unit_cost": 0.16,
+      "value_to_player_0": -0.0
+    }
+  ],
+  "experiment_id": "guess_who_private_question_cost_dose_response_v2",
+  "frozen_rules": {
+    "base_rules_id": "strategic_guess_who_simultaneous_v1",
+    "cost_schedule_source": "experiment_configuration",
+    "question_cost_range": "finite_nonnegative",
+    "question_cost_timing": "charged_for_every_committed_ask_even_if_same_round_guess_ends_game",
+    "question_cost_visibility": "own_private_identity_schedule_known_to_owner",
+    "rules_id": "strategic_guess_who_private_question_cost_v2",
+    "utility_player_0": "terminal_outcome_minus_player_0_cost_plus_player_1_cost",
+    "zero_sum": true
+  },
+  "passed": true,
+  "preregistration": "configs/guess_who_private_cost_dose_response_preregistration_2026-10-05.json",
+  "primary_endpoint": {
+    "name": "maximum_within_seat_root_policy_l1_by_private_secret",
+    "null_result_threshold": 1e-08,
+    "positive_signal_threshold": 1e-06,
+    "scope_warning": "canonical and reversed LP solutions do not enumerate every equilibrium when the equilibrium set is nonunique",
+    "smallest_preregistered_unit_cost_with_positive_signal": "none_in_grid"
+  },
+  "private_question_cost_shape": {
+    "charged_when_same_round_opponent_guess_ends_game": true,
+    "integer_matrix_by_roster_and_question_order": [
+      [
+        0,
+        2,
+        1,
+        2
+      ],
+      [
+        2,
+        0,
+        2,
+        1
+      ],
+      [
+        1,
+        2,
+        0,
+        2
+      ]
+    ],
+    "maximum_single_question_cost_by_level": [
+      0.0,
+      0.01,
+      0.02,
+      0.04,
+      0.08,
+      0.16,
+      0.32
+    ],
+    "unit_cost_levels": [
+      0.0,
+      0.005,
+      0.01,
+      0.02,
+      0.04,
+      0.08,
+      0.16
+    ],
+    "units_relative_to_terminal_win": 1.0
+  },
+  "regret_minimization_cross_check": {
+    "algorithms": {
+      "cfr_plus": {
+        "algorithm": {
+          "algorithm_id": "cfr_plus",
+          "averaging_rule": "linear_iteration_weighting",
+          "parameters": {},
+          "seed": null,
+          "traversal": "full_tree",
+          "update_schedule": "alternating_players"
+        },
+        "independent_evaluation": {
+          "action_value_information_sets": 1000,
+          "best_response_player_0": 7.220131286941878e-06,
+          "best_response_player_1": 1.4385237068856305e-05,
+          "evaluator_id": "guess_who_private_cost_dose_response_cfr_v2",
+          "evaluator_method": "independent_game_tree_best_response",
+          "expected_value_to_player_0": 3.2680218411811316e-07,
+          "exploitability": 1.0802684177899091e-05,
+          "failures": [],
+          "maximum_unilateral_deviation_gain": 1.4712039252974419e-05,
+          "nash_conv": 2.1605368355798182e-05,
+          "passed": true,
+          "player_0_deviation_gain": 6.8933291028237646e-06,
+          "player_1_deviation_gain": 1.4712039252974419e-05,
+          "profile_fingerprint": "0fe9c997b4831b6a571c73ffd904a556b873e3af9c168971717f6ac682c23070"
+        },
+        "iterations": 5000
+      },
+      "dcfr": {
+        "algorithm": {
+          "algorithm_id": "dcfr",
+          "averaging_rule": "discounted_iteration_weighting",
+          "parameters": {
+            "alpha": 1.5,
+            "beta": 0.0,
+            "gamma": 2.0
+          },
+          "seed": null,
+          "traversal": "full_tree",
+          "update_schedule": "alternating_players"
+        },
+        "independent_evaluation": {
+          "action_value_information_sets": 1000,
+          "best_response_player_0": 2.1556199781627705e-06,
+          "best_response_player_1": 2.227098437460051e-06,
+          "evaluator_id": "guess_who_private_cost_dose_response_cfr_v2",
+          "evaluator_method": "independent_game_tree_best_response",
+          "expected_value_to_player_0": -2.758352564830416e-10,
+          "exploitability": 2.191359207811411e-06,
+          "failures": [],
+          "maximum_unilateral_deviation_gain": 2.226822602203568e-06,
+          "nash_conv": 4.382718415622822e-06,
+          "passed": true,
+          "player_0_deviation_gain": 2.1558958134192537e-06,
+          "player_1_deviation_gain": 2.226822602203568e-06,
+          "profile_fingerprint": "97082f8814b651c7e57f46b11b0fdc9f3adcc2bd3c2011e73a730db12e31c19d"
+        },
+        "iterations": 5000
+      },
+      "vanilla_cfr": {
+        "algorithm": {
+          "algorithm_id": "vanilla_cfr",
+          "averaging_rule": "uniform_iteration_weighting",
+          "parameters": {},
+          "seed": null,
+          "traversal": "full_tree",
+          "update_schedule": "alternating_players"
+        },
+        "independent_evaluation": {
+          "action_value_information_sets": 1000,
+          "best_response_player_0": 0.0005987472763158003,
+          "best_response_player_1": 0.00042913509880813244,
+          "evaluator_id": "guess_who_private_cost_dose_response_cfr_v2",
+          "evaluator_method": "independent_game_tree_best_response",
+          "expected_value_to_player_0": 0.00012322856073589112,
+          "exploitability": 0.0005139411875619664,
+          "failures": [],
+          "maximum_unilateral_deviation_gain": 0.0005523636595440235,
+          "nash_conv": 0.0010278823751239327,
+          "passed": true,
+          "player_0_deviation_gain": 0.00047551871557990915,
+          "player_1_deviation_gain": 0.0005523636595440235,
+          "profile_fingerprint": "e05ce055a81fa80d8263a1fc5574c1b68780efbad01f8d32cf3d1734d75f1228"
+        },
+        "iterations": 5000
+      }
+    },
+    "unit_cost": 0.16
+  },
+  "runtime_epsilon_gto_allowed": false,
+  "target": {
+    "question_ids": [
+      "hair_black",
+      "hair_brown",
+      "glasses",
+      "hat"
+    ],
+    "roster_indices": [
+      0,
+      1,
+      6
+    ],
+    "roster_names": [
+      "Ada",
+      "Bruno",
+      "Hugo"
+    ]
+  },
+  "undertrained_negative_control": {
+    "exploitability": 0.13007323358167375,
+    "iterations": 10,
+    "passed_gate": false,
+    "unit_cost": 0.16
+  }
+}

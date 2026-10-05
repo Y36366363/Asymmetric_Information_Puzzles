@@ -1,0 +1,104 @@
+# Preregistered private-cost dose response — 2026-10-05
+
+## Why this experiment was run
+
+The 2026-10-04 experiment tested one identity-dependent question-cost matrix
+with a maximum single cost of 0.02 and found no opening-policy signal. Replacing
+that number after seeing the result would make the boundary claim post hoc.
+This update therefore froze the entire dose grid, endpoint, thresholds,
+certification gates and cross-check budget before solving any new equilibrium.
+
+The frozen rule remains `strategic_guess_who_private_question_cost_v2`. The
+three protected identities are Ada, Bruno and Hugo; the four questions are
+black hair, brown hair, glasses and hat. The integer cost shape is:
+
+| Protected identity | black hair | brown hair | glasses | hat |
+|---|---:|---:|---:|---:|
+| Ada | 0 | 2 | 1 | 2 |
+| Bruno | 2 | 0 | 2 | 1 |
+| Hugo | 1 | 2 | 0 | 2 |
+
+The seven preregistered unit costs were `0`, `0.005`, `0.01`, `0.02`, `0.04`,
+`0.08` and `0.16`. Thus the maximum single-question costs were `0`, `0.01`,
+`0.02`, `0.04`, `0.08`, `0.16` and `0.32` relative to a terminal win of one.
+No level was inserted, removed or replaced after observing results.
+
+## Primary result
+
+No tested dose crossed the positive-signal threshold. The primary endpoint was
+the maximum within-seat L1 distance between opening policies conditional on
+the protected private identity. The positive threshold was `1e-6` and the
+zero-result threshold was `1e-8`.
+
+| Unit cost | Maximum single cost | Canonical L1 | Reversed L1 | Result |
+|---:|---:|---:|---:|---|
+| 0 | 0 | 1.11e-16 | 5.55e-17 | zero |
+| 0.005 | 0.01 | 6.66e-16 | 1.67e-16 | zero |
+| 0.01 | 0.02 | 5.55e-17 | 2.78e-16 | zero |
+| 0.02 | 0.04 | 5.55e-17 | 3.33e-16 | zero |
+| 0.04 | 0.08 | 5.55e-17 | 1.67e-16 | zero |
+| 0.08 | 0.16 | 2.78e-16 | 1.67e-16 | zero |
+| 0.16 | 0.32 | 6.11e-16 | 3.89e-16 | zero |
+
+The preregistered boundary summary is therefore `none_in_grid`. Every value in
+the table is numerical noise far below the zero-result threshold. The exact
+game value remains zero at every dose.
+
+## Certification and method comparison
+
+Every dose was solved by automatically compiled sparse sequence form with the
+SciPy/HiGHS backend. Each canonical policy and each reversed roster/question
+enumeration policy then passed an independent full-tree best-response gate at
+exploitability `1e-10`. Observed exact exploitabilities were approximately
+`7e-17` to `2e-16`; sequence-flow residuals and primal-dual gaps also passed.
+
+The regret-minimization budget was fixed in advance at the highest dose only:
+
+| Algorithm, 5,000 iterations | Independent exploitability | 0.001 gate |
+|---|---:|---|
+| Vanilla CFR | 0.000513941 | pass |
+| CFR+ | 0.0000108027 | pass |
+| DCFR (1.5, 0, 2) | 0.00000219136 | pass |
+
+The ten-iteration Vanilla CFR negative control has exploitability about
+`0.130073` and fails as required. Training regret was not used as a certificate.
+
+## What changed despite the zero signal
+
+Moving from zero cost to the first positive cost changes the canonical
+equilibrium's timing: expected both-ask rounds fall from about `1.2222` to
+`1.0`, ambiguous terminal guessing rises from about `0.6667` to `0.8889`, and
+positive-reach information sets fall from 102 to 54. The expected paid cost per
+seat equals the unit cost at every positive dose. The opening policy still
+pools across private identities.
+
+This cleanly separates two claims: private costs affect equilibrium behavior,
+but this fixed cost shape does not create the preregistered identity-dependent
+opening signal anywhere in the grid.
+
+## Scope and next decision
+
+This result does not prove that all private-cost mechanisms or all equilibria
+must pool. A canonical LP solution and its reversed enumeration do not exhaust
+a nonunique equilibrium polytope. It does, however, reject the planned claim
+for this rule, roster, question set, cost shape and fixed range up to 32% of a
+terminal win. The grid must not now be silently extended and presented as the
+same preregistered experiment.
+
+The signaling branch should therefore pause at this boundary. A later signal
+experiment should change a structural ingredient under a new rules ID—for
+example an asymmetric roster or identity-dependent defensive effectiveness—
+and preregister it separately. The current three-character result remains a
+research subgame only and does not authorize an ε-GTO runtime label or transfer
+to the full 24-character game.
+
+As a separate bounded maintenance check, the full-round Love Letter structural
+audit advanced to 1,471,622 histories, 661,568 terminals and 212,557 observed
+information sets. It still has 74 frontier nodes, no structural failures and
+`complete=false`; full-round Love Letter therefore remains uncertified.
+
+The machine-readable design is
+`configs/guess_who_private_cost_dose_response_preregistration_2026-10-05.json`.
+The result artifact is
+`research/results/guess_who_private_cost_dose_response_2026-10-05.json`,
+generated by `scripts/audit_guess_who_private_cost_dose_response.py`.
