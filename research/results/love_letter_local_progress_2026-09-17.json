@@ -2,38 +2,38 @@
   "checkpoint_path": "research/local_checkpoints/love_letter_full_round_v2.sqlite",
   "chunks": [
     {
-      "chance_histories": 387093,
+      "chance_histories": 392607,
       "complete": false,
-      "decision_histories": 417544,
+      "decision_histories": 422820,
       "equilibrium_certified": false,
       "failures": [],
       "frontier_nodes": 71,
-      "histories": 1461622,
-      "information_sets": 211125,
+      "histories": 1481622,
+      "information_sets": 213523,
       "maximum_depth": 26,
       "revision": "dee5a084635f24d786ac04e47dc72b2458e20b384e7b85d6ccf2eb866d659156",
       "status": "paused",
       "structural_audit_passed": false,
-      "terminal_histories": 656985
+      "terminal_histories": 666195
     },
     {
-      "chance_histories": 389837,
+      "chance_histories": 395357,
       "complete": false,
-      "decision_histories": 420217,
+      "decision_histories": 425406,
       "equilibrium_certified": false,
       "failures": [],
-      "frontier_nodes": 74,
-      "histories": 1471622,
-      "information_sets": 212557,
+      "frontier_nodes": 77,
+      "histories": 1491622,
+      "information_sets": 214487,
       "maximum_depth": 26,
       "revision": "dee5a084635f24d786ac04e47dc72b2458e20b384e7b85d6ccf2eb866d659156",
       "status": "paused",
       "structural_audit_passed": false,
-      "terminal_histories": 661568
+      "terminal_histories": 670859
     }
   ],
   "full_round_certified": false,
   "subgame_exploitability": 0.0,
   "subgame_value": 0.16666666666666663,
-  "updated_date": "2026-10-05"
+  "updated_date": "2026-10-06"
 }

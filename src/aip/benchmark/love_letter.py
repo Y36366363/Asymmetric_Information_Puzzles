@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 from dataclasses import dataclass
-from math import fsum
+from math import fsum, isfinite
 from typing import Hashable, Mapping
 
 from aip.benchmark.value_decomposition import (
@@ -12,7 +12,11 @@ from aip.benchmark.value_decomposition import (
     ValueDecomposition,
 )
 from aip.core.evaluation import StrategyProfile
-from aip.puzzles.love_letter import LoveLetterCFRGame, LoveLetterIndependentEvaluator
+from aip.puzzles.love_letter import (
+    LoveLetterCFRGame,
+    LoveLetterIndependentEvaluator,
+    complete_information_set_actions,
+)
 from aip.puzzles.love_letter.solver import Play
 
 
@@ -22,6 +26,57 @@ def love_letter_action_id(action: Play) -> str:
         action.target or "none",
         str(action.guess) if action.guess is not None else "none",
     ))
+
+
+def build_private_hand_full_support_policy(
+    game: LoveLetterCFRGame,
+    *,
+    floor: float = 1.0,
+    kept_card_coefficient: float = 0.75,
+    played_card_coefficient: float = 0.05,
+    guard_guess_coefficient: float = 0.02,
+) -> StrategyProfile:
+    """Build the frozen experimental likelihood policy used for belief checks.
+
+    The policy is deliberately not an equilibrium candidate. Its strictly
+    positive weights make every legal action reachable, while dependence on
+    the privately observed hand creates an auditable policy likelihood.
+    """
+
+    parameters = (
+        floor,
+        kept_card_coefficient,
+        played_card_coefficient,
+        guard_guess_coefficient,
+    )
+    if any(not isfinite(value) or value < 0 for value in parameters) or floor <= 0:
+        raise ValueError("fixed-policy parameters must be finite and nonnegative with positive floor")
+    profile = {}
+    for key, actions in complete_information_set_actions(game).items():
+        _, information_set = key
+        private_hand = list(information_set[2])
+        weights = {}
+        for action in actions:
+            remaining = list(private_hand)
+            try:
+                remaining.remove(action.card)
+            except ValueError as error:
+                raise ValueError("legal action card is absent from private hand") from error
+            kept_card = max(remaining, default=0)
+            weight = (
+                floor
+                + kept_card_coefficient * kept_card
+                + played_card_coefficient * action.card
+                + guard_guess_coefficient * (action.guess or 0)
+            )
+            if not isfinite(weight) or weight <= 0:
+                raise ValueError("fixed policy must assign positive finite weight")
+            weights[action] = weight
+        normalizer = fsum(weights.values())
+        profile[key] = {
+            action: weight / normalizer for action, weight in weights.items()
+        }
+    return profile
 
 
 @dataclass(frozen=True, slots=True)

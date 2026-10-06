@@ -57,6 +57,12 @@ def test_love_letter_subgame_pass_does_not_promote_incomplete_full_round():
     assert prior["positiveReachInformationSets"] == 17
     assert prior["zeroReachInformationSets"] == 43
     assert prior["usesUniformActionBaseline"] is False
+    assert subgame["structuredExperimentStatus"] == (
+        "valid_zero_result_current_hand_policy_not_identifying_hidden_history"
+    )
+    assert subgame["fixedPolicyPositiveReachInformationSets"] == 60
+    assert subgame["fixedPolicyMaximumPosteriorL1Shift"] == 0
+    assert subgame["fixedPolicyExploitability"] > 0.001
 
 
 def test_redefined_liar_gate_and_identical_goofspiel_protocol_pass():

@@ -54,6 +54,9 @@ GUESS_PRIVATE_COST_SIGNALING = (
 GUESS_PRIVATE_COST_DOSE_RESPONSE = (
     ROOT / "research/results/guess_who_private_cost_dose_response_2026-10-05.json"
 )
+LOVE_FIXED_POLICY_CONDITIONING = (
+    ROOT / "research/results/love_letter_fixed_policy_conditioning_2026-10-06.json"
+)
 
 
 def report() -> dict[str, object]:
@@ -115,6 +118,7 @@ def report() -> dict[str, object]:
     guess_private_cost_dose_response = load_optional(
         GUESS_PRIVATE_COST_DOSE_RESPONSE
     )
+    love_fixed_policy = load_optional(LOVE_FIXED_POLICY_CONDITIONING)
 
     games = {
         "one-die-stepwise-liars-dice": {
@@ -271,9 +275,32 @@ def report() -> dict[str, object]:
                 "usesUniformActionBaseline": False,
                 "policyConditioningShiftOnPositiveReachPanel": False,
             },
-            "structuredExperimentStatus": "ready_for_fixed_policy_panel_design",
+            "structuredExperimentStatus": (
+                "not_run"
+                if love_fixed_policy is None
+                else "valid_zero_result_current_hand_policy_not_identifying_hidden_history"
+            ),
+            "fixedPolicyPositiveReachInformationSets": (
+                None
+                if love_fixed_policy is None
+                else love_fixed_policy["fixed_policy_panel"]
+                ["positive_reach_information_sets"]
+            ),
+            "fixedPolicyMaximumPosteriorL1Shift": (
+                None
+                if love_fixed_policy is None
+                else love_fixed_policy["primary_result"]
+                ["maximum_posterior_l1_shift"]
+            ),
+            "fixedPolicyExploitability": (
+                None
+                if love_fixed_policy is None
+                else love_fixed_policy["fixed_policy"]
+                ["independent_evaluation"]["exploitability"]
+            ),
             "remainingWork": [
-                "decide whether to retain the equilibrium panel with no belief shift or preregister a fixed non-equilibrium policy",
+                "retain the current-hand fixed-policy zero result",
+                "separately preregister either a private-history-sensitive policy or a collapsed identifiable posterior target",
                 "do not generalize certificate to full round",
             ],
         },
@@ -298,7 +325,7 @@ def report() -> dict[str, object]:
     }
     return {
         "schemaVersion": "aip-game-readiness-v1",
-        "date": "2026-10-05",
+        "date": "2026-10-06",
         "games": games,
         "conclusion": {
             "basicConstructionComplete": [
@@ -312,8 +339,9 @@ def report() -> dict[str, object]:
             "notComplete": ["five-die-liars-dice", "love-letter-full-round"],
             "nextPriority": (
                 "retain the preregistered Guess Who dose-response zero result and pause "
-                "that cost-shape branch; freeze a Love Letter panel with explicit "
-                "policy-conditioning semantics; continue bounded full-round audit"
+                "that cost-shape branch; resolve the Love Letter hidden-history "
+                "identifiability choice before another manipulation; continue bounded "
+                "full-round audit"
             ),
         },
     }

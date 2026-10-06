@@ -8,13 +8,13 @@
       "guess-who-strategic-three-character",
       "love-letter-four-card-subgame"
     ],
-    "nextPriority": "retain the preregistered Guess Who dose-response zero result and pause that cost-shape branch; freeze a Love Letter panel with explicit policy-conditioning semantics; continue bounded full-round audit",
+    "nextPriority": "retain the preregistered Guess Who dose-response zero result and pause that cost-shape branch; resolve the Love Letter hidden-history identifiability choice before another manipulation; continue bounded full-round audit",
     "notComplete": [
       "five-die-liars-dice",
       "love-letter-full-round"
     ]
   },
-  "date": "2026-10-05",
+  "date": "2026-10-06",
   "games": {
     "e-card-single-round": {
       "exploitability": 0.0,
@@ -95,24 +95,28 @@
       },
       "expectedValueToPlayer0": 0.16666666666666666,
       "exploitability": 0.0,
+      "fixedPolicyExploitability": 0.3583185203917138,
+      "fixedPolicyMaximumPosteriorL1Shift": 0.0,
+      "fixedPolicyPositiveReachInformationSets": 60,
       "histories": 1081,
       "independentEvaluator": true,
       "informationSets": 60,
       "remainingWork": [
-        "decide whether to retain the equilibrium panel with no belief shift or preregister a fixed non-equilibrium policy",
+        "retain the current-hand fixed-policy zero result",
+        "separately preregister either a private-history-sensitive policy or a collapsed identifiable posterior target",
         "do not generalize certificate to full round"
       ],
       "runtimeFullRoundAllowed": false,
       "solver": "sparse_sequence_form_scipy_highs",
       "status": "complete_certified_research_subgame",
-      "structuredExperimentStatus": "ready_for_fixed_policy_panel_design",
+      "structuredExperimentStatus": "valid_zero_result_current_hand_policy_not_identifying_hidden_history",
       "valueDecomposition": "17_positive_reach_43_zero_reach_information_sets"
     },
     "love-letter-full-round": {
-      "frontierNodes": 74,
-      "historiesTraversed": 1471622,
+      "frontierNodes": 77,
+      "historiesTraversed": 1491622,
       "independentEvaluator": false,
-      "informationSetsObserved": 212557,
+      "informationSetsObserved": 214487,
       "maximumDepth": 26,
       "remainingWork": [
         "close resumable structural audit",
