@@ -1,0 +1,50 @@
+{
+  "experiment_id": "love_letter_four_card_collapsed_posterior_v1",
+  "frozen_before_outcome_evaluation": true,
+  "scope": "certified_four_card_late_round_subgame_only",
+  "source_experiment": "love_letter_four_card_fixed_policy_conditioning_v1",
+  "posterior_target": {
+    "target_id": "love_letter_strategic_hidden_state_v1",
+    "retained_fields": [
+      "remaining_card_counts",
+      "burn_card",
+      "opponent_current_hand"
+    ],
+    "removed_fields": ["opponent_private_acquisition_history"],
+    "equivalence_rule": "hidden worlds differing only in whether an opponent card was initially dealt or later drawn are merged"
+  },
+  "fixed_policy": {
+    "policy_id": "love_letter_private_hand_full_support_v1",
+    "reuse_without_parameter_changes": true,
+    "floor": 1.0,
+    "kept_card_coefficient": 0.75,
+    "played_card_coefficient": 0.05,
+    "guard_guess_coefficient": 0.02
+  },
+  "primary_endpoints": {
+    "information_sets_with_nontrivial_support_after_observed_opponent_action": {
+      "nontrivial_support_minimum": 2,
+      "predicted_value": 0
+    },
+    "maximum_posterior_l1_shift": {
+      "positive_threshold": 1e-6
+    }
+  },
+  "mechanical_gates": {
+    "expected_total_information_sets": 60,
+    "expected_zero_reach_information_sets_under_full_support": 0,
+    "maximum_bayes_reconstruction_error": 1e-12,
+    "maximum_value_reconstruction_error": 1e-12,
+    "maximum_additivity_residual": 1e-12
+  },
+  "decision_rule": {
+    "if_no_nontrivial_post_action_support": "retire_four_card_subgame_as_belief_update_target_and_retain_it_as_exact_value_decomposition_control",
+    "if_nontrivial_post_action_support_exists": "retain_only_those_information_sets_for_a_separately_preregistered_manipulation_check"
+  },
+  "reporting": {
+    "do_not_replace_target_after_outcomes": true,
+    "fixed_policy_must_not_be_labeled_gto": true,
+    "no_full_round_generalization": true,
+    "no_runtime_epsilon_gto_promotion": true
+  }
+}

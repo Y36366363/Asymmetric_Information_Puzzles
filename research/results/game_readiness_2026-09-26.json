@@ -8,13 +8,13 @@
       "guess-who-strategic-three-character",
       "love-letter-four-card-subgame"
     ],
-    "nextPriority": "retain the preregistered Guess Who dose-response zero result and pause that cost-shape branch; resolve the Love Letter hidden-history identifiability choice before another manipulation; continue bounded full-round audit",
+    "nextPriority": "retain the preregistered Guess Who dose-response zero result and pause that cost-shape branch; implement and structurally audit the separate five-die stepwise Liar adapter; continue bounded full-round Love Letter audit while retiring the four-card belief-update panel",
     "notComplete": [
       "five-die-liars-dice",
       "love-letter-full-round"
     ]
   },
-  "date": "2026-10-06",
+  "date": "2026-10-07",
   "games": {
     "e-card-single-round": {
       "exploitability": 0.0,
@@ -27,13 +27,18 @@
     },
     "five-die-liars-dice": {
       "independentEvaluator": false,
+      "liveArbitraryRaisePublicHistories": 1152921504606846975,
       "remainingWork": [
-        "freeze exact rules and action abstraction",
-        "build scalable candidate and independent best response"
+        "implement the separately scoped five-die stepwise adapter",
+        "run resumable structural audit before MCCFR training",
+        "build complete histogram-state best response before any promotion"
       ],
       "runtimeEpsilonGtoAllowed": false,
       "solver": "transparent_probability_heuristic",
       "status": "heuristic_only_not_gto",
+      "stepwiseCandidateEstimatedHistories": 43881265,
+      "stepwiseCandidateRulesId": "five_die_liar_two_player_stepwise_v1",
+      "stepwiseCandidateStatus": "frozen_contract_feasibility_passed_adapter_not_implemented",
       "valueDecomposition": "not_applicable_to_current_heuristic_rules"
     },
     "goofspiel-four-card": {
@@ -85,6 +90,10 @@
       "status": "complete_exact_reference"
     },
     "love-letter-four-card-subgame": {
+      "collapsedPosteriorSupportSizeCounts": {
+        "1": 48,
+        "2": 12
+      },
       "combinatorialPrior": {
         "methodId": "love_letter_chance_reach_combinatorial_prior_v1",
         "policyConditioningShiftOnPositiveReachPanel": false,
@@ -101,22 +110,23 @@
       "histories": 1081,
       "independentEvaluator": true,
       "informationSets": 60,
+      "postActionNontrivialHiddenStateInformationSets": 0,
       "remainingWork": [
         "retain the current-hand fixed-policy zero result",
-        "separately preregister either a private-history-sensitive policy or a collapsed identifiable posterior target",
+        "retain the collapsed-target stopping result and use this subgame only as an exact value-decomposition control",
         "do not generalize certificate to full round"
       ],
       "runtimeFullRoundAllowed": false,
       "solver": "sparse_sequence_form_scipy_highs",
       "status": "complete_certified_research_subgame",
-      "structuredExperimentStatus": "valid_zero_result_current_hand_policy_not_identifying_hidden_history",
+      "structuredExperimentStatus": "retired_as_belief_update_target_no_identifiable_post_action_hidden_state",
       "valueDecomposition": "17_positive_reach_43_zero_reach_information_sets"
     },
     "love-letter-full-round": {
-      "frontierNodes": 77,
-      "historiesTraversed": 1491622,
+      "frontierNodes": 71,
+      "historiesTraversed": 1541622,
       "independentEvaluator": false,
-      "informationSetsObserved": 214487,
+      "informationSetsObserved": 220373,
       "maximumDepth": 26,
       "remainingWork": [
         "close resumable structural audit",

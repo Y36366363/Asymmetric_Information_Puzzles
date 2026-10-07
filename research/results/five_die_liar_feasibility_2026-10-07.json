@@ -1,0 +1,48 @@
+{
+  "checks": {
+    "complete_bid_ladder": true,
+    "independent_gate_required": true,
+    "lossless_private_histograms": true,
+    "runtime_boundary_is_fail_closed": true,
+    "stepwise_reduction_is_material": true,
+    "two_player_zero_sum": true
+  },
+  "decision": {
+    "live_mode": "retain_heuristic_and_do_not_claim_gto",
+    "new_stepwise_variant": "continue_as_separately_scoped_adapter",
+    "reason": "the stepwise contract reduces the public history family from exponential subsets to 345 chains while preserving all 252 private five-die histograms"
+  },
+  "live_arbitrary_raise_mode": {
+    "bid_ladder_size": 60,
+    "full_tree_route": "reject_as_intractable_for_current_tabular_exact_pipeline",
+    "information_set_lower_bound_from_private_histogram_and_public_history": 290536219160925437700,
+    "nonempty_public_bid_histories": 1152921504606846975
+  },
+  "passed": true,
+  "rules_contract": "configs/five_die_liar_stepwise_rules_v1.json",
+  "rules_id": "five_die_liar_two_player_stepwise_v1",
+  "stepwise_candidate": {
+    "allowed_opening_positions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "bid_ladder_size": 60,
+    "estimated_complete_histories_with_histogram_chance": 43881265,
+    "information_sets_including_preopening": 87192,
+    "joint_histogram_chance_outcomes": 63504,
+    "next_milestone": "implement_adapter_then_run_bounded_resumable_structural_audit_before_training",
+    "private_hand_histograms_per_player": 252,
+    "public_bid_histories": 345,
+    "solver_route": {
+      "candidate": "external_sampling_mccfr_with_fixed_seed_and_budget",
+      "exact_sequence_form": "attempt_only_after_sparse_size_measurement",
+      "independent_evaluator": "complete_best_response_over_histogram_chance_states",
+      "promotion_requires_independent_exploitability": true,
+      "structural_baseline": "resumable_complete_tree_audit"
+    }
+  }
+}

@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections import defaultdict
 from dataclasses import dataclass
 from math import fsum, isfinite
-from typing import Hashable, Mapping
+from typing import Callable, Hashable, Mapping
 
 from aip.benchmark.value_decomposition import (
     ConditionedValueDecomposition,
@@ -15,6 +15,7 @@ from aip.core.evaluation import StrategyProfile
 from aip.puzzles.love_letter import (
     LoveLetterCFRGame,
     LoveLetterIndependentEvaluator,
+    LoveLetterState,
     complete_information_set_actions,
 )
 from aip.puzzles.love_letter.solver import Play
@@ -79,6 +80,17 @@ def build_private_hand_full_support_policy(
     return profile
 
 
+def love_letter_strategic_hidden_state(
+    game: LoveLetterCFRGame, state: LoveLetterState, player: int
+) -> Hashable:
+    """Collapse hidden worlds that differ only by private acquisition order."""
+
+    remaining, burn, opponent_hand, _opponent_private_history = game.hidden_world(
+        state, player
+    )
+    return remaining, burn, opponent_hand
+
+
 @dataclass(frozen=True, slots=True)
 class LoveLetterDecompositionPanel:
     decompositions: Mapping[tuple[int, Hashable], ValueDecomposition]
@@ -121,9 +133,22 @@ class LoveLetterValueDecompositionOracle:
 
     oracle_id = "love_letter_four_card_value_decomposition_v1"
 
-    def __init__(self, game: LoveLetterCFRGame | None = None) -> None:
+    def __init__(
+        self,
+        game: LoveLetterCFRGame | None = None,
+        *,
+        hidden_world_projector: Callable[
+            [LoveLetterCFRGame, LoveLetterState, int], Hashable
+        ]
+        | None = None,
+        prior_method_id: str = "love_letter_chance_reach_combinatorial_prior_v1",
+        posterior_target: str = "love_letter_hidden_world",
+    ) -> None:
         self.game = game or LoveLetterCFRGame.late_round_subgame()
         self.evaluator = LoveLetterIndependentEvaluator(self.game)
+        self.hidden_world_projector = hidden_world_projector
+        self.prior_method_id = prior_method_id
+        self.posterior_target = posterior_target
 
     def decompose_all(
         self, profile: StrategyProfile
@@ -167,7 +192,12 @@ class LoveLetterValueDecompositionOracle:
                 chance_world_mass: dict[str, float] = defaultdict(float)
                 conditioned_world_mass: dict[str, float] = defaultdict(float)
                 for state, (chance_mass, conditioned_mass) in contributions.items():
-                    world = repr(self.game.hidden_world(state, hero))
+                    hidden_world = (
+                        self.game.hidden_world(state, hero)
+                        if self.hidden_world_projector is None
+                        else self.hidden_world_projector(self.game, state, hero)
+                    )
+                    world = repr(hidden_world)
                     chance_world_mass[world] += chance_mass
                     conditioned_world_mass[world] += conditioned_mass
                 chance_reach = fsum(chance_world_mass.values())
@@ -217,7 +247,7 @@ class LoveLetterValueDecompositionOracle:
                     base_prior=base_prior,
                     policy_reach_weights=policy_reach_weights,
                     values=ValueDecomposition(
-                        posterior_target="love_letter_hidden_world",
+                        posterior_target=self.posterior_target,
                         posterior=posterior_weights,
                         immediate_action_values=immediate,
                         continuation_action_values=continuation,
@@ -231,6 +261,7 @@ class LoveLetterValueDecompositionOracle:
             decompositions=result,
             zero_reach_information_sets=tuple(sorted(zero_reach, key=repr)),
             total_information_sets=len(exact_values),
+            prior_method_id=self.prior_method_id,
         )
 
     def _counterfactual_contributions(

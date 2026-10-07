@@ -54,7 +54,9 @@ from aip.benchmark.love_letter import (
     LoveLetterConditionedDecompositionPanel,
     LoveLetterDecompositionPanel,
     LoveLetterValueDecompositionOracle,
+    build_private_hand_full_support_policy,
     love_letter_action_id,
+    love_letter_strategic_hidden_state,
 )
 from aip.benchmark.value_decomposition import (
     VALUE_DECOMPOSITION_JSON_SCHEMA,
@@ -161,8 +163,10 @@ __all__ = [
     "LeakageAudit",
     "LiarValueDecompositionOracle",
     "LoveLetterValueDecompositionOracle",
+    "build_private_hand_full_support_policy",
     "LoveLetterConditionedDecompositionPanel",
     "LoveLetterDecompositionPanel",
+    "love_letter_strategic_hidden_state",
     "KuhnEquilibriumMetrics",
     "MASTERMIND_BELIEF_TARGET",
     "MastermindBenchmarkAdapter",

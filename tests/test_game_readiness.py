@@ -14,6 +14,15 @@ def test_readiness_keeps_exact_variants_separate_from_larger_uncertified_games()
     assert games["one-die-stepwise-liars-dice"]["exploitability"] == 0
     assert games["five-die-liars-dice"]["status"] == "heuristic_only_not_gto"
     assert games["five-die-liars-dice"]["runtimeEpsilonGtoAllowed"] is False
+    assert games["five-die-liars-dice"]["stepwiseCandidateStatus"] == (
+        "frozen_contract_feasibility_passed_adapter_not_implemented"
+    )
+    assert games["five-die-liars-dice"]["stepwiseCandidateRulesId"] == (
+        "five_die_liar_two_player_stepwise_v1"
+    )
+    assert games["five-die-liars-dice"]["stepwiseCandidateEstimatedHistories"] == (
+        43_881_265
+    )
     assert games["goofspiel-four-card"]["exploitability"] == 0
     assert games["kuhn-poker"]["maximumUnilateralDeviationGain"] == 0
     assert games["e-card-single-round"]["exploitability"] == 0
@@ -58,11 +67,13 @@ def test_love_letter_subgame_pass_does_not_promote_incomplete_full_round():
     assert prior["zeroReachInformationSets"] == 43
     assert prior["usesUniformActionBaseline"] is False
     assert subgame["structuredExperimentStatus"] == (
-        "valid_zero_result_current_hand_policy_not_identifying_hidden_history"
+        "retired_as_belief_update_target_no_identifiable_post_action_hidden_state"
     )
     assert subgame["fixedPolicyPositiveReachInformationSets"] == 60
     assert subgame["fixedPolicyMaximumPosteriorL1Shift"] == 0
     assert subgame["fixedPolicyExploitability"] > 0.001
+    assert subgame["collapsedPosteriorSupportSizeCounts"] == {"1": 48, "2": 12}
+    assert subgame["postActionNontrivialHiddenStateInformationSets"] == 0
 
 
 def test_redefined_liar_gate_and_identical_goofspiel_protocol_pass():

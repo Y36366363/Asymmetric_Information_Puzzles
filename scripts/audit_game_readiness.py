@@ -57,6 +57,12 @@ GUESS_PRIVATE_COST_DOSE_RESPONSE = (
 LOVE_FIXED_POLICY_CONDITIONING = (
     ROOT / "research/results/love_letter_fixed_policy_conditioning_2026-10-06.json"
 )
+LOVE_COLLAPSED_POSTERIOR = (
+    ROOT / "research/results/love_letter_collapsed_posterior_2026-10-07.json"
+)
+FIVE_DIE_LIAR_FEASIBILITY = (
+    ROOT / "research/results/five_die_liar_feasibility_2026-10-07.json"
+)
 
 
 def report() -> dict[str, object]:
@@ -119,6 +125,8 @@ def report() -> dict[str, object]:
         GUESS_PRIVATE_COST_DOSE_RESPONSE
     )
     love_fixed_policy = load_optional(LOVE_FIXED_POLICY_CONDITIONING)
+    love_collapsed_posterior = load_optional(LOVE_COLLAPSED_POSTERIOR)
+    five_die_feasibility = load_optional(FIVE_DIE_LIAR_FEASIBILITY)
 
     games = {
         "one-die-stepwise-liars-dice": {
@@ -156,9 +164,32 @@ def report() -> dict[str, object]:
             "independentEvaluator": False,
             "runtimeEpsilonGtoAllowed": False,
             "valueDecomposition": "not_applicable_to_current_heuristic_rules",
+            "stepwiseCandidateStatus": (
+                "not_audited"
+                if five_die_feasibility is None
+                else "frozen_contract_feasibility_passed_adapter_not_implemented"
+            ),
+            "stepwiseCandidateRulesId": (
+                None
+                if five_die_feasibility is None
+                else five_die_feasibility["rules_id"]
+            ),
+            "stepwiseCandidateEstimatedHistories": (
+                None
+                if five_die_feasibility is None
+                else five_die_feasibility["stepwise_candidate"]
+                ["estimated_complete_histories_with_histogram_chance"]
+            ),
+            "liveArbitraryRaisePublicHistories": (
+                None
+                if five_die_feasibility is None
+                else five_die_feasibility["live_arbitrary_raise_mode"]
+                ["nonempty_public_bid_histories"]
+            ),
             "remainingWork": [
-                "freeze exact rules and action abstraction",
-                "build scalable candidate and independent best response",
+                "implement the separately scoped five-die stepwise adapter",
+                "run resumable structural audit before MCCFR training",
+                "build complete histogram-state best response before any promotion",
             ],
         },
         "goofspiel-four-card": {
@@ -277,8 +308,8 @@ def report() -> dict[str, object]:
             },
             "structuredExperimentStatus": (
                 "not_run"
-                if love_fixed_policy is None
-                else "valid_zero_result_current_hand_policy_not_identifying_hidden_history"
+                if love_collapsed_posterior is None
+                else "retired_as_belief_update_target_no_identifiable_post_action_hidden_state"
             ),
             "fixedPolicyPositiveReachInformationSets": (
                 None
@@ -298,9 +329,20 @@ def report() -> dict[str, object]:
                 else love_fixed_policy["fixed_policy"]
                 ["independent_evaluation"]["exploitability"]
             ),
+            "collapsedPosteriorSupportSizeCounts": (
+                None
+                if love_collapsed_posterior is None
+                else love_collapsed_posterior["panel"]["support_size_counts"]
+            ),
+            "postActionNontrivialHiddenStateInformationSets": (
+                None
+                if love_collapsed_posterior is None
+                else love_collapsed_posterior["panel"]
+                ["information_sets_with_nontrivial_support_after_observed_opponent_action"]
+            ),
             "remainingWork": [
                 "retain the current-hand fixed-policy zero result",
-                "separately preregister either a private-history-sensitive policy or a collapsed identifiable posterior target",
+                "retain the collapsed-target stopping result and use this subgame only as an exact value-decomposition control",
                 "do not generalize certificate to full round",
             ],
         },
@@ -325,7 +367,7 @@ def report() -> dict[str, object]:
     }
     return {
         "schemaVersion": "aip-game-readiness-v1",
-        "date": "2026-10-06",
+        "date": "2026-10-07",
         "games": games,
         "conclusion": {
             "basicConstructionComplete": [
@@ -339,9 +381,9 @@ def report() -> dict[str, object]:
             "notComplete": ["five-die-liars-dice", "love-letter-full-round"],
             "nextPriority": (
                 "retain the preregistered Guess Who dose-response zero result and pause "
-                "that cost-shape branch; resolve the Love Letter hidden-history "
-                "identifiability choice before another manipulation; continue bounded "
-                "full-round audit"
+                "that cost-shape branch; implement and structurally audit the separate "
+                "five-die stepwise Liar adapter; continue bounded full-round Love Letter "
+                "audit while retiring the four-card belief-update panel"
             ),
         },
     }

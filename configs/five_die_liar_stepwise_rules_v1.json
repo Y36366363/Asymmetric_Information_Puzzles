@@ -1,0 +1,32 @@
+{
+  "rules_id": "five_die_liar_two_player_stepwise_v1",
+  "status": "frozen_candidate_contract_before_adapter_implementation",
+  "players": 2,
+  "dice_per_player": 5,
+  "sides": 6,
+  "wild_ones": true,
+  "private_hand_representation": "sorted_face_count_histogram",
+  "bid_order": "quantity_then_face_lexicographic",
+  "bid_quantities": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  "bid_faces": [1, 2, 3, 4, 5, 6],
+  "opening_rule": "quantity_one_any_face",
+  "raise_rule": "advance_exactly_one_position_in_the_60_bid_ladder",
+  "challenge_rule": "challenge_is_legal_after_every_bid_and_mandatory_after_the_final_bid",
+  "payoff": {
+    "correct_challenge": 1.0,
+    "incorrect_challenge": -1.0,
+    "zero_sum": true
+  },
+  "scope_boundary": {
+    "separate_from_live_five_die_arbitrary_raise_mode": true,
+    "no_runtime_epsilon_gto_until_independent_gate": true,
+    "one_die_certificate_does_not_transfer": true
+  },
+  "solver_route": {
+    "candidate": "external_sampling_mccfr_with_fixed_seed_and_budget",
+    "structural_baseline": "resumable_complete_tree_audit",
+    "independent_evaluator": "complete_best_response_over_histogram_chance_states",
+    "exact_sequence_form": "attempt_only_after_sparse_size_measurement",
+    "promotion_requires_independent_exploitability": true
+  }
+}
