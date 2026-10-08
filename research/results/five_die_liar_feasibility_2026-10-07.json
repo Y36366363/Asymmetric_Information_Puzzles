@@ -10,7 +10,7 @@
   "decision": {
     "live_mode": "retain_heuristic_and_do_not_claim_gto",
     "new_stepwise_variant": "continue_as_separately_scoped_adapter",
-    "reason": "the stepwise contract reduces the public history family from exponential subsets to 345 chains while preserving all 252 private five-die histograms"
+    "reason": "the stepwise contract reduces the public history family from exponential subsets to 345 chains while preserving all 252 private five-die histograms; two-layer chance makes MCCFR sampling practical"
   },
   "live_arbitrary_raise_mode": {
     "bid_ladder_size": 60,
@@ -31,7 +31,8 @@
       5
     ],
     "bid_ladder_size": 60,
-    "estimated_complete_histories_with_histogram_chance": 43881265,
+    "estimated_complete_histories_with_joint_histogram_chance": 43817761,
+    "estimated_complete_histories_with_two_layer_histogram_chance": 43818013,
     "information_sets_including_preopening": 87192,
     "joint_histogram_chance_outcomes": 63504,
     "next_milestone": "implement_adapter_then_run_bounded_resumable_structural_audit_before_training",

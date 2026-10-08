@@ -63,6 +63,12 @@ LOVE_COLLAPSED_POSTERIOR = (
 FIVE_DIE_LIAR_FEASIBILITY = (
     ROOT / "research/results/five_die_liar_feasibility_2026-10-07.json"
 )
+FIVE_DIE_STEPWISE_PROGRESS = (
+    ROOT / "research/results/five_die_stepwise_progress_2026-10-08.json"
+)
+FIVE_DIE_STEPWISE_CANDIDATE = (
+    ROOT / "research/results/five_die_stepwise_candidate_2026-10-08.json"
+)
 
 
 def report() -> dict[str, object]:
@@ -127,6 +133,8 @@ def report() -> dict[str, object]:
     love_fixed_policy = load_optional(LOVE_FIXED_POLICY_CONDITIONING)
     love_collapsed_posterior = load_optional(LOVE_COLLAPSED_POSTERIOR)
     five_die_feasibility = load_optional(FIVE_DIE_LIAR_FEASIBILITY)
+    five_die_progress = load_optional(FIVE_DIE_STEPWISE_PROGRESS)
+    five_die_candidate = load_optional(FIVE_DIE_STEPWISE_CANDIDATE)
 
     games = {
         "one-die-stepwise-liars-dice": {
@@ -166,8 +174,8 @@ def report() -> dict[str, object]:
             "valueDecomposition": "not_applicable_to_current_heuristic_rules",
             "stepwiseCandidateStatus": (
                 "not_audited"
-                if five_die_feasibility is None
-                else "frozen_contract_feasibility_passed_adapter_not_implemented"
+                if five_die_candidate is None
+                else "adapter_implemented_candidate_failed_independent_gate"
             ),
             "stepwiseCandidateRulesId": (
                 None
@@ -178,7 +186,7 @@ def report() -> dict[str, object]:
                 None
                 if five_die_feasibility is None
                 else five_die_feasibility["stepwise_candidate"]
-                ["estimated_complete_histories_with_histogram_chance"]
+                ["estimated_complete_histories_with_two_layer_histogram_chance"]
             ),
             "liveArbitraryRaisePublicHistories": (
                 None
@@ -186,10 +194,40 @@ def report() -> dict[str, object]:
                 else five_die_feasibility["live_arbitrary_raise_mode"]
                 ["nonempty_public_bid_histories"]
             ),
+            "stepwiseHistoriesAudited": (
+                None
+                if five_die_progress is None
+                else five_die_progress["chunks"][-1]["histories"]
+            ),
+            "stepwiseInformationSetsObserved": (
+                None
+                if five_die_progress is None
+                else five_die_progress["chunks"][-1]["information_sets"]
+            ),
+            "stepwiseStructuralFailures": (
+                None
+                if five_die_progress is None
+                else five_die_progress["chunks"][-1]["failures"]
+            ),
+            "stepwiseStructuralAuditComplete": (
+                False
+                if five_die_progress is None
+                else five_die_progress["chunks"][-1]["complete"]
+            ),
+            "stepwiseCandidateExploitability": (
+                None
+                if five_die_candidate is None
+                else five_die_candidate["independent_evaluation"]["exploitability"]
+            ),
+            "stepwiseCandidateSampledCoverage": (
+                None
+                if five_die_candidate is None
+                else five_die_candidate["sampled_coverage"]
+            ),
             "remainingWork": [
-                "implement the separately scoped five-die stepwise adapter",
-                "run resumable structural audit before MCCFR training",
-                "build complete histogram-state best response before any promotion",
+                "continue the resumable stepwise structural audit",
+                "preregister a coverage-improved MCCFR experiment; do not relabel the failed 5000-iteration candidate",
+                "retain complete histogram-state best response as the promotion gate",
             ],
         },
         "goofspiel-four-card": {
@@ -367,7 +405,7 @@ def report() -> dict[str, object]:
     }
     return {
         "schemaVersion": "aip-game-readiness-v1",
-        "date": "2026-10-07",
+        "date": "2026-10-08",
         "games": games,
         "conclusion": {
             "basicConstructionComplete": [
@@ -381,9 +419,9 @@ def report() -> dict[str, object]:
             "notComplete": ["five-die-liars-dice", "love-letter-full-round"],
             "nextPriority": (
                 "retain the preregistered Guess Who dose-response zero result and pause "
-                "that cost-shape branch; implement and structurally audit the separate "
-                "five-die stepwise Liar adapter; continue bounded full-round Love Letter "
-                "audit while retiring the four-card belief-update panel"
+                "that cost-shape branch; improve coverage of the failed five-die "
+                "stepwise MCCFR candidate under a new preregistration while continuing "
+                "its structural audit; continue bounded full-round Love Letter audit"
             ),
         },
     }

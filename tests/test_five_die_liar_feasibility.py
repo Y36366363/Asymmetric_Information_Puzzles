@@ -42,9 +42,12 @@ def test_stepwise_candidate_has_measurable_bounded_adapter_target():
     assert candidate["joint_histogram_chance_outcomes"] == 252**2
     assert candidate["public_bid_histories"] == sum(range(55, 61))
     assert candidate["information_sets_including_preopening"] == 252 * 346
-    assert candidate["estimated_complete_histories_with_histogram_chance"] == (
-        1 + 252**2 * (1 + 2 * 345)
+    assert candidate["estimated_complete_histories_with_joint_histogram_chance"] == (
+        1 + 252**2 * (2 * 345)
     )
+    assert candidate[
+        "estimated_complete_histories_with_two_layer_histogram_chance"
+    ] == 1 + 252 + 252**2 * (2 * 345)
     assert audit["decision"]["live_mode"] == (
         "retain_heuristic_and_do_not_claim_gto"
     )

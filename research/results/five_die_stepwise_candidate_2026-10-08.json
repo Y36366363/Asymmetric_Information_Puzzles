@@ -1,0 +1,54 @@
+{
+  "algorithm": {
+    "algorithm_id": "external_sampling_mccfr",
+    "averaging_rule": "uniform_iteration_weighting",
+    "parameters": {},
+    "seed": 20261008,
+    "traversal": "external_sampling",
+    "update_schedule": "alternating_players"
+  },
+  "audit_completed": true,
+  "candidate_profile_fingerprint": "3bf1b31da66276838010d387283af9cce77d108febc9595f2b8f165d5837d5e4",
+  "completion_rule": "uniform_and_explicitly_labeled",
+  "experiment_id": "five_die_stepwise_external_sampling_candidate_v1",
+  "independent_evaluation": {
+    "action_value_information_sets": 87192,
+    "best_response_player_0": 0.815961430834741,
+    "best_response_player_1": -0.032941656043955006,
+    "evaluator_id": "five_die_stepwise_histogram_best_response_v1",
+    "evaluator_method": "independent_game_tree_best_response",
+    "expected_value_to_player_0": 0.45403298458543123,
+    "exploitability": 0.39150988739539305,
+    "failures": [
+      "exploitability_above_threshold"
+    ],
+    "maximum_unilateral_deviation_gain": 0.42109132854147624,
+    "nash_conv": 0.7830197747907861,
+    "passed": false,
+    "player_0_deviation_gain": 0.3619284462493098,
+    "player_1_deviation_gain": 0.42109132854147624,
+    "profile_fingerprint": "3bf1b31da66276838010d387283af9cce77d108febc9595f2b8f165d5837d5e4"
+  },
+  "iterations": 5000,
+  "passed": false,
+  "preregistration": "configs/five_die_stepwise_mccfr_preregistration_2026-10-08.json",
+  "promotion": {
+    "candidate_exploitability_gate_passed": false,
+    "complete_structural_gate_passed": false,
+    "runtime_epsilon_gto_allowed": false,
+    "status": "candidate_failed_independent_gate"
+  },
+  "required_information_sets": 87192,
+  "rules_id": "five_die_liar_two_player_stepwise_v1",
+  "sampled_coverage": 0.29756170290852374,
+  "sampled_information_sets": 25945,
+  "structural_audit": {
+    "complete": false,
+    "failures": [],
+    "frontier_nodes": 463,
+    "histories": 30000,
+    "information_sets": 7726,
+    "passed": false
+  },
+  "uniformly_completed_information_sets": 61247
+}

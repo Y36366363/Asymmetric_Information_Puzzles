@@ -28,10 +28,13 @@ A separately scoped rules contract now freezes:
 - zero-sum ±1 terminal utility.
 
 This produces 345 public bid chains rather than `2^60 - 1`, while retaining all
-252 private hand types and 63,504 joint histogram chance outcomes. A direct
-histogram-expanded tree is estimated at 43,881,265 histories and 87,192
-information sets including pre-opening states. This is still substantial, but
-it is finite, measurable and suitable for a resumable structural audit.
+252 private hand types and 63,504 joint histogram chance outcomes. The adapter
+uses two 252-outcome chance layers so MCCFR need not scan all joint outcomes per
+sample. The executable structure has 43,818,013 histories and 87,192
+information sets including pre-opening states. This corrects yesterday's
+43,881,265 conservative estimate, which double-counted the dealt decision state.
+The tree is still substantial, but finite, measurable and suitable for a
+resumable structural audit.
 
 The chosen route is:
 

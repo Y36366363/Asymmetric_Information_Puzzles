@@ -1,0 +1,27 @@
+{
+  "experiment_id": "five_die_stepwise_external_sampling_candidate_v1",
+  "frozen_before_training": true,
+  "rules_id": "five_die_liar_two_player_stepwise_v1",
+  "algorithm": {
+    "algorithm_id": "external_sampling_mccfr",
+    "seed": 20261008,
+    "iterations": 5000,
+    "unvisited_information_set_completion": "uniform_and_explicitly_labeled",
+    "training_regret_is_not_a_certificate": true
+  },
+  "candidate_gate": {
+    "maximum_independent_exploitability": 0.05,
+    "required_information_sets": 87192,
+    "independent_evaluator_id": "five_die_stepwise_histogram_best_response_v1"
+  },
+  "structural_gate": {
+    "complete_resumable_tree_audit_required_for_promotion": true,
+    "expected_complete_histories": 43818013,
+    "expected_information_sets": 87192
+  },
+  "promotion": {
+    "runtime_epsilon_gto_requires_both_candidate_and_structural_gates": true,
+    "runtime_epsilon_gto_allowed_during_this_pilot": false,
+    "retain_failed_candidate_and_negative_evidence": true
+  }
+}

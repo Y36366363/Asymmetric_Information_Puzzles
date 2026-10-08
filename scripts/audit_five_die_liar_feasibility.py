@@ -30,8 +30,11 @@ def report() -> dict[str, object]:
     opening_positions = tuple(range(sides))
     stepwise_bid_histories = sum(bids - position for position in opening_positions)
     stepwise_information_sets = hand_histograms * (1 + stepwise_bid_histories)
-    stepwise_histories_with_histogram_chance = (
-        1 + joint_histogram_outcomes * (1 + 2 * stepwise_bid_histories)
+    stepwise_histories_with_joint_chance = (
+        1 + joint_histogram_outcomes * (2 * stepwise_bid_histories)
+    )
+    stepwise_histories_with_two_layer_chance = (
+        stepwise_histories_with_joint_chance + hand_histograms
     )
     checks = {
         "two_player_zero_sum": players == 2 and rules["payoff"]["zero_sum"],
@@ -69,14 +72,15 @@ def report() -> dict[str, object]:
             "allowed_opening_positions": list(opening_positions),
             "public_bid_histories": stepwise_bid_histories,
             "information_sets_including_preopening": stepwise_information_sets,
-            "estimated_complete_histories_with_histogram_chance": stepwise_histories_with_histogram_chance,
+            "estimated_complete_histories_with_joint_histogram_chance": stepwise_histories_with_joint_chance,
+            "estimated_complete_histories_with_two_layer_histogram_chance": stepwise_histories_with_two_layer_chance,
             "solver_route": rules["solver_route"],
             "next_milestone": "implement_adapter_then_run_bounded_resumable_structural_audit_before_training",
         },
         "decision": {
             "live_mode": "retain_heuristic_and_do_not_claim_gto",
             "new_stepwise_variant": "continue_as_separately_scoped_adapter",
-            "reason": "the stepwise contract reduces the public history family from exponential subsets to 345 chains while preserving all 252 private five-die histograms",
+            "reason": "the stepwise contract reduces the public history family from exponential subsets to 345 chains while preserving all 252 private five-die histograms; two-layer chance makes MCCFR sampling practical",
         },
         "checks": checks,
         "passed": all(checks.values()),

@@ -1,0 +1,28 @@
+{
+  "candidate_exploitability": 0.39150988739539305,
+  "candidate_independent_gate_passed": false,
+  "candidate_trained": true,
+  "checkpoint_path": "research/local_checkpoints/five_die_stepwise_v1.sqlite",
+  "chunks": [
+    {
+      "chance_histories": 2,
+      "complete": false,
+      "decision_histories": 45065,
+      "equilibrium_certified": false,
+      "failures": [],
+      "frontier_nodes": 378,
+      "histories": 90000,
+      "information_sets": 22834,
+      "maximum_depth": 63,
+      "revision": "687a24e9b3d33eea3d60797902e7534a564e2078eed3276c2ad582eb8eff66ff",
+      "status": "paused",
+      "structural_audit_passed": false,
+      "terminal_histories": 44933
+    }
+  ],
+  "independent_evaluation_complete": true,
+  "revision": "687a24e9b3d33eea3d60797902e7534a564e2078eed3276c2ad582eb8eff66ff",
+  "rules_id": "five_die_liar_two_player_stepwise_v1",
+  "runtime_epsilon_gto_allowed": false,
+  "updated_date": "2026-10-08"
+}

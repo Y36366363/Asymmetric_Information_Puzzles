@@ -15,14 +15,18 @@ def test_readiness_keeps_exact_variants_separate_from_larger_uncertified_games()
     assert games["five-die-liars-dice"]["status"] == "heuristic_only_not_gto"
     assert games["five-die-liars-dice"]["runtimeEpsilonGtoAllowed"] is False
     assert games["five-die-liars-dice"]["stepwiseCandidateStatus"] == (
-        "frozen_contract_feasibility_passed_adapter_not_implemented"
+        "adapter_implemented_candidate_failed_independent_gate"
     )
     assert games["five-die-liars-dice"]["stepwiseCandidateRulesId"] == (
         "five_die_liar_two_player_stepwise_v1"
     )
-    assert games["five-die-liars-dice"]["stepwiseCandidateEstimatedHistories"] == (
-        43_881_265
-    )
+    assert games["five-die-liars-dice"]["stepwiseCandidateEstimatedHistories"] == 43_818_013
+    assert games["five-die-liars-dice"]["stepwiseHistoriesAudited"] == 90_000
+    assert games["five-die-liars-dice"]["stepwiseInformationSetsObserved"] == 22_834
+    assert games["five-die-liars-dice"]["stepwiseStructuralFailures"] == []
+    assert games["five-die-liars-dice"]["stepwiseStructuralAuditComplete"] is False
+    assert games["five-die-liars-dice"]["stepwiseCandidateExploitability"] > 0.05
+    assert games["five-die-liars-dice"]["stepwiseCandidateSampledCoverage"] < 0.3
     assert games["goofspiel-four-card"]["exploitability"] == 0
     assert games["kuhn-poker"]["maximumUnilateralDeviationGain"] == 0
     assert games["e-card-single-round"]["exploitability"] == 0
