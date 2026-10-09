@@ -77,6 +77,23 @@ Research protocols, experiment artifacts, and evaluation reports are stored in [
 <details>
 <summary><strong>Development log / 开发更新记录</strong></summary>
 
+## Updates 10/09/2026
+
+- **Five-die coverage improved without weakening certification** — A frozen
+  25,200-iteration stratified-private-hand MCCFR experiment explicitly
+  initialized all 87,192 information sets while counting only positive visits
+  as coverage. Real coverage reached 44,140 sets (50.624%).
+- **The independent gate still rejects the candidate** — Exact histogram best
+  response at 5,000, 12,600 and 25,200 iterations measured exploitability
+  `0.441748`, `0.245807` and `0.146501`. The final point improves on the retained
+  failed baseline (`0.391510`) but remains above the unchanged `0.05` ceiling;
+  ε-GTO stays disabled.
+- **Failure evidence and structural work remain separate** — The old failed
+  artifact is preserved, and the resumable full-tree audit advanced to 140,000
+  histories and 35,425 information sets without detected failures, but is not
+  complete.
+  [Read the coverage experiment](research/five_die_stepwise_coverage_update_2026-10-09.md).
+
 ## Updates 09/19/2026
 
 - **Love Letter and one-die Liar's Dice now have a focused cross-algorithm

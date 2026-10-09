@@ -2,7 +2,11 @@
 
 import json
 
-from scripts.audit_game_readiness import LOVE_PROGRESS, report
+from scripts.audit_game_readiness import (
+    FIVE_DIE_STEPWISE_PROGRESS,
+    LOVE_PROGRESS,
+    report,
+)
 
 
 def test_readiness_keeps_exact_variants_separate_from_larger_uncertified_games():
@@ -15,18 +19,26 @@ def test_readiness_keeps_exact_variants_separate_from_larger_uncertified_games()
     assert games["five-die-liars-dice"]["status"] == "heuristic_only_not_gto"
     assert games["five-die-liars-dice"]["runtimeEpsilonGtoAllowed"] is False
     assert games["five-die-liars-dice"]["stepwiseCandidateStatus"] == (
-        "adapter_implemented_candidate_failed_independent_gate"
+        "coverage_improved_candidate_failed_independent_gate"
     )
     assert games["five-die-liars-dice"]["stepwiseCandidateRulesId"] == (
         "five_die_liar_two_player_stepwise_v1"
     )
     assert games["five-die-liars-dice"]["stepwiseCandidateEstimatedHistories"] == 43_818_013
-    assert games["five-die-liars-dice"]["stepwiseHistoriesAudited"] == 90_000
-    assert games["five-die-liars-dice"]["stepwiseInformationSetsObserved"] == 22_834
+    stepwise_latest = json.loads(FIVE_DIE_STEPWISE_PROGRESS.read_text())["chunks"][-1]
+    assert games["five-die-liars-dice"]["stepwiseHistoriesAudited"] == (
+        stepwise_latest["histories"]
+    )
+    assert games["five-die-liars-dice"]["stepwiseInformationSetsObserved"] == (
+        stepwise_latest["information_sets"]
+    )
     assert games["five-die-liars-dice"]["stepwiseStructuralFailures"] == []
     assert games["five-die-liars-dice"]["stepwiseStructuralAuditComplete"] is False
     assert games["five-die-liars-dice"]["stepwiseCandidateExploitability"] > 0.05
-    assert games["five-die-liars-dice"]["stepwiseCandidateSampledCoverage"] < 0.3
+    assert games["five-die-liars-dice"]["stepwiseCandidateSampledCoverage"] > 0.5
+    assert games["five-die-liars-dice"]["stepwiseCoverageGatePassed"] is True
+    assert games["five-die-liars-dice"]["stepwiseIndependentGatePassed"] is False
+    assert games["five-die-liars-dice"]["stepwiseRetainedBaselineExploitability"] > 0.05
     assert games["goofspiel-four-card"]["exploitability"] == 0
     assert games["kuhn-poker"]["maximumUnilateralDeviationGain"] == 0
     assert games["e-card-single-round"]["exploitability"] == 0

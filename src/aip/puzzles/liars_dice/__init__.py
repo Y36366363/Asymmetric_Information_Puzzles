@@ -27,6 +27,12 @@ from aip.puzzles.liars_dice.five_die_stepwise import (
     required_five_die_information_sets,
     train_five_die_external_sampling,
 )
+from aip.puzzles.liars_dice.five_die_stratified import (
+    StratifiedFiveDieExternalSamplingTrainer,
+    StratifiedPrivateHandExternalSamplingTraversal,
+    train_five_die_stratified_external_sampling,
+    visited_information_set_count,
+)
 
 __all__ = [
     "BIDS",
@@ -37,6 +43,8 @@ __all__ = [
     "FiveDieStepwiseIndependentEvaluator",
     "FiveDieStepwiseLiarGame",
     "FiveDieStepwiseState",
+    "StratifiedFiveDieExternalSamplingTrainer",
+    "StratifiedPrivateHandExternalSamplingTraversal",
     "LiarsDiceAnalyzer",
     "LiarsDiceRules",
     "OneDieLiarDiceCFRGame",
@@ -53,4 +61,6 @@ __all__ = [
     "solve_one_die_liar_exact",
     "train_one_die_liar_cfr",
     "train_five_die_external_sampling",
+    "train_five_die_stratified_external_sampling",
+    "visited_information_set_count",
 ]

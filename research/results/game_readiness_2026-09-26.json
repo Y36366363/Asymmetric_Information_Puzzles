@@ -8,13 +8,13 @@
       "guess-who-strategic-three-character",
       "love-letter-four-card-subgame"
     ],
-    "nextPriority": "retain the preregistered Guess Who dose-response zero result and pause that cost-shape branch; improve coverage of the failed five-die stepwise MCCFR candidate under a new preregistration while continuing its structural audit; continue bounded full-round Love Letter audit",
+    "nextPriority": "retain the preregistered Guess Who dose-response zero result and pause that cost-shape branch; retain the five-die coverage success and independent-gate failure, then preregister any estimator change while continuing its structural audit; continue bounded full-round Love Letter audit",
     "notComplete": [
       "five-die-liars-dice",
       "love-letter-full-round"
     ]
   },
-  "date": "2026-10-08",
+  "date": "2026-10-09",
   "games": {
     "e-card-single-round": {
       "exploitability": 0.0,
@@ -30,19 +30,22 @@
       "liveArbitraryRaisePublicHistories": 1152921504606846975,
       "remainingWork": [
         "continue the resumable stepwise structural audit",
-        "preregister a coverage-improved MCCFR experiment; do not relabel the failed 5000-iteration candidate",
+        "retain the failed coverage experiment and preregister any joint-stratification or average-policy estimator change separately",
         "retain complete histogram-state best response as the promotion gate"
       ],
       "runtimeEpsilonGtoAllowed": false,
       "solver": "transparent_probability_heuristic",
       "status": "heuristic_only_not_gto",
       "stepwiseCandidateEstimatedHistories": 43818013,
-      "stepwiseCandidateExploitability": 0.39150988739539305,
+      "stepwiseCandidateExploitability": 0.1465006764898036,
       "stepwiseCandidateRulesId": "five_die_liar_two_player_stepwise_v1",
-      "stepwiseCandidateSampledCoverage": 0.29756170290852374,
-      "stepwiseCandidateStatus": "adapter_implemented_candidate_failed_independent_gate",
-      "stepwiseHistoriesAudited": 90000,
-      "stepwiseInformationSetsObserved": 22834,
+      "stepwiseCandidateSampledCoverage": 0.5062391045050004,
+      "stepwiseCandidateStatus": "coverage_improved_candidate_failed_independent_gate",
+      "stepwiseCoverageGatePassed": true,
+      "stepwiseHistoriesAudited": 140000,
+      "stepwiseIndependentGatePassed": false,
+      "stepwiseInformationSetsObserved": 35425,
+      "stepwiseRetainedBaselineExploitability": 0.39150988739539305,
       "stepwiseStructuralAuditComplete": false,
       "stepwiseStructuralFailures": [],
       "valueDecomposition": "not_applicable_to_current_heuristic_rules"

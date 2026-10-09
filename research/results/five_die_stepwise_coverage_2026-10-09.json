@@ -1,0 +1,136 @@
+{
+  "algorithm": {
+    "algorithm_id": "stratified_private_hand_external_sampling_mccfr_v1",
+    "averaging_rule": "uniform_iteration_weighting",
+    "parameters": {
+      "preinitialized_information_sets": 87192.0,
+      "private_hand_strata": 252.0
+    },
+    "seed": 20261009,
+    "traversal": "stratified_private_hand_external_sampling",
+    "update_schedule": "alternating_players_252_histogram_cycle"
+  },
+  "audit_completed": true,
+  "checkpoints": [
+    {
+      "average_positive_regret": [
+        2.7014014661908776,
+        0.9861317503595383
+      ],
+      "independent_evaluation": {
+        "action_value_information_sets": 87192,
+        "best_response_player_0": 0.8235749785822163,
+        "best_response_player_1": 0.05992188150575743,
+        "evaluator_id": "five_die_stepwise_histogram_best_response_v1",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 0.4396823948139698,
+        "exploitability": 0.4417484300439869,
+        "failures": [
+          "exploitability_above_threshold"
+        ],
+        "maximum_unilateral_deviation_gain": 0.49960427631972726,
+        "nash_conv": 0.8834968600879738,
+        "passed": false,
+        "player_0_deviation_gain": 0.3838925837682465,
+        "player_1_deviation_gain": 0.49960427631972726,
+        "profile_fingerprint": "a79cca475cd14c987948ce9bc445436e6291eb992737781861583ca1f14cd37f"
+      },
+      "initialized_information_sets": 87192,
+      "iterations": 5000,
+      "visited_coverage": 0.3135494082025874,
+      "visited_information_sets": 27339
+    },
+    {
+      "average_positive_regret": [
+        1.8117733247689018,
+        0.7231733215081634
+      ],
+      "independent_evaluation": {
+        "action_value_information_sets": 87192,
+        "best_response_player_0": 0.73173341358024,
+        "best_response_player_1": -0.2401185319521867,
+        "evaluator_id": "five_die_stepwise_histogram_best_response_v1",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 0.5049771005737871,
+        "exploitability": 0.24580744081402667,
+        "failures": [
+          "exploitability_above_threshold"
+        ],
+        "maximum_unilateral_deviation_gain": 0.2648585686216004,
+        "nash_conv": 0.49161488162805334,
+        "passed": false,
+        "player_0_deviation_gain": 0.22675631300645294,
+        "player_1_deviation_gain": 0.2648585686216004,
+        "profile_fingerprint": "73d5325611b131608d69722da6f6323bfe834556939740c91997d85d789e606f"
+      },
+      "initialized_information_sets": 87192,
+      "iterations": 12600,
+      "visited_coverage": 0.43291815762914027,
+      "visited_information_sets": 37747
+    },
+    {
+      "average_positive_regret": [
+        1.2369836421659557,
+        0.5025117162974341
+      ],
+      "independent_evaluation": {
+        "action_value_information_sets": 87192,
+        "best_response_player_0": 0.6733859068010244,
+        "best_response_player_1": -0.38038455382141717,
+        "evaluator_id": "five_die_stepwise_histogram_best_response_v1",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 0.5390019404096033,
+        "exploitability": 0.1465006764898036,
+        "failures": [
+          "exploitability_above_threshold"
+        ],
+        "maximum_unilateral_deviation_gain": 0.15861738658818608,
+        "nash_conv": 0.2930013529796072,
+        "passed": false,
+        "player_0_deviation_gain": 0.13438396639142114,
+        "player_1_deviation_gain": 0.15861738658818608,
+        "profile_fingerprint": "47b8ad6bfaa20e77a36b7e831e16d84d36d25ecb4713c358fec27d45be4a733b"
+      },
+      "initialized_information_sets": 87192,
+      "iterations": 25200,
+      "visited_coverage": 0.5062391045050004,
+      "visited_information_sets": 44140
+    }
+  ],
+  "convergence": {
+    "exploitability_nonincreasing": true,
+    "monotonicity_required": false
+  },
+  "coverage_measure": "positive_information_set_visit_count",
+  "experiment_id": "five_die_stepwise_stratified_coverage_v1",
+  "gates": {
+    "candidate_passed": false,
+    "complete_structural_audit_passed": false,
+    "improved_over_retained_baseline": true,
+    "independent_exploitability_passed": false,
+    "visited_coverage_passed": true
+  },
+  "passed": false,
+  "preregistration": "configs/five_die_stepwise_coverage_preregistration_2026-10-09.json",
+  "promotion": {
+    "runtime_epsilon_gto_allowed": false,
+    "status": "coverage_experiment_failed_candidate_gate"
+  },
+  "required_information_sets": 87192,
+  "retained_negative_control": {
+    "independent_exploitability": 0.39150988739539305,
+    "iterations": 5000,
+    "passed": false,
+    "path": "research/results/five_die_stepwise_candidate_2026-10-08.json",
+    "sampled_coverage": 0.29756170290852374
+  },
+  "rules_id": "five_die_liar_two_player_stepwise_v1",
+  "structural_audit": {
+    "complete": false,
+    "failures": [],
+    "frontier_nodes": 304,
+    "histories": 140000,
+    "information_sets": 35425,
+    "passed": false
+  }
+}

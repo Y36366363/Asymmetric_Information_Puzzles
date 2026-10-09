@@ -1,0 +1,48 @@
+{
+  "experiment_id": "five_die_stepwise_stratified_coverage_v1",
+  "frozen_before_training": true,
+  "rules_id": "five_die_liar_two_player_stepwise_v1",
+  "retained_negative_control": "research/results/five_die_stepwise_candidate_2026-10-08.json",
+  "baseline": {
+    "iterations": 5000,
+    "sampled_information_sets": 25945,
+    "required_information_sets": 87192,
+    "sampled_coverage": 0.29756170290852374,
+    "independent_exploitability": 0.39150988739539305,
+    "passed_gate": false
+  },
+  "algorithm": {
+    "algorithm_id": "stratified_private_hand_external_sampling_mccfr_v1",
+    "seed": 20261009,
+    "iterations": 25200,
+    "checkpoints": [5000, 12600, 25200],
+    "own_private_hand_schedule": "deterministic_cycle_over_all_252_histograms_for_each_update_player",
+    "opponent_private_hand_sampling": "true_multinomial_histogram_distribution",
+    "information_set_initialization": "all_87192_nodes_zero_regret_uniform_default_before_training",
+    "training_regret_is_not_a_certificate": true
+  },
+  "primary_endpoints": {
+    "final_independent_exploitability": {
+      "maximum": 0.05
+    },
+    "visited_information_set_coverage": {
+      "minimum": 0.5,
+      "must_exceed_retained_baseline": true,
+      "uses_positive_visit_count_not_initialized_policy_presence": true
+    }
+  },
+  "convergence_trace": {
+    "independent_best_response_at_every_checkpoint": true,
+    "final_exploitability_must_improve_over_baseline": true,
+    "monotonicity_is_reported_but_not_required": true
+  },
+  "structural_gate": {
+    "complete_resumable_tree_audit_required_for_runtime": true,
+    "continue_bounded_chunks_during_experiment": true
+  },
+  "promotion": {
+    "runtime_epsilon_gto_requires_final_exploitability_and_complete_structural_audit": true,
+    "runtime_epsilon_gto_allowed_during_this_experiment": false,
+    "retain_all_checkpoint_results_and_failures": true
+  }
+}

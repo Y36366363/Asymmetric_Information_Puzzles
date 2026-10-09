@@ -69,6 +69,9 @@ FIVE_DIE_STEPWISE_PROGRESS = (
 FIVE_DIE_STEPWISE_CANDIDATE = (
     ROOT / "research/results/five_die_stepwise_candidate_2026-10-08.json"
 )
+FIVE_DIE_STEPWISE_COVERAGE = (
+    ROOT / "research/results/five_die_stepwise_coverage_2026-10-09.json"
+)
 
 
 def report() -> dict[str, object]:
@@ -135,6 +138,12 @@ def report() -> dict[str, object]:
     five_die_feasibility = load_optional(FIVE_DIE_LIAR_FEASIBILITY)
     five_die_progress = load_optional(FIVE_DIE_STEPWISE_PROGRESS)
     five_die_candidate = load_optional(FIVE_DIE_STEPWISE_CANDIDATE)
+    five_die_coverage = load_optional(FIVE_DIE_STEPWISE_COVERAGE)
+    latest_five_die_candidate = (
+        None
+        if five_die_coverage is None
+        else five_die_coverage["checkpoints"][-1]
+    )
 
     games = {
         "one-die-stepwise-liars-dice": {
@@ -175,7 +184,11 @@ def report() -> dict[str, object]:
             "stepwiseCandidateStatus": (
                 "not_audited"
                 if five_die_candidate is None
-                else "adapter_implemented_candidate_failed_independent_gate"
+                else (
+                    "coverage_improved_candidate_failed_independent_gate"
+                    if five_die_coverage is not None
+                    else "adapter_implemented_candidate_failed_independent_gate"
+                )
             ),
             "stepwiseCandidateRulesId": (
                 None
@@ -216,17 +229,39 @@ def report() -> dict[str, object]:
             ),
             "stepwiseCandidateExploitability": (
                 None
-                if five_die_candidate is None
+                if latest_five_die_candidate is None and five_die_candidate is None
+                else latest_five_die_candidate["independent_evaluation"]
+                ["exploitability"]
+                if latest_five_die_candidate is not None
                 else five_die_candidate["independent_evaluation"]["exploitability"]
             ),
             "stepwiseCandidateSampledCoverage": (
                 None
-                if five_die_candidate is None
+                if latest_five_die_candidate is None and five_die_candidate is None
+                else latest_five_die_candidate["visited_coverage"]
+                if latest_five_die_candidate is not None
                 else five_die_candidate["sampled_coverage"]
+            ),
+            "stepwiseRetainedBaselineExploitability": (
+                None
+                if five_die_coverage is None
+                else five_die_coverage["retained_negative_control"]
+                ["independent_exploitability"]
+            ),
+            "stepwiseCoverageGatePassed": (
+                False
+                if five_die_coverage is None
+                else five_die_coverage["gates"]["visited_coverage_passed"]
+            ),
+            "stepwiseIndependentGatePassed": (
+                False
+                if five_die_coverage is None
+                else five_die_coverage["gates"]
+                ["independent_exploitability_passed"]
             ),
             "remainingWork": [
                 "continue the resumable stepwise structural audit",
-                "preregister a coverage-improved MCCFR experiment; do not relabel the failed 5000-iteration candidate",
+                "retain the failed coverage experiment and preregister any joint-stratification or average-policy estimator change separately",
                 "retain complete histogram-state best response as the promotion gate",
             ],
         },
@@ -405,7 +440,7 @@ def report() -> dict[str, object]:
     }
     return {
         "schemaVersion": "aip-game-readiness-v1",
-        "date": "2026-10-08",
+        "date": "2026-10-09",
         "games": games,
         "conclusion": {
             "basicConstructionComplete": [
@@ -419,8 +454,8 @@ def report() -> dict[str, object]:
             "notComplete": ["five-die-liars-dice", "love-letter-full-round"],
             "nextPriority": (
                 "retain the preregistered Guess Who dose-response zero result and pause "
-                "that cost-shape branch; improve coverage of the failed five-die "
-                "stepwise MCCFR candidate under a new preregistration while continuing "
+                "that cost-shape branch; retain the five-die coverage success and "
+                "independent-gate failure, then preregister any estimator change while continuing "
                 "its structural audit; continue bounded full-round Love Letter audit"
             ),
         },
