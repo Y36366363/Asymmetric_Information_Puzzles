@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CANDIDATE = ROOT / "research/results/five_die_stepwise_candidate_2026-10-08.json"
@@ -47,7 +49,12 @@ def test_resumable_audit_has_real_progress_but_is_not_a_certificate():
     assert latest["complete"] is False
     assert latest["structural_audit_passed"] is False
     assert progress["candidate_trained"] is True
+    assert progress["candidate_path"].endswith(
+        "five_die_stepwise_joint_stratification_2026-10-10.json"
+    )
     assert progress["independent_evaluation_complete"] is True
     assert progress["candidate_independent_gate_passed"] is False
-    assert progress["candidate_exploitability"] > 0.05
+    assert progress["candidate_exploitability"] == pytest.approx(
+        0.06383412635222224
+    )
     assert progress["runtime_epsilon_gto_allowed"] is False

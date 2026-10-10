@@ -77,6 +77,21 @@ Research protocols, experiment artifacts, and evaluation reports are stored in [
 <details>
 <summary><strong>Development log / 开发更新记录</strong></summary>
 
+## Updates 10/10/2026
+
+- **Both five-die chance marginals are now stratified exactly** — Each 7,776-run
+  epoch independently permutes all ordered five-die microstates for both hands,
+  preserving true multinomial histogram probabilities without falsely treating
+  the 252 histograms as equiprobable.
+- **The frozen 62,208-run candidate improves but still fails** — Independent
+  exploitability fell from the retained `0.146501` baseline to `0.063834`, while
+  real visit coverage reached 54.447%. Both remain outside the preregistered
+  `0.05` and 60% gates, so runtime ε-GTO remains disabled.
+- **Incomplete games remain fail-closed** — Five-die structural auditing reached
+  200,000 histories; full Love Letter reached 1,581,622. Neither tree is closed,
+  and neither runtime label changed.
+  [Read the joint-stratification report](research/five_die_joint_stratification_update_2026-10-10.md).
+
 ## Updates 10/09/2026
 
 - **Five-die coverage improved without weakening certification** — A frozen

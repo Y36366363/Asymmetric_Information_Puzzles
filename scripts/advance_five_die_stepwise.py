@@ -17,7 +17,13 @@ RULES = ROOT / "configs/five_die_liar_stepwise_rules_v1.json"
 ADAPTER = ROOT / "src/aip/puzzles/liars_dice/five_die_stepwise.py"
 CHECKPOINT = ROOT / "research/local_checkpoints/five_die_stepwise_v1.sqlite"
 OUTPUT = ROOT / "research/results/five_die_stepwise_progress_2026-10-08.json"
-CANDIDATE = ROOT / "research/results/five_die_stepwise_candidate_2026-10-08.json"
+ORIGINAL_CANDIDATE = (
+    ROOT / "research/results/five_die_stepwise_candidate_2026-10-08.json"
+)
+JOINT_STRATIFIED_CANDIDATE = (
+    ROOT
+    / "research/results/five_die_stepwise_joint_stratification_2026-10-10.json"
+)
 
 
 def revision() -> str:
@@ -53,11 +59,24 @@ def main() -> int:
         print(json.dumps(chunks[-1]), flush=True)
         if chunks[-1]["status"] != "paused":
             break
+    candidate_path = (
+        JOINT_STRATIFIED_CANDIDATE
+        if JOINT_STRATIFIED_CANDIDATE.exists()
+        else ORIGINAL_CANDIDATE
+    )
     candidate = (
-        json.loads(CANDIDATE.read_text(encoding="utf-8"))
-        if CANDIDATE.exists()
+        json.loads(candidate_path.read_text(encoding="utf-8"))
+        if candidate_path.exists()
         else None
     )
+    if candidate is None:
+        candidate_evaluation = None
+    elif "checkpoints" in candidate:
+        candidate_evaluation = candidate["checkpoints"][-1][
+            "independent_evaluation"
+        ]
+    else:
+        candidate_evaluation = candidate["independent_evaluation"]
     artifact = {
         "updated_date": date.today().isoformat(),
         "rules_id": FiveDieStepwiseLiarGame.RULES_ID,
@@ -65,17 +84,18 @@ def main() -> int:
         "checkpoint_path": str(CHECKPOINT.relative_to(ROOT)),
         "chunks": chunks,
         "candidate_trained": candidate is not None,
+        "candidate_path": (
+            None if candidate is None else str(candidate_path.relative_to(ROOT))
+        ),
         "candidate_exploitability": (
-            None
-            if candidate is None
-            else candidate["independent_evaluation"]["exploitability"]
+            None if candidate_evaluation is None else candidate_evaluation["exploitability"]
         ),
         "candidate_independent_gate_passed": (
             False
-            if candidate is None
-            else candidate["independent_evaluation"]["passed"]
+            if candidate_evaluation is None
+            else candidate_evaluation["passed"]
         ),
-        "independent_evaluation_complete": candidate is not None,
+        "independent_evaluation_complete": candidate_evaluation is not None,
         "runtime_epsilon_gto_allowed": False,
     }
     OUTPUT.write_text(

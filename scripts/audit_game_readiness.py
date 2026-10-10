@@ -72,6 +72,10 @@ FIVE_DIE_STEPWISE_CANDIDATE = (
 FIVE_DIE_STEPWISE_COVERAGE = (
     ROOT / "research/results/five_die_stepwise_coverage_2026-10-09.json"
 )
+FIVE_DIE_STEPWISE_JOINT_STRATIFICATION = (
+    ROOT
+    / "research/results/five_die_stepwise_joint_stratification_2026-10-10.json"
+)
 
 
 def report() -> dict[str, object]:
@@ -139,10 +143,13 @@ def report() -> dict[str, object]:
     five_die_progress = load_optional(FIVE_DIE_STEPWISE_PROGRESS)
     five_die_candidate = load_optional(FIVE_DIE_STEPWISE_CANDIDATE)
     five_die_coverage = load_optional(FIVE_DIE_STEPWISE_COVERAGE)
+    five_die_joint = load_optional(FIVE_DIE_STEPWISE_JOINT_STRATIFICATION)
     latest_five_die_candidate = (
-        None
-        if five_die_coverage is None
+        five_die_joint["checkpoints"][-1]
+        if five_die_joint is not None
         else five_die_coverage["checkpoints"][-1]
+        if five_die_coverage is not None
+        else None
     )
 
     games = {
@@ -183,9 +190,15 @@ def report() -> dict[str, object]:
             "valueDecomposition": "not_applicable_to_current_heuristic_rules",
             "stepwiseCandidateStatus": (
                 "not_audited"
-                if five_die_candidate is None
+                if (
+                    five_die_candidate is None
+                    and five_die_coverage is None
+                    and five_die_joint is None
+                )
                 else (
-                    "coverage_improved_candidate_failed_independent_gate"
+                    "joint_stratification_candidate_failed_preregistered_gates"
+                    if five_die_joint is not None
+                    else "coverage_improved_candidate_failed_independent_gate"
                     if five_die_coverage is not None
                     else "adapter_implemented_candidate_failed_independent_gate"
                 )
@@ -244,24 +257,35 @@ def report() -> dict[str, object]:
             ),
             "stepwiseRetainedBaselineExploitability": (
                 None
-                if five_die_coverage is None
-                else five_die_coverage["retained_negative_control"]
+                if five_die_joint is None
+                else five_die_joint["retained_experiments"][-1]
                 ["independent_exploitability"]
             ),
             "stepwiseCoverageGatePassed": (
                 False
-                if five_die_coverage is None
-                else five_die_coverage["gates"]["visited_coverage_passed"]
+                if five_die_joint is None
+                else five_die_joint["gates"]["visited_coverage_passed"]
             ),
             "stepwiseIndependentGatePassed": (
                 False
-                if five_die_coverage is None
-                else five_die_coverage["gates"]
+                if five_die_joint is None
+                else five_die_joint["gates"]
                 ["independent_exploitability_passed"]
+            ),
+            "stepwiseCandidateIterations": (
+                None
+                if latest_five_die_candidate is None
+                else latest_five_die_candidate["iterations"]
+            ),
+            "stepwiseJointChanceMarginalsExact": (
+                False
+                if five_die_joint is None
+                else five_die_joint["schedule_audit"]["exact_true_marginals"]
             ),
             "remainingWork": [
                 "continue the resumable stepwise structural audit",
-                "retain the failed coverage experiment and preregister any joint-stratification or average-policy estimator change separately",
+                "retain all three failed candidates; do not post-hoc increase the joint-stratification budget",
+                "audit and separately preregister any average-policy estimator change on small controls before another five-die run",
                 "retain complete histogram-state best response as the promotion gate",
             ],
         },
@@ -440,7 +464,7 @@ def report() -> dict[str, object]:
     }
     return {
         "schemaVersion": "aip-game-readiness-v1",
-        "date": "2026-10-09",
+        "date": "2026-10-10",
         "games": games,
         "conclusion": {
             "basicConstructionComplete": [
@@ -454,8 +478,8 @@ def report() -> dict[str, object]:
             "notComplete": ["five-die-liars-dice", "love-letter-full-round"],
             "nextPriority": (
                 "retain the preregistered Guess Who dose-response zero result and pause "
-                "that cost-shape branch; retain the five-die coverage success and "
-                "independent-gate failure, then preregister any estimator change while continuing "
+                "that cost-shape branch; retain the five-die joint-stratification failures, "
+                "audit any average-policy estimator on small controls before preregistration, and continue "
                 "its structural audit; continue bounded full-round Love Letter audit"
             ),
         },

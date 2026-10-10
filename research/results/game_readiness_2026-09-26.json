@@ -8,13 +8,13 @@
       "guess-who-strategic-three-character",
       "love-letter-four-card-subgame"
     ],
-    "nextPriority": "retain the preregistered Guess Who dose-response zero result and pause that cost-shape branch; retain the five-die coverage success and independent-gate failure, then preregister any estimator change while continuing its structural audit; continue bounded full-round Love Letter audit",
+    "nextPriority": "retain the preregistered Guess Who dose-response zero result and pause that cost-shape branch; retain the five-die joint-stratification failures, audit any average-policy estimator on small controls before preregistration, and continue its structural audit; continue bounded full-round Love Letter audit",
     "notComplete": [
       "five-die-liars-dice",
       "love-letter-full-round"
     ]
   },
-  "date": "2026-10-09",
+  "date": "2026-10-10",
   "games": {
     "e-card-single-round": {
       "exploitability": 0.0,
@@ -30,22 +30,25 @@
       "liveArbitraryRaisePublicHistories": 1152921504606846975,
       "remainingWork": [
         "continue the resumable stepwise structural audit",
-        "retain the failed coverage experiment and preregister any joint-stratification or average-policy estimator change separately",
+        "retain all three failed candidates; do not post-hoc increase the joint-stratification budget",
+        "audit and separately preregister any average-policy estimator change on small controls before another five-die run",
         "retain complete histogram-state best response as the promotion gate"
       ],
       "runtimeEpsilonGtoAllowed": false,
       "solver": "transparent_probability_heuristic",
       "status": "heuristic_only_not_gto",
       "stepwiseCandidateEstimatedHistories": 43818013,
-      "stepwiseCandidateExploitability": 0.1465006764898036,
+      "stepwiseCandidateExploitability": 0.06383412635222224,
+      "stepwiseCandidateIterations": 62208,
       "stepwiseCandidateRulesId": "five_die_liar_two_player_stepwise_v1",
-      "stepwiseCandidateSampledCoverage": 0.5062391045050004,
-      "stepwiseCandidateStatus": "coverage_improved_candidate_failed_independent_gate",
-      "stepwiseCoverageGatePassed": true,
-      "stepwiseHistoriesAudited": 140000,
+      "stepwiseCandidateSampledCoverage": 0.544465088540233,
+      "stepwiseCandidateStatus": "joint_stratification_candidate_failed_preregistered_gates",
+      "stepwiseCoverageGatePassed": false,
+      "stepwiseHistoriesAudited": 200000,
       "stepwiseIndependentGatePassed": false,
-      "stepwiseInformationSetsObserved": 35425,
-      "stepwiseRetainedBaselineExploitability": 0.39150988739539305,
+      "stepwiseInformationSetsObserved": 44192,
+      "stepwiseJointChanceMarginalsExact": true,
+      "stepwiseRetainedBaselineExploitability": 0.1465006764898036,
       "stepwiseStructuralAuditComplete": false,
       "stepwiseStructuralFailures": [],
       "valueDecomposition": "not_applicable_to_current_heuristic_rules"
@@ -132,10 +135,10 @@
       "valueDecomposition": "17_positive_reach_43_zero_reach_information_sets"
     },
     "love-letter-full-round": {
-      "frontierNodes": 70,
-      "historiesTraversed": 1561622,
+      "frontierNodes": 76,
+      "historiesTraversed": 1581622,
       "independentEvaluator": false,
-      "informationSetsObserved": 223324,
+      "informationSetsObserved": 226815,
       "maximumDepth": 26,
       "remainingWork": [
         "close resumable structural audit",
