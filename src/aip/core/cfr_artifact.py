@@ -102,6 +102,16 @@ class CFRArtifactExporter:
                         for action, probability in distribution.items()
                     ],
                     "visits": result.information_set_visits[(player, information_set)],
+                    "average_strategy_observations": (
+                        result.average_strategy_observations.get(
+                            (player, information_set), 0
+                        )
+                    ),
+                    "average_strategy_observation_weight": (
+                        result.average_strategy_observation_weight.get(
+                            (player, information_set), 0.0
+                        )
+                    ),
                 }
             )
         return {

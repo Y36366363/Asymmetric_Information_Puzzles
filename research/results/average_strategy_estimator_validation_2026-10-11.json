@@ -1,0 +1,144 @@
+{
+  "all_small_game_gates_passed": false,
+  "audit_completed": true,
+  "experiment_id": "reach_weighted_average_strategy_small_game_validation_v1",
+  "five_die_preregistration_allowed": false,
+  "five_die_training_performed": false,
+  "games": {
+    "canonical_kuhn_poker": {
+      "candidate_algorithm": {
+        "algorithm_id": "reach_weighted_external_sampling_mccfr_v1",
+        "averaging_rule": "own_reach_weighted_uniform_iteration",
+        "parameters": {},
+        "seed": 20261011,
+        "traversal": "external_sampling_reach_weighted_average",
+        "update_schedule": "alternating_players"
+      },
+      "candidate_evaluation": {
+        "exploitability": 0.002889173226058822,
+        "maximum_unilateral_deviation_gain": 0.003955443720634775,
+        "nash_conv": 0.005778346452117644,
+        "player_0_deviation_gain": 0.003955443720634775,
+        "player_1_deviation_gain": 0.0018229027314828684
+      },
+      "comparison_algorithm": {
+        "algorithm_id": "external_sampling_mccfr",
+        "averaging_rule": "uniform_iteration_weighting",
+        "parameters": {},
+        "seed": 20261011,
+        "traversal": "external_sampling",
+        "update_schedule": "alternating_players"
+      },
+      "comparison_evaluation": {
+        "exploitability": 0.0028158317786109856,
+        "maximum_unilateral_deviation_gain": 0.00446676228613461,
+        "nash_conv": 0.005631663557221971,
+        "player_0_deviation_gain": 0.00446676228613461,
+        "player_1_deviation_gain": 0.001164901271087361
+      },
+      "diagnostics": {
+        "average_strategy_observation_count_coverage": 1.0,
+        "average_strategy_observation_weight_coverage": 1.0,
+        "candidate_profile_fingerprint": "79160bab5c7e84c3f557ec47ab0ed31f728f8d5d056b603ebb6f488d3d3db32e",
+        "comparison_profile_fingerprint": "c70b5454b3dde0a4396a135a553730f71cfefe5911528cfd0a8a96fb79be5d6e",
+        "information_sets": 12,
+        "positive_observation_count_information_sets": 12,
+        "positive_observation_weight_information_sets": 12,
+        "regret_trace_parity_with_comparison": true,
+        "total_average_strategy_observation_weight": 116868.98300245908,
+        "total_average_strategy_observations": 122161,
+        "visit_trace_parity_with_comparison": true
+      },
+      "gates": {
+        "fixed_seed_reproducible": true,
+        "independent_exploitability": true,
+        "normalized_complete_policy": true,
+        "not_materially_worse_than_comparison": true,
+        "observation_coverage": true,
+        "regret_trace_parity": true,
+        "visit_trace_parity": true
+      },
+      "iterations": 50000,
+      "passed": true,
+      "seed": 20261011
+    },
+    "one_die_stepwise_liars_dice": {
+      "candidate_algorithm": {
+        "algorithm_id": "reach_weighted_external_sampling_mccfr_v1",
+        "averaging_rule": "own_reach_weighted_uniform_iteration",
+        "parameters": {},
+        "seed": 20261011,
+        "traversal": "external_sampling_reach_weighted_average",
+        "update_schedule": "alternating_players"
+      },
+      "candidate_evaluation": {
+        "action_value_information_sets": 348,
+        "best_response_player_0": 0.5017339622219221,
+        "best_response_player_1": -0.49890578657338946,
+        "evaluator_id": "one_die_liar_exhaustive_best_response_v1",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 0.4996728789870771,
+        "exploitability": 0.0014140878242663302,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 0.0020610832348450514,
+        "nash_conv": 0.0028281756485326603,
+        "passed": true,
+        "player_0_deviation_gain": 0.0020610832348450514,
+        "player_1_deviation_gain": 0.0007670924136876089,
+        "profile_fingerprint": "794eff74541ecc010addf65bfa5691a6ba2b1ee90c1f8ffee36ea4991aa60a93"
+      },
+      "comparison_algorithm": {
+        "algorithm_id": "external_sampling_mccfr",
+        "averaging_rule": "uniform_iteration_weighting",
+        "parameters": {},
+        "seed": 20261011,
+        "traversal": "external_sampling",
+        "update_schedule": "alternating_players"
+      },
+      "comparison_evaluation": {
+        "action_value_information_sets": 348,
+        "best_response_player_0": 0.5003635457807508,
+        "best_response_player_1": -0.49898341803552054,
+        "evaluator_id": "one_die_liar_exhaustive_best_response_v1",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 0.49956030896705256,
+        "exploitability": 0.0006900638726151376,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 0.0008032368136982604,
+        "nash_conv": 0.0013801277452302751,
+        "passed": true,
+        "player_0_deviation_gain": 0.0008032368136982604,
+        "player_1_deviation_gain": 0.0005768909315320148,
+        "profile_fingerprint": "0ce4c69702f7b9aaa5cb5250371769322865fa05124e2b3024ad1b2c5de38842"
+      },
+      "diagnostics": {
+        "average_strategy_observation_count_coverage": 0.8419540229885057,
+        "average_strategy_observation_weight_coverage": 0.5431034482758621,
+        "candidate_profile_fingerprint": "794eff74541ecc010addf65bfa5691a6ba2b1ee90c1f8ffee36ea4991aa60a93",
+        "comparison_profile_fingerprint": "0ce4c69702f7b9aaa5cb5250371769322865fa05124e2b3024ad1b2c5de38842",
+        "information_sets": 348,
+        "positive_observation_count_information_sets": 293,
+        "positive_observation_weight_information_sets": 189,
+        "regret_trace_parity_with_comparison": true,
+        "total_average_strategy_observation_weight": 280187.1613045023,
+        "total_average_strategy_observations": 1191905,
+        "visit_trace_parity_with_comparison": true
+      },
+      "explicit_zero_regret_initialization": true,
+      "gates": {
+        "fixed_seed_reproducible": true,
+        "independent_exploitability": true,
+        "normalized_complete_policy": true,
+        "not_materially_worse_than_comparison": true,
+        "observation_coverage": false,
+        "regret_trace_parity": true,
+        "visit_trace_parity": true
+      },
+      "iterations": 100000,
+      "passed": false,
+      "seed": 20261011
+    }
+  },
+  "passed": false,
+  "preregistration": "configs/average_strategy_estimator_validation_2026-10-11.json"
+}

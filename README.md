@@ -77,6 +77,21 @@ Research protocols, experiment artifacts, and evaluation reports are stored in [
 <details>
 <summary><strong>Development log / 开发更新记录</strong></summary>
 
+## Updates 10/11/2026
+
+- **Average-strategy evidence is now independently observable** — CFR results
+  separate traversal visits, average-strategy observation counts and cumulative
+  observation weights. Existing external-sampling semantics remain unchanged.
+- **Reach-weighted averaging passed exact BR but failed its coverage gate** — At
+  fixed budgets, Kuhn reached exploitability `0.002889` with 100% weighted
+  observation coverage. One-die Liar's Dice reached `0.001414`, but only 189 of
+  348 information sets had positive observation weight, below the frozen 90%
+  threshold.
+- **No post-hoc five-die run was opened** — Since all small-game gates did not
+  pass, no new five-die preregistration or training was performed. A separately
+  preregistered coverage-aware fallback must pass small controls first.
+  [Read the estimator validation](research/average_strategy_estimator_validation_2026-10-11.md).
+
 ## Updates 10/10/2026
 
 - **Both five-die chance marginals are now stratified exactly** — Each 7,776-run

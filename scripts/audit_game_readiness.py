@@ -76,6 +76,10 @@ FIVE_DIE_STEPWISE_JOINT_STRATIFICATION = (
     ROOT
     / "research/results/five_die_stepwise_joint_stratification_2026-10-10.json"
 )
+AVERAGE_STRATEGY_ESTIMATOR_VALIDATION = (
+    ROOT
+    / "research/results/average_strategy_estimator_validation_2026-10-11.json"
+)
 
 
 def report() -> dict[str, object]:
@@ -144,6 +148,7 @@ def report() -> dict[str, object]:
     five_die_candidate = load_optional(FIVE_DIE_STEPWISE_CANDIDATE)
     five_die_coverage = load_optional(FIVE_DIE_STEPWISE_COVERAGE)
     five_die_joint = load_optional(FIVE_DIE_STEPWISE_JOINT_STRATIFICATION)
+    average_estimator = load_optional(AVERAGE_STRATEGY_ESTIMATOR_VALIDATION)
     latest_five_die_candidate = (
         five_die_joint["checkpoints"][-1]
         if five_die_joint is not None
@@ -282,10 +287,22 @@ def report() -> dict[str, object]:
                 if five_die_joint is None
                 else five_die_joint["schedule_audit"]["exact_true_marginals"]
             ),
+            "averageStrategyEstimatorValidationStatus": (
+                "not_run"
+                if average_estimator is None
+                else "passed"
+                if average_estimator["passed"]
+                else "failed_one_die_observation_coverage"
+            ),
+            "fiveDieEstimatorPreregistrationAllowed": (
+                False
+                if average_estimator is None
+                else average_estimator["five_die_preregistration_allowed"]
+            ),
             "remainingWork": [
                 "continue the resumable stepwise structural audit",
                 "retain all three failed candidates; do not post-hoc increase the joint-stratification budget",
-                "audit and separately preregister any average-policy estimator change on small controls before another five-die run",
+                "separately preregister a coverage-aware fallback and pass small controls before another five-die run",
                 "retain complete histogram-state best response as the promotion gate",
             ],
         },
@@ -464,7 +481,7 @@ def report() -> dict[str, object]:
     }
     return {
         "schemaVersion": "aip-game-readiness-v1",
-        "date": "2026-10-10",
+        "date": "2026-10-11",
         "games": games,
         "conclusion": {
             "basicConstructionComplete": [
@@ -478,8 +495,8 @@ def report() -> dict[str, object]:
             "notComplete": ["five-die-liars-dice", "love-letter-full-round"],
             "nextPriority": (
                 "retain the preregistered Guess Who dose-response zero result and pause "
-                "that cost-shape branch; retain the five-die joint-stratification failures, "
-                "audit any average-policy estimator on small controls before preregistration, and continue "
+                "that cost-shape branch; retain the failed reach-weighted coverage result, "
+                "preregister a coverage-aware fallback on small controls before any five-die run, and continue "
                 "its structural audit; continue bounded full-round Love Letter audit"
             ),
         },

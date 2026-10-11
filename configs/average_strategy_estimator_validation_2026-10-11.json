@@ -1,0 +1,45 @@
+{
+  "experiment_id": "reach_weighted_average_strategy_small_game_validation_v1",
+  "frozen_before_training": true,
+  "candidate_algorithm_id": "reach_weighted_external_sampling_mccfr_v1",
+  "comparison_algorithm_id": "external_sampling_mccfr",
+  "estimator": {
+    "observation_location": "updating_player_information_sets",
+    "observation_weight": "updating_player_own_reach_probability",
+    "temporal_weighting": "uniform_iterations",
+    "regret_update_semantics_changed": false,
+    "legacy_external_sampling_semantics_changed": false
+  },
+  "games": {
+    "canonical_kuhn_poker": {
+      "seed": 20261011,
+      "iterations": 50000,
+      "required_information_sets": 12,
+      "maximum_independent_exploitability": 0.01,
+      "minimum_average_strategy_observation_coverage": 1.0,
+      "maximum_exploitability_increase_vs_comparison": 0.002
+    },
+    "one_die_stepwise_liars_dice": {
+      "seed": 20261011,
+      "iterations": 100000,
+      "required_information_sets": 348,
+      "explicit_zero_regret_initialization": true,
+      "maximum_independent_exploitability": 0.01,
+      "minimum_average_strategy_observation_coverage": 0.9,
+      "maximum_exploitability_increase_vs_comparison": 0.002
+    }
+  },
+  "shared_gates": {
+    "fixed_seed_reproducibility": true,
+    "regret_and_visit_trace_parity_with_legacy": true,
+    "normalized_complete_policy": true,
+    "independent_best_response_required": true,
+    "training_regret_is_not_a_certificate": true,
+    "all_games_must_pass_before_five_die_preregistration": true
+  },
+  "five_die_boundary": {
+    "train_five_die_candidate_in_this_experiment": false,
+    "create_separate_preregistration_only_after_all_small_game_gates_pass": true,
+    "do_not_extend_2026_10_10_budget": true
+  }
+}

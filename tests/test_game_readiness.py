@@ -42,6 +42,12 @@ def test_readiness_keeps_exact_variants_separate_from_larger_uncertified_games()
     assert games["five-die-liars-dice"]["stepwiseRetainedBaselineExploitability"] > 0.05
     assert games["five-die-liars-dice"]["stepwiseCandidateIterations"] == 62_208
     assert games["five-die-liars-dice"]["stepwiseJointChanceMarginalsExact"] is True
+    assert games["five-die-liars-dice"][
+        "averageStrategyEstimatorValidationStatus"
+    ] == "failed_one_die_observation_coverage"
+    assert games["five-die-liars-dice"][
+        "fiveDieEstimatorPreregistrationAllowed"
+    ] is False
     assert games["goofspiel-four-card"]["exploitability"] == 0
     assert games["kuhn-poker"]["maximumUnilateralDeviationGain"] == 0
     assert games["e-card-single-round"]["exploitability"] == 0

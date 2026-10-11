@@ -8,13 +8,13 @@
       "guess-who-strategic-three-character",
       "love-letter-four-card-subgame"
     ],
-    "nextPriority": "retain the preregistered Guess Who dose-response zero result and pause that cost-shape branch; retain the five-die joint-stratification failures, audit any average-policy estimator on small controls before preregistration, and continue its structural audit; continue bounded full-round Love Letter audit",
+    "nextPriority": "retain the preregistered Guess Who dose-response zero result and pause that cost-shape branch; retain the failed reach-weighted coverage result, preregister a coverage-aware fallback on small controls before any five-die run, and continue its structural audit; continue bounded full-round Love Letter audit",
     "notComplete": [
       "five-die-liars-dice",
       "love-letter-full-round"
     ]
   },
-  "date": "2026-10-10",
+  "date": "2026-10-11",
   "games": {
     "e-card-single-round": {
       "exploitability": 0.0,
@@ -26,12 +26,14 @@
       "status": "complete_solver_control"
     },
     "five-die-liars-dice": {
+      "averageStrategyEstimatorValidationStatus": "failed_one_die_observation_coverage",
+      "fiveDieEstimatorPreregistrationAllowed": false,
       "independentEvaluator": false,
       "liveArbitraryRaisePublicHistories": 1152921504606846975,
       "remainingWork": [
         "continue the resumable stepwise structural audit",
         "retain all three failed candidates; do not post-hoc increase the joint-stratification budget",
-        "audit and separately preregister any average-policy estimator change on small controls before another five-die run",
+        "separately preregister a coverage-aware fallback and pass small controls before another five-die run",
         "retain complete histogram-state best response as the promotion gate"
       ],
       "runtimeEpsilonGtoAllowed": false,

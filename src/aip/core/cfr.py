@@ -138,6 +138,19 @@ class UniformAverageStrategy:
 
 
 @dataclass(frozen=True, slots=True)
+class ReachWeightedAverageStrategy:
+    """Average behavioral strategy using the acting player's own reach."""
+
+    policy_id: str = "own_reach_weighted_uniform_iteration"
+
+    def apply(self, current: float, delta: float, *, iteration: int) -> float:
+        return current + delta
+
+    def parameters(self) -> Mapping[str, float]:
+        return {}
+
+
+@dataclass(frozen=True, slots=True)
 class LinearAverageStrategy:
     policy_id: str = "linear_iteration_weighting"
 
@@ -186,6 +199,8 @@ class _Node:
     regrets: list[float]
     strategy_sum: list[float]
     visits: int = 0
+    average_strategy_observations: int = 0
+    average_strategy_observation_weight: float = 0.0
 
     @classmethod
     def create(cls, actions: tuple[Action, ...]) -> _Node:
@@ -216,6 +231,12 @@ class _CFRBatch:
         default_factory=dict
     )
     visits: dict[tuple[int, InformationSet], int] = field(default_factory=dict)
+    average_strategy_observations: dict[
+        tuple[int, InformationSet], int
+    ] = field(default_factory=dict)
+    average_strategy_observation_weight: dict[
+        tuple[int, InformationSet], float
+    ] = field(default_factory=dict)
 
     @staticmethod
     def _add(
@@ -248,6 +269,12 @@ class CFRResult:
     average_positive_regret: tuple[float, float]
     algorithm: AlgorithmSpec | None = None
     convergence_trace: tuple[CFRCheckpoint, ...] = ()
+    average_strategy_observations: Mapping[
+        tuple[int, InformationSet], int
+    ] = field(default_factory=dict)
+    average_strategy_observation_weight: Mapping[
+        tuple[int, InformationSet], float
+    ] = field(default_factory=dict)
 
     @property
     def information_set_count(self) -> int:
@@ -393,14 +420,22 @@ class RegretMinimizationTrainer(Generic[State]):
                 )
         for key, visits in batch.visits.items():
             self._nodes[key].visits += visits
+        for key, observations in batch.average_strategy_observations.items():
+            self._nodes[key].average_strategy_observations += observations
+        for key, weight in batch.average_strategy_observation_weight.items():
+            self._nodes[key].average_strategy_observation_weight += weight
 
     def result(self) -> CFRResult:
         policy: dict[tuple[int, InformationSet], dict[Action, float]] = {}
         visits: dict[tuple[int, InformationSet], int] = {}
+        observations: dict[tuple[int, InformationSet], int] = {}
+        observation_weight: dict[tuple[int, InformationSet], float] = {}
         regret_totals = [0.0, 0.0]
         for key, node in self._nodes.items():
             policy[key] = dict(zip(node.actions, node.average_strategy()))
             visits[key] = node.visits
+            observations[key] = node.average_strategy_observations
+            observation_weight[key] = node.average_strategy_observation_weight
             regret_totals[key[0]] += sum(max(0.0, value) for value in node.regrets)
         denominator = max(1, self.iterations)
         return CFRResult(
@@ -413,6 +448,8 @@ class RegretMinimizationTrainer(Generic[State]):
             ),
             algorithm=self.algorithm_spec,
             convergence_trace=tuple(self._convergence_trace),
+            average_strategy_observations=observations,
+            average_strategy_observation_weight=observation_weight,
         )
 
     def _node(
@@ -434,6 +471,18 @@ class RegretMinimizationTrainer(Generic[State]):
                 f"information set {information_set!r} has inconsistent legal actions"
             )
         return node
+
+    def initialize_information_set(
+        self,
+        player: int,
+        information_set: InformationSet,
+        actions: tuple[Action, ...],
+    ) -> None:
+        """Create a zero-regret node without counting a visit or observation."""
+
+        if player not in (0, 1):
+            raise ValueError("information-set player must be zero or one")
+        self._node(player, information_set, actions)
 
     def _traverse_full_tree(
         self,
@@ -533,6 +582,13 @@ class RegretMinimizationTrainer(Generic[State]):
                 batch.strategy,
                 key,
                 tuple(chance_reach * own_reach * probability for probability in strategy),
+            )
+            batch.average_strategy_observations[key] = (
+                batch.average_strategy_observations.get(key, 0) + 1
+            )
+            batch.average_strategy_observation_weight[key] = (
+                batch.average_strategy_observation_weight.get(key, 0.0)
+                + chance_reach * own_reach
             )
             batch.visits[key] = batch.visits.get(key, 0) + 1
         return node_value
@@ -691,6 +747,8 @@ class ExternalSamplingTraversal:
                 node.strategy_sum[index] = trainer.average_strategy_policy.apply(
                     node.strategy_sum[index], probability, iteration=iteration
                 )
+            node.average_strategy_observations += 1
+            node.average_strategy_observation_weight += 1.0
             sample_key = (player, information_set)
             if sample_key in sampled_opponent_actions:
                 selected = sampled_opponent_actions[sample_key]
@@ -714,6 +772,123 @@ class ExternalSamplingTraversal:
                 iteration=iteration,
             )
             for action in actions
+        ]
+        node_value = sum(
+            probability * value for probability, value in zip(strategy, action_values)
+        )
+        for index, action_value in enumerate(action_values):
+            node.regrets[index] = trainer.regret_update_policy.apply(
+                node.regrets[index], action_value - node_value, iteration=iteration
+            )
+        return node_value
+
+
+class ReachWeightedExternalSamplingTraversal(ExternalSamplingTraversal):
+    """External sampling with own-reach average strategy observations.
+
+    Regret updates are identical to :class:`ExternalSamplingTraversal`. Average
+    strategy is instead observed at the updating player's nodes and weighted by
+    that player's reach contribution. This is a separate experimental estimator;
+    the legacy external-sampling implementation is intentionally unchanged.
+    """
+
+    policy_id = "external_sampling_reach_weighted_average"
+    update_schedule = "alternating_players"
+
+    def run_iteration(
+        self, trainer: RegretMinimizationTrainer, root: State, iteration: int
+    ) -> None:
+        for update_player in (0, 1):
+            self._traverse_reach_weighted(
+                trainer,
+                root,
+                update_player=update_player,
+                sampled_opponent_actions={},
+                own_reach=1.0,
+                iteration=iteration,
+            )
+
+    def _traverse_reach_weighted(
+        self,
+        trainer: RegretMinimizationTrainer,
+        state: State,
+        *,
+        update_player: int,
+        sampled_opponent_actions: dict[tuple[int, InformationSet], Action],
+        own_reach: float,
+        iteration: int,
+    ) -> float:
+        if trainer.game.is_terminal(state):
+            utility = trainer.game.utility_player_zero(state)
+            if not isfinite(utility):
+                raise ValueError("terminal CFR utility must be finite")
+            return utility if update_player == 0 else -utility
+
+        player = trainer.game.current_player(state)
+        if player is None:
+            outcomes = trainer.game.chance_outcomes(state)
+            total_probability = fsum(probability for _, probability in outcomes)
+            if (
+                not outcomes
+                or len({action for action, _ in outcomes}) != len(outcomes)
+                or any(
+                    not isfinite(probability) or probability < 0
+                    for _, probability in outcomes
+                )
+                or abs(total_probability - 1.0) > 1e-9
+            ):
+                raise ValueError(
+                    "chance outcomes must be finite, nonnegative, nonempty, and sum to one"
+                )
+            selected = _sample_weighted(self._rng, outcomes)
+            return self._traverse_reach_weighted(
+                trainer,
+                trainer.game.next_state(state, selected),
+                update_player=update_player,
+                sampled_opponent_actions=sampled_opponent_actions,
+                own_reach=own_reach,
+                iteration=iteration,
+            )
+        if player not in (0, 1):
+            raise ValueError("MCCFR current_player must be 0, 1, or None for chance")
+
+        actions = trainer.game.legal_actions(state)
+        information_set = trainer.game.information_set(state)
+        node = trainer._node(player, information_set, actions)
+        node.visits += 1
+        strategy = node.strategy()
+        if player != update_player:
+            sample_key = (player, information_set)
+            if sample_key in sampled_opponent_actions:
+                selected = sampled_opponent_actions[sample_key]
+            else:
+                selected = _sample_weighted(self._rng, tuple(zip(actions, strategy)))
+                sampled_opponent_actions[sample_key] = selected
+            return self._traverse_reach_weighted(
+                trainer,
+                trainer.game.next_state(state, selected),
+                update_player=update_player,
+                sampled_opponent_actions=sampled_opponent_actions,
+                own_reach=own_reach,
+                iteration=iteration,
+            )
+
+        node.average_strategy_observations += 1
+        node.average_strategy_observation_weight += own_reach
+        for index, probability in enumerate(strategy):
+            node.strategy_sum[index] = trainer.average_strategy_policy.apply(
+                node.strategy_sum[index], own_reach * probability, iteration=iteration
+            )
+        action_values = [
+            self._traverse_reach_weighted(
+                trainer,
+                trainer.game.next_state(state, action),
+                update_player=update_player,
+                sampled_opponent_actions=sampled_opponent_actions,
+                own_reach=own_reach * probability,
+                iteration=iteration,
+            )
+            for action, probability in zip(actions, strategy)
         ]
         node_value = sum(
             probability * value for probability, value in zip(strategy, action_values)
@@ -749,6 +924,20 @@ class ExternalSamplingCFRTrainer(RegretMinimizationTrainer):
             traversal_policy=ExternalSamplingTraversal(seed=seed),
             regret_update_policy=VanillaRegretUpdate(),
             average_strategy_policy=UniformAverageStrategy(),
+            seed=seed,
+        )
+
+
+class ReachWeightedExternalSamplingCFRTrainer(RegretMinimizationTrainer):
+    """Experimental external-sampling trainer with own-reach averaging."""
+
+    def __init__(self, game: ExtensiveFormGame[State], *, seed: int = 0) -> None:
+        super().__init__(
+            game,
+            algorithm_id="reach_weighted_external_sampling_mccfr_v1",
+            traversal_policy=ReachWeightedExternalSamplingTraversal(seed=seed),
+            regret_update_policy=VanillaRegretUpdate(),
+            average_strategy_policy=ReachWeightedAverageStrategy(),
             seed=seed,
         )
 
@@ -830,6 +1019,14 @@ def create_regret_minimization_trainer(
         if not isinstance(seed, int) or isinstance(seed, bool):
             raise ValueError("external-sampling seed must be an integer")
         return ExternalSamplingCFRTrainer(game, seed=seed)
+    if algorithm_id == "reach_weighted_external_sampling_mccfr_v1":
+        if supplied:
+            raise ValueError(
+                "reach_weighted_external_sampling_mccfr_v1 does not accept algorithm parameters"
+            )
+        if not isinstance(seed, int) or isinstance(seed, bool):
+            raise ValueError("external-sampling seed must be an integer")
+        return ReachWeightedExternalSamplingCFRTrainer(game, seed=seed)
     raise ValueError(f"unknown regret-minimization algorithm ID: {algorithm_id!r}")
 
 

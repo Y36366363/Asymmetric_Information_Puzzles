@@ -170,6 +170,8 @@ class RegretMinimizationCompositionTests(unittest.TestCase):
             evaluation.exploitability,
         )
         self.assertEqual(len(artifact["convergence_trace"]), 4)
+        self.assertIn("average_strategy_observations", artifact["policy"][0])
+        self.assertIn("average_strategy_observation_weight", artifact["policy"][0])
         with tempfile.TemporaryDirectory() as directory:
             destination = Path(directory) / "artifact.json"
             CFRArtifactExporter().write(
