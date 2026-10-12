@@ -1,0 +1,55 @@
+{
+  "experiment_id": "coverage_aware_average_strategy_fallback_small_game_validation_v1",
+  "frozen_before_training": true,
+  "retained_failed_experiment": "research/results/average_strategy_estimator_validation_2026-10-11.json",
+  "candidate_algorithm_id": "coverage_aware_reach_weighted_external_sampling_mccfr_v1",
+  "comparison_algorithm_ids": [
+    "reach_weighted_external_sampling_mccfr_v1",
+    "external_sampling_mccfr"
+  ],
+  "fallback_rule": {
+    "positive_cumulative_observation_weight": "normalized_reach_weighted_average_strategy",
+    "zero_cumulative_observation_weight": "current_regret_matching_strategy",
+    "zero_regret_current_strategy": "uniform_legal_actions",
+    "changes_regret_updates": false,
+    "changes_sampling": false,
+    "creates_observation_evidence": false,
+    "fallback_use_must_be_exported_per_information_set": true
+  },
+  "games": {
+    "canonical_kuhn_poker": {
+      "seed": 20261012,
+      "iterations": 50000,
+      "required_information_sets": 12,
+      "maximum_fallback_fraction": 0.0,
+      "maximum_independent_exploitability": 0.01,
+      "maximum_exploitability_increase_vs_reach_weighted": 0.001,
+      "maximum_exploitability_increase_vs_legacy": 0.002
+    },
+    "one_die_stepwise_liars_dice": {
+      "seed": 20261012,
+      "iterations": 100000,
+      "required_information_sets": 348,
+      "explicit_zero_regret_initialization": true,
+      "maximum_fallback_fraction": 0.5,
+      "maximum_independent_exploitability": 0.01,
+      "maximum_exploitability_increase_vs_reach_weighted": 0.001,
+      "maximum_exploitability_increase_vs_legacy": 0.002
+    }
+  },
+  "shared_gates": {
+    "fixed_seed_reproducibility": true,
+    "regret_visit_and_observation_trace_parity_with_reach_weighted": true,
+    "normalized_complete_policy": true,
+    "resolved_policy_coverage": 1.0,
+    "fallback_exactly_equals_zero_weight_information_sets": true,
+    "independent_best_response_required": true,
+    "training_regret_is_not_a_certificate": true,
+    "all_games_must_pass_before_five_die_preregistration": true
+  },
+  "five_die_boundary": {
+    "train_five_die_candidate_in_this_experiment": false,
+    "create_separate_preregistration_only_after_all_small_game_gates_pass": true,
+    "do_not_extend_any_prior_five_die_budget": true
+  }
+}

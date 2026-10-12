@@ -77,6 +77,20 @@ Research protocols, experiment artifacts, and evaluation reports are stored in [
 <details>
 <summary><strong>Development log / 开发更新记录</strong></summary>
 
+## Updates 10/12/2026
+
+- **Zero-weight fallback was separately preregistered and audited** — The new
+  estimator uses the reach-weighted average when cumulative weight is positive
+  and current regret matching only at zero-weight information sets. It preserves
+  regret, visit and observation traces and exports fallback use per information
+  set without relabeling it as observation evidence.
+- **Absolute exact-BR gates passed, but the frozen experiment failed** — Kuhn
+  and one-die Liar's Dice reached exploitability `0.005751` and `0.003746`.
+  Both exceeded the preregistered allowed degradation versus the legacy
+  estimator, so the negative result is retained.
+- **Five-die remains closed** — No five-die preregistration or training was
+  started. [Read the fallback validation](research/coverage_aware_fallback_validation_2026-10-12.md).
+
 ## Updates 10/11/2026
 
 - **Average-strategy evidence is now independently observable** — CFR results

@@ -112,6 +112,11 @@ class CFRArtifactExporter:
                             (player, information_set), 0.0
                         )
                     ),
+                    "average_strategy_fallback_used": (
+                        result.average_strategy_fallback_used.get(
+                            (player, information_set), False
+                        )
+                    ),
                 }
             )
         return {

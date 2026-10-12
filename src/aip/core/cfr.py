@@ -151,6 +151,19 @@ class ReachWeightedAverageStrategy:
 
 
 @dataclass(frozen=True, slots=True)
+class CoverageAwareReachWeightedAverageStrategy:
+    """Reach-weighted average with a zero-weight current-strategy fallback."""
+
+    policy_id: str = "own_reach_weighted_zero_weight_current_strategy_fallback"
+
+    def apply(self, current: float, delta: float, *, iteration: int) -> float:
+        return current + delta
+
+    def parameters(self) -> Mapping[str, float]:
+        return {}
+
+
+@dataclass(frozen=True, slots=True)
 class LinearAverageStrategy:
     policy_id: str = "linear_iteration_weighting"
 
@@ -274,6 +287,9 @@ class CFRResult:
     ] = field(default_factory=dict)
     average_strategy_observation_weight: Mapping[
         tuple[int, InformationSet], float
+    ] = field(default_factory=dict)
+    average_strategy_fallback_used: Mapping[
+        tuple[int, InformationSet], bool
     ] = field(default_factory=dict)
 
     @property
@@ -430,12 +446,14 @@ class RegretMinimizationTrainer(Generic[State]):
         visits: dict[tuple[int, InformationSet], int] = {}
         observations: dict[tuple[int, InformationSet], int] = {}
         observation_weight: dict[tuple[int, InformationSet], float] = {}
+        fallback_used: dict[tuple[int, InformationSet], bool] = {}
         regret_totals = [0.0, 0.0]
         for key, node in self._nodes.items():
-            policy[key] = dict(zip(node.actions, node.average_strategy()))
+            policy[key] = dict(zip(node.actions, self._reported_strategy(node)))
             visits[key] = node.visits
             observations[key] = node.average_strategy_observations
             observation_weight[key] = node.average_strategy_observation_weight
+            fallback_used[key] = self._uses_average_strategy_fallback(node)
             regret_totals[key[0]] += sum(max(0.0, value) for value in node.regrets)
         denominator = max(1, self.iterations)
         return CFRResult(
@@ -450,7 +468,14 @@ class RegretMinimizationTrainer(Generic[State]):
             convergence_trace=tuple(self._convergence_trace),
             average_strategy_observations=observations,
             average_strategy_observation_weight=observation_weight,
+            average_strategy_fallback_used=fallback_used,
         )
+
+    def _reported_strategy(self, node: _Node) -> tuple[float, ...]:
+        return node.average_strategy()
+
+    def _uses_average_strategy_fallback(self, node: _Node) -> bool:
+        return False
 
     def _node(
         self, player: int, information_set: InformationSet, actions: tuple[Action, ...]
@@ -942,6 +967,32 @@ class ReachWeightedExternalSamplingCFRTrainer(RegretMinimizationTrainer):
         )
 
 
+class CoverageAwareReachWeightedExternalSamplingCFRTrainer(
+    RegretMinimizationTrainer
+):
+    """Reach-weighted MCCFR with a zero-observation-weight output fallback."""
+
+    def __init__(self, game: ExtensiveFormGame[State], *, seed: int = 0) -> None:
+        super().__init__(
+            game,
+            algorithm_id=(
+                "coverage_aware_reach_weighted_external_sampling_mccfr_v1"
+            ),
+            traversal_policy=ReachWeightedExternalSamplingTraversal(seed=seed),
+            regret_update_policy=VanillaRegretUpdate(),
+            average_strategy_policy=CoverageAwareReachWeightedAverageStrategy(),
+            seed=seed,
+        )
+
+    def _reported_strategy(self, node: _Node) -> tuple[float, ...]:
+        if node.average_strategy_observation_weight > 0:
+            return node.average_strategy()
+        return node.strategy()
+
+    def _uses_average_strategy_fallback(self, node: _Node) -> bool:
+        return node.average_strategy_observation_weight <= 0
+
+
 class CFRPlusTrainer(RegretMinimizationTrainer):
     """Full-tree CFR+ using RM+ and linear average-strategy weighting."""
 
@@ -1027,6 +1078,16 @@ def create_regret_minimization_trainer(
         if not isinstance(seed, int) or isinstance(seed, bool):
             raise ValueError("external-sampling seed must be an integer")
         return ReachWeightedExternalSamplingCFRTrainer(game, seed=seed)
+    if algorithm_id == "coverage_aware_reach_weighted_external_sampling_mccfr_v1":
+        if supplied:
+            raise ValueError(
+                "coverage_aware_reach_weighted_external_sampling_mccfr_v1 does not accept algorithm parameters"
+            )
+        if not isinstance(seed, int) or isinstance(seed, bool):
+            raise ValueError("external-sampling seed must be an integer")
+        return CoverageAwareReachWeightedExternalSamplingCFRTrainer(
+            game, seed=seed
+        )
     raise ValueError(f"unknown regret-minimization algorithm ID: {algorithm_id!r}")
 
 
