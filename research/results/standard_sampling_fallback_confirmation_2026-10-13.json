@@ -1,0 +1,620 @@
+{
+  "all_small_game_gates_passed": true,
+  "audit_completed": true,
+  "confirmation_seeds": [
+    731001,
+    731002,
+    731003,
+    731004,
+    731005
+  ],
+  "experiment_id": "standard_sampling_zero_weight_fallback_multiseed_confirmation_v1",
+  "exploratory_pilot": "research/results/standard_sampling_fallback_pilot_2026-10-13.json",
+  "five_die_preregistration_allowed": true,
+  "five_die_training_performed": false,
+  "games": {
+    "canonical_kuhn_poker": {
+      "gates": {
+        "absolute_exploitability_each_seed": true,
+        "all_structural_and_trace_gates": true,
+        "five_confirmation_seeds": true,
+        "fixed_seed_exact_reproduction": true,
+        "paired_mean_noninferiority": true,
+        "single_seed_noninferiority": true
+      },
+      "passed": true,
+      "runs": [
+        {
+          "candidate_algorithm": {
+            "algorithm_id": "coverage_aware_external_sampling_mccfr_v1",
+            "averaging_rule": "uniform_iteration_zero_weight_current_strategy_fallback",
+            "parameters": {},
+            "seed": 731001,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "candidate_evaluation": {
+            "exploitability": 0.003748318375391575,
+            "maximum_unilateral_deviation_gain": 0.005839978918346658,
+            "nash_conv": 0.00749663675078315,
+            "player_0_deviation_gain": 0.005839978918346658,
+            "player_1_deviation_gain": 0.0016566578324364919
+          },
+          "diagnostics": {
+            "candidate_profile_fingerprint": "0a1c0f56e52a48b1796927f5e5f71983d924a4455afd22fece9f42d7dbea956b",
+            "fallback_exactly_equals_zero_weight_set": true,
+            "fallback_fraction": 0.0,
+            "fallback_information_sets": 0,
+            "information_sets": 12,
+            "normalized_complete_policy": true,
+            "policy_changes_confined_to_fallback_set": true,
+            "raw_observation_weight_coverage": 1.0,
+            "resolved_policy_coverage": 1.0,
+            "trace_parity_with_paired_legacy": true
+          },
+          "iterations": 50000,
+          "legacy_algorithm": {
+            "algorithm_id": "external_sampling_mccfr",
+            "averaging_rule": "uniform_iteration_weighting",
+            "parameters": {},
+            "seed": 731001,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "legacy_evaluation": {
+            "exploitability": 0.003748318375391575,
+            "maximum_unilateral_deviation_gain": 0.005839978918346658,
+            "nash_conv": 0.00749663675078315,
+            "player_0_deviation_gain": 0.005839978918346658,
+            "player_1_deviation_gain": 0.0016566578324364919
+          },
+          "paired_exploitability_difference": 0.0,
+          "seed": 731001
+        },
+        {
+          "candidate_algorithm": {
+            "algorithm_id": "coverage_aware_external_sampling_mccfr_v1",
+            "averaging_rule": "uniform_iteration_zero_weight_current_strategy_fallback",
+            "parameters": {},
+            "seed": 731002,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "candidate_evaluation": {
+            "exploitability": 0.0032155626120955365,
+            "maximum_unilateral_deviation_gain": 0.004534148417291428,
+            "nash_conv": 0.006431125224191073,
+            "player_0_deviation_gain": 0.0018969768068996453,
+            "player_1_deviation_gain": 0.004534148417291428
+          },
+          "diagnostics": {
+            "candidate_profile_fingerprint": "bcbdb78f7981d48e1fe8ef9defb1b9ab5b12640e3415bfbe5e47179dae175efc",
+            "fallback_exactly_equals_zero_weight_set": true,
+            "fallback_fraction": 0.0,
+            "fallback_information_sets": 0,
+            "information_sets": 12,
+            "normalized_complete_policy": true,
+            "policy_changes_confined_to_fallback_set": true,
+            "raw_observation_weight_coverage": 1.0,
+            "resolved_policy_coverage": 1.0,
+            "trace_parity_with_paired_legacy": true
+          },
+          "iterations": 50000,
+          "legacy_algorithm": {
+            "algorithm_id": "external_sampling_mccfr",
+            "averaging_rule": "uniform_iteration_weighting",
+            "parameters": {},
+            "seed": 731002,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "legacy_evaluation": {
+            "exploitability": 0.0032155626120955365,
+            "maximum_unilateral_deviation_gain": 0.004534148417291428,
+            "nash_conv": 0.006431125224191073,
+            "player_0_deviation_gain": 0.0018969768068996453,
+            "player_1_deviation_gain": 0.004534148417291428
+          },
+          "paired_exploitability_difference": 0.0,
+          "seed": 731002
+        },
+        {
+          "candidate_algorithm": {
+            "algorithm_id": "coverage_aware_external_sampling_mccfr_v1",
+            "averaging_rule": "uniform_iteration_zero_weight_current_strategy_fallback",
+            "parameters": {},
+            "seed": 731003,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "candidate_evaluation": {
+            "exploitability": 0.001329557540900701,
+            "maximum_unilateral_deviation_gain": 0.0014138586542930545,
+            "nash_conv": 0.002659115081801402,
+            "player_0_deviation_gain": 0.0012452564275083477,
+            "player_1_deviation_gain": 0.0014138586542930545
+          },
+          "diagnostics": {
+            "candidate_profile_fingerprint": "c2f3eab1db6e7e1ee261b9f984fd44949a7ace7db6965937bf344d1d50b4362b",
+            "fallback_exactly_equals_zero_weight_set": true,
+            "fallback_fraction": 0.0,
+            "fallback_information_sets": 0,
+            "information_sets": 12,
+            "normalized_complete_policy": true,
+            "policy_changes_confined_to_fallback_set": true,
+            "raw_observation_weight_coverage": 1.0,
+            "resolved_policy_coverage": 1.0,
+            "trace_parity_with_paired_legacy": true
+          },
+          "iterations": 50000,
+          "legacy_algorithm": {
+            "algorithm_id": "external_sampling_mccfr",
+            "averaging_rule": "uniform_iteration_weighting",
+            "parameters": {},
+            "seed": 731003,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "legacy_evaluation": {
+            "exploitability": 0.001329557540900701,
+            "maximum_unilateral_deviation_gain": 0.0014138586542930545,
+            "nash_conv": 0.002659115081801402,
+            "player_0_deviation_gain": 0.0012452564275083477,
+            "player_1_deviation_gain": 0.0014138586542930545
+          },
+          "paired_exploitability_difference": 0.0,
+          "seed": 731003
+        },
+        {
+          "candidate_algorithm": {
+            "algorithm_id": "coverage_aware_external_sampling_mccfr_v1",
+            "averaging_rule": "uniform_iteration_zero_weight_current_strategy_fallback",
+            "parameters": {},
+            "seed": 731004,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "candidate_evaluation": {
+            "exploitability": 0.0034552497281720657,
+            "maximum_unilateral_deviation_gain": 0.004186850191447739,
+            "nash_conv": 0.006910499456344131,
+            "player_0_deviation_gain": 0.0027236492648963924,
+            "player_1_deviation_gain": 0.004186850191447739
+          },
+          "diagnostics": {
+            "candidate_profile_fingerprint": "650e403268d44fbf71b87ac8942f3bab8fee95ee46630a89eb2a0daa191369f9",
+            "fallback_exactly_equals_zero_weight_set": true,
+            "fallback_fraction": 0.0,
+            "fallback_information_sets": 0,
+            "information_sets": 12,
+            "normalized_complete_policy": true,
+            "policy_changes_confined_to_fallback_set": true,
+            "raw_observation_weight_coverage": 1.0,
+            "resolved_policy_coverage": 1.0,
+            "trace_parity_with_paired_legacy": true
+          },
+          "iterations": 50000,
+          "legacy_algorithm": {
+            "algorithm_id": "external_sampling_mccfr",
+            "averaging_rule": "uniform_iteration_weighting",
+            "parameters": {},
+            "seed": 731004,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "legacy_evaluation": {
+            "exploitability": 0.0034552497281720657,
+            "maximum_unilateral_deviation_gain": 0.004186850191447739,
+            "nash_conv": 0.006910499456344131,
+            "player_0_deviation_gain": 0.0027236492648963924,
+            "player_1_deviation_gain": 0.004186850191447739
+          },
+          "paired_exploitability_difference": 0.0,
+          "seed": 731004
+        },
+        {
+          "candidate_algorithm": {
+            "algorithm_id": "coverage_aware_external_sampling_mccfr_v1",
+            "averaging_rule": "uniform_iteration_zero_weight_current_strategy_fallback",
+            "parameters": {},
+            "seed": 731005,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "candidate_evaluation": {
+            "exploitability": 0.0035533382016754572,
+            "maximum_unilateral_deviation_gain": 0.0036665029214117692,
+            "nash_conv": 0.0071066764033509144,
+            "player_0_deviation_gain": 0.0034401734819391456,
+            "player_1_deviation_gain": 0.0036665029214117692
+          },
+          "diagnostics": {
+            "candidate_profile_fingerprint": "9be7f493b671dce9e3aa1c0dd9a1e01fff8c23f9a195b7a06d402406b723fe74",
+            "fallback_exactly_equals_zero_weight_set": true,
+            "fallback_fraction": 0.0,
+            "fallback_information_sets": 0,
+            "information_sets": 12,
+            "normalized_complete_policy": true,
+            "policy_changes_confined_to_fallback_set": true,
+            "raw_observation_weight_coverage": 1.0,
+            "resolved_policy_coverage": 1.0,
+            "trace_parity_with_paired_legacy": true
+          },
+          "iterations": 50000,
+          "legacy_algorithm": {
+            "algorithm_id": "external_sampling_mccfr",
+            "averaging_rule": "uniform_iteration_weighting",
+            "parameters": {},
+            "seed": 731005,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "legacy_evaluation": {
+            "exploitability": 0.0035533382016754572,
+            "maximum_unilateral_deviation_gain": 0.0036665029214117692,
+            "nash_conv": 0.0071066764033509144,
+            "player_0_deviation_gain": 0.0034401734819391456,
+            "player_1_deviation_gain": 0.0036665029214117692
+          },
+          "paired_exploitability_difference": 0.0,
+          "seed": 731005
+        }
+      ],
+      "summary": {
+        "candidate_mean_exploitability": 0.003060405291647067,
+        "legacy_mean_exploitability": 0.003060405291647067,
+        "maximum_candidate_exploitability": 0.003748318375391575,
+        "maximum_paired_exploitability_difference": 0.0,
+        "mean_paired_exploitability_difference": 0.0
+      }
+    },
+    "one_die_stepwise_liars_dice": {
+      "gates": {
+        "absolute_exploitability_each_seed": true,
+        "all_structural_and_trace_gates": true,
+        "five_confirmation_seeds": true,
+        "fixed_seed_exact_reproduction": true,
+        "paired_mean_noninferiority": true,
+        "single_seed_noninferiority": true
+      },
+      "passed": true,
+      "runs": [
+        {
+          "candidate_algorithm": {
+            "algorithm_id": "coverage_aware_external_sampling_mccfr_v1",
+            "averaging_rule": "uniform_iteration_zero_weight_current_strategy_fallback",
+            "parameters": {},
+            "seed": 731001,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "candidate_evaluation": {
+            "action_value_information_sets": 348,
+            "best_response_player_0": 0.5003505648051872,
+            "best_response_player_1": -0.49893130231134214,
+            "evaluator_id": "one_die_liar_exhaustive_best_response_v1",
+            "evaluator_method": "independent_game_tree_best_response",
+            "expected_value_to_player_0": 0.4996298206929553,
+            "exploitability": 0.0007096312469225541,
+            "failures": [],
+            "maximum_unilateral_deviation_gain": 0.0007207441122319413,
+            "nash_conv": 0.0014192624938451082,
+            "passed": true,
+            "player_0_deviation_gain": 0.0007207441122319413,
+            "player_1_deviation_gain": 0.0006985183816131668,
+            "profile_fingerprint": "628b910a67732f6328289904ac9a73ea7cef0217730d1cb7ee3ad7d1b5463d70"
+          },
+          "diagnostics": {
+            "candidate_profile_fingerprint": "628b910a67732f6328289904ac9a73ea7cef0217730d1cb7ee3ad7d1b5463d70",
+            "fallback_exactly_equals_zero_weight_set": true,
+            "fallback_fraction": 0.3936781609195402,
+            "fallback_information_sets": 137,
+            "information_sets": 348,
+            "normalized_complete_policy": true,
+            "policy_changes_confined_to_fallback_set": true,
+            "raw_observation_weight_coverage": 0.6063218390804598,
+            "resolved_policy_coverage": 1.0,
+            "trace_parity_with_paired_legacy": true
+          },
+          "iterations": 100000,
+          "legacy_algorithm": {
+            "algorithm_id": "external_sampling_mccfr",
+            "averaging_rule": "uniform_iteration_weighting",
+            "parameters": {},
+            "seed": 731001,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "legacy_evaluation": {
+            "action_value_information_sets": 348,
+            "best_response_player_0": 0.5003505648051872,
+            "best_response_player_1": -0.4989217068487335,
+            "evaluator_id": "one_die_liar_exhaustive_best_response_v1",
+            "evaluator_method": "independent_game_tree_best_response",
+            "expected_value_to_player_0": 0.49961645154660816,
+            "exploitability": 0.0007144289782268776,
+            "failures": [],
+            "maximum_unilateral_deviation_gain": 0.0007341132585790833,
+            "nash_conv": 0.0014288579564537551,
+            "passed": true,
+            "player_0_deviation_gain": 0.0007341132585790833,
+            "player_1_deviation_gain": 0.0006947446978746719,
+            "profile_fingerprint": "367893dca802b67ce8e929348eaf050d1f74d35666a3d336ab94125ff692335e"
+          },
+          "paired_exploitability_difference": -4.797731304323483e-06,
+          "seed": 731001
+        },
+        {
+          "candidate_algorithm": {
+            "algorithm_id": "coverage_aware_external_sampling_mccfr_v1",
+            "averaging_rule": "uniform_iteration_zero_weight_current_strategy_fallback",
+            "parameters": {},
+            "seed": 731002,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "candidate_evaluation": {
+            "action_value_information_sets": 348,
+            "best_response_player_0": 0.5001779970134259,
+            "best_response_player_1": -0.49858872186185704,
+            "evaluator_id": "one_die_liar_exhaustive_best_response_v1",
+            "evaluator_method": "independent_game_tree_best_response",
+            "expected_value_to_player_0": 0.4991237206734216,
+            "exploitability": 0.0007946375757844348,
+            "failures": [],
+            "maximum_unilateral_deviation_gain": 0.0010542763400043231,
+            "nash_conv": 0.0015892751515688697,
+            "passed": true,
+            "player_0_deviation_gain": 0.0010542763400043231,
+            "player_1_deviation_gain": 0.0005349988115645465,
+            "profile_fingerprint": "8f96051154d0d8ad9f8bba3d00a54292293ce1d9efa8e288db0c7a8a20bd7cbc"
+          },
+          "diagnostics": {
+            "candidate_profile_fingerprint": "8f96051154d0d8ad9f8bba3d00a54292293ce1d9efa8e288db0c7a8a20bd7cbc",
+            "fallback_exactly_equals_zero_weight_set": true,
+            "fallback_fraction": 0.3735632183908046,
+            "fallback_information_sets": 130,
+            "information_sets": 348,
+            "normalized_complete_policy": true,
+            "policy_changes_confined_to_fallback_set": true,
+            "raw_observation_weight_coverage": 0.6264367816091954,
+            "resolved_policy_coverage": 1.0,
+            "trace_parity_with_paired_legacy": true
+          },
+          "iterations": 100000,
+          "legacy_algorithm": {
+            "algorithm_id": "external_sampling_mccfr",
+            "averaging_rule": "uniform_iteration_weighting",
+            "parameters": {},
+            "seed": 731002,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "legacy_evaluation": {
+            "action_value_information_sets": 348,
+            "best_response_player_0": 0.5001779970134259,
+            "best_response_player_1": -0.49858000018899507,
+            "evaluator_id": "one_die_liar_exhaustive_best_response_v1",
+            "evaluator_method": "independent_game_tree_best_response",
+            "expected_value_to_player_0": 0.49911622591901905,
+            "exploitability": 0.0007989984122154237,
+            "failures": [],
+            "maximum_unilateral_deviation_gain": 0.0010617710944068603,
+            "nash_conv": 0.0015979968244308473,
+            "passed": true,
+            "player_0_deviation_gain": 0.0010617710944068603,
+            "player_1_deviation_gain": 0.000536225730023987,
+            "profile_fingerprint": "483dbad913482f6e9e93cee0b9fe0ceb1327757b727c266c1244aef0bfd4e088"
+          },
+          "paired_exploitability_difference": -4.360836430988835e-06,
+          "seed": 731002
+        },
+        {
+          "candidate_algorithm": {
+            "algorithm_id": "coverage_aware_external_sampling_mccfr_v1",
+            "averaging_rule": "uniform_iteration_zero_weight_current_strategy_fallback",
+            "parameters": {},
+            "seed": 731003,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "candidate_evaluation": {
+            "action_value_information_sets": 348,
+            "best_response_player_0": 0.5002470793350512,
+            "best_response_player_1": -0.49897539003482017,
+            "evaluator_id": "one_die_liar_exhaustive_best_response_v1",
+            "evaluator_method": "independent_game_tree_best_response",
+            "expected_value_to_player_0": 0.4994952741617251,
+            "exploitability": 0.0006358446501155135,
+            "failures": [],
+            "maximum_unilateral_deviation_gain": 0.00075180517332607,
+            "nash_conv": 0.001271689300231027,
+            "passed": true,
+            "player_0_deviation_gain": 0.00075180517332607,
+            "player_1_deviation_gain": 0.000519884126904957,
+            "profile_fingerprint": "5b380da1417d02bd8ec78db7b6340d429fd473125111576411098de6c68b279c"
+          },
+          "diagnostics": {
+            "candidate_profile_fingerprint": "5b380da1417d02bd8ec78db7b6340d429fd473125111576411098de6c68b279c",
+            "fallback_exactly_equals_zero_weight_set": true,
+            "fallback_fraction": 0.3793103448275862,
+            "fallback_information_sets": 132,
+            "information_sets": 348,
+            "normalized_complete_policy": true,
+            "policy_changes_confined_to_fallback_set": true,
+            "raw_observation_weight_coverage": 0.6206896551724138,
+            "resolved_policy_coverage": 1.0,
+            "trace_parity_with_paired_legacy": true
+          },
+          "iterations": 100000,
+          "legacy_algorithm": {
+            "algorithm_id": "external_sampling_mccfr",
+            "averaging_rule": "uniform_iteration_weighting",
+            "parameters": {},
+            "seed": 731003,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "legacy_evaluation": {
+            "action_value_information_sets": 348,
+            "best_response_player_0": 0.5002470793350512,
+            "best_response_player_1": -0.498968294268556,
+            "evaluator_id": "one_die_liar_exhaustive_best_response_v1",
+            "evaluator_method": "independent_game_tree_best_response",
+            "expected_value_to_player_0": 0.49948968608598304,
+            "exploitability": 0.0006393925332476014,
+            "failures": [],
+            "maximum_unilateral_deviation_gain": 0.0007573932490681501,
+            "nash_conv": 0.0012787850664952027,
+            "passed": true,
+            "player_0_deviation_gain": 0.0007573932490681501,
+            "player_1_deviation_gain": 0.0005213918174270527,
+            "profile_fingerprint": "78b56f57f0c9476a4dac3e528852ad5ead4495808707c9c7c1b5c2158ea12bed"
+          },
+          "paired_exploitability_difference": -3.54788313208787e-06,
+          "seed": 731003
+        },
+        {
+          "candidate_algorithm": {
+            "algorithm_id": "coverage_aware_external_sampling_mccfr_v1",
+            "averaging_rule": "uniform_iteration_zero_weight_current_strategy_fallback",
+            "parameters": {},
+            "seed": 731004,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "candidate_evaluation": {
+            "action_value_information_sets": 348,
+            "best_response_player_0": 0.5001811715202293,
+            "best_response_player_1": -0.49903308965823373,
+            "evaluator_id": "one_die_liar_exhaustive_best_response_v1",
+            "evaluator_method": "independent_game_tree_best_response",
+            "expected_value_to_player_0": 0.49950571927760623,
+            "exploitability": 0.0005740409309978045,
+            "failures": [],
+            "maximum_unilateral_deviation_gain": 0.0006754522426231091,
+            "nash_conv": 0.001148081861995609,
+            "passed": true,
+            "player_0_deviation_gain": 0.0006754522426231091,
+            "player_1_deviation_gain": 0.0004726296193724999,
+            "profile_fingerprint": "6aab95ad9ab42e4dac0551177d40a5d6106f7f9a657540a20f02662824429067"
+          },
+          "diagnostics": {
+            "candidate_profile_fingerprint": "6aab95ad9ab42e4dac0551177d40a5d6106f7f9a657540a20f02662824429067",
+            "fallback_exactly_equals_zero_weight_set": true,
+            "fallback_fraction": 0.3390804597701149,
+            "fallback_information_sets": 118,
+            "information_sets": 348,
+            "normalized_complete_policy": true,
+            "policy_changes_confined_to_fallback_set": true,
+            "raw_observation_weight_coverage": 0.6609195402298851,
+            "resolved_policy_coverage": 1.0,
+            "trace_parity_with_paired_legacy": true
+          },
+          "iterations": 100000,
+          "legacy_algorithm": {
+            "algorithm_id": "external_sampling_mccfr",
+            "averaging_rule": "uniform_iteration_weighting",
+            "parameters": {},
+            "seed": 731004,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "legacy_evaluation": {
+            "action_value_information_sets": 348,
+            "best_response_player_0": 0.5001811715202293,
+            "best_response_player_1": -0.4990234367639492,
+            "evaluator_id": "one_die_liar_exhaustive_best_response_v1",
+            "evaluator_method": "independent_game_tree_best_response",
+            "expected_value_to_player_0": 0.49949820257436656,
+            "exploitability": 0.0005788673781400577,
+            "failures": [],
+            "maximum_unilateral_deviation_gain": 0.000682968945862783,
+            "nash_conv": 0.0011577347562801155,
+            "passed": true,
+            "player_0_deviation_gain": 0.000682968945862783,
+            "player_1_deviation_gain": 0.00047476581041733246,
+            "profile_fingerprint": "8e8b7c440e8df4910c467565c0e270ff43e61dd0d04faeb156ae098972035d63"
+          },
+          "paired_exploitability_difference": -4.826447142253221e-06,
+          "seed": 731004
+        },
+        {
+          "candidate_algorithm": {
+            "algorithm_id": "coverage_aware_external_sampling_mccfr_v1",
+            "averaging_rule": "uniform_iteration_zero_weight_current_strategy_fallback",
+            "parameters": {},
+            "seed": 731005,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "candidate_evaluation": {
+            "action_value_information_sets": 348,
+            "best_response_player_0": 0.5002219828909344,
+            "best_response_player_1": -0.4991282905681434,
+            "evaluator_id": "one_die_liar_exhaustive_best_response_v1",
+            "evaluator_method": "independent_game_tree_best_response",
+            "expected_value_to_player_0": 0.49963549035977467,
+            "exploitability": 0.0005468461613955256,
+            "failures": [],
+            "maximum_unilateral_deviation_gain": 0.0005864925311597768,
+            "nash_conv": 0.001093692322791051,
+            "passed": true,
+            "player_0_deviation_gain": 0.0005864925311597768,
+            "player_1_deviation_gain": 0.0005071997916312743,
+            "profile_fingerprint": "608ccb1375c7dcb3cecce5d987d4d8a4dfde40903b5e4ac7caca0882d83ee0c5"
+          },
+          "diagnostics": {
+            "candidate_profile_fingerprint": "608ccb1375c7dcb3cecce5d987d4d8a4dfde40903b5e4ac7caca0882d83ee0c5",
+            "fallback_exactly_equals_zero_weight_set": true,
+            "fallback_fraction": 0.3793103448275862,
+            "fallback_information_sets": 132,
+            "information_sets": 348,
+            "normalized_complete_policy": true,
+            "policy_changes_confined_to_fallback_set": true,
+            "raw_observation_weight_coverage": 0.6206896551724138,
+            "resolved_policy_coverage": 1.0,
+            "trace_parity_with_paired_legacy": true
+          },
+          "iterations": 100000,
+          "legacy_algorithm": {
+            "algorithm_id": "external_sampling_mccfr",
+            "averaging_rule": "uniform_iteration_weighting",
+            "parameters": {},
+            "seed": 731005,
+            "traversal": "external_sampling",
+            "update_schedule": "alternating_players"
+          },
+          "legacy_evaluation": {
+            "action_value_information_sets": 348,
+            "best_response_player_0": 0.5002219828909344,
+            "best_response_player_1": -0.4991183770382919,
+            "evaluator_id": "one_die_liar_exhaustive_best_response_v1",
+            "evaluator_method": "independent_game_tree_best_response",
+            "expected_value_to_player_0": 0.4996249167636909,
+            "exploitability": 0.0005518029263212598,
+            "failures": [],
+            "maximum_unilateral_deviation_gain": 0.0005970661272435285,
+            "nash_conv": 0.0011036058526425196,
+            "passed": true,
+            "player_0_deviation_gain": 0.0005970661272435285,
+            "player_1_deviation_gain": 0.0005065397253989912,
+            "profile_fingerprint": "eb41e856e03d1d2294ae522b979c38ab67cf2ee6bbf41266b8fd5e9f304f3770"
+          },
+          "paired_exploitability_difference": -4.956764925734269e-06,
+          "seed": 731005
+        }
+      ],
+      "summary": {
+        "candidate_mean_exploitability": 0.0006522001130431665,
+        "legacy_mean_exploitability": 0.000656698045630244,
+        "maximum_candidate_exploitability": 0.0007946375757844348,
+        "maximum_paired_exploitability_difference": -3.54788313208787e-06,
+        "mean_paired_exploitability_difference": -4.497932587077535e-06
+      }
+    }
+  },
+  "passed": true,
+  "preregistration": "configs/standard_sampling_fallback_confirmation_2026-10-13.json",
+  "runtime_epsilon_gto_enabled": false
+}

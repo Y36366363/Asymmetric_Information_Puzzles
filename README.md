@@ -77,6 +77,20 @@ Research protocols, experiment artifacts, and evaluation reports are stored in [
 <details>
 <summary><strong>Development log / 开发更新记录</strong></summary>
 
+## Updates 10/13/2026
+
+- **A standard-sampling fallback passed five-seed confirmation** — Observed
+  nodes retain the standard external-sampling average; only zero-weight nodes
+  use current regret matching. Kuhn mean exploitability was `0.003060`; one-die
+  Liar's Dice mean exploitability was `0.000652`. Every absolute, paired
+  noninferiority, reproducibility and structural gate passed.
+- **Pilot and confirmation remain separated** — Three exploratory seeds were
+  excluded before five new confirmation seeds were frozen. Thresholds were
+  anchored to the existing `0.01` gate rather than fitted to pilot results.
+- **Five-die has only been preregistered** — A new 16-epoch joint-stratified
+  protocol is frozen, but training and runtime ε-GTO remain disabled.
+  [Read the confirmation](research/standard_sampling_fallback_confirmation_2026-10-13.md).
+
 ## Updates 10/12/2026
 
 - **Zero-weight fallback was separately preregistered and audited** — The new

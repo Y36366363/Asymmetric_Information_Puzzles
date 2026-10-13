@@ -1,4 +1,7 @@
+import pytest
+
 from aip.core import (
+    CoverageAwareExternalSamplingCFRTrainer,
     CoverageAwareReachWeightedExternalSamplingCFRTrainer,
     ReachWeightedExternalSamplingCFRTrainer,
     create_regret_minimization_trainer,
@@ -89,3 +92,69 @@ def test_fallback_algorithm_has_separate_identity_and_rejects_parameters():
     assert result.algorithm.averaging_rule == (
         "own_reach_weighted_zero_weight_current_strategy_fallback"
     )
+
+
+def test_standard_sampling_fallback_preserves_training_evidence():
+    candidate = CoverageAwareExternalSamplingCFRTrainer(
+        OneDieLiarDiceCFRGame(), seed=13
+    )
+    comparison = create_regret_minimization_trainer(
+        OneDieLiarDiceCFRGame(), "external_sampling_mccfr", seed=13
+    )
+    initialize_one_die(candidate)
+    initialize_one_die(comparison)
+    candidate_result = candidate.train(2_000)
+    comparison_result = comparison.train(2_000)
+    assert candidate_result.information_set_visits == (
+        comparison_result.information_set_visits
+    )
+    assert candidate_result.average_positive_regret == (
+        comparison_result.average_positive_regret
+    )
+    assert candidate_result.average_strategy_observations == (
+        comparison_result.average_strategy_observations
+    )
+    assert candidate_result.average_strategy_observation_weight == (
+        comparison_result.average_strategy_observation_weight
+    )
+    fallback = {
+        key
+        for key, used in candidate_result.average_strategy_fallback_used.items()
+        if used
+    }
+    differences = {
+        key
+        for key in candidate_result.policy
+        if candidate_result.policy[key] != comparison_result.policy[key]
+    }
+    assert differences <= fallback
+    assert fallback == {
+        key
+        for key, weight in candidate_result.average_strategy_observation_weight.items()
+        if weight <= 0
+    }
+
+
+def test_standard_sampling_fallback_has_separate_registry_identity():
+    result = create_regret_minimization_trainer(
+        KuhnCFRGame(), "coverage_aware_external_sampling_mccfr_v1", seed=17
+    ).train(1)
+    assert result.algorithm.algorithm_id == (
+        "coverage_aware_external_sampling_mccfr_v1"
+    )
+    assert result.algorithm.averaging_rule == (
+        "uniform_iteration_zero_weight_current_strategy_fallback"
+    )
+    with pytest.raises(ValueError, match="does not accept algorithm parameters"):
+        create_regret_minimization_trainer(
+            KuhnCFRGame(),
+            "coverage_aware_external_sampling_mccfr_v1",
+            seed=17,
+            parameters={"fallback_threshold": 1.0},
+        )
+    with pytest.raises(ValueError, match="seed must be an integer"):
+        create_regret_minimization_trainer(
+            KuhnCFRGame(),
+            "coverage_aware_external_sampling_mccfr_v1",
+            seed=True,
+        )

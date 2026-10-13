@@ -164,6 +164,19 @@ class CoverageAwareReachWeightedAverageStrategy:
 
 
 @dataclass(frozen=True, slots=True)
+class CoverageAwareUniformAverageStrategy:
+    """Standard sampled average with a zero-weight current-strategy fallback."""
+
+    policy_id: str = "uniform_iteration_zero_weight_current_strategy_fallback"
+
+    def apply(self, current: float, delta: float, *, iteration: int) -> float:
+        return current + delta
+
+    def parameters(self) -> Mapping[str, float]:
+        return {}
+
+
+@dataclass(frozen=True, slots=True)
 class LinearAverageStrategy:
     policy_id: str = "linear_iteration_weighting"
 
@@ -993,6 +1006,28 @@ class CoverageAwareReachWeightedExternalSamplingCFRTrainer(
         return node.average_strategy_observation_weight <= 0
 
 
+class CoverageAwareExternalSamplingCFRTrainer(RegretMinimizationTrainer):
+    """Standard external sampling with a zero-observation-weight fallback."""
+
+    def __init__(self, game: ExtensiveFormGame[State], *, seed: int = 0) -> None:
+        super().__init__(
+            game,
+            algorithm_id="coverage_aware_external_sampling_mccfr_v1",
+            traversal_policy=ExternalSamplingTraversal(seed=seed),
+            regret_update_policy=VanillaRegretUpdate(),
+            average_strategy_policy=CoverageAwareUniformAverageStrategy(),
+            seed=seed,
+        )
+
+    def _reported_strategy(self, node: _Node) -> tuple[float, ...]:
+        if node.average_strategy_observation_weight > 0:
+            return node.average_strategy()
+        return node.strategy()
+
+    def _uses_average_strategy_fallback(self, node: _Node) -> bool:
+        return node.average_strategy_observation_weight <= 0
+
+
 class CFRPlusTrainer(RegretMinimizationTrainer):
     """Full-tree CFR+ using RM+ and linear average-strategy weighting."""
 
@@ -1088,6 +1123,15 @@ def create_regret_minimization_trainer(
         return CoverageAwareReachWeightedExternalSamplingCFRTrainer(
             game, seed=seed
         )
+    if algorithm_id == "coverage_aware_external_sampling_mccfr_v1":
+        if supplied:
+            raise ValueError(
+                "coverage_aware_external_sampling_mccfr_v1 does not accept "
+                "algorithm parameters"
+            )
+        if not isinstance(seed, int) or isinstance(seed, bool):
+            raise ValueError("external-sampling seed must be an integer")
+        return CoverageAwareExternalSamplingCFRTrainer(game, seed=seed)
     raise ValueError(f"unknown regret-minimization algorithm ID: {algorithm_id!r}")
 
 

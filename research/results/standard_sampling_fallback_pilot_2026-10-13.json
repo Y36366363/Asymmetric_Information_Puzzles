@@ -1,0 +1,76 @@
+{
+  "algorithm_id": "coverage_aware_external_sampling_mccfr_v1",
+  "games": {
+    "canonical_kuhn_poker": [
+      {
+        "candidate_exploitability": 0.005318215579071544,
+        "fallback_fraction": 0.0,
+        "fallback_information_sets": 0,
+        "information_sets": 12,
+        "iterations": 20000,
+        "legacy_exploitability": 0.005318215579071544,
+        "seed": 2026101301,
+        "trace_parity": true
+      },
+      {
+        "candidate_exploitability": 0.003325203076317606,
+        "fallback_fraction": 0.0,
+        "fallback_information_sets": 0,
+        "information_sets": 12,
+        "iterations": 20000,
+        "legacy_exploitability": 0.003325203076317606,
+        "seed": 2026101302,
+        "trace_parity": true
+      },
+      {
+        "candidate_exploitability": 0.0040176577112699344,
+        "fallback_fraction": 0.0,
+        "fallback_information_sets": 0,
+        "information_sets": 12,
+        "iterations": 20000,
+        "legacy_exploitability": 0.0040176577112699344,
+        "seed": 2026101303,
+        "trace_parity": true
+      }
+    ],
+    "one_die_stepwise_liars_dice": [
+      {
+        "candidate_exploitability": 0.0018163330303039849,
+        "fallback_fraction": 0.3649425287356322,
+        "fallback_information_sets": 127,
+        "information_sets": 348,
+        "iterations": 30000,
+        "legacy_exploitability": 0.0018540332143204552,
+        "seed": 2026101301,
+        "trace_parity": true
+      },
+      {
+        "candidate_exploitability": 0.0031947484545935823,
+        "fallback_fraction": 0.3505747126436782,
+        "fallback_information_sets": 122,
+        "information_sets": 348,
+        "iterations": 30000,
+        "legacy_exploitability": 0.0032501241942324843,
+        "seed": 2026101302,
+        "trace_parity": true
+      },
+      {
+        "candidate_exploitability": 0.002519404373665851,
+        "fallback_fraction": 0.3563218390804598,
+        "fallback_information_sets": 124,
+        "information_sets": 348,
+        "iterations": 30000,
+        "legacy_exploitability": 0.002535111527536743,
+        "seed": 2026101303,
+        "trace_parity": true
+      }
+    ]
+  },
+  "seeds_excluded_from_confirmation": [
+    2026101301,
+    2026101302,
+    2026101303
+  ],
+  "status": "exploratory_pilot_not_certification",
+  "thresholds_selected_from_this_pilot": false
+}

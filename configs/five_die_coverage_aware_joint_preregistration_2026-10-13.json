@@ -1,0 +1,48 @@
+{
+  "experiment_id": "five_die_coverage_aware_joint_stratification_v1",
+  "status": "frozen_before_implementation_and_training",
+  "rules_id": "five_die_liar_two_player_stepwise_v1",
+  "small_game_prerequisite": {
+    "artifact": "research/results/standard_sampling_fallback_confirmation_2026-10-13.json",
+    "must_have_passed": true,
+    "candidate_algorithm_id": "coverage_aware_external_sampling_mccfr_v1"
+  },
+  "retained_failed_experiments": [
+    "research/results/five_die_stepwise_candidate_2026-10-08.json",
+    "research/results/five_die_stepwise_coverage_2026-10-09.json",
+    "research/results/five_die_stepwise_joint_stratification_2026-10-10.json"
+  ],
+  "algorithm": {
+    "algorithm_id": "coverage_aware_joint_marginal_stratified_external_sampling_mccfr_v1",
+    "seed": 731101,
+    "iterations": 124416,
+    "checkpoints": [62208, 93312, 124416],
+    "epoch_size": 7776,
+    "epochs": 16,
+    "chance_schedule": "independent_seeded_permutations_of_all_ordered_five_die_microstates_for_both_hand_marginals_per_epoch",
+    "observed_policy_estimator": "standard_external_sampling_uniform_iteration_average",
+    "zero_observation_weight_fallback": "current_regret_matching_strategy",
+    "fallback_creates_observation_evidence": false,
+    "information_set_initialization": "all_87192_nodes_zero_regret_uniform_default_before_training",
+    "training_regret_is_not_a_certificate": true
+  },
+  "candidate_gates": {
+    "maximum_final_independent_exploitability": 0.05,
+    "minimum_positive_visit_coverage": 0.65,
+    "maximum_final_fallback_fraction": 0.4,
+    "required_information_sets": 87192,
+    "fallback_exactly_equals_zero_observation_weight_set": true,
+    "normalized_complete_policy": true,
+    "fixed_schedule_reproducibility": true,
+    "independent_evaluator_id": "five_die_stepwise_histogram_best_response_v1",
+    "final_exploitability_must_improve_over_retained_0_063834_result": true,
+    "monotonicity_reported_but_not_required": true
+  },
+  "scope_boundary": {
+    "this_is_a_new_run_not_an_extension_of_prior_budget": true,
+    "complete_resumable_tree_audit_required_for_runtime": true,
+    "runtime_epsilon_gto_allowed_during_experiment": false,
+    "retain_every_checkpoint_and_failure": true,
+    "do_not_change_budget_or_gates_after_training_starts": true
+  }
+}

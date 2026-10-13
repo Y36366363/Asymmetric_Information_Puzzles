@@ -1,0 +1,52 @@
+{
+  "experiment_id": "standard_sampling_zero_weight_fallback_multiseed_confirmation_v1",
+  "frozen_before_confirmation": true,
+  "candidate_algorithm_id": "coverage_aware_external_sampling_mccfr_v1",
+  "paired_comparison_algorithm_id": "external_sampling_mccfr",
+  "exploratory_pilot": "research/results/standard_sampling_fallback_pilot_2026-10-13.json",
+  "pilot_seeds_must_be_excluded": [2026101301, 2026101302, 2026101303],
+  "confirmation_seeds": [731001, 731002, 731003, 731004, 731005],
+  "threshold_selection_basis": {
+    "absolute_exploitability_ceiling": "retained small-game epsilon gate from the 2026-10-11 and 2026-10-12 protocols",
+    "mean_noninferiority_margin": "five percent of the pre-existing 0.01 absolute ceiling; not selected from pilot effect size",
+    "per_seed_noninferiority_margin": "ten percent of the pre-existing 0.01 absolute ceiling; protects against a bad stochastic replicate",
+    "fallback_fraction": "retained 0.50 limit from the separately preregistered 2026-10-12 fallback experiment",
+    "superiority_claim_allowed": false
+  },
+  "games": {
+    "canonical_kuhn_poker": {
+      "iterations_per_seed": 50000,
+      "required_information_sets": 12,
+      "maximum_fallback_fraction": 0.0,
+      "maximum_independent_exploitability_each_seed": 0.01,
+      "maximum_mean_exploitability_increase_vs_paired_legacy": 0.0005,
+      "maximum_single_seed_exploitability_increase_vs_paired_legacy": 0.001
+    },
+    "one_die_stepwise_liars_dice": {
+      "iterations_per_seed": 100000,
+      "required_information_sets": 348,
+      "explicit_zero_regret_initialization": true,
+      "maximum_fallback_fraction": 0.5,
+      "maximum_independent_exploitability_each_seed": 0.01,
+      "maximum_mean_exploitability_increase_vs_paired_legacy": 0.0005,
+      "maximum_single_seed_exploitability_increase_vs_paired_legacy": 0.001
+    }
+  },
+  "shared_gates": {
+    "independent_best_response_required": true,
+    "training_regret_is_not_a_certificate": true,
+    "five_disjoint_confirmation_seeds": true,
+    "one_fixed_seed_exact_reproduction": true,
+    "normalized_complete_policy_every_seed": true,
+    "fallback_exactly_equals_zero_weight_set_every_seed": true,
+    "regret_visit_and_observation_trace_parity_with_paired_legacy_every_seed": true,
+    "resolved_policy_coverage": 1.0,
+    "all_games_must_pass": true
+  },
+  "scope_boundary": {
+    "create_five_die_preregistration_if_passed": true,
+    "train_five_die_in_this_experiment": false,
+    "enable_runtime_epsilon_gto_in_this_experiment": false,
+    "retain_all_prior_failed_artifacts": true
+  }
+}
