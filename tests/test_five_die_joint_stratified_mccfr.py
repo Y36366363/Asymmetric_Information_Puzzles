@@ -4,9 +4,11 @@ from aip.puzzles.liars_dice import (
     FIVE_DIE_HISTOGRAMS,
     JOINT_STRATIFICATION_EPOCH_SIZE,
     ORDERED_DICE_HISTOGRAMS,
+    CoverageAwareJointStratifiedFiveDieTrainer,
     JointStratifiedFiveDieExternalSamplingTrainer,
     joint_stratified_epoch,
     train_five_die_joint_stratified_external_sampling,
+    train_five_die_coverage_aware_joint_stratified,
     visited_information_set_count,
 )
 
@@ -72,3 +74,47 @@ def test_fixed_seed_training_is_deterministic():
     second = train_five_die_joint_stratified_external_sampling(10, seed=47)
     assert first.policy == second.policy
     assert first.information_set_visits == second.information_set_visits
+
+
+def test_coverage_aware_joint_trainer_has_frozen_identity_and_complete_fallback():
+    result = train_five_die_coverage_aware_joint_stratified(1, seed=731101)
+    assert result.algorithm.algorithm_id == (
+        "coverage_aware_joint_marginal_stratified_external_sampling_mccfr_v1"
+    )
+    assert result.algorithm.averaging_rule == (
+        "uniform_iteration_zero_weight_current_strategy_fallback"
+    )
+    fallback = {
+        key
+        for key, used in result.average_strategy_fallback_used.items()
+        if used
+    }
+    zero_weight = {
+        key
+        for key, weight in result.average_strategy_observation_weight.items()
+        if weight <= 0
+    }
+    assert fallback == zero_weight
+
+
+def test_coverage_aware_joint_trainer_preserves_training_trace():
+    candidate = CoverageAwareJointStratifiedFiveDieTrainer(seed=31).train(20)
+    comparison = JointStratifiedFiveDieExternalSamplingTrainer(seed=31).train(20)
+    assert candidate.information_set_visits == comparison.information_set_visits
+    assert candidate.average_positive_regret == comparison.average_positive_regret
+    assert candidate.average_strategy_observations == (
+        comparison.average_strategy_observations
+    )
+    assert candidate.average_strategy_observation_weight == (
+        comparison.average_strategy_observation_weight
+    )
+    changed = {
+        key
+        for key in candidate.policy
+        if candidate.policy[key] != comparison.policy[key]
+    }
+    assert changed <= {
+        key
+        for key, used in candidate.average_strategy_fallback_used.items()
+        if used
+    }

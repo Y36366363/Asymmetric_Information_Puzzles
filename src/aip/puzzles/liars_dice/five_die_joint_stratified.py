@@ -7,6 +7,7 @@ import random
 
 from aip.core import (
     AlgorithmSpec,
+    CoverageAwareUniformAverageStrategy,
     ExternalSamplingTraversal,
     RegretMinimizationTrainer,
     UniformAverageStrategy,
@@ -166,7 +167,35 @@ class JointStratifiedFiveDieExternalSamplingTrainer(
             self._node(player, information_set, self.game.legal_actions(state))
 
 
+class CoverageAwareJointStratifiedFiveDieTrainer(
+    JointStratifiedFiveDieExternalSamplingTrainer
+):
+    """Frozen joint-stratified trainer with zero-weight policy completion."""
+
+    ALGORITHM_ID = (
+        "coverage_aware_joint_marginal_stratified_external_sampling_mccfr_v1"
+    )
+
+    def __init__(self, *, seed: int = 731101) -> None:
+        super().__init__(seed=seed)
+        self.average_strategy_policy = CoverageAwareUniformAverageStrategy()
+
+    def _reported_strategy(self, node) -> tuple[float, ...]:
+        if node.average_strategy_observation_weight > 0:
+            return node.average_strategy()
+        return node.strategy()
+
+    def _uses_average_strategy_fallback(self, node) -> bool:
+        return node.average_strategy_observation_weight <= 0
+
+
 def train_five_die_joint_stratified_external_sampling(
     iterations: int, *, seed: int = 20261010
 ):
     return JointStratifiedFiveDieExternalSamplingTrainer(seed=seed).train(iterations)
+
+
+def train_five_die_coverage_aware_joint_stratified(
+    iterations: int, *, seed: int = 731101
+):
+    return CoverageAwareJointStratifiedFiveDieTrainer(seed=seed).train(iterations)

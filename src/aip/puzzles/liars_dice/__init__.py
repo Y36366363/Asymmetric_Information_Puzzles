@@ -36,10 +36,12 @@ from aip.puzzles.liars_dice.five_die_stratified import (
 from aip.puzzles.liars_dice.five_die_joint_stratified import (
     JOINT_STRATIFICATION_EPOCH_SIZE,
     ORDERED_DICE_HISTOGRAMS,
+    CoverageAwareJointStratifiedFiveDieTrainer,
     JointMarginalStratifiedExternalSamplingTraversal,
     JointStratifiedFiveDieExternalSamplingTrainer,
     joint_stratified_epoch,
     train_five_die_joint_stratified_external_sampling,
+    train_five_die_coverage_aware_joint_stratified,
 )
 
 __all__ = [
@@ -53,6 +55,7 @@ __all__ = [
     "FiveDieStepwiseState",
     "JOINT_STRATIFICATION_EPOCH_SIZE",
     "ORDERED_DICE_HISTOGRAMS",
+    "CoverageAwareJointStratifiedFiveDieTrainer",
     "JointMarginalStratifiedExternalSamplingTraversal",
     "JointStratifiedFiveDieExternalSamplingTrainer",
     "StratifiedFiveDieExternalSamplingTrainer",
@@ -75,6 +78,7 @@ __all__ = [
     "train_five_die_external_sampling",
     "train_five_die_stratified_external_sampling",
     "train_five_die_joint_stratified_external_sampling",
+    "train_five_die_coverage_aware_joint_stratified",
     "joint_stratified_epoch",
     "visited_information_set_count",
 ]

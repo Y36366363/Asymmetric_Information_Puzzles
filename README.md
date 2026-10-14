@@ -77,6 +77,20 @@ Research protocols, experiment artifacts, and evaluation reports are stored in [
 <details>
 <summary><strong>Development log / 开发更新记录</strong></summary>
 
+## Updates 10/14/2026
+
+- **The frozen five-die candidate passed exploitability but failed coverage** —
+  At 124,416 iterations, independent exploitability reached `0.040003`, below
+  the `0.05` gate and better than the retained `0.063834` result. Positive visit
+  coverage was only 59.63% and fallback use remained 70.51%, missing the frozen
+  65% and 40% gates.
+- **Fallback remains evidence-neutral** — The exported fallback set exactly
+  matches zero-observation-weight information sets. Complete policy output is
+  not relabeled as actual training coverage.
+- **Runtime ε-GTO remains disabled** — The candidate failed overall and the
+  independent complete-tree audit is still unfinished. No post-hoc budget was
+  added. [Read the five-die report](research/five_die_coverage_aware_joint_update_2026-10-14.md).
+
 ## Updates 10/13/2026
 
 - **A standard-sampling fallback passed five-seed confirmation** — Observed

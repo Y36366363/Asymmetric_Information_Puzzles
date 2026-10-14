@@ -1,0 +1,179 @@
+{
+  "algorithm": {
+    "algorithm_id": "coverage_aware_joint_marginal_stratified_external_sampling_mccfr_v1",
+    "averaging_rule": "uniform_iteration_zero_weight_current_strategy_fallback",
+    "parameters": {
+      "chance_epoch_size": 7776.0,
+      "histogram_strata": 252.0,
+      "preinitialized_information_sets": 87192.0
+    },
+    "seed": 731101,
+    "traversal": "joint_marginal_stratified_external_sampling",
+    "update_schedule": "alternating_players_7776_microstate_epochs"
+  },
+  "audit_completed": true,
+  "candidate_passed": false,
+  "checkpoints": [
+    {
+      "average_positive_regret": [
+        0.6062387263084128,
+        0.23774612210096568
+      ],
+      "completed_chance_epochs": 8,
+      "fallback_exactly_equals_zero_weight_set": true,
+      "fallback_fraction": 0.7177608037434627,
+      "fallback_information_sets": 62583,
+      "independent_evaluation": {
+        "action_value_information_sets": 87192,
+        "best_response_player_0": 0.631953174105312,
+        "best_response_player_1": -0.505661013598617,
+        "evaluator_id": "five_die_stepwise_histogram_best_response_v1",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 0.571022025256586,
+        "exploitability": 0.0631460802533475,
+        "failures": [
+          "exploitability_above_threshold"
+        ],
+        "maximum_unilateral_deviation_gain": 0.06536101165796893,
+        "nash_conv": 0.126292160506695,
+        "passed": false,
+        "player_0_deviation_gain": 0.06093114884872608,
+        "player_1_deviation_gain": 0.06536101165796893,
+        "profile_fingerprint": "35e640edc2f9610450707b8023bf5a1cd6ee4d3b0fae7a6d7daf51db86db284d"
+      },
+      "initialized_information_sets": 87192,
+      "iterations": 62208,
+      "normalized_complete_policy": true,
+      "positive_observation_weight_information_sets": 24609,
+      "raw_observation_weight_coverage": 0.28223919625653726,
+      "visited_coverage": 0.5503715937241949,
+      "visited_information_sets": 47988
+    },
+    {
+      "average_positive_regret": [
+        0.4497861594647796,
+        0.1804761474100703
+      ],
+      "completed_chance_epochs": 12,
+      "fallback_exactly_equals_zero_weight_set": true,
+      "fallback_fraction": 0.7105583081016607,
+      "fallback_information_sets": 61955,
+      "independent_evaluation": {
+        "action_value_information_sets": 87192,
+        "best_response_player_0": 0.6172135186066011,
+        "best_response_player_1": -0.5179935842177671,
+        "evaluator_id": "five_die_stepwise_histogram_best_response_v1",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 0.5734117318471952,
+        "exploitability": 0.049609967194417015,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 0.055418147629428094,
+        "nash_conv": 0.09921993438883403,
+        "passed": true,
+        "player_0_deviation_gain": 0.043801786759405936,
+        "player_1_deviation_gain": 0.055418147629428094,
+        "profile_fingerprint": "2737df291f2a7dd8fd95fbec266dca7b726c93673ad51998aaebc3d15b24d7be"
+      },
+      "initialized_information_sets": 87192,
+      "iterations": 93312,
+      "normalized_complete_policy": true,
+      "positive_observation_weight_information_sets": 25237,
+      "raw_observation_weight_coverage": 0.28944169189833935,
+      "visited_coverage": 0.5763487475915221,
+      "visited_information_sets": 50253
+    },
+    {
+      "average_positive_regret": [
+        0.3617440434422462,
+        0.14852339154990313
+      ],
+      "completed_chance_epochs": 16,
+      "fallback_exactly_equals_zero_weight_set": true,
+      "fallback_fraction": 0.7050532158913662,
+      "fallback_information_sets": 61475,
+      "independent_evaluation": {
+        "action_value_information_sets": 87192,
+        "best_response_player_0": 0.6091050702665479,
+        "best_response_player_1": -0.529099817673758,
+        "evaluator_id": "five_die_stepwise_histogram_best_response_v1",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 0.5745376147589537,
+        "exploitability": 0.04000262629639495,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 0.045437797085195686,
+        "nash_conv": 0.0800052525927899,
+        "passed": true,
+        "player_0_deviation_gain": 0.034567455507594214,
+        "player_1_deviation_gain": 0.045437797085195686,
+        "profile_fingerprint": "9644c19ce434a12d28d046162ac3ee0b840a2c1f24a220d144224d079df9925d"
+      },
+      "initialized_information_sets": 87192,
+      "iterations": 124416,
+      "normalized_complete_policy": true,
+      "positive_observation_weight_information_sets": 25717,
+      "raw_observation_weight_coverage": 0.29494678410863384,
+      "visited_coverage": 0.5963391136801541,
+      "visited_information_sets": 51996
+    }
+  ],
+  "convergence": {
+    "exploitability_nonincreasing": true,
+    "monotonicity_required": false
+  },
+  "experiment_id": "five_die_coverage_aware_joint_stratification_v1",
+  "gates": {
+    "candidate_passed": false,
+    "complete_structural_audit_passed": false,
+    "fallback_exactly_equals_zero_weight_set": true,
+    "fallback_fraction": false,
+    "fixed_schedule_reproducibility": true,
+    "improved_over_retained_joint_result": true,
+    "independent_exploitability": true,
+    "normalized_complete_policy": true,
+    "positive_visit_coverage": false,
+    "required_information_sets": true
+  },
+  "passed": false,
+  "preregistration": "configs/five_die_coverage_aware_joint_preregistration_2026-10-13.json",
+  "promotion": {
+    "runtime_epsilon_gto_allowed": false,
+    "status": "coverage_aware_joint_candidate_failed"
+  },
+  "required_information_sets": 87192,
+  "retained_failed_experiments": [
+    {
+      "passed": false,
+      "path": "research/results/five_die_stepwise_candidate_2026-10-08.json"
+    },
+    {
+      "passed": false,
+      "path": "research/results/five_die_stepwise_coverage_2026-10-09.json"
+    },
+    {
+      "passed": false,
+      "path": "research/results/five_die_stepwise_joint_stratification_2026-10-10.json"
+    }
+  ],
+  "retained_joint_exploitability": 0.06383412635222224,
+  "rules_id": "five_die_liar_two_player_stepwise_v1",
+  "schedule_audit": {
+    "epochs": 16,
+    "exact_true_marginals": true,
+    "exhaustive_joint_histogram_pairs_claimed": false,
+    "fixed_schedule_reproducible": true,
+    "hand_schedules_checked": 64,
+    "microstates_per_hand_schedule": 7776
+  },
+  "small_game_prerequisite": {
+    "passed": true,
+    "path": "research/results/standard_sampling_fallback_confirmation_2026-10-13.json"
+  },
+  "structural_audit": {
+    "complete": false,
+    "failures": [],
+    "frontier_nodes": 469,
+    "histories": 200000,
+    "information_sets": 44192,
+    "passed": false
+  }
+}
