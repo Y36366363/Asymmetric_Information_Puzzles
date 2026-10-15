@@ -189,6 +189,154 @@ class CoverageAwareJointStratifiedFiveDieTrainer(
         return node.average_strategy_observation_weight <= 0
 
 
+class ObservationStratifiedJointTraversal(
+    JointMarginalStratifiedExternalSamplingTraversal
+):
+    """Keep regret traversal fixed and add independent average-policy samples."""
+
+    policy_id = "joint_marginal_regret_with_opponent_histogram_observation_strata"
+
+    def __init__(self, *, seed: int, observation_replicas: int) -> None:
+        if (
+            not isinstance(observation_replicas, int)
+            or isinstance(observation_replicas, bool)
+            or observation_replicas < 1
+        ):
+            raise ValueError("observation replicas must be a positive integer")
+        super().__init__(seed=seed)
+        self.observation_replicas = observation_replicas
+        self._observation_seed = seed * 1_000_033 + 97
+        self._observation_rng = random.Random(self._observation_seed)
+        self._observation_cache: dict[tuple[int, int], object] = {}
+
+    def run_iteration(
+        self,
+        trainer: RegretMinimizationTrainer[FiveDieStepwiseState],
+        root: FiveDieStepwiseState,
+        iteration: int,
+    ) -> None:
+        # This call is the complete, unchanged regret traversal.  The dedicated
+        # observation RNG below cannot perturb its random stream.
+        super().run_iteration(trainer, root, iteration)
+        epoch, offset = divmod(iteration - 1, JOINT_STRATIFICATION_EPOCH_SIZE)
+        for replica in range(self.observation_replicas):
+            schedules = self._observation_schedules(epoch, replica)
+            for update_player in (0, 1):
+                own_schedule, opponent_schedule = schedules[update_player]
+                own_hand = own_schedule[offset]
+                opponent_hand = opponent_schedule[offset]
+                hands = (
+                    (own_hand, opponent_hand)
+                    if update_player == 0
+                    else (opponent_hand, own_hand)
+                )
+                self._observe_average_policy(
+                    trainer,
+                    FiveDieStepwiseState(hands),
+                    observed_player=1 - update_player,
+                    sampled_actions={},
+                    iteration=iteration,
+                )
+
+    def _observation_schedules(self, epoch: int, replica: int):
+        key = (epoch, replica)
+        cached = self._observation_cache.get(key)
+        if cached is None:
+            cached = joint_stratified_epoch(
+                seed=self._observation_seed + replica * 10_000_019,
+                epoch=epoch,
+            )
+            self._observation_cache[key] = cached
+        return cached
+
+    def _sample_action(self, actions, strategy):
+        target = self._observation_rng.random()
+        cumulative = 0.0
+        for action, probability in zip(actions, strategy):
+            cumulative += probability
+            if target <= cumulative:
+                return action
+        return actions[-1]
+
+    def _observe_average_policy(
+        self,
+        trainer: RegretMinimizationTrainer[FiveDieStepwiseState],
+        state: FiveDieStepwiseState,
+        *,
+        observed_player: int,
+        sampled_actions: dict[tuple[int, object], object],
+        iteration: int,
+    ) -> None:
+        if trainer.game.is_terminal(state):
+            return
+        player = trainer.game.current_player(state)
+        if player not in (0, 1):
+            raise ValueError("observation traversal requires fixed private hands")
+        actions = trainer.game.legal_actions(state)
+        information_set = trainer.game.information_set(state)
+        node = trainer._node(player, information_set, actions)
+        strategy = node.strategy()
+        if player == observed_player:
+            for index, probability in enumerate(strategy):
+                node.strategy_sum[index] = trainer.average_strategy_policy.apply(
+                    node.strategy_sum[index], probability, iteration=iteration
+                )
+            node.average_strategy_observations += 1
+            node.average_strategy_observation_weight += 1.0
+            key = (player, information_set)
+            selected = sampled_actions.get(key)
+            if selected is None:
+                selected = self._sample_action(actions, strategy)
+                sampled_actions[key] = selected
+            self._observe_average_policy(
+                trainer,
+                trainer.game.next_state(state, selected),
+                observed_player=observed_player,
+                sampled_actions=sampled_actions,
+                iteration=iteration,
+            )
+            return
+        for action in actions:
+            self._observe_average_policy(
+                trainer,
+                trainer.game.next_state(state, action),
+                observed_player=observed_player,
+                sampled_actions=sampled_actions,
+                iteration=iteration,
+            )
+
+
+class ObservationStratifiedFiveDieTrainer(CoverageAwareJointStratifiedFiveDieTrainer):
+    """Coverage-aware MCCFR with separately stratified policy observations."""
+
+    ALGORITHM_ID = "observation_stratified_five_die_mccfr_v1"
+
+    def __init__(
+        self, *, seed: int = 731201, observation_replicas: int = 1
+    ) -> None:
+        JointStratifiedFiveDieExternalSamplingTrainer.__init__(self, seed=seed)
+        self.traversal_policy = ObservationStratifiedJointTraversal(
+            seed=seed, observation_replicas=observation_replicas
+        )
+        self.average_strategy_policy = CoverageAwareUniformAverageStrategy()
+        self.observation_replicas = observation_replicas
+
+    @property
+    def algorithm_spec(self) -> AlgorithmSpec:
+        base = super().algorithm_spec
+        return AlgorithmSpec(
+            algorithm_id=self.ALGORITHM_ID,
+            parameters={
+                **base.parameters,
+                "observation_replicas": float(self.observation_replicas),
+            },
+            traversal=self.traversal_policy.policy_id,
+            update_schedule=self.traversal_policy.update_schedule,
+            averaging_rule=self.average_strategy_policy.policy_id,
+            seed=self.seed,
+        )
+
+
 def train_five_die_joint_stratified_external_sampling(
     iterations: int, *, seed: int = 20261010
 ):
@@ -199,3 +347,14 @@ def train_five_die_coverage_aware_joint_stratified(
     iterations: int, *, seed: int = 731101
 ):
     return CoverageAwareJointStratifiedFiveDieTrainer(seed=seed).train(iterations)
+
+
+def train_five_die_observation_stratified(
+    iterations: int,
+    *,
+    seed: int = 731201,
+    observation_replicas: int = 1,
+):
+    return ObservationStratifiedFiveDieTrainer(
+        seed=seed, observation_replicas=observation_replicas
+    ).train(iterations)

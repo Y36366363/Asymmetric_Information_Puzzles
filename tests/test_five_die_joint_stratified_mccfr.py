@@ -6,6 +6,8 @@ from aip.puzzles.liars_dice import (
     ORDERED_DICE_HISTOGRAMS,
     CoverageAwareJointStratifiedFiveDieTrainer,
     JointStratifiedFiveDieExternalSamplingTrainer,
+    ObservationStratifiedFiveDieTrainer,
+    ObservationStratifiedJointTraversal,
     joint_stratified_epoch,
     train_five_die_joint_stratified_external_sampling,
     train_five_die_coverage_aware_joint_stratified,
@@ -118,3 +120,55 @@ def test_coverage_aware_joint_trainer_preserves_training_trace():
         for key, used in candidate.average_strategy_fallback_used.items()
         if used
     }
+
+
+def test_observation_strata_preserve_regret_and_visit_semantics():
+    candidate_trainer = ObservationStratifiedFiveDieTrainer(
+        seed=59, observation_replicas=2
+    )
+    comparison_trainer = CoverageAwareJointStratifiedFiveDieTrainer(seed=59)
+    candidate = candidate_trainer.train(50)
+    comparison = comparison_trainer.train(50)
+    assert candidate.information_set_visits == comparison.information_set_visits
+    assert candidate.average_positive_regret == comparison.average_positive_regret
+    assert {
+        key: tuple(node.regrets)
+        for key, node in candidate_trainer._nodes.items()
+    } == {
+        key: tuple(node.regrets)
+        for key, node in comparison_trainer._nodes.items()
+    }
+    assert sum(candidate.average_strategy_observations.values()) > sum(
+        comparison.average_strategy_observations.values()
+    )
+    assert sum(candidate.average_strategy_observation_weight.values()) > sum(
+        comparison.average_strategy_observation_weight.values()
+    )
+
+
+def test_observation_strata_have_exact_private_histogram_marginals():
+    traversal = ObservationStratifiedJointTraversal(
+        seed=61, observation_replicas=2
+    )
+    expected = Counter(ORDERED_DICE_HISTOGRAMS)
+    for replica in range(2):
+        for own, opponent in traversal._observation_schedules(0, replica):
+            assert Counter(own) == expected
+            assert Counter(opponent) == expected
+
+
+def test_observation_replica_parameter_is_validated_and_exported():
+    for invalid in (0, -1, 1.5, True):
+        try:
+            ObservationStratifiedFiveDieTrainer(
+                seed=67, observation_replicas=invalid
+            )
+        except ValueError as error:
+            assert "positive integer" in str(error)
+        else:
+            raise AssertionError("invalid observation replica count was accepted")
+    result = ObservationStratifiedFiveDieTrainer(
+        seed=67, observation_replicas=3
+    ).train(1)
+    assert result.algorithm.algorithm_id == "observation_stratified_five_die_mccfr_v1"
+    assert result.algorithm.parameters["observation_replicas"] == 3

@@ -77,6 +77,19 @@ Research protocols, experiment artifacts, and evaluation reports are stored in [
 <details>
 <summary><strong>Development log / 开发更新记录</strong></summary>
 
+## Updates 10/15/2026
+
+- **Average-policy observations now have an independent stratified path** —
+  Extra opponent-policy passes use exact private-histogram marginals and a
+  separate RNG, while regret updates and training visits remain unchanged.
+- **The four-replica bounded confirmation passed** — On a new seed, raw
+  observation coverage increased from 26.61% to 32.67%; fallback fell from
+  73.39% to 67.33%. Independent exploitability changed from `0.10059` to
+  `0.10363`, within the frozen noninferiority margin.
+- **This is mechanism validation, not GTO certification** — A full 16-epoch
+  paired study is preregistered but untrained. Runtime ε-GTO stays disabled.
+  [Read the observation-stratification report](research/five_die_observation_stratification_update_2026-10-15.md).
+
 ## Updates 10/14/2026
 
 - **The frozen five-die candidate passed exploitability but failed coverage** —

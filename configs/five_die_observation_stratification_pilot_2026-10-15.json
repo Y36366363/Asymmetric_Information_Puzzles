@@ -1,0 +1,46 @@
+{
+  "experiment_id": "five_die_opponent_histogram_observation_stratification_pilot_v1",
+  "status": "frozen_exploratory_pilot_before_execution",
+  "rules_id": "five_die_liar_two_player_stepwise_v1",
+  "retained_failed_candidate": "research/results/five_die_coverage_aware_joint_2026-10-14.json",
+  "algorithm_id": "observation_stratified_five_die_mccfr_v1",
+  "seed": 731201,
+  "iterations": 7776,
+  "complete_chance_epochs": 1,
+  "observation_replica_doses": [1, 2, 4],
+  "baseline_algorithm_id": "coverage_aware_joint_marginal_stratified_external_sampling_mccfr_v1",
+  "mechanism_contract": {
+    "regret_traversal": "unchanged_joint_marginal_stratified_external_sampling",
+    "observation_traversal": "independent_rng_opponent_policy_external_sampling",
+    "private_histogram_schedule": "exact_multinomial_marginals_per_replica_epoch",
+    "updates_regret": false,
+    "increments_training_visits": false,
+    "increments_average_strategy_observations": true,
+    "initialization_counts_as_evidence": false
+  },
+  "mandatory_validity_gates": {
+    "regret_and_visit_trace_parity_with_baseline_every_dose": true,
+    "exact_private_histogram_marginals_every_replica": true,
+    "independent_best_response_evaluator_unchanged": true,
+    "fallback_exactly_equals_zero_weight_set": true,
+    "normalized_complete_policy": true
+  },
+  "descriptive_endpoints": [
+    "raw_observation_weight_coverage",
+    "fallback_fraction",
+    "independent_exploitability",
+    "coverage_gain_per_replica",
+    "elapsed_seconds"
+  ],
+  "dose_selection_rule": {
+    "eligible_only_if_all_mandatory_validity_gates_pass": true,
+    "choose": "lowest_dose_with_raw_observation_weight_coverage_at_least_0.40_else_highest_coverage_dose",
+    "pilot_does_not_certify_candidate": true,
+    "selected_dose_requires_separate_preregistration": true
+  },
+  "scope_boundary": {
+    "do_not_extend_2026_10_14_budget": true,
+    "do_not_enable_runtime_epsilon_gto": true,
+    "retain_negative_and_null_results": true
+  }
+}

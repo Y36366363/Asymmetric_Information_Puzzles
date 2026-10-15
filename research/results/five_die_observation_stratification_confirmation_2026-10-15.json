@@ -1,0 +1,107 @@
+{
+  "audit_completed": true,
+  "baseline": {
+    "algorithm": {
+      "algorithm_id": "coverage_aware_joint_marginal_stratified_external_sampling_mccfr_v1",
+      "averaging_rule": "uniform_iteration_zero_weight_current_strategy_fallback",
+      "parameters": {
+        "chance_epoch_size": 7776.0,
+        "histogram_strata": 252.0,
+        "preinitialized_information_sets": 87192.0
+      },
+      "seed": 731202,
+      "traversal": "joint_marginal_stratified_external_sampling",
+      "update_schedule": "alternating_players_7776_microstate_epochs"
+    },
+    "independent_evaluation": {
+      "action_value_information_sets": 87192,
+      "best_response_player_0": 0.6547360708392088,
+      "best_response_player_1": -0.45355561283881546,
+      "evaluator_id": "five_die_stepwise_histogram_best_response_v1",
+      "evaluator_method": "independent_game_tree_best_response",
+      "expected_value_to_player_0": 0.5645653492512545,
+      "exploitability": 0.10059022900019668,
+      "failures": [],
+      "maximum_unilateral_deviation_gain": 0.111009736412439,
+      "nash_conv": 0.20118045800039336,
+      "passed": true,
+      "player_0_deviation_gain": 0.09017072158795436,
+      "player_1_deviation_gain": 0.111009736412439,
+      "profile_fingerprint": "ae55d159b936e4066c7796725eb8c5071e83c8ce1fb9bba255271e002cd899cb"
+    },
+    "metrics": {
+      "fallback_exactly_equals_zero_weight_set": true,
+      "fallback_fraction": 0.7339434810533076,
+      "fallback_information_sets": 63994,
+      "normalized_complete_policy": true,
+      "positive_observation_weight_information_sets": 23198,
+      "profile_fingerprint": "ae55d159b936e4066c7796725eb8c5071e83c8ce1fb9bba255271e002cd899cb",
+      "raw_observation_weight_coverage": 0.26605651894669236
+    }
+  },
+  "bounded_confirmation_passed": true,
+  "candidate": {
+    "algorithm": {
+      "algorithm_id": "observation_stratified_five_die_mccfr_v1",
+      "averaging_rule": "uniform_iteration_zero_weight_current_strategy_fallback",
+      "parameters": {
+        "chance_epoch_size": 7776.0,
+        "histogram_strata": 252.0,
+        "observation_replicas": 4.0,
+        "preinitialized_information_sets": 87192.0
+      },
+      "seed": 731202,
+      "traversal": "joint_marginal_regret_with_opponent_histogram_observation_strata",
+      "update_schedule": "alternating_players_7776_microstate_epochs"
+    },
+    "independent_evaluation": {
+      "action_value_information_sets": 87192,
+      "best_response_player_0": 0.6553208406892643,
+      "best_response_player_1": -0.4480699689569023,
+      "evaluator_id": "five_die_stepwise_histogram_best_response_v1",
+      "evaluator_method": "independent_game_tree_best_response",
+      "expected_value_to_player_0": 0.5614606197696023,
+      "exploitability": 0.103625435866181,
+      "failures": [],
+      "maximum_unilateral_deviation_gain": 0.11339065081269994,
+      "nash_conv": 0.207250871732362,
+      "passed": true,
+      "player_0_deviation_gain": 0.09386022091966206,
+      "player_1_deviation_gain": 0.11339065081269994,
+      "profile_fingerprint": "866ba3c33996f8df01e096874ae89afed9aaa2268d345bc62401a999618f1850"
+    },
+    "metrics": {
+      "fallback_exactly_equals_zero_weight_set": true,
+      "fallback_fraction": 0.6732957152032296,
+      "fallback_information_sets": 58706,
+      "normalized_complete_policy": true,
+      "positive_observation_weight_information_sets": 28486,
+      "profile_fingerprint": "866ba3c33996f8df01e096874ae89afed9aaa2268d345bc62401a999618f1850",
+      "raw_observation_weight_coverage": 0.32670428479677033
+    }
+  },
+  "experiment_id": "five_die_observation_stratification_bounded_confirmation_v1",
+  "full_budget_preregistration_allowed": true,
+  "full_budget_training_performed": false,
+  "gates": {
+    "absolute_independent_exploitability": true,
+    "candidate_fallback_fraction": true,
+    "candidate_observation_coverage": true,
+    "exploitability_noninferiority": true,
+    "fallback_exactly_equals_zero_weight_set": true,
+    "fixed_seed_reproducibility": true,
+    "normalized_complete_policy": true,
+    "observation_coverage_gain": true,
+    "regret_trace_parity": true,
+    "visit_trace_parity": true
+  },
+  "iterations": 31104,
+  "observation_replicas": 4,
+  "paired_exploitability_increase": 0.0030352068659843245,
+  "paired_observation_coverage_gain": 0.06064776585007797,
+  "passed": true,
+  "pilot_artifact": "research/results/five_die_observation_stratification_pilot_2026-10-15.json",
+  "preregistration": "configs/five_die_observation_stratification_confirmation_2026-10-15.json",
+  "runtime_epsilon_gto_enabled": false,
+  "seed": 731202
+}

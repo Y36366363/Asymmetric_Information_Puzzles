@@ -1,0 +1,33 @@
+{
+  "experiment_id": "five_die_observation_stratification_bounded_confirmation_v1",
+  "status": "frozen_before_confirmation",
+  "pilot_artifact": "research/results/five_die_observation_stratification_pilot_2026-10-15.json",
+  "selected_observation_replicas": 4,
+  "seed": 731202,
+  "iterations": 31104,
+  "complete_chance_epochs": 4,
+  "paired_baseline_algorithm_id": "coverage_aware_joint_marginal_stratified_external_sampling_mccfr_v1",
+  "candidate_algorithm_id": "observation_stratified_five_die_mccfr_v1",
+  "gates": {
+    "minimum_absolute_observation_coverage_gain_vs_paired_baseline": 0.05,
+    "minimum_candidate_raw_observation_weight_coverage": 0.3,
+    "maximum_candidate_fallback_fraction": 0.7,
+    "maximum_exploitability_increase_vs_paired_baseline": 0.02,
+    "maximum_absolute_independent_exploitability": 0.15,
+    "regret_and_visit_trace_parity": true,
+    "fallback_exactly_equals_zero_weight_set": true,
+    "normalized_complete_policy": true,
+    "fixed_seed_reproducibility": true
+  },
+  "threshold_basis": {
+    "coverage_gain": "pilot showed 0.0655 absolute gain at one epoch with four replicas; confirmation requires at least 0.05 on a new seed and longer horizon",
+    "exploitability_noninferiority": "bounded safety margin; no superiority claim",
+    "fallback": "intermediate mechanism gate only, not the final five-die certification threshold"
+  },
+  "scope_boundary": {
+    "confirmation_is_not_full_candidate_certification": true,
+    "full_budget_requires_all_bounded_gates": true,
+    "runtime_epsilon_gto_allowed": false,
+    "do_not_extend_if_failed": true
+  }
+}
