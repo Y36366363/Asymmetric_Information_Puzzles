@@ -11,6 +11,11 @@ Rather than treating the number of implemented games as the main contribution, t
 
 ## Research Question
 
+The current academic roadmap prioritizes **verifiable LLM-assisted game modeling
+and strategy solving** for an AAMAS workshop submission, with cross-game transfer
+as a later research hypothesis. See the [academic audit and roadmap](research/academic_direction_and_audit_2026-10-15.md)
+for evidence boundaries, the proposed controlled study, and implementation priorities.
+
 > Can a general strategic-reasoning agent transfer reusable principles across heterogeneous imperfect-information games, and can that transfer be evaluated with transparent, reproducible, and game-appropriate evidence?
 
 AIP separates three related goals:
