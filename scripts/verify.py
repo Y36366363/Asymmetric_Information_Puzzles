@@ -37,7 +37,12 @@ def main() -> int:
     )
     run(
         "Python solver and service tests",
-        [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"],
+        [sys.executable, "-m", "pytest", "-q", "tests"],
+        env=python_env,
+    )
+    run(
+        "Research claim evidence integrity (not experiment reruns)",
+        [sys.executable, "scripts/audit_research_claims.py"],
         env=python_env,
     )
     run("Build deployable worker bundle", [args.node, "web/build.mjs"])

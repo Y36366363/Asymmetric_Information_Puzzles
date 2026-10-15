@@ -1,0 +1,8 @@
+# Verification-only environment, Python 3.12; runtime dependencies remain optional.
+# Pins record the locally exercised versions, not a cross-platform hash lock.
+pytest==7.4.4
+iniconfig==1.1.1
+packaging==24.1
+pluggy==1.0.0
+numpy==1.26.4
+scipy==1.16.3

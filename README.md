@@ -73,9 +73,15 @@ PYTHONPATH=src python -m aip play
 
 To run the project verification script:
 
+    python -m pip install -r requirements/verification.txt
     python scripts/verify.py
 
 The verification includes Python and browser-related checks. Node.js must be available for the browser checks; see the detailed Tests section for an explicit Node path.
+It uses pytest to include both unittest classes and function-based research tests,
+then checks the [claim–evidence index](research/claim_evidence_index.json).
+Evidence integrity checks do not rerun historical training or provider experiments.
+The [first academic update](research/academic_m0_first_update.md) explains the
+research meaning and limits of these checks.
 
 Research protocols, experiment artifacts, and evaluation reports are stored in [`research/`](research/). Technical and design documentation is stored in [`docs/`](docs/).
 
@@ -1947,11 +1953,21 @@ transition, and information abstractions stay dependency-free in `core`.
 ## Tests
 
 ```bash
+python -m pip install -r requirements/verification.txt
 python scripts/verify.py
 ```
 
 If Node.js is not on `PATH`, pass it explicitly with
 `python scripts/verify.py --node /path/to/node` or set `AIP_NODE`.
+The verification versions are pinned for Python 3.12. CI uses Python 3.12 and
+Node.js 22, with no provider credentials. It runs research and runtime checks;
+the separate Pages publication workflow is not gated on this CI job.
+
+To inspect evidence references without training or model calls:
+
+```bash
+python scripts/audit_research_claims.py
+```
 
 ## License and trademark notice
 

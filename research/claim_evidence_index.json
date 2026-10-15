@@ -1,0 +1,163 @@
+{
+  "schema_version": "aip-claim-evidence-v1",
+  "baseline_commit": "b3a6487",
+  "purpose": "Trace claims to versioned evidence; integrity is not scientific proof.",
+  "claims": [
+    {
+      "id": "generic_sequence_form",
+      "status": "supported_in_scope",
+      "statement": "通用 adapter 编译和独立树 BR 在三个已审计小型基准上交叉通过。",
+      "scope": "Kuhn、单轮 E-Card、四牌 Love Letter late-round；有限两人零和 perfect recall。",
+      "limitations": "浮点数值证据；多个组件共用 adapter，未证明自然语言规则语义保真。",
+      "next_question": "错误地泄露私有状态的 adapter 能否在结构自洽时被外部语义合同拒绝？",
+      "evidence": [
+        {
+          "path": "research/results/sequence_form_audit_2026-09-15.json",
+          "sha256": "59fea2a04376f2e73a9fba7d6908789fd6f17d49964f59c8730f50cf4ecbb4d5",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/passed",
+              "equals": true
+            }
+          ]
+        },
+        {
+          "path": "src/aip/core/tree_evaluation.py",
+          "sha256": "90f13cbd75c9575f012067288000f44a49fa3957947808aaf16bfc12d4cdd8c9",
+          "kind": "source_reference"
+        }
+      ]
+    },
+    {
+      "id": "fixed_policy_calculation",
+      "status": "supported_in_scope",
+      "statement": "给定 prior、policy reach、payoff 和 continuation 后，Liar/Goofspiel v2 结构化计算通过既定门槛。",
+      "scope": "每游戏六状态两重复；固定输入合同。",
+      "limitations": "计算辅助实验，不证明自主均衡发现或广泛跨游戏迁移。",
+      "next_question": "去掉 oracle 提供的组件后，模型在哪个中间量开始失败？",
+      "evidence": [
+        {
+          "path": "research/results/liar_fixed_policy_value_check_v2_2026-09-28/report.json",
+          "sha256": "aa246ca0b2228fa2b5626246f4ef874d2f53aa34fc8577b9d21b269c5db69cd0",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/gatePassed",
+              "equals": true
+            }
+          ]
+        },
+        {
+          "path": "research/results/goofspiel_fixed_policy_value_check_v2_2026-09-28/report.json",
+          "sha256": "2a67f60084671160bffa0469bdf07e7861279ce866b11b1469cbc193af8025d5",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/gatePassed",
+              "equals": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "five_die_candidate",
+      "status": "mixed",
+      "statement": "五骰 124416 轮候选通过独立 exploitability 门槛，但覆盖验收与整体认证失败。",
+      "scope": "两人五骰 wild-one next-bid-only 研究规则。",
+      "limitations": "访问覆盖和 fallback 未过注册门槛；完整树审计未结束；不转移到任意加注游戏。",
+      "next_question": "有效观测覆盖能否在相同总资源下提高？",
+      "evidence": [
+        {
+          "path": "research/results/five_die_coverage_aware_joint_2026-10-14.json",
+          "sha256": "6d2ef510fcf102877ed659ff323579938975ca3f14dfc25358c0f8468ef6e244",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/gates/independent_exploitability",
+              "equals": true
+            },
+            {
+              "pointer": "/candidate_passed",
+              "equals": false
+            },
+            {
+              "pointer": "/promotion/runtime_epsilon_gto_allowed",
+              "equals": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "observation_stratification",
+      "status": "supported_in_scope",
+      "statement": "一个新 seed 的四 epoch 配对确认达到观测覆盖增益和预设误差验收要求。",
+      "scope": "四 observation replicas；固定 seed 731202、31104 轮。",
+      "limitations": "单 seed 工程验收，不是统计总体非劣证明；exploitability 略有增加；计算预算增加。",
+      "next_question": "相同总资源、多 seed 与非分层观测对照下是否仍有优势？",
+      "evidence": [
+        {
+          "path": "research/results/five_die_observation_stratification_confirmation_2026-10-15.json",
+          "sha256": "748bfe3c8fd1b552e60b1badf67b4581394f7502ea21b08facfa2292f8cc14d3",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/bounded_confirmation_passed",
+              "equals": true
+            },
+            {
+              "pointer": "/runtime_epsilon_gto_enabled",
+              "equals": false
+            },
+            {
+              "pointer": "/full_budget_training_performed",
+              "equals": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "love_letter_target_boundary",
+      "status": "mixed",
+      "statement": "四牌子博弈的 collapsed posterior 分析完成，但完整 Love Letter 仍未认证。",
+      "scope": "仅四牌 late-round 子博弈；语义相关隐藏状态 target。",
+      "limitations": "该子博弈不适合继续用作行动后的非平凡 belief-update target；全局结构与求解证据未完成。",
+      "next_question": "更长子博弈是否能在对手行动后保留至少两个战略相关隐藏状态？",
+      "evidence": [
+        {
+          "path": "research/results/love_letter_collapsed_posterior_2026-10-07.json",
+          "sha256": "f717e4bae02fe37d2f15a035526400537643debc17016f3f0a6315091f69e0c5",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/full_round_certified",
+              "equals": false
+            },
+            {
+              "pointer": "/runtime_epsilon_gto_allowed",
+              "equals": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "general_llm_solver",
+      "status": "not_established",
+      "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",
+      "scope": "长期研究假设；首期拟限于有限两人零和 perfect-recall 游戏。",
+      "limitations": "现有 adapter 多由人工实现；迁移实验与计算控制不能替代端到端规则语义评测。",
+      "next_question": "语义验证反馈是否在 held-out 规则实例上提高端到端成功率？",
+      "evidence": [
+        {
+          "path": "research/transfer_methodology_gap_audit_2026-09-22.md",
+          "sha256": "550170a59054c2fe5008d0fde2cf1bd559d3015b941026516f8e4ee2f4dd89d6",
+          "kind": "source_reference"
+        }
+      ]
+    }
+  ]
+}
