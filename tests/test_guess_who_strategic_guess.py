@@ -60,17 +60,16 @@ class StrategicGuessWhoTests(unittest.TestCase):
     def test_equilibrium_never_blind_guesses_but_does_guess_under_ambiguity(self) -> None:
         _, solution = self._solve()
         for player in (0, 1):
-            root_distributions = []
             for secret in range(3):
                 distribution = solution.policy[(player, ("act", secret, ()))]
-                root_distributions.append(distribution)
                 self.assertAlmostEqual(
                     sum(value for action, value in distribution.items()
                         if action[0] == "guess"),
                     0.0,
                 )
-            self.assertTrue(all(distribution == root_distributions[0]
-                                for distribution in root_distributions[1:]))
+            # Symmetric rules guarantee that a symmetric equilibrium exists;
+            # they do not require every LP optimum to select the same behavioral
+            # distribution at realization-equivalent private-role roots.
         ambiguous_positive_reach = 0
 
         def traverse(state, reach):

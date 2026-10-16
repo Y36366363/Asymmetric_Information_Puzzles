@@ -56,5 +56,38 @@ class ExactOneDieLiarTests(unittest.TestCase):
         self.assertTrue(artifact['passed'])
         self.assertTrue(artifact['live_runtime_unchanged'])
         self.assertEqual(len(artifact['policy']), len(self.solution.policy))
-        self.assertEqual(artifact['profile_fingerprint'],
-                         strategy_profile_fingerprint(self.solution.policy))
+        # The sparse LP can return another realization-equivalent equilibrium
+        # across HiGHS versions.  Bind the frozen fingerprint to the policy that
+        # was actually frozen instead of requiring a fresh solve to reproduce a
+        # particular member of a non-unique equilibrium set bit for bit.
+        frozen_policy = {}
+        for record in artifact['policy']:
+            information_set = (
+                int(record['die']),
+                tuple(tuple(map(int, bid)) for bid in record['bids']),
+            )
+            key = (int(record['player']), information_set)
+            self.assertNotIn(key, frozen_policy)
+            distribution = {}
+            for item in record['distribution']:
+                raw_action = item['action']
+                action = ('challenge' if raw_action == 'challenge'
+                          else tuple(map(int, raw_action)))
+                distribution[action] = float(item['probability'])
+            frozen_policy[key] = distribution
+
+        fingerprint = strategy_profile_fingerprint(frozen_policy)
+        self.assertEqual(artifact['profile_fingerprint'], fingerprint)
+        self.assertEqual(
+            artifact['independent_evaluation']['profile_fingerprint'], fingerprint
+        )
+        frozen_report = run_independent_evaluation(
+            OneDieLiarIndependentEvaluator(), frozen_policy,
+            maximum_exploitability=1e-10,
+        )
+        self.assertTrue(frozen_report.passed, frozen_report.failures)
+        self.assertAlmostEqual(
+            frozen_report.exploitability,
+            artifact['independent_evaluation']['exploitability'],
+            places=12,
+        )
