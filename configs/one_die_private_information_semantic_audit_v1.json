@@ -1,0 +1,62 @@
+{
+  "contract_id": "one_die_private_information_semantic_audit_v1",
+  "created_date": "2026-10-16",
+  "status": "frozen_before_execution",
+  "research_question": "Can an external observation-invariance contract reject an adapter that reveals the opponent die even when ordinary extensive-form structural checks pass?",
+  "game_scope": {
+    "game": "one_die_stepwise_liars_dice",
+    "players": 2,
+    "utility": "zero_sum",
+    "private_state": "one die per player",
+    "public_state": "ordered bid history",
+    "actor_observes": [
+      "own_die",
+      "public_bid_history",
+      "legal_actions"
+    ],
+    "actor_does_not_observe": [
+      "opponent_die"
+    ]
+  },
+  "mutation": {
+    "mutation_id": "information_set_includes_opponent_die",
+    "only_change": "Replace (own_die, public_bids) with (both_dice, public_bids) as the information-set key.",
+    "transition_chance_action_utility_unchanged": true
+  },
+  "paired_case_design": {
+    "public_decision_histories": 58,
+    "own_die_values_per_history": 6,
+    "unordered_opponent_die_pairs_per_own_die": 15,
+    "expected_cases": 5220,
+    "invariant_fields": [
+      "terminal_status",
+      "current_player",
+      "legal_actions",
+      "information_set"
+    ],
+    "changed_hidden_field": "opponent_die"
+  },
+  "primary_gates": {
+    "correct_structural_audit_passes": true,
+    "correct_observation_invariance_passes": true,
+    "mutant_observation_invariance_fails": true,
+    "mutant_violation_component": "information_set",
+    "mutant_violation_cases": 5220
+  },
+  "hypothesis_recorded_before_execution": {
+    "mutant_structural_audit_passes": true,
+    "reason": "Refining an information set with hidden state can preserve legal-action consistency and perfect recall while modeling the wrong observations."
+  },
+  "secondary_demonstration": {
+    "run_sequence_form_and_independent_best_response_inside_each_adapter": true,
+    "maximum_internal_exploitability": 1e-10,
+    "interpretation": "Passing inside the mutant adapter would establish only equilibrium in the incorrectly observed game. It is not a gate for semantic correctness."
+  },
+  "randomness": null,
+  "paid_model_calls": false,
+  "limitations": [
+    "This audit covers one deliberately injected private-information leak in one small game.",
+    "The trusted visibility contract is manually specified and is not inferred from the candidate adapter.",
+    "A successful negative control does not establish performance on natural LLM-generated errors or held-out games."
+  ]
+}
