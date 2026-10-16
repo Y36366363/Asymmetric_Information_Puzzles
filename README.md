@@ -82,6 +82,9 @@ then checks the [claim–evidence index](research/claim_evidence_index.json).
 Evidence integrity checks do not rerun historical training or provider experiments.
 The [first academic update](research/academic_m0_first_update.md) explains the
 research meaning and limits of these checks.
+The [second academic update](research/academic_m1a_one_die_semantic_update_2026-10-16.md)
+shows why a structurally valid, zero-exploitability solution can still solve the
+wrong game when an adapter leaks private information.
 
 Research protocols, experiment artifacts, and evaluation reports are stored in [`research/`](research/). Technical and design documentation is stored in [`docs/`](docs/).
 

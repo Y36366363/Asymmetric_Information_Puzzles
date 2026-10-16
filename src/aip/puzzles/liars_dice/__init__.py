@@ -46,6 +46,7 @@ from aip.puzzles.liars_dice.five_die_joint_stratified import (
     train_five_die_coverage_aware_joint_stratified,
     train_five_die_observation_stratified,
 )
+from aip.puzzles.liars_dice.semantics import one_die_private_die_invariance_cases
 
 __all__ = [
     "BIDS",
@@ -75,6 +76,7 @@ __all__ = [
     "load_one_die_liar_policy",
     "one_die_liar_exploitability",
     "one_die_liar_evaluation",
+    "one_die_private_die_invariance_cases",
     "required_one_die_information_sets",
     "required_five_die_information_sets",
     "save_one_die_liar_policy",

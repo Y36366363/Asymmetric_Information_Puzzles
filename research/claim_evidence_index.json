@@ -145,6 +145,53 @@
       ]
     },
     {
+      "id": "one_die_private_information_semantics",
+      "status": "supported_in_scope",
+      "statement": "外部观察不变性合同拒绝了普通结构审计和模型内部独立 BR 都接受的一骰私骰泄露故障。",
+      "scope": "一骰 stepwise Liar's Dice；人工注入 opponent-die information-set leak；5220 对状态。",
+      "limitations": "单游戏、单人工故障；人工可信合同尚未由 GameSpec 自动生成，也未测试自然 LLM 建模错误。",
+      "next_question": "同一声明式观察机制能否复现人工合同并横向发现 Goofspiel 同时行动泄露？",
+      "evidence": [
+        {
+          "path": "research/results/one_die_private_information_semantic_audit_2026-10-16.json",
+          "sha256": "5b2946eea95abdee865b7dbe90a2ca506ff46ce17aae3d79ce65320d81c840d1",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/primary_passed",
+              "equals": true
+            },
+            {
+              "pointer": "/mutant_adapter/structural_audit/passed",
+              "equals": true
+            },
+            {
+              "pointer": "/mutant_adapter/observation_invariance/passed",
+              "equals": false
+            },
+            {
+              "pointer": "/mutant_adapter/internal_solution/independent_evaluation/exploitability",
+              "equals": 0.0
+            },
+            {
+              "pointer": "/interpretation/mutant_internal_equilibrium_is_real_game_certificate",
+              "equals": false
+            }
+          ]
+        },
+        {
+          "path": "src/aip/core/semantic_audit.py",
+          "sha256": "564ea32a86acfa64b112991d198f350b993c18a75a6e8ecf8eedd0bb959c6aa2",
+          "kind": "source_reference"
+        },
+        {
+          "path": "src/aip/puzzles/liars_dice/semantics.py",
+          "sha256": "251bb2a8d674439768cd5f8c4bb4027678d23f237cca49336eb95fd9fccfa565",
+          "kind": "source_reference"
+        }
+      ]
+    },
+    {
       "id": "general_llm_solver",
       "status": "not_established",
       "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",

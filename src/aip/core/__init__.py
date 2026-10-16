@@ -75,6 +75,12 @@ from aip.core.tree_evaluation import (
     audit_small_extensive_form,
 )
 from aip.core.resumable_audit import ResumableTreeAudit
+from aip.core.semantic_audit import (
+    ObservationInvarianceAudit,
+    ObservationInvarianceCase,
+    ObservationInvarianceViolation,
+    audit_observation_invariance,
+)
 
 __all__ = [
     "SequenceForm",
@@ -119,6 +125,9 @@ __all__ = [
     "IndependentEvaluationReport",
     "LinearAverageStrategy",
     "Observation",
+    "ObservationInvarianceAudit",
+    "ObservationInvarianceCase",
+    "ObservationInvarianceViolation",
     "PromotionDecision",
     "PromotionEvidence",
     "PromotionLevel",
@@ -140,6 +149,7 @@ __all__ = [
     "VanillaRegretUpdate",
     "audit_stopping_time_compression",
     "audit_small_extensive_form",
+    "audit_observation_invariance",
     "create_regret_minimization_trainer",
     "decide_promotion",
     "recommend_equilibrium_solver",
