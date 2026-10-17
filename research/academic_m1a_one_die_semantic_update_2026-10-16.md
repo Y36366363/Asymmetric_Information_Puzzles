@@ -99,4 +99,6 @@ PYTHONPATH=src python scripts/audit_one_die_private_information_semantics.py
 
 本次本地统一验证实际完成：535 项 Python 测试、7 条主张证据完整性检查、
 worker/static 构建和 14 项浏览器测试全部通过。实验脚本另输出到临时路径重跑，
-与保存 artifact 逐字节一致。远端 CI 状态须以本次实现提交后的 Actions 结果为准。
+与保存 artifact 逐字节一致。实现提交为 `157aaf3`；其
+[远端 CI](https://github.com/Y36366363/Asymmetric_Information_Puzzles/actions/runs/38955750826)
+也完整通过，包括生成资产一致性检查。

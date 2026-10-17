@@ -28,7 +28,7 @@ LLM 的首要职责是识别玩家、观察、行动、chance、收益和缺失�
 | LLM 中间量评分 | `src/aip/benchmark/value_decomposition.py` | prior、reach、posterior、value、action 可以独立评分 | oracle 提供 continuation/payoff 的计算实验不能当自主求解证据 |
 | 正反实验历史 | 9/22 方法审计、9/28 fixed-policy 修订、10/7 Love Letter target 退役 | 可定位估计目标、输入信息与控制条件的问题 | 旧失败仍须保留；跨游戏迁移效果未被普遍确立 |
 | 五骰观测机制 | 10/15 pilot 与 bounded confirmation | 固定 seed 下观测覆盖提升且训练轨迹隔离 | 单确认 seed；均衡质量略变差；没有渐近无偏性或更快收敛证明 |
-| 测试与证据入口 | `scripts/verify.py`、`research/claim_evidence_index.json` | pytest 全量入口、六类主张与带哈希证据绑定、研究 CI 已建立 | 本地通过不等于远端通过；首次远端运行有两项失败，M0 尚未完成 |
+| 测试与证据入口 | `scripts/verify.py`、`research/claim_evidence_index.json` | pytest 全量入口、七类主张与带哈希证据绑定、研究 CI 已建立 | 首次远端失败证据已保留；修复及一骰语义实验均已获后续远端验证 |
 
 9/28 的 Liar/Goofspiel fixed-policy v2 已通过输入明确的计算实验，不能只引用此前 9/27 的失败。10/7 四牌 Love Letter 在折叠获得顺序后，48 个行动后信息集的战略隐藏状态支持均为 1，已退役为 belief-update target；它仍可作为 later-chance 编译/求解对照。
 
@@ -200,4 +200,4 @@ A 线候选贡献为信息语义反例与修复反馈对未见规则建模的增
 
 每次只推进一个可理解、可审阅的阶段。研究者应能用自己的话解释：为什么需要该实验、哪个结果会否定假设、当前证据没有证明什么。这是帮助理解的讨论，不作为机械测验。先讨论概念与结果，再决定下一轮研究投入；自动提交偏好不等于自动启动全部未来实验。
 
-本修订记录了 CI 测试语义修复及本地、远端全量通过。GameSpec、泄露故障实验和自适应对抗器尚未开始。文献检索是定位起点，后续选定主问题后应建立可复查的相关工作比较表。
+本修订记录了 CI 测试语义修复及本地、远端全量通过。一骰泄露故障实验已经完成；GameSpec 与自适应对抗器尚未开始。文献检索是定位起点，后续选定主问题后应建立可复查的相关工作比较表。
