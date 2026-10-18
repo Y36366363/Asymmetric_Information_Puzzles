@@ -1,0 +1,88 @@
+{
+  "experiment_id": "game_spec_observation_slice_2026-10-17",
+  "created_date": "2026-10-17",
+  "status": "frozen_before_implementation",
+  "research_question": "Can one declarative public/private-field schema generate observation-invariance obligations that exactly reproduce the independent one-die reference and transfer unchanged to a hidden Goofspiel commitment fault?",
+  "scope": {
+    "mechanism": "GameSpec observation field slice plus generic pair generator",
+    "games": [
+      "one_die_stepwise_liars_dice",
+      "four_card_goofspiel_hidden_commitment_slice"
+    ],
+    "excluded": [
+      "LLM-generated GameSpec pilot",
+      "adaptive opponent learning",
+      "runtime strategy changes",
+      "new CFR variants",
+      "full Goofspiel GTO recertification"
+    ]
+  },
+  "schema_requirements": {
+    "declare_public_fields": true,
+    "declare_private_fields_for_each_player": true,
+    "derive_player_observation_projection": true,
+    "reject_duplicate_or_overlapping_fields": true,
+    "reject_missing_or_extra_record_fields": true,
+    "generate_pairs_without_reading_candidate_information_sets": true
+  },
+  "one_die_reference_gate": {
+    "reference": "one_die_private_information_semantic_audit_v1",
+    "public_fields": [
+      "bids"
+    ],
+    "private_fields": {
+      "player_0": [
+        "die_0"
+      ],
+      "player_1": [
+        "die_1"
+      ]
+    },
+    "expected_decision_records": 2088,
+    "expected_generated_pairs": 5220,
+    "required_equivalence": "Every generated ordered state pair must equal the corresponding independently retained manual reference pair.",
+    "correct_adapter_expected_violations": 0,
+    "leaking_adapter_expected_violations": 5220,
+    "stop_on_mismatch": true
+  },
+  "goofspiel_transfer_gate": {
+    "card_count": 4,
+    "semantics": "Player 0 commits a currently available card before player 1 acts; that pending card remains private until both submissions are revealed.",
+    "public_fields": [
+      "stage",
+      "player_0_cards",
+      "player_1_cards",
+      "remaining_prizes",
+      "current_prize"
+    ],
+    "private_fields": {
+      "player_0": [
+        "pending_player_0_card"
+      ],
+      "player_1": []
+    },
+    "state_coverage": "All combinatorially reachable public inventory shapes with two to four cards remaining and every legal current prize and player-0 pending card.",
+    "expected_decision_records": 1456,
+    "expected_generated_pairs": 1032,
+    "correct_adapter_expected_violations": 0,
+    "leaking_adapter_expected_violations": 1032,
+    "expected_violation_component": "information_set",
+    "structural_negative_control_expected_to_pass": true
+  },
+  "primary_pass_condition": [
+    "The one-die generated state-pair sequence exactly matches all 5220 manual reference pairs.",
+    "The correct one-die and Goofspiel adapters have zero generated-contract violations.",
+    "The one-die leak has 5220 information-set-only violations.",
+    "The Goofspiel pending-card leak has 1032 information-set-only violations.",
+    "The structurally valid Goofspiel leak remains a negative control for structure-only auditing."
+  ],
+  "failure_policy": {
+    "preserve_counterexample": true,
+    "repair_representation_before_transfer": true,
+    "do_not_enter_llm_pilot": true,
+    "do_not_adjust_expected_counts_after_seeing_results": true
+  },
+  "randomness": null,
+  "paid_model_calls": false,
+  "interpretation_boundary": "Success demonstrates reuse of a declarative observation-contract mechanism across two distinct private-information leaks. It does not prove that the declarations are correct when authored by an LLM, certify full Goofspiel play, or justify adaptive learning from runtime histories."
+}
