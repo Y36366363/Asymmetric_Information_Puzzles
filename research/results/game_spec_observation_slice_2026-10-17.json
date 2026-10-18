@@ -1,0 +1,211 @@
+{
+  "date": "2026-10-17",
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.12.3"
+  },
+  "experiment_id": "game_spec_observation_slice_2026-10-17",
+  "goofspiel_transfer": {
+    "correct_adapter": {
+      "observation_invariance": {
+        "cases": 1032,
+        "counterexamples": [],
+        "passed": true,
+        "violations": 0,
+        "violations_by_component": {}
+      },
+      "structural_audit": {
+        "chance_histories": 1,
+        "decision_histories": 20,
+        "failures": [],
+        "histories": 85,
+        "information_sets": 8,
+        "maximum_depth": 3,
+        "passed": true,
+        "perfect_recall": true,
+        "terminal_histories": 64
+      }
+    },
+    "generated_contract": {
+      "cases": 1032,
+      "observation_groups": 628,
+      "records": 1456,
+      "spec_id": "four_card_goofspiel_hidden_commitment_v1"
+    },
+    "mutant_adapter": {
+      "mutation": "player_1_information_set_includes_pending_player_0_card",
+      "observation_invariance": {
+        "cases": 1032,
+        "counterexamples": [
+          {
+            "case_id": "four_card_goofspiel_hidden_commitment_v1:p1:pair000000",
+            "changed_observables": [
+              "information_set"
+            ],
+            "left_state": "GoofspielCommitmentState(player_0_cards=(1, 2, 3, 4), player_1_cards=(1, 2, 3, 4), remaining_prizes=(1, 2, 3, 4), current_prize=1, pending_player_0_card=1, player_1_card=None)",
+            "player": 1,
+            "right_state": "GoofspielCommitmentState(player_0_cards=(1, 2, 3, 4), player_1_cards=(1, 2, 3, 4), remaining_prizes=(1, 2, 3, 4), current_prize=1, pending_player_0_card=2, player_1_card=None)"
+          },
+          {
+            "case_id": "four_card_goofspiel_hidden_commitment_v1:p1:pair000001",
+            "changed_observables": [
+              "information_set"
+            ],
+            "left_state": "GoofspielCommitmentState(player_0_cards=(1, 2, 3, 4), player_1_cards=(1, 2, 3, 4), remaining_prizes=(1, 2, 3, 4), current_prize=1, pending_player_0_card=1, player_1_card=None)",
+            "player": 1,
+            "right_state": "GoofspielCommitmentState(player_0_cards=(1, 2, 3, 4), player_1_cards=(1, 2, 3, 4), remaining_prizes=(1, 2, 3, 4), current_prize=1, pending_player_0_card=3, player_1_card=None)"
+          },
+          {
+            "case_id": "four_card_goofspiel_hidden_commitment_v1:p1:pair000002",
+            "changed_observables": [
+              "information_set"
+            ],
+            "left_state": "GoofspielCommitmentState(player_0_cards=(1, 2, 3, 4), player_1_cards=(1, 2, 3, 4), remaining_prizes=(1, 2, 3, 4), current_prize=1, pending_player_0_card=1, player_1_card=None)",
+            "player": 1,
+            "right_state": "GoofspielCommitmentState(player_0_cards=(1, 2, 3, 4), player_1_cards=(1, 2, 3, 4), remaining_prizes=(1, 2, 3, 4), current_prize=1, pending_player_0_card=4, player_1_card=None)"
+          },
+          {
+            "case_id": "four_card_goofspiel_hidden_commitment_v1:p1:pair000003",
+            "changed_observables": [
+              "information_set"
+            ],
+            "left_state": "GoofspielCommitmentState(player_0_cards=(1, 2, 3, 4), player_1_cards=(1, 2, 3, 4), remaining_prizes=(1, 2, 3, 4), current_prize=1, pending_player_0_card=2, player_1_card=None)",
+            "player": 1,
+            "right_state": "GoofspielCommitmentState(player_0_cards=(1, 2, 3, 4), player_1_cards=(1, 2, 3, 4), remaining_prizes=(1, 2, 3, 4), current_prize=1, pending_player_0_card=3, player_1_card=None)"
+          },
+          {
+            "case_id": "four_card_goofspiel_hidden_commitment_v1:p1:pair000004",
+            "changed_observables": [
+              "information_set"
+            ],
+            "left_state": "GoofspielCommitmentState(player_0_cards=(1, 2, 3, 4), player_1_cards=(1, 2, 3, 4), remaining_prizes=(1, 2, 3, 4), current_prize=1, pending_player_0_card=2, player_1_card=None)",
+            "player": 1,
+            "right_state": "GoofspielCommitmentState(player_0_cards=(1, 2, 3, 4), player_1_cards=(1, 2, 3, 4), remaining_prizes=(1, 2, 3, 4), current_prize=1, pending_player_0_card=4, player_1_card=None)"
+          }
+        ],
+        "passed": false,
+        "violations": 1032,
+        "violations_by_component": {
+          "information_set": 1032
+        }
+      },
+      "structural_audit": {
+        "chance_histories": 1,
+        "decision_histories": 20,
+        "failures": [],
+        "histories": 85,
+        "information_sets": 20,
+        "maximum_depth": 3,
+        "passed": true,
+        "perfect_recall": true,
+        "terminal_histories": 64
+      }
+    }
+  },
+  "interpretation": {
+    "adaptive_opponent_learning_ready": false,
+    "candidate_information_sets_used_to_generate_pairs": false,
+    "full_goofspiel_gto_certified_by_this_experiment": false,
+    "llm_game_spec_generation_tested": false,
+    "next_stage_allowed": "design_llm_pilot_only_after_human_review",
+    "same_generator_used_for_both_games": true
+  },
+  "limitations": [
+    "Both GameSpec declarations were authored and reviewed manually.",
+    "The Goofspiel adapter is a hidden-commitment semantic slice, not a replacement for the existing full exact dynamic solver.",
+    "Passing injected faults does not estimate false-negative rates on natural LLM-generated game models.",
+    "Observation-field validity is established only for the declared fields and enumerated finite records."
+  ],
+  "one_die_reference_reproduction": {
+    "correct_adapter": {
+      "cases": 5220,
+      "counterexamples": [],
+      "passed": true,
+      "violations": 0,
+      "violations_by_component": {}
+    },
+    "exact_ordered_state_pair_match": true,
+    "first_mismatch": null,
+    "generated_contract": {
+      "cases": 5220,
+      "observation_groups": 348,
+      "records": 2088,
+      "spec_id": "one_die_liar_observation_v1"
+    },
+    "manual_reference_cases": 5220,
+    "mutant_adapter": {
+      "cases": 5220,
+      "counterexamples": [
+        {
+          "case_id": "one_die_liar_observation_v1:p0:pair000000",
+          "changed_observables": [
+            "information_set"
+          ],
+          "left_state": "OneDieLiarState(dice=(1, 1), bids=(), challenger=None)",
+          "player": 0,
+          "right_state": "OneDieLiarState(dice=(1, 2), bids=(), challenger=None)"
+        },
+        {
+          "case_id": "one_die_liar_observation_v1:p0:pair000001",
+          "changed_observables": [
+            "information_set"
+          ],
+          "left_state": "OneDieLiarState(dice=(1, 1), bids=(), challenger=None)",
+          "player": 0,
+          "right_state": "OneDieLiarState(dice=(1, 3), bids=(), challenger=None)"
+        },
+        {
+          "case_id": "one_die_liar_observation_v1:p0:pair000002",
+          "changed_observables": [
+            "information_set"
+          ],
+          "left_state": "OneDieLiarState(dice=(1, 1), bids=(), challenger=None)",
+          "player": 0,
+          "right_state": "OneDieLiarState(dice=(1, 4), bids=(), challenger=None)"
+        },
+        {
+          "case_id": "one_die_liar_observation_v1:p0:pair000003",
+          "changed_observables": [
+            "information_set"
+          ],
+          "left_state": "OneDieLiarState(dice=(1, 1), bids=(), challenger=None)",
+          "player": 0,
+          "right_state": "OneDieLiarState(dice=(1, 5), bids=(), challenger=None)"
+        },
+        {
+          "case_id": "one_die_liar_observation_v1:p0:pair000004",
+          "changed_observables": [
+            "information_set"
+          ],
+          "left_state": "OneDieLiarState(dice=(1, 1), bids=(), challenger=None)",
+          "player": 0,
+          "right_state": "OneDieLiarState(dice=(1, 6), bids=(), challenger=None)"
+        }
+      ],
+      "passed": false,
+      "violations": 5220,
+      "violations_by_component": {
+        "information_set": 5220
+      }
+    }
+  },
+  "paid_model_calls": false,
+  "preregistration": "configs/game_spec_observation_slice_preregistration_2026-10-17.json",
+  "preregistration_commit": "16aa32a",
+  "preregistration_sha256": "27bd3b92b6f5ec549906ec5bcb4c37f2ef32215333d464ef6677b18b87abf9b7",
+  "primary_gates": {
+    "goofspiel_correct_adapter_has_zero_violations": true,
+    "goofspiel_leak_has_expected_information_set_violations": true,
+    "goofspiel_leak_is_structurally_valid": true,
+    "goofspiel_pair_count_matches": true,
+    "goofspiel_record_count_matches": true,
+    "goofspiel_transfer_was_reached": true,
+    "one_die_correct_adapter_has_zero_violations": true,
+    "one_die_leak_has_expected_information_set_violations": true,
+    "one_die_pair_count_matches": true,
+    "one_die_pair_sequence_exactly_matches_manual_reference": true,
+    "one_die_record_count_matches": true
+  },
+  "primary_passed": true,
+  "schema_version": "aip-game-spec-observation-slice-v1"
+}

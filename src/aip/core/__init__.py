@@ -81,6 +81,12 @@ from aip.core.semantic_audit import (
     ObservationInvarianceViolation,
     audit_observation_invariance,
 )
+from aip.core.game_spec import (
+    GameSpecObservationSlice,
+    GeneratedObservationContract,
+    ObservationStateRecord,
+    generate_observation_invariance_contract,
+)
 
 __all__ = [
     "SequenceForm",
@@ -121,10 +127,13 @@ __all__ = [
     "FullTreeBestResponseEvaluator",
     "FullTreeGameAudit",
     "GameSolver",
+    "GameSpecObservationSlice",
+    "GeneratedObservationContract",
     "InformationSet",
     "IndependentEvaluationReport",
     "LinearAverageStrategy",
     "Observation",
+    "ObservationStateRecord",
     "ObservationInvarianceAudit",
     "ObservationInvarianceCase",
     "ObservationInvarianceViolation",
@@ -154,5 +163,6 @@ __all__ = [
     "decide_promotion",
     "recommend_equilibrium_solver",
     "run_independent_evaluation",
+    "generate_observation_invariance_contract",
     "strategy_profile_fingerprint",
 ]

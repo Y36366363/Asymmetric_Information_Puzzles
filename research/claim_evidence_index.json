@@ -186,7 +186,54 @@
         },
         {
           "path": "src/aip/puzzles/liars_dice/semantics.py",
-          "sha256": "251bb2a8d674439768cd5f8c4bb4027678d23f237cca49336eb95fd9fccfa565",
+          "sha256": "a2aac7d0d3f67f46aacff7c128333935ee7a2fd415d0aecd06d9ac6ce941b832",
+          "kind": "source_reference"
+        }
+      ]
+    },
+    {
+      "id": "game_spec_observation_transfer",
+      "status": "supported_in_scope",
+      "statement": "同一个声明式观察字段机制逐项复现一骰人工合同，并拒绝四牌 Goofspiel 的隐藏提交牌泄露故障。",
+      "scope": "人工审阅的 one-die 与 four-card Goofspiel observation slices；5220 与 1032 对义务。",
+      "limitations": "只完成观察语义子层；Goofspiel 是隐藏提交切片而非完整新 GTO 认证；未测试 LLM 生成 GameSpec 或自然错误。",
+      "next_question": "受限 compiler 及 payoff/chance 负控制完成后，语义反馈能否提高 LLM 在 held-out 规则上的端到端验证成功率？",
+      "evidence": [
+        {
+          "path": "research/results/game_spec_observation_slice_2026-10-17.json",
+          "sha256": "b33c7b4c5e7038a4fe9f406b95181a0f9154256393c6253099fb9244e55856f3",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/primary_passed",
+              "equals": true
+            },
+            {
+              "pointer": "/one_die_reference_reproduction/exact_ordered_state_pair_match",
+              "equals": true
+            },
+            {
+              "pointer": "/goofspiel_transfer/correct_adapter/observation_invariance/violations",
+              "equals": 0
+            },
+            {
+              "pointer": "/goofspiel_transfer/mutant_adapter/observation_invariance/violations",
+              "equals": 1032
+            },
+            {
+              "pointer": "/interpretation/llm_game_spec_generation_tested",
+              "equals": false
+            }
+          ]
+        },
+        {
+          "path": "src/aip/core/game_spec.py",
+          "sha256": "f209fdbe7ec7331d96a5e7e1ddaf1422ccf1cdced4e48cbe9a54cbcd9a08f0bc",
+          "kind": "source_reference"
+        },
+        {
+          "path": "src/aip/puzzles/goofspiel/semantics.py",
+          "sha256": "10e24c1ccd2992953bb48a70b989bd06c036aab6f91179b24b53b5d14c94a843",
           "kind": "source_reference"
         }
       ]

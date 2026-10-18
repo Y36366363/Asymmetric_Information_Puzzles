@@ -112,7 +112,7 @@ perfect recall、合法概率、action consistency 可以在一个“错误但�
 |---|---|---|
 | M0：证据与复现基础，部分完成 | 已有索引、pytest 和 CI；两项跨环境判据已获本地及远端验证；待补干净环境复现 | clean checkout 能重建选择的精确基准；历史负结果可追溯 |
 | M1a：最小语义实验，已完成 | 一骰正确 adapter、泄露对手骰子的故障 adapter、5,220 对独立观察合同 | 结构审计对两者均通过；语义合同正确模型 0 违规、故障模型 5,220 违规；结果见[第二次学术更新](academic_m1a_one_die_semantic_update_2026-10-16.md) |
-| M1b：可验证规则接口 | 两个现有游戏的 GameSpec、受限 compiler、语义合同、故障注入集 | 手工 reference 等价；关键泄露/payoff/chance 错误能被拒绝 |
+| M1b：可验证规则接口，观察子层已完成 | 声明式 observation slice 已逐项复现一骰人工 reference，并原样发现 Goofspiel 隐藏提交泄露；详见[第三次学术更新](academic_m1b_game_spec_observation_update_2026-10-17.md)。受限 compiler 与 payoff/chance 负控制仍待完成 | 观察层已满足手工 reference 等价和跨游戏泄露拒绝；仍需关键 payoff/chance 错误也能被拒绝 |
 | M2：LLM 建模 pilot，约 1–2 周 | 四个方法臂、修复日志、成本与失败分解 | 能定位 LLM 增量；如语义验证无增益则保留负结果并改写研究问题 |
 | M3：前瞻确认，约 2–3 周 | 隐藏规则集、固定模型预算、时间戳预注册、多模型结果与区间 | 主终点可重复计算；不得按结果挑游戏/seed/阈值 |
 | M4：写作与 artifact，约 1–2 周 | 论文、匿名复现包、单命令小样例、主图和限制说明 | 每一主张有证据；按具体 workshop 页数/匿名/归档要求准备 |

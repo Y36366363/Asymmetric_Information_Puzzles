@@ -85,6 +85,9 @@ research meaning and limits of these checks.
 The [second academic update](research/academic_m1a_one_die_semantic_update_2026-10-16.md)
 shows why a structurally valid, zero-exploitability solution can still solve the
 wrong game when an adapter leaks private information.
+The [third academic update](research/academic_m1b_game_spec_observation_update_2026-10-17.md)
+shows that one declarative observation-field mechanism exactly reproduces the
+manual one-die contract and transfers unchanged to a hidden Goofspiel commitment.
 
 Research protocols, experiment artifacts, and evaluation reports are stored in [`research/`](research/). Technical and design documentation is stored in [`docs/`](docs/).
 
