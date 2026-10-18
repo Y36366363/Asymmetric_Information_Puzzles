@@ -13,8 +13,8 @@ Rather than treating the number of implemented games as the main contribution, t
 
 The current academic roadmap prioritizes **verifiable LLM-assisted game modeling
 and strategy solving** for an AAMAS workshop submission, with cross-game transfer
-as a later research hypothesis. See the [academic audit and roadmap](research/academic_direction_and_audit_2026-10-15.md)
-for evidence boundaries, the proposed controlled study, and implementation priorities.
+as a later research hypothesis. Detailed planning notes are maintained locally;
+public claims remain tied to versioned experiment artifacts and the claim–evidence index.
 
 > Can a general strategic-reasoning agent transfer reusable principles across heterogeneous imperfect-information games, and can that transfer be evaluated with transparent, reproducible, and game-appropriate evidence?
 
@@ -80,14 +80,9 @@ The verification includes Python and browser-related checks. Node.js must be ava
 It uses pytest to include both unittest classes and function-based research tests,
 then checks the [claim–evidence index](research/claim_evidence_index.json).
 Evidence integrity checks do not rerun historical training or provider experiments.
-The [first academic update](research/academic_m0_first_update.md) explains the
-research meaning and limits of these checks.
-The [second academic update](research/academic_m1a_one_die_semantic_update_2026-10-16.md)
-shows why a structurally valid, zero-exploitability solution can still solve the
-wrong game when an adapter leaks private information.
-The [third academic update](research/academic_m1b_game_spec_observation_update_2026-10-17.md)
-shows that one declarative observation-field mechanism exactly reproduces the
-manual one-die contract and transfers unchanged to a hidden Goofspiel commitment.
+Personal academic planning and step-by-step interpretation notes are intentionally
+kept outside version control. Reproducible protocols, artifacts, tests, and scoped
+claims remain in the public repository.
 
 Research protocols, experiment artifacts, and evaluation reports are stored in [`research/`](research/). Technical and design documentation is stored in [`docs/`](docs/).
 
