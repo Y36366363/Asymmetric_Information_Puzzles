@@ -1,0 +1,254 @@
+{
+  "balanced_soft_contradiction": {
+    "conflicting_evidence_pairs": 1,
+    "hard_compatible_hypotheses": [
+      "opponent_die_hidden",
+      "both_dice_visible"
+    ],
+    "posterior_threshold": 0.95,
+    "results": [
+      {
+        "evidence_count": 2,
+        "hard_compatible": true,
+        "hypothesis_id": "opponent_die_hidden",
+        "posterior": 0.5,
+        "predictions_matching_evidence": 1,
+        "prior": 0.5
+      },
+      {
+        "evidence_count": 2,
+        "hard_compatible": true,
+        "hypothesis_id": "both_dice_visible",
+        "posterior": 0.5,
+        "predictions_matching_evidence": 1,
+        "prior": 0.5
+      }
+    ],
+    "selected_hypothesis_id": null,
+    "semantic_certification_allowed": false,
+    "status": "unresolved"
+  },
+  "candidate_contracts": {
+    "both_dice_visible": {
+      "cases": 0,
+      "observation_groups": 2088,
+      "records": 2088,
+      "spec_id": "one_die_both_dice_visible_v1"
+    },
+    "opponent_die_hidden": {
+      "cases": 5220,
+      "observation_groups": 348,
+      "records": 2088,
+      "spec_id": "one_die_liar_observation_v1"
+    }
+  },
+  "conceptual_separation": {
+    "gamespec_prior": "Researcher uncertainty over which fixed rule model is correct; it is not inserted into the game tree unless the real game itself randomizes rules.",
+    "nature_probability": "A probability in the rules over game states or events, consumed by the game solver.",
+    "required": "Artifacts and APIs must keep these quantities separate."
+  },
+  "conditional_solutions": {
+    "both_dice_visible": {
+      "claim_scope": "conditional_on_this_gamespec",
+      "independent_evaluation": {
+        "action_value_information_sets": 2088,
+        "best_response_player_0": 1.0,
+        "best_response_player_1": -1.0,
+        "evaluator_id": "one_die_both_dice_visible_conditional_v1",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 1.0,
+        "exploitability": 0.0,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 0.0,
+        "nash_conv": 0.0,
+        "passed": true,
+        "player_0_deviation_gain": 0.0,
+        "player_1_deviation_gain": 0.0,
+        "profile_fingerprint": "9ab40bed6c2a3aec8b5a27f883c951bd57282e133a2d80a0acef368b15a4003e"
+      },
+      "value_to_player_0": 1.0000000000000002
+    },
+    "opponent_die_hidden": {
+      "claim_scope": "conditional_on_this_gamespec",
+      "independent_evaluation": {
+        "action_value_information_sets": 348,
+        "best_response_player_0": 0.5,
+        "best_response_player_1": -0.5,
+        "evaluator_id": "one_die_liar_exhaustive_best_response_v1",
+        "evaluator_method": "independent_game_tree_best_response",
+        "expected_value_to_player_0": 0.5,
+        "exploitability": 0.0,
+        "failures": [],
+        "maximum_unilateral_deviation_gain": 0.0,
+        "nash_conv": 0.0,
+        "passed": true,
+        "player_0_deviation_gain": 0.0,
+        "player_1_deviation_gain": 0.0,
+        "profile_fingerprint": "206b1c53aad3e99e20edfad8da996ee96e07f533b4f9dbd1c87e1bf559ac59cc"
+      },
+      "value_to_player_0": 0.5000000000000001
+    }
+  },
+  "date": "2026-10-19",
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.12.3"
+  },
+  "experiment_id": "game_spec_hypothesis_uncertainty_2026-10-19",
+  "hard_contradiction": {
+    "conflicting_evidence_pairs": 1,
+    "hard_compatible_hypotheses": [],
+    "posterior_threshold": 0.95,
+    "results": [
+      {
+        "evidence_count": 2,
+        "hard_compatible": false,
+        "hypothesis_id": "opponent_die_hidden",
+        "posterior": null,
+        "predictions_matching_evidence": 1,
+        "prior": 0.5
+      },
+      {
+        "evidence_count": 2,
+        "hard_compatible": false,
+        "hypothesis_id": "both_dice_visible",
+        "posterior": null,
+        "predictions_matching_evidence": 1,
+        "prior": 0.5
+      }
+    ],
+    "selected_hypothesis_id": null,
+    "semantic_certification_allowed": false,
+    "status": "conflicted"
+  },
+  "hard_reference_evidence": {
+    "conflicting_evidence_pairs": 0,
+    "hard_compatible_hypotheses": [
+      "opponent_die_hidden"
+    ],
+    "posterior_threshold": 0.95,
+    "results": [
+      {
+        "evidence_count": 1,
+        "hard_compatible": true,
+        "hypothesis_id": "opponent_die_hidden",
+        "posterior": 1.0,
+        "predictions_matching_evidence": 1,
+        "prior": 0.5
+      },
+      {
+        "evidence_count": 1,
+        "hard_compatible": false,
+        "hypothesis_id": "both_dice_visible",
+        "posterior": 0.0,
+        "predictions_matching_evidence": 0,
+        "prior": 0.5
+      }
+    ],
+    "selected_hypothesis_id": "opponent_die_hidden",
+    "semantic_certification_allowed": true,
+    "status": "identified"
+  },
+  "interpretation": {
+    "conditional_solutions_may_be_averaged_as_one_gto": false,
+    "posterior_identification_is_semantic_proof": false,
+    "prior_is_nature_probability": false,
+    "true_gamespec_guaranteed_in_candidate_set": false
+  },
+  "limitations": [
+    "The true one-die information structure is already known; this is a falsification control, not discovery on an unknown game.",
+    "The 0.75 and 0.9 evidence reliabilities are frozen sensitivity parameters, not empirically calibrated source accuracies.",
+    "Repeated likelihood updates assume conditional independence and must not be used for duplicated reports from one source.",
+    "If the true GameSpec is absent from the candidate set, posterior concentration can still select a wrong candidate.",
+    "No LLM authored a GameSpec in this experiment."
+  ],
+  "no_evidence": {
+    "conflicting_evidence_pairs": 0,
+    "hard_compatible_hypotheses": [
+      "opponent_die_hidden",
+      "both_dice_visible"
+    ],
+    "posterior_threshold": 0.95,
+    "results": [
+      {
+        "evidence_count": 0,
+        "hard_compatible": true,
+        "hypothesis_id": "opponent_die_hidden",
+        "posterior": 0.5,
+        "predictions_matching_evidence": 0,
+        "prior": 0.5
+      },
+      {
+        "evidence_count": 0,
+        "hard_compatible": true,
+        "hypothesis_id": "both_dice_visible",
+        "posterior": 0.5,
+        "predictions_matching_evidence": 0,
+        "prior": 0.5
+      }
+    ],
+    "selected_hypothesis_id": null,
+    "semantic_certification_allowed": false,
+    "status": "unresolved"
+  },
+  "paid_model_calls": false,
+  "preregistration": "configs/game_spec_hypothesis_uncertainty_preregistration_2026-10-19.json",
+  "preregistration_commit": "c4ae3ff",
+  "preregistration_sha256": "2e31194a5917a1c0dcdb631805f2d4f31c71c6078d217ba4186ade10537f123b",
+  "primary_gates": {
+    "balanced_soft_contradiction_is_unresolved": true,
+    "both_conditional_solutions_pass_internal_br": true,
+    "candidate_contract_counts_match": true,
+    "conditional_values_match": true,
+    "hard_contradiction_fails_closed": true,
+    "hard_reference_identifies_hidden_hypothesis": true,
+    "no_evidence_remains_unresolved": true,
+    "probabilistic_curve_matches": true,
+    "runtime_epsilon_gto_remains_disabled": true,
+    "soft_posterior_never_semantically_certifies": true
+  },
+  "primary_passed": true,
+  "probabilistic_sensitivity": {
+    "calibration_established": false,
+    "conditional_independence_assumption": true,
+    "curve": [
+      {
+        "evidence_count": 0,
+        "hidden_hypothesis_posterior": 0.5,
+        "semantic_certification_allowed": false,
+        "status": "unresolved"
+      },
+      {
+        "evidence_count": 1,
+        "hidden_hypothesis_posterior": 0.7499999999999999,
+        "semantic_certification_allowed": false,
+        "status": "unresolved"
+      },
+      {
+        "evidence_count": 2,
+        "hidden_hypothesis_posterior": 0.8999999999999999,
+        "semantic_certification_allowed": false,
+        "status": "unresolved"
+      },
+      {
+        "evidence_count": 4,
+        "hidden_hypothesis_posterior": 0.9878048780487805,
+        "semantic_certification_allowed": false,
+        "status": "identified"
+      },
+      {
+        "evidence_count": 8,
+        "hidden_hypothesis_posterior": 0.999847607436757,
+        "semantic_certification_allowed": false,
+        "status": "identified"
+      }
+    ]
+  },
+  "promotion": {
+    "adaptive_opponent_line_released": false,
+    "llm_pilot_design_allowed_after_human_review": true,
+    "llm_pilot_executed": false,
+    "runtime_epsilon_gto_allowed": false
+  },
+  "schema_version": "aip-gamespec-hypothesis-uncertainty-v1"
+}

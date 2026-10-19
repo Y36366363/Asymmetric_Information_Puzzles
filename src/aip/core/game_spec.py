@@ -138,6 +138,7 @@ def generate_observation_invariance_contract(
     *,
     maximum_records: int = 100_000,
     maximum_cases: int = 100_000,
+    require_cases: bool = True,
 ) -> GeneratedObservationContract[State]:
     """Group states by declared observation and pair hidden alternatives.
 
@@ -198,7 +199,7 @@ def generate_observation_invariance_contract(
                 )
             )
 
-    if not cases:
+    if require_cases and not cases:
         raise ValueError("GameSpec observation declaration generated no obligations")
     return GeneratedObservationContract(
         spec_id=spec.spec_id,

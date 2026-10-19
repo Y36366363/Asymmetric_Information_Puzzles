@@ -228,12 +228,62 @@
         },
         {
           "path": "src/aip/core/game_spec.py",
-          "sha256": "f209fdbe7ec7331d96a5e7e1ddaf1422ccf1cdced4e48cbe9a54cbcd9a08f0bc",
+          "sha256": "52018c1bbb4d85e5e49caa5a0cce0aec93bc8163d696eda82a96f2ff69b1d554",
           "kind": "source_reference"
         },
         {
           "path": "src/aip/puzzles/goofspiel/semantics.py",
           "sha256": "10e24c1ccd2992953bb48a70b989bd06c036aab6f91179b24b53b5d14c94a843",
+          "kind": "source_reference"
+        }
+      ]
+    },
+    {
+      "id": "game_spec_epistemic_uncertainty",
+      "status": "supported_in_scope",
+      "statement": "GameSpec 候选集能区分研究者对固定规则的不确定性与游戏内 nature 概率，并在无证据或冲突证据下拒绝语义认证。",
+      "scope": "一骰两个观察结构候选；等先验、人工 reference、固定可靠度敏感性曲线和条件求解。",
+      "limitations": "已知小游戏的机制控制；证据可靠度未校准，条件独立性是假设，候选集不保证包含真模型，尚未运行 LLM。",
+      "next_question": "受限格式稳定后，LLM 能否生成覆盖真模型的候选集，且语义反馈能否降低误认证率？",
+      "evidence": [
+        {
+          "path": "research/results/game_spec_hypothesis_uncertainty_2026-10-19.json",
+          "sha256": "20757d55dc9d28d73086e883de086be7fd114a235bfbb43696f3f6d0c7a3b982",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/primary_passed",
+              "equals": true
+            },
+            {
+              "pointer": "/no_evidence/status",
+              "equals": "unresolved"
+            },
+            {
+              "pointer": "/hard_reference_evidence/selected_hypothesis_id",
+              "equals": "opponent_die_hidden"
+            },
+            {
+              "pointer": "/hard_contradiction/status",
+              "equals": "conflicted"
+            },
+            {
+              "pointer": "/interpretation/prior_is_nature_probability",
+              "equals": false
+            },
+            {
+              "pointer": "/promotion/runtime_epsilon_gto_allowed",
+              "equals": false
+            },
+            {
+              "pointer": "/promotion/llm_pilot_executed",
+              "equals": false
+            }
+          ]
+        },
+        {
+          "path": "src/aip/core/game_spec_uncertainty.py",
+          "sha256": "2c57223543f8a2e59239662b2944a9dbdb7c55cef608300e0043bbf518994f7f",
           "kind": "source_reference"
         }
       ]

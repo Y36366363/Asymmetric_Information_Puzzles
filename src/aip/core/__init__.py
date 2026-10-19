@@ -87,6 +87,13 @@ from aip.core.game_spec import (
     ObservationStateRecord,
     generate_observation_invariance_contract,
 )
+from aip.core.game_spec_uncertainty import (
+    GameSpecHypothesis,
+    GameSpecHypothesisReport,
+    GameSpecHypothesisResult,
+    ObservationEquivalenceEvidence,
+    evaluate_game_spec_hypotheses,
+)
 
 __all__ = [
     "SequenceForm",
@@ -128,11 +135,15 @@ __all__ = [
     "FullTreeGameAudit",
     "GameSolver",
     "GameSpecObservationSlice",
+    "GameSpecHypothesis",
+    "GameSpecHypothesisReport",
+    "GameSpecHypothesisResult",
     "GeneratedObservationContract",
     "InformationSet",
     "IndependentEvaluationReport",
     "LinearAverageStrategy",
     "Observation",
+    "ObservationEquivalenceEvidence",
     "ObservationStateRecord",
     "ObservationInvarianceAudit",
     "ObservationInvarianceCase",
@@ -164,5 +175,6 @@ __all__ = [
     "recommend_equilibrium_solver",
     "run_independent_evaluation",
     "generate_observation_invariance_contract",
+    "evaluate_game_spec_hypotheses",
     "strategy_profile_fingerprint",
 ]
