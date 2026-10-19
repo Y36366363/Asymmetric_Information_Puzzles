@@ -1,0 +1,81 @@
+{
+  "experiment_id": "game_spec_hypothesis_uncertainty_2026-10-19",
+  "created_date": "2026-10-19",
+  "status": "frozen_before_implementation",
+  "research_question": "Can AIP preserve multiple plausible observation GameSpecs, update epistemic confidence from explicit evidence, and refuse certification while the true information structure remains unidentified?",
+  "conceptual_separation": {
+    "nature_probability": "A probability in the rules over game states or events, consumed by the game solver.",
+    "gamespec_prior": "Researcher uncertainty over which fixed rule model is correct; it is not inserted into the game tree unless the real game itself randomizes rules.",
+    "required": "Artifacts and APIs must keep these quantities separate."
+  },
+  "candidates": [
+    {
+      "hypothesis_id": "opponent_die_hidden",
+      "prior": 0.5,
+      "public_fields": ["bids"],
+      "private_fields": {
+        "player_0": ["die_0"],
+        "player_1": ["die_1"]
+      },
+      "expected_observation_contract_cases": 5220,
+      "expected_internal_game_value_player_0": 0.5
+    },
+    {
+      "hypothesis_id": "both_dice_visible",
+      "prior": 0.5,
+      "public_fields": ["bids", "die_0", "die_1"],
+      "private_fields": {
+        "player_0": [],
+        "player_1": []
+      },
+      "expected_observation_contract_cases": 0,
+      "expected_internal_game_value_player_0": 1.0
+    }
+  ],
+  "primary_tests": {
+    "no_evidence": {
+      "expected_status": "unresolved",
+      "expected_posteriors": {
+        "opponent_die_hidden": 0.5,
+        "both_dice_visible": 0.5
+      }
+    },
+    "hard_reference_evidence": {
+      "source": "independently retained manual one-die observation contract",
+      "expected_status": "identified",
+      "expected_selected_hypothesis": "opponent_die_hidden",
+      "wrong_hypothesis_must_be_eliminated": true
+    },
+    "probabilistic_sensitivity": {
+      "evidence_reliability": 0.75,
+      "evidence_counts": [0, 1, 2, 4, 8],
+      "assumption": "Likelihood accumulation is conditional on independent evidence reports; this is a sensitivity analysis, not proof that repeated labels are independent.",
+      "expected_hidden_posteriors": [0.5, 0.75, 0.9, 0.9878048780487805, 0.999847607436757]
+    },
+    "balanced_contradiction": {
+      "evidence_reliability": 0.9,
+      "expected_status": "unresolved",
+      "expected_posteriors": {
+        "opponent_die_hidden": 0.5,
+        "both_dice_visible": 0.5
+      }
+    }
+  },
+  "certification_policy": {
+    "posterior_identification_threshold": 0.95,
+    "posterior_alone_certifies_gamespec": false,
+    "hard_compatible_candidate_count_for_semantic_certification": 1,
+    "unresolved_candidates_are_solved_conditionally": true,
+    "conditional_solutions_must_not_be_averaged_into_gto_claim": true,
+    "runtime_epsilon_gto_allowed": false
+  },
+  "failure_policy": {
+    "preserve_all_candidates_and_counterevidence": true,
+    "return_conflicted_if_hard_evidence_eliminates_every_candidate": true,
+    "do_not_silently_renormalize_an_empty_version_space": true,
+    "do_not_enter_paid_llm_pilot_from_this_experiment": true
+  },
+  "randomness": null,
+  "paid_model_calls": false,
+  "interpretation_boundary": "Passing establishes bookkeeping and falsification behavior on a known small game. It does not show that priors or evidence reliability are objectively calibrated, that candidate sets contain the true GameSpec, or that an LLM can author correct candidates."
+}
