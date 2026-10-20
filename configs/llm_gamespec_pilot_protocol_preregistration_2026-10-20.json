@@ -1,0 +1,143 @@
+{
+  "protocol_id": "llm_gamespec_pilot_v1",
+  "created_date": "2026-10-20",
+  "status": "frozen_design_before_compiler_and_model_calls",
+  "phase": "restricted_schema_and_offline_dry_run",
+  "research_question": "Does semantic observation feedback improve an LLM's ability to keep the true GameSpec in a bounded candidate set without increasing false certification on held-out rule instances?",
+  "scope": {
+    "gamespec_component": "two-player observation field visibility only",
+    "excluded_components": [
+      "chance probability inference",
+      "payoff inference",
+      "terminal and transition inference",
+      "strategy generation",
+      "adaptive opponent learning"
+    ],
+    "paid_model_calls_in_this_phase": false
+  },
+  "restricted_candidate_json": {
+    "schema_version": "aip-observation-gamespec-candidates-v1",
+    "allowed_top_level_fields": [
+      "schema_version",
+      "game_id",
+      "candidates"
+    ],
+    "allowed_candidate_fields": [
+      "hypothesis_id",
+      "public_fields",
+      "private_fields_by_player"
+    ],
+    "field_vocabulary_is_evaluator_supplied": true,
+    "every_field_must_be_partitioned_exactly_once": true,
+    "unknown_fields_are_rejected": true,
+    "duplicate_observation_partitions_are_rejected": true,
+    "model_may_supply_prior": false,
+    "model_may_supply_evidence_reliability": false,
+    "model_may_supply_certification": false
+  },
+  "trusted_evidence_json": {
+    "schema_version": "aip-observation-evidence-v1",
+    "allowed_fields": [
+      "schema_version",
+      "evidence_id",
+      "source_id",
+      "left_world_id",
+      "right_world_id",
+      "acting_player",
+      "observed_same"
+    ],
+    "reliability_and_certification_permission_come_from": "evaluator-owned source registry",
+    "allowed_source_kinds": [
+      "rule_author",
+      "official_trace",
+      "independent_reference",
+      "expert_review",
+      "synthetic_negative_control"
+    ],
+    "llm_output_is_never_a_certifying_source": true
+  },
+  "arms": [
+    {
+      "arm_id": "single_no_feedback",
+      "candidate_count": 1,
+      "feedback": "none",
+      "maximum_repairs": 0
+    },
+    {
+      "arm_id": "multi_structural_feedback",
+      "candidate_count": 3,
+      "feedback": "parse_and_structure_only",
+      "maximum_repairs": 2
+    },
+    {
+      "arm_id": "multi_semantic_feedback",
+      "candidate_count": 3,
+      "feedback": "same_structure_feedback_plus_trusted_observation_witnesses",
+      "maximum_repairs": 2
+    },
+    {
+      "arm_id": "human_reference_ceiling",
+      "candidate_count": 1,
+      "feedback": "not_applicable",
+      "maximum_repairs": 0
+    }
+  ],
+  "shared_llm_controls_for_future_execution": {
+    "model_id": null,
+    "model_id_policy": "Must be fixed in a separately committed execution manifest before the first provider call.",
+    "temperature": 0.0,
+    "maximum_output_tokens": 2500,
+    "prompt_template_version": "llm_gamespec_pilot_prompt_v1",
+    "rule_text_permutation": "fixed_before_calls",
+    "trials_per_case": null,
+    "trials_policy": "Set from an offline variance/power calculation in the execution manifest, not after observing provider results.",
+    "same_model_budget_and_rule_text_across_llm_arms": true
+  },
+  "primary_endpoints": {
+    "true_model_candidate_coverage_rate": "Number of cases whose final valid candidate set contains an observation partition identical to the trusted reference, divided by all assigned cases including parse failures, timeouts, and refusals.",
+    "false_certification_rate": "Number of assigned cases where the pipeline certifies a candidate not identical to the trusted reference, divided by all assigned cases.",
+    "primary_contrast": "multi_semantic_feedback versus multi_structural_feedback"
+  },
+  "secondary_endpoints": [
+    "final trusted verification rate",
+    "valid candidate-set rate",
+    "candidate-set size",
+    "repair count",
+    "input and output tokens",
+    "wall-clock time",
+    "conditional solver success rate",
+    "conditional solver cost"
+  ],
+  "certification_policy": {
+    "all_required_evidence_must_be_present": true,
+    "only_hard evaluator-owned sources may certify": true,
+    "exactly_one candidate must remain compatible": true,
+    "posterior_threshold_alone_may_certify": false,
+    "candidate_self_certification_is_rejected": true,
+    "runtime_epsilon_gto_allowed": false
+  },
+  "offline_dry_run": {
+    "known_control": "one_die_stepwise_liars_dice",
+    "expected_single_wrong_candidate_coverage": false,
+    "expected_multi_candidate_coverage": true,
+    "expected_semantic_feedback_verified": true,
+    "expected_human_reference_verified": true,
+    "closed_set_negative_control": "candidate set intentionally omits the true hidden-die partition",
+    "expected_closed_set_status": "conflicted",
+    "expected_closed_set_false_certification": false
+  },
+  "held_out_policy_for_future_execution": {
+    "development_templates_are_disjoint_from_held_out_rule_families": true,
+    "trusted_references_are_hidden_from_llm": true,
+    "at_least_one_true_model_absent_initial_candidate_negative_control": true,
+    "natural_errors_and_injected_errors_are_reported_separately": true
+  },
+  "failure_policy": {
+    "invalid_json_counts_in_primary_endpoint_denominator": true,
+    "empty_candidate_set_cannot_be_renormalized": true,
+    "missing_true_model_cannot_be_repaired_by_self_assigned_confidence": true,
+    "do_not_call_llm_until_execution_manifest_is_committed": true,
+    "adaptive_opponent_line_remains_on_hold": true
+  },
+  "interpretation_boundary": "A passing offline dry run establishes schema enforcement and scoring behavior only. It provides no evidence that an LLM generates useful candidates or that semantic feedback improves provider performance."
+}
