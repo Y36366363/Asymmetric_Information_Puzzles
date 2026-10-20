@@ -1,0 +1,222 @@
+{
+  "arm_fixture_scores": {
+    "human_reference_ceiling": {
+      "arm_id": "human_reference_ceiling",
+      "candidate_count": 1,
+      "certified_reference_model": true,
+      "conditional_solver_succeeded": null,
+      "false_certification": false,
+      "repair_count": 0,
+      "true_model_candidate_coverage": true,
+      "verification": {
+        "certified": true,
+        "certified_hypothesis_id": "hidden",
+        "compatible_hypothesis_ids": [
+          "hidden"
+        ],
+        "required_evidence_ids": [
+          "hidden_die_pair_0000"
+        ],
+        "status": "verified",
+        "supplied_evidence_ids": [
+          "hidden_die_pair_0000"
+        ]
+      }
+    },
+    "multi_semantic_feedback": {
+      "arm_id": "multi_semantic_feedback",
+      "candidate_count": 3,
+      "certified_reference_model": true,
+      "conditional_solver_succeeded": null,
+      "false_certification": false,
+      "repair_count": 1,
+      "true_model_candidate_coverage": true,
+      "verification": {
+        "certified": true,
+        "certified_hypothesis_id": "hidden",
+        "compatible_hypothesis_ids": [
+          "hidden"
+        ],
+        "required_evidence_ids": [
+          "hidden_die_pair_0000"
+        ],
+        "status": "verified",
+        "supplied_evidence_ids": [
+          "hidden_die_pair_0000"
+        ]
+      }
+    },
+    "multi_structural_feedback": {
+      "arm_id": "multi_structural_feedback",
+      "candidate_count": 3,
+      "certified_reference_model": true,
+      "conditional_solver_succeeded": null,
+      "false_certification": false,
+      "repair_count": 1,
+      "true_model_candidate_coverage": true,
+      "verification": {
+        "certified": true,
+        "certified_hypothesis_id": "hidden",
+        "compatible_hypothesis_ids": [
+          "hidden"
+        ],
+        "required_evidence_ids": [
+          "hidden_die_pair_0000"
+        ],
+        "status": "verified",
+        "supplied_evidence_ids": [
+          "hidden_die_pair_0000"
+        ]
+      }
+    },
+    "single_no_feedback": {
+      "arm_id": "single_no_feedback",
+      "candidate_count": 1,
+      "certified_reference_model": false,
+      "conditional_solver_succeeded": null,
+      "false_certification": false,
+      "repair_count": 0,
+      "true_model_candidate_coverage": false,
+      "verification": {
+        "certified": false,
+        "certified_hypothesis_id": null,
+        "compatible_hypothesis_ids": [],
+        "required_evidence_ids": [
+          "hidden_die_pair_0000"
+        ],
+        "status": "conflicted",
+        "supplied_evidence_ids": [
+          "hidden_die_pair_0000"
+        ]
+      }
+    }
+  },
+  "date": "2026-10-20",
+  "dry_run_endpoint_plumbing": {
+    "false_certification_rate": 0.0,
+    "interpretation": "deterministic fixture plumbing only; not an LLM estimate",
+    "true_model_candidate_coverage_rate": 0.6666666666666666
+  },
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.12.3"
+  },
+  "execution_readiness": {
+    "endpoint_scoring_ready": true,
+    "execution_manifest_committed": false,
+    "held_out_rule_set_frozen": false,
+    "model_id_frozen": false,
+    "provider_calls_allowed": false,
+    "restricted_json_compiler_ready": true,
+    "trusted_evidence_registry_ready": true
+  },
+  "forbidden_model_output_checks": {
+    "certified": true,
+    "evidence_reliability": true,
+    "posterior": true,
+    "prior": true
+  },
+  "limitations": [
+    "All arm outputs are deterministic fixtures, not LLM generations.",
+    "The dry-run endpoint values are plumbing checks and must not be reported as model performance.",
+    "Only observation visibility is represented; chance, payoff, transitions, and terminal semantics remain outside this schema.",
+    "The single one-die witness distinguishes the frozen fixture candidates but is not a general completeness proof.",
+    "A future execution manifest must freeze model id, trials, prompts, rule instances, and hidden references before provider calls."
+  ],
+  "paid_model_calls": false,
+  "preregistration": "configs/llm_gamespec_pilot_protocol_preregistration_2026-10-20.json",
+  "preregistration_commit": "11cb251",
+  "preregistration_sha256": "c5c7cd43cc12367547e3f69f5fe79cb429ebbc33b260b619dd2bcbad322e039e",
+  "primary_gates": {
+    "evidence_reliability_is_evaluator_owned": true,
+    "human_ceiling_verifies_reference": true,
+    "model_confidence_and_certification_fields_rejected": true,
+    "multi_candidate_sets_cover_reference": true,
+    "no_model_calls_executed": true,
+    "runtime_epsilon_gto_remains_disabled": true,
+    "semantic_arm_verifies_reference": true,
+    "single_wrong_candidate_not_covered": true,
+    "true_model_absent_fails_closed": true
+  },
+  "primary_passed": true,
+  "promotion": {
+    "adaptive_opponent_line_released": false,
+    "llm_effect_established": false,
+    "runtime_epsilon_gto_allowed": false
+  },
+  "protocol_id": "llm_gamespec_pilot_v1",
+  "restricted_schema": {
+    "allowed_candidate_fields": [
+      "hypothesis_id",
+      "public_fields",
+      "private_fields_by_player"
+    ],
+    "allowed_top_level_fields": [
+      "schema_version",
+      "game_id",
+      "candidates"
+    ],
+    "duplicate_observation_partitions_are_rejected": true,
+    "every_field_must_be_partitioned_exactly_once": true,
+    "field_vocabulary_is_evaluator_supplied": true,
+    "model_may_supply_certification": false,
+    "model_may_supply_evidence_reliability": false,
+    "model_may_supply_prior": false,
+    "schema_version": "aip-observation-gamespec-candidates-v1",
+    "unknown_fields_are_rejected": true
+  },
+  "schema_version": "aip-llm-gamespec-pilot-dry-run-v1",
+  "true_model_absent_negative_control": {
+    "arm_id": "true_model_absent_negative_control",
+    "candidate_count": 2,
+    "certified_reference_model": false,
+    "conditional_solver_succeeded": null,
+    "false_certification": false,
+    "repair_count": 0,
+    "true_model_candidate_coverage": false,
+    "verification": {
+      "certified": false,
+      "certified_hypothesis_id": null,
+      "compatible_hypothesis_ids": [],
+      "required_evidence_ids": [
+        "hidden_die_pair_0000"
+      ],
+      "status": "conflicted",
+      "supplied_evidence_ids": [
+        "hidden_die_pair_0000"
+      ]
+    }
+  },
+  "trusted_evidence": {
+    "acting_player": 0,
+    "evidence_id": "hidden_die_pair_0000",
+    "left_world_id": "left",
+    "may_certify": true,
+    "observed_same": true,
+    "reliability_from_registry": 1.0,
+    "right_world_id": "right",
+    "source_id": "manual_reference",
+    "source_kind": "independent_reference"
+  },
+  "trusted_evidence_format": {
+    "allowed_fields": [
+      "schema_version",
+      "evidence_id",
+      "source_id",
+      "left_world_id",
+      "right_world_id",
+      "acting_player",
+      "observed_same"
+    ],
+    "allowed_source_kinds": [
+      "rule_author",
+      "official_trace",
+      "independent_reference",
+      "expert_review",
+      "synthetic_negative_control"
+    ],
+    "llm_output_is_never_a_certifying_source": true,
+    "reliability_and_certification_permission_come_from": "evaluator-owned source registry",
+    "schema_version": "aip-observation-evidence-v1"
+  }
+}

@@ -289,6 +289,52 @@
       ]
     },
     {
+      "id": "llm_gamespec_pilot_protocol_dry_run",
+      "status": "supported_in_scope",
+      "statement": "受限 GameSpec JSON、evaluator-owned 证据来源和候选集评分器在确定性离线 dry run 中通过，并在真模型缺失时拒绝认证。",
+      "scope": "一骰观察字段控制；四臂协议的确定性 fixture；未调用 LLM。",
+      "limitations": "只证明接口与评分管线行为；不估计 LLM 候选覆盖、反馈收益、token 成本或 held-out 泛化。",
+      "next_question": "提交模型、trial 数、提示与 held-out 规则 manifest 后，语义 witness 相对结构反馈能否提高真模型覆盖且不增加误认证？",
+      "evidence": [
+        {
+          "path": "research/results/llm_gamespec_pilot_protocol_dry_run_2026-10-20.json",
+          "sha256": "3deed4bfdca968917817d6fbeebeb0c68edde7ac733f21441134d44f16e527cc",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/primary_passed",
+              "equals": true
+            },
+            {
+              "pointer": "/true_model_absent_negative_control/verification/status",
+              "equals": "conflicted"
+            },
+            {
+              "pointer": "/true_model_absent_negative_control/false_certification",
+              "equals": false
+            },
+            {
+              "pointer": "/execution_readiness/provider_calls_allowed",
+              "equals": false
+            },
+            {
+              "pointer": "/promotion/llm_effect_established",
+              "equals": false
+            },
+            {
+              "pointer": "/paid_model_calls",
+              "equals": false
+            }
+          ]
+        },
+        {
+          "path": "src/aip/core/game_spec_pilot.py",
+          "sha256": "aee2300e73e8639736fb567ad24b9936ba70183484234cc62efa33f4e984db1a",
+          "kind": "source_reference"
+        }
+      ]
+    },
+    {
       "id": "general_llm_solver",
       "status": "not_established",
       "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",
