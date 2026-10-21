@@ -1,0 +1,138 @@
+{
+  "boundary_fixture_results": {
+    "correct_scope_refusal": {
+      "error_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+      "passed": true
+    },
+    "cost_overrun_fixture": {
+      "checks": {
+        "cost": false,
+        "false_certifications": true,
+        "human_reference": true,
+        "missing_truth_control": true,
+        "out_of_schema": true,
+        "repair_executable": true,
+        "schema_multi_semantic_feedback": true,
+        "schema_multi_structural_feedback": true,
+        "schema_single_no_feedback": true
+      },
+      "formal_trial_execution_allowed": false,
+      "runtime_epsilon_gto_allowed": false,
+      "status": "fail"
+    },
+    "empty_fixture": {
+      "checks": {
+        "cost": false,
+        "false_certifications": false,
+        "human_reference": false,
+        "missing_truth_control": false,
+        "out_of_schema": false,
+        "repair_executable": false,
+        "schema_multi_semantic_feedback": false,
+        "schema_multi_structural_feedback": false,
+        "schema_single_no_feedback": false
+      },
+      "formal_trial_execution_allowed": false,
+      "runtime_epsilon_gto_allowed": false,
+      "status": "insufficient_evidence"
+    },
+    "false_certificate_fixture": {
+      "checks": {
+        "cost": true,
+        "false_certifications": false,
+        "human_reference": true,
+        "missing_truth_control": true,
+        "out_of_schema": true,
+        "repair_executable": true,
+        "schema_multi_semantic_feedback": true,
+        "schema_multi_structural_feedback": true,
+        "schema_single_no_feedback": true
+      },
+      "formal_trial_execution_allowed": false,
+      "runtime_epsilon_gto_allowed": false,
+      "status": "fail"
+    },
+    "passing_boundary_fixture": {
+      "checks": {
+        "cost": true,
+        "false_certifications": true,
+        "human_reference": true,
+        "missing_truth_control": true,
+        "out_of_schema": true,
+        "repair_executable": true,
+        "schema_multi_semantic_feedback": true,
+        "schema_multi_structural_feedback": true,
+        "schema_single_no_feedback": true
+      },
+      "formal_trial_execution_allowed": false,
+      "runtime_epsilon_gto_allowed": false,
+      "status": "pass"
+    },
+    "refusal_on_supported_control": {
+      "error_code": "INCORRECT_OOS_REFUSAL",
+      "passed": false
+    },
+    "repair_below_boundary": {
+      "checks": {
+        "cost": true,
+        "false_certifications": true,
+        "human_reference": true,
+        "missing_truth_control": true,
+        "out_of_schema": true,
+        "repair_executable": false,
+        "schema_multi_semantic_feedback": true,
+        "schema_multi_structural_feedback": true,
+        "schema_single_no_feedback": true
+      },
+      "formal_trial_execution_allowed": false,
+      "runtime_epsilon_gto_allowed": false,
+      "status": "fail"
+    }
+  },
+  "exhaustive_finite_partition_checks": [
+    {
+      "case_id": "dev_dice",
+      "correct_partitions_verified": 1,
+      "false_certifications": 0,
+      "field_player_contrasts": 6,
+      "partitions_tested": 27
+    },
+    {
+      "case_id": "dev_revealed_dice",
+      "correct_partitions_verified": 1,
+      "false_certifications": 0,
+      "field_player_contrasts": 6,
+      "partitions_tested": 27
+    },
+    {
+      "case_id": "heldout_sealed_bid",
+      "correct_partitions_verified": 1,
+      "false_certifications": 0,
+      "field_player_contrasts": 6,
+      "partitions_tested": 27
+    },
+    {
+      "case_id": "heldout_private_signal",
+      "correct_partitions_verified": 1,
+      "false_certifications": 0,
+      "field_player_contrasts": 6,
+      "partitions_tested": 27
+    }
+  ],
+  "experiment_id": "gamespec_smoke_manifest_preflight_2026-10-21",
+  "formal_trial_allowed": false,
+  "limitations": [
+    "Reference owners are authored rule assumptions; field contrasts do not independently prove those assumptions.",
+    "Field counterfactuals test the schema vocabulary, not reachable states of a full game tree.",
+    "All gate observations in this artifact are deterministic fixtures, not model performance.",
+    "Prompt, model, rules, quotas and thresholds are frozen; a provider runner and separate feedback/final evidence artifacts still require preflight before real calls.",
+    "Smoke templates are public engineering controls, not future confirmatory held-out games."
+  ],
+  "manifest_commit": "8bcc4d5",
+  "manifest_sha256": "24493a4d039374f281b08547368259384f23fbe7f8a88995dbf402c3b2822680",
+  "model_smoke_gate_status": "not_run",
+  "offline_preflight_passed": true,
+  "provider_calls_executed": 0,
+  "reserved_maximum_call_usd": 0.008,
+  "reserved_maximum_run_usd": 1.48
+}

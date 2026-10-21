@@ -329,8 +329,29 @@
         },
         {
           "path": "src/aip/core/game_spec_pilot.py",
-          "sha256": "aee2300e73e8639736fb567ad24b9936ba70183484234cc62efa33f4e984db1a",
+          "sha256": "9f8a6eae96301e486a9107d27fab08f7dd84bb0682c67758f8664aab0f217a69",
           "kind": "source_reference"
+        }
+      ]
+    },
+    {
+      "id": "gamespec_smoke_manifest_preflight",
+      "status": "supported_in_scope",
+      "statement": "数值 smoke 门槛可执行；四个三字段参考的 108 个静态观察划分中，各自仅正确划分通过完整字段对照；越界拒绝须匹配固定理由。",
+      "scope": "确定性离线边界测试、静态字段语言枚举和动态揭示反例。",
+      "limitations": "未调用模型；人工参考未由此证明正确；字段对照不是完整游戏可达树；通过工程门槛不证明模型总体成功率。",
+      "next_question": "冻结调用 runner、反馈/最终证据文件并复核 manifest 后，真实 smoke 是否满足预设工程门槛？",
+      "evidence": [
+        {
+          "path": "research/results/gamespec_smoke_manifest_preflight_2026-10-21.json",
+          "sha256": "ff4ef0b240ec8a23fa43fe16541de695cfc593dd0f2628535bdb05fc84b3f8e4",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/offline_preflight_passed", "equals": true},
+            {"pointer": "/provider_calls_executed", "equals": 0},
+            {"pointer": "/model_smoke_gate_status", "equals": "not_run"},
+            {"pointer": "/formal_trial_allowed", "equals": false}
+          ]
         }
       ]
     },

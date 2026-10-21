@@ -1,0 +1,27 @@
+{
+  "version": "gamespec-smoke-errors-v1",
+  "policy": "Multi-label; preserve attempt and final-trial labels. A compiler success does not remove semantic errors. Timeout and parse failures remain in assigned-trial denominators.",
+  "codes": {
+    "provider_error": "Provider returns an error or no response; retain status code and request id where available.",
+    "timeout": "No completed provider response within 60 seconds; do not silently retry.",
+    "truncated_output": "Provider reports output-token limit or incomplete finish reason.",
+    "invalid_json": "The raw output cannot be parsed as exactly one JSON object; fenced prose is not silently extracted.",
+    "schema_violation": "JSON parses but violates required keys, value types or version.",
+    "unknown_or_missing_field": "Vocabulary fields are invented or missing; include field names in structured detail.",
+    "duplicate_candidate": "Different candidate ids encode identical observation partitions.",
+    "candidate_count_error": "Candidate count differs from that arm's requested count.",
+    "privacy_leak": "A player observes a field that the reference hides; record actor and field.",
+    "overhidden_public_field": "A reference-public field is hidden from at least one player.",
+    "wrong_private_owner": "A private field is assigned to the other player; may co-occur with privacy_leak.",
+    "true_model_absent": "No final candidate equals the reference visibility partition, even if all JSON is structurally valid.",
+    "feedback_unexecutable": "The first reply to a fixed structural repair probe fails compilation or candidate count.",
+    "incorrect_oos_refusal": "A supported instance is refused, or refusal code or witness is incorrect.",
+    "forced_in_schema_fit": "A candidate partition is returned for the paid-reveal rule despite its phase-changing visibility.",
+    "evidence_authority_violation": "Model attempts to provide prior, posterior, evidence reliability or certification, or an unknown source is submitted.",
+    "false_certification": "Pipeline accepts a candidate whose observation partition differs from the evaluator reference.",
+    "missing_usage": "Provider usage is absent or cannot be reconciled; cost gate cannot pass.",
+    "budget_exceeded": "Call reservation or accumulated conservative cost exceeds a frozen cap; stop future dispatch."
+  },
+  "manual_adjudication": "Only rule-reference ambiguity may be reviewed manually. Preserve raw data, reviewers and disagreement; do not silently relabel results or replace the frozen rule during a run.",
+  "unknown_error": "Stop and record an unclassified pipeline exception; add a new taxonomy version for future runs. Do not force it into success."
+}

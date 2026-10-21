@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from math import isclose, isfinite
+from math import isfinite
 import re
 from typing import Hashable, Mapping
 
@@ -228,7 +228,7 @@ class EvidenceSourcePolicy:
             or self.reliability > 1.0
         ):
             raise ValueError("source reliability must be finite and in [0.5, 1]")
-        if self.may_certify and not isclose(self.reliability, 1.0):
+        if self.may_certify and self.reliability != 1.0:
             raise ValueError("only hard evidence sources may certify")
         if self.may_certify and self.source_kind == "synthetic_negative_control":
             raise ValueError("synthetic negative controls may not certify")
@@ -351,7 +351,7 @@ def verify_candidate_set(
     )
     if any(
         not item.source.may_certify
-        or not isclose(item.source.reliability, 1.0)
+        or item.source.reliability != 1.0
         for item in required
     ):
         return CandidateSetVerification(
