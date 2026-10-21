@@ -1,0 +1,122 @@
+{
+  "manifest_id": "llm_gamespec_smoke_v1",
+  "date": "2026-10-21",
+  "purpose": "Engineering smoke thresholds, not a powered effectiveness trial",
+  "protocol": "llm_gamespec_pilot_v1",
+  "model": {
+    "provider": "openai",
+    "model_id": "gpt-4.1-mini-2025-04-14",
+    "endpoint": "chat_completions",
+    "temperature": 0,
+    "response_format": "json_object",
+    "maximum_input_tokens": 10000,
+    "maximum_output_tokens": 2500,
+    "timeout_seconds": 60,
+    "automatic_retries": 0,
+    "concurrency": 1,
+    "substitution_allowed": false,
+    "pricing_checked_date": "2026-10-21",
+    "input_usd_per_million": 0.4,
+    "output_usd_per_million": 1.6,
+    "pricing_source": "https://developers.openai.com/api/docs/pricing",
+    "snapshot_source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini"
+  },
+  "schedule": {
+    "ordered_cases": ["dev_dice", "dev_revealed_dice", "heldout_sealed_bid", "heldout_private_signal"],
+    "repeats_per_case_per_arm": 5,
+    "arm_order": ["single_no_feedback", "multi_structural_feedback", "multi_semantic_feedback"],
+    "main_trials_per_arm": 20,
+    "main_initial_trials": 60,
+    "main_maximum_calls_including_repairs": 140,
+    "out_of_schema_calls": 15,
+    "injected_structure_repair_probes": 12,
+    "missing_truth_control_initial_trials": 6,
+    "missing_truth_control_maximum_calls": 18,
+    "maximum_calls": 185,
+    "human_ceiling_calls": 0,
+    "unit_of_analysis": "rule instance; repeated temperature-zero calls are operational repeats, not independent game families",
+    "development_and_heldout_scope": "two development and two engineering holdout rule templates; all four are public smoke fixtures and permanently excluded from future confirmatory holdouts"
+  },
+  "gates": {
+    "schema_rate_minimum": 0.9,
+    "schema_minimum_valid_per_arm": 18,
+    "schema_denominator_per_arm": 20,
+    "schema_measurement": "first response on in-scope main trials, before repair; timeout, parse failure, refusal and wrong candidate count count as failure",
+    "repair_executable_rate_minimum": 0.8,
+    "repair_probe_denominator": 12,
+    "repair_probe_minimum_executable": 10,
+    "repair_measurement": "first reply to a fixed injected structural error compiles with correct candidate count; semantic accuracy is scored separately",
+    "maximum_call_usd": 0.01,
+    "maximum_total_usd": 2.0,
+    "cost_measurement": "conservative uncached token estimate; reserve input cap plus output cap before every call, count failed attempts; missing usage blocks progression",
+    "false_certifications_allowed": 0,
+    "correct_out_of_schema_rejections_required": 15,
+    "out_of_schema_denominator": 15,
+    "missing_truth_false_certifications_allowed": 0,
+    "human_reference_verification_required": "all four in-scope references",
+    "zero_denominator_policy": "insufficient_evidence, never pass",
+    "progression": "all gates must pass; passing allows designing a formal trial, never automatic execution",
+    "failure_response": "preserve run and revise in a new committed manifest; never change model, thresholds or trial count mid-run",
+    "coverage_rate": "report all assigned cases; no effectiveness go/no-go threshold in this engineering smoke"
+  },
+  "cases": [
+    {
+      "case_id": "dev_dice",
+      "fields": {"history": "public bid history", "die_0": "player 0 die", "die_1": "player 1 die"},
+      "rules": "Two players each roll one fair six-sided die. Throughout all modeled decision times each sees only their own die and the public bid history. Neither die is revealed during these decisions.",
+      "reference_owners": {"history": "public", "die_0": "player_0", "die_1": "player_1"}
+    },
+    {
+      "case_id": "dev_revealed_dice",
+      "fields": {"history": "public bid history", "die_0": "player 0 die", "die_1": "player 1 die"},
+      "rules": "Two dice are rolled and both dice are publicly revealed before any modeled decision. Both players see both dice and the public history at every decision.",
+      "reference_owners": {"history": "public", "die_0": "public", "die_1": "public"}
+    },
+    {
+      "case_id": "heldout_sealed_bid",
+      "fields": {"prize": "public prize", "commitment": "player 0 submitted bid", "hand": "player 1 private hand"},
+      "rules": "At each modeled response decision, a prize is public. Player 0 has secretly submitted a bid and knows that bid. Player 1 cannot see it before responding and alone sees their own hand. Player 0 cannot see player 1's hand. These visibility rules hold throughout this slice.",
+      "reference_owners": {"prize": "public", "commitment": "player_0", "hand": "player_1"}
+    },
+    {
+      "case_id": "heldout_private_signal",
+      "fields": {"announcement": "public announcement", "signal": "player 1 signal", "record": "player 1 retained private record"},
+      "rules": "Both players see an announcement. Only player 1 sees both a signal and its retained private record. Player 0 sees neither. No modeled action reveals them or changes who can observe these fields.",
+      "reference_owners": {"announcement": "public", "signal": "player_1", "record": "player_1"}
+    }
+  ],
+  "out_of_schema": {
+    "case_id": "dice_paid_reveal",
+    "rules": "As in the private one-die game, each player initially sees only their own die. At a modeled decision player 1 may pay a publicly recorded fee to inspect player 0's die. Subsequent decisions of player 1 observe that die; decisions before payment do not. Both phases must be represented under the same field names without splitting or renaming die_0.",
+    "unsupported_feature": "state_dependent_visibility",
+    "reason": "The same die_0 field is invisible to player 1 before payment and visible afterward. A single static public/private partition cannot represent both.",
+    "expected_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+    "required_witness": {"field": "die_0", "player": 1, "before_visible": false, "after_visible": true},
+    "correct_rejection": "strict JSON refusal envelope with expected code and exact validated witness; free-text refusal, unrelated reason, parse errors and forced candidate fitting all fail",
+    "paired_in_scope_control": "dev_revealed_dice",
+    "model_rejection_and_pipeline_scope_rejection_scored_separately": true
+  },
+  "error_taxonomy": [
+    "provider_error", "timeout", "truncated_output", "invalid_json", "schema_violation",
+    "unknown_or_missing_field", "duplicate_candidate", "candidate_count_error",
+    "privacy_leak", "overhidden_public_field", "wrong_private_owner", "true_model_absent",
+    "feedback_unexecutable", "incorrect_oos_refusal", "forced_in_schema_fit",
+    "evidence_authority_violation", "false_certification", "missing_usage", "budget_exceeded"
+  ],
+  "taxonomy_policy": "multi-label at attempt and final-trial level; raw outputs preserved; precedence for display follows listed order; no posthoc category silently replaces an existing label",
+  "system_prompt": "Map the supplied rules to the fixed observation vocabulary. Output JSON only. Assign every field exactly once to public_fields or private_fields_by_player.player_0/player_1. Do not invent fields, prior, evidence, reliability or certification. Return the requested number of distinct candidates, using hypothesis_id lowercase identifiers. Candidate envelope: {schema_version:aip-observation-gamespec-candidates-v1,game_id:CASE_ID,candidates:[{hypothesis_id:ID,public_fields:[],private_fields_by_player:{player_0:[],player_1:[]}}]}. If the same field changes visibility within the modeled times and cannot be represented by this static partition, output {schema_version:aip-observation-refusal-v1,game_id:CASE_ID,status:out_of_schema,error_code:OUT_OF_SCHEMA_STATIC_VISIBILITY,witness:{field:FIELD,player:PLAYER,before_visible:BOOLEAN,after_visible:BOOLEAN}}. Never split fields to hide a representational limitation.",
+  "user_prompt_template": "Case: {case_id}\nRules: {rules}\nField meanings: {fields_json}\nRequested candidates: {candidate_count}\nFeedback: {feedback_json}",
+  "feedback_policy": {
+    "structural": "only compiler error code and offending field; no reference owners or semantic witness",
+    "semantic": "same structural messages plus a development witness suite separate from final exhaustive evaluation",
+    "final_evaluation": "same independent full field-contrast suite for all arms, withheld until trial completion",
+    "maximum_repairs": 2,
+    "single_arm_repairs": 0,
+    "structural_probe": "start from a registered candidate payload missing exactly one field and provide MISSING_FIELD plus its name; 6 probes in each feedback arm",
+    "missing_truth_control": "same initial two incorrect partitions in both feedback arms; up to two repairs may restore true candidate; report initial/final coverage separately"
+  },
+  "scope_of_certification": "observation partition on the frozen finite field vocabulary only; never full game or runtime GTO",
+  "provider_execution_status": "not_started",
+  "runtime_epsilon_gto_allowed": false,
+  "adaptive_opponent_line_on_hold": true
+}
