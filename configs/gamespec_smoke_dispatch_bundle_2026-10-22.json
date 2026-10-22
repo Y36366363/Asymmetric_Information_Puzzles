@@ -1,0 +1,885 @@
+{
+  "cases": {
+    "dev_dice": {
+      "feedback_evidence": [
+        {
+          "acting_player": 0,
+          "evidence_id": "feedback_p0_die_1",
+          "left_fields": {
+            "die_0": 2,
+            "die_1": 2,
+            "history": 2
+          },
+          "observed_same": true,
+          "right_fields": {
+            "die_0": 2,
+            "die_1": 3,
+            "history": 2
+          },
+          "source_id": "reviewed_feedback_reference"
+        },
+        {
+          "acting_player": 1,
+          "evidence_id": "feedback_p1_die_0",
+          "left_fields": {
+            "die_0": 2,
+            "die_1": 2,
+            "history": 2
+          },
+          "observed_same": true,
+          "right_fields": {
+            "die_0": 3,
+            "die_1": 2,
+            "history": 2
+          },
+          "source_id": "reviewed_feedback_reference"
+        }
+      ],
+      "final_evidence": [
+        {
+          "acting_player": 0,
+          "evidence_id": "p0_history",
+          "left_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 1
+          }
+        },
+        {
+          "acting_player": 0,
+          "evidence_id": "p0_die_0",
+          "left_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "die_0": 1,
+            "die_1": 0,
+            "history": 0
+          }
+        },
+        {
+          "acting_player": 0,
+          "evidence_id": "p0_die_1",
+          "left_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 0
+          },
+          "observed_same": true,
+          "right_fields": {
+            "die_0": 0,
+            "die_1": 1,
+            "history": 0
+          }
+        },
+        {
+          "acting_player": 1,
+          "evidence_id": "p1_history",
+          "left_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 1
+          }
+        },
+        {
+          "acting_player": 1,
+          "evidence_id": "p1_die_0",
+          "left_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 0
+          },
+          "observed_same": true,
+          "right_fields": {
+            "die_0": 1,
+            "die_1": 0,
+            "history": 0
+          }
+        },
+        {
+          "acting_player": 1,
+          "evidence_id": "p1_die_1",
+          "left_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "die_0": 0,
+            "die_1": 1,
+            "history": 0
+          }
+        }
+      ],
+      "missing_truth_initial": {
+        "candidates": [
+          {
+            "hypothesis_id": "candidate_0",
+            "private_fields_by_player": {
+              "player_0": [],
+              "player_1": []
+            },
+            "public_fields": [
+              "history",
+              "die_0",
+              "die_1"
+            ]
+          },
+          {
+            "hypothesis_id": "candidate_1",
+            "private_fields_by_player": {
+              "player_0": [
+                "history",
+                "die_0",
+                "die_1"
+              ],
+              "player_1": []
+            },
+            "public_fields": []
+          }
+        ],
+        "game_id": "dev_dice",
+        "schema_version": "aip-observation-gamespec-candidates-v1"
+      },
+      "public_input": {
+        "case_id": "dev_dice",
+        "fields": {
+          "die_0": "player 0 die",
+          "die_1": "player 1 die",
+          "history": "public bid history"
+        },
+        "rules": "Two players each roll one fair six-sided die. Throughout all modeled decision times each sees only their own die and the public bid history. Neither die is revealed during these decisions."
+      },
+      "reference_owners": {
+        "die_0": "player_0",
+        "die_1": "player_1",
+        "history": "public"
+      },
+      "structure_probe": {
+        "missing_field": "history",
+        "payload": {
+          "candidates": [
+            {
+              "hypothesis_id": "candidate_0",
+              "private_fields_by_player": {
+                "player_0": [],
+                "player_1": []
+              },
+              "public_fields": [
+                "die_0",
+                "die_1"
+              ]
+            },
+            {
+              "hypothesis_id": "candidate_1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "history",
+                  "die_0",
+                  "die_1"
+                ],
+                "player_1": []
+              },
+              "public_fields": []
+            },
+            {
+              "hypothesis_id": "candidate_2",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dev_dice",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        }
+      }
+    },
+    "dev_revealed_dice": {
+      "feedback_evidence": [
+        {
+          "acting_player": 0,
+          "evidence_id": "feedback_p0_die_0",
+          "left_fields": {
+            "die_0": 2,
+            "die_1": 2,
+            "history": 2
+          },
+          "observed_same": false,
+          "right_fields": {
+            "die_0": 3,
+            "die_1": 2,
+            "history": 2
+          },
+          "source_id": "reviewed_feedback_reference"
+        },
+        {
+          "acting_player": 0,
+          "evidence_id": "feedback_p0_die_1",
+          "left_fields": {
+            "die_0": 2,
+            "die_1": 2,
+            "history": 2
+          },
+          "observed_same": false,
+          "right_fields": {
+            "die_0": 2,
+            "die_1": 3,
+            "history": 2
+          },
+          "source_id": "reviewed_feedback_reference"
+        }
+      ],
+      "final_evidence": [
+        {
+          "acting_player": 0,
+          "evidence_id": "p0_history",
+          "left_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 1
+          }
+        },
+        {
+          "acting_player": 0,
+          "evidence_id": "p0_die_0",
+          "left_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "die_0": 1,
+            "die_1": 0,
+            "history": 0
+          }
+        },
+        {
+          "acting_player": 0,
+          "evidence_id": "p0_die_1",
+          "left_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "die_0": 0,
+            "die_1": 1,
+            "history": 0
+          }
+        },
+        {
+          "acting_player": 1,
+          "evidence_id": "p1_history",
+          "left_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 1
+          }
+        },
+        {
+          "acting_player": 1,
+          "evidence_id": "p1_die_0",
+          "left_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "die_0": 1,
+            "die_1": 0,
+            "history": 0
+          }
+        },
+        {
+          "acting_player": 1,
+          "evidence_id": "p1_die_1",
+          "left_fields": {
+            "die_0": 0,
+            "die_1": 0,
+            "history": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "die_0": 0,
+            "die_1": 1,
+            "history": 0
+          }
+        }
+      ],
+      "missing_truth_initial": {
+        "candidates": [
+          {
+            "hypothesis_id": "candidate_0",
+            "private_fields_by_player": {
+              "player_0": [
+                "history",
+                "die_0",
+                "die_1"
+              ],
+              "player_1": []
+            },
+            "public_fields": []
+          },
+          {
+            "hypothesis_id": "candidate_1",
+            "private_fields_by_player": {
+              "player_0": [],
+              "player_1": [
+                "history",
+                "die_0",
+                "die_1"
+              ]
+            },
+            "public_fields": []
+          }
+        ],
+        "game_id": "dev_revealed_dice",
+        "schema_version": "aip-observation-gamespec-candidates-v1"
+      },
+      "public_input": {
+        "case_id": "dev_revealed_dice",
+        "fields": {
+          "die_0": "player 0 die",
+          "die_1": "player 1 die",
+          "history": "public bid history"
+        },
+        "rules": "Two dice are rolled and both dice are publicly revealed before any modeled decision. Both players see both dice and the public history at every decision."
+      },
+      "reference_owners": {
+        "die_0": "public",
+        "die_1": "public",
+        "history": "public"
+      },
+      "structure_probe": {
+        "missing_field": "history",
+        "payload": {
+          "candidates": [
+            {
+              "hypothesis_id": "candidate_0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0",
+                  "die_1"
+                ],
+                "player_1": []
+              },
+              "public_fields": []
+            },
+            {
+              "hypothesis_id": "candidate_1",
+              "private_fields_by_player": {
+                "player_0": [],
+                "player_1": [
+                  "history",
+                  "die_0",
+                  "die_1"
+                ]
+              },
+              "public_fields": []
+            },
+            {
+              "hypothesis_id": "candidate_2",
+              "private_fields_by_player": {
+                "player_0": [],
+                "player_1": []
+              },
+              "public_fields": [
+                "history",
+                "die_0",
+                "die_1"
+              ]
+            }
+          ],
+          "game_id": "dev_revealed_dice",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        }
+      }
+    },
+    "heldout_private_signal": {
+      "feedback_evidence": [
+        {
+          "acting_player": 0,
+          "evidence_id": "feedback_p0_record",
+          "left_fields": {
+            "announcement": 2,
+            "record": 2,
+            "signal": 2
+          },
+          "observed_same": true,
+          "right_fields": {
+            "announcement": 2,
+            "record": 3,
+            "signal": 2
+          },
+          "source_id": "reviewed_feedback_reference"
+        },
+        {
+          "acting_player": 0,
+          "evidence_id": "feedback_p0_signal",
+          "left_fields": {
+            "announcement": 2,
+            "record": 2,
+            "signal": 2
+          },
+          "observed_same": true,
+          "right_fields": {
+            "announcement": 2,
+            "record": 2,
+            "signal": 3
+          },
+          "source_id": "reviewed_feedback_reference"
+        }
+      ],
+      "final_evidence": [
+        {
+          "acting_player": 0,
+          "evidence_id": "p0_announcement",
+          "left_fields": {
+            "announcement": 0,
+            "record": 0,
+            "signal": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "announcement": 1,
+            "record": 0,
+            "signal": 0
+          }
+        },
+        {
+          "acting_player": 0,
+          "evidence_id": "p0_signal",
+          "left_fields": {
+            "announcement": 0,
+            "record": 0,
+            "signal": 0
+          },
+          "observed_same": true,
+          "right_fields": {
+            "announcement": 0,
+            "record": 0,
+            "signal": 1
+          }
+        },
+        {
+          "acting_player": 0,
+          "evidence_id": "p0_record",
+          "left_fields": {
+            "announcement": 0,
+            "record": 0,
+            "signal": 0
+          },
+          "observed_same": true,
+          "right_fields": {
+            "announcement": 0,
+            "record": 1,
+            "signal": 0
+          }
+        },
+        {
+          "acting_player": 1,
+          "evidence_id": "p1_announcement",
+          "left_fields": {
+            "announcement": 0,
+            "record": 0,
+            "signal": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "announcement": 1,
+            "record": 0,
+            "signal": 0
+          }
+        },
+        {
+          "acting_player": 1,
+          "evidence_id": "p1_signal",
+          "left_fields": {
+            "announcement": 0,
+            "record": 0,
+            "signal": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "announcement": 0,
+            "record": 0,
+            "signal": 1
+          }
+        },
+        {
+          "acting_player": 1,
+          "evidence_id": "p1_record",
+          "left_fields": {
+            "announcement": 0,
+            "record": 0,
+            "signal": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "announcement": 0,
+            "record": 1,
+            "signal": 0
+          }
+        }
+      ],
+      "missing_truth_initial": {
+        "candidates": [
+          {
+            "hypothesis_id": "candidate_0",
+            "private_fields_by_player": {
+              "player_0": [],
+              "player_1": []
+            },
+            "public_fields": [
+              "announcement",
+              "signal",
+              "record"
+            ]
+          },
+          {
+            "hypothesis_id": "candidate_1",
+            "private_fields_by_player": {
+              "player_0": [
+                "announcement",
+                "signal",
+                "record"
+              ],
+              "player_1": []
+            },
+            "public_fields": []
+          }
+        ],
+        "game_id": "heldout_private_signal",
+        "schema_version": "aip-observation-gamespec-candidates-v1"
+      },
+      "public_input": {
+        "case_id": "heldout_private_signal",
+        "fields": {
+          "announcement": "public announcement",
+          "record": "player 1 retained private record",
+          "signal": "player 1 signal"
+        },
+        "rules": "Both players see an announcement. Only player 1 sees both a signal and its retained private record. Player 0 sees neither. No modeled action reveals them or changes who can observe these fields."
+      },
+      "reference_owners": {
+        "announcement": "public",
+        "record": "player_1",
+        "signal": "player_1"
+      },
+      "structure_probe": {
+        "missing_field": "announcement",
+        "payload": {
+          "candidates": [
+            {
+              "hypothesis_id": "candidate_0",
+              "private_fields_by_player": {
+                "player_0": [],
+                "player_1": []
+              },
+              "public_fields": [
+                "signal",
+                "record"
+              ]
+            },
+            {
+              "hypothesis_id": "candidate_1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "announcement",
+                  "signal",
+                  "record"
+                ],
+                "player_1": []
+              },
+              "public_fields": []
+            },
+            {
+              "hypothesis_id": "candidate_2",
+              "private_fields_by_player": {
+                "player_0": [],
+                "player_1": [
+                  "signal",
+                  "record"
+                ]
+              },
+              "public_fields": [
+                "announcement"
+              ]
+            }
+          ],
+          "game_id": "heldout_private_signal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        }
+      }
+    },
+    "heldout_sealed_bid": {
+      "feedback_evidence": [
+        {
+          "acting_player": 0,
+          "evidence_id": "feedback_p0_hand",
+          "left_fields": {
+            "commitment": 2,
+            "hand": 2,
+            "prize": 2
+          },
+          "observed_same": true,
+          "right_fields": {
+            "commitment": 2,
+            "hand": 3,
+            "prize": 2
+          },
+          "source_id": "reviewed_feedback_reference"
+        },
+        {
+          "acting_player": 1,
+          "evidence_id": "feedback_p1_commitment",
+          "left_fields": {
+            "commitment": 2,
+            "hand": 2,
+            "prize": 2
+          },
+          "observed_same": true,
+          "right_fields": {
+            "commitment": 3,
+            "hand": 2,
+            "prize": 2
+          },
+          "source_id": "reviewed_feedback_reference"
+        }
+      ],
+      "final_evidence": [
+        {
+          "acting_player": 0,
+          "evidence_id": "p0_prize",
+          "left_fields": {
+            "commitment": 0,
+            "hand": 0,
+            "prize": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "commitment": 0,
+            "hand": 0,
+            "prize": 1
+          }
+        },
+        {
+          "acting_player": 0,
+          "evidence_id": "p0_commitment",
+          "left_fields": {
+            "commitment": 0,
+            "hand": 0,
+            "prize": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "commitment": 1,
+            "hand": 0,
+            "prize": 0
+          }
+        },
+        {
+          "acting_player": 0,
+          "evidence_id": "p0_hand",
+          "left_fields": {
+            "commitment": 0,
+            "hand": 0,
+            "prize": 0
+          },
+          "observed_same": true,
+          "right_fields": {
+            "commitment": 0,
+            "hand": 1,
+            "prize": 0
+          }
+        },
+        {
+          "acting_player": 1,
+          "evidence_id": "p1_prize",
+          "left_fields": {
+            "commitment": 0,
+            "hand": 0,
+            "prize": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "commitment": 0,
+            "hand": 0,
+            "prize": 1
+          }
+        },
+        {
+          "acting_player": 1,
+          "evidence_id": "p1_commitment",
+          "left_fields": {
+            "commitment": 0,
+            "hand": 0,
+            "prize": 0
+          },
+          "observed_same": true,
+          "right_fields": {
+            "commitment": 1,
+            "hand": 0,
+            "prize": 0
+          }
+        },
+        {
+          "acting_player": 1,
+          "evidence_id": "p1_hand",
+          "left_fields": {
+            "commitment": 0,
+            "hand": 0,
+            "prize": 0
+          },
+          "observed_same": false,
+          "right_fields": {
+            "commitment": 0,
+            "hand": 1,
+            "prize": 0
+          }
+        }
+      ],
+      "missing_truth_initial": {
+        "candidates": [
+          {
+            "hypothesis_id": "candidate_0",
+            "private_fields_by_player": {
+              "player_0": [],
+              "player_1": []
+            },
+            "public_fields": [
+              "prize",
+              "commitment",
+              "hand"
+            ]
+          },
+          {
+            "hypothesis_id": "candidate_1",
+            "private_fields_by_player": {
+              "player_0": [
+                "prize",
+                "commitment",
+                "hand"
+              ],
+              "player_1": []
+            },
+            "public_fields": []
+          }
+        ],
+        "game_id": "heldout_sealed_bid",
+        "schema_version": "aip-observation-gamespec-candidates-v1"
+      },
+      "public_input": {
+        "case_id": "heldout_sealed_bid",
+        "fields": {
+          "commitment": "player 0 submitted bid",
+          "hand": "player 1 private hand",
+          "prize": "public prize"
+        },
+        "rules": "At each modeled response decision, a prize is public. Player 0 has secretly submitted a bid and knows that bid. Player 1 cannot see it before responding and alone sees their own hand. Player 0 cannot see player 1's hand. These visibility rules hold throughout this slice."
+      },
+      "reference_owners": {
+        "commitment": "player_0",
+        "hand": "player_1",
+        "prize": "public"
+      },
+      "structure_probe": {
+        "missing_field": "prize",
+        "payload": {
+          "candidates": [
+            {
+              "hypothesis_id": "candidate_0",
+              "private_fields_by_player": {
+                "player_0": [],
+                "player_1": []
+              },
+              "public_fields": [
+                "commitment",
+                "hand"
+              ]
+            },
+            {
+              "hypothesis_id": "candidate_1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "prize",
+                  "commitment",
+                  "hand"
+                ],
+                "player_1": []
+              },
+              "public_fields": []
+            },
+            {
+              "hypothesis_id": "candidate_2",
+              "private_fields_by_player": {
+                "player_0": [
+                  "commitment"
+                ],
+                "player_1": [
+                  "hand"
+                ]
+              },
+              "public_fields": [
+                "prize"
+              ]
+            }
+          ],
+          "game_id": "heldout_sealed_bid",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        }
+      }
+    }
+  },
+  "dispatch_rules": {
+    "api_key": "read locally; never included in artifacts",
+    "main_order": "case, repeat, arm",
+    "missing_truth_order": "feedback arm, control index 0..2; first three cases; initial two wrong partitions supplied as prior assistant output; request three candidates; first repair receives STRUCTURE_OK or feedback witnesses; at most two replies",
+    "probe_order": "feedback arm, probe index 0..5; cases cycle through frozen order; one reply each",
+    "provider_failure": "stop further dispatch on provider error, missing usage, version mismatch, budget violation or response refusal; never silently replay",
+    "repairs": "structural arms stop on first compile success; semantic arm additionally requires at least one candidate compatible with the two feedback witnesses; at most two repairs",
+    "scope_order": "arm, repeat; OOS fields are the dev_dice vocabulary; one reply without repair",
+    "semantic_feedback": "only the preselected two feedback contrasts; final six contrasts never enter requests"
+  },
+  "manifest_sha256": "a723539de48f6e3f969676a10535a9c35839f645b81a4ab652314cf6eefef2b2",
+  "version": "gamespec-smoke-dispatch-v1"
+}

@@ -1,0 +1,16 @@
+{
+  "authorization": "2026-10-22 user explicitly requested fixed GPT-4.1-mini smoke within frozen caps",
+  "execution_note": "Verify lock and all listed files committed before provider client creation. Never resume/replay an existing report with provider requests.",
+  "provider_calls_executed": 0,
+  "sha256": {
+    "configs/gamespec_smoke_dispatch_bundle_2026-10-22.json": "4dff147171b6169aed0d5cbc26df9cb7bc97f6af380791c50b3deb5674ff4987",
+    "configs/gamespec_smoke_error_taxonomy_v1.json": "b12cf73275480b4e942d4e9edee68df14dd17ed6e9ac682b94a190cf2e25d304",
+    "configs/llm_gamespec_smoke_execution_2026-10-21.json": "24493a4d039374f281b08547368259384f23fbe7f8a88995dbf402c3b2822680",
+    "scripts/run_gamespec_model_smoke.py": "6a798b21a006715816880a8e0a5d9f898f7a14b5efe56f2fc19f2d7178b07ab1",
+    "src/aip/benchmark/gamespec_smoke.py": "b904e5034b7d5ffa48c9b4f7f28d76bedd34132eb3c4893381049e649afe01ab",
+    "src/aip/core/game_spec.py": "52018c1bbb4d85e5e49caa5a0cce0aec93bc8163d696eda82a96f2ff69b1d554",
+    "src/aip/core/game_spec_pilot.py": "9f8a6eae96301e486a9107d27fab08f7dd84bb0682c67758f8664aab0f217a69",
+    "src/aip/core/game_spec_smoke.py": "787a1411b30f41c9e2765540dd9d0b842f161078c0e7e8c4ffa063caa71b3bca"
+  },
+  "version": "gamespec-dispatch-lock-v1"
+}
