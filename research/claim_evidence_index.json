@@ -356,6 +356,39 @@
       ]
     },
     {
+      "id": "gamespec_real_gpt41mini_smoke_v1",
+      "status": "mixed",
+      "statement": "真实固定快照 smoke 完成，单候选20/20通过；强制三候选、修复及严格越界拒绝未达冻结门槛，整体失败证据保留。",
+      "scope": "四个公开工程规则模板、60个主trial、15个越界、12个修复探针和6个缺真模型对照；178次真实API调用。",
+      "limitations": "小型工程smoke；重复调用不是独立游戏族；多候选重复和玩家字段类型混淆限制了对语义能力/反馈效果的解释。",
+      "next_question": "另行冻结最多三个候选与显式类型的接口修订，单独检验elicitation问题，保持本轮失败门槛和原始回复不变。",
+      "evidence": [
+        {
+          "path": "research/results/gamespec_model_smoke_2026-10-22/report.json",
+          "sha256": "ad04be008e9dc488cef598ed08ffb2f2323ff4991288483d0883cd8ea3da8caa",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/status", "equals": "completed"},
+            {"pointer": "/analysis/gates/status", "equals": "fail"},
+            {"pointer": "/analysis/provider_attempts", "equals": 178},
+            {"pointer": "/analysis/observations/false_certifications", "equals": 0},
+            {"pointer": "/runtime_epsilon_gto_allowed", "equals": false},
+            {"pointer": "/adaptive_opponent_line_released", "equals": false}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_model_smoke_2026-10-22/independent_replay.json",
+          "sha256": "80fccab0bf2ab4b9004852a486e69bcb115f25db34e3f0a79b10c2efb544240c",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/raw_response_replay_passed", "equals": true},
+            {"pointer": "/interpretation/smoke_passed", "equals": false},
+            {"pointer": "/interpretation/semantic_feedback_advantage_established", "equals": false}
+          ]
+        }
+      ]
+    },
+    {
       "id": "general_llm_solver",
       "status": "not_established",
       "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",

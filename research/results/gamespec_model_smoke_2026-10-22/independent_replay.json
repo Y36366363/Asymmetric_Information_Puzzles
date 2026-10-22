@@ -1,0 +1,158 @@
+{
+  "date": "2026-10-22",
+  "discrepancies": [],
+  "execution_status": "completed",
+  "experiment_id": "gamespec_model_smoke_v1",
+  "frozen_gate_result": {
+    "checks": {
+      "cost": true,
+      "false_certifications": true,
+      "human_reference": true,
+      "missing_truth_control": true,
+      "out_of_schema": false,
+      "repair_executable": false,
+      "schema_multi_semantic_feedback": false,
+      "schema_multi_structural_feedback": false,
+      "schema_single_no_feedback": true
+    },
+    "formal_trial_execution_allowed": false,
+    "runtime_epsilon_gto_allowed": false,
+    "status": "fail"
+  },
+  "groups": {
+    "multi_semantic_feedback": {
+      "assigned": 20,
+      "completed": 20,
+      "coverage": 0,
+      "coverage_rate": 0.0,
+      "first_schema_valid": 0,
+      "reference_verified": 0,
+      "repairs": 40,
+      "verification_rate": 0.0
+    },
+    "multi_structural_feedback": {
+      "assigned": 20,
+      "completed": 20,
+      "coverage": 0,
+      "coverage_rate": 0.0,
+      "first_schema_valid": 0,
+      "reference_verified": 0,
+      "repairs": 40,
+      "verification_rate": 0.0
+    },
+    "single_no_feedback": {
+      "assigned": 20,
+      "completed": 20,
+      "coverage": 20,
+      "coverage_rate": 1.0,
+      "first_schema_valid": 20,
+      "reference_verified": 20,
+      "repairs": 0,
+      "verification_rate": 1.0
+    }
+  },
+  "initial_missing_truth_controls": [
+    {
+      "false_certification": false,
+      "final_coverage": true,
+      "final_status": "verified",
+      "initial_coverage": false,
+      "trial_id": "missing_truth:dev_dice:0:multi_structural_feedback"
+    },
+    {
+      "false_certification": false,
+      "final_coverage": false,
+      "final_status": "invalid_output",
+      "initial_coverage": false,
+      "trial_id": "missing_truth:dev_revealed_dice:1:multi_structural_feedback"
+    },
+    {
+      "false_certification": false,
+      "final_coverage": false,
+      "final_status": "invalid_output",
+      "initial_coverage": false,
+      "trial_id": "missing_truth:heldout_sealed_bid:2:multi_structural_feedback"
+    },
+    {
+      "false_certification": false,
+      "final_coverage": false,
+      "final_status": "invalid_output",
+      "initial_coverage": false,
+      "trial_id": "missing_truth:dev_dice:0:multi_semantic_feedback"
+    },
+    {
+      "false_certification": false,
+      "final_coverage": false,
+      "final_status": "invalid_output",
+      "initial_coverage": false,
+      "trial_id": "missing_truth:dev_revealed_dice:1:multi_semantic_feedback"
+    },
+    {
+      "false_certification": false,
+      "final_coverage": false,
+      "final_status": "invalid_output",
+      "initial_coverage": false,
+      "trial_id": "missing_truth:heldout_sealed_bid:2:multi_semantic_feedback"
+    }
+  ],
+  "interpretation": {
+    "adaptive_opponent_line_released": false,
+    "can_infer_general_model_incompetence": false,
+    "formal_trial_execution_allowed": false,
+    "llm_candidate_runtime_epsilon_gto_allowed": false,
+    "semantic_feedback_advantage_established": false,
+    "smoke_passed": false
+  },
+  "limitations": [
+    "Smoke templates are public and engineering holdouts only; repeated temperature-zero calls are not independent game families.",
+    "The exact-three-distinct-candidates requirement conflicts with unambiguous rules in many observed outputs; failure cannot isolate semantic reasoning from the elicitation contract.",
+    "A string player_1 instead of integer 1 fails the frozen refusal schema even when the reported visibility relation is correct.",
+    "Diagnostics that inspect individual candidates or recognize string player IDs are posthoc and never alter frozen gate results.",
+    "Reference partitions and final evidence are authored under known rules; no claim of automatic truth discovery.",
+    "No strategy training, conditional solver execution or adaptive opponent experiment was performed.",
+    "Costs are conservative uncached token estimates, not a billing receipt."
+  ],
+  "model_snapshot": "gpt-4.1-mini-2025-04-14",
+  "observations": {
+    "closed_set_correct": 6,
+    "closed_set_trials": 6,
+    "correct_oos": 0,
+    "false_certifications": 0,
+    "human_cases": 4,
+    "human_verified": 4,
+    "oos_trials": 15,
+    "repair_probes": 12,
+    "repairs_executable": 1,
+    "schema_by_arm": {
+      "multi_semantic_feedback": {
+        "total": 20,
+        "valid": 0
+      },
+      "multi_structural_feedback": {
+        "total": 20,
+        "valid": 0
+      },
+      "single_no_feedback": {
+        "total": 20,
+        "valid": 20
+      }
+    },
+    "usage_complete": true
+  },
+  "posthoc_diagnostics_not_used_for_gates": {
+    "multi_first_response_contains_repeated_partition": 40,
+    "multi_first_response_has_correct_individual_candidate_posthoc": 40,
+    "multi_main_trials": 40,
+    "oos_correct_relation_but_string_player_id": 11,
+    "oos_refusal_envelopes": 11
+  },
+  "provider_attempts": 178,
+  "raw_report_sha256": "ad04be008e9dc488cef598ed08ffb2f2323ff4991288483d0883cd8ea3da8caa",
+  "raw_response_replay_passed": true,
+  "usage": {
+    "estimated_uncached_usd": 0.0801172,
+    "input_tokens": 82445,
+    "maximum_call_usd": 0.000618,
+    "output_tokens": 29462
+  }
+}
