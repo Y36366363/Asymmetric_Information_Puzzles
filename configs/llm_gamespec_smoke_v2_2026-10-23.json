@@ -1,0 +1,46 @@
+{
+  "manifest_id": "llm_gamespec_smoke_v2",
+  "date": "2026-10-23",
+  "inherits": "configs/llm_gamespec_smoke_execution_2026-10-21.json",
+  "purpose": "Public engineering interface-repair comparison; no overall scientific pass threshold, no deployment release",
+  "interface_changes": {
+    "multi_candidate_minimum": 1,
+    "multi_candidate_maximum": 3,
+    "single_candidate_exact": 1,
+    "duplicates": "still rejected; never silently deduplicated",
+    "refusal_player": "JSON integer 0 or 1, never string, float or boolean; strict checker unchanged"
+  },
+  "prompt_suffix": " V2 interface: for multi-candidate requests return between ONE and THREE distinct partitions. If only one interpretation is justified, return one; never duplicate it merely to fill slots. For refusals witness.player must be a JSON INTEGER, 0 or 1 (for example 1), not a string such as player_1, not a boolean. All other envelope fields remain unchanged.",
+  "unchanged": ["rule texts", "field meanings", "case order", "reference owners", "feedback witnesses", "final evidence", "GPT-4.1-mini snapshot", "temperature", "input/output token limits", "repair limits", "schedule", "independent scoring"],
+  "reporting": {
+    "primary_future_question": "semantic feedback minus structural feedback in reference-model candidate coverage",
+    "smoke_estimand": "descriptive paired differences on these four public templates, not population effectiveness",
+    "denominator": "all assigned trials; incomplete trials are not silently dropped",
+    "uncertainty": "report each template separately and repeat variability; four reused templates cannot identify novel-game generalization or power a formal trial",
+    "baseline": "research/results/gamespec_model_smoke_2026-10-22/report.json",
+    "baseline_status": "v1 failed its original engineering contract; immutable baseline, not rescored as v2 success",
+    "required": ["first-response schema rate", "final candidate coverage", "false certifications", "reference verification", "candidate count", "repairs", "every final failure", "error taxonomy", "out-of-schema rejection", "missing-truth negative control", "cost and tokens"],
+    "no_overall_scientific_gate": true,
+    "cost": "independent resource ledger and anomaly stop only; inexpensive is not evidence of effectiveness"
+  },
+  "stronger_model_diagnostic": {
+    "trigger": "after completed primary v2: any final main/probe schema or reference-coverage failure, any incorrect OOS rejection, or any missing-truth false certification",
+    "model_id": "gpt-5.4-mini-2026-03-17",
+    "reasoning_effort": "none",
+    "input_usd_per_million": 0.75,
+    "output_usd_per_million": 4.5,
+    "maximum_call_usd": 0.025,
+    "maximum_total_usd": 5,
+    "schedule": "same complete v2 schedule, rules, token/repair limits and temperature; separate output; never substitute into primary",
+    "interpretation": "diagnostic model comparison on public fixtures, not confirmatory model ranking; no repeated escalation",
+    "sources": ["https://developers.openai.com/api/docs/models/gpt-5.4-mini", "https://developers.openai.com/api/docs/pricing"]
+  },
+  "safety": {
+    "provider_errors": "journal then stop, no automatic retries or silent replay",
+    "false_certification": "report every event and block deployment regardless of average rate",
+    "final_evidence": "never enters requests; evaluator owned, not LLM authored",
+    "adaptive_opponent_line_released": false,
+    "runtime_epsilon_gto_allowed": false,
+    "formal_trial": "requires separate preregistration, meaningful effect size and sample-size design; never automatically started"
+  }
+}
