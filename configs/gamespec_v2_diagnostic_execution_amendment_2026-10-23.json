@@ -1,0 +1,16 @@
+{
+  "id": "gamespec-v2-diagnostic-token-preflight-amendment",
+  "date": "2026-10-23",
+  "primary_manifest_commit": "4dee1d3",
+  "frozen_runner_commit": "f94666a",
+  "primary_run": "completed, immutable",
+  "diagnostic_initial_launch": {
+    "failure": "KeyError: local tiktoken cannot map gpt-5.4-mini-2026-03-17",
+    "provider_calls": 0,
+    "output_created": false,
+    "classification": "local execution compatibility, not model reasoning failure"
+  },
+  "repair": "Dedicated launcher reuses frozen v2 runner/scorer and checks its original committed lock. Input preflight counts UTF-8 bytes plus original chat overhead instead of requiring an unavailable model-to-tokenizer alias. For byte-level tokenization this is conservative; authoritative provider usage is still checked against unchanged 10000/2500 token caps. It can stop earlier, never relax caps.",
+  "unchanged": ["model snapshot", "effort none", "temperature", "rules", "prompts", "schedule", "repair limits", "scoring", "token caps", "resource anomaly limits", "primary source files and lock"],
+  "execution": "Commit dedicated launcher and this amendment before any diagnostic provider call; no automatic retry, no output overwrite"
+}
