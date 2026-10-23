@@ -389,6 +389,47 @@
       ]
     },
     {
+      "id": "gamespec_v2_interface_and_model_diagnostic",
+      "status": "mixed",
+      "statement": "允许1–3候选后两模型主实验均60/60、结构修复12/12；越界拒绝仅0/15与1/15，未建立语义反馈优势。",
+      "scope": "同四个公开规则、固定4.1-mini与条件触发5.4-mini；95+93次调用；v1失败不重评分。",
+      "limitations": "主实验无实际反馈暴露且存在天花板；四模板重复非独立游戏族；较新模型未解决越界拟合；诊断输入预检机械修订另行记录。",
+      "next_question": "预注册可表达性优先的互斥输出接口及反事实witness/时间变化区分，再设计有真实反馈暴露的语义修复对照。",
+      "evidence": [
+        {
+          "path": "research/results/gamespec_model_smoke_v2_2026-10-23/report.json",
+          "sha256": "ac24449e66edb4280e5f5a7058bc7bb7c7f0fe5a65185ed6ea777bbbdf2c353e",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/status", "equals": "completed"},
+            {"pointer": "/analysis/correct_oos", "equals": 0},
+            {"pointer": "/analysis/overall_scientific_pass", "equals": null},
+            {"pointer": "/runtime_epsilon_gto_allowed", "equals": false}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_model_smoke_v2_2026-10-23/diagnostic_report.json",
+          "sha256": "8de9e9cb1e0090d0a4beb967f1d00391d268254ab1b0255cd4c514ed253929db",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/status", "equals": "completed"},
+            {"pointer": "/analysis/correct_oos", "equals": 1},
+            {"pointer": "/adaptive_opponent_line_released", "equals": false}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_model_smoke_v2_2026-10-23/descriptive_comparison.json",
+          "sha256": "150b62c2af3ad7aade02d7bff1dcb38458b6cf677b33d8ed600f4b65d0312300",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/v1_original_engineering_status", "equals": "fail"},
+            {"pointer": "/interpretation/formal_effectiveness_established", "equals": false},
+            {"pointer": "/interpretation/deployment_released", "equals": false}
+          ]
+        }
+      ]
+    },
+    {
       "id": "general_llm_solver",
       "status": "not_established",
       "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",

@@ -1,0 +1,1347 @@
+{
+  "diagnostic": {
+    "all_attempt_errors": [
+      {
+        "attempt_id": 60,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:0:single_no_feedback"
+      },
+      {
+        "attempt_id": 61,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:1:single_no_feedback"
+      },
+      {
+        "attempt_id": 62,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:2:single_no_feedback"
+      },
+      {
+        "attempt_id": 63,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:3:single_no_feedback"
+      },
+      {
+        "attempt_id": 64,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:4:single_no_feedback"
+      },
+      {
+        "attempt_id": 65,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:0:multi_structural_feedback"
+      },
+      {
+        "attempt_id": 66,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:1:multi_structural_feedback"
+      },
+      {
+        "attempt_id": 67,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:2:multi_structural_feedback"
+      },
+      {
+        "attempt_id": 68,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:3:multi_structural_feedback"
+      },
+      {
+        "attempt_id": 69,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:4:multi_structural_feedback"
+      },
+      {
+        "attempt_id": 70,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:0:multi_semantic_feedback"
+      },
+      {
+        "attempt_id": 72,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:2:multi_semantic_feedback"
+      },
+      {
+        "attempt_id": 73,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:3:multi_semantic_feedback"
+      },
+      {
+        "attempt_id": 74,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:4:multi_semantic_feedback"
+      }
+    ],
+    "all_scope_cases": [
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:0:single_no_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:1:single_no_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:2:single_no_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:3:single_no_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:4:single_no_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1",
+                  "die_0"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": false,
+        "trial_id": "oos:0:multi_structural_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:1:multi_structural_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:2:multi_structural_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1",
+                  "die_0"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": false,
+        "trial_id": "oos:3:multi_structural_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:4:multi_structural_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:0:multi_semantic_feedback"
+      },
+      {
+        "passed": true,
+        "reply": {
+          "error_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-refusal-v1",
+          "status": "out_of_schema",
+          "witness": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "die_0",
+            "player": 1
+          }
+        },
+        "static_candidate_compiles": false,
+        "trial_id": "oos:1:multi_semantic_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:2:multi_semantic_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:3:multi_semantic_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:4:multi_semantic_feedback"
+      }
+    ],
+    "analysis": {
+      "conditional_solver_succeeded": null,
+      "correct_oos": 1,
+      "cost_usd": 0.058632,
+      "error_counts_attempt_level": {
+        "forced_in_schema_fit": 14
+      },
+      "false_certifications": 0,
+      "final_candidate_counts": {
+        "1": 78
+      },
+      "final_failures": [
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:0:single_no_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:1:single_no_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:2:single_no_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:3:single_no_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:4:single_no_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:0:multi_structural_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:1:multi_structural_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:2:multi_structural_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:3:multi_structural_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:4:multi_structural_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:0:multi_semantic_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:2:multi_semantic_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:3:multi_semantic_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:4:multi_semantic_feedback"
+        }
+      ],
+      "groups": {
+        "multi_semantic_feedback": {
+          "assigned": 20,
+          "by_case": {
+            "dev_dice": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "dev_revealed_dice": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "heldout_private_signal": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "heldout_sealed_bid": {
+              "assigned": 5,
+              "coverage": 5
+            }
+          },
+          "completed": 20,
+          "coverage_rate": 1.0,
+          "final_coverage": 20,
+          "first_schema_rate": 1.0,
+          "first_schema_valid": 20,
+          "reference_verified": 20,
+          "repairs": 0
+        },
+        "multi_structural_feedback": {
+          "assigned": 20,
+          "by_case": {
+            "dev_dice": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "dev_revealed_dice": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "heldout_private_signal": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "heldout_sealed_bid": {
+              "assigned": 5,
+              "coverage": 5
+            }
+          },
+          "completed": 20,
+          "coverage_rate": 1.0,
+          "final_coverage": 20,
+          "first_schema_rate": 1.0,
+          "first_schema_valid": 20,
+          "reference_verified": 20,
+          "repairs": 0
+        },
+        "single_no_feedback": {
+          "assigned": 20,
+          "by_case": {
+            "dev_dice": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "dev_revealed_dice": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "heldout_private_signal": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "heldout_sealed_bid": {
+              "assigned": 5,
+              "coverage": 5
+            }
+          },
+          "completed": 20,
+          "coverage_rate": 1.0,
+          "final_coverage": 20,
+          "first_schema_rate": 1.0,
+          "first_schema_valid": 20,
+          "reference_verified": 20,
+          "repairs": 0
+        }
+      },
+      "human_verified": 4,
+      "missing_truth_restored": 6,
+      "missing_truth_total": 6,
+      "oos_total": 15,
+      "overall_scientific_pass": null,
+      "probe_executable": 12,
+      "probe_total": 12,
+      "provider_attempts": 93,
+      "semantic_minus_structural_coverage": 0.0,
+      "tokens": {
+        "completion_tokens": 6490,
+        "prompt_tokens": 39236
+      },
+      "uncertainty": "report each template separately and repeat variability; four reused templates cannot identify novel-game generalization or power a formal trial"
+    },
+    "caveat": "Exposure counts matter: arm labels alone do not show feedback was actually received. Static compilation success does not imply the dynamic rule is representable.",
+    "semantic_witness_exposures_by_kind": {
+      "missing_truth": 3
+    }
+  },
+  "interpretation": {
+    "deployment_released": false,
+    "formal_effectiveness_established": false,
+    "model_ranking_established": false,
+    "population_confidence_interval": null,
+    "reason": "Four public templates with technical repeats; no identifiable novel-game sampling distribution"
+  },
+  "primary": {
+    "all_attempt_errors": [
+      {
+        "attempt_id": 60,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:0:single_no_feedback"
+      },
+      {
+        "attempt_id": 61,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:1:single_no_feedback"
+      },
+      {
+        "attempt_id": 62,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:2:single_no_feedback"
+      },
+      {
+        "attempt_id": 63,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:3:single_no_feedback"
+      },
+      {
+        "attempt_id": 64,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:4:single_no_feedback"
+      },
+      {
+        "attempt_id": 65,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:0:multi_structural_feedback"
+      },
+      {
+        "attempt_id": 66,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:1:multi_structural_feedback"
+      },
+      {
+        "attempt_id": 67,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:2:multi_structural_feedback"
+      },
+      {
+        "attempt_id": 68,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:3:multi_structural_feedback"
+      },
+      {
+        "attempt_id": 69,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:4:multi_structural_feedback"
+      },
+      {
+        "attempt_id": 70,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:0:multi_semantic_feedback"
+      },
+      {
+        "attempt_id": 71,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:1:multi_semantic_feedback"
+      },
+      {
+        "attempt_id": 72,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:2:multi_semantic_feedback"
+      },
+      {
+        "attempt_id": 73,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:3:multi_semantic_feedback"
+      },
+      {
+        "attempt_id": 74,
+        "errors": [
+          "forced_in_schema_fit"
+        ],
+        "trial_id": "oos:4:multi_semantic_feedback"
+      },
+      {
+        "attempt_id": 90,
+        "errors": [
+          "incorrect_oos_refusal",
+          "schema_violation"
+        ],
+        "trial_id": "missing_truth:dev_dice:0:multi_semantic_feedback"
+      },
+      {
+        "attempt_id": 92,
+        "errors": [
+          "incorrect_oos_refusal",
+          "schema_violation"
+        ],
+        "trial_id": "missing_truth:dev_revealed_dice:1:multi_semantic_feedback"
+      }
+    ],
+    "all_scope_cases": [
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1",
+                  "die_0"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": false,
+        "trial_id": "oos:0:single_no_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1",
+                  "die_0"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": false,
+        "trial_id": "oos:1:single_no_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1",
+                  "die_0"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": false,
+        "trial_id": "oos:2:single_no_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1",
+                  "die_0"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": false,
+        "trial_id": "oos:3:single_no_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1",
+                  "die_0"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": false,
+        "trial_id": "oos:4:single_no_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:0:multi_structural_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1",
+                  "die_0"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": false,
+        "trial_id": "oos:1:multi_structural_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:2:multi_structural_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:3:multi_structural_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:4:multi_structural_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:0:multi_semantic_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:1:multi_semantic_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1",
+                  "die_0"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": false,
+        "trial_id": "oos:2:multi_semantic_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:3:multi_semantic_feedback"
+      },
+      {
+        "passed": false,
+        "reply": {
+          "candidates": [
+            {
+              "hypothesis_id": "h0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "die_0"
+                ],
+                "player_1": [
+                  "die_1"
+                ]
+              },
+              "public_fields": [
+                "history"
+              ]
+            }
+          ],
+          "game_id": "dice_paid_reveal",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "static_candidate_compiles": true,
+        "trial_id": "oos:4:multi_semantic_feedback"
+      }
+    ],
+    "analysis": {
+      "conditional_solver_succeeded": null,
+      "correct_oos": 0,
+      "cost_usd": 0.029005600000000003,
+      "error_counts_attempt_level": {
+        "forced_in_schema_fit": 15,
+        "incorrect_oos_refusal": 2,
+        "schema_violation": 2
+      },
+      "false_certifications": 0,
+      "final_candidate_counts": {
+        "1": 78
+      },
+      "final_failures": [
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:0:single_no_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:1:single_no_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:2:single_no_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:3:single_no_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:4:single_no_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:0:multi_structural_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:1:multi_structural_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:2:multi_structural_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:3:multi_structural_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:4:multi_structural_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:0:multi_semantic_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:1:multi_semantic_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:2:multi_semantic_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:3:multi_semantic_feedback"
+        },
+        {
+          "reason": "incorrect_scope_refusal",
+          "trial_id": "oos:4:multi_semantic_feedback"
+        }
+      ],
+      "groups": {
+        "multi_semantic_feedback": {
+          "assigned": 20,
+          "by_case": {
+            "dev_dice": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "dev_revealed_dice": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "heldout_private_signal": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "heldout_sealed_bid": {
+              "assigned": 5,
+              "coverage": 5
+            }
+          },
+          "completed": 20,
+          "coverage_rate": 1.0,
+          "final_coverage": 20,
+          "first_schema_rate": 1.0,
+          "first_schema_valid": 20,
+          "reference_verified": 20,
+          "repairs": 0
+        },
+        "multi_structural_feedback": {
+          "assigned": 20,
+          "by_case": {
+            "dev_dice": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "dev_revealed_dice": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "heldout_private_signal": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "heldout_sealed_bid": {
+              "assigned": 5,
+              "coverage": 5
+            }
+          },
+          "completed": 20,
+          "coverage_rate": 1.0,
+          "final_coverage": 20,
+          "first_schema_rate": 1.0,
+          "first_schema_valid": 20,
+          "reference_verified": 20,
+          "repairs": 0
+        },
+        "single_no_feedback": {
+          "assigned": 20,
+          "by_case": {
+            "dev_dice": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "dev_revealed_dice": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "heldout_private_signal": {
+              "assigned": 5,
+              "coverage": 5
+            },
+            "heldout_sealed_bid": {
+              "assigned": 5,
+              "coverage": 5
+            }
+          },
+          "completed": 20,
+          "coverage_rate": 1.0,
+          "final_coverage": 20,
+          "first_schema_rate": 1.0,
+          "first_schema_valid": 20,
+          "reference_verified": 20,
+          "repairs": 0
+        }
+      },
+      "human_verified": 4,
+      "missing_truth_restored": 6,
+      "missing_truth_total": 6,
+      "oos_total": 15,
+      "overall_scientific_pass": null,
+      "probe_executable": 12,
+      "probe_total": 12,
+      "provider_attempts": 95,
+      "semantic_minus_structural_coverage": 0.0,
+      "tokens": {
+        "completion_tokens": 7991,
+        "prompt_tokens": 40550
+      },
+      "uncertainty": "report each template separately and repeat variability; four reused templates cannot identify novel-game generalization or power a formal trial"
+    },
+    "caveat": "Exposure counts matter: arm labels alone do not show feedback was actually received. Static compilation success does not imply the dynamic rule is representable.",
+    "semantic_witness_exposures_by_kind": {
+      "missing_truth": 5
+    }
+  },
+  "schema_version": "gamespec-v2-descriptive-comparison-v1",
+  "v1_original_engineering_status": "fail"
+}

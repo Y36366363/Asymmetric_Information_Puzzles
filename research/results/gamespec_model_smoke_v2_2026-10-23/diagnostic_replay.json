@@ -1,0 +1,170 @@
+{
+  "conditional_solver_succeeded": null,
+  "correct_oos": 1,
+  "cost_usd": 0.058632,
+  "error_counts_attempt_level": {
+    "forced_in_schema_fit": 14
+  },
+  "false_certifications": 0,
+  "final_candidate_counts": {
+    "1": 78
+  },
+  "final_failures": [
+    {
+      "reason": "incorrect_scope_refusal",
+      "trial_id": "oos:0:single_no_feedback"
+    },
+    {
+      "reason": "incorrect_scope_refusal",
+      "trial_id": "oos:1:single_no_feedback"
+    },
+    {
+      "reason": "incorrect_scope_refusal",
+      "trial_id": "oos:2:single_no_feedback"
+    },
+    {
+      "reason": "incorrect_scope_refusal",
+      "trial_id": "oos:3:single_no_feedback"
+    },
+    {
+      "reason": "incorrect_scope_refusal",
+      "trial_id": "oos:4:single_no_feedback"
+    },
+    {
+      "reason": "incorrect_scope_refusal",
+      "trial_id": "oos:0:multi_structural_feedback"
+    },
+    {
+      "reason": "incorrect_scope_refusal",
+      "trial_id": "oos:1:multi_structural_feedback"
+    },
+    {
+      "reason": "incorrect_scope_refusal",
+      "trial_id": "oos:2:multi_structural_feedback"
+    },
+    {
+      "reason": "incorrect_scope_refusal",
+      "trial_id": "oos:3:multi_structural_feedback"
+    },
+    {
+      "reason": "incorrect_scope_refusal",
+      "trial_id": "oos:4:multi_structural_feedback"
+    },
+    {
+      "reason": "incorrect_scope_refusal",
+      "trial_id": "oos:0:multi_semantic_feedback"
+    },
+    {
+      "reason": "incorrect_scope_refusal",
+      "trial_id": "oos:2:multi_semantic_feedback"
+    },
+    {
+      "reason": "incorrect_scope_refusal",
+      "trial_id": "oos:3:multi_semantic_feedback"
+    },
+    {
+      "reason": "incorrect_scope_refusal",
+      "trial_id": "oos:4:multi_semantic_feedback"
+    }
+  ],
+  "groups": {
+    "multi_semantic_feedback": {
+      "assigned": 20,
+      "by_case": {
+        "dev_dice": {
+          "assigned": 5,
+          "coverage": 5
+        },
+        "dev_revealed_dice": {
+          "assigned": 5,
+          "coverage": 5
+        },
+        "heldout_private_signal": {
+          "assigned": 5,
+          "coverage": 5
+        },
+        "heldout_sealed_bid": {
+          "assigned": 5,
+          "coverage": 5
+        }
+      },
+      "completed": 20,
+      "coverage_rate": 1.0,
+      "final_coverage": 20,
+      "first_schema_rate": 1.0,
+      "first_schema_valid": 20,
+      "reference_verified": 20,
+      "repairs": 0
+    },
+    "multi_structural_feedback": {
+      "assigned": 20,
+      "by_case": {
+        "dev_dice": {
+          "assigned": 5,
+          "coverage": 5
+        },
+        "dev_revealed_dice": {
+          "assigned": 5,
+          "coverage": 5
+        },
+        "heldout_private_signal": {
+          "assigned": 5,
+          "coverage": 5
+        },
+        "heldout_sealed_bid": {
+          "assigned": 5,
+          "coverage": 5
+        }
+      },
+      "completed": 20,
+      "coverage_rate": 1.0,
+      "final_coverage": 20,
+      "first_schema_rate": 1.0,
+      "first_schema_valid": 20,
+      "reference_verified": 20,
+      "repairs": 0
+    },
+    "single_no_feedback": {
+      "assigned": 20,
+      "by_case": {
+        "dev_dice": {
+          "assigned": 5,
+          "coverage": 5
+        },
+        "dev_revealed_dice": {
+          "assigned": 5,
+          "coverage": 5
+        },
+        "heldout_private_signal": {
+          "assigned": 5,
+          "coverage": 5
+        },
+        "heldout_sealed_bid": {
+          "assigned": 5,
+          "coverage": 5
+        }
+      },
+      "completed": 20,
+      "coverage_rate": 1.0,
+      "final_coverage": 20,
+      "first_schema_rate": 1.0,
+      "first_schema_valid": 20,
+      "reference_verified": 20,
+      "repairs": 0
+    }
+  },
+  "human_verified": 4,
+  "missing_truth_restored": 6,
+  "missing_truth_total": 6,
+  "oos_total": 15,
+  "overall_scientific_pass": null,
+  "probe_executable": 12,
+  "probe_total": 12,
+  "provider_attempts": 93,
+  "semantic_minus_structural_coverage": 0.0,
+  "tokens": {
+    "completion_tokens": 6490,
+    "prompt_tokens": 39236
+  },
+  "uncertainty": "report each template separately and repeat variability; four reused templates cannot identify novel-game generalization or power a formal trial"
+}
