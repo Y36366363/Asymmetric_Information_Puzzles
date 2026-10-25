@@ -1,0 +1,18 @@
+{
+  "classification": "evaluator contract incompleteness, discovered before any v3 provider calls",
+  "initial_preregistration_commit": "becaf84",
+  "case_id": "slice_08",
+  "rules_fact": "both dice become public after the first modeled decision",
+  "counterexample": {
+    "schema_version": "aip-observation-refusal-v1",
+    "game_id": "slice_08",
+    "status": "out_of_schema",
+    "error_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+    "witness": {"field": "die_1", "player": 0, "before_visible": false, "after_visible": true}
+  },
+  "initial_single_witness_contract_result": false,
+  "semantic_reference_result": true,
+  "fix": "Explicitly register both legitimate changes before requests; apply original strict validator separately to each, no coercion or after-the-fact widening",
+  "historical_v1_v2_scoring_changed": false,
+  "v3_provider_calls_before_fix": 0
+}

@@ -1,0 +1,2204 @@
+{
+  "cases": {
+    "slice_08": {
+      "additional_witnesses": [
+        {
+          "after_visible": true,
+          "before_visible": false,
+          "field": "die_1",
+          "player": 0
+        }
+      ],
+      "case": {
+        "case_id": "slice_08",
+        "fields": {
+          "die_0": "player 0 die",
+          "die_1": "player 1 die",
+          "history": "public bid history"
+        },
+        "rules": "Two dice are rolled. Before the first modeled decision each player sees only their own die and the public history. Both dice are publicly revealed after that decision and before subsequent modeled decisions. Thus player 1 cannot see die_0 at the first modeled decision but can see it at later modeled decisions. Both phases must be represented under the same field names without splitting or renaming die_0."
+      },
+      "control": {
+        "case_id": "slice_08",
+        "expected_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+        "required_witness": {
+          "after_visible": true,
+          "before_visible": false,
+          "field": "die_0",
+          "player": 1
+        }
+      },
+      "kind": "dynamic",
+      "pair_id": "p2"
+    },
+    "slice_17": {
+      "case": {
+        "case_id": "slice_17",
+        "fields": {
+          "die_0": "player 0 die",
+          "die_1": "player 1 die",
+          "history": "public bid history"
+        },
+        "reference_owners": {
+          "die_0": "player_0",
+          "die_1": "player_1",
+          "history": "public"
+        },
+        "rules": "Two players each roll one fair six-sided die. Throughout all modeled decision times each sees only their own die and the public bid history. Neither die is revealed during these decisions."
+      },
+      "evidence": {
+        "feedback_evidence": [
+          {
+            "acting_player": 0,
+            "evidence_id": "feedback_p0_die_1",
+            "left_fields": {
+              "die_0": 2,
+              "die_1": 2,
+              "history": 2
+            },
+            "observed_same": true,
+            "right_fields": {
+              "die_0": 2,
+              "die_1": 3,
+              "history": 2
+            },
+            "source_id": "reviewed_feedback_reference"
+          },
+          {
+            "acting_player": 1,
+            "evidence_id": "feedback_p1_die_0",
+            "left_fields": {
+              "die_0": 2,
+              "die_1": 2,
+              "history": 2
+            },
+            "observed_same": true,
+            "right_fields": {
+              "die_0": 3,
+              "die_1": 2,
+              "history": 2
+            },
+            "source_id": "reviewed_feedback_reference"
+          }
+        ],
+        "final_evidence": [
+          {
+            "acting_player": 0,
+            "evidence_id": "p0_history",
+            "left_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 1
+            }
+          },
+          {
+            "acting_player": 0,
+            "evidence_id": "p0_die_0",
+            "left_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "die_0": 1,
+              "die_1": 0,
+              "history": 0
+            }
+          },
+          {
+            "acting_player": 0,
+            "evidence_id": "p0_die_1",
+            "left_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 0
+            },
+            "observed_same": true,
+            "right_fields": {
+              "die_0": 0,
+              "die_1": 1,
+              "history": 0
+            }
+          },
+          {
+            "acting_player": 1,
+            "evidence_id": "p1_history",
+            "left_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 1
+            }
+          },
+          {
+            "acting_player": 1,
+            "evidence_id": "p1_die_0",
+            "left_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 0
+            },
+            "observed_same": true,
+            "right_fields": {
+              "die_0": 1,
+              "die_1": 0,
+              "history": 0
+            }
+          },
+          {
+            "acting_player": 1,
+            "evidence_id": "p1_die_1",
+            "left_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "die_0": 0,
+              "die_1": 1,
+              "history": 0
+            }
+          }
+        ],
+        "missing_truth_initial": {
+          "candidates": [
+            {
+              "hypothesis_id": "candidate_0",
+              "private_fields_by_player": {
+                "player_0": [],
+                "player_1": []
+              },
+              "public_fields": [
+                "history",
+                "die_0",
+                "die_1"
+              ]
+            },
+            {
+              "hypothesis_id": "candidate_1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "history",
+                  "die_0",
+                  "die_1"
+                ],
+                "player_1": []
+              },
+              "public_fields": []
+            }
+          ],
+          "game_id": "slice_17",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "public_input": {
+          "case_id": "dev_dice",
+          "fields": {
+            "die_0": "player 0 die",
+            "die_1": "player 1 die",
+            "history": "public bid history"
+          },
+          "rules": "Two players each roll one fair six-sided die. Throughout all modeled decision times each sees only their own die and the public bid history. Neither die is revealed during these decisions."
+        },
+        "reference_owners": {
+          "die_0": "player_0",
+          "die_1": "player_1",
+          "history": "public"
+        },
+        "structure_probe": {
+          "missing_field": "history",
+          "payload": {
+            "candidates": [
+              {
+                "hypothesis_id": "candidate_0",
+                "private_fields_by_player": {
+                  "player_0": [],
+                  "player_1": []
+                },
+                "public_fields": [
+                  "die_0",
+                  "die_1"
+                ]
+              },
+              {
+                "hypothesis_id": "candidate_1",
+                "private_fields_by_player": {
+                  "player_0": [
+                    "history",
+                    "die_0",
+                    "die_1"
+                  ],
+                  "player_1": []
+                },
+                "public_fields": []
+              },
+              {
+                "hypothesis_id": "candidate_2",
+                "private_fields_by_player": {
+                  "player_0": [
+                    "die_0"
+                  ],
+                  "player_1": [
+                    "die_1"
+                  ]
+                },
+                "public_fields": [
+                  "history"
+                ]
+              }
+            ],
+            "game_id": "dev_dice",
+            "schema_version": "aip-observation-gamespec-candidates-v1"
+          }
+        }
+      },
+      "kind": "static",
+      "pair_id": "p1"
+    },
+    "slice_29": {
+      "case": {
+        "case_id": "slice_29",
+        "fields": {
+          "commitment": "player 0 submitted bid",
+          "hand": "player 1 private hand",
+          "prize": "public prize"
+        },
+        "reference_owners": {
+          "commitment": "player_0",
+          "hand": "player_1",
+          "prize": "public"
+        },
+        "rules": "At each modeled response decision, a prize is public. Player 0 has secretly submitted a bid and knows that bid. Player 1 cannot see it before responding and alone sees their own hand. Player 0 cannot see player 1's hand. These visibility rules hold throughout this slice."
+      },
+      "evidence": {
+        "feedback_evidence": [
+          {
+            "acting_player": 0,
+            "evidence_id": "feedback_p0_hand",
+            "left_fields": {
+              "commitment": 2,
+              "hand": 2,
+              "prize": 2
+            },
+            "observed_same": true,
+            "right_fields": {
+              "commitment": 2,
+              "hand": 3,
+              "prize": 2
+            },
+            "source_id": "reviewed_feedback_reference"
+          },
+          {
+            "acting_player": 1,
+            "evidence_id": "feedback_p1_commitment",
+            "left_fields": {
+              "commitment": 2,
+              "hand": 2,
+              "prize": 2
+            },
+            "observed_same": true,
+            "right_fields": {
+              "commitment": 3,
+              "hand": 2,
+              "prize": 2
+            },
+            "source_id": "reviewed_feedback_reference"
+          }
+        ],
+        "final_evidence": [
+          {
+            "acting_player": 0,
+            "evidence_id": "p0_prize",
+            "left_fields": {
+              "commitment": 0,
+              "hand": 0,
+              "prize": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "commitment": 0,
+              "hand": 0,
+              "prize": 1
+            }
+          },
+          {
+            "acting_player": 0,
+            "evidence_id": "p0_commitment",
+            "left_fields": {
+              "commitment": 0,
+              "hand": 0,
+              "prize": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "commitment": 1,
+              "hand": 0,
+              "prize": 0
+            }
+          },
+          {
+            "acting_player": 0,
+            "evidence_id": "p0_hand",
+            "left_fields": {
+              "commitment": 0,
+              "hand": 0,
+              "prize": 0
+            },
+            "observed_same": true,
+            "right_fields": {
+              "commitment": 0,
+              "hand": 1,
+              "prize": 0
+            }
+          },
+          {
+            "acting_player": 1,
+            "evidence_id": "p1_prize",
+            "left_fields": {
+              "commitment": 0,
+              "hand": 0,
+              "prize": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "commitment": 0,
+              "hand": 0,
+              "prize": 1
+            }
+          },
+          {
+            "acting_player": 1,
+            "evidence_id": "p1_commitment",
+            "left_fields": {
+              "commitment": 0,
+              "hand": 0,
+              "prize": 0
+            },
+            "observed_same": true,
+            "right_fields": {
+              "commitment": 1,
+              "hand": 0,
+              "prize": 0
+            }
+          },
+          {
+            "acting_player": 1,
+            "evidence_id": "p1_hand",
+            "left_fields": {
+              "commitment": 0,
+              "hand": 0,
+              "prize": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "commitment": 0,
+              "hand": 1,
+              "prize": 0
+            }
+          }
+        ],
+        "missing_truth_initial": {
+          "candidates": [
+            {
+              "hypothesis_id": "candidate_0",
+              "private_fields_by_player": {
+                "player_0": [],
+                "player_1": []
+              },
+              "public_fields": [
+                "prize",
+                "commitment",
+                "hand"
+              ]
+            },
+            {
+              "hypothesis_id": "candidate_1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "prize",
+                  "commitment",
+                  "hand"
+                ],
+                "player_1": []
+              },
+              "public_fields": []
+            }
+          ],
+          "game_id": "slice_29",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "public_input": {
+          "case_id": "heldout_sealed_bid",
+          "fields": {
+            "commitment": "player 0 submitted bid",
+            "hand": "player 1 private hand",
+            "prize": "public prize"
+          },
+          "rules": "At each modeled response decision, a prize is public. Player 0 has secretly submitted a bid and knows that bid. Player 1 cannot see it before responding and alone sees their own hand. Player 0 cannot see player 1's hand. These visibility rules hold throughout this slice."
+        },
+        "reference_owners": {
+          "commitment": "player_0",
+          "hand": "player_1",
+          "prize": "public"
+        },
+        "structure_probe": {
+          "missing_field": "prize",
+          "payload": {
+            "candidates": [
+              {
+                "hypothesis_id": "candidate_0",
+                "private_fields_by_player": {
+                  "player_0": [],
+                  "player_1": []
+                },
+                "public_fields": [
+                  "commitment",
+                  "hand"
+                ]
+              },
+              {
+                "hypothesis_id": "candidate_1",
+                "private_fields_by_player": {
+                  "player_0": [
+                    "prize",
+                    "commitment",
+                    "hand"
+                  ],
+                  "player_1": []
+                },
+                "public_fields": []
+              },
+              {
+                "hypothesis_id": "candidate_2",
+                "private_fields_by_player": {
+                  "player_0": [
+                    "commitment"
+                  ],
+                  "player_1": [
+                    "hand"
+                  ]
+                },
+                "public_fields": [
+                  "prize"
+                ]
+              }
+            ],
+            "game_id": "heldout_sealed_bid",
+            "schema_version": "aip-observation-gamespec-candidates-v1"
+          }
+        }
+      },
+      "kind": "static",
+      "pair_id": "p3"
+    },
+    "slice_36": {
+      "additional_witnesses": [],
+      "case": {
+        "case_id": "slice_36",
+        "fields": {
+          "announcement": "public announcement",
+          "record": "player 1 retained private record",
+          "signal": "player 1 signal"
+        },
+        "rules": "Both players see an announcement. At the first modeled decision only player 1 sees both a signal and its retained private record; player 0 sees neither. Before a later modeled decision the same signal is publicly revealed, so player 0 then sees that signal. The retained record remains private to player 1 throughout. Both phases must be represented under the same field names without splitting or renaming signal."
+      },
+      "control": {
+        "case_id": "slice_36",
+        "expected_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+        "required_witness": {
+          "after_visible": true,
+          "before_visible": false,
+          "field": "signal",
+          "player": 0
+        }
+      },
+      "kind": "dynamic",
+      "pair_id": "p4"
+    },
+    "slice_42": {
+      "additional_witnesses": [],
+      "case": {
+        "case_id": "slice_42",
+        "fields": {
+          "die_0": "player 0 die",
+          "die_1": "player 1 die",
+          "history": "public bid history"
+        },
+        "rules": "As in the private one-die game, each player initially sees only their own die. At a modeled decision player 1 may pay a publicly recorded fee to inspect player 0's die. Subsequent decisions of player 1 observe that die; decisions before payment do not. Both phases must be represented under the same field names without splitting or renaming die_0."
+      },
+      "control": {
+        "case_id": "slice_42",
+        "expected_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+        "required_witness": {
+          "after_visible": true,
+          "before_visible": false,
+          "field": "die_0",
+          "player": 1
+        }
+      },
+      "kind": "dynamic",
+      "pair_id": "p1"
+    },
+    "slice_63": {
+      "case": {
+        "case_id": "slice_63",
+        "fields": {
+          "die_0": "player 0 die",
+          "die_1": "player 1 die",
+          "history": "public bid history"
+        },
+        "reference_owners": {
+          "die_0": "public",
+          "die_1": "public",
+          "history": "public"
+        },
+        "rules": "Two dice are rolled and both dice are publicly revealed before any modeled decision. Both players see both dice and the public history at every decision."
+      },
+      "evidence": {
+        "feedback_evidence": [
+          {
+            "acting_player": 0,
+            "evidence_id": "feedback_p0_die_0",
+            "left_fields": {
+              "die_0": 2,
+              "die_1": 2,
+              "history": 2
+            },
+            "observed_same": false,
+            "right_fields": {
+              "die_0": 3,
+              "die_1": 2,
+              "history": 2
+            },
+            "source_id": "reviewed_feedback_reference"
+          },
+          {
+            "acting_player": 0,
+            "evidence_id": "feedback_p0_die_1",
+            "left_fields": {
+              "die_0": 2,
+              "die_1": 2,
+              "history": 2
+            },
+            "observed_same": false,
+            "right_fields": {
+              "die_0": 2,
+              "die_1": 3,
+              "history": 2
+            },
+            "source_id": "reviewed_feedback_reference"
+          }
+        ],
+        "final_evidence": [
+          {
+            "acting_player": 0,
+            "evidence_id": "p0_history",
+            "left_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 1
+            }
+          },
+          {
+            "acting_player": 0,
+            "evidence_id": "p0_die_0",
+            "left_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "die_0": 1,
+              "die_1": 0,
+              "history": 0
+            }
+          },
+          {
+            "acting_player": 0,
+            "evidence_id": "p0_die_1",
+            "left_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "die_0": 0,
+              "die_1": 1,
+              "history": 0
+            }
+          },
+          {
+            "acting_player": 1,
+            "evidence_id": "p1_history",
+            "left_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 1
+            }
+          },
+          {
+            "acting_player": 1,
+            "evidence_id": "p1_die_0",
+            "left_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "die_0": 1,
+              "die_1": 0,
+              "history": 0
+            }
+          },
+          {
+            "acting_player": 1,
+            "evidence_id": "p1_die_1",
+            "left_fields": {
+              "die_0": 0,
+              "die_1": 0,
+              "history": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "die_0": 0,
+              "die_1": 1,
+              "history": 0
+            }
+          }
+        ],
+        "missing_truth_initial": {
+          "candidates": [
+            {
+              "hypothesis_id": "candidate_0",
+              "private_fields_by_player": {
+                "player_0": [
+                  "history",
+                  "die_0",
+                  "die_1"
+                ],
+                "player_1": []
+              },
+              "public_fields": []
+            },
+            {
+              "hypothesis_id": "candidate_1",
+              "private_fields_by_player": {
+                "player_0": [],
+                "player_1": [
+                  "history",
+                  "die_0",
+                  "die_1"
+                ]
+              },
+              "public_fields": []
+            }
+          ],
+          "game_id": "slice_63",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "public_input": {
+          "case_id": "dev_revealed_dice",
+          "fields": {
+            "die_0": "player 0 die",
+            "die_1": "player 1 die",
+            "history": "public bid history"
+          },
+          "rules": "Two dice are rolled and both dice are publicly revealed before any modeled decision. Both players see both dice and the public history at every decision."
+        },
+        "reference_owners": {
+          "die_0": "public",
+          "die_1": "public",
+          "history": "public"
+        },
+        "structure_probe": {
+          "missing_field": "history",
+          "payload": {
+            "candidates": [
+              {
+                "hypothesis_id": "candidate_0",
+                "private_fields_by_player": {
+                  "player_0": [
+                    "die_0",
+                    "die_1"
+                  ],
+                  "player_1": []
+                },
+                "public_fields": []
+              },
+              {
+                "hypothesis_id": "candidate_1",
+                "private_fields_by_player": {
+                  "player_0": [],
+                  "player_1": [
+                    "history",
+                    "die_0",
+                    "die_1"
+                  ]
+                },
+                "public_fields": []
+              },
+              {
+                "hypothesis_id": "candidate_2",
+                "private_fields_by_player": {
+                  "player_0": [],
+                  "player_1": []
+                },
+                "public_fields": [
+                  "history",
+                  "die_0",
+                  "die_1"
+                ]
+              }
+            ],
+            "game_id": "dev_revealed_dice",
+            "schema_version": "aip-observation-gamespec-candidates-v1"
+          }
+        }
+      },
+      "kind": "static",
+      "pair_id": "p2"
+    },
+    "slice_74": {
+      "additional_witnesses": [],
+      "case": {
+        "case_id": "slice_74",
+        "fields": {
+          "commitment": "player 0 submitted bid",
+          "hand": "player 1 private hand",
+          "prize": "public prize"
+        },
+        "rules": "A prize is public. At the first modeled response decision player 0 has secretly submitted a bid and knows it, and player 1 cannot see that commitment before responding. Player 1 alone sees their own hand and player 0 cannot see that hand. Before a later modeled response decision the same commitment is publicly revealed, so player 1 then sees it. The hand remains private to player 1. Both phases must be represented under the same field names without splitting or renaming commitment."
+      },
+      "control": {
+        "case_id": "slice_74",
+        "expected_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+        "required_witness": {
+          "after_visible": true,
+          "before_visible": false,
+          "field": "commitment",
+          "player": 1
+        }
+      },
+      "kind": "dynamic",
+      "pair_id": "p3"
+    },
+    "slice_91": {
+      "case": {
+        "case_id": "slice_91",
+        "fields": {
+          "announcement": "public announcement",
+          "record": "player 1 retained private record",
+          "signal": "player 1 signal"
+        },
+        "reference_owners": {
+          "announcement": "public",
+          "record": "player_1",
+          "signal": "player_1"
+        },
+        "rules": "Both players see an announcement. Only player 1 sees both a signal and its retained private record. Player 0 sees neither. No modeled action reveals them or changes who can observe these fields."
+      },
+      "evidence": {
+        "feedback_evidence": [
+          {
+            "acting_player": 0,
+            "evidence_id": "feedback_p0_record",
+            "left_fields": {
+              "announcement": 2,
+              "record": 2,
+              "signal": 2
+            },
+            "observed_same": true,
+            "right_fields": {
+              "announcement": 2,
+              "record": 3,
+              "signal": 2
+            },
+            "source_id": "reviewed_feedback_reference"
+          },
+          {
+            "acting_player": 0,
+            "evidence_id": "feedback_p0_signal",
+            "left_fields": {
+              "announcement": 2,
+              "record": 2,
+              "signal": 2
+            },
+            "observed_same": true,
+            "right_fields": {
+              "announcement": 2,
+              "record": 2,
+              "signal": 3
+            },
+            "source_id": "reviewed_feedback_reference"
+          }
+        ],
+        "final_evidence": [
+          {
+            "acting_player": 0,
+            "evidence_id": "p0_announcement",
+            "left_fields": {
+              "announcement": 0,
+              "record": 0,
+              "signal": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "announcement": 1,
+              "record": 0,
+              "signal": 0
+            }
+          },
+          {
+            "acting_player": 0,
+            "evidence_id": "p0_signal",
+            "left_fields": {
+              "announcement": 0,
+              "record": 0,
+              "signal": 0
+            },
+            "observed_same": true,
+            "right_fields": {
+              "announcement": 0,
+              "record": 0,
+              "signal": 1
+            }
+          },
+          {
+            "acting_player": 0,
+            "evidence_id": "p0_record",
+            "left_fields": {
+              "announcement": 0,
+              "record": 0,
+              "signal": 0
+            },
+            "observed_same": true,
+            "right_fields": {
+              "announcement": 0,
+              "record": 1,
+              "signal": 0
+            }
+          },
+          {
+            "acting_player": 1,
+            "evidence_id": "p1_announcement",
+            "left_fields": {
+              "announcement": 0,
+              "record": 0,
+              "signal": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "announcement": 1,
+              "record": 0,
+              "signal": 0
+            }
+          },
+          {
+            "acting_player": 1,
+            "evidence_id": "p1_signal",
+            "left_fields": {
+              "announcement": 0,
+              "record": 0,
+              "signal": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "announcement": 0,
+              "record": 0,
+              "signal": 1
+            }
+          },
+          {
+            "acting_player": 1,
+            "evidence_id": "p1_record",
+            "left_fields": {
+              "announcement": 0,
+              "record": 0,
+              "signal": 0
+            },
+            "observed_same": false,
+            "right_fields": {
+              "announcement": 0,
+              "record": 1,
+              "signal": 0
+            }
+          }
+        ],
+        "missing_truth_initial": {
+          "candidates": [
+            {
+              "hypothesis_id": "candidate_0",
+              "private_fields_by_player": {
+                "player_0": [],
+                "player_1": []
+              },
+              "public_fields": [
+                "announcement",
+                "signal",
+                "record"
+              ]
+            },
+            {
+              "hypothesis_id": "candidate_1",
+              "private_fields_by_player": {
+                "player_0": [
+                  "announcement",
+                  "signal",
+                  "record"
+                ],
+                "player_1": []
+              },
+              "public_fields": []
+            }
+          ],
+          "game_id": "slice_91",
+          "schema_version": "aip-observation-gamespec-candidates-v1"
+        },
+        "public_input": {
+          "case_id": "heldout_private_signal",
+          "fields": {
+            "announcement": "public announcement",
+            "record": "player 1 retained private record",
+            "signal": "player 1 signal"
+          },
+          "rules": "Both players see an announcement. Only player 1 sees both a signal and its retained private record. Player 0 sees neither. No modeled action reveals them or changes who can observe these fields."
+        },
+        "reference_owners": {
+          "announcement": "public",
+          "record": "player_1",
+          "signal": "player_1"
+        },
+        "structure_probe": {
+          "missing_field": "announcement",
+          "payload": {
+            "candidates": [
+              {
+                "hypothesis_id": "candidate_0",
+                "private_fields_by_player": {
+                  "player_0": [],
+                  "player_1": []
+                },
+                "public_fields": [
+                  "signal",
+                  "record"
+                ]
+              },
+              {
+                "hypothesis_id": "candidate_1",
+                "private_fields_by_player": {
+                  "player_0": [
+                    "announcement",
+                    "signal",
+                    "record"
+                  ],
+                  "player_1": []
+                },
+                "public_fields": []
+              },
+              {
+                "hypothesis_id": "candidate_2",
+                "private_fields_by_player": {
+                  "player_0": [],
+                  "player_1": [
+                    "signal",
+                    "record"
+                  ]
+                },
+                "public_fields": [
+                  "announcement"
+                ]
+              }
+            ],
+            "game_id": "heldout_private_signal",
+            "schema_version": "aip-observation-gamespec-candidates-v1"
+          }
+        }
+      },
+      "kind": "static",
+      "pair_id": "p4"
+    }
+  },
+  "manifest_sha256": "b8c58f72487cfeb450d97a9c8c0bfcad3ed8095d9f86860f44d339d396c81d06",
+  "plan": [
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_42",
+      "pair_id": "p1",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_42:0:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_42",
+      "pair_id": "p1",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_42:0:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_42",
+      "pair_id": "p1",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_42:0:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_42",
+      "pair_id": "p1",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_42:0:a1_b1"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_42",
+      "pair_id": "p1",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_42:1:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_42",
+      "pair_id": "p1",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_42:1:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_42",
+      "pair_id": "p1",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_42:1:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_42",
+      "pair_id": "p1",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_42:1:a0_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_42",
+      "pair_id": "p1",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_42:2:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_42",
+      "pair_id": "p1",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_42:2:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_42",
+      "pair_id": "p1",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_42:2:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_42",
+      "pair_id": "p1",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_42:2:a1_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_63:0:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_63:0:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_63:0:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_63:0:a0_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_63:1:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_63:1:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_63:1:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_63:1:a1_b0"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_63:2:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_63:2:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_63:2:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_63:2:a0_b1"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_29:0:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_29:0:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_29:0:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_29:0:a1_b0"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_29:1:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_29:1:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_29:1:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_29:1:a0_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_29:2:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_29:2:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_29:2:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_29:2:a1_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_36",
+      "pair_id": "p4",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_36:0:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_36",
+      "pair_id": "p4",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_36:0:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_36",
+      "pair_id": "p4",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_36:0:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_36",
+      "pair_id": "p4",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_36:0:a0_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_36",
+      "pair_id": "p4",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_36:1:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_36",
+      "pair_id": "p4",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_36:1:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_36",
+      "pair_id": "p4",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_36:1:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_36",
+      "pair_id": "p4",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_36:1:a1_b1"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_36",
+      "pair_id": "p4",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_36:2:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_36",
+      "pair_id": "p4",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_36:2:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_36",
+      "pair_id": "p4",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_36:2:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_36",
+      "pair_id": "p4",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_36:2:a0_b0"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_17:0:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_17:0:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_17:0:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_17:0:a1_b1"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_17:1:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_17:1:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_17:1:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_17:1:a0_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_17:2:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_17:2:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_17:2:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_17:2:a1_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_08",
+      "pair_id": "p2",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_08:0:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_08",
+      "pair_id": "p2",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_08:0:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_08",
+      "pair_id": "p2",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_08:0:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_08",
+      "pair_id": "p2",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_08:0:a0_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_08",
+      "pair_id": "p2",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_08:1:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_08",
+      "pair_id": "p2",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_08:1:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_08",
+      "pair_id": "p2",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_08:1:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_08",
+      "pair_id": "p2",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_08:1:a1_b0"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_08",
+      "pair_id": "p2",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_08:2:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_08",
+      "pair_id": "p2",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_08:2:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_08",
+      "pair_id": "p2",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_08:2:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_08",
+      "pair_id": "p2",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_08:2:a0_b1"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_91:0:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_91:0:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_91:0:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_91:0:a1_b0"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_91:1:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_91:1:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_91:1:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_91:1:a0_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_91:2:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_91:2:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_91:2:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_91:2:a1_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_74",
+      "pair_id": "p3",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_74:0:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_74",
+      "pair_id": "p3",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_74:0:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_74",
+      "pair_id": "p3",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_74:0:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_74",
+      "pair_id": "p3",
+      "repeat": 0,
+      "task": "scope",
+      "trial_id": "scope:slice_74:0:a0_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_74",
+      "pair_id": "p3",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_74:1:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_74",
+      "pair_id": "p3",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_74:1:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_74",
+      "pair_id": "p3",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_74:1:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_74",
+      "pair_id": "p3",
+      "repeat": 1,
+      "task": "scope",
+      "trial_id": "scope:slice_74:1:a1_b1"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_74",
+      "pair_id": "p3",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_74:2:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_74",
+      "pair_id": "p3",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_74:2:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_74",
+      "pair_id": "p3",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_74:2:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_74",
+      "pair_id": "p3",
+      "repeat": 2,
+      "task": "scope",
+      "trial_id": "scope:slice_74:2:a0_b0"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_17:0:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_17:0:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_17:0:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_17:0:a1_b1"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_17:1:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_17:1:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_17:1:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_17:1:a0_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_17:2:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_17:2:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_17:2:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_17",
+      "pair_id": "p1",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_17:2:a1_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_63:0:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_63:0:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_63:0:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_63:0:a0_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_63:1:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_63:1:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_63:1:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_63:1:a1_b0"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_63:2:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_63:2:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_63:2:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_63",
+      "pair_id": "p2",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_63:2:a0_b1"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_29:0:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_29:0:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_29:0:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_29:0:a1_b0"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_29:1:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_29:1:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_29:1:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_29:1:a0_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_29:2:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_29:2:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_29:2:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_29",
+      "pair_id": "p3",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_29:2:a1_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_91:0:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_91:0:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_91:0:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 0,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_91:0:a0_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_91:1:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_91:1:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_91:1:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 1,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_91:1:a1_b1"
+    },
+    {
+      "arm": "a1_b0",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_91:2:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_91:2:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_91:2:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "case_id": "slice_91",
+      "pair_id": "p4",
+      "repeat": 2,
+      "task": "witness_repair",
+      "trial_id": "witness_repair:slice_91:2:a0_b0"
+    }
+  ],
+  "version": "gamespec-scope-ablation-v3"
+}

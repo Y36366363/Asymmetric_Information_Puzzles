@@ -1,0 +1,23 @@
+{
+  "historical_baselines_sha256": {
+    "research/results/gamespec_model_smoke_v2_2026-10-23/diagnostic_report.json": "8de9e9cb1e0090d0a4beb967f1d00391d268254ab1b0255cd4c514ed253929db",
+    "research/results/gamespec_model_smoke_v2_2026-10-23/report.json": "ac24449e66edb4280e5f5a7058bc7bb7c7f0fe5a65185ed6ea777bbbdf2c353e"
+  },
+  "provider_calls_executed": 0,
+  "sha256": {
+    "configs/gamespec_scope_ablation_v3_2026-10-25.json": "952cc99cc110b9dd6535997cefcec1f0dd08b699e6973c6816ef65560b8ba265",
+    "configs/gamespec_scope_ablation_v3_bundle_2026-10-25.json": "1239457d43f26357db0283d2d7198b1d80aea5bc6ded2fb0a692be1f1b89b384",
+    "configs/gamespec_scope_v3_preflight_counterexample_2026-10-25.json": "d3530a1a5dc185058f01983967beb686841d6401408549b14d431073e4227642",
+    "configs/llm_gamespec_smoke_execution_2026-10-21.json": "24493a4d039374f281b08547368259384f23fbe7f8a88995dbf402c3b2822680",
+    "configs/llm_gamespec_smoke_v2_2026-10-23.json": "bffc17ea205b4550d654d0bd5073352804ec3207279a7f85a3382feffc0b4983",
+    "scripts/run_gamespec_scope_ablation.py": "21b0abc42e8893bfa60a7bcbabd7c4f4226ddf75d24ce9f66d0505116555251c",
+    "src/aip/benchmark/gamespec_scope_ablation.py": "a9db332c6374ee61bfc1ae48ac37f2edcbb23fd60c0aab26ab3d41a9ea8d1407",
+    "src/aip/benchmark/gamespec_smoke.py": "b904e5034b7d5ffa48c9b4f7f28d76bedd34132eb3c4893381049e649afe01ab",
+    "src/aip/benchmark/gamespec_smoke_v2.py": "6afd9a577f2a8cecee9208baf0253278abec13153c69b984ecd14cd7287b217e",
+    "src/aip/core/game_spec.py": "52018c1bbb4d85e5e49caa5a0cce0aec93bc8163d696eda82a96f2ff69b1d554",
+    "src/aip/core/game_spec_pilot.py": "9f8a6eae96301e486a9107d27fab08f7dd84bb0682c67758f8664aab0f217a69",
+    "src/aip/core/game_spec_smoke.py": "787a1411b30f41c9e2765540dd9d0b842f161078c0e7e8c4ffa063caa71b3bca",
+    "tests/test_gamespec_scope_ablation.py": "77da8f0a5f4969d81a22fa688d2668ac1ac1edb1f0aeb27c8850293b44b804cf"
+  },
+  "version": "gamespec-v3-lock"
+}
