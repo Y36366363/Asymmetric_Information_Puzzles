@@ -430,6 +430,49 @@
       ]
     },
     {
+      "id": "gamespec_v3_paired_scope_witness_ablation",
+      "status": "mixed",
+      "statement": "固定模型2×2配对机制检查完成144次请求；witness说明在不同提示下效果混合，严格拒绝还受错误码大小写影响。",
+      "scope": "四对公开静态/动态规则、三次技术重复；每条件12个实际反馈修复样例；不新增游戏或求解器。",
+      "limitations": "65次最终失败保留；四对规则非总体样本；分项见证诊断为事后分析；未比较语义vs结构反馈有效性。",
+      "next_question": "另行冻结固定常量输出约束，以及错误旧候选/可信规则/反事实证据的来源优先级对照，保持静态与动态配对。",
+      "evidence": [
+        {
+          "path": "research/results/gamespec_scope_ablation_v3_2026-10-25/report.json",
+          "sha256": "cc4f54ecfc9a5f1ca590c71fa1f1bd81c1628f7d219643ee930f37b4ae09d229",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/status", "equals": "completed"},
+            {"pointer": "/analysis/provider_attempts", "equals": 144},
+            {"pointer": "/analysis/cells/a0_b1/dynamic/correct", "equals": 9},
+            {"pointer": "/analysis/cells/a1_b1/witness_repair/correct", "equals": 8},
+            {"pointer": "/analysis/semantic_versus_structural_effectiveness_established", "equals": false},
+            {"pointer": "/runtime_epsilon_gto_allowed", "equals": false}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_scope_ablation_v3_2026-10-25/independent_replay.json",
+          "sha256": "728003c38d781ce9866bcbafe381db7bbb29095811e7b9cc7fc9f4219aaa2a8a",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/scope_false_acceptances", "equals": 17},
+            {"pointer": "/overall_scientific_pass", "equals": null},
+            {"pointer": "/adaptive_opponent_line_released", "equals": false}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_scope_ablation_v3_2026-10-25/component_diagnostics.json",
+          "sha256": "ba6cbc611f3413f10cb514b443f72aea9d9be010e760e218e49168e8dbf4317e",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/posthoc_diagnostics", "equals": true},
+            {"pointer": "/primary_scores_changed", "equals": false},
+            {"pointer": "/groups/a1_b0/only_error_code_case_failure", "equals": 9}
+          ]
+        }
+      ]
+    },
+    {
       "id": "general_llm_solver",
       "status": "not_established",
       "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",

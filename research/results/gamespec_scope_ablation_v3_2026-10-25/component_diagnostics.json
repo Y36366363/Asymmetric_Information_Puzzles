@@ -1,0 +1,526 @@
+{
+  "failure_counts": {
+    "forced_static_fit_out_of_scope": 17,
+    "incorrect_rejection_in_scope": 29,
+    "invalid_schema": 9,
+    "wrong_refusal_code": 19,
+    "wrong_refusal_witness": 19
+  },
+  "groups": {
+    "a0_b0": {
+      "completed": 12,
+      "forced_candidate": 10,
+      "only_error_code_case_failure": 0,
+      "registered_visibility_change_exact": 2,
+      "strict_correct": 2
+    },
+    "a0_b1": {
+      "completed": 12,
+      "forced_candidate": 3,
+      "only_error_code_case_failure": 0,
+      "registered_visibility_change_exact": 9,
+      "strict_correct": 9
+    },
+    "a1_b0": {
+      "completed": 12,
+      "forced_candidate": 3,
+      "only_error_code_case_failure": 9,
+      "registered_visibility_change_exact": 9,
+      "strict_correct": 0
+    },
+    "a1_b1": {
+      "completed": 12,
+      "forced_candidate": 1,
+      "only_error_code_case_failure": 10,
+      "registered_visibility_change_exact": 11,
+      "strict_correct": 1
+    }
+  },
+  "interpretation": "The frozen wrong_refusal_witness label comes from a joint validator and can co-occur with a code-only error. These component checks localize failures; lowercase codes still FAIL primary strict scoring. No canonicalization or adjusted pass rate.",
+  "posthoc_diagnostics": true,
+  "primary_analysis_sha256": "6cc9ac39415f6634c7127698a6810cf27039026173312a422496f9c407c4221c",
+  "primary_scores_changed": false,
+  "rows": [
+    {
+      "arm": "a0_b0",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_42:0:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_42:0:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "error_code_exact": true,
+      "forced_candidate": false,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": true,
+      "trial_id": "scope:slice_42:0:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_42:0:a1_b1"
+    },
+    {
+      "arm": "a1_b0",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_42:1:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "error_code_exact": true,
+      "forced_candidate": false,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": true,
+      "trial_id": "scope:slice_42:1:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_42:1:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_42:1:a0_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "error_code_exact": true,
+      "forced_candidate": false,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": true,
+      "trial_id": "scope:slice_42:2:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_42:2:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_42:2:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_42:2:a1_b0"
+    },
+    {
+      "arm": "a1_b1",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_36:0:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_36:0:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_36:0:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "error_code_exact": true,
+      "forced_candidate": false,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": true,
+      "trial_id": "scope:slice_36:0:a0_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_36:1:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_36:1:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "error_code_exact": true,
+      "forced_candidate": false,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": true,
+      "trial_id": "scope:slice_36:1:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_36:1:a1_b1"
+    },
+    {
+      "arm": "a1_b0",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_36:2:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "error_code_exact": true,
+      "forced_candidate": false,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": true,
+      "trial_id": "scope:slice_36:2:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_36:2:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_36:2:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_08:0:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "error_code_exact": true,
+      "forced_candidate": false,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": true,
+      "trial_id": "scope:slice_08:0:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_08:0:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "error_code_exact": true,
+      "forced_candidate": false,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": true,
+      "trial_id": "scope:slice_08:0:a0_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "error_code_exact": true,
+      "forced_candidate": false,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": true,
+      "trial_id": "scope:slice_08:1:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_08:1:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_08:1:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_08:1:a1_b0"
+    },
+    {
+      "arm": "a1_b1",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_08:2:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_08:2:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_08:2:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "error_code_exact": true,
+      "forced_candidate": false,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": true,
+      "trial_id": "scope:slice_08:2:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_74:0:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "error_code_exact": true,
+      "forced_candidate": false,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": true,
+      "trial_id": "scope:slice_74:0:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_74:0:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_74:0:a0_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_74:1:a0_b0"
+    },
+    {
+      "arm": "a1_b0",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_74:1:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_74:1:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "error_code_exact": true,
+      "forced_candidate": false,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": true,
+      "trial_id": "scope:slice_74:1:a1_b1"
+    },
+    {
+      "arm": "a1_b0",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_74:2:a1_b0"
+    },
+    {
+      "arm": "a0_b1",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_74:2:a0_b1"
+    },
+    {
+      "arm": "a1_b1",
+      "error_code_exact": false,
+      "forced_candidate": false,
+      "only_error_code_case_failure": true,
+      "refusal_header_exact": true,
+      "registered_visibility_change_exact": true,
+      "strict_correct": false,
+      "trial_id": "scope:slice_74:2:a1_b1"
+    },
+    {
+      "arm": "a0_b0",
+      "error_code_exact": false,
+      "forced_candidate": true,
+      "only_error_code_case_failure": false,
+      "refusal_header_exact": false,
+      "registered_visibility_change_exact": false,
+      "strict_correct": false,
+      "trial_id": "scope:slice_74:2:a0_b0"
+    }
+  ],
+  "schema_version": "gamespec-scope-component-diagnostics-v1"
+}
