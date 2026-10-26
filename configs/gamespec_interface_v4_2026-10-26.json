@@ -34,6 +34,8 @@
     "maximum_output_tokens": 2500,
     "timeout_seconds": 60,
     "automatic_retries": 0,
+    "per_model_concurrency": 1,
+    "maximum_global_concurrency": 3,
     "calls_per_trial": 1,
     "order": "scope eight original v3 rules, repair four original static rules, then four frozen sealed-bid surface probes; case/repeat/rotating arm order; separate same plan per model",
     "provider_failure": "stop that model, retain assigned denominators and incomplete trials; other preregistered models may run; never substitute or repair provider parameters after a task error",
