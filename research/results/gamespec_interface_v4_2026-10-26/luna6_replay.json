@@ -1,0 +1,297 @@
+{
+  "adaptive_opponent_line_released": false,
+  "all_failures": [
+    {
+      "errors": [
+        "invalid_schema",
+        "proposal_contract_failure"
+      ],
+      "trial_id": "scope:slice_17:0:f0_s0"
+    },
+    {
+      "errors": [
+        "invalid_schema",
+        "proposal_contract_failure"
+      ],
+      "trial_id": "scope:slice_17:1:f0_s0"
+    },
+    {
+      "errors": [
+        "invalid_schema",
+        "proposal_contract_failure"
+      ],
+      "trial_id": "scope:slice_91:1:f0_s0"
+    }
+  ],
+  "cells": {
+    "f0_s0": {
+      "dynamic": {
+        "assigned": 8,
+        "completed": 8,
+        "correct": 8
+      },
+      "feedback_exposures": 8,
+      "joint_pairs": {
+        "assigned": 8,
+        "correct": 5
+      },
+      "probe_dynamic": {
+        "assigned": 2,
+        "completed": 2,
+        "correct": 2
+      },
+      "probe_static": {
+        "assigned": 2,
+        "completed": 2,
+        "correct": 2
+      },
+      "repair": {
+        "assigned": 8,
+        "completed": 8,
+        "correct": 8
+      },
+      "static": {
+        "assigned": 8,
+        "completed": 8,
+        "correct": 5
+      }
+    },
+    "f0_s1": {
+      "dynamic": {
+        "assigned": 8,
+        "completed": 8,
+        "correct": 8
+      },
+      "feedback_exposures": 8,
+      "joint_pairs": {
+        "assigned": 8,
+        "correct": 8
+      },
+      "probe_dynamic": {
+        "assigned": 2,
+        "completed": 2,
+        "correct": 2
+      },
+      "probe_static": {
+        "assigned": 2,
+        "completed": 2,
+        "correct": 2
+      },
+      "repair": {
+        "assigned": 8,
+        "completed": 8,
+        "correct": 8
+      },
+      "static": {
+        "assigned": 8,
+        "completed": 8,
+        "correct": 8
+      }
+    },
+    "f1_s0": {
+      "dynamic": {
+        "assigned": 8,
+        "completed": 8,
+        "correct": 8
+      },
+      "feedback_exposures": 8,
+      "joint_pairs": {
+        "assigned": 8,
+        "correct": 8
+      },
+      "probe_dynamic": {
+        "assigned": 2,
+        "completed": 2,
+        "correct": 2
+      },
+      "probe_static": {
+        "assigned": 2,
+        "completed": 2,
+        "correct": 2
+      },
+      "repair": {
+        "assigned": 8,
+        "completed": 8,
+        "correct": 8
+      },
+      "static": {
+        "assigned": 8,
+        "completed": 8,
+        "correct": 8
+      }
+    },
+    "f1_s1": {
+      "dynamic": {
+        "assigned": 8,
+        "completed": 8,
+        "correct": 8
+      },
+      "feedback_exposures": 8,
+      "joint_pairs": {
+        "assigned": 8,
+        "correct": 8
+      },
+      "probe_dynamic": {
+        "assigned": 2,
+        "completed": 2,
+        "correct": 2
+      },
+      "probe_static": {
+        "assigned": 2,
+        "completed": 2,
+        "correct": 2
+      },
+      "repair": {
+        "assigned": 8,
+        "completed": 8,
+        "correct": 8
+      },
+      "static": {
+        "assigned": 8,
+        "completed": 8,
+        "correct": 8
+      }
+    }
+  },
+  "cost_usd": 0.0126104,
+  "error_counts": {
+    "invalid_schema": 3,
+    "proposal_contract_failure": 3
+  },
+  "false_certifications_in_scope": 0,
+  "generalization_or_no_overfit_established": false,
+  "latency_seconds": 168.12804958201014,
+  "new_runtime_epsilon_gto_allowed": false,
+  "overall_scientific_pass": null,
+  "pair_results": {
+    "f0_s0": [
+      {
+        "joint_by_repeat": [
+          false,
+          false
+        ],
+        "pair_id": "p1"
+      },
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p2"
+      },
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p3"
+      },
+      {
+        "joint_by_repeat": [
+          true,
+          false
+        ],
+        "pair_id": "p4"
+      }
+    ],
+    "f0_s1": [
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p1"
+      },
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p2"
+      },
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p3"
+      },
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p4"
+      }
+    ],
+    "f1_s0": [
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p1"
+      },
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p2"
+      },
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p3"
+      },
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p4"
+      }
+    ],
+    "f1_s1": [
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p1"
+      },
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p2"
+      },
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p3"
+      },
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p4"
+      }
+    ]
+  },
+  "provider_attempts": 112,
+  "reasoning_tokens": 0,
+  "scope_false_acceptances": 0,
+  "semantic_vs_structural_effectiveness_established": false,
+  "tokens": {
+    "completion_tokens": 5212,
+    "prompt_tokens": 100044
+  },
+  "uncertainty": "four reused primary pairs, technical repeats and two dependent surface probes; no population CI, significance or formal power claim"
+}

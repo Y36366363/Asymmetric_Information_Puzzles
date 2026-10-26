@@ -1,0 +1,1309 @@
+{
+  "formal_trial_allowed": false,
+  "generalization_or_no_overfit_proven": false,
+  "historical_results_reinterpreted": false,
+  "model_parameter_caveat": "6.1-sol cannot use effort none; temperature omitted, effort low. Equal one-call and 10000 input/2500 total completion-token caps are not equal visible-output or reasoning compute. Report truncation, latency and all usage including reasoning. Public 6-series IDs have no dated snapshot in current official docs; preserve returned model and fingerprint, no substitutions.",
+  "models": {
+    "luna6": {
+      "analysis": {
+        "adaptive_opponent_line_released": false,
+        "all_failures": [
+          {
+            "errors": [
+              "invalid_schema",
+              "proposal_contract_failure"
+            ],
+            "trial_id": "scope:slice_17:0:f0_s0"
+          },
+          {
+            "errors": [
+              "invalid_schema",
+              "proposal_contract_failure"
+            ],
+            "trial_id": "scope:slice_17:1:f0_s0"
+          },
+          {
+            "errors": [
+              "invalid_schema",
+              "proposal_contract_failure"
+            ],
+            "trial_id": "scope:slice_91:1:f0_s0"
+          }
+        ],
+        "cells": {
+          "f0_s0": {
+            "dynamic": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "feedback_exposures": 8,
+            "joint_pairs": {
+              "assigned": 8,
+              "correct": 5
+            },
+            "probe_dynamic": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "probe_static": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "repair": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "static": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 5
+            }
+          },
+          "f0_s1": {
+            "dynamic": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "feedback_exposures": 8,
+            "joint_pairs": {
+              "assigned": 8,
+              "correct": 8
+            },
+            "probe_dynamic": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "probe_static": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "repair": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "static": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            }
+          },
+          "f1_s0": {
+            "dynamic": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "feedback_exposures": 8,
+            "joint_pairs": {
+              "assigned": 8,
+              "correct": 8
+            },
+            "probe_dynamic": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "probe_static": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "repair": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "static": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            }
+          },
+          "f1_s1": {
+            "dynamic": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "feedback_exposures": 8,
+            "joint_pairs": {
+              "assigned": 8,
+              "correct": 8
+            },
+            "probe_dynamic": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "probe_static": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "repair": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "static": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            }
+          }
+        },
+        "cost_usd": 0.0126104,
+        "error_counts": {
+          "invalid_schema": 3,
+          "proposal_contract_failure": 3
+        },
+        "false_certifications_in_scope": 0,
+        "generalization_or_no_overfit_established": false,
+        "latency_seconds": 168.12804958201014,
+        "new_runtime_epsilon_gto_allowed": false,
+        "overall_scientific_pass": null,
+        "pair_results": {
+          "f0_s0": [
+            {
+              "joint_by_repeat": [
+                false,
+                false
+              ],
+              "pair_id": "p1"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p2"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p3"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                false
+              ],
+              "pair_id": "p4"
+            }
+          ],
+          "f0_s1": [
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p1"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p2"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p3"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p4"
+            }
+          ],
+          "f1_s0": [
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p1"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p2"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p3"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p4"
+            }
+          ],
+          "f1_s1": [
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p1"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p2"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p3"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p4"
+            }
+          ]
+        },
+        "provider_attempts": 112,
+        "reasoning_tokens": 0,
+        "scope_false_acceptances": 0,
+        "semantic_vs_structural_effectiveness_established": false,
+        "tokens": {
+          "completion_tokens": 5212,
+          "prompt_tokens": 100044
+        },
+        "uncertainty": "four reused primary pairs, technical repeats and two dependent surface probes; no population CI, significance or formal power claim"
+      },
+      "execution_status": "completed",
+      "model_parameters": {
+        "automatic_retries": 0,
+        "concurrency": 1,
+        "endpoint": "chat_completions",
+        "input_usd_per_million": 0.1,
+        "maximum_input_tokens": 10000,
+        "maximum_output_tokens": 2500,
+        "model_id": "gpt-6-luna",
+        "output_usd_per_million": 0.5,
+        "pricing_checked_date": "2026-10-21",
+        "pricing_source": "https://developers.openai.com/api/docs/pricing",
+        "provider": "openai",
+        "reasoning_effort": "none",
+        "response_format": "json_object",
+        "snapshot_source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+        "substitution_allowed": false,
+        "temperature": 0,
+        "timeout_seconds": 60
+      },
+      "stop_reason": null,
+      "surface_probes": [
+        {
+          "arm": "f0_s0",
+          "case_id": "slice_55",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_55:0:f0_s0"
+        },
+        {
+          "arm": "f1_s0",
+          "case_id": "slice_55",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_55:0:f1_s0"
+        },
+        {
+          "arm": "f0_s1",
+          "case_id": "slice_55",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_55:0:f0_s1"
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "slice_55",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_55:0:f1_s1"
+        },
+        {
+          "arm": "f1_s0",
+          "case_id": "slice_12",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_12:0:f1_s0"
+        },
+        {
+          "arm": "f0_s1",
+          "case_id": "slice_12",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_12:0:f0_s1"
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "slice_12",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_12:0:f1_s1"
+        },
+        {
+          "arm": "f0_s0",
+          "case_id": "slice_12",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_12:0:f0_s0"
+        },
+        {
+          "arm": "f0_s1",
+          "case_id": "slice_84",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_84:0:f0_s1"
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "slice_84",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_84:0:f1_s1"
+        },
+        {
+          "arm": "f0_s0",
+          "case_id": "slice_84",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_84:0:f0_s0"
+        },
+        {
+          "arm": "f1_s0",
+          "case_id": "slice_84",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_84:0:f1_s0"
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "slice_07",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_07:0:f1_s1"
+        },
+        {
+          "arm": "f0_s0",
+          "case_id": "slice_07",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_07:0:f0_s0"
+        },
+        {
+          "arm": "f1_s0",
+          "case_id": "slice_07",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_07:0:f1_s0"
+        },
+        {
+          "arm": "f0_s1",
+          "case_id": "slice_07",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_07:0:f0_s1"
+        }
+      ]
+    },
+    "mini41": {
+      "analysis": {
+        "adaptive_opponent_line_released": false,
+        "all_failures": [
+          {
+            "errors": [
+              "incorrect_rejection_in_scope"
+            ],
+            "trial_id": "witness_repair:slice_17:0:f0_s0"
+          },
+          {
+            "errors": [
+              "incorrect_rejection_in_scope"
+            ],
+            "trial_id": "witness_repair:slice_17:0:f1_s0"
+          },
+          {
+            "errors": [
+              "incorrect_rejection_in_scope"
+            ],
+            "trial_id": "witness_repair:slice_17:0:f0_s1"
+          },
+          {
+            "errors": [
+              "incorrect_rejection_in_scope"
+            ],
+            "trial_id": "witness_repair:slice_17:1:f1_s0"
+          },
+          {
+            "errors": [
+              "incorrect_rejection_in_scope"
+            ],
+            "trial_id": "witness_repair:slice_17:1:f0_s1"
+          },
+          {
+            "errors": [
+              "incorrect_rejection_in_scope"
+            ],
+            "trial_id": "witness_repair:slice_17:1:f0_s0"
+          },
+          {
+            "errors": [
+              "invalid_schema",
+              "proposal_contract_failure"
+            ],
+            "trial_id": "witness_repair:slice_29:0:f0_s1"
+          }
+        ],
+        "cells": {
+          "f0_s0": {
+            "dynamic": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "feedback_exposures": 8,
+            "joint_pairs": {
+              "assigned": 8,
+              "correct": 8
+            },
+            "probe_dynamic": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "probe_static": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "repair": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 6
+            },
+            "static": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            }
+          },
+          "f0_s1": {
+            "dynamic": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "feedback_exposures": 8,
+            "joint_pairs": {
+              "assigned": 8,
+              "correct": 8
+            },
+            "probe_dynamic": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "probe_static": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "repair": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 5
+            },
+            "static": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            }
+          },
+          "f1_s0": {
+            "dynamic": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "feedback_exposures": 8,
+            "joint_pairs": {
+              "assigned": 8,
+              "correct": 8
+            },
+            "probe_dynamic": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "probe_static": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "repair": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 6
+            },
+            "static": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            }
+          },
+          "f1_s1": {
+            "dynamic": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "feedback_exposures": 8,
+            "joint_pairs": {
+              "assigned": 8,
+              "correct": 8
+            },
+            "probe_dynamic": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "probe_static": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "repair": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "static": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            }
+          }
+        },
+        "cost_usd": 0.0470784,
+        "error_counts": {
+          "incorrect_rejection_in_scope": 6,
+          "invalid_schema": 1,
+          "proposal_contract_failure": 1
+        },
+        "false_certifications_in_scope": 0,
+        "generalization_or_no_overfit_established": false,
+        "latency_seconds": 96.4237313370686,
+        "new_runtime_epsilon_gto_allowed": false,
+        "overall_scientific_pass": null,
+        "pair_results": {
+          "f0_s0": [
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p1"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p2"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p3"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p4"
+            }
+          ],
+          "f0_s1": [
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p1"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p2"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p3"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p4"
+            }
+          ],
+          "f1_s0": [
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p1"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p2"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p3"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p4"
+            }
+          ],
+          "f1_s1": [
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p1"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p2"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p3"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p4"
+            }
+          ]
+        },
+        "provider_attempts": 112,
+        "reasoning_tokens": 0,
+        "scope_false_acceptances": 0,
+        "semantic_vs_structural_effectiveness_established": false,
+        "tokens": {
+          "completion_tokens": 4359,
+          "prompt_tokens": 100260
+        },
+        "uncertainty": "four reused primary pairs, technical repeats and two dependent surface probes; no population CI, significance or formal power claim"
+      },
+      "execution_status": "completed",
+      "model_parameters": {
+        "automatic_retries": 0,
+        "concurrency": 1,
+        "endpoint": "chat_completions",
+        "input_usd_per_million": 0.4,
+        "maximum_input_tokens": 10000,
+        "maximum_output_tokens": 2500,
+        "model_id": "gpt-4.1-mini-2025-04-14",
+        "output_usd_per_million": 1.6,
+        "pricing_checked_date": "2026-10-21",
+        "pricing_source": "https://developers.openai.com/api/docs/pricing",
+        "provider": "openai",
+        "reasoning_effort": null,
+        "response_format": "json_object",
+        "snapshot_source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+        "substitution_allowed": false,
+        "temperature": 0,
+        "timeout_seconds": 60
+      },
+      "stop_reason": null,
+      "surface_probes": [
+        {
+          "arm": "f0_s0",
+          "case_id": "slice_55",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_55:0:f0_s0"
+        },
+        {
+          "arm": "f1_s0",
+          "case_id": "slice_55",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_55:0:f1_s0"
+        },
+        {
+          "arm": "f0_s1",
+          "case_id": "slice_55",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_55:0:f0_s1"
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "slice_55",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_55:0:f1_s1"
+        },
+        {
+          "arm": "f1_s0",
+          "case_id": "slice_12",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_12:0:f1_s0"
+        },
+        {
+          "arm": "f0_s1",
+          "case_id": "slice_12",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_12:0:f0_s1"
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "slice_12",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_12:0:f1_s1"
+        },
+        {
+          "arm": "f0_s0",
+          "case_id": "slice_12",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_12:0:f0_s0"
+        },
+        {
+          "arm": "f0_s1",
+          "case_id": "slice_84",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_84:0:f0_s1"
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "slice_84",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_84:0:f1_s1"
+        },
+        {
+          "arm": "f0_s0",
+          "case_id": "slice_84",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_84:0:f0_s0"
+        },
+        {
+          "arm": "f1_s0",
+          "case_id": "slice_84",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_84:0:f1_s0"
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "slice_07",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_07:0:f1_s1"
+        },
+        {
+          "arm": "f0_s0",
+          "case_id": "slice_07",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_07:0:f0_s0"
+        },
+        {
+          "arm": "f1_s0",
+          "case_id": "slice_07",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_07:0:f1_s0"
+        },
+        {
+          "arm": "f0_s1",
+          "case_id": "slice_07",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_07:0:f0_s1"
+        }
+      ]
+    },
+    "sol61": {
+      "analysis": {
+        "adaptive_opponent_line_released": false,
+        "all_failures": [],
+        "cells": {
+          "f0_s0": {
+            "dynamic": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "feedback_exposures": 8,
+            "joint_pairs": {
+              "assigned": 8,
+              "correct": 8
+            },
+            "probe_dynamic": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "probe_static": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "repair": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "static": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            }
+          },
+          "f0_s1": {
+            "dynamic": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "feedback_exposures": 8,
+            "joint_pairs": {
+              "assigned": 8,
+              "correct": 8
+            },
+            "probe_dynamic": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "probe_static": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "repair": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "static": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            }
+          },
+          "f1_s0": {
+            "dynamic": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "feedback_exposures": 8,
+            "joint_pairs": {
+              "assigned": 8,
+              "correct": 8
+            },
+            "probe_dynamic": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "probe_static": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "repair": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "static": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            }
+          },
+          "f1_s1": {
+            "dynamic": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "feedback_exposures": 8,
+            "joint_pairs": {
+              "assigned": 8,
+              "correct": 8
+            },
+            "probe_dynamic": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "probe_static": {
+              "assigned": 2,
+              "completed": 2,
+              "correct": 2
+            },
+            "repair": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            },
+            "static": {
+              "assigned": 8,
+              "completed": 8,
+              "correct": 8
+            }
+          }
+        },
+        "cost_usd": 0.252008,
+        "error_counts": {},
+        "false_certifications_in_scope": 0,
+        "generalization_or_no_overfit_established": false,
+        "latency_seconds": 438.4744372503483,
+        "new_runtime_epsilon_gto_allowed": false,
+        "overall_scientific_pass": null,
+        "pair_results": {
+          "f0_s0": [
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p1"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p2"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p3"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p4"
+            }
+          ],
+          "f0_s1": [
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p1"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p2"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p3"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p4"
+            }
+          ],
+          "f1_s0": [
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p1"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p2"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p3"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p4"
+            }
+          ],
+          "f1_s1": [
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p1"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p2"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p3"
+            },
+            {
+              "joint_by_repeat": [
+                true,
+                true
+              ],
+              "pair_id": "p4"
+            }
+          ]
+        },
+        "provider_attempts": 112,
+        "reasoning_tokens": 0,
+        "scope_false_acceptances": 0,
+        "semantic_vs_structural_effectiveness_established": false,
+        "tokens": {
+          "completion_tokens": 5192,
+          "prompt_tokens": 100044
+        },
+        "uncertainty": "four reused primary pairs, technical repeats and two dependent surface probes; no population CI, significance or formal power claim"
+      },
+      "execution_status": "completed",
+      "model_parameters": {
+        "automatic_retries": 0,
+        "concurrency": 1,
+        "endpoint": "chat_completions",
+        "input_usd_per_million": 2,
+        "maximum_input_tokens": 10000,
+        "maximum_output_tokens": 2500,
+        "model_id": "gpt-6.1-sol",
+        "output_usd_per_million": 10,
+        "pricing_checked_date": "2026-10-21",
+        "pricing_source": "https://developers.openai.com/api/docs/pricing",
+        "provider": "openai",
+        "reasoning_effort": "low",
+        "response_format": "json_object",
+        "snapshot_source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+        "substitution_allowed": false,
+        "temperature": null,
+        "timeout_seconds": 60
+      },
+      "stop_reason": null,
+      "surface_probes": [
+        {
+          "arm": "f0_s0",
+          "case_id": "slice_55",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_55:0:f0_s0"
+        },
+        {
+          "arm": "f1_s0",
+          "case_id": "slice_55",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_55:0:f1_s0"
+        },
+        {
+          "arm": "f0_s1",
+          "case_id": "slice_55",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_55:0:f0_s1"
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "slice_55",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_55:0:f1_s1"
+        },
+        {
+          "arm": "f1_s0",
+          "case_id": "slice_12",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_12:0:f1_s0"
+        },
+        {
+          "arm": "f0_s1",
+          "case_id": "slice_12",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_12:0:f0_s1"
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "slice_12",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_12:0:f1_s1"
+        },
+        {
+          "arm": "f0_s0",
+          "case_id": "slice_12",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_12:0:f0_s0"
+        },
+        {
+          "arm": "f0_s1",
+          "case_id": "slice_84",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_84:0:f0_s1"
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "slice_84",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_84:0:f1_s1"
+        },
+        {
+          "arm": "f0_s0",
+          "case_id": "slice_84",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_84:0:f0_s0"
+        },
+        {
+          "arm": "f1_s0",
+          "case_id": "slice_84",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_84:0:f1_s0"
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "slice_07",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_07:0:f1_s1"
+        },
+        {
+          "arm": "f0_s0",
+          "case_id": "slice_07",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_07:0:f0_s0"
+        },
+        {
+          "arm": "f1_s0",
+          "case_id": "slice_07",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_07:0:f1_s0"
+        },
+        {
+          "arm": "f0_s1",
+          "case_id": "slice_07",
+          "correct": true,
+          "errors": [],
+          "trial_id": "surface_probe:slice_07:0:f0_s1"
+        }
+      ]
+    }
+  },
+  "schema_version": "gamespec-interface-v4-comparison"
+}

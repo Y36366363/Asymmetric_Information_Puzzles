@@ -473,6 +473,56 @@
       ]
     },
     {
+      "id": "gamespec_v4_typed_interface_source_model_check",
+      "status": "mixed",
+      "statement": "固定三模型336次接口检查完成；原动态密封出价与表面探针未复现越界错误，模型和来源说明效果仍有条件差异。",
+      "scope": "四对已见规则、两组依赖的密封出价表面探针；原模型105/112、Luna109/112、Sol112/112；非独立游戏总体样本。",
+      "limitations": "共同更换proposal表示与常量序列化，不能把历史改善归因于schema一个因素；仍有10例失败；不能排除开发集选择过拟合；Sol推理参数不同。",
+      "next_question": "冻结Luna+受限输出+来源说明作为候选配置，在真正未参与开发的规则实例上验证，再设计正式结构vs语义反馈试验。",
+      "evidence": [
+        {
+          "path": "research/results/gamespec_interface_v4_2026-10-26/mini41.json",
+          "sha256": "fb96fc494adc5374978f26a035ef80932a0239953b4a490c006d3213bd0d744f",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/status", "equals": "completed"},
+            {"pointer": "/analysis/cells/f1_s1/repair/correct", "equals": 8},
+            {"pointer": "/analysis/scope_false_acceptances", "equals": 0}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_interface_v4_2026-10-26/luna6.json",
+          "sha256": "4821fc8c2116e10f0772286aeba5d7f2c7f323692e1cfc578bdf93d7cfa680e8",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/status", "equals": "completed"},
+            {"pointer": "/analysis/cells/f0_s0/static/correct", "equals": 5},
+            {"pointer": "/analysis/cells/f1_s1/repair/correct", "equals": 8}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_interface_v4_2026-10-26/sol61.json",
+          "sha256": "5c7628eca15b41da1f6102c6c0e484577dd6e7c5fddf52c33e4eaa53bf36148b",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/status", "equals": "completed"},
+            {"pointer": "/analysis/all_failures", "equals": []},
+            {"pointer": "/analysis/overall_scientific_pass", "equals": null}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_interface_v4_2026-10-26/comparison.json",
+          "sha256": "c00c65ce04c6d351d31393dd5c6b3792f060eda1b69d8146f35da73142678454",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/historical_results_reinterpreted", "equals": false},
+            {"pointer": "/generalization_or_no_overfit_proven", "equals": false},
+            {"pointer": "/formal_trial_allowed", "equals": false}
+          ]
+        }
+      ]
+    },
+    {
       "id": "general_llm_solver",
       "status": "not_established",
       "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",
