@@ -1,0 +1,82 @@
+{
+  "manifest_id": "gamespec_prospective_v5_2026-10-27",
+  "candidate_configuration": "gpt-6-luna + v4 f1_s1 strict proposal schema + unchanged source priority + unchanged deterministic serializer",
+  "reference_configuration": "gpt-6.1-sol + same f1_s1 interface; low effort, temperature omitted as in v4",
+  "frozen_configuration_source": "configs/gamespec_interface_v4_2026-10-26.json",
+  "provenance": {
+    "instances_created": "2026-10-27, after v4 configuration selection, before any v5 generation",
+    "split": "prospective authored instances not used for v1-v4 prompting or model/configuration selection",
+    "not_claimed": ["external blinded evaluation", "unknown model training data", "new independent game families", "powered formal trial", "proof of no overfitting"],
+    "no_adaptation": "Freeze rules, prompt text, schema, serializer, scoring, order and repeats before calls; do not revise after failures or select best-model answers. Results consume these instances for future development."
+  },
+  "schedule": {
+    "repeats": 2,
+    "scope_case_order": ["item_306", "item_814", "item_527", "item_142", "item_671", "item_930", "item_458", "item_209"],
+    "task_order": ["scope", "witness_repair"],
+    "calls_per_trial": 1,
+    "trials_per_model": 24,
+    "maximum_generation_calls": 48,
+    "maximum_global_concurrency": 2,
+    "per_model_concurrency": 1,
+    "maximum_input_tokens": 10000,
+    "maximum_output_tokens": 2500,
+    "timeout_seconds": 60,
+    "automatic_retries": 0,
+    "scope": "four static/dynamic pairs, both sides twice, no feedback",
+    "witness_repair": "four static instances twice; fixed two wrong initial partitions and two preselected contrasts, same as v4 procedure; one repair reply",
+    "provider_error": "stop affected model, retain all assigned denominators; other fixed model may finish; no substitution/retry or amended task parameters"
+  },
+  "pairs": [
+    {
+      "pair_id": "navigation",
+      "fields": {"route": "player 0 navigation route", "fuel": "player 1 fuel reserve", "window": "public departure window", "beacon": "public beacon reading"},
+      "static_id": "item_671", "dynamic_id": "item_306",
+      "static_rules": "There are two modeled navigation decisions, t=0 and t=1. At both decisions, both players read window and beacon. Only player 0 reads route; only player 1 reads fuel. Between the decisions a public manoeuvre may change the value of route, but player 1 still cannot read route. Neither player can infer the other private field from the public fields. Field visibility is unchanged; route values changing do not make route public.",
+      "dynamic_rules": "There are two modeled navigation decisions, t=0 and t=1. Both players read window and beacon at both decisions. Only player 0 reads route at t=0; fuel is read only by player 1 throughout. Between the decisions a tracking screen displays the SAME route to both players, and player 1 can read route at t=1. One observation model must include both decisions using the same four fields, without splitting or renaming route.",
+      "owners": {"route": "player_0", "fuel": "player_1", "window": "public", "beacon": "public"},
+      "static_visibility": [["route", "window", "beacon"], ["fuel", "window", "beacon"]],
+      "dynamic_visibility": [[["route", "window", "beacon"], ["fuel", "window", "beacon"]], [["route", "window", "beacon"], ["fuel", "window", "beacon", "route"]]]
+    },
+    {
+      "pair_id": "laboratory",
+      "fields": {"specimen": "specimen code", "key": "decoding key", "order": "player 0 work order", "timer": "public timer", "notice": "public instruction notice"},
+      "static_id": "item_814", "dynamic_id": "item_209",
+      "static_rules": "The modeled laboratory slice ends immediately after the second of two decisions. During both decisions, player 1 alone sees specimen and key, player 0 alone sees order, and both see timer and notice. All these values are independently selectable. A specimen disclosure is scheduled AFTER the slice has ended; there are no modeled decisions after that disclosure. In this slice, neither player observes the other player's private fields.",
+      "dynamic_rules": "The modeled laboratory slice has two decisions. During the first decision, player 1 alone sees specimen and key, player 0 alone sees order, and both see timer and notice. Before the SECOND modeled decision, specimen is displayed to both players. Key remains visible only to player 1, order only to player 0, and timer and notice to both. The same specimen field and both decisions must be represented without splitting or renaming fields.",
+      "owners": {"specimen": "player_1", "key": "player_1", "order": "player_0", "timer": "public", "notice": "public"},
+      "static_visibility": [["order", "timer", "notice"], ["specimen", "key", "timer", "notice"]],
+      "dynamic_visibility": [[["order", "timer", "notice"], ["specimen", "key", "timer", "notice"]], [["order", "timer", "notice", "specimen"], ["specimen", "key", "timer", "notice"]]]
+    },
+    {
+      "pair_id": "maintenance",
+      "fields": {"fault": "fault identifier", "manual": "repair manual code", "panel": "public equipment panel", "alarm": "public alarm switch"},
+      "static_id": "item_527", "dynamic_id": "item_930",
+      "static_rules": "The maintenance rules cover decisions with alarm=0 and decisions with alarm=1. Regardless of alarm, both players see panel and alarm, only player 0 sees fault and manual, and player 1 sees neither fault nor manual. Alarm changes available repair actions but grants no observation access. All field values can vary independently, so panel and alarm do not disclose fault or manual.",
+      "dynamic_rules": "The maintenance model must cover decisions before and after the alarm is enabled. At the first decision alarm=0, both see panel and alarm, only player 0 sees fault and manual, and player 1 sees neither private field. Before a later modeled decision alarm is enabled, causing the SAME fault identifier to be displayed to player 1 as well as player 0. Manual remains visible only to player 0. Include both alarm conditions under the same field names without splitting fault.",
+      "owners": {"fault": "player_0", "manual": "player_0", "panel": "public", "alarm": "public"},
+      "static_visibility": [["fault", "manual", "panel", "alarm"], ["panel", "alarm"]],
+      "dynamic_visibility": [[["fault", "manual", "panel", "alarm"], ["panel", "alarm"]], [["fault", "manual", "panel", "alarm"], ["panel", "alarm", "fault"]]]
+    },
+    {
+      "pair_id": "archive",
+      "fields": {"dossier": "private dossier code", "seal": "private seal code", "index": "private archive index", "clock": "public clock", "display": "public display counter"},
+      "static_id": "item_142", "dynamic_id": "item_458",
+      "static_rules": "At every modeled archive decision both players see clock and display. Player 1 alone sees dossier, seal and index; player 0 has no private fields and cannot see any of those three. Display is a counter, not a disclosure of dossier, seal or index, whose values are independent. A public announcement that a seal was inspected does not reveal its code. These observations are the same before and after that announcement.",
+      "dynamic_rules": "At the first modeled archive decision both players see clock and display, and player 1 alone sees dossier, seal and index. Player 0 has no private fields. Before the next modeled decision, the SAME seal code is read aloud and becomes known to both players. Dossier and index remain visible only to player 1. Both decisions and the same five fields must be represented without splitting or renaming seal.",
+      "owners": {"dossier": "player_1", "seal": "player_1", "index": "player_1", "clock": "public", "display": "public"},
+      "static_visibility": [["clock", "display"], ["dossier", "seal", "index", "clock", "display"]],
+      "dynamic_visibility": [[["clock", "display"], ["dossier", "seal", "index", "clock", "display"]], [["clock", "display", "seal"], ["dossier", "seal", "index", "clock", "display"]]]
+    }
+  ],
+  "independent_scoring": {
+    "table_oracle": "Authored per-context/player visible-field sets, never model output. Independently enumerate 3^n static partitions; static contexts must match exactly, no dynamic context admits one constant partition. Derive ALL valid visibility-change witnesses from context tables, not a single arbitrary witness.",
+    "cross_check": "unchanged v4 serialization and v3 final-score/refusal evaluation must agree with direct visibility-set oracle on every answer; discrepancy stops dispatch and retains counterexample, no LLM pilot progression",
+    "reference_limit": "Two representations of an authored reference are not two independent human sources; tests establish internal agreement, not automatic natural-language truth or full game semantics",
+    "primary": "joint correct static/dynamic side per pair and repeat, in-scope reference verification, OOS strict refusal, exact static repair; every failure retained",
+    "uncertainty": "four prospective authored pairs with technical repeats, not external blinded game-family sampling; no overall scientific pass line, general population CI or power claim",
+    "reports": ["per-pair repeat outcomes", "candidate serialization", "independent verification", "false certifications", "OOS false acceptance", "repair successes", "all raw responses", "model disagreement", "resource usage", "latency"],
+    "formal_trial_started": false
+  },
+  "immutable_baselines": ["research/results/gamespec_interface_v4_2026-10-26/luna6.json", "research/results/gamespec_interface_v4_2026-10-26/sol61.json", "research/results/gamespec_scope_ablation_v3_2026-10-25/report.json"],
+  "safety": {"adaptive_opponent_line_released": false, "new_runtime_epsilon_gto_allowed": false, "new_game_or_cfr_variant": false, "no_41mini_generation": true}
+}
