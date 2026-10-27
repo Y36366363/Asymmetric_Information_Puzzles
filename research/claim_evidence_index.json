@@ -523,6 +523,49 @@
       ]
     },
     {
+      "id": "gamespec_v5_prospective_frozen_luna_sol",
+      "status": "mixed",
+      "statement": "冻结Luna+受限schema+来源优先级后，四对前瞻性新实例完成48次调用；Luna23/24、Sol24/24，保留唯一错误见证。",
+      "scope": "四对2026-10-27新编观察规则、两次技术重复；无新游戏、CFR变体或运行时GTO开放；Sol是独立对照而非替换答案。",
+      "limitations": "非外部盲测，参考和阶段表共享人工依据；Luna拒绝正确但一次玩家与方向错误；小样本不能建立泛化或语义反馈因果效果。",
+      "next_question": "独立审查的新规则与玩家/方向平衡的见证诊断需另行冻结，不在已消耗实例上追加预算覆盖失败。",
+      "evidence": [
+        {
+          "path": "research/results/gamespec_prospective_v5_2026-10-27/luna6.json",
+          "sha256": "8f4107de90eb5c09d208663c5547478726d087d8df4d83d022b61b8e3c7699e7",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/status", "equals": "completed"},
+            {"pointer": "/analysis/groups/dynamic/correct", "equals": 7},
+            {"pointer": "/analysis/groups/repair/correct", "equals": 8},
+            {"pointer": "/analysis/generalization_proven", "equals": false},
+            {"pointer": "/runtime_epsilon_gto_allowed", "equals": false}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_prospective_v5_2026-10-27/sol61.json",
+          "sha256": "fb12d483cc072ef2db4a660189ee48fe723b1f00a6bf88632f61c2ed7cc15296",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/status", "equals": "completed"},
+            {"pointer": "/analysis/joint_pair_success", "equals": 8},
+            {"pointer": "/analysis/all_failures", "equals": []},
+            {"pointer": "/adaptive_opponent_line_released", "equals": false}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_prospective_v5_2026-10-27/comparison.json",
+          "sha256": "c5d042e2f0600ce0380ac0c763e43fbd86bc9eac2989bee4d3c0ea45e5e20a06",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/historical_failures_reinterpreted", "equals": false},
+            {"pointer": "/external_blind_holdout", "equals": false},
+            {"pointer": "/formal_trial_started", "equals": false}
+          ]
+        }
+      ]
+    },
+    {
       "id": "general_llm_solver",
       "status": "not_established",
       "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",

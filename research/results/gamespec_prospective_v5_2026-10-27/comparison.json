@@ -1,0 +1,240 @@
+{
+  "adaptive_opponent_line_released": false,
+  "correctness_disagreements": [
+    {
+      "luna_correct": false,
+      "sol_correct": true,
+      "trial_id": "scope:item_306:1:f1_s1"
+    }
+  ],
+  "external_blind_holdout": false,
+  "formal_trial_started": false,
+  "historical_failures_reinterpreted": false,
+  "models": {
+    "luna6": {
+      "analysis": {
+        "adaptive_opponent_line_released": false,
+        "all_failures": [
+          {
+            "errors": [
+              "wrong_refusal_witness"
+            ],
+            "trial_id": "scope:item_306:1:f1_s1"
+          }
+        ],
+        "cost_usd": 0.0032978,
+        "false_certifications": 0,
+        "feedback_exposures": 8,
+        "formal_trial_started": false,
+        "generalization_proven": false,
+        "groups": {
+          "dynamic": {
+            "assigned": 8,
+            "completed": 8,
+            "correct": 7
+          },
+          "repair": {
+            "assigned": 8,
+            "completed": 8,
+            "correct": 8
+          },
+          "static": {
+            "assigned": 8,
+            "completed": 8,
+            "correct": 8
+          }
+        },
+        "joint_pair_assigned": 8,
+        "joint_pair_success": 7,
+        "latency_seconds": 72.18665483396035,
+        "new_runtime_epsilon_gto_allowed": false,
+        "oos_false_acceptances": 0,
+        "overall_scientific_pass": null,
+        "pair_results": [
+          {
+            "joint_by_repeat": [
+              true,
+              false
+            ],
+            "pair_id": "navigation",
+            "repair_by_repeat": [
+              true,
+              true
+            ]
+          },
+          {
+            "joint_by_repeat": [
+              true,
+              true
+            ],
+            "pair_id": "laboratory",
+            "repair_by_repeat": [
+              true,
+              true
+            ]
+          },
+          {
+            "joint_by_repeat": [
+              true,
+              true
+            ],
+            "pair_id": "maintenance",
+            "repair_by_repeat": [
+              true,
+              true
+            ]
+          },
+          {
+            "joint_by_repeat": [
+              true,
+              true
+            ],
+            "pair_id": "archive",
+            "repair_by_repeat": [
+              true,
+              true
+            ]
+          }
+        ],
+        "provider_attempts": 24,
+        "reasoning_tokens": 0,
+        "tokens": {
+          "completion_tokens": 1166,
+          "prompt_tokens": 27148
+        },
+        "uncertainty": "four prospective authored pairs with technical repeats, not external blinded game-family sampling; no overall scientific pass line, general population CI or power claim"
+      },
+      "model_parameters": {
+        "automatic_retries": 0,
+        "concurrency": 1,
+        "endpoint": "chat_completions",
+        "input_usd_per_million": 0.1,
+        "maximum_input_tokens": 10000,
+        "maximum_output_tokens": 2500,
+        "model_id": "gpt-6-luna",
+        "output_usd_per_million": 0.5,
+        "pricing_checked_date": "2026-10-21",
+        "pricing_source": "https://developers.openai.com/api/docs/pricing",
+        "provider": "openai",
+        "reasoning_effort": "none",
+        "response_format": "json_object",
+        "snapshot_source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+        "substitution_allowed": false,
+        "temperature": 0,
+        "timeout_seconds": 60
+      },
+      "status": "completed",
+      "stop_reason": null
+    },
+    "sol61": {
+      "analysis": {
+        "adaptive_opponent_line_released": false,
+        "all_failures": [],
+        "cost_usd": 0.065956,
+        "false_certifications": 0,
+        "feedback_exposures": 8,
+        "formal_trial_started": false,
+        "generalization_proven": false,
+        "groups": {
+          "dynamic": {
+            "assigned": 8,
+            "completed": 8,
+            "correct": 8
+          },
+          "repair": {
+            "assigned": 8,
+            "completed": 8,
+            "correct": 8
+          },
+          "static": {
+            "assigned": 8,
+            "completed": 8,
+            "correct": 8
+          }
+        },
+        "joint_pair_assigned": 8,
+        "joint_pair_success": 8,
+        "latency_seconds": 66.43069387489231,
+        "new_runtime_epsilon_gto_allowed": false,
+        "oos_false_acceptances": 0,
+        "overall_scientific_pass": null,
+        "pair_results": [
+          {
+            "joint_by_repeat": [
+              true,
+              true
+            ],
+            "pair_id": "navigation",
+            "repair_by_repeat": [
+              true,
+              true
+            ]
+          },
+          {
+            "joint_by_repeat": [
+              true,
+              true
+            ],
+            "pair_id": "laboratory",
+            "repair_by_repeat": [
+              true,
+              true
+            ]
+          },
+          {
+            "joint_by_repeat": [
+              true,
+              true
+            ],
+            "pair_id": "maintenance",
+            "repair_by_repeat": [
+              true,
+              true
+            ]
+          },
+          {
+            "joint_by_repeat": [
+              true,
+              true
+            ],
+            "pair_id": "archive",
+            "repair_by_repeat": [
+              true,
+              true
+            ]
+          }
+        ],
+        "provider_attempts": 24,
+        "reasoning_tokens": 0,
+        "tokens": {
+          "completion_tokens": 1166,
+          "prompt_tokens": 27148
+        },
+        "uncertainty": "four prospective authored pairs with technical repeats, not external blinded game-family sampling; no overall scientific pass line, general population CI or power claim"
+      },
+      "model_parameters": {
+        "automatic_retries": 0,
+        "concurrency": 1,
+        "endpoint": "chat_completions",
+        "input_usd_per_million": 2,
+        "maximum_input_tokens": 10000,
+        "maximum_output_tokens": 2500,
+        "model_id": "gpt-6.1-sol",
+        "output_usd_per_million": 10,
+        "pricing_checked_date": "2026-10-21",
+        "pricing_source": "https://developers.openai.com/api/docs/pricing",
+        "provider": "openai",
+        "reasoning_effort": "low",
+        "response_format": "json_object",
+        "snapshot_source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+        "substitution_allowed": false,
+        "temperature": null,
+        "timeout_seconds": 60
+      },
+      "status": "completed",
+      "stop_reason": null
+    }
+  },
+  "runtime_epsilon_gto_allowed": false,
+  "schema_version": "gamespec-prospective-v5-comparison"
+}
