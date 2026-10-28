@@ -1,0 +1,334 @@
+{
+  "manifest_id": "gamespec_witness_diagnostic_v6_2026-10-28",
+  "candidate_configuration": "unchanged v4 f1_s1 gpt-6-luna strict schema and source priority",
+  "reference_configuration": "unchanged v4 f1_s1 gpt-6.1-sol",
+  "provenance": {
+    "split": "development diagnostic derived from v5 navigation witness failure; NOT new held-out or independent rules",
+    "authors": "project development agent; no independent human review claimed",
+    "no_adaptation": "Freeze once before calls; no prompt/schema/score changes, resampling, answer selection or old-result rescoring."
+  },
+  "design": {
+    "factors": [
+      "affected player 0/1",
+      "visibility gain/loss"
+    ],
+    "cells": 4,
+    "technical_repeats": 2,
+    "independent_rule_instances": 0,
+    "dependency": "Binary initial visibility is determined by change direction; balance marginal counts, not an independent factorial factor.",
+    "memory": "Both static and dynamic rules redraw the current value before decision 1, so loss means no access to a new independent value, not erasure of remembered information.",
+    "primary": "per-cell joint static/dynamic correctness; all failures including exact field/player/before/after labels",
+    "not_claimed": [
+      "causal error source",
+      "generalization",
+      "formal repair research",
+      "overall scientific pass",
+      "deployment readiness"
+    ]
+  },
+  "schedule": {
+    "repeats": 2,
+    "scope_case_order": [
+      "probe_954",
+      "probe_741",
+      "probe_128",
+      "probe_817",
+      "probe_362",
+      "probe_283",
+      "probe_635",
+      "probe_596"
+    ],
+    "trials_per_model": 16,
+    "maximum_generation_calls": 32,
+    "calls_per_trial": 1,
+    "automatic_retries": 0,
+    "maximum_global_concurrency": 2,
+    "per_model_concurrency": 1,
+    "maximum_input_tokens": 10000,
+    "maximum_output_tokens": 2500,
+    "timeout_seconds": 60,
+    "task": "scope only, no feedback or repair",
+    "provider_error": "stop affected model, preserve assigned denominator; no retry/substitution",
+    "resource_guard": "retain frozen input/output caps; abnormal or ambiguous provider failures stop; cost is resource reporting, not validity"
+  },
+  "pairs": [
+    {
+      "pair_id": "p0_gain",
+      "affected_player": 0,
+      "direction": "gain",
+      "fields": {
+        "route": "current navigation route",
+        "fuel": "private fuel reserve",
+        "window": "public departure window",
+        "beacon": "public beacon reading"
+      },
+      "static_id": "probe_741",
+      "dynamic_id": "probe_362",
+      "static_rules": "This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 0 sees fuel throughout. All field values are independently selectable. At BOTH modeled decisions only player 1 can read the current route. Its visibility never changes.",
+      "dynamic_rules": "This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 0 sees fuel throughout. All field values are independently selectable. At t=0 only player 1 can read the current route. At t=1 both players can read the current route. Model both decisions with these SAME field names; do not split or rename route. A single observation model must cover both decisions.",
+      "owners": {
+        "route": "player_1",
+        "fuel": "player_0",
+        "window": "public",
+        "beacon": "public"
+      },
+      "static_visibility": [
+        [
+          "fuel",
+          "window",
+          "beacon"
+        ],
+        [
+          "route",
+          "window",
+          "beacon"
+        ]
+      ],
+      "dynamic_visibility": [
+        [
+          [
+            "fuel",
+            "window",
+            "beacon"
+          ],
+          [
+            "route",
+            "window",
+            "beacon"
+          ]
+        ],
+        [
+          [
+            "route",
+            "fuel",
+            "window",
+            "beacon"
+          ],
+          [
+            "route",
+            "window",
+            "beacon"
+          ]
+        ]
+      ]
+    },
+    {
+      "pair_id": "p0_loss",
+      "affected_player": 0,
+      "direction": "loss",
+      "fields": {
+        "route": "current navigation route",
+        "fuel": "private fuel reserve",
+        "window": "public departure window",
+        "beacon": "public beacon reading"
+      },
+      "static_id": "probe_283",
+      "dynamic_id": "probe_954",
+      "static_rules": "This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 0 sees fuel throughout. All field values are independently selectable. At BOTH modeled decisions both players can read the current route. Its visibility never changes.",
+      "dynamic_rules": "This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 0 sees fuel throughout. All field values are independently selectable. At t=0 both players can read the current route. At t=1 only player 1 can read the current route. Model both decisions with these SAME field names; do not split or rename route. A single observation model must cover both decisions.",
+      "owners": {
+        "route": "public",
+        "fuel": "player_0",
+        "window": "public",
+        "beacon": "public"
+      },
+      "static_visibility": [
+        [
+          "route",
+          "fuel",
+          "window",
+          "beacon"
+        ],
+        [
+          "route",
+          "window",
+          "beacon"
+        ]
+      ],
+      "dynamic_visibility": [
+        [
+          [
+            "route",
+            "fuel",
+            "window",
+            "beacon"
+          ],
+          [
+            "route",
+            "window",
+            "beacon"
+          ]
+        ],
+        [
+          [
+            "fuel",
+            "window",
+            "beacon"
+          ],
+          [
+            "route",
+            "window",
+            "beacon"
+          ]
+        ]
+      ]
+    },
+    {
+      "pair_id": "p1_gain",
+      "affected_player": 1,
+      "direction": "gain",
+      "fields": {
+        "route": "current navigation route",
+        "fuel": "private fuel reserve",
+        "window": "public departure window",
+        "beacon": "public beacon reading"
+      },
+      "static_id": "probe_596",
+      "dynamic_id": "probe_128",
+      "static_rules": "This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 1 sees fuel throughout. All field values are independently selectable. At BOTH modeled decisions only player 0 can read the current route. Its visibility never changes.",
+      "dynamic_rules": "This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 1 sees fuel throughout. All field values are independently selectable. At t=0 only player 0 can read the current route. At t=1 both players can read the current route. Model both decisions with these SAME field names; do not split or rename route. A single observation model must cover both decisions.",
+      "owners": {
+        "route": "player_0",
+        "fuel": "player_1",
+        "window": "public",
+        "beacon": "public"
+      },
+      "static_visibility": [
+        [
+          "route",
+          "window",
+          "beacon"
+        ],
+        [
+          "fuel",
+          "window",
+          "beacon"
+        ]
+      ],
+      "dynamic_visibility": [
+        [
+          [
+            "route",
+            "window",
+            "beacon"
+          ],
+          [
+            "fuel",
+            "window",
+            "beacon"
+          ]
+        ],
+        [
+          [
+            "route",
+            "window",
+            "beacon"
+          ],
+          [
+            "route",
+            "fuel",
+            "window",
+            "beacon"
+          ]
+        ]
+      ]
+    },
+    {
+      "pair_id": "p1_loss",
+      "affected_player": 1,
+      "direction": "loss",
+      "fields": {
+        "route": "current navigation route",
+        "fuel": "private fuel reserve",
+        "window": "public departure window",
+        "beacon": "public beacon reading"
+      },
+      "static_id": "probe_817",
+      "dynamic_id": "probe_635",
+      "static_rules": "This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 1 sees fuel throughout. All field values are independently selectable. At BOTH modeled decisions both players can read the current route. Its visibility never changes.",
+      "dynamic_rules": "This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 1 sees fuel throughout. All field values are independently selectable. At t=0 both players can read the current route. At t=1 only player 0 can read the current route. Model both decisions with these SAME field names; do not split or rename route. A single observation model must cover both decisions.",
+      "owners": {
+        "route": "public",
+        "fuel": "player_1",
+        "window": "public",
+        "beacon": "public"
+      },
+      "static_visibility": [
+        [
+          "route",
+          "window",
+          "beacon"
+        ],
+        [
+          "route",
+          "fuel",
+          "window",
+          "beacon"
+        ]
+      ],
+      "dynamic_visibility": [
+        [
+          [
+            "route",
+            "window",
+            "beacon"
+          ],
+          [
+            "route",
+            "fuel",
+            "window",
+            "beacon"
+          ]
+        ],
+        [
+          [
+            "route",
+            "window",
+            "beacon"
+          ],
+          [
+            "fuel",
+            "window",
+            "beacon"
+          ]
+        ]
+      ]
+    }
+  ],
+  "independent_scoring": {
+    "uncertainty": "Four transformations of one development template, two technical repeats per side; no independent rule-family sampling or population CI.",
+    "scorer": "unchanged v4 evaluator and v5 direct visibility-table oracle; no main scorer changes",
+    "taxonomy": [
+      "wrong_affected_player",
+      "wrong_initial_visibility",
+      "wrong_final_visibility",
+      "reversed_change_direction",
+      "wrong_changed_field",
+      "no_visibility_change",
+      "static_false_refusal",
+      "wrong_static_partition",
+      "dynamic_false_acceptance",
+      "interface_contract_error",
+      "incomplete_or_provider_error"
+    ],
+    "taxonomy_overlap": "Labels overlap; no summing overlapping counts as distinct failures.",
+    "overall_scientific_pass": null
+  },
+  "immutable_baselines": [
+    "research/results/gamespec_prospective_v5_2026-10-27/luna6.json",
+    "research/results/gamespec_prospective_v5_2026-10-27/sol61.json",
+    "research/results/gamespec_prospective_v5_2026-10-27/comparison.json"
+  ],
+  "independent_review": {
+    "status": "pending_external_contribution",
+    "no_synthetic_independence": true,
+    "rule": "Do not contact others without explicit user instruction; do not use developer-authored diagnostics as independent review. Freeze independently authored/reviewed rules, provenance and one-shot schedule in a separate manifest before calls."
+  },
+  "safety": {
+    "adaptive_opponent_line_released": false,
+    "new_runtime_epsilon_gto_allowed": false,
+    "formal_trial_started": false,
+    "new_game_or_cfr_variant": false,
+    "no_41mini_generation": true
+  }
+}
