@@ -566,6 +566,52 @@
       ]
     },
     {
+      "id": "gamespec_v6_witness_development_diagnostic",
+      "status": "mixed",
+      "statement": "预注册的玩家/可见性方向开发诊断完成32次调用，Luna与Sol各16/16；未收集到独立审查规则，未赋予总体通过或部署许可。",
+      "scope": "同一开发模板的四种变换、静态/动态配对及两次技术重复；模型、提示、接口、主评分器不变。",
+      "limitations": "不是新held-out；减少可见性采用新值独立重抽，不能与上轮规则直接比较改进；未复现错误不证明消除错误。独立审查入口只核验材料/声明，不能证明身份或自然语言真值。",
+      "next_question": "取得未参与开发者独立编写/审核的新规则和阶段表，保留初次分歧，再另行冻结一次性评估；正式修复研究仍未开始。",
+      "evidence": [
+        {
+          "path": "research/results/gamespec_witness_diagnostic_v6_2026-10-28/luna6.json",
+          "sha256": "5d4a8058d299476108d55789470e033c2a2b1559f76e70731d07296f4d27564a",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/status", "equals": "completed"},
+            {"pointer": "/analysis/groups/static/correct", "equals": 8},
+            {"pointer": "/analysis/groups/dynamic/correct", "equals": 8},
+            {"pointer": "/analysis/all_failures", "equals": []}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_witness_diagnostic_v6_2026-10-28/sol61.json",
+          "sha256": "48d90f95ea97f190b37118d4de964a1ded17673a1bf998a1f20909eb78076d87",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/status", "equals": "completed"},
+            {"pointer": "/analysis/groups/static/correct", "equals": 8},
+            {"pointer": "/analysis/groups/dynamic/correct", "equals": 8},
+            {"pointer": "/analysis/all_failures", "equals": []}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_witness_diagnostic_v6_2026-10-28/comparison.json",
+          "sha256": "012366e652d2efc8aad0880024dced1f7354fd3d3c6a2852e6f324f5dac3becd",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/independent_panel_evaluated", "equals": false},
+            {"pointer": "/models/luna6/independent_rule_instances", "equals": 0},
+            {"pointer": "/models/luna6/held_out", "equals": false},
+            {"pointer": "/models/luna6/overall_scientific_pass", "equals": null},
+            {"pointer": "/models/sol61/deployment_permission", "equals": false},
+            {"pointer": "/formal_trial_started", "equals": false},
+            {"pointer": "/new_runtime_epsilon_gto_allowed", "equals": false}
+          ]
+        }
+      ]
+    },
+    {
       "id": "general_llm_solver",
       "status": "not_established",
       "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",

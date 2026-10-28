@@ -1,0 +1,3979 @@
+{
+  "adaptive_opponent_line_released": false,
+  "analysis": {
+    "adaptive_opponent_line_released": false,
+    "all_failures": [],
+    "cost_usd": 0.0020424,
+    "false_certifications": 0,
+    "feedback_exposures": 0,
+    "formal_trial_started": false,
+    "generalization_proven": false,
+    "groups": {
+      "dynamic": {
+        "assigned": 8,
+        "completed": 8,
+        "correct": 8
+      },
+      "repair": {
+        "assigned": 0,
+        "completed": 0,
+        "correct": 0
+      },
+      "static": {
+        "assigned": 8,
+        "completed": 8,
+        "correct": 8
+      }
+    },
+    "joint_pair_assigned": 8,
+    "joint_pair_success": 8,
+    "latency_seconds": 20.939074627356604,
+    "new_runtime_epsilon_gto_allowed": false,
+    "oos_false_acceptances": 0,
+    "overall_scientific_pass": null,
+    "pair_results": [
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p0_gain",
+        "repair_by_repeat": [
+          false,
+          false
+        ]
+      },
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p0_loss",
+        "repair_by_repeat": [
+          false,
+          false
+        ]
+      },
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p1_gain",
+        "repair_by_repeat": [
+          false,
+          false
+        ]
+      },
+      {
+        "joint_by_repeat": [
+          true,
+          true
+        ],
+        "pair_id": "p1_loss",
+        "repair_by_repeat": [
+          false,
+          false
+        ]
+      }
+    ],
+    "provider_attempts": 16,
+    "reasoning_tokens": 0,
+    "tokens": {
+      "completion_tokens": 736,
+      "prompt_tokens": 16744
+    },
+    "uncertainty": "Four transformations of one development template, two technical repeats per side; no independent rule-family sampling or population CI."
+  },
+  "attempts": [
+    {
+      "attempt_id": 0,
+      "cost_usd": 0.0001263,
+      "errors": [],
+      "input_token_preflight": 3773,
+      "latency_seconds": 2.461187749984674,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_954\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 0 sees fuel throughout. All field values are independently selectable. At t=0 both players can read the current route. At t=1 only player 1 can read the current route. Model both decisions with these SAME field names; do not split or rename route. A single observation model must cover both decisions.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"route\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229792,
+        "id": "chatcmpl-Ee7H6NjOaGCRduaz7SLZ9TIvSUQmK",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 40,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1063,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 1060,
+            "cached_tokens": 0
+          },
+          "total_tokens": 1103
+        }
+      },
+      "request_id": "req_35da10f3791d4f3d9aebb3036f80dd98",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_954:0:f1_s1"
+    },
+    {
+      "attempt_id": 1,
+      "cost_usd": 0.0001263,
+      "errors": [],
+      "input_token_preflight": 3773,
+      "latency_seconds": 1.5563475410453975,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_954\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 0 sees fuel throughout. All field values are independently selectable. At t=0 both players can read the current route. At t=1 only player 1 can read the current route. Model both decisions with these SAME field names; do not split or rename route. A single observation model must cover both decisions.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"route\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229793,
+        "id": "chatcmpl-Ee7H7vbiZ9ymuQHr58Rk6gAhfdvgR",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 40,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1063,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 0,
+            "cached_tokens": 1060
+          },
+          "total_tokens": 1103
+        }
+      },
+      "request_id": "req_d8f86633a1a1437ca0ea54ad0c8b1b30",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_954:1:f1_s1"
+    },
+    {
+      "attempt_id": 2,
+      "cost_usd": 0.00012910000000000002,
+      "errors": [],
+      "input_token_preflight": 3640,
+      "latency_seconds": 1.5665603340603411,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_741\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 0 sees fuel throughout. All field values are independently selectable. At BOTH modeled decisions only player 1 can read the current route. Its visibility never changes.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"window\",\"beacon\"],\"private_fields_by_player\":{\"player_0\":[\"fuel\"],\"player_1\":[\"route\"]}}],\"witness\":null}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229795,
+        "id": "chatcmpl-Ee7H94rEk0ygIqYcvaiF4bMJC3AQd",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 52,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1031,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 1028,
+            "cached_tokens": 0
+          },
+          "total_tokens": 1083
+        }
+      },
+      "request_id": "req_d69db8f9795f4d75aa7183ba5edf2013",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_741:0:f1_s1"
+    },
+    {
+      "attempt_id": 3,
+      "cost_usd": 0.00012910000000000002,
+      "errors": [],
+      "input_token_preflight": 3640,
+      "latency_seconds": 1.036820000037551,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_741\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 0 sees fuel throughout. All field values are independently selectable. At BOTH modeled decisions only player 1 can read the current route. Its visibility never changes.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"window\",\"beacon\"],\"private_fields_by_player\":{\"player_0\":[\"fuel\"],\"player_1\":[\"route\"]}}],\"witness\":null}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229796,
+        "id": "chatcmpl-Ee7HAkqouzp7BPmXg2chU2YFv3mgt",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 52,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1031,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 0,
+            "cached_tokens": 1028
+          },
+          "total_tokens": 1083
+        }
+      },
+      "request_id": "req_82515b864ecf47818ed610fd0fbf8a47",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_741:1:f1_s1"
+    },
+    {
+      "attempt_id": 4,
+      "cost_usd": 0.0001263,
+      "errors": [],
+      "input_token_preflight": 3773,
+      "latency_seconds": 1.438533041975461,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_128\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 1 sees fuel throughout. All field values are independently selectable. At t=0 only player 0 can read the current route. At t=1 both players can read the current route. Model both decisions with these SAME field names; do not split or rename route. A single observation model must cover both decisions.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"route\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229797,
+        "id": "chatcmpl-Ee7HBqqAX667CRy7LtJkKyZATkjUv",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 40,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1063,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 1060,
+            "cached_tokens": 0
+          },
+          "total_tokens": 1103
+        }
+      },
+      "request_id": "req_793d47f7790e42518cb1e779809e9f08",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_128:0:f1_s1"
+    },
+    {
+      "attempt_id": 5,
+      "cost_usd": 0.0001263,
+      "errors": [],
+      "input_token_preflight": 3773,
+      "latency_seconds": 1.0655533749377355,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_128\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 1 sees fuel throughout. All field values are independently selectable. At t=0 only player 0 can read the current route. At t=1 both players can read the current route. Model both decisions with these SAME field names; do not split or rename route. A single observation model must cover both decisions.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"route\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229799,
+        "id": "chatcmpl-Ee7HDu8o2hbC7v6nF8x8Z3Mmthdtb",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 40,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1063,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 0,
+            "cached_tokens": 1060
+          },
+          "total_tokens": 1103
+        }
+      },
+      "request_id": "req_bb059e31dd9144819a476ef292f94ddd",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_128:1:f1_s1"
+    },
+    {
+      "attempt_id": 6,
+      "cost_usd": 0.00012890000000000002,
+      "errors": [],
+      "input_token_preflight": 3639,
+      "latency_seconds": 1.318784000002779,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_817\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 1 sees fuel throughout. All field values are independently selectable. At BOTH modeled decisions both players can read the current route. Its visibility never changes.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"route\",\"window\",\"beacon\"],\"private_fields_by_player\":{\"player_0\":[],\"player_1\":[\"fuel\"]}}],\"witness\":null}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229800,
+        "id": "chatcmpl-Ee7HE59GritBCmqi3j1hpoPKhduOt",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 52,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1029,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 1026,
+            "cached_tokens": 0
+          },
+          "total_tokens": 1081
+        }
+      },
+      "request_id": "req_8a4e38e7a7c74152b03055da9b06dddb",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_817:0:f1_s1"
+    },
+    {
+      "attempt_id": 7,
+      "cost_usd": 0.00012890000000000002,
+      "errors": [],
+      "input_token_preflight": 3639,
+      "latency_seconds": 1.745290125021711,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_817\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 1 sees fuel throughout. All field values are independently selectable. At BOTH modeled decisions both players can read the current route. Its visibility never changes.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"route\",\"window\",\"beacon\"],\"private_fields_by_player\":{\"player_0\":[],\"player_1\":[\"fuel\"]}}],\"witness\":null}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229802,
+        "id": "chatcmpl-Ee7HGaGAaMOihzKsvsAnVy4mgPuGK",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 52,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1029,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 0,
+            "cached_tokens": 1026
+          },
+          "total_tokens": 1081
+        }
+      },
+      "request_id": "req_9cefd2d5e1d84838b09cb6ee22b7e8b0",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_817:1:f1_s1"
+    },
+    {
+      "attempt_id": 8,
+      "cost_usd": 0.0001263,
+      "errors": [],
+      "input_token_preflight": 3773,
+      "latency_seconds": 1.0829530000919476,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_362\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 0 sees fuel throughout. All field values are independently selectable. At t=0 only player 1 can read the current route. At t=1 both players can read the current route. Model both decisions with these SAME field names; do not split or rename route. A single observation model must cover both decisions.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"route\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229803,
+        "id": "chatcmpl-Ee7HHQGacM9ERa1L598YPdItFTHdd",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 40,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1063,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 1060,
+            "cached_tokens": 0
+          },
+          "total_tokens": 1103
+        }
+      },
+      "request_id": "req_f4e87aefb89b4d80a0da34fbe1c3d606",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_362:0:f1_s1"
+    },
+    {
+      "attempt_id": 9,
+      "cost_usd": 0.0001263,
+      "errors": [],
+      "input_token_preflight": 3773,
+      "latency_seconds": 1.0264797920826823,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_362\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 0 sees fuel throughout. All field values are independently selectable. At t=0 only player 1 can read the current route. At t=1 both players can read the current route. Model both decisions with these SAME field names; do not split or rename route. A single observation model must cover both decisions.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"route\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229804,
+        "id": "chatcmpl-Ee7HIbfs1IXIWvyUSPX1Sx4oeBviz",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 40,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1063,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 0,
+            "cached_tokens": 1060
+          },
+          "total_tokens": 1103
+        }
+      },
+      "request_id": "req_174e06bf7def42fca8fca600aaf04b77",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_362:1:f1_s1"
+    },
+    {
+      "attempt_id": 10,
+      "cost_usd": 0.00012890000000000002,
+      "errors": [],
+      "input_token_preflight": 3639,
+      "latency_seconds": 1.3557503339834511,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_283\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 0 sees fuel throughout. All field values are independently selectable. At BOTH modeled decisions both players can read the current route. Its visibility never changes.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"route\",\"window\",\"beacon\"],\"private_fields_by_player\":{\"player_0\":[\"fuel\"],\"player_1\":[]}}],\"witness\":null}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229805,
+        "id": "chatcmpl-Ee7HJsERBHxlVbK7iEygjzgcA9BGh",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 52,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1029,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 1026,
+            "cached_tokens": 0
+          },
+          "total_tokens": 1081
+        }
+      },
+      "request_id": "req_bd7254bca33e4b0b8774c54b9ecd90e0",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_283:0:f1_s1"
+    },
+    {
+      "attempt_id": 11,
+      "cost_usd": 0.00012890000000000002,
+      "errors": [],
+      "input_token_preflight": 3639,
+      "latency_seconds": 1.079916249960661,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_283\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 0 sees fuel throughout. All field values are independently selectable. At BOTH modeled decisions both players can read the current route. Its visibility never changes.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"route\",\"window\",\"beacon\"],\"private_fields_by_player\":{\"player_0\":[\"fuel\"],\"player_1\":[]}}],\"witness\":null}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229806,
+        "id": "chatcmpl-Ee7HKHDAiT0PLfFCxFWAFh1lohdGG",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 52,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1029,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 0,
+            "cached_tokens": 1026
+          },
+          "total_tokens": 1081
+        }
+      },
+      "request_id": "req_47d69356734946d9a58d950415a6a3e4",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_283:1:f1_s1"
+    },
+    {
+      "attempt_id": 12,
+      "cost_usd": 0.0001263,
+      "errors": [],
+      "input_token_preflight": 3773,
+      "latency_seconds": 1.2154313750797883,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_635\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 1 sees fuel throughout. All field values are independently selectable. At t=0 both players can read the current route. At t=1 only player 0 can read the current route. Model both decisions with these SAME field names; do not split or rename route. A single observation model must cover both decisions.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"route\",\"player\":1,\"before_visible\":true,\"after_visible\":false}}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229807,
+        "id": "chatcmpl-Ee7HLkM4PlnGenLbx07WWOpP5opIu",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 40,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1063,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 1060,
+            "cached_tokens": 0
+          },
+          "total_tokens": 1103
+        }
+      },
+      "request_id": "req_9dbaab1f2a2a4744aedb08ad78afbb45",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_635:0:f1_s1"
+    },
+    {
+      "attempt_id": 13,
+      "cost_usd": 0.0001263,
+      "errors": [],
+      "input_token_preflight": 3773,
+      "latency_seconds": 0.848321917001158,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_635\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 1 sees fuel throughout. All field values are independently selectable. At t=0 both players can read the current route. At t=1 only player 0 can read the current route. Model both decisions with these SAME field names; do not split or rename route. A single observation model must cover both decisions.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"route\",\"player\":1,\"before_visible\":true,\"after_visible\":false}}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229808,
+        "id": "chatcmpl-Ee7HMtFFknZOAfCceRI8BMf1CDBiU",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 40,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1063,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 0,
+            "cached_tokens": 1060
+          },
+          "total_tokens": 1103
+        }
+      },
+      "request_id": "req_6d0a7b5d1cce4a389b252e983e85c857",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_635:1:f1_s1"
+    },
+    {
+      "attempt_id": 14,
+      "cost_usd": 0.00012910000000000002,
+      "errors": [],
+      "input_token_preflight": 3640,
+      "latency_seconds": 1.1141655830433592,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_596\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 1 sees fuel throughout. All field values are independently selectable. At BOTH modeled decisions only player 0 can read the current route. Its visibility never changes.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"window\",\"beacon\"],\"private_fields_by_player\":{\"player_0\":[\"route\"],\"player_1\":[\"fuel\"]}}],\"witness\":null}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229809,
+        "id": "chatcmpl-Ee7HNCvVjRvObpGfOOPSKqHcGJX43",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 52,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1031,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 1028,
+            "cached_tokens": 0
+          },
+          "total_tokens": 1083
+        }
+      },
+      "request_id": "req_9c2aaf3ec10248c7857cc8e9b0e6c82c",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_596:0:f1_s1"
+    },
+    {
+      "attempt_id": 15,
+      "cost_usd": 0.00012910000000000002,
+      "errors": [],
+      "input_token_preflight": 3640,
+      "latency_seconds": 1.026980209047906,
+      "messages": [
+        {
+          "content": "Decide whether one static public/private partition can faithfully describe ALL modeled decision times in the supplied rules. Return JSON in the supplied proposal schema. Choose decision=candidate with 1 to 3 distinct partitions and witness=null when representable. Choose decision=refusal with candidates=[] and a true visibility-change witness when the SAME field changes visibility for a player over modeled times; never force a static fit or split/rename fields. Assign every field exactly once in each candidate. A witness has field, integer player 0 or 1, boolean before_visible and after_visible. left_fields/right_fields in feedback are counterfactual worlds at the SAME modeled time, NOT temporal transitions. observed_same compares that player's legal observations, not whether all state fields equal. Output only the proposal; a deterministic serializer owns envelope constants and identifiers. Never invent evidence, reliability, prior, posterior or certification. Source priority: RULES are authoritative about the game. A preceding assistant message is only a FALLIBLE CANDIDATE PROPOSAL to inspect or replace; it is not a new rule, observation or trusted evidence. STRUCTURE_OK means syntactic/field-structure validity only, NEVER semantic correctness. Feedback witnesses are evaluator-owned counterexamples for testing candidates, not changes to the rules. A candidate conflicting with rules or witnesses should be replaced; that conflict alone does NOT make the game out of schema. Determine temporal visibility solely from RULES. This policy does not tell you whether this particular rule is representable.",
+          "role": "system"
+        },
+        {
+          "content": "Case: probe_596\nRules: This navigation observation slice has two modeled decisions, t=0 and t=1. At each decision route means the CURRENT route value. Between decisions route is independently redrawn, even if its visibility stays the same; knowing its old value reveals nothing about its new value. Both players see window and beacon throughout. Only player 1 sees fuel throughout. All field values are independently selectable. At BOTH modeled decisions only player 0 can read the current route. Its visibility never changes.\nField meanings: {\"beacon\": \"public beacon reading\", \"fuel\": \"private fuel reserve\", \"route\": \"current navigation route\", \"window\": \"public departure window\"}\nRequested candidates: 1 to 3\nFeedback: {}\nProposal JSON schema: {\"additionalProperties\": false, \"properties\": {\"candidates\": {\"items\": {\"additionalProperties\": false, \"properties\": {\"private_fields_by_player\": {\"additionalProperties\": false, \"properties\": {\"player_0\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}, \"player_1\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"player_0\", \"player_1\"], \"type\": \"object\"}, \"public_fields\": {\"items\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"type\": \"array\"}}, \"required\": [\"public_fields\", \"private_fields_by_player\"], \"type\": \"object\"}, \"maxItems\": 3, \"minItems\": 0, \"type\": \"array\"}, \"decision\": {\"enum\": [\"candidate\", \"refusal\"], \"type\": \"string\"}, \"witness\": {\"anyOf\": [{\"additionalProperties\": false, \"properties\": {\"after_visible\": {\"type\": \"boolean\"}, \"before_visible\": {\"type\": \"boolean\"}, \"field\": {\"enum\": [\"route\", \"fuel\", \"window\", \"beacon\"], \"type\": \"string\"}, \"player\": {\"enum\": [0, 1], \"type\": \"integer\"}}, \"required\": [\"field\", \"player\", \"before_visible\", \"after_visible\"], \"type\": \"object\"}, {\"type\": \"null\"}]}}, \"required\": [\"decision\", \"candidates\", \"witness\"], \"type\": \"object\"}",
+          "role": "user"
+        }
+      ],
+      "provider_parameters": {
+        "max_completion_tokens": 2500,
+        "model": "gpt-6-luna",
+        "reasoning_effort": "none",
+        "response_format": {
+          "json_schema": {
+            "name": "observation_proposal",
+            "schema": {
+              "additionalProperties": false,
+              "properties": {
+                "candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private_fields_by_player": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "player_0": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "player_1": {
+                            "items": {
+                              "enum": [
+                                "route",
+                                "fuel",
+                                "window",
+                                "beacon"
+                              ],
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "player_0",
+                          "player_1"
+                        ],
+                        "type": "object"
+                      },
+                      "public_fields": {
+                        "items": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "public_fields",
+                      "private_fields_by_player"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "minItems": 0,
+                  "type": "array"
+                },
+                "decision": {
+                  "enum": [
+                    "candidate",
+                    "refusal"
+                  ],
+                  "type": "string"
+                },
+                "witness": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "after_visible": {
+                          "type": "boolean"
+                        },
+                        "before_visible": {
+                          "type": "boolean"
+                        },
+                        "field": {
+                          "enum": [
+                            "route",
+                            "fuel",
+                            "window",
+                            "beacon"
+                          ],
+                          "type": "string"
+                        },
+                        "player": {
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "player",
+                        "before_visible",
+                        "after_visible"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "decision",
+                "candidates",
+                "witness"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "json_schema"
+        },
+        "service_tier": "default",
+        "store": false,
+        "temperature": 0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "annotations": [],
+              "audio": null,
+              "content": "{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"window\",\"beacon\"],\"private_fields_by_player\":{\"player_0\":[\"route\"],\"player_1\":[\"fuel\"]}}],\"witness\":null}",
+              "function_call": null,
+              "refusal": null,
+              "role": "assistant",
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1793229810,
+        "id": "chatcmpl-Ee7HOxzMHATi2BXyKPoC9VKFHkPPP",
+        "model": "gpt-6-luna",
+        "object": "chat.completion",
+        "service_tier": "default",
+        "system_fingerprint": null,
+        "usage": {
+          "completion_tokens": 52,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens": 1031,
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": 0,
+            "cached_tokens": 1028
+          },
+          "total_tokens": 1083
+        }
+      },
+      "request_id": "req_ebd5dba8d12344b1ab564f6ebeb35630",
+      "resolved_model": "gpt-6-luna",
+      "status": "completed",
+      "trial_id": "scope:probe_596:1:f1_s1"
+    }
+  ],
+  "bundle_sha256": "970a8791aaa9034dc2565ac89626f3c3db186c066d109d29a0f555353b0c6897",
+  "human_ceiling": [],
+  "manifest_sha256": "b3489cda6d8230345e42174d2df94c98286e84c5bb2e2c8fc4afa2e379a419f9",
+  "model_requested": "gpt-6-luna",
+  "reference_preflight": {
+    "independent_human_sources": false,
+    "natural_language_truth_proven": false,
+    "passed": true,
+    "rows": [
+      {
+        "all_valid_change_witnesses": [
+          {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "route",
+            "player": 0
+          }
+        ],
+        "dynamic_matching_partitions": 0,
+        "pair_id": "p0_gain",
+        "partitions_enumerated": 81,
+        "static_matching_partitions": 1
+      },
+      {
+        "all_valid_change_witnesses": [
+          {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "route",
+            "player": 0
+          }
+        ],
+        "dynamic_matching_partitions": 0,
+        "pair_id": "p0_loss",
+        "partitions_enumerated": 81,
+        "static_matching_partitions": 1
+      },
+      {
+        "all_valid_change_witnesses": [
+          {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "route",
+            "player": 1
+          }
+        ],
+        "dynamic_matching_partitions": 0,
+        "pair_id": "p1_gain",
+        "partitions_enumerated": 81,
+        "static_matching_partitions": 1
+      },
+      {
+        "all_valid_change_witnesses": [
+          {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "route",
+            "player": 1
+          }
+        ],
+        "dynamic_matching_partitions": 0,
+        "pair_id": "p1_loss",
+        "partitions_enumerated": 81,
+        "static_matching_partitions": 1
+      }
+    ]
+  },
+  "runtime_epsilon_gto_allowed": false,
+  "schema_version": "aip-gamespec-prospective-v5",
+  "status": "completed",
+  "stop_reason": null,
+  "trials": [
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        0
+      ],
+      "case_id": "probe_954",
+      "evaluation": {
+        "branch": "refusal",
+        "candidate_compiles": false,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "scope_false_acceptance": false,
+        "scope_result": {
+          "error_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+          "passed": true
+        },
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p0_loss",
+      "repeat": 0,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_954:0:f1_s1"
+    },
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        1
+      ],
+      "case_id": "probe_954",
+      "evaluation": {
+        "branch": "refusal",
+        "candidate_compiles": false,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "scope_false_acceptance": false,
+        "scope_result": {
+          "error_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+          "passed": true
+        },
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p0_loss",
+      "repeat": 1,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_954:1:f1_s1"
+    },
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        2
+      ],
+      "case_id": "probe_741",
+      "evaluation": {
+        "branch": "candidate",
+        "candidate_compiles": true,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "independent_score": {
+          "arm_id": "final_blind_scoring",
+          "candidate_count": 1,
+          "certified_reference_model": true,
+          "conditional_solver_succeeded": null,
+          "false_certification": false,
+          "repair_count": 0,
+          "true_model_candidate_coverage": true,
+          "verification": {
+            "certified": true,
+            "certified_hypothesis_id": "candidate_0",
+            "compatible_hypothesis_ids": [
+              "candidate_0"
+            ],
+            "required_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ],
+            "status": "verified",
+            "supplied_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ]
+          }
+        },
+        "scope_false_acceptance": false,
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p0_gain",
+      "repeat": 0,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_741:0:f1_s1"
+    },
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        3
+      ],
+      "case_id": "probe_741",
+      "evaluation": {
+        "branch": "candidate",
+        "candidate_compiles": true,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "independent_score": {
+          "arm_id": "final_blind_scoring",
+          "candidate_count": 1,
+          "certified_reference_model": true,
+          "conditional_solver_succeeded": null,
+          "false_certification": false,
+          "repair_count": 0,
+          "true_model_candidate_coverage": true,
+          "verification": {
+            "certified": true,
+            "certified_hypothesis_id": "candidate_0",
+            "compatible_hypothesis_ids": [
+              "candidate_0"
+            ],
+            "required_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ],
+            "status": "verified",
+            "supplied_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ]
+          }
+        },
+        "scope_false_acceptance": false,
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p0_gain",
+      "repeat": 1,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_741:1:f1_s1"
+    },
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        4
+      ],
+      "case_id": "probe_128",
+      "evaluation": {
+        "branch": "refusal",
+        "candidate_compiles": false,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "scope_false_acceptance": false,
+        "scope_result": {
+          "error_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+          "passed": true
+        },
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p1_gain",
+      "repeat": 0,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_128:0:f1_s1"
+    },
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        5
+      ],
+      "case_id": "probe_128",
+      "evaluation": {
+        "branch": "refusal",
+        "candidate_compiles": false,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "scope_false_acceptance": false,
+        "scope_result": {
+          "error_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+          "passed": true
+        },
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p1_gain",
+      "repeat": 1,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_128:1:f1_s1"
+    },
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        6
+      ],
+      "case_id": "probe_817",
+      "evaluation": {
+        "branch": "candidate",
+        "candidate_compiles": true,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "independent_score": {
+          "arm_id": "final_blind_scoring",
+          "candidate_count": 1,
+          "certified_reference_model": true,
+          "conditional_solver_succeeded": null,
+          "false_certification": false,
+          "repair_count": 0,
+          "true_model_candidate_coverage": true,
+          "verification": {
+            "certified": true,
+            "certified_hypothesis_id": "candidate_0",
+            "compatible_hypothesis_ids": [
+              "candidate_0"
+            ],
+            "required_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ],
+            "status": "verified",
+            "supplied_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ]
+          }
+        },
+        "scope_false_acceptance": false,
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p1_loss",
+      "repeat": 0,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_817:0:f1_s1"
+    },
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        7
+      ],
+      "case_id": "probe_817",
+      "evaluation": {
+        "branch": "candidate",
+        "candidate_compiles": true,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "independent_score": {
+          "arm_id": "final_blind_scoring",
+          "candidate_count": 1,
+          "certified_reference_model": true,
+          "conditional_solver_succeeded": null,
+          "false_certification": false,
+          "repair_count": 0,
+          "true_model_candidate_coverage": true,
+          "verification": {
+            "certified": true,
+            "certified_hypothesis_id": "candidate_0",
+            "compatible_hypothesis_ids": [
+              "candidate_0"
+            ],
+            "required_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ],
+            "status": "verified",
+            "supplied_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ]
+          }
+        },
+        "scope_false_acceptance": false,
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p1_loss",
+      "repeat": 1,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_817:1:f1_s1"
+    },
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        8
+      ],
+      "case_id": "probe_362",
+      "evaluation": {
+        "branch": "refusal",
+        "candidate_compiles": false,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "scope_false_acceptance": false,
+        "scope_result": {
+          "error_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+          "passed": true
+        },
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p0_gain",
+      "repeat": 0,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_362:0:f1_s1"
+    },
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        9
+      ],
+      "case_id": "probe_362",
+      "evaluation": {
+        "branch": "refusal",
+        "candidate_compiles": false,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "scope_false_acceptance": false,
+        "scope_result": {
+          "error_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+          "passed": true
+        },
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p0_gain",
+      "repeat": 1,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_362:1:f1_s1"
+    },
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        10
+      ],
+      "case_id": "probe_283",
+      "evaluation": {
+        "branch": "candidate",
+        "candidate_compiles": true,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "independent_score": {
+          "arm_id": "final_blind_scoring",
+          "candidate_count": 1,
+          "certified_reference_model": true,
+          "conditional_solver_succeeded": null,
+          "false_certification": false,
+          "repair_count": 0,
+          "true_model_candidate_coverage": true,
+          "verification": {
+            "certified": true,
+            "certified_hypothesis_id": "candidate_0",
+            "compatible_hypothesis_ids": [
+              "candidate_0"
+            ],
+            "required_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ],
+            "status": "verified",
+            "supplied_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ]
+          }
+        },
+        "scope_false_acceptance": false,
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p0_loss",
+      "repeat": 0,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_283:0:f1_s1"
+    },
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        11
+      ],
+      "case_id": "probe_283",
+      "evaluation": {
+        "branch": "candidate",
+        "candidate_compiles": true,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "independent_score": {
+          "arm_id": "final_blind_scoring",
+          "candidate_count": 1,
+          "certified_reference_model": true,
+          "conditional_solver_succeeded": null,
+          "false_certification": false,
+          "repair_count": 0,
+          "true_model_candidate_coverage": true,
+          "verification": {
+            "certified": true,
+            "certified_hypothesis_id": "candidate_0",
+            "compatible_hypothesis_ids": [
+              "candidate_0"
+            ],
+            "required_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ],
+            "status": "verified",
+            "supplied_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ]
+          }
+        },
+        "scope_false_acceptance": false,
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p0_loss",
+      "repeat": 1,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_283:1:f1_s1"
+    },
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        12
+      ],
+      "case_id": "probe_635",
+      "evaluation": {
+        "branch": "refusal",
+        "candidate_compiles": false,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "scope_false_acceptance": false,
+        "scope_result": {
+          "error_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+          "passed": true
+        },
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p1_loss",
+      "repeat": 0,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_635:0:f1_s1"
+    },
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        13
+      ],
+      "case_id": "probe_635",
+      "evaluation": {
+        "branch": "refusal",
+        "candidate_compiles": false,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "scope_false_acceptance": false,
+        "scope_result": {
+          "error_code": "OUT_OF_SCHEMA_STATIC_VISIBILITY",
+          "passed": true
+        },
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p1_loss",
+      "repeat": 1,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_635:1:f1_s1"
+    },
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        14
+      ],
+      "case_id": "probe_596",
+      "evaluation": {
+        "branch": "candidate",
+        "candidate_compiles": true,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "independent_score": {
+          "arm_id": "final_blind_scoring",
+          "candidate_count": 1,
+          "certified_reference_model": true,
+          "conditional_solver_succeeded": null,
+          "false_certification": false,
+          "repair_count": 0,
+          "true_model_candidate_coverage": true,
+          "verification": {
+            "certified": true,
+            "certified_hypothesis_id": "candidate_0",
+            "compatible_hypothesis_ids": [
+              "candidate_0"
+            ],
+            "required_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ],
+            "status": "verified",
+            "supplied_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ]
+          }
+        },
+        "scope_false_acceptance": false,
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p1_gain",
+      "repeat": 0,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_596:0:f1_s1"
+    },
+    {
+      "arm": "f1_s1",
+      "attempt_ids": [
+        15
+      ],
+      "case_id": "probe_596",
+      "evaluation": {
+        "branch": "candidate",
+        "candidate_compiles": true,
+        "correct": true,
+        "errors": [],
+        "false_certification": false,
+        "independent_score": {
+          "arm_id": "final_blind_scoring",
+          "candidate_count": 1,
+          "certified_reference_model": true,
+          "conditional_solver_succeeded": null,
+          "false_certification": false,
+          "repair_count": 0,
+          "true_model_candidate_coverage": true,
+          "verification": {
+            "certified": true,
+            "certified_hypothesis_id": "candidate_0",
+            "compatible_hypothesis_ids": [
+              "candidate_0"
+            ],
+            "required_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ],
+            "status": "verified",
+            "supplied_evidence_ids": [
+              "p0_route",
+              "p0_fuel",
+              "p0_window",
+              "p0_beacon",
+              "p1_route",
+              "p1_fuel",
+              "p1_window",
+              "p1_beacon"
+            ]
+          }
+        },
+        "scope_false_acceptance": false,
+        "serialization_ok": true,
+        "table_oracle_correct": true
+      },
+      "pair_id": "p1_gain",
+      "repeat": 1,
+      "status": "completed",
+      "task": "scope",
+      "trial_id": "scope:probe_596:1:f1_s1"
+    }
+  ]
+}

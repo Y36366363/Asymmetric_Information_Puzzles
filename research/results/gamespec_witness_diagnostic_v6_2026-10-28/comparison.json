@@ -1,0 +1,184 @@
+{
+  "adaptive_opponent_line_released": false,
+  "development_diagnostic": true,
+  "formal_trial_started": false,
+  "independent_panel_evaluated": false,
+  "models": {
+    "luna6": {
+      "adaptive_opponent_line_released": false,
+      "all_failures": [],
+      "cells": [
+        {
+          "expected_change": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "route",
+            "player": 0
+          },
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "p0_gain"
+        },
+        {
+          "expected_change": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "route",
+            "player": 0
+          },
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "p0_loss"
+        },
+        {
+          "expected_change": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "route",
+            "player": 1
+          },
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "p1_gain"
+        },
+        {
+          "expected_change": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "route",
+            "player": 1
+          },
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "p1_loss"
+        }
+      ],
+      "cost_usd": 0.0020424,
+      "deployment_permission": false,
+      "development_diagnostic": true,
+      "false_certifications": 0,
+      "groups": {
+        "dynamic": {
+          "assigned": 8,
+          "completed": 8,
+          "correct": 8
+        },
+        "static": {
+          "assigned": 8,
+          "completed": 8,
+          "correct": 8
+        }
+      },
+      "held_out": false,
+      "independent_rule_instances": 0,
+      "joint_assigned": 8,
+      "joint_correct": 8,
+      "latency_seconds": 20.939074627356604,
+      "new_runtime_epsilon_gto_allowed": false,
+      "oos_false_acceptances": 0,
+      "overall_scientific_pass": null,
+      "provider_attempts": 16,
+      "tokens": {
+        "completion_tokens": 736,
+        "prompt_tokens": 16744
+      }
+    },
+    "sol61": {
+      "adaptive_opponent_line_released": false,
+      "all_failures": [],
+      "cells": [
+        {
+          "expected_change": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "route",
+            "player": 0
+          },
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "p0_gain"
+        },
+        {
+          "expected_change": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "route",
+            "player": 0
+          },
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "p0_loss"
+        },
+        {
+          "expected_change": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "route",
+            "player": 1
+          },
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "p1_gain"
+        },
+        {
+          "expected_change": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "route",
+            "player": 1
+          },
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "p1_loss"
+        }
+      ],
+      "cost_usd": 0.040848,
+      "deployment_permission": false,
+      "development_diagnostic": true,
+      "false_certifications": 0,
+      "groups": {
+        "dynamic": {
+          "assigned": 8,
+          "completed": 8,
+          "correct": 8
+        },
+        "static": {
+          "assigned": 8,
+          "completed": 8,
+          "correct": 8
+        }
+      },
+      "held_out": false,
+      "independent_rule_instances": 0,
+      "joint_assigned": 8,
+      "joint_correct": 8,
+      "latency_seconds": 30.781926669063978,
+      "new_runtime_epsilon_gto_allowed": false,
+      "oos_false_acceptances": 0,
+      "overall_scientific_pass": null,
+      "provider_attempts": 16,
+      "tokens": {
+        "completion_tokens": 736,
+        "prompt_tokens": 16744
+      }
+    }
+  },
+  "new_runtime_epsilon_gto_allowed": false,
+  "old_failures_reinterpreted": false
+}
