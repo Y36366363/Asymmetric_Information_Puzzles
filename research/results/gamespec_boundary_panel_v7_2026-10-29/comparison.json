@@ -1,0 +1,716 @@
+{
+  "adaptive_opponent_line_released": false,
+  "formal_trial_started": false,
+  "independent_panel_evaluated": false,
+  "models": {
+    "luna6": {
+      "adaptive_opponent_line_released": false,
+      "all_failures": [
+        {
+          "all_valid_changes": [
+            {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "voucher",
+              "player": 1
+            }
+          ],
+          "categories": [
+            "wrong_affected_player"
+          ],
+          "errors": [
+            "wrong_refusal_witness"
+          ],
+          "submitted_proposal": {
+            "candidates": [],
+            "decision": "refusal",
+            "witness": {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "voucher",
+              "player": 0
+            }
+          },
+          "trial_id": "scope:case_345:0:f1_s1"
+        }
+      ],
+      "authored_pair_count": 6,
+      "candidate_counts": [
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_560:0:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_560:1:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_639:0:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_639:1:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_754:0:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_754:1:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_872:0:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_872:1:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_926:0:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_926:1:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_417:0:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_417:1:f1_s1"
+        }
+      ],
+      "cost_usd": 0.0030468,
+      "deployment_permission": false,
+      "developer_authored_unreviewed_reference": true,
+      "external_review_required_for_development": false,
+      "false_certifications": 0,
+      "formal_trial_started": false,
+      "groups": {
+        "dynamic": {
+          "assigned": 12,
+          "completed": 12,
+          "correct": 11
+        },
+        "static": {
+          "assigned": 12,
+          "completed": 12,
+          "correct": 12
+        }
+      },
+      "independent_held_out": false,
+      "independently_sampled_rule_instances": 0,
+      "joint_assigned": 12,
+      "joint_correct": 11,
+      "latency_seconds": 43.62132733501494,
+      "new_panel_not_used_to_tune_frozen_configuration": true,
+      "new_runtime_epsilon_gto_allowed": false,
+      "oos_false_acceptances": 0,
+      "overall_scientific_pass": null,
+      "overfitting_ruled_out": false,
+      "pairs": [
+        {
+          "all_valid_changes": [
+            {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "public_label",
+              "player": 0
+            }
+          ],
+          "feature": "Field names and actual access disagree; direct rules override lexical cues",
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "misleading_names"
+        },
+        {
+          "all_valid_changes": [
+            {
+              "after_visible": false,
+              "before_visible": true,
+              "field": "live_code",
+              "player": 1
+            }
+          ],
+          "feature": "Loss of current-value access without erasing memory of old values",
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "fresh_code_restriction"
+        },
+        {
+          "all_valid_changes": [
+            {
+              "after_visible": false,
+              "before_visible": true,
+              "field": "parcel_a",
+              "player": 0
+            },
+            {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "parcel_b",
+              "player": 0
+            },
+            {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "parcel_a",
+              "player": 1
+            },
+            {
+              "after_visible": false,
+              "before_visible": true,
+              "field": "parcel_b",
+              "player": 1
+            }
+          ],
+          "feature": "Private ownership exchange has four alternative valid change witnesses",
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "cross_delivery"
+        },
+        {
+          "all_valid_changes": [
+            {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "left_code",
+              "player": 0
+            },
+            {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "right_code",
+              "player": 1
+            }
+          ],
+          "feature": "Two simultaneous disclosures; any genuinely changed field/player suffices",
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "dual_release"
+        },
+        {
+          "all_valid_changes": [
+            {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "voucher",
+              "player": 1
+            }
+          ],
+          "feature": "Disclosure after the modeled slice vs before its last decision",
+          "joint_by_repeat": [
+            false,
+            true
+          ],
+          "pair_id": "receipt_horizon"
+        },
+        {
+          "all_valid_changes": [
+            {
+              "after_visible": false,
+              "before_visible": true,
+              "field": "assay",
+              "player": 0
+            },
+            {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "assay",
+              "player": 1
+            }
+          ],
+          "feature": "Administrative role title changes vs role-governed access to fresh sample",
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "role_title_permission"
+        }
+      ],
+      "provider_attempts": 24,
+      "reasoning_tokens": 0,
+      "submitted_witnesses": [
+        {
+          "correct": true,
+          "trial_id": "scope:case_803:0:f1_s1",
+          "witness": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "parcel_a",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_803:1:f1_s1",
+          "witness": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "parcel_a",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_608:0:f1_s1",
+          "witness": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "assay",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_608:1:f1_s1",
+          "witness": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "assay",
+            "player": 0
+          }
+        },
+        {
+          "correct": false,
+          "trial_id": "scope:case_345:0:f1_s1",
+          "witness": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "voucher",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_345:1:f1_s1",
+          "witness": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "voucher",
+            "player": 1
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_194:0:f1_s1",
+          "witness": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "left_code",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_194:1:f1_s1",
+          "witness": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "left_code",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_281:0:f1_s1",
+          "witness": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "public_label",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_281:1:f1_s1",
+          "witness": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "public_label",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_936:0:f1_s1",
+          "witness": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "live_code",
+            "player": 1
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_936:1:f1_s1",
+          "witness": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "live_code",
+            "player": 1
+          }
+        }
+      ],
+      "tokens": {
+        "completion_tokens": 1120,
+        "prompt_tokens": 24868
+      }
+    },
+    "sol61": {
+      "adaptive_opponent_line_released": false,
+      "all_failures": [],
+      "authored_pair_count": 6,
+      "candidate_counts": [
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_560:0:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_560:1:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_639:0:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_639:1:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_754:0:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_754:1:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_872:0:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_872:1:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_926:0:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_926:1:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_417:0:f1_s1"
+        },
+        {
+          "candidate_count": 1,
+          "trial_id": "scope:case_417:1:f1_s1"
+        }
+      ],
+      "cost_usd": 0.060936,
+      "deployment_permission": false,
+      "developer_authored_unreviewed_reference": true,
+      "external_review_required_for_development": false,
+      "false_certifications": 0,
+      "formal_trial_started": false,
+      "groups": {
+        "dynamic": {
+          "assigned": 12,
+          "completed": 12,
+          "correct": 12
+        },
+        "static": {
+          "assigned": 12,
+          "completed": 12,
+          "correct": 12
+        }
+      },
+      "independent_held_out": false,
+      "independently_sampled_rule_instances": 0,
+      "joint_assigned": 12,
+      "joint_correct": 12,
+      "latency_seconds": 88.55135220906232,
+      "new_panel_not_used_to_tune_frozen_configuration": true,
+      "new_runtime_epsilon_gto_allowed": false,
+      "oos_false_acceptances": 0,
+      "overall_scientific_pass": null,
+      "overfitting_ruled_out": false,
+      "pairs": [
+        {
+          "all_valid_changes": [
+            {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "public_label",
+              "player": 0
+            }
+          ],
+          "feature": "Field names and actual access disagree; direct rules override lexical cues",
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "misleading_names"
+        },
+        {
+          "all_valid_changes": [
+            {
+              "after_visible": false,
+              "before_visible": true,
+              "field": "live_code",
+              "player": 1
+            }
+          ],
+          "feature": "Loss of current-value access without erasing memory of old values",
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "fresh_code_restriction"
+        },
+        {
+          "all_valid_changes": [
+            {
+              "after_visible": false,
+              "before_visible": true,
+              "field": "parcel_a",
+              "player": 0
+            },
+            {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "parcel_b",
+              "player": 0
+            },
+            {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "parcel_a",
+              "player": 1
+            },
+            {
+              "after_visible": false,
+              "before_visible": true,
+              "field": "parcel_b",
+              "player": 1
+            }
+          ],
+          "feature": "Private ownership exchange has four alternative valid change witnesses",
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "cross_delivery"
+        },
+        {
+          "all_valid_changes": [
+            {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "left_code",
+              "player": 0
+            },
+            {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "right_code",
+              "player": 1
+            }
+          ],
+          "feature": "Two simultaneous disclosures; any genuinely changed field/player suffices",
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "dual_release"
+        },
+        {
+          "all_valid_changes": [
+            {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "voucher",
+              "player": 1
+            }
+          ],
+          "feature": "Disclosure after the modeled slice vs before its last decision",
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "receipt_horizon"
+        },
+        {
+          "all_valid_changes": [
+            {
+              "after_visible": false,
+              "before_visible": true,
+              "field": "assay",
+              "player": 0
+            },
+            {
+              "after_visible": true,
+              "before_visible": false,
+              "field": "assay",
+              "player": 1
+            }
+          ],
+          "feature": "Administrative role title changes vs role-governed access to fresh sample",
+          "joint_by_repeat": [
+            true,
+            true
+          ],
+          "pair_id": "role_title_permission"
+        }
+      ],
+      "provider_attempts": 24,
+      "reasoning_tokens": 0,
+      "submitted_witnesses": [
+        {
+          "correct": true,
+          "trial_id": "scope:case_803:0:f1_s1",
+          "witness": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "parcel_a",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_803:1:f1_s1",
+          "witness": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "parcel_a",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_608:0:f1_s1",
+          "witness": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "assay",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_608:1:f1_s1",
+          "witness": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "assay",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_345:0:f1_s1",
+          "witness": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "voucher",
+            "player": 1
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_345:1:f1_s1",
+          "witness": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "voucher",
+            "player": 1
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_194:0:f1_s1",
+          "witness": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "left_code",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_194:1:f1_s1",
+          "witness": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "left_code",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_281:0:f1_s1",
+          "witness": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "public_label",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_281:1:f1_s1",
+          "witness": {
+            "after_visible": true,
+            "before_visible": false,
+            "field": "public_label",
+            "player": 0
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_936:0:f1_s1",
+          "witness": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "live_code",
+            "player": 1
+          }
+        },
+        {
+          "correct": true,
+          "trial_id": "scope:case_936:1:f1_s1",
+          "witness": {
+            "after_visible": false,
+            "before_visible": true,
+            "field": "live_code",
+            "player": 1
+          }
+        }
+      ],
+      "tokens": {
+        "completion_tokens": 1120,
+        "prompt_tokens": 24868
+      }
+    }
+  },
+  "new_game_or_cfr_variant": false,
+  "new_runtime_epsilon_gto_allowed": false,
+  "old_failures_reinterpreted": false
+}

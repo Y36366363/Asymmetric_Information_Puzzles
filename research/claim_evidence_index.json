@@ -612,6 +612,57 @@
       ]
     },
     {
+      "id": "gamespec_v7_new_authored_boundary_panel",
+      "status": "mixed",
+      "statement": "六对新编观察规则在冻结配置和原评分标准下完成48次调用；Luna23/24、Sol24/24，Luna在片段内公开voucher时仍一次写错受影响玩家。",
+      "scope": "六类有意编写的静态/动态观察片段，每侧两次技术重复；不在旧四例上追加调用；开发者参考、尚无用户或外部逐项审核。",
+      "limitations": "不是独立held-out或随机规则样本；没有排除过拟合，也不能从单次错误确定因果或总体错误率。拒绝分支正确但见证玩家错仍失败；Sol结果不替换Luna答案。",
+      "next_question": "保留玩家绑定反例，下一步先离线审计分阶段观察表示与见证推导/语义修复任务的区分度，再另预注册开发诊断；不直接启动正式反馈trial。",
+      "evidence": [
+        {
+          "path": "research/results/gamespec_boundary_panel_v7_2026-10-29/luna6.json",
+          "sha256": "4ab6b51417fc05f63ae85512917c0a32eec12b09c8719ecb4135f007b3e70000",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/status", "equals": "completed"},
+            {"pointer": "/analysis/groups/static/correct", "equals": 12},
+            {"pointer": "/analysis/groups/dynamic/correct", "equals": 11},
+            {"pointer": "/trials/10/trial_id", "equals": "scope:case_345:0:f1_s1"},
+            {"pointer": "/trials/10/evaluation/correct", "equals": false},
+            {"pointer": "/trials/10/evaluation/serialization_ok", "equals": true},
+            {"pointer": "/trials/10/evaluation/table_oracle_correct", "equals": false}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_boundary_panel_v7_2026-10-29/sol61.json",
+          "sha256": "cd4798f7f4f52be42956491d16089a8027384ed780034f3ad3ecb4a6bd2a5fcf",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/status", "equals": "completed"},
+            {"pointer": "/analysis/groups/static/correct", "equals": 12},
+            {"pointer": "/analysis/groups/dynamic/correct", "equals": 12},
+            {"pointer": "/analysis/all_failures", "equals": []}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_boundary_panel_v7_2026-10-29/comparison.json",
+          "sha256": "9fe8381bcf29f85128fe121e744f111ee5ca324ac9abcea8da589ef56a7584ee",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/models/luna6/all_failures/0/categories", "equals": ["wrong_affected_player"]},
+            {"pointer": "/models/luna6/all_failures/0/submitted_proposal/witness/player", "equals": 0},
+            {"pointer": "/models/luna6/all_failures/0/all_valid_changes/0/player", "equals": 1},
+            {"pointer": "/models/luna6/developer_authored_unreviewed_reference", "equals": true},
+            {"pointer": "/models/luna6/independent_held_out", "equals": false},
+            {"pointer": "/models/luna6/overfitting_ruled_out", "equals": false},
+            {"pointer": "/models/luna6/deployment_permission", "equals": false},
+            {"pointer": "/old_failures_reinterpreted", "equals": false},
+            {"pointer": "/formal_trial_started", "equals": false}
+          ]
+        }
+      ]
+    },
+    {
       "id": "general_llm_solver",
       "status": "not_established",
       "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",
