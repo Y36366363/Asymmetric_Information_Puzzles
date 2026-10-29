@@ -1,0 +1,457 @@
+{
+  "manifest_id": "gamespec_boundary_panel_v7_2026-10-29",
+  "purpose": "New authored rule mechanisms under unchanged selected configuration and unchanged per-answer correctness; not a formal trial or independence claim",
+  "candidate_configuration": "gpt-6-luna + frozen v4 f1_s1 strict schema + source priority",
+  "reference_configuration": "gpt-6.1-sol + frozen v4 f1_s1; no answer substitution",
+  "provenance": {
+    "instances_created": "2026-10-29 after v6 results and before v7 generation",
+    "split": "Prospective authored development panel; no v7 model output used to select or revise these rules",
+    "authors": "project development agent; user has deferred external review and has not personally reviewed this panel",
+    "external_review": false,
+    "internal_review": "internal agent logic/code check, not independent human source evidence",
+    "not_claimed": [
+      "independent held-out rules",
+      "proof of no overfitting",
+      "new game families",
+      "user-reviewed reference",
+      "population inference",
+      "formal feedback efficacy"
+    ],
+    "no_adaptation": "Freeze all cases/order/config/scoring before any v7 call; include every case and failure. Outputs consume panel for future development. No rerun/retry, prompt adaptation or best-model answer selection."
+  },
+  "schedule": {
+    "repeats": 2,
+    "scope_case_order": [
+      "case_803",
+      "case_560",
+      "case_639",
+      "case_608",
+      "case_754",
+      "case_345",
+      "case_194",
+      "case_872",
+      "case_281",
+      "case_926",
+      "case_936",
+      "case_417"
+    ],
+    "trials_per_model": 24,
+    "maximum_generation_calls": 48,
+    "calls_per_trial": 1,
+    "per_model_concurrency": 1,
+    "maximum_global_concurrency": 2,
+    "automatic_retries": 0,
+    "maximum_input_tokens": 10000,
+    "maximum_output_tokens": 2500,
+    "timeout_seconds": 60,
+    "task": "scope only; no prior assistant candidate or feedback provided",
+    "provider_error": "stop affected model, retain all assigned denominators, no substitution or amended parameters",
+    "resource": "unchanged v4 anomaly caps and conservative input-byte cap; report cost separately, not scientific validity"
+  },
+  "pairs": [
+    {
+      "pair_id": "misleading_names",
+      "static_id": "case_639",
+      "dynamic_id": "case_281",
+      "feature": "Field names and actual access disagree; direct rules override lexical cues",
+      "fields": {
+        "public_label": "label printed inside a sealed pocket",
+        "private_banner": "banner on the common wall",
+        "counter": "common counter",
+        "token": "personal token"
+      },
+      "static_rules": "Two decisions occur with the same observation permissions. The name public_label is only a field name: its value is inside player 1's sealed pocket, and player 0 never reads it. The field named private_banner is on the common wall and both players read it. Both read counter. Only player 0 reads token. The four values can vary independently; wall text and counter give no information about pocket contents. Permissions are identical at both decisions.",
+      "dynamic_rules": "At the first of two decisions, only player 1 reads public_label, both players read private_banner and counter, and only player 0 reads token. The names public_label and private_banner do not grant or restrict access. Between decisions, player 1 puts the SAME public_label value on an open tray where BOTH can read it at decision two. Other permissions do not change. One model must cover both decisions with these exact four field names. Other fields do not encode any private value; without the explicitly stated display a player cannot infer a field assigned only to the other player.",
+      "owners": {
+        "public_label": "player_1",
+        "private_banner": "public",
+        "counter": "public",
+        "token": "player_0"
+      },
+      "static_visibility": [
+        [
+          "private_banner",
+          "counter",
+          "token"
+        ],
+        [
+          "public_label",
+          "private_banner",
+          "counter"
+        ]
+      ],
+      "dynamic_visibility": [
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ],
+        [
+          [
+            "public_label",
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ]
+      ]
+    },
+    {
+      "pair_id": "fresh_code_restriction",
+      "static_id": "case_754",
+      "dynamic_id": "case_936",
+      "feature": "Loss of current-value access without erasing memory of old values",
+      "fields": {
+        "live_code": "current independently generated code",
+        "reserve": "reserve quantity",
+        "dial": "common dial reading",
+        "tick": "common tick number"
+      },
+      "static_rules": "There are decisions at tick 0 and tick 1. Just before each decision a new independent live_code is generated. At both decisions BOTH players read live_code, dial and tick; only player 0 reads reserve. A cover is lowered over an unused spare monitor between decisions, but the live display remains readable to both. Earlier live_code values remain remembered and reveal nothing about the new independent code. Reserve, dial and current code vary independently.",
+      "dynamic_rules": "There are decisions at tick 0 and tick 1. Just before each decision a new independent live_code is generated. Both players see dial and tick, only player 0 sees reserve, throughout. At tick 0 both read live_code; before the NEW independent code for tick 1 is generated the live display is restricted to player 0, so at tick 1 player 1 cannot read or infer the CURRENT live_code. Knowing the old code does not reveal the new one. Cover both decisions with one model and the same live_code field.",
+      "owners": {
+        "live_code": "public",
+        "reserve": "player_0",
+        "dial": "public",
+        "tick": "public"
+      },
+      "static_visibility": [
+        [
+          "live_code",
+          "reserve",
+          "dial",
+          "tick"
+        ],
+        [
+          "live_code",
+          "dial",
+          "tick"
+        ]
+      ],
+      "dynamic_visibility": [
+        [
+          [
+            "live_code",
+            "reserve",
+            "dial",
+            "tick"
+          ],
+          [
+            "live_code",
+            "dial",
+            "tick"
+          ]
+        ],
+        [
+          [
+            "live_code",
+            "reserve",
+            "dial",
+            "tick"
+          ],
+          [
+            "dial",
+            "tick"
+          ]
+        ]
+      ]
+    },
+    {
+      "pair_id": "cross_delivery",
+      "static_id": "case_417",
+      "dynamic_id": "case_803",
+      "feature": "Private ownership exchange has four alternative valid change witnesses",
+      "fields": {
+        "parcel_a": "current parcel A contents",
+        "parcel_b": "current parcel B contents",
+        "round": "common round number",
+        "mark": "common delivery mark"
+      },
+      "static_rules": "Two rounds have independently regenerated parcel_a and parcel_b contents, unrelated to their old contents or the public data. Both players read round and mark throughout. In EACH round player 0 alone reads parcel_a and player 1 alone reads parcel_b. The physical couriers exchange jackets after round one, but that does not change the readers or reveal contents. Players retain their memories of old contents.",
+      "dynamic_rules": "Two rounds have independently regenerated parcel_a and parcel_b contents, unrelated to their old contents or the public data. Both players read round and mark throughout. In round one player 0 alone reads parcel_a and player 1 alone reads parcel_b. In round two delivery permissions exchange: player 1 alone reads the NEW parcel_a and player 0 alone reads the NEW parcel_b. Old memories reveal neither new value. Include both rounds using the same fields; do not split or rename them.",
+      "owners": {
+        "parcel_a": "player_0",
+        "parcel_b": "player_1",
+        "round": "public",
+        "mark": "public"
+      },
+      "static_visibility": [
+        [
+          "parcel_a",
+          "round",
+          "mark"
+        ],
+        [
+          "parcel_b",
+          "round",
+          "mark"
+        ]
+      ],
+      "dynamic_visibility": [
+        [
+          [
+            "parcel_a",
+            "round",
+            "mark"
+          ],
+          [
+            "parcel_b",
+            "round",
+            "mark"
+          ]
+        ],
+        [
+          [
+            "parcel_b",
+            "round",
+            "mark"
+          ],
+          [
+            "parcel_a",
+            "round",
+            "mark"
+          ]
+        ]
+      ]
+    },
+    {
+      "pair_id": "dual_release",
+      "static_id": "case_560",
+      "dynamic_id": "case_194",
+      "feature": "Two simultaneous disclosures; any genuinely changed field/player suffices",
+      "fields": {
+        "left_code": "left lock code",
+        "right_code": "right lock code",
+        "pulse": "common release pulse",
+        "signal": "common instruction"
+      },
+      "static_rules": "At each of two decisions both players read pulse and signal. Player 1 alone reads left_code and player 0 alone reads right_code. All values are independently selectable. A release pulse between decisions unlocks the ability to take an action; it does NOT display, communicate or make either code inferable to the other player. Both code-reading permissions stay fixed.",
+      "dynamic_rules": "At the first of two decisions both players read pulse and signal, player 1 alone reads left_code, and player 0 alone reads right_code. Before the second decision a release pulse displays BOTH SAME codes on a board readable by BOTH players. Both players then read left_code and right_code as well as pulse and signal. Include both decisions and the same four fields in one observation model. Other fields do not encode any private value; without the explicitly stated display a player cannot infer a field assigned only to the other player.",
+      "owners": {
+        "left_code": "player_1",
+        "right_code": "player_0",
+        "pulse": "public",
+        "signal": "public"
+      },
+      "static_visibility": [
+        [
+          "right_code",
+          "pulse",
+          "signal"
+        ],
+        [
+          "left_code",
+          "pulse",
+          "signal"
+        ]
+      ],
+      "dynamic_visibility": [
+        [
+          [
+            "right_code",
+            "pulse",
+            "signal"
+          ],
+          [
+            "left_code",
+            "pulse",
+            "signal"
+          ]
+        ],
+        [
+          [
+            "left_code",
+            "right_code",
+            "pulse",
+            "signal"
+          ],
+          [
+            "left_code",
+            "right_code",
+            "pulse",
+            "signal"
+          ]
+        ]
+      ]
+    },
+    {
+      "pair_id": "receipt_horizon",
+      "static_id": "case_872",
+      "dynamic_id": "case_345",
+      "feature": "Disclosure after the modeled slice vs before its last decision",
+      "fields": {
+        "voucher": "voucher number",
+        "quota": "quota amount",
+        "bell": "common bell indicator",
+        "ledger": "common ledger counter"
+      },
+      "static_rules": "Only the first two checkpoint decisions belong to this modeled slice. At BOTH, only player 0 sees voucher, only player 1 sees quota, and both see bell and ledger. Values are independent; the ledger counter encodes neither private number. After the second decision the slice ends. A receipt showing voucher to both players is issued only AFTER that end; no modeled decision follows the receipt. In this slice player 1 never sees voucher.",
+      "dynamic_rules": "Only the first two checkpoint decisions belong to this modeled slice. At the first, only player 0 sees voucher, only player 1 sees quota, and both see bell and ledger. BEFORE the SECOND decision, a receipt shows the SAME voucher to both players, so both see voucher at the second modeled decision. Quota stays visible only to player 1. Bell and ledger remain public. Include both modeled decisions without splitting or renaming voucher. Other fields do not encode any private value; without the explicitly stated display a player cannot infer a field assigned only to the other player.",
+      "owners": {
+        "voucher": "player_0",
+        "quota": "player_1",
+        "bell": "public",
+        "ledger": "public"
+      },
+      "static_visibility": [
+        [
+          "voucher",
+          "bell",
+          "ledger"
+        ],
+        [
+          "quota",
+          "bell",
+          "ledger"
+        ]
+      ],
+      "dynamic_visibility": [
+        [
+          [
+            "voucher",
+            "bell",
+            "ledger"
+          ],
+          [
+            "quota",
+            "bell",
+            "ledger"
+          ]
+        ],
+        [
+          [
+            "voucher",
+            "bell",
+            "ledger"
+          ],
+          [
+            "voucher",
+            "quota",
+            "bell",
+            "ledger"
+          ]
+        ]
+      ]
+    },
+    {
+      "pair_id": "role_title_permission",
+      "static_id": "case_926",
+      "dynamic_id": "case_608",
+      "feature": "Administrative role title changes vs role-governed access to fresh sample",
+      "fields": {
+        "assay": "current independent assay result",
+        "handbook": "personal handbook code",
+        "badge": "common inspector identity",
+        "step": "common step number"
+      },
+      "static_rules": "A fresh independent assay is produced before each of two decisions. Both players see badge and step; player 1 alone sees handbook. At both decisions player 0 alone sees the current assay. Badge calls player 0 the inspector at step 0 and player 1 the inspector at step 1, but this title concerns action rewards ONLY and changes no reading permissions. Remembered old assays reveal nothing about new independent results.",
+      "dynamic_rules": "A fresh independent assay is produced before each of two decisions. Both players see badge and step; player 1 alone sees handbook. Only the player currently named inspector by badge may read the current assay. Badge names player 0 at step 0 and player 1 at step 1: player 0 alone reads the first assay, player 1 alone reads the NEW independent second assay. The other player cannot infer the current result from old memory or public fields. Include both steps with the same assay field and no field renaming.",
+      "owners": {
+        "assay": "player_0",
+        "handbook": "player_1",
+        "badge": "public",
+        "step": "public"
+      },
+      "static_visibility": [
+        [
+          "assay",
+          "badge",
+          "step"
+        ],
+        [
+          "handbook",
+          "badge",
+          "step"
+        ]
+      ],
+      "dynamic_visibility": [
+        [
+          [
+            "assay",
+            "badge",
+            "step"
+          ],
+          [
+            "handbook",
+            "badge",
+            "step"
+          ]
+        ],
+        [
+          [
+            "badge",
+            "step"
+          ],
+          [
+            "assay",
+            "handbook",
+            "badge",
+            "step"
+          ]
+        ]
+      ]
+    }
+  ],
+  "independent_scoring": {
+    "primary": "unchanged v4 semantic/structural score crosschecked with unchanged v5 direct visibility table oracle; joint static/dynamic correctness per pair and technical repeat",
+    "static_success": "valid 1-3 partition proposal contains the exact reference and final evidence uniquely verifies reference; not every candidate must be correct",
+    "dynamic_success": "strict refusal with one exactly correct field/player/before/after witness from ALL valid changes; not necessarily the first witness",
+    "audit": "enumerate all 3^n constant partitions, all fields*2players*2before*2after witnesses; static unique, dynamic none; any oracle mismatch preserves counterexample and blocks calls",
+    "uncertainty": "Six purposively authored mechanism pairs, two technical repeats, shared author/reference basis; no independent probability sample or population CI.",
+    "overall_scientific_pass": null,
+    "report": [
+      "each rule pair and repeat",
+      "all raw outputs and errors",
+      "all valid witnesses",
+      "all failures with field/player/direction details",
+      "candidate counts",
+      "exact oracle replay",
+      "cost/tokens/latency"
+    ],
+    "formal_trial_started": false,
+    "error_taxonomy": [
+      "wrong_changed_field",
+      "wrong_affected_player",
+      "wrong_initial_visibility",
+      "wrong_final_visibility",
+      "reversed_change_direction",
+      "no_visibility_change",
+      "static_false_refusal",
+      "wrong_static_partition",
+      "dynamic_false_acceptance",
+      "interface_contract_error",
+      "incomplete_or_provider_error",
+      "transport_or_truncation"
+    ]
+  },
+  "next_step_rule": {
+    "if_failures": "preserve, classify and isolate representation ambiguity vs model mistake in later development; no in-run patches or top-up",
+    "if_no_failures": "only advance to designing a reproducible repair-task dataset and nontrivial semantic negative controls; separate preregistration before feedback comparisons; do not endlessly enlarge perfect-score panels",
+    "external_review": "deferred at user request, not a prerequisite for development; clearly mark developer-authored unreviewed reference"
+  },
+  "immutable_baselines": [
+    "research/results/gamespec_prospective_v5_2026-10-27/luna6.json",
+    "research/results/gamespec_prospective_v5_2026-10-27/sol61.json",
+    "research/results/gamespec_witness_diagnostic_v6_2026-10-28/luna6.json",
+    "research/results/gamespec_witness_diagnostic_v6_2026-10-28/sol61.json"
+  ],
+  "safety": {
+    "adaptive_opponent_line_released": false,
+    "new_runtime_epsilon_gto_allowed": false,
+    "new_game_or_cfr_variant": false,
+    "formal_trial_started": false,
+    "no_41mini_generation": true
+  }
+}
