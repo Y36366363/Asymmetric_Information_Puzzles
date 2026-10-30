@@ -1,0 +1,2 @@
+# Preserve exact bytes of hash-addressed v8 CSV experiment artifacts.
+/research/results/gamespec_attribution_v8_2026-10-30/*.csv -text
