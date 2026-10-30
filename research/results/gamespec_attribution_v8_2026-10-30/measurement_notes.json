@@ -1,0 +1,49 @@
+{
+  "derivation": "For each raw report and condition, count evaluation.interface_errors, evaluation.categories deterministic_export_failure, and not evaluation.legacy.serialization_ok; all are existing frozen fields.",
+  "frozen_summary_expression": "interface_error_trials counts completed trials with interface_errors OR not legacy.serialization_ok; thus includes program-derived proposal failures",
+  "interpretation": "A valid JSON stage table can be semantically wrong and unexportable. Keep downstream proposal_contract_failure, but do not call it a raw model JSON/schema error or correct-table export error.",
+  "models": {
+    "luna6": {
+      "A": {
+        "deterministic_export_failures": 0,
+        "frozen_summary_interface_error_trials": 0,
+        "legacy_serialization_failures": 0,
+        "raw_model_interface_failures": 0
+      },
+      "B": {
+        "deterministic_export_failures": 5,
+        "frozen_summary_interface_error_trials": 5,
+        "legacy_serialization_failures": 5,
+        "raw_model_interface_failures": 0
+      },
+      "C": {
+        "deterministic_export_failures": 0,
+        "frozen_summary_interface_error_trials": 0,
+        "legacy_serialization_failures": 0,
+        "raw_model_interface_failures": 0
+      }
+    },
+    "sol61": {
+      "A": {
+        "deterministic_export_failures": 0,
+        "frozen_summary_interface_error_trials": 0,
+        "legacy_serialization_failures": 0,
+        "raw_model_interface_failures": 0
+      },
+      "B": {
+        "deterministic_export_failures": 0,
+        "frozen_summary_interface_error_trials": 0,
+        "legacy_serialization_failures": 0,
+        "raw_model_interface_failures": 0
+      },
+      "C": {
+        "deterministic_export_failures": 0,
+        "frozen_summary_interface_error_trials": 0,
+        "legacy_serialization_failures": 0,
+        "raw_model_interface_failures": 0
+      }
+    }
+  },
+  "no_scores_or_primary_endpoints_changed": true,
+  "post_run_reporting_clarification": true
+}

@@ -663,6 +663,81 @@
       ]
     },
     {
+      "id": "gamespec_v8_understanding_export_attribution",
+      "status": "mixed",
+      "statement": "复用v7冻结参考完成360次三条件归因调用；Luna动态见证A29/30、B24/30、C30/30，B/C阶段表44/60与57/60；Sol三条件全对。未观察到C正确表上的错误见证。",
+      "scope": "六对旧开发规则，每实例每条件五次，一次结构化回复；无新人工参照，原proposal序列化和两条主评分路径不变。",
+      "limitations": "B/C新增输出任务和schema是必要差异，不能将跨条件差异视为潜在认知因果定位；Luna表示层错误已观察到，但不能唯一归因A旧错误。六规则对不足以在四比较Holm下达到0.05；Sol处于天花板。汇总interface_error_trials含B程序未导出proposal的5例，原模型接口错误为0。",
+      "next_question": "阶段表适合作为审计工具继续有限开发；当前Luna B不应替代A。先离线处理表示覆盖和字段绑定，再另行预注册，保留全部负结果，不切换默认模型或开放部署。",
+      "evidence": [
+        {
+          "path": "research/results/gamespec_attribution_v8_2026-10-30/luna6.json",
+          "sha256": "4a913dd5c2286ce240a207cd22eaae1b2cf41fcda28bf5ad567cdea74b2b05e8",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/status", "equals": "completed"},
+            {"pointer": "/analysis/conditions/A/dynamic_witness_correct/numerator", "equals": 29},
+            {"pointer": "/analysis/conditions/B/dynamic_witness_correct/numerator", "equals": 24},
+            {"pointer": "/analysis/conditions/B/table_correct_all/numerator", "equals": 44},
+            {"pointer": "/analysis/conditions/C/table_correct_all/numerator", "equals": 57},
+            {"pointer": "/analysis/conditions/C/correct_table_wrong_witness_conditional/numerator", "equals": 0}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_attribution_v8_2026-10-30/sol61.json",
+          "sha256": "2158d0d9f2e8b96fff5dca3641b292bd1d83606cd93b1a7e3ae48d8941d94068",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/status", "equals": "completed"},
+            {"pointer": "/analysis/conditions/A/dynamic_witness_correct/numerator", "equals": 30},
+            {"pointer": "/analysis/conditions/B/table_correct_all/numerator", "equals": 60},
+            {"pointer": "/analysis/conditions/C/table_correct_all/numerator", "equals": 60},
+            {"pointer": "/analysis/all_failures", "equals": []}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_attribution_v8_2026-10-30/comparison.json",
+          "sha256": "f88336e3b7a7c0f763df39217fe9ed751c29557489264b8932a0ab4c805705dd",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/models/luna6/conditions/C/correct_table_wrong_witness_conditional/denominator", "equals": 28},
+            {"pointer": "/models/luna6/conditions/B/table_proposal_cross_tab/table_False_proposal_True", "equals": 5},
+            {"pointer": "/exploratory_statistics/0/difference", "equals": -0.16666666666666666},
+            {"pointer": "/new_manual_reference", "equals": false},
+            {"pointer": "/formal_trial_started", "equals": false},
+            {"pointer": "/historical_failures_reinterpreted", "equals": false}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_attribution_v8_2026-10-30/luna6_rescored.json",
+          "sha256": "4941a4a53a990b6e5e14e65379cc22a29f80f3b1c01724a5749800ad80d84519",
+          "kind": "artifact_assertion",
+          "assertions": [{"pointer": "/raw_rescoring_agrees", "equals": true}]
+        },
+        {
+          "path": "research/results/gamespec_attribution_v8_2026-10-30/sol61_rescored.json",
+          "sha256": "b82c8170a0755286f45383818cff076e662f766fa2a6bb2a612aefca3dd8eefd",
+          "kind": "artifact_assertion",
+          "assertions": [{"pointer": "/raw_rescoring_agrees", "equals": true}]
+        },
+        {
+          "path": "research/results/gamespec_attribution_v8_2026-10-30/measurement_notes.json",
+          "sha256": "b0f7d2c441ed466794bcd62a5666f702f955a2011ec570c5ea839c5710e10f10",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/no_scores_or_primary_endpoints_changed", "equals": true},
+            {"pointer": "/models/luna6/B/raw_model_interface_failures", "equals": 0},
+            {"pointer": "/models/luna6/B/deterministic_export_failures", "equals": 5}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_attribution_v8_2026-10-30/cross_analysis.csv",
+          "sha256": "ee7cc3f74388626aa6cb4d817251b0ccb3692ae94b910f1630d6864e9a60e69a",
+          "kind": "source_reference"
+        }
+      ]
+    },
+    {
       "id": "general_llm_solver",
       "status": "not_established",
       "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",
