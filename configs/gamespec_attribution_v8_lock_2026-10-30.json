@@ -1,0 +1,4006 @@
+{
+  "bundle_sha256": {
+    "luna6": "14806ca89553e15dde1a7bc58a89c1faeb02cfab407fa26339a854c70e568cd6",
+    "sol61": "312d403e7c9c773fca2086c85be78a42d49f40d939905eb304f49b691aa07b5b"
+  },
+  "generation_calls_executed": 0,
+  "historical_sha256": {
+    "research/results/gamespec_boundary_panel_v7_2026-10-29/luna6.json": "4ab6b51417fc05f63ae85512917c0a32eec12b09c8719ecb4135f007b3e70000",
+    "research/results/gamespec_boundary_panel_v7_2026-10-29/sol61.json": "cd4798f7f4f52be42956491d16089a8027384ed780034f3ad3ecb4a6bd2a5fcf",
+    "research/results/gamespec_prospective_v5_2026-10-27/luna6.json": "8f4107de90eb5c09d208663c5547478726d087d8df4d83d022b61b8e3c7699e7",
+    "research/results/gamespec_prospective_v5_2026-10-27/sol61.json": "fb12d483cc072ef2db4a660189ee48fe723b1f00a6bf88632f61c2ed7cc15296",
+    "research/results/gamespec_witness_diagnostic_v6_2026-10-28/luna6.json": "5d4a8058d299476108d55789470e033c2a2b1559f76e70731d07296f4d27564a",
+    "research/results/gamespec_witness_diagnostic_v6_2026-10-28/sol61.json": "48d90f95ea97f190b37118d4de964a1ded17673a1bf998a1f20909eb78076d87"
+  },
+  "pre_call_statistical_limit": {
+    "can_reach_adjusted_005": false,
+    "dynamic_rule_pairs": 6,
+    "minimum_first_Holm_p_four_tests": 0.125,
+    "minimum_two_sided_p": 0.03125
+  },
+  "preregistration_commit": "5b7dce87bc975d0ebc62e2f2946627c8a68e1c8a",
+  "schemas": {
+    "case_194": {
+      "A": {
+        "additionalProperties": false,
+        "properties": {
+          "candidates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "private_fields_by_player": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "player_0": {
+                      "items": {
+                        "enum": [
+                          "left_code",
+                          "right_code",
+                          "pulse",
+                          "signal"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "player_1": {
+                      "items": {
+                        "enum": [
+                          "left_code",
+                          "right_code",
+                          "pulse",
+                          "signal"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "player_0",
+                    "player_1"
+                  ],
+                  "type": "object"
+                },
+                "public_fields": {
+                  "items": {
+                    "enum": [
+                      "left_code",
+                      "right_code",
+                      "pulse",
+                      "signal"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "public_fields",
+                "private_fields_by_player"
+              ],
+              "type": "object"
+            },
+            "maxItems": 3,
+            "minItems": 0,
+            "type": "array"
+          },
+          "decision": {
+            "enum": [
+              "candidate",
+              "refusal"
+            ],
+            "type": "string"
+          },
+          "witness": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "after_visible": {
+                    "type": "boolean"
+                  },
+                  "before_visible": {
+                    "type": "boolean"
+                  },
+                  "field": {
+                    "enum": [
+                      "left_code",
+                      "right_code",
+                      "pulse",
+                      "signal"
+                    ],
+                    "type": "string"
+                  },
+                  "player": {
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "field",
+                  "player",
+                  "before_visible",
+                  "after_visible"
+                ],
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "decision",
+          "candidates",
+          "witness"
+        ],
+        "type": "object"
+      },
+      "B": {
+        "additionalProperties": false,
+        "properties": {
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "left_code",
+                    "right_code",
+                    "pulse",
+                    "signal"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table"
+        ],
+        "type": "object"
+      },
+      "C": {
+        "additionalProperties": false,
+        "properties": {
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "left_code",
+                              "right_code",
+                              "pulse",
+                              "signal"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "left_code",
+                              "right_code",
+                              "pulse",
+                              "signal"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "left_code",
+                          "right_code",
+                          "pulse",
+                          "signal"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "left_code",
+                          "right_code",
+                          "pulse",
+                          "signal"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          },
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "left_code",
+                    "right_code",
+                    "pulse",
+                    "signal"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table",
+          "proposal"
+        ],
+        "type": "object"
+      }
+    },
+    "case_281": {
+      "A": {
+        "additionalProperties": false,
+        "properties": {
+          "candidates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "private_fields_by_player": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "player_0": {
+                      "items": {
+                        "enum": [
+                          "public_label",
+                          "private_banner",
+                          "counter",
+                          "token"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "player_1": {
+                      "items": {
+                        "enum": [
+                          "public_label",
+                          "private_banner",
+                          "counter",
+                          "token"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "player_0",
+                    "player_1"
+                  ],
+                  "type": "object"
+                },
+                "public_fields": {
+                  "items": {
+                    "enum": [
+                      "public_label",
+                      "private_banner",
+                      "counter",
+                      "token"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "public_fields",
+                "private_fields_by_player"
+              ],
+              "type": "object"
+            },
+            "maxItems": 3,
+            "minItems": 0,
+            "type": "array"
+          },
+          "decision": {
+            "enum": [
+              "candidate",
+              "refusal"
+            ],
+            "type": "string"
+          },
+          "witness": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "after_visible": {
+                    "type": "boolean"
+                  },
+                  "before_visible": {
+                    "type": "boolean"
+                  },
+                  "field": {
+                    "enum": [
+                      "public_label",
+                      "private_banner",
+                      "counter",
+                      "token"
+                    ],
+                    "type": "string"
+                  },
+                  "player": {
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "field",
+                  "player",
+                  "before_visible",
+                  "after_visible"
+                ],
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "decision",
+          "candidates",
+          "witness"
+        ],
+        "type": "object"
+      },
+      "B": {
+        "additionalProperties": false,
+        "properties": {
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "public_label",
+                    "private_banner",
+                    "counter",
+                    "token"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table"
+        ],
+        "type": "object"
+      },
+      "C": {
+        "additionalProperties": false,
+        "properties": {
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "public_label",
+                              "private_banner",
+                              "counter",
+                              "token"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "public_label",
+                              "private_banner",
+                              "counter",
+                              "token"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "public_label",
+                          "private_banner",
+                          "counter",
+                          "token"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "public_label",
+                          "private_banner",
+                          "counter",
+                          "token"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          },
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "public_label",
+                    "private_banner",
+                    "counter",
+                    "token"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table",
+          "proposal"
+        ],
+        "type": "object"
+      }
+    },
+    "case_345": {
+      "A": {
+        "additionalProperties": false,
+        "properties": {
+          "candidates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "private_fields_by_player": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "player_0": {
+                      "items": {
+                        "enum": [
+                          "voucher",
+                          "quota",
+                          "bell",
+                          "ledger"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "player_1": {
+                      "items": {
+                        "enum": [
+                          "voucher",
+                          "quota",
+                          "bell",
+                          "ledger"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "player_0",
+                    "player_1"
+                  ],
+                  "type": "object"
+                },
+                "public_fields": {
+                  "items": {
+                    "enum": [
+                      "voucher",
+                      "quota",
+                      "bell",
+                      "ledger"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "public_fields",
+                "private_fields_by_player"
+              ],
+              "type": "object"
+            },
+            "maxItems": 3,
+            "minItems": 0,
+            "type": "array"
+          },
+          "decision": {
+            "enum": [
+              "candidate",
+              "refusal"
+            ],
+            "type": "string"
+          },
+          "witness": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "after_visible": {
+                    "type": "boolean"
+                  },
+                  "before_visible": {
+                    "type": "boolean"
+                  },
+                  "field": {
+                    "enum": [
+                      "voucher",
+                      "quota",
+                      "bell",
+                      "ledger"
+                    ],
+                    "type": "string"
+                  },
+                  "player": {
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "field",
+                  "player",
+                  "before_visible",
+                  "after_visible"
+                ],
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "decision",
+          "candidates",
+          "witness"
+        ],
+        "type": "object"
+      },
+      "B": {
+        "additionalProperties": false,
+        "properties": {
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "voucher",
+                    "quota",
+                    "bell",
+                    "ledger"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table"
+        ],
+        "type": "object"
+      },
+      "C": {
+        "additionalProperties": false,
+        "properties": {
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "voucher",
+                              "quota",
+                              "bell",
+                              "ledger"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "voucher",
+                              "quota",
+                              "bell",
+                              "ledger"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "voucher",
+                          "quota",
+                          "bell",
+                          "ledger"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "voucher",
+                          "quota",
+                          "bell",
+                          "ledger"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          },
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "voucher",
+                    "quota",
+                    "bell",
+                    "ledger"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table",
+          "proposal"
+        ],
+        "type": "object"
+      }
+    },
+    "case_417": {
+      "A": {
+        "additionalProperties": false,
+        "properties": {
+          "candidates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "private_fields_by_player": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "player_0": {
+                      "items": {
+                        "enum": [
+                          "parcel_a",
+                          "parcel_b",
+                          "round",
+                          "mark"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "player_1": {
+                      "items": {
+                        "enum": [
+                          "parcel_a",
+                          "parcel_b",
+                          "round",
+                          "mark"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "player_0",
+                    "player_1"
+                  ],
+                  "type": "object"
+                },
+                "public_fields": {
+                  "items": {
+                    "enum": [
+                      "parcel_a",
+                      "parcel_b",
+                      "round",
+                      "mark"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "public_fields",
+                "private_fields_by_player"
+              ],
+              "type": "object"
+            },
+            "maxItems": 3,
+            "minItems": 0,
+            "type": "array"
+          },
+          "decision": {
+            "enum": [
+              "candidate",
+              "refusal"
+            ],
+            "type": "string"
+          },
+          "witness": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "after_visible": {
+                    "type": "boolean"
+                  },
+                  "before_visible": {
+                    "type": "boolean"
+                  },
+                  "field": {
+                    "enum": [
+                      "parcel_a",
+                      "parcel_b",
+                      "round",
+                      "mark"
+                    ],
+                    "type": "string"
+                  },
+                  "player": {
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "field",
+                  "player",
+                  "before_visible",
+                  "after_visible"
+                ],
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "decision",
+          "candidates",
+          "witness"
+        ],
+        "type": "object"
+      },
+      "B": {
+        "additionalProperties": false,
+        "properties": {
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "parcel_a",
+                    "parcel_b",
+                    "round",
+                    "mark"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table"
+        ],
+        "type": "object"
+      },
+      "C": {
+        "additionalProperties": false,
+        "properties": {
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "parcel_a",
+                              "parcel_b",
+                              "round",
+                              "mark"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "parcel_a",
+                              "parcel_b",
+                              "round",
+                              "mark"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "parcel_a",
+                          "parcel_b",
+                          "round",
+                          "mark"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "parcel_a",
+                          "parcel_b",
+                          "round",
+                          "mark"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          },
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "parcel_a",
+                    "parcel_b",
+                    "round",
+                    "mark"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table",
+          "proposal"
+        ],
+        "type": "object"
+      }
+    },
+    "case_560": {
+      "A": {
+        "additionalProperties": false,
+        "properties": {
+          "candidates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "private_fields_by_player": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "player_0": {
+                      "items": {
+                        "enum": [
+                          "left_code",
+                          "right_code",
+                          "pulse",
+                          "signal"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "player_1": {
+                      "items": {
+                        "enum": [
+                          "left_code",
+                          "right_code",
+                          "pulse",
+                          "signal"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "player_0",
+                    "player_1"
+                  ],
+                  "type": "object"
+                },
+                "public_fields": {
+                  "items": {
+                    "enum": [
+                      "left_code",
+                      "right_code",
+                      "pulse",
+                      "signal"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "public_fields",
+                "private_fields_by_player"
+              ],
+              "type": "object"
+            },
+            "maxItems": 3,
+            "minItems": 0,
+            "type": "array"
+          },
+          "decision": {
+            "enum": [
+              "candidate",
+              "refusal"
+            ],
+            "type": "string"
+          },
+          "witness": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "after_visible": {
+                    "type": "boolean"
+                  },
+                  "before_visible": {
+                    "type": "boolean"
+                  },
+                  "field": {
+                    "enum": [
+                      "left_code",
+                      "right_code",
+                      "pulse",
+                      "signal"
+                    ],
+                    "type": "string"
+                  },
+                  "player": {
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "field",
+                  "player",
+                  "before_visible",
+                  "after_visible"
+                ],
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "decision",
+          "candidates",
+          "witness"
+        ],
+        "type": "object"
+      },
+      "B": {
+        "additionalProperties": false,
+        "properties": {
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "left_code",
+                    "right_code",
+                    "pulse",
+                    "signal"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table"
+        ],
+        "type": "object"
+      },
+      "C": {
+        "additionalProperties": false,
+        "properties": {
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "left_code",
+                              "right_code",
+                              "pulse",
+                              "signal"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "left_code",
+                              "right_code",
+                              "pulse",
+                              "signal"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "left_code",
+                          "right_code",
+                          "pulse",
+                          "signal"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "left_code",
+                          "right_code",
+                          "pulse",
+                          "signal"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          },
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "left_code",
+                    "right_code",
+                    "pulse",
+                    "signal"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table",
+          "proposal"
+        ],
+        "type": "object"
+      }
+    },
+    "case_608": {
+      "A": {
+        "additionalProperties": false,
+        "properties": {
+          "candidates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "private_fields_by_player": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "player_0": {
+                      "items": {
+                        "enum": [
+                          "assay",
+                          "handbook",
+                          "badge",
+                          "step"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "player_1": {
+                      "items": {
+                        "enum": [
+                          "assay",
+                          "handbook",
+                          "badge",
+                          "step"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "player_0",
+                    "player_1"
+                  ],
+                  "type": "object"
+                },
+                "public_fields": {
+                  "items": {
+                    "enum": [
+                      "assay",
+                      "handbook",
+                      "badge",
+                      "step"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "public_fields",
+                "private_fields_by_player"
+              ],
+              "type": "object"
+            },
+            "maxItems": 3,
+            "minItems": 0,
+            "type": "array"
+          },
+          "decision": {
+            "enum": [
+              "candidate",
+              "refusal"
+            ],
+            "type": "string"
+          },
+          "witness": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "after_visible": {
+                    "type": "boolean"
+                  },
+                  "before_visible": {
+                    "type": "boolean"
+                  },
+                  "field": {
+                    "enum": [
+                      "assay",
+                      "handbook",
+                      "badge",
+                      "step"
+                    ],
+                    "type": "string"
+                  },
+                  "player": {
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "field",
+                  "player",
+                  "before_visible",
+                  "after_visible"
+                ],
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "decision",
+          "candidates",
+          "witness"
+        ],
+        "type": "object"
+      },
+      "B": {
+        "additionalProperties": false,
+        "properties": {
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "assay",
+                    "handbook",
+                    "badge",
+                    "step"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table"
+        ],
+        "type": "object"
+      },
+      "C": {
+        "additionalProperties": false,
+        "properties": {
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "assay",
+                              "handbook",
+                              "badge",
+                              "step"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "assay",
+                              "handbook",
+                              "badge",
+                              "step"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "assay",
+                          "handbook",
+                          "badge",
+                          "step"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "assay",
+                          "handbook",
+                          "badge",
+                          "step"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          },
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "assay",
+                    "handbook",
+                    "badge",
+                    "step"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table",
+          "proposal"
+        ],
+        "type": "object"
+      }
+    },
+    "case_639": {
+      "A": {
+        "additionalProperties": false,
+        "properties": {
+          "candidates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "private_fields_by_player": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "player_0": {
+                      "items": {
+                        "enum": [
+                          "public_label",
+                          "private_banner",
+                          "counter",
+                          "token"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "player_1": {
+                      "items": {
+                        "enum": [
+                          "public_label",
+                          "private_banner",
+                          "counter",
+                          "token"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "player_0",
+                    "player_1"
+                  ],
+                  "type": "object"
+                },
+                "public_fields": {
+                  "items": {
+                    "enum": [
+                      "public_label",
+                      "private_banner",
+                      "counter",
+                      "token"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "public_fields",
+                "private_fields_by_player"
+              ],
+              "type": "object"
+            },
+            "maxItems": 3,
+            "minItems": 0,
+            "type": "array"
+          },
+          "decision": {
+            "enum": [
+              "candidate",
+              "refusal"
+            ],
+            "type": "string"
+          },
+          "witness": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "after_visible": {
+                    "type": "boolean"
+                  },
+                  "before_visible": {
+                    "type": "boolean"
+                  },
+                  "field": {
+                    "enum": [
+                      "public_label",
+                      "private_banner",
+                      "counter",
+                      "token"
+                    ],
+                    "type": "string"
+                  },
+                  "player": {
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "field",
+                  "player",
+                  "before_visible",
+                  "after_visible"
+                ],
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "decision",
+          "candidates",
+          "witness"
+        ],
+        "type": "object"
+      },
+      "B": {
+        "additionalProperties": false,
+        "properties": {
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "public_label",
+                    "private_banner",
+                    "counter",
+                    "token"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table"
+        ],
+        "type": "object"
+      },
+      "C": {
+        "additionalProperties": false,
+        "properties": {
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "public_label",
+                              "private_banner",
+                              "counter",
+                              "token"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "public_label",
+                              "private_banner",
+                              "counter",
+                              "token"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "public_label",
+                          "private_banner",
+                          "counter",
+                          "token"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "public_label",
+                          "private_banner",
+                          "counter",
+                          "token"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          },
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "public_label",
+                    "private_banner",
+                    "counter",
+                    "token"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table",
+          "proposal"
+        ],
+        "type": "object"
+      }
+    },
+    "case_754": {
+      "A": {
+        "additionalProperties": false,
+        "properties": {
+          "candidates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "private_fields_by_player": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "player_0": {
+                      "items": {
+                        "enum": [
+                          "live_code",
+                          "reserve",
+                          "dial",
+                          "tick"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "player_1": {
+                      "items": {
+                        "enum": [
+                          "live_code",
+                          "reserve",
+                          "dial",
+                          "tick"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "player_0",
+                    "player_1"
+                  ],
+                  "type": "object"
+                },
+                "public_fields": {
+                  "items": {
+                    "enum": [
+                      "live_code",
+                      "reserve",
+                      "dial",
+                      "tick"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "public_fields",
+                "private_fields_by_player"
+              ],
+              "type": "object"
+            },
+            "maxItems": 3,
+            "minItems": 0,
+            "type": "array"
+          },
+          "decision": {
+            "enum": [
+              "candidate",
+              "refusal"
+            ],
+            "type": "string"
+          },
+          "witness": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "after_visible": {
+                    "type": "boolean"
+                  },
+                  "before_visible": {
+                    "type": "boolean"
+                  },
+                  "field": {
+                    "enum": [
+                      "live_code",
+                      "reserve",
+                      "dial",
+                      "tick"
+                    ],
+                    "type": "string"
+                  },
+                  "player": {
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "field",
+                  "player",
+                  "before_visible",
+                  "after_visible"
+                ],
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "decision",
+          "candidates",
+          "witness"
+        ],
+        "type": "object"
+      },
+      "B": {
+        "additionalProperties": false,
+        "properties": {
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "live_code",
+                    "reserve",
+                    "dial",
+                    "tick"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table"
+        ],
+        "type": "object"
+      },
+      "C": {
+        "additionalProperties": false,
+        "properties": {
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "live_code",
+                              "reserve",
+                              "dial",
+                              "tick"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "live_code",
+                              "reserve",
+                              "dial",
+                              "tick"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "live_code",
+                          "reserve",
+                          "dial",
+                          "tick"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "live_code",
+                          "reserve",
+                          "dial",
+                          "tick"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          },
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "live_code",
+                    "reserve",
+                    "dial",
+                    "tick"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table",
+          "proposal"
+        ],
+        "type": "object"
+      }
+    },
+    "case_803": {
+      "A": {
+        "additionalProperties": false,
+        "properties": {
+          "candidates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "private_fields_by_player": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "player_0": {
+                      "items": {
+                        "enum": [
+                          "parcel_a",
+                          "parcel_b",
+                          "round",
+                          "mark"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "player_1": {
+                      "items": {
+                        "enum": [
+                          "parcel_a",
+                          "parcel_b",
+                          "round",
+                          "mark"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "player_0",
+                    "player_1"
+                  ],
+                  "type": "object"
+                },
+                "public_fields": {
+                  "items": {
+                    "enum": [
+                      "parcel_a",
+                      "parcel_b",
+                      "round",
+                      "mark"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "public_fields",
+                "private_fields_by_player"
+              ],
+              "type": "object"
+            },
+            "maxItems": 3,
+            "minItems": 0,
+            "type": "array"
+          },
+          "decision": {
+            "enum": [
+              "candidate",
+              "refusal"
+            ],
+            "type": "string"
+          },
+          "witness": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "after_visible": {
+                    "type": "boolean"
+                  },
+                  "before_visible": {
+                    "type": "boolean"
+                  },
+                  "field": {
+                    "enum": [
+                      "parcel_a",
+                      "parcel_b",
+                      "round",
+                      "mark"
+                    ],
+                    "type": "string"
+                  },
+                  "player": {
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "field",
+                  "player",
+                  "before_visible",
+                  "after_visible"
+                ],
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "decision",
+          "candidates",
+          "witness"
+        ],
+        "type": "object"
+      },
+      "B": {
+        "additionalProperties": false,
+        "properties": {
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "parcel_a",
+                    "parcel_b",
+                    "round",
+                    "mark"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table"
+        ],
+        "type": "object"
+      },
+      "C": {
+        "additionalProperties": false,
+        "properties": {
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "parcel_a",
+                              "parcel_b",
+                              "round",
+                              "mark"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "parcel_a",
+                              "parcel_b",
+                              "round",
+                              "mark"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "parcel_a",
+                          "parcel_b",
+                          "round",
+                          "mark"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "parcel_a",
+                          "parcel_b",
+                          "round",
+                          "mark"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          },
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "parcel_a",
+                    "parcel_b",
+                    "round",
+                    "mark"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table",
+          "proposal"
+        ],
+        "type": "object"
+      }
+    },
+    "case_872": {
+      "A": {
+        "additionalProperties": false,
+        "properties": {
+          "candidates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "private_fields_by_player": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "player_0": {
+                      "items": {
+                        "enum": [
+                          "voucher",
+                          "quota",
+                          "bell",
+                          "ledger"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "player_1": {
+                      "items": {
+                        "enum": [
+                          "voucher",
+                          "quota",
+                          "bell",
+                          "ledger"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "player_0",
+                    "player_1"
+                  ],
+                  "type": "object"
+                },
+                "public_fields": {
+                  "items": {
+                    "enum": [
+                      "voucher",
+                      "quota",
+                      "bell",
+                      "ledger"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "public_fields",
+                "private_fields_by_player"
+              ],
+              "type": "object"
+            },
+            "maxItems": 3,
+            "minItems": 0,
+            "type": "array"
+          },
+          "decision": {
+            "enum": [
+              "candidate",
+              "refusal"
+            ],
+            "type": "string"
+          },
+          "witness": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "after_visible": {
+                    "type": "boolean"
+                  },
+                  "before_visible": {
+                    "type": "boolean"
+                  },
+                  "field": {
+                    "enum": [
+                      "voucher",
+                      "quota",
+                      "bell",
+                      "ledger"
+                    ],
+                    "type": "string"
+                  },
+                  "player": {
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "field",
+                  "player",
+                  "before_visible",
+                  "after_visible"
+                ],
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "decision",
+          "candidates",
+          "witness"
+        ],
+        "type": "object"
+      },
+      "B": {
+        "additionalProperties": false,
+        "properties": {
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "voucher",
+                    "quota",
+                    "bell",
+                    "ledger"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table"
+        ],
+        "type": "object"
+      },
+      "C": {
+        "additionalProperties": false,
+        "properties": {
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "voucher",
+                              "quota",
+                              "bell",
+                              "ledger"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "voucher",
+                              "quota",
+                              "bell",
+                              "ledger"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "voucher",
+                          "quota",
+                          "bell",
+                          "ledger"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "voucher",
+                          "quota",
+                          "bell",
+                          "ledger"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          },
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "voucher",
+                    "quota",
+                    "bell",
+                    "ledger"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table",
+          "proposal"
+        ],
+        "type": "object"
+      }
+    },
+    "case_926": {
+      "A": {
+        "additionalProperties": false,
+        "properties": {
+          "candidates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "private_fields_by_player": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "player_0": {
+                      "items": {
+                        "enum": [
+                          "assay",
+                          "handbook",
+                          "badge",
+                          "step"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "player_1": {
+                      "items": {
+                        "enum": [
+                          "assay",
+                          "handbook",
+                          "badge",
+                          "step"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "player_0",
+                    "player_1"
+                  ],
+                  "type": "object"
+                },
+                "public_fields": {
+                  "items": {
+                    "enum": [
+                      "assay",
+                      "handbook",
+                      "badge",
+                      "step"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "public_fields",
+                "private_fields_by_player"
+              ],
+              "type": "object"
+            },
+            "maxItems": 3,
+            "minItems": 0,
+            "type": "array"
+          },
+          "decision": {
+            "enum": [
+              "candidate",
+              "refusal"
+            ],
+            "type": "string"
+          },
+          "witness": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "after_visible": {
+                    "type": "boolean"
+                  },
+                  "before_visible": {
+                    "type": "boolean"
+                  },
+                  "field": {
+                    "enum": [
+                      "assay",
+                      "handbook",
+                      "badge",
+                      "step"
+                    ],
+                    "type": "string"
+                  },
+                  "player": {
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "field",
+                  "player",
+                  "before_visible",
+                  "after_visible"
+                ],
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "decision",
+          "candidates",
+          "witness"
+        ],
+        "type": "object"
+      },
+      "B": {
+        "additionalProperties": false,
+        "properties": {
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "assay",
+                    "handbook",
+                    "badge",
+                    "step"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table"
+        ],
+        "type": "object"
+      },
+      "C": {
+        "additionalProperties": false,
+        "properties": {
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "assay",
+                              "handbook",
+                              "badge",
+                              "step"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "assay",
+                              "handbook",
+                              "badge",
+                              "step"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "assay",
+                          "handbook",
+                          "badge",
+                          "step"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "assay",
+                          "handbook",
+                          "badge",
+                          "step"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          },
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "assay",
+                    "handbook",
+                    "badge",
+                    "step"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table",
+          "proposal"
+        ],
+        "type": "object"
+      }
+    },
+    "case_936": {
+      "A": {
+        "additionalProperties": false,
+        "properties": {
+          "candidates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "private_fields_by_player": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "player_0": {
+                      "items": {
+                        "enum": [
+                          "live_code",
+                          "reserve",
+                          "dial",
+                          "tick"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "player_1": {
+                      "items": {
+                        "enum": [
+                          "live_code",
+                          "reserve",
+                          "dial",
+                          "tick"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "player_0",
+                    "player_1"
+                  ],
+                  "type": "object"
+                },
+                "public_fields": {
+                  "items": {
+                    "enum": [
+                      "live_code",
+                      "reserve",
+                      "dial",
+                      "tick"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "public_fields",
+                "private_fields_by_player"
+              ],
+              "type": "object"
+            },
+            "maxItems": 3,
+            "minItems": 0,
+            "type": "array"
+          },
+          "decision": {
+            "enum": [
+              "candidate",
+              "refusal"
+            ],
+            "type": "string"
+          },
+          "witness": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "after_visible": {
+                    "type": "boolean"
+                  },
+                  "before_visible": {
+                    "type": "boolean"
+                  },
+                  "field": {
+                    "enum": [
+                      "live_code",
+                      "reserve",
+                      "dial",
+                      "tick"
+                    ],
+                    "type": "string"
+                  },
+                  "player": {
+                    "enum": [
+                      0,
+                      1
+                    ],
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "field",
+                  "player",
+                  "before_visible",
+                  "after_visible"
+                ],
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "decision",
+          "candidates",
+          "witness"
+        ],
+        "type": "object"
+      },
+      "B": {
+        "additionalProperties": false,
+        "properties": {
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "live_code",
+                    "reserve",
+                    "dial",
+                    "tick"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table"
+        ],
+        "type": "object"
+      },
+      "C": {
+        "additionalProperties": false,
+        "properties": {
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "live_code",
+                              "reserve",
+                              "dial",
+                              "tick"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "live_code",
+                              "reserve",
+                              "dial",
+                              "tick"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "live_code",
+                          "reserve",
+                          "dial",
+                          "tick"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "live_code",
+                          "reserve",
+                          "dial",
+                          "tick"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          },
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "live_code",
+                    "reserve",
+                    "dial",
+                    "tick"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table",
+          "proposal"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "schemas_sha256": "5d713aeac78cc4433d0bbd45f43278ffe994ff95655e5d380274bd20f03de904",
+  "sha256": {
+    "configs/gamespec_attribution_v8_2026-10-30.json": "f3816688037708dfcee273128747eb5334b543729b792450311129b3c83cde8a",
+    "configs/gamespec_boundary_panel_v7_2026-10-29.json": "f9e9b9f05fd0cfae3fb54b7c81b0581b8d76b55259f23329e4ff83a7b4d0568e",
+    "configs/gamespec_interface_v4_2026-10-26.json": "7b32e556b860b80a7b9f63fff977908fc6d9871e1c526a0a879694618fe2fd3f",
+    "configs/gamespec_prospective_v5_2026-10-27.json": "bf67468516f247468128cc3c4edbabcebd195fb859c922d09a24e67a15547de1",
+    "configs/gamespec_scope_ablation_v3_2026-10-25.json": "952cc99cc110b9dd6535997cefcec1f0dd08b699e6973c6816ef65560b8ba265",
+    "configs/gamespec_witness_diagnostic_v6_2026-10-28.json": "146049b74367b933ee835d404e024763821e5f7c50d05c25b6c52f534e641296",
+    "configs/llm_gamespec_smoke_execution_2026-10-21.json": "24493a4d039374f281b08547368259384f23fbe7f8a88995dbf402c3b2822680",
+    "configs/llm_gamespec_smoke_v2_2026-10-23.json": "bffc17ea205b4550d654d0bd5073352804ec3207279a7f85a3382feffc0b4983",
+    "scripts/run_gamespec_attribution.py": "9a3480f6f134d14b9365dda79627d5f6ef168dfbdaea5de2554ca8a85c796992",
+    "scripts/run_gamespec_boundary_panel.py": "e3d3f36123abe6ccb6d653212a7f25c7f3e0a208ed1421eb3bca094594138e68",
+    "scripts/run_gamespec_interface.py": "b7d537c4fd34a541f24abf4e3942e646cb04cf70c9c41775e18ff6e87891e641",
+    "scripts/run_gamespec_prospective.py": "708c8cc990f6f261074a7da3c0a0b8edda73c9c41db21c1e135caf4511bbf3eb",
+    "scripts/run_gamespec_scope_ablation.py": "21b0abc42e8893bfa60a7bcbabd7c4f4226ddf75d24ce9f66d0505116555251c",
+    "scripts/run_gamespec_witness_diagnostic.py": "a27946e283bcf42273569f1ee6cbbf3a3297b2e10926cb501cc33cd39fdbf132",
+    "src/aip/benchmark/gamespec_attribution.py": "48b418fb2319e7ce6eaca10c62a6bc0b88bf28092efe0e5870cf6ebb7e9dfa01",
+    "src/aip/benchmark/gamespec_boundary_panel.py": "652241e589d69d5a2309ae0cf80fc408c4a881ebf6ed3bbabf3fd0da9456526b",
+    "src/aip/benchmark/gamespec_interface.py": "011c11895560f643d0fccac7f667053bcb721d886982d29b2d99f55b84c84e41",
+    "src/aip/benchmark/gamespec_prospective.py": "1857af94b95028b59afd286f356989ec1f10f8a0db21d30e3661cadc208bd85f",
+    "src/aip/benchmark/gamespec_scope_ablation.py": "a9db332c6374ee61bfc1ae48ac37f2edcbb23fd60c0aab26ab3d41a9ea8d1407",
+    "src/aip/benchmark/gamespec_smoke.py": "b904e5034b7d5ffa48c9b4f7f28d76bedd34132eb3c4893381049e649afe01ab",
+    "src/aip/benchmark/gamespec_smoke_v2.py": "6afd9a577f2a8cecee9208baf0253278abec13153c69b984ecd14cd7287b217e",
+    "src/aip/benchmark/gamespec_witness_diagnostic.py": "2bd0bbf1a3b524587bfe70d98c2c553d0077ee90139989f365f174ebe71ae013",
+    "src/aip/core/game_spec.py": "52018c1bbb4d85e5e49caa5a0cce0aec93bc8163d696eda82a96f2ff69b1d554",
+    "src/aip/core/game_spec_pilot.py": "9f8a6eae96301e486a9107d27fab08f7dd84bb0682c67758f8664aab0f217a69",
+    "src/aip/core/game_spec_smoke.py": "787a1411b30f41c9e2765540dd9d0b842f161078c0e7e8c4ffa063caa71b3bca",
+    "tests/test_gamespec_attribution.py": "c5467c93fa298efdd8441be2f8da7477b77e4462105ae59c2cc2f64ef9181447",
+    "tests/test_gamespec_boundary_panel.py": "dcd9e46014fa340bef3c651fbe853eb191aee96a1e0c1e6d799d77d8d642e846",
+    "tests/test_gamespec_interface.py": "7303a0d2e45211832c2a362fe5048267c5fb7c904976f8a4798079359f01524e",
+    "tests/test_gamespec_prospective.py": "029b90ad008bb680eaa0f4543fb1159e2d83509a7d822afe621f81a8dd442cc7",
+    "tests/test_gamespec_witness_diagnostic.py": "4153b03fb226973b310aeb9509e70ebae02692746f6184376730ab1753c99a62"
+  },
+  "unchanged_reference_preflight": [
+    {
+      "all_three_reference_roundtrips_passed": true,
+      "case_id": "case_639",
+      "program_proposal": {
+        "candidates": [
+          {
+            "private_fields_by_player": {
+              "player_0": [
+                "token"
+              ],
+              "player_1": [
+                "public_label"
+              ]
+            },
+            "public_fields": [
+              "private_banner",
+              "counter"
+            ]
+          }
+        ],
+        "decision": "candidate",
+        "witness": null
+      },
+      "reference_sha256": "70039e8ca21673607f4d5188772a1da33ae3acf419178b140f328ff78036115d"
+    },
+    {
+      "all_three_reference_roundtrips_passed": true,
+      "case_id": "case_281",
+      "program_proposal": {
+        "candidates": [],
+        "decision": "refusal",
+        "witness": {
+          "after_visible": true,
+          "before_visible": false,
+          "field": "public_label",
+          "player": 0
+        }
+      },
+      "reference_sha256": "b5edae2fdac6ac811382def28666fb4ba2f0706e5a1a16bff0c8017c964e655b"
+    },
+    {
+      "all_three_reference_roundtrips_passed": true,
+      "case_id": "case_754",
+      "program_proposal": {
+        "candidates": [
+          {
+            "private_fields_by_player": {
+              "player_0": [
+                "reserve"
+              ],
+              "player_1": []
+            },
+            "public_fields": [
+              "live_code",
+              "dial",
+              "tick"
+            ]
+          }
+        ],
+        "decision": "candidate",
+        "witness": null
+      },
+      "reference_sha256": "92191302c80d1fb7872751b81fb9d64677b3b14094c3aa7ecd489cb256886e86"
+    },
+    {
+      "all_three_reference_roundtrips_passed": true,
+      "case_id": "case_936",
+      "program_proposal": {
+        "candidates": [],
+        "decision": "refusal",
+        "witness": {
+          "after_visible": false,
+          "before_visible": true,
+          "field": "live_code",
+          "player": 1
+        }
+      },
+      "reference_sha256": "064a637383f87f833661b4667796827d9ba07979c98209c94ad1f72dc6c6b6d7"
+    },
+    {
+      "all_three_reference_roundtrips_passed": true,
+      "case_id": "case_417",
+      "program_proposal": {
+        "candidates": [
+          {
+            "private_fields_by_player": {
+              "player_0": [
+                "parcel_a"
+              ],
+              "player_1": [
+                "parcel_b"
+              ]
+            },
+            "public_fields": [
+              "round",
+              "mark"
+            ]
+          }
+        ],
+        "decision": "candidate",
+        "witness": null
+      },
+      "reference_sha256": "bab3d3bf9e0c315cf18fac252536f05c0f8342565aeed027c8bd0ed5ff2f0f5c"
+    },
+    {
+      "all_three_reference_roundtrips_passed": true,
+      "case_id": "case_803",
+      "program_proposal": {
+        "candidates": [],
+        "decision": "refusal",
+        "witness": {
+          "after_visible": false,
+          "before_visible": true,
+          "field": "parcel_a",
+          "player": 0
+        }
+      },
+      "reference_sha256": "9ee8ea28f573ff068253114de9f3d03d80616b620dbe4090437024be32b27b4b"
+    },
+    {
+      "all_three_reference_roundtrips_passed": true,
+      "case_id": "case_560",
+      "program_proposal": {
+        "candidates": [
+          {
+            "private_fields_by_player": {
+              "player_0": [
+                "right_code"
+              ],
+              "player_1": [
+                "left_code"
+              ]
+            },
+            "public_fields": [
+              "pulse",
+              "signal"
+            ]
+          }
+        ],
+        "decision": "candidate",
+        "witness": null
+      },
+      "reference_sha256": "c650c85261395a6be171613ea8bfacf9ef05334a78c924f854ccafe7aebff9fe"
+    },
+    {
+      "all_three_reference_roundtrips_passed": true,
+      "case_id": "case_194",
+      "program_proposal": {
+        "candidates": [],
+        "decision": "refusal",
+        "witness": {
+          "after_visible": true,
+          "before_visible": false,
+          "field": "left_code",
+          "player": 0
+        }
+      },
+      "reference_sha256": "f51cf2abbb227d67c8013d41c1b6242fa511176079cf18f283491ffb73aadc2f"
+    },
+    {
+      "all_three_reference_roundtrips_passed": true,
+      "case_id": "case_872",
+      "program_proposal": {
+        "candidates": [
+          {
+            "private_fields_by_player": {
+              "player_0": [
+                "voucher"
+              ],
+              "player_1": [
+                "quota"
+              ]
+            },
+            "public_fields": [
+              "bell",
+              "ledger"
+            ]
+          }
+        ],
+        "decision": "candidate",
+        "witness": null
+      },
+      "reference_sha256": "a04bfbe9c827ffe66505b886892d3468269a41032f514451dff13f7508a7fcea"
+    },
+    {
+      "all_three_reference_roundtrips_passed": true,
+      "case_id": "case_345",
+      "program_proposal": {
+        "candidates": [],
+        "decision": "refusal",
+        "witness": {
+          "after_visible": true,
+          "before_visible": false,
+          "field": "voucher",
+          "player": 1
+        }
+      },
+      "reference_sha256": "6bf2e3763576d657929e6194e3606486cefa5976bd9bc58580e8d3609fcfe9d8"
+    },
+    {
+      "all_three_reference_roundtrips_passed": true,
+      "case_id": "case_926",
+      "program_proposal": {
+        "candidates": [
+          {
+            "private_fields_by_player": {
+              "player_0": [
+                "assay"
+              ],
+              "player_1": [
+                "handbook"
+              ]
+            },
+            "public_fields": [
+              "badge",
+              "step"
+            ]
+          }
+        ],
+        "decision": "candidate",
+        "witness": null
+      },
+      "reference_sha256": "2a864f830de19d1af2a67cf601e0dee3e0f2e95deba185786a167383376841bf"
+    },
+    {
+      "all_three_reference_roundtrips_passed": true,
+      "case_id": "case_608",
+      "program_proposal": {
+        "candidates": [],
+        "decision": "refusal",
+        "witness": {
+          "after_visible": false,
+          "before_visible": true,
+          "field": "assay",
+          "player": 0
+        }
+      },
+      "reference_sha256": "1ad4b10cf17247ca3664a5140f54e75332525730a84e65e5d1996a39455ebfe2"
+    }
+  ]
+}
