@@ -1,0 +1,181 @@
+{
+  "manifest_id": "gamespec_attribution_v8_2026-10-30",
+  "purpose": "Development-only rule-table vs witness-export diagnosis; no new manually authored reference",
+  "reference": {
+    "source": "configs/gamespec_boundary_panel_v7_2026-10-29.json",
+    "sha256": "f9e9b9f05fd0cfae3fb54b7c81b0581b8d76b55259f23329e4ff83a7b4d0568e",
+    "builder": "scripts/run_gamespec_boundary_panel.py package; use all existing cases, static_visibility, dynamic_visibility and ALL change_witnesses, byte/hash equality checked",
+    "new_manual_labels": false,
+    "independence_limit": "Frozen reference predates this model run; developer-authored v7 truth, not external human review or proof of natural-language truth"
+  },
+  "models": {
+    "candidate": {
+      "tag": "luna6",
+      "id": "gpt-6-luna",
+      "temperature": 0,
+      "reasoning_effort": "none"
+    },
+    "control": {
+      "tag": "sol61",
+      "id": "gpt-6.1-sol",
+      "temperature": null,
+      "reasoning_effort": "low"
+    },
+    "inherit": "v7 selected v4 f1_s1 actual API parameters, including strict proposal schema, no API seed added"
+  },
+  "conditions": {
+    "A": {
+      "description": "Unchanged v7 direct task. Exact original messages, proposal JSON schema and serializer; no table."
+    },
+    "B": {
+      "description": "One reply with stage_table only; deterministic program derives a legacy proposal without seeing any reference. If visibility changes, use unchanged change_witnesses(table)[0]; if constant, derive owners from visibility membership. A never-visible constant field cannot be assigned in legacy three-owner language and yields explicit derivation failure.",
+      "task_instruction": "For this diagnostic output only stage_table: the visible-field sets at the FIRST and SECOND modeled decisions, with player 0 then player 1 at each decision. Use the given field vocabulary. A program will derive the legacy proposal from this table. Do not output a decision, candidates or witness."
+    },
+    "C": {
+      "description": "One reply declares stage_table first and proposal second. Model supplies both based on its own interpretation; proposal goes through unchanged serializer and main scorers. One structured reply does not prove internal reasoning order.",
+      "task_instruction": "For this diagnostic output stage_table first, then proposal. stage_table lists visible fields at the FIRST and SECOND modeled decisions, with player 0 then player 1 at each decision. Form the legacy decision/candidates/witness proposal using YOUR OWN declared table. Use the given field vocabulary. Do not use or invent a reference table."
+    }
+  },
+  "interface": {
+    "system_and_source_priority": "byte-identical v4 f1_s1 system and source-priority strings in all conditions",
+    "common_user_content": "exact original v7 RULES/fields/task prefix before the appended Proposal JSON schema; no witnesses, reference tables, reference owners or case labels in requests",
+    "necessary_difference": "A is byte-identical original prompt/schema. B/C replace only final schema block and append frozen output-task instruction. Different outputs cannot literally share one schema; no post-result condition-specific tuning.",
+    "stage_table_reference_shape": "[[player0_visible_fields, player1_visible_fields] at first decision, [player0_visible_fields, player1_visible_fields] at second decision]; static duplicates existing v7 static_visibility",
+    "stage_table_schema_template": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "$FROZEN_CASE_FIELDS"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 4
+        },
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "instantiate": "replace $FROZEN_CASE_FIELDS by the exact existing case field vocabulary; use items min/max fixed 2 for phase/player axes; reject duplicates/unknown fields offline; list order has no semantic effect",
+    "B_envelope": {
+      "keys": [
+        "stage_table"
+      ],
+      "additionalProperties": false
+    },
+    "C_envelope": {
+      "keys_in_output_order": [
+        "stage_table",
+        "proposal"
+      ],
+      "additionalProperties": false,
+      "proposal_schema": "exact unchanged aip.benchmark.gamespec_interface.proposal_schema(case)"
+    },
+    "no_new_reference_or_output_normalization": "do not change field names/players or repair malformed outputs to obtain a pass"
+  },
+  "schedule": {
+    "case_order": "exact v7 scope_case_order (12 instances, six static/dynamic pairs)",
+    "conditions": [
+      "A",
+      "B",
+      "C"
+    ],
+    "repeats": 5,
+    "calls_per_trial": 1,
+    "trials_per_model": 180,
+    "maximum_generation_calls": 360,
+    "order": "case index then repeat 0..4; rotate A/B/C by (case_index + repeat)%3 to reduce fixed order confounding, identical plan for both models",
+    "per_model_concurrency": 1,
+    "maximum_global_concurrency": 2,
+    "maximum_input_tokens": 10000,
+    "maximum_output_tokens": 2500,
+    "timeout_seconds": 60,
+    "automatic_retries": 0,
+    "no_feedback_or_past_responses": true,
+    "no_cross_condition_output_sharing": true,
+    "no_reruns_or_topups": true
+  },
+  "scoring": {
+    "legacy": "Every A proposal, B program-derived proposal and C declared proposal uses unchanged v5 score: original v4 semantics + direct v5 table oracle. Any disagreement stops and journals counterexample. Same legacy pass criterion across all conditions.",
+    "table": "Strict shape/vocabulary/duplicate validation then exact per-phase/player visible SET equality to frozen v7 reference; record every missing/extra cell; no table grading in A.",
+    "B_program": "reference-free deterministic export, no fallback to reference, no best-witness selection using truth. Table wrong but valid witness correct is separately reported.",
+    "C_self_consistency": "Compare proposal to own declared table as well as frozen reference. Correct-table/wrong-reference-witness counted with conditional and assigned denominators; separate schema/transport errors from valid-schema semantic export errors.",
+    "whole_response": "Additional table correctness in B/C reported separately, not used to silently redefine legacy witness correctness. Every table/legacy/interface failure retained.",
+    "witness_denominator": "dynamic instances only: 6 pairs x5=30 assigned per condition/model. Static correctness separately 30; table correctness both 60 and dynamic-only30.",
+    "pairing": "match case_id/repeat across A/B/C for descriptive discordance, no claim of shared API randomness",
+    "failure_taxonomy": [
+      "invalid_json",
+      "output_contract_failure",
+      "stage_table_contract_failure",
+      "stage_table_mismatch",
+      "deterministic_export_failure",
+      "wrong_changed_field",
+      "wrong_affected_player",
+      "wrong_initial_visibility",
+      "wrong_final_visibility",
+      "reversed_change_direction",
+      "no_visibility_change",
+      "static_false_refusal",
+      "wrong_static_partition",
+      "dynamic_false_acceptance",
+      "correct_table_wrong_witness",
+      "proposal_inconsistent_with_own_table",
+      "wrong_table_correct_reference_proposal",
+      "transport_error",
+      "truncated_output",
+      "incomplete"
+    ],
+    "overlap": "Labels can overlap; count failed trials independently and do not sum labels as failures."
+  },
+  "analysis": {
+    "required": [
+      "all case/condition/repeat raw replies and offline rescoring",
+      "A dynamic witness correctness",
+      "B table correctness and exported witness correctness",
+      "C table correctness, witness correctness, table-correct/witness-wrong ratio including exact denominators and valid-interface subset",
+      "A-wrong/B-right matched trial list and rule-instance summaries",
+      "all per-instance 5-repeat rates, static/dynamic split",
+      "table-to-proposal cross-tab for B/C",
+      "all failures/interface/timeout/truncation/tokens/cost"
+    ],
+    "statistics": {
+      "unit": "six dynamic rule pairs, average five technical repeats within each pair; not 30 independent rules",
+      "comparisons": [
+        "B-A dynamic witness correctness for Luna",
+        "C-A dynamic witness correctness for Luna",
+        "B-A dynamic witness correctness for Sol",
+        "C-A dynamic witness correctness for Sol"
+      ],
+      "test": "exploratory exact paired sign-flip over 2^6 pair-level differences, two-sided absolute mean difference; ties included; Holm-adjust four p-values at 0.05",
+      "limits": "purposive six reused development rules, nonrandom condition assignment and nonidentical output demands; sign-flip exchangeability is an assumption, not population or formal causal evidence; report raw differences even with no significance",
+      "no_overall_scientific_pass": true
+    },
+    "attribution": "B>A supports utility of decomposition+deterministic export, but alone cannot identify the latent error layer. C correct table + valid but self-inconsistent/wrong witness gives direct output-level export evidence. Incorrect emitted table gives understanding/representation-stage evidence, not proof of hidden cognition. C>A supports explicit-table elicitation benefit, not cognitive mechanism causality.",
+    "decision_rule": "Judge whether stage-table path deserves continued development from its measured per-model errors, direct evidence and resource costs; no automatic model switch or trial advancement; inconclusive if ceiling or no error opportunities."
+  },
+  "resources": {
+    "cost_not_effectiveness_gate": true,
+    "prices": "frozen v4 uncached price estimates; log actual provider usage/reasoning/latency, unknown-usage costs flagged as reserved estimates",
+    "cost_scope": "No cost-based sample-size reduction. Existing anomaly guards exceed maximum planned cost under token caps (Sol 180x$0.045=$8.10 below $10 guard; Luna180x$0.00225=$0.405 below $2 guard).",
+    "stop_rules": "Stop affected model on any provider exception/timeout, refusal, missing usage, model/token/anomaly mismatch; retain all assigned denominators and unexecuted trials. No automatic retries. Truncation/schema/semantic failure is retained and next planned trial continues. Oracle disagreement immediately preserves counterexample and stops that model; do not launch further dispatch after detecting disagreement.",
+    "audit_before_call": "First commit this preregistration; then implementation/tests/full verification, immutable source/reference/bundle/schema hashes and a second commit before any model generation; validate committed bytes before dispatch."
+  },
+  "safety": {
+    "development_diagnostic": true,
+    "reused_development_rules": true,
+    "independent_held_out": false,
+    "formal_feedback_research": false,
+    "formal_trial_started": false,
+    "new_manual_reference": false,
+    "new_game_or_cfr_variant": false,
+    "new_runtime_epsilon_gto_allowed": false,
+    "adaptive_opponent_line_released": false,
+    "historical_failures_reinterpreted": false
+  }
+}
