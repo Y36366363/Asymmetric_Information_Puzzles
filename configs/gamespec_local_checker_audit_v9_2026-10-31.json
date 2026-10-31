@@ -1,0 +1,64 @@
+{
+  "audit_id": "gamespec_local_checker_audit_v9_2026-10-31",
+  "scope": "Completely offline post-v8 development audit of all 360 outputs, not new model experiments or held-out validation",
+  "inputs": {
+    "dispatch": "scripts/run_gamespec_attribution.py",
+    "reference": "configs/gamespec_boundary_panel_v7_2026-10-29.json",
+    "raw_reports": [
+      "research/results/gamespec_attribution_v8_2026-10-30/luna6.json",
+      "research/results/gamespec_attribution_v8_2026-10-30/sol61.json"
+    ],
+    "labels": "Reuse frozen v8 replay and v7 stage tables only; no new manual labels or rule parsing"
+  },
+  "local_checks": {
+    "available_inputs": [
+      "field vocabulary",
+      "model table when present",
+      "model/direct or program-derived proposal when present",
+      "explicit three-owner language contract"
+    ],
+    "forbidden_inputs": [
+      "reference owners",
+      "reference visibility",
+      "case static/dynamic truth",
+      "rule text",
+      "reference witness"
+    ],
+    "rules": [
+      "table shape/vocabulary/no duplicate fields",
+      "field coverage by at least one player per phase ONLY under current public/player_0/player_1 language; configurable off for other observation languages",
+      "existing frozen proposal structural serializer",
+      "refusal witness must change visibility",
+      "candidate or witness must be consistent with own declared table when available"
+    ],
+    "outputs": "reject_local or locally_consistent_unverified; semantic_certification_allowed=false in all cases; never claim no local error means correct"
+  },
+  "analysis": {
+    "denominators": [
+      "all360 whole outputs",
+      "240 B/C tables",
+      "per model and condition",
+      "all known failures and retained nonfailures"
+    ],
+    "primary": "local detection vs frozen reference errors, false local rejection of reference-correct controls, residual semantic mismatches",
+    "false_certification": "Report how many wrong tables would be mis-certified IF locally consistent were promoted; actual checker never issues semantic approval",
+    "audit_controls": "All12 frozen reference tables plus every single field/phase/player visibility bit flip (192 derived mutations); not new manually authored truth or independent game samples",
+    "limits": "Designed after v8 failures; detection rates on reused development data do not establish generalization. Remaining wrong owner or missed disclosure requires rule evidence; cannot infer natural-language truth from internal consistency."
+  },
+  "preservation": {
+    "old_scorers_changed": false,
+    "old_reports_rewritten": false,
+    "new_manual_reference": false
+  },
+  "resources": {
+    "model_generation_calls": 0,
+    "model_cost_usd": 0,
+    "provider_credentials_required": false
+  },
+  "safety": {
+    "formal_trial_started": false,
+    "new_game_or_cfr_variant": false,
+    "new_runtime_epsilon_gto_allowed": false,
+    "adaptive_opponent_line_released": false
+  }
+}

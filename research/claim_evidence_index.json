@@ -738,6 +738,37 @@
       ]
     },
     {
+      "id": "gamespec_v9_local_checks_semantic_boundary",
+      "status": "mixed",
+      "statement": "完全离线复核v8的360份输出：不读规则参考的局部检查发现10/22既有失败，其中错表7/19；12张内部自洽错表仍需语义参考，局部状态不发语义证书。",
+      "scope": "已有v7冻结参考、v8原始回复及其原评分回放；另由12张参考表派生192个单格翻转控制，未新增人工参照或模型调用。",
+      "limitations": "在已知失败后开发，非held-out泛化；当前三归属语言要求每阶段至少一位观察者，不能外推所有游戏。未误拦本批正确输出不代表无普遍误报，参考本身仍依赖既有作者理解。",
+      "next_question": "先区分可无参考反馈与必须依赖规则证据的语义反馈，再另行预注册小规模修复；跨厂商比较应待schema兼容性明确，不按局部一致性自动认证。",
+      "evidence": [
+        {
+          "path": "research/results/gamespec_local_checker_audit_v9_2026-10-31.json",
+          "sha256": "852db9932bf352d518477999175c83635298c41a593ad1ebedd75912338fc0a8",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/all_raw_replays_agree", "equals": true},
+            {"pointer": "/summary/outputs", "equals": 360},
+            {"pointer": "/summary/detected_reference_failures", "equals": 10},
+            {"pointer": "/summary/reference_failures", "equals": 22},
+            {"pointer": "/summary/detected_wrong_tables", "equals": 7},
+            {"pointer": "/summary/reference_wrong_tables", "equals": 19},
+            {"pointer": "/summary/residual_wrong_tables", "equals": 12},
+            {"pointer": "/summary/false_local_rejections_of_reference_correct_outputs", "equals": 0},
+            {"pointer": "/derived_controls/locally_rejected_mutations", "equals": 41},
+            {"pointer": "/derived_controls/not_flagged_but_reference_wrong_mutations", "equals": 151},
+            {"pointer": "/model_generation_calls", "equals": 0},
+            {"pointer": "/semantic_approval_issued", "equals": false},
+            {"pointer": "/old_scores_changed", "equals": false},
+            {"pointer": "/new_manual_reference", "equals": false}
+          ]
+        }
+      ]
+    },
+    {
       "id": "general_llm_solver",
       "status": "not_established",
       "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",
