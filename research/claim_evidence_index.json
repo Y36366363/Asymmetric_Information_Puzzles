@@ -801,6 +801,46 @@
       ]
     },
     {
+      "id": "gamespec_v10_targeted_C_retest",
+      "status": "mixed",
+      "statement": "先注册并冻结后执行20次C条件复测：Luna和Sol在case_417静态与case_345动态各5/5阶段表及提案正确；没有复现错表或正确表错误导出，旧A隐藏错误层仍无法识别。",
+      "scope": "两个依据旧失败选择的开发规则实例；v7 voucher与case_345为同一实例；每模型每例五次技术重复，沿用冻结C提示、参数和双路径评分。",
+      "limitations": "旧C在这两例已全对，本轮不是新held-out或新因果证据。不能回推旧A内部过程、用20次重复估计独立规则泛化，或据此授予总体通过与部署权限。",
+      "next_question": "停止在这两例追加预算；针对可观察错误表另行预注册小规模修复，把局部合同反馈与规则语义证据分开。",
+      "evidence": [
+        {
+          "path": "research/results/gamespec_targeted_c_v10_2026-11-02/comparison.json",
+          "sha256": "9a9cecc82b3c74a483b7fffc82ed5e27e3bd1de7dae93317863bee8197e1509e",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/distinct_rule_instances", "equals": 2},
+            {"pointer": "/new_generation_calls", "equals": 20},
+            {"pointer": "/models/luna6/overall/table_correct", "equals": 10},
+            {"pointer": "/models/luna6/overall/proposal_correct", "equals": 10},
+            {"pointer": "/models/sol61/overall/table_correct", "equals": 10},
+            {"pointer": "/models/sol61/overall/proposal_correct", "equals": 10},
+            {"pointer": "/all_offline_rescores_agree", "equals": true},
+            {"pointer": "/old_A_latent_error_layer_identified", "equals": false},
+            {"pointer": "/historical_context_pooled_with_new_calls", "equals": false},
+            {"pointer": "/old_scores_changed", "equals": false},
+            {"pointer": "/new_runtime_epsilon_gto_allowed", "equals": false}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_targeted_c_v10_2026-11-02/luna6.json",
+          "sha256": "d4f070050760f4b72c08e8e43068f867519e69975fe8e2f5944259f8df406f55",
+          "kind": "artifact_assertion",
+          "assertions": [{"pointer": "/status", "equals": "completed"}]
+        },
+        {
+          "path": "research/results/gamespec_targeted_c_v10_2026-11-02/sol61.json",
+          "sha256": "524f3860878bb47b946a7be9b7a27df1296f74d26eb1dc6bd02436f64ab7095d",
+          "kind": "artifact_assertion",
+          "assertions": [{"pointer": "/status", "equals": "completed"}]
+        }
+      ]
+    },
+    {
       "id": "general_llm_solver",
       "status": "not_established",
       "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",

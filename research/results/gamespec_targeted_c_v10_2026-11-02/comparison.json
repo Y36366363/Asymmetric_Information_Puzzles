@@ -1,0 +1,917 @@
+{
+  "adaptive_opponent_line_released": false,
+  "all_new_tables_and_proposals_correct": true,
+  "all_offline_rescores_agree": true,
+  "decision": "Keep stage-table path as an inspectable candidate; stop top-ups on these cases. Next separately preregister repair of observable wrong tables, without claiming retrospective A-layer identification.",
+  "distinct_rule_instances": 2,
+  "formal_trial_started": false,
+  "historical_A_failures": [
+    {
+      "case_id": "case_417",
+      "frozen_evaluation": {
+        "categories": [
+          "static_false_refusal"
+        ],
+        "interface_errors": [],
+        "legacy": {
+          "branch": "refusal",
+          "candidate_compiles": false,
+          "correct": false,
+          "errors": [
+            "incorrect_rejection_in_scope"
+          ],
+          "false_certification": false,
+          "independent_score": {
+            "candidate_count": 0,
+            "certified_reference_model": false,
+            "false_certification": false,
+            "true_model_candidate_coverage": false,
+            "verification": {
+              "certified": false,
+              "status": "invalid_output"
+            }
+          },
+          "scope_false_acceptance": false,
+          "serialization_ok": true,
+          "table_oracle_correct": false
+        },
+        "normalized_stage_table": null,
+        "proposal": {
+          "candidates": [],
+          "decision": "refusal",
+          "witness": {
+            "after_visible": true,
+            "before_visible": true,
+            "field": "parcel_a",
+            "player": 0
+          }
+        },
+        "proposal_consistent_with_own_table": null,
+        "stage_table_precedes_proposal": null,
+        "table_cell_differences": [],
+        "table_correct": null,
+        "table_matches_reference": null,
+        "table_structurally_valid": null,
+        "transport_errors": [],
+        "whole_response_correct": false
+      },
+      "interpretation": "Non-change refusal witness is an observable output-contract error; latent A understanding remains unobserved.",
+      "model": "luna6",
+      "raw_text": "{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"parcel_a\",\"player\":0,\"before_visible\":true,\"after_visible\":true}}",
+      "source": "research/results/gamespec_attribution_v8_2026-10-30/luna6.json",
+      "stage_table_observed": false,
+      "trial_id": "A:case_417:1"
+    },
+    {
+      "case_id": "case_417",
+      "frozen_evaluation": {
+        "categories": [
+          "static_false_refusal"
+        ],
+        "interface_errors": [],
+        "legacy": {
+          "branch": "refusal",
+          "candidate_compiles": false,
+          "correct": false,
+          "errors": [
+            "incorrect_rejection_in_scope"
+          ],
+          "false_certification": false,
+          "independent_score": {
+            "candidate_count": 0,
+            "certified_reference_model": false,
+            "false_certification": false,
+            "true_model_candidate_coverage": false,
+            "verification": {
+              "certified": false,
+              "status": "invalid_output"
+            }
+          },
+          "scope_false_acceptance": false,
+          "serialization_ok": true,
+          "table_oracle_correct": false
+        },
+        "normalized_stage_table": null,
+        "proposal": {
+          "candidates": [],
+          "decision": "refusal",
+          "witness": {
+            "after_visible": true,
+            "before_visible": true,
+            "field": "parcel_a",
+            "player": 0
+          }
+        },
+        "proposal_consistent_with_own_table": null,
+        "stage_table_precedes_proposal": null,
+        "table_cell_differences": [],
+        "table_correct": null,
+        "table_matches_reference": null,
+        "table_structurally_valid": null,
+        "transport_errors": [],
+        "whole_response_correct": false
+      },
+      "interpretation": "Non-change refusal witness is an observable output-contract error; latent A understanding remains unobserved.",
+      "model": "luna6",
+      "raw_text": "{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"parcel_a\",\"player\":0,\"before_visible\":true,\"after_visible\":true}}",
+      "source": "research/results/gamespec_attribution_v8_2026-10-30/luna6.json",
+      "stage_table_observed": false,
+      "trial_id": "A:case_417:3"
+    },
+    {
+      "case_id": "case_345",
+      "frozen_evaluation": {
+        "categories": [
+          "no_visibility_change",
+          "wrong_affected_player"
+        ],
+        "interface_errors": [],
+        "legacy": {
+          "branch": "refusal",
+          "candidate_compiles": false,
+          "correct": false,
+          "errors": [
+            "wrong_refusal_witness"
+          ],
+          "false_certification": false,
+          "scope_false_acceptance": false,
+          "scope_result": {
+            "error_code": "INVALID_SCOPE_WITNESS",
+            "passed": false
+          },
+          "serialization_ok": true,
+          "table_oracle_correct": false
+        },
+        "normalized_stage_table": null,
+        "proposal": {
+          "candidates": [],
+          "decision": "refusal",
+          "witness": {
+            "after_visible": true,
+            "before_visible": true,
+            "field": "voucher",
+            "player": 0
+          }
+        },
+        "proposal_consistent_with_own_table": null,
+        "stage_table_precedes_proposal": null,
+        "table_cell_differences": [],
+        "table_correct": null,
+        "table_matches_reference": null,
+        "table_structurally_valid": null,
+        "transport_errors": [],
+        "whole_response_correct": false
+      },
+      "interpretation": "Non-change refusal witness is an observable output-contract error; latent A understanding remains unobserved.",
+      "model": "luna6",
+      "raw_text": "{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":0,\"before_visible\":true,\"after_visible\":true}}",
+      "source": "research/results/gamespec_attribution_v8_2026-10-30/luna6.json",
+      "stage_table_observed": false,
+      "trial_id": "A:case_345:1"
+    },
+    {
+      "case_id": "case_345",
+      "frozen_evaluation": {
+        "branch": "refusal",
+        "candidate_compiles": false,
+        "correct": false,
+        "errors": [
+          "wrong_refusal_witness"
+        ],
+        "false_certification": false,
+        "scope_false_acceptance": false,
+        "scope_result": {
+          "error_code": "INVALID_SCOPE_WITNESS",
+          "passed": false
+        },
+        "serialization_ok": true,
+        "table_oracle_correct": false
+      },
+      "interpretation": "Affected-player/visibility witness disagrees with frozen rule; no emitted A table identifies its latent cause.",
+      "model": "luna6",
+      "raw_text": "{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}",
+      "source": "research/results/gamespec_boundary_panel_v7_2026-10-29/luna6.json",
+      "stage_table_observed": false,
+      "trial_id": "scope:case_345:0:f1_s1"
+    }
+  ],
+  "historical_context_pooled_with_new_calls": false,
+  "historical_v8_A_C_context": {
+    "luna6": {
+      "case_345": {
+        "A": {
+          "assigned": 5,
+          "proposal_correct": 4,
+          "table_correct": null
+        },
+        "C": {
+          "assigned": 5,
+          "proposal_correct": 5,
+          "table_correct": 5
+        }
+      },
+      "case_417": {
+        "A": {
+          "assigned": 5,
+          "proposal_correct": 3,
+          "table_correct": null
+        },
+        "C": {
+          "assigned": 5,
+          "proposal_correct": 5,
+          "table_correct": 5
+        }
+      }
+    },
+    "sol61": {
+      "case_345": {
+        "A": {
+          "assigned": 5,
+          "proposal_correct": 5,
+          "table_correct": null
+        },
+        "C": {
+          "assigned": 5,
+          "proposal_correct": 5,
+          "table_correct": 5
+        }
+      },
+      "case_417": {
+        "A": {
+          "assigned": 5,
+          "proposal_correct": 5,
+          "table_correct": null
+        },
+        "C": {
+          "assigned": 5,
+          "proposal_correct": 5,
+          "table_correct": 5
+        }
+      }
+    }
+  },
+  "local_coverage_boundary": "151/192 refers to mechanically mutated wrong-table controls, NOT to the 360 model outputs; those contain 12 residual wrong tables out of 19 wrong tables among 240 B/C tables. Local consistency is never semantic verification.",
+  "models": {
+    "luna6": {
+      "adaptive_opponent_line_released": false,
+      "all_failures": [],
+      "cases": {
+        "case_345": {
+          "assigned": 5,
+          "completed": 5,
+          "proposal_correct": 5,
+          "quadrants": {
+            "table_correct_proposal_correct": 5
+          },
+          "states": {
+            "locally_consistent_unverified": 0,
+            "reject_local": 0,
+            "verified": 5
+          },
+          "table_correct": 5,
+          "unexecuted_without_validation": 0
+        },
+        "case_417": {
+          "assigned": 5,
+          "completed": 5,
+          "proposal_correct": 5,
+          "quadrants": {
+            "table_correct_proposal_correct": 5
+          },
+          "states": {
+            "locally_consistent_unverified": 0,
+            "reject_local": 0,
+            "verified": 5
+          },
+          "table_correct": 5,
+          "unexecuted_without_validation": 0
+        }
+      },
+      "development_diagnostic": true,
+      "formal_trial_started": false,
+      "independent_held_out": false,
+      "new_runtime_epsilon_gto_allowed": false,
+      "old_A_latent_error_layer_identified": false,
+      "old_scores_changed": false,
+      "overall": {
+        "assigned": 10,
+        "completed": 10,
+        "proposal_correct": 10,
+        "quadrants": {
+          "table_correct_proposal_correct": 10
+        },
+        "states": {
+          "locally_consistent_unverified": 0,
+          "reject_local": 0,
+          "verified": 10
+        },
+        "table_correct": 10,
+        "unexecuted_without_validation": 0
+      },
+      "overall_scientific_pass": null,
+      "resources": {
+        "calls": 10,
+        "cost_usd_estimate_including_unknown_reservations": 0.001709,
+        "errors": {},
+        "latency_seconds": 19.18002762598917,
+        "tokens": {
+          "completion_tokens": 870,
+          "prompt_tokens": 12740
+        },
+        "unknown_usage_attempts": 0
+      },
+      "rows": [
+        {
+          "arm": "f1_s1",
+          "case_id": "case_417",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "cross_delivery",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]],[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]]],\"proposal\":{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"round\",\"mark\"],\"private_fields_by_player\":{\"player_0\":[\"parcel_a\"],\"player_1\":[\"parcel_b\"]}}],\"witness\":null}}",
+          "repeat": 0,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_417:0",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "20da9ebaee513167c23f7efbc5225e17676a57f3d07a347d43f418e7baf4c4a0",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "16709710f4e08795ad9686fb49318c29e7de2136b62ea04aee6084cca8c309ba"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_345",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "receipt_horizon",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"voucher\",\"bell\",\"ledger\"],[\"quota\",\"bell\",\"ledger\"]],[[\"voucher\",\"bell\",\"ledger\"],[\"voucher\",\"quota\",\"bell\",\"ledger\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}}",
+          "repeat": 0,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_345:0",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "588841febb90adef7c762ca10645cd66b3b0b153a4b61816c517f2dfb474655b",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "0472e01dc76d9dac96e44b10095cdfc0488806c231a6fbc58637ca2490110b67"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_417",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "cross_delivery",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]],[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]]],\"proposal\":{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"round\",\"mark\"],\"private_fields_by_player\":{\"player_0\":[\"parcel_a\"],\"player_1\":[\"parcel_b\"]}}],\"witness\":null}}",
+          "repeat": 1,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_417:1",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "20da9ebaee513167c23f7efbc5225e17676a57f3d07a347d43f418e7baf4c4a0",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "16709710f4e08795ad9686fb49318c29e7de2136b62ea04aee6084cca8c309ba"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_345",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "receipt_horizon",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"voucher\",\"bell\",\"ledger\"],[\"quota\",\"bell\",\"ledger\"]],[[\"voucher\",\"bell\",\"ledger\"],[\"voucher\",\"quota\",\"bell\",\"ledger\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}}",
+          "repeat": 1,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_345:1",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "588841febb90adef7c762ca10645cd66b3b0b153a4b61816c517f2dfb474655b",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "0472e01dc76d9dac96e44b10095cdfc0488806c231a6fbc58637ca2490110b67"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_417",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "cross_delivery",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]],[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]]],\"proposal\":{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"round\",\"mark\"],\"private_fields_by_player\":{\"player_0\":[\"parcel_a\"],\"player_1\":[\"parcel_b\"]}}],\"witness\":null}}",
+          "repeat": 2,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_417:2",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "20da9ebaee513167c23f7efbc5225e17676a57f3d07a347d43f418e7baf4c4a0",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "16709710f4e08795ad9686fb49318c29e7de2136b62ea04aee6084cca8c309ba"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_345",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "receipt_horizon",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"voucher\",\"bell\",\"ledger\"],[\"quota\",\"bell\",\"ledger\"]],[[\"voucher\",\"bell\",\"ledger\"],[\"voucher\",\"quota\",\"bell\",\"ledger\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}}",
+          "repeat": 2,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_345:2",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "588841febb90adef7c762ca10645cd66b3b0b153a4b61816c517f2dfb474655b",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "0472e01dc76d9dac96e44b10095cdfc0488806c231a6fbc58637ca2490110b67"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_417",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "cross_delivery",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]],[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]]],\"proposal\":{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"round\",\"mark\"],\"private_fields_by_player\":{\"player_0\":[\"parcel_a\"],\"player_1\":[\"parcel_b\"]}}],\"witness\":null}}",
+          "repeat": 3,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_417:3",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "20da9ebaee513167c23f7efbc5225e17676a57f3d07a347d43f418e7baf4c4a0",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "16709710f4e08795ad9686fb49318c29e7de2136b62ea04aee6084cca8c309ba"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_345",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "receipt_horizon",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"voucher\",\"bell\",\"ledger\"],[\"quota\",\"bell\",\"ledger\"]],[[\"voucher\",\"bell\",\"ledger\"],[\"voucher\",\"quota\",\"bell\",\"ledger\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}}",
+          "repeat": 3,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_345:3",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "588841febb90adef7c762ca10645cd66b3b0b153a4b61816c517f2dfb474655b",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "0472e01dc76d9dac96e44b10095cdfc0488806c231a6fbc58637ca2490110b67"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_417",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "cross_delivery",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]],[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]]],\"proposal\":{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"round\",\"mark\"],\"private_fields_by_player\":{\"player_0\":[\"parcel_a\"],\"player_1\":[\"parcel_b\"]}}],\"witness\":null}}",
+          "repeat": 4,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_417:4",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "20da9ebaee513167c23f7efbc5225e17676a57f3d07a347d43f418e7baf4c4a0",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "16709710f4e08795ad9686fb49318c29e7de2136b62ea04aee6084cca8c309ba"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_345",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "receipt_horizon",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"voucher\",\"bell\",\"ledger\"],[\"quota\",\"bell\",\"ledger\"]],[[\"voucher\",\"bell\",\"ledger\"],[\"voucher\",\"quota\",\"bell\",\"ledger\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}}",
+          "repeat": 4,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_345:4",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "588841febb90adef7c762ca10645cd66b3b0b153a4b61816c517f2dfb474655b",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "0472e01dc76d9dac96e44b10095cdfc0488806c231a6fbc58637ca2490110b67"
+          }
+        }
+      ]
+    },
+    "sol61": {
+      "adaptive_opponent_line_released": false,
+      "all_failures": [],
+      "cases": {
+        "case_345": {
+          "assigned": 5,
+          "completed": 5,
+          "proposal_correct": 5,
+          "quadrants": {
+            "table_correct_proposal_correct": 5
+          },
+          "states": {
+            "locally_consistent_unverified": 0,
+            "reject_local": 0,
+            "verified": 5
+          },
+          "table_correct": 5,
+          "unexecuted_without_validation": 0
+        },
+        "case_417": {
+          "assigned": 5,
+          "completed": 5,
+          "proposal_correct": 5,
+          "quadrants": {
+            "table_correct_proposal_correct": 5
+          },
+          "states": {
+            "locally_consistent_unverified": 0,
+            "reject_local": 0,
+            "verified": 5
+          },
+          "table_correct": 5,
+          "unexecuted_without_validation": 0
+        }
+      },
+      "development_diagnostic": true,
+      "formal_trial_started": false,
+      "independent_held_out": false,
+      "new_runtime_epsilon_gto_allowed": false,
+      "old_A_latent_error_layer_identified": false,
+      "old_scores_changed": false,
+      "overall": {
+        "assigned": 10,
+        "completed": 10,
+        "proposal_correct": 10,
+        "quadrants": {
+          "table_correct_proposal_correct": 10
+        },
+        "states": {
+          "locally_consistent_unverified": 0,
+          "reject_local": 0,
+          "verified": 10
+        },
+        "table_correct": 10,
+        "unexecuted_without_validation": 0
+      },
+      "overall_scientific_pass": null,
+      "resources": {
+        "calls": 10,
+        "cost_usd_estimate_including_unknown_reservations": 0.03418,
+        "errors": {},
+        "latency_seconds": 23.51350045891013,
+        "tokens": {
+          "completion_tokens": 870,
+          "prompt_tokens": 12740
+        },
+        "unknown_usage_attempts": 0
+      },
+      "rows": [
+        {
+          "arm": "f1_s1",
+          "case_id": "case_417",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "cross_delivery",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]],[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]]],\"proposal\":{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"round\",\"mark\"],\"private_fields_by_player\":{\"player_0\":[\"parcel_a\"],\"player_1\":[\"parcel_b\"]}}],\"witness\":null}}",
+          "repeat": 0,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_417:0",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "20da9ebaee513167c23f7efbc5225e17676a57f3d07a347d43f418e7baf4c4a0",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "16709710f4e08795ad9686fb49318c29e7de2136b62ea04aee6084cca8c309ba"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_345",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "receipt_horizon",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"voucher\",\"bell\",\"ledger\"],[\"quota\",\"bell\",\"ledger\"]],[[\"voucher\",\"bell\",\"ledger\"],[\"voucher\",\"quota\",\"bell\",\"ledger\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}}",
+          "repeat": 0,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_345:0",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "588841febb90adef7c762ca10645cd66b3b0b153a4b61816c517f2dfb474655b",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "0472e01dc76d9dac96e44b10095cdfc0488806c231a6fbc58637ca2490110b67"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_417",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "cross_delivery",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]],[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]]],\"proposal\":{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"round\",\"mark\"],\"private_fields_by_player\":{\"player_0\":[\"parcel_a\"],\"player_1\":[\"parcel_b\"]}}],\"witness\":null}}",
+          "repeat": 1,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_417:1",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "20da9ebaee513167c23f7efbc5225e17676a57f3d07a347d43f418e7baf4c4a0",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "16709710f4e08795ad9686fb49318c29e7de2136b62ea04aee6084cca8c309ba"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_345",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "receipt_horizon",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"voucher\",\"bell\",\"ledger\"],[\"quota\",\"bell\",\"ledger\"]],[[\"voucher\",\"bell\",\"ledger\"],[\"voucher\",\"quota\",\"bell\",\"ledger\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}}",
+          "repeat": 1,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_345:1",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "588841febb90adef7c762ca10645cd66b3b0b153a4b61816c517f2dfb474655b",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "0472e01dc76d9dac96e44b10095cdfc0488806c231a6fbc58637ca2490110b67"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_417",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "cross_delivery",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]],[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]]],\"proposal\":{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"round\",\"mark\"],\"private_fields_by_player\":{\"player_0\":[\"parcel_a\"],\"player_1\":[\"parcel_b\"]}}],\"witness\":null}}",
+          "repeat": 2,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_417:2",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "20da9ebaee513167c23f7efbc5225e17676a57f3d07a347d43f418e7baf4c4a0",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "16709710f4e08795ad9686fb49318c29e7de2136b62ea04aee6084cca8c309ba"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_345",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "receipt_horizon",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"voucher\",\"bell\",\"ledger\"],[\"quota\",\"bell\",\"ledger\"]],[[\"voucher\",\"bell\",\"ledger\"],[\"voucher\",\"quota\",\"bell\",\"ledger\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}}",
+          "repeat": 2,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_345:2",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "588841febb90adef7c762ca10645cd66b3b0b153a4b61816c517f2dfb474655b",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "0472e01dc76d9dac96e44b10095cdfc0488806c231a6fbc58637ca2490110b67"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_417",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "cross_delivery",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]],[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]]],\"proposal\":{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"round\",\"mark\"],\"private_fields_by_player\":{\"player_0\":[\"parcel_a\"],\"player_1\":[\"parcel_b\"]}}],\"witness\":null}}",
+          "repeat": 3,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_417:3",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "20da9ebaee513167c23f7efbc5225e17676a57f3d07a347d43f418e7baf4c4a0",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "16709710f4e08795ad9686fb49318c29e7de2136b62ea04aee6084cca8c309ba"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_345",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "receipt_horizon",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"voucher\",\"bell\",\"ledger\"],[\"quota\",\"bell\",\"ledger\"]],[[\"voucher\",\"bell\",\"ledger\"],[\"voucher\",\"quota\",\"bell\",\"ledger\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}}",
+          "repeat": 3,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_345:3",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "588841febb90adef7c762ca10645cd66b3b0b153a4b61816c517f2dfb474655b",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "0472e01dc76d9dac96e44b10095cdfc0488806c231a6fbc58637ca2490110b67"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_417",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "cross_delivery",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]],[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]]],\"proposal\":{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"round\",\"mark\"],\"private_fields_by_player\":{\"player_0\":[\"parcel_a\"],\"player_1\":[\"parcel_b\"]}}],\"witness\":null}}",
+          "repeat": 4,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_417:4",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "20da9ebaee513167c23f7efbc5225e17676a57f3d07a347d43f418e7baf4c4a0",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "16709710f4e08795ad9686fb49318c29e7de2136b62ea04aee6084cca8c309ba"
+          }
+        },
+        {
+          "arm": "f1_s1",
+          "case_id": "case_345",
+          "categories": [],
+          "condition": "C",
+          "pair_id": "receipt_horizon",
+          "proposal_correct": true,
+          "quadrant": "table_correct_proposal_correct",
+          "raw_text": "{\"stage_table\":[[[\"voucher\",\"bell\",\"ledger\"],[\"quota\",\"bell\",\"ledger\"]],[[\"voucher\",\"bell\",\"ledger\"],[\"voucher\",\"quota\",\"bell\",\"ledger\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}}",
+          "repeat": 4,
+          "status": "completed",
+          "table_cell_differences": [],
+          "table_correct": true,
+          "task": "scope",
+          "trial_id": "C:case_345:4",
+          "valid_proposal": true,
+          "validation": {
+            "reference_sha256": "588841febb90adef7c762ca10645cd66b3b0b153a4b61816c517f2dfb474655b",
+            "runtime_or_strategy_authority": false,
+            "scope": "frozen_reference_output_only",
+            "semantic_result": "matched",
+            "status": "verified",
+            "subject_sha256": "0472e01dc76d9dac96e44b10095cdfc0488806c231a6fbc58637ca2490110b67"
+          }
+        }
+      ]
+    }
+  },
+  "new_generation_calls": 20,
+  "new_manual_reference": false,
+  "new_runtime_epsilon_gto_allowed": false,
+  "old_A_latent_error_layer_identified": false,
+  "old_scores_changed": false,
+  "overall_scientific_pass": null,
+  "schema_version": "aip-targeted-c-v10-comparison",
+  "scope": "Purposively reused development rules; no held-out, no formal repair trial or overall scientific pass.",
+  "sha256": {
+    "configs/gamespec_targeted_c_v10_2026-11-02.json": "706f9af4497a63c02b6fd70d32762ea7c2deac161a5865320c83bbe50b986253",
+    "configs/gamespec_targeted_c_v10_lock_2026-11-02.json": "de2050771cbd4f4b4b80ebf11f78b1265dad23dc244b7e539d12376d34c9b5c9",
+    "research/results/gamespec_targeted_c_v10_2026-11-02/luna6.json": "d4f070050760f4b72c08e8e43068f867519e69975fe8e2f5944259f8df406f55",
+    "research/results/gamespec_targeted_c_v10_2026-11-02/luna6_rescored.json": "b9111808c62c58caba7306c5277b9b1d1f172f4829f2b2af30303dc52c1d809b",
+    "research/results/gamespec_targeted_c_v10_2026-11-02/measurement_notes.json": "eceead207ab43a8c56fad6de488b7a9a0695e38e57867ecb9047b4495d851e9e",
+    "research/results/gamespec_targeted_c_v10_2026-11-02/sol61.json": "524f3860878bb47b946a7be9b7a27df1296f74d26eb1dc6bd02436f64ab7095d",
+    "research/results/gamespec_targeted_c_v10_2026-11-02/sol61_rescored.json": "1edb8f8794521a2c5e460bdbefed39d6bb9a8d41603bd2463c4ef070b52aeff4"
+  },
+  "technical_repeats_per_case_model": 5,
+  "total_cost_usd_estimate": 0.035889000000000004
+}

@@ -1,0 +1,324 @@
+{
+  "analysis": {
+    "adaptive_opponent_line_released": false,
+    "all_failures": [],
+    "cases": {
+      "case_345": {
+        "assigned": 5,
+        "completed": 5,
+        "proposal_correct": 5,
+        "quadrants": {
+          "table_correct_proposal_correct": 5
+        },
+        "states": {
+          "locally_consistent_unverified": 0,
+          "reject_local": 0,
+          "verified": 5
+        },
+        "table_correct": 5,
+        "unexecuted_without_validation": 0
+      },
+      "case_417": {
+        "assigned": 5,
+        "completed": 5,
+        "proposal_correct": 5,
+        "quadrants": {
+          "table_correct_proposal_correct": 5
+        },
+        "states": {
+          "locally_consistent_unverified": 0,
+          "reject_local": 0,
+          "verified": 5
+        },
+        "table_correct": 5,
+        "unexecuted_without_validation": 0
+      }
+    },
+    "development_diagnostic": true,
+    "formal_trial_started": false,
+    "independent_held_out": false,
+    "new_runtime_epsilon_gto_allowed": false,
+    "old_A_latent_error_layer_identified": false,
+    "old_scores_changed": false,
+    "overall": {
+      "assigned": 10,
+      "completed": 10,
+      "proposal_correct": 10,
+      "quadrants": {
+        "table_correct_proposal_correct": 10
+      },
+      "states": {
+        "locally_consistent_unverified": 0,
+        "reject_local": 0,
+        "verified": 10
+      },
+      "table_correct": 10,
+      "unexecuted_without_validation": 0
+    },
+    "overall_scientific_pass": null,
+    "resources": {
+      "calls": 10,
+      "cost_usd_estimate_including_unknown_reservations": 0.03418,
+      "errors": {},
+      "latency_seconds": 23.51350045891013,
+      "tokens": {
+        "completion_tokens": 870,
+        "prompt_tokens": 12740
+      },
+      "unknown_usage_attempts": 0
+    },
+    "rows": [
+      {
+        "arm": "f1_s1",
+        "case_id": "case_417",
+        "categories": [],
+        "condition": "C",
+        "pair_id": "cross_delivery",
+        "proposal_correct": true,
+        "quadrant": "table_correct_proposal_correct",
+        "raw_text": "{\"stage_table\":[[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]],[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]]],\"proposal\":{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"round\",\"mark\"],\"private_fields_by_player\":{\"player_0\":[\"parcel_a\"],\"player_1\":[\"parcel_b\"]}}],\"witness\":null}}",
+        "repeat": 0,
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "C:case_417:0",
+        "valid_proposal": true,
+        "validation": {
+          "reference_sha256": "20da9ebaee513167c23f7efbc5225e17676a57f3d07a347d43f418e7baf4c4a0",
+          "runtime_or_strategy_authority": false,
+          "scope": "frozen_reference_output_only",
+          "semantic_result": "matched",
+          "status": "verified",
+          "subject_sha256": "16709710f4e08795ad9686fb49318c29e7de2136b62ea04aee6084cca8c309ba"
+        }
+      },
+      {
+        "arm": "f1_s1",
+        "case_id": "case_345",
+        "categories": [],
+        "condition": "C",
+        "pair_id": "receipt_horizon",
+        "proposal_correct": true,
+        "quadrant": "table_correct_proposal_correct",
+        "raw_text": "{\"stage_table\":[[[\"voucher\",\"bell\",\"ledger\"],[\"quota\",\"bell\",\"ledger\"]],[[\"voucher\",\"bell\",\"ledger\"],[\"voucher\",\"quota\",\"bell\",\"ledger\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}}",
+        "repeat": 0,
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "C:case_345:0",
+        "valid_proposal": true,
+        "validation": {
+          "reference_sha256": "588841febb90adef7c762ca10645cd66b3b0b153a4b61816c517f2dfb474655b",
+          "runtime_or_strategy_authority": false,
+          "scope": "frozen_reference_output_only",
+          "semantic_result": "matched",
+          "status": "verified",
+          "subject_sha256": "0472e01dc76d9dac96e44b10095cdfc0488806c231a6fbc58637ca2490110b67"
+        }
+      },
+      {
+        "arm": "f1_s1",
+        "case_id": "case_417",
+        "categories": [],
+        "condition": "C",
+        "pair_id": "cross_delivery",
+        "proposal_correct": true,
+        "quadrant": "table_correct_proposal_correct",
+        "raw_text": "{\"stage_table\":[[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]],[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]]],\"proposal\":{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"round\",\"mark\"],\"private_fields_by_player\":{\"player_0\":[\"parcel_a\"],\"player_1\":[\"parcel_b\"]}}],\"witness\":null}}",
+        "repeat": 1,
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "C:case_417:1",
+        "valid_proposal": true,
+        "validation": {
+          "reference_sha256": "20da9ebaee513167c23f7efbc5225e17676a57f3d07a347d43f418e7baf4c4a0",
+          "runtime_or_strategy_authority": false,
+          "scope": "frozen_reference_output_only",
+          "semantic_result": "matched",
+          "status": "verified",
+          "subject_sha256": "16709710f4e08795ad9686fb49318c29e7de2136b62ea04aee6084cca8c309ba"
+        }
+      },
+      {
+        "arm": "f1_s1",
+        "case_id": "case_345",
+        "categories": [],
+        "condition": "C",
+        "pair_id": "receipt_horizon",
+        "proposal_correct": true,
+        "quadrant": "table_correct_proposal_correct",
+        "raw_text": "{\"stage_table\":[[[\"voucher\",\"bell\",\"ledger\"],[\"quota\",\"bell\",\"ledger\"]],[[\"voucher\",\"bell\",\"ledger\"],[\"voucher\",\"quota\",\"bell\",\"ledger\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}}",
+        "repeat": 1,
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "C:case_345:1",
+        "valid_proposal": true,
+        "validation": {
+          "reference_sha256": "588841febb90adef7c762ca10645cd66b3b0b153a4b61816c517f2dfb474655b",
+          "runtime_or_strategy_authority": false,
+          "scope": "frozen_reference_output_only",
+          "semantic_result": "matched",
+          "status": "verified",
+          "subject_sha256": "0472e01dc76d9dac96e44b10095cdfc0488806c231a6fbc58637ca2490110b67"
+        }
+      },
+      {
+        "arm": "f1_s1",
+        "case_id": "case_417",
+        "categories": [],
+        "condition": "C",
+        "pair_id": "cross_delivery",
+        "proposal_correct": true,
+        "quadrant": "table_correct_proposal_correct",
+        "raw_text": "{\"stage_table\":[[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]],[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]]],\"proposal\":{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"round\",\"mark\"],\"private_fields_by_player\":{\"player_0\":[\"parcel_a\"],\"player_1\":[\"parcel_b\"]}}],\"witness\":null}}",
+        "repeat": 2,
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "C:case_417:2",
+        "valid_proposal": true,
+        "validation": {
+          "reference_sha256": "20da9ebaee513167c23f7efbc5225e17676a57f3d07a347d43f418e7baf4c4a0",
+          "runtime_or_strategy_authority": false,
+          "scope": "frozen_reference_output_only",
+          "semantic_result": "matched",
+          "status": "verified",
+          "subject_sha256": "16709710f4e08795ad9686fb49318c29e7de2136b62ea04aee6084cca8c309ba"
+        }
+      },
+      {
+        "arm": "f1_s1",
+        "case_id": "case_345",
+        "categories": [],
+        "condition": "C",
+        "pair_id": "receipt_horizon",
+        "proposal_correct": true,
+        "quadrant": "table_correct_proposal_correct",
+        "raw_text": "{\"stage_table\":[[[\"voucher\",\"bell\",\"ledger\"],[\"quota\",\"bell\",\"ledger\"]],[[\"voucher\",\"bell\",\"ledger\"],[\"voucher\",\"quota\",\"bell\",\"ledger\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}}",
+        "repeat": 2,
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "C:case_345:2",
+        "valid_proposal": true,
+        "validation": {
+          "reference_sha256": "588841febb90adef7c762ca10645cd66b3b0b153a4b61816c517f2dfb474655b",
+          "runtime_or_strategy_authority": false,
+          "scope": "frozen_reference_output_only",
+          "semantic_result": "matched",
+          "status": "verified",
+          "subject_sha256": "0472e01dc76d9dac96e44b10095cdfc0488806c231a6fbc58637ca2490110b67"
+        }
+      },
+      {
+        "arm": "f1_s1",
+        "case_id": "case_417",
+        "categories": [],
+        "condition": "C",
+        "pair_id": "cross_delivery",
+        "proposal_correct": true,
+        "quadrant": "table_correct_proposal_correct",
+        "raw_text": "{\"stage_table\":[[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]],[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]]],\"proposal\":{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"round\",\"mark\"],\"private_fields_by_player\":{\"player_0\":[\"parcel_a\"],\"player_1\":[\"parcel_b\"]}}],\"witness\":null}}",
+        "repeat": 3,
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "C:case_417:3",
+        "valid_proposal": true,
+        "validation": {
+          "reference_sha256": "20da9ebaee513167c23f7efbc5225e17676a57f3d07a347d43f418e7baf4c4a0",
+          "runtime_or_strategy_authority": false,
+          "scope": "frozen_reference_output_only",
+          "semantic_result": "matched",
+          "status": "verified",
+          "subject_sha256": "16709710f4e08795ad9686fb49318c29e7de2136b62ea04aee6084cca8c309ba"
+        }
+      },
+      {
+        "arm": "f1_s1",
+        "case_id": "case_345",
+        "categories": [],
+        "condition": "C",
+        "pair_id": "receipt_horizon",
+        "proposal_correct": true,
+        "quadrant": "table_correct_proposal_correct",
+        "raw_text": "{\"stage_table\":[[[\"voucher\",\"bell\",\"ledger\"],[\"quota\",\"bell\",\"ledger\"]],[[\"voucher\",\"bell\",\"ledger\"],[\"voucher\",\"quota\",\"bell\",\"ledger\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}}",
+        "repeat": 3,
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "C:case_345:3",
+        "valid_proposal": true,
+        "validation": {
+          "reference_sha256": "588841febb90adef7c762ca10645cd66b3b0b153a4b61816c517f2dfb474655b",
+          "runtime_or_strategy_authority": false,
+          "scope": "frozen_reference_output_only",
+          "semantic_result": "matched",
+          "status": "verified",
+          "subject_sha256": "0472e01dc76d9dac96e44b10095cdfc0488806c231a6fbc58637ca2490110b67"
+        }
+      },
+      {
+        "arm": "f1_s1",
+        "case_id": "case_417",
+        "categories": [],
+        "condition": "C",
+        "pair_id": "cross_delivery",
+        "proposal_correct": true,
+        "quadrant": "table_correct_proposal_correct",
+        "raw_text": "{\"stage_table\":[[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]],[[\"parcel_a\",\"round\",\"mark\"],[\"parcel_b\",\"round\",\"mark\"]]],\"proposal\":{\"decision\":\"candidate\",\"candidates\":[{\"public_fields\":[\"round\",\"mark\"],\"private_fields_by_player\":{\"player_0\":[\"parcel_a\"],\"player_1\":[\"parcel_b\"]}}],\"witness\":null}}",
+        "repeat": 4,
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "C:case_417:4",
+        "valid_proposal": true,
+        "validation": {
+          "reference_sha256": "20da9ebaee513167c23f7efbc5225e17676a57f3d07a347d43f418e7baf4c4a0",
+          "runtime_or_strategy_authority": false,
+          "scope": "frozen_reference_output_only",
+          "semantic_result": "matched",
+          "status": "verified",
+          "subject_sha256": "16709710f4e08795ad9686fb49318c29e7de2136b62ea04aee6084cca8c309ba"
+        }
+      },
+      {
+        "arm": "f1_s1",
+        "case_id": "case_345",
+        "categories": [],
+        "condition": "C",
+        "pair_id": "receipt_horizon",
+        "proposal_correct": true,
+        "quadrant": "table_correct_proposal_correct",
+        "raw_text": "{\"stage_table\":[[[\"voucher\",\"bell\",\"ledger\"],[\"quota\",\"bell\",\"ledger\"]],[[\"voucher\",\"bell\",\"ledger\"],[\"voucher\",\"quota\",\"bell\",\"ledger\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"voucher\",\"player\":1,\"before_visible\":false,\"after_visible\":true}}}",
+        "repeat": 4,
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "C:case_345:4",
+        "valid_proposal": true,
+        "validation": {
+          "reference_sha256": "588841febb90adef7c762ca10645cd66b3b0b153a4b61816c517f2dfb474655b",
+          "runtime_or_strategy_authority": false,
+          "scope": "frozen_reference_output_only",
+          "semantic_result": "matched",
+          "status": "verified",
+          "subject_sha256": "0472e01dc76d9dac96e44b10095cdfc0488806c231a6fbc58637ca2490110b67"
+        }
+      }
+    ]
+  },
+  "raw_rescoring_agrees": true
+}
