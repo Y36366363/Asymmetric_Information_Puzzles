@@ -1283,7 +1283,11 @@ class CFRCertificationGate:
         ] = frozenset(),
         exact_information_sets: bool = False,
         game_properties: CFRGameProperties | None = None,
+        observation_validation: object | None = None,
     ) -> CFRGateReport:
+        if observation_validation is not None:
+            from aip.core.observation_validation import require_strategy_observation_authority
+            require_strategy_observation_authority(observation_validation)
         failures: list[str] = []
         policy_keys = set(result.policy)
         visit_keys = set(result.information_set_visits)

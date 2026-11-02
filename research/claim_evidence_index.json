@@ -740,7 +740,7 @@
     {
       "id": "gamespec_v9_local_checks_semantic_boundary",
       "status": "mixed",
-      "statement": "完全离线复核v8的360份输出：不读规则参考的局部检查发现10/22既有失败，其中错表7/19；12张内部自洽错表仍需语义参考，局部状态不发语义证书。",
+      "statement": "完全离线复核v8的360份输出：局部检查发现10/22既有失败，其中错表7/19，仍余12张错表（共240份B/C表）；另一个单格翻转控制集有151/192张错表未被标记。两组分母分开，局部一致不发语义证书。",
       "scope": "已有v7冻结参考、v8原始回复及其原评分回放；另由12张参考表派生192个单格翻转控制，未新增人工参照或模型调用。",
       "limitations": "在已知失败后开发，非held-out泛化；当前三归属语言要求每阶段至少一位观察者，不能外推所有游戏。未误拦本批正确输出不代表无普遍误报，参考本身仍依赖既有作者理解。",
       "next_question": "先区分可无参考反馈与必须依赖规则证据的语义反馈，再另行预注册小规模修复；跨厂商比较应待schema兼容性明确，不按局部一致性自动认证。",
@@ -765,6 +765,38 @@
             {"pointer": "/old_scores_changed", "equals": false},
             {"pointer": "/new_manual_reference", "equals": false}
           ]
+        }
+      ]
+    },
+    {
+      "id": "gamespec_v10_three_state_runtime_guard",
+      "status": "supported_in_scope",
+      "statement": "既有360份输出明确分为局部拒绝10、语义未验证12、冻结参考核对正确338；两处策略晋级入口拒绝全部诊断记录，含151/192未被局部检查发现的派生错表。真实输出中仍有12/19错表（240份B/C表），不能把两组数据合并为通过率。",
+      "scope": "新的类型化观察结果、decide_promotion及CFRCertificationGate入口；既有手写游戏调用方式兼容，未授予新的运行时权限。",
+      "limitations": "verified只表示特定输出与作者冻结参考一致；并非规则天然正确、游戏已求解或部署证书。运行时断言防止支持入口的误用，不防恶意绕开Python接口。",
+      "next_question": "在不回溯确认旧A隐藏过程的前提下，按预注册完成两例C条件复现，区分当前可观察的错表、错导出与未复现。",
+      "evidence": [
+        {
+          "path": "research/results/gamespec_targeted_c_v10_2026-11-02/validation_guard_audit.json",
+          "sha256": "9532bd92690ab16455310585d5b7e6d19e63f1ed50b321c61b6d5453be466024",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/states/assigned", "equals": 360},
+            {"pointer": "/states/states/reject_local", "equals": 10},
+            {"pointer": "/states/states/locally_consistent_unverified", "equals": 12},
+            {"pointer": "/states/states/verified", "equals": 338},
+            {"pointer": "/all_360_diagnostic_records_blocked_from_runtime_and_freeze", "equals": true},
+            {"pointer": "/all_204_reference_and_mutation_local_records_blocked", "equals": true},
+            {"pointer": "/local_coverage/actual_model_outputs/residual_wrong_tables", "equals": 12},
+            {"pointer": "/local_coverage/derived_mutation_controls/unflagged_wrong_tables", "equals": 151},
+            {"pointer": "/model_generation_calls", "equals": 0},
+            {"pointer": "/old_scores_changed", "equals": false}
+          ]
+        },
+        {
+          "path": "src/aip/core/observation_validation.py",
+          "sha256": "eea923f1e68700a802e038e4ed455e04ed766734e588cdf9f1110f343a8bd108",
+          "kind": "source_reference"
         }
       ]
     },

@@ -206,6 +206,7 @@ class PromotionEvidence:
     cross_method_agreement: bool = False
     reproducible: bool = False
     artifact_frozen: bool = False
+    observation_validation: object | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -228,6 +229,9 @@ class PromotionDecision:
 def decide_promotion(evidence: PromotionEvidence) -> PromotionDecision:
     """Return the highest contiguous evidence level; promotion never skips a gate."""
 
+    if evidence.observation_validation is not None:
+        from aip.core.observation_validation import require_strategy_observation_authority
+        require_strategy_observation_authority(evidence.observation_validation)
     if not evidence.artifact_complete:
         return PromotionDecision(PromotionLevel.CANDIDATE, ("artifact_incomplete",))
     if not evidence.artifact_profile_fingerprint:

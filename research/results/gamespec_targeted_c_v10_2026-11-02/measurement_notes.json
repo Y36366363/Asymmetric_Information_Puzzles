@@ -1,0 +1,25 @@
+{
+  "actual_model_outputs": {
+    "locally_detected_wrong_tables": 7,
+    "outputs": 360,
+    "reference_wrong_tables": 19,
+    "residual_wrong_tables": 12,
+    "table_outputs_B_C": 240
+  },
+  "derived_mutation_controls": {
+    "independent_rule_samples": false,
+    "locally_rejected": 41,
+    "unflagged_wrong_tables": 151,
+    "wrong_tables": 192
+  },
+  "diagnostic_reference_verification_is_not_runtime_certificate": true,
+  "mandatory_boundary_warning": "151/192 refers to mechanically mutated wrong-table controls, NOT to the 360 model outputs; those contain 12 residual wrong tables out of 19 wrong tables among 240 B/C tables. Local consistency is never semantic verification.",
+  "no_combined_local_and_semantic_pass_rate": true,
+  "old_reports_or_scores_modified": false,
+  "post_run_reporting_clarification": true,
+  "states": {
+    "locally_consistent_unverified": "No local contradiction; semantic truth not assessed OR reference mismatch. Separate semantic_result records which",
+    "reject_local": "A declared-data contract check found a contradiction; not a repair or a truth model",
+    "verified": "Only this exact output matches its frozen developer reference through the existing semantic/direct-oracle path; no strategy or deployment authority"
+  }
+}
