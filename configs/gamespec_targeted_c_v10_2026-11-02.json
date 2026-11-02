@@ -1,0 +1,72 @@
+{
+  "manifest_id": "gamespec_targeted_c_v10_2026-11-02",
+  "purpose": "Prospective development retest of two reused A-error rule instances; not retrospective identification of an unobserved A table",
+  "reference": {
+    "source": "configs/gamespec_boundary_panel_v7_2026-10-29.json",
+    "sha256": "f9e9b9f05fd0cfae3fb54b7c81b0581b8d76b55259f23329e4ff83a7b4d0568e",
+    "reuse": "Exact v8 package references, prompts, C schema, serializer, evaluate and two-path score; no new truth or prompt feedback",
+    "independence_limit": "Developer-authored frozen references, independent of these new replies; no external human review"
+  },
+  "selection": {
+    "case_ids": ["case_417", "case_345"],
+    "duplicate_case_resolution": "v7 voucher failure and v8 case_345 refer to the same frozen rule instance; one case, not a third independent instance",
+    "historical_context": "Luna v8 A errors: case_417 static repeats 1,3 and case_345 dynamic repeat 1; v7 case_345 voucher failure. Existing v8 C was already table/proposal correct 5/5 for each case/model; retain as context, do not pool new samples or call this a new hold-out.",
+    "selection_after_errors_known": true
+  },
+  "schedule": {
+    "condition": "C",
+    "repeats_per_case_per_model": 5,
+    "models": ["luna6", "sol61"],
+    "calls_per_model": 10,
+    "maximum_generation_calls": 20,
+    "order": "repeat 0..4 then case_417,case_345; each reply independent, no prior replies or error hints",
+    "maximum_global_concurrency": 2,
+    "per_model_concurrency": 1,
+    "no_retries_topups_or_resampling": true
+  },
+  "frozen_configuration": {
+    "parent": "configs/gamespec_attribution_v8_2026-10-30.json",
+    "candidate": "gpt-6-luna, temperature=0, reasoning_effort=none",
+    "control": "gpt-6.1-sol, reasoning_effort=low, omit temperature",
+    "messages_parameters": "Use v8 messages_for/parameters byte-for-byte for C; plan metadata is not sent to the model",
+    "maximum_input_tokens": 10000,
+    "maximum_output_tokens": 2500,
+    "timeout_seconds": 60,
+    "automatic_retries": 0
+  },
+  "scoring": {
+    "primary": "Exact stage-table set equality and unchanged whole proposal score, reported per case/model over five assigned repetitions",
+    "paths": "Unmodified evaluate -> score uses original semantic evaluator plus direct stage-table oracle. Disagreement preserves raw counterexample and stops dispatch globally.",
+    "quadrants": ["table_correct_proposal_correct", "table_correct_proposal_wrong", "table_wrong_proposal_correct", "table_wrong_proposal_wrong"],
+    "separate_failures": ["transport_error", "timeout", "truncated_output", "invalid_json", "output_contract_failure", "stage_table_contract_failure", "incomplete"],
+    "failure_taxonomy": "Reuse all v8 categories including wrong_affected_player, non-change and own-table inconsistency; static proposal error is not called a wrong dynamic witness",
+    "historical_replay": "Re-score old v8 A and C for these two cases without editing files/scores; retain exact A error raw replies and the separate v7 case_345 failure",
+    "local_statuses": ["reject_local", "locally_consistent_unverified", "verified"],
+    "verified_scope": "Only exact frozen-reference agreement of this specific output, never a deployment or strategy certificate",
+    "reporting": "Report all three state counts separately over assigned total; never combine unverified and verified into a pass rate. Local-check coverage must carry both boundary denominators: real outputs 12 residual wrong tables /19 wrong tables among 240 B/C tables in 360 outputs; mutations 151/192 unflagged wrong tables in a separate derived control set.",
+    "no_overall_scientific_pass": true
+  },
+  "interpretation": {
+    "table_wrong": "Evidence of an emitted interpretation/representation error in THIS C reply, not confirmation that an earlier A reply had the same hidden error",
+    "table_correct_proposal_wrong": "Output-level export evidence in THIS C reply; separate malformed interface from valid but incorrect semantic export",
+    "both_correct": "No reproduced C error; consistent with an elicitation/interface benefit but does not identify the old A latent cause",
+    "statistics": "Two purposively selected reused rules and five technical repeats; descriptive counts only, no significance claim or formal sample-size inference",
+    "repair_next": "Do not begin repair calls. Choose subsequent preregistered repair targets from retained observable failures and clearly retain unresolved A attribution."
+  },
+  "resources_and_stop": {
+    "cost": "Record actual tokens/latency and inherited frozen price estimates separately; not an effectiveness gate",
+    "anomaly": "Inherit existing per-call and total anomaly caps, above the planned 10-call token-cap envelope; no sample reduction to chase a cost threshold",
+    "stop": "Stop affected model on provider exception/timeout/refusal/missing usage/model mismatch; retain assigned unexecuted trials and unknown-cost reservation. Oracle disagreement stops all further dispatch. Keep truncation/schema/semantic failures and continue scheduled trials. No retries or automatic resume.",
+    "before_generation": "Commit preregistration first; then test implementation, freeze source/reference/schema/request hashes and commit lock before any generation; verify committed bytes before dispatch"
+  },
+  "safety": {
+    "development_diagnostic": true,
+    "independent_held_out": false,
+    "new_manual_reference": false,
+    "old_scores_changed": false,
+    "formal_trial_started": false,
+    "new_game_or_cfr_variant": false,
+    "new_runtime_epsilon_gto_allowed": false,
+    "adaptive_opponent_line_released": false
+  }
+}
