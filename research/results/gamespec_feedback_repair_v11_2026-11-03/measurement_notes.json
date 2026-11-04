@@ -1,0 +1,15 @@
+{
+  "local_coverage_boundary": "Prior real outputs: 12 residual wrong tables /19 wrong among 240 B/C tables in 360 replies. Separate mutation controls: 151/192 unflagged wrong tables. Neither is a new sample size for this repair study.",
+  "meaning": "All arms see full rules; semantic treatment adds excerpt salience with source offsets. Local feedback never says semantic failure.",
+  "no_formal_feedback_efficacy_inference": true,
+  "no_overall_pass_or_deployment": true,
+  "no_retrospective_A_attribution": true,
+  "semantic_feedback_is_new_rule_information": false,
+  "source_limit": "Developer-authored frozen truth, not independent human audit or held-out generalization",
+  "units": {
+    "canonical_error_patterns": 3,
+    "correct_reference_tables": 2,
+    "independent_rules": 2,
+    "provenance_seed_records": 12
+  }
+}

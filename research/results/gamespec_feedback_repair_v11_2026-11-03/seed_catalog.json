@@ -1,0 +1,810 @@
+{
+  "evidence_registry": {
+    "case_281": [
+      {
+        "case_id": "case_281",
+        "end": 141,
+        "quote": "At the first of two decisions, only player 1 reads public_label, both players read private_banner and counter, and only player 0 reads token.",
+        "rule_sha256": "63d6e17b14c62676cb1ee3340c95fb739585ddaf88b7514ccd54f13c90be4ee5",
+        "source_id": "frozen_v7_rules_text",
+        "start": 0
+      },
+      {
+        "case_id": "case_281",
+        "end": 366,
+        "quote": "Between decisions, player 1 puts the SAME public_label value on an open tray where BOTH can read it at decision two. Other permissions do not change.",
+        "rule_sha256": "63d6e17b14c62676cb1ee3340c95fb739585ddaf88b7514ccd54f13c90be4ee5",
+        "source_id": "frozen_v7_rules_text",
+        "start": 217
+      }
+    ],
+    "case_608": [
+      {
+        "case_id": "case_608",
+        "end": 130,
+        "quote": "Both players see badge and step; player 1 alone sees handbook.",
+        "rule_sha256": "5b8361ac1702f4e3a60d8b473033b3459baca9f68a9df3551df4659b93ad9783",
+        "source_id": "frozen_v7_rules_text",
+        "start": 68
+      },
+      {
+        "case_id": "case_608",
+        "end": 209,
+        "quote": "Only the player currently named inspector by badge may read the current assay.",
+        "rule_sha256": "5b8361ac1702f4e3a60d8b473033b3459baca9f68a9df3551df4659b93ad9783",
+        "source_id": "frozen_v7_rules_text",
+        "start": 131
+      },
+      {
+        "case_id": "case_608",
+        "end": 357,
+        "quote": "Badge names player 0 at step 0 and player 1 at step 1: player 0 alone reads the first assay, player 1 alone reads the NEW independent second assay.",
+        "rule_sha256": "5b8361ac1702f4e3a60d8b473033b3459baca9f68a9df3551df4659b93ad9783",
+        "source_id": "frozen_v7_rules_text",
+        "start": 210
+      }
+    ]
+  },
+  "seeds": {
+    "s00": {
+      "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+      "case_id": "case_281",
+      "correct_control": [
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ],
+        [
+          [
+            "private_banner",
+            "counter",
+            "token",
+            "public_label"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ]
+      ],
+      "original_table": [
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ],
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ]
+      ],
+      "raw_reply_sha256": "a26ec46608d9b109855d1cb752cfa9a58d840517237e22332b27edb28222ccaa",
+      "seed_id": "s00",
+      "source_condition": "B",
+      "source_model": "luna6",
+      "source_repeat": 0,
+      "source_trial_id": "B:case_281:0"
+    },
+    "s01": {
+      "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+      "case_id": "case_281",
+      "correct_control": [
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ],
+        [
+          [
+            "private_banner",
+            "counter",
+            "token",
+            "public_label"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ]
+      ],
+      "original_table": [
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ],
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ]
+      ],
+      "raw_reply_sha256": "a26ec46608d9b109855d1cb752cfa9a58d840517237e22332b27edb28222ccaa",
+      "seed_id": "s01",
+      "source_condition": "B",
+      "source_model": "luna6",
+      "source_repeat": 1,
+      "source_trial_id": "B:case_281:1"
+    },
+    "s02": {
+      "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+      "case_id": "case_281",
+      "correct_control": [
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ],
+        [
+          [
+            "private_banner",
+            "counter",
+            "token",
+            "public_label"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ]
+      ],
+      "original_table": [
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ],
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ]
+      ],
+      "raw_reply_sha256": "a26ec46608d9b109855d1cb752cfa9a58d840517237e22332b27edb28222ccaa",
+      "seed_id": "s02",
+      "source_condition": "B",
+      "source_model": "luna6",
+      "source_repeat": 2,
+      "source_trial_id": "B:case_281:2"
+    },
+    "s03": {
+      "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+      "case_id": "case_281",
+      "correct_control": [
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ],
+        [
+          [
+            "private_banner",
+            "counter",
+            "token",
+            "public_label"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ]
+      ],
+      "original_table": [
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ],
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ]
+      ],
+      "raw_reply_sha256": "a26ec46608d9b109855d1cb752cfa9a58d840517237e22332b27edb28222ccaa",
+      "seed_id": "s03",
+      "source_condition": "B",
+      "source_model": "luna6",
+      "source_repeat": 3,
+      "source_trial_id": "B:case_281:3"
+    },
+    "s04": {
+      "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+      "case_id": "case_281",
+      "correct_control": [
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ],
+        [
+          [
+            "private_banner",
+            "counter",
+            "token",
+            "public_label"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ]
+      ],
+      "original_table": [
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ],
+        [
+          [
+            "private_banner",
+            "counter",
+            "token"
+          ],
+          [
+            "public_label",
+            "private_banner",
+            "counter"
+          ]
+        ]
+      ],
+      "raw_reply_sha256": "a26ec46608d9b109855d1cb752cfa9a58d840517237e22332b27edb28222ccaa",
+      "seed_id": "s04",
+      "source_condition": "B",
+      "source_model": "luna6",
+      "source_repeat": 4,
+      "source_trial_id": "B:case_281:4"
+    },
+    "s05": {
+      "canonical_pattern": "case_608:c40127c3f0beb83ffe50e95d5ef414747222f39fc3b4e6eede7e6168f427f965",
+      "case_id": "case_608",
+      "correct_control": [
+        [
+          [
+            "badge",
+            "step",
+            "assay"
+          ],
+          [
+            "badge",
+            "step",
+            "handbook"
+          ]
+        ],
+        [
+          [
+            "badge",
+            "step"
+          ],
+          [
+            "badge",
+            "step",
+            "assay",
+            "handbook"
+          ]
+        ]
+      ],
+      "original_table": [
+        [
+          [
+            "badge",
+            "step",
+            "assay"
+          ],
+          [
+            "badge",
+            "step",
+            "handbook"
+          ]
+        ],
+        [
+          [
+            "badge",
+            "step",
+            "handbook"
+          ],
+          [
+            "badge",
+            "step",
+            "assay"
+          ]
+        ]
+      ],
+      "raw_reply_sha256": "be7887df0121553f8a0cdd7d9afb09fbf1929475fac13b1f83ef9fbe61d6c746",
+      "seed_id": "s05",
+      "source_condition": "B",
+      "source_model": "luna6",
+      "source_repeat": 0,
+      "source_trial_id": "B:case_608:0"
+    },
+    "s06": {
+      "canonical_pattern": "case_608:c40127c3f0beb83ffe50e95d5ef414747222f39fc3b4e6eede7e6168f427f965",
+      "case_id": "case_608",
+      "correct_control": [
+        [
+          [
+            "badge",
+            "step",
+            "assay"
+          ],
+          [
+            "badge",
+            "step",
+            "handbook"
+          ]
+        ],
+        [
+          [
+            "badge",
+            "step"
+          ],
+          [
+            "badge",
+            "step",
+            "assay",
+            "handbook"
+          ]
+        ]
+      ],
+      "original_table": [
+        [
+          [
+            "badge",
+            "step",
+            "assay"
+          ],
+          [
+            "badge",
+            "step",
+            "handbook"
+          ]
+        ],
+        [
+          [
+            "badge",
+            "step",
+            "handbook"
+          ],
+          [
+            "badge",
+            "step",
+            "assay"
+          ]
+        ]
+      ],
+      "raw_reply_sha256": "be7887df0121553f8a0cdd7d9afb09fbf1929475fac13b1f83ef9fbe61d6c746",
+      "seed_id": "s06",
+      "source_condition": "B",
+      "source_model": "luna6",
+      "source_repeat": 1,
+      "source_trial_id": "B:case_608:1"
+    },
+    "s07": {
+      "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+      "case_id": "case_608",
+      "correct_control": [
+        [
+          [
+            "assay",
+            "badge",
+            "step"
+          ],
+          [
+            "handbook",
+            "badge",
+            "step"
+          ]
+        ],
+        [
+          [
+            "badge",
+            "step"
+          ],
+          [
+            "assay",
+            "handbook",
+            "badge",
+            "step"
+          ]
+        ]
+      ],
+      "original_table": [
+        [
+          [
+            "assay",
+            "badge",
+            "step"
+          ],
+          [
+            "handbook",
+            "badge",
+            "step"
+          ]
+        ],
+        [
+          [
+            "handbook",
+            "badge",
+            "step"
+          ],
+          [
+            "assay",
+            "handbook",
+            "badge",
+            "step"
+          ]
+        ]
+      ],
+      "raw_reply_sha256": "bc781b87482e9b17f61df7f2a1d2307798052e97b1024af1e5119ca1e2bc9fc0",
+      "seed_id": "s07",
+      "source_condition": "B",
+      "source_model": "luna6",
+      "source_repeat": 2,
+      "source_trial_id": "B:case_608:2"
+    },
+    "s08": {
+      "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+      "case_id": "case_608",
+      "correct_control": [
+        [
+          [
+            "assay",
+            "badge",
+            "step"
+          ],
+          [
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ],
+        [
+          [
+            "badge",
+            "step"
+          ],
+          [
+            "assay",
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ]
+      ],
+      "original_table": [
+        [
+          [
+            "assay",
+            "badge",
+            "step"
+          ],
+          [
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ],
+        [
+          [
+            "badge",
+            "handbook",
+            "step"
+          ],
+          [
+            "assay",
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ]
+      ],
+      "raw_reply_sha256": "c42bd7b80e251f75bba70f883a146cb35598d8d771165485639ef2b7bb1eae1e",
+      "seed_id": "s08",
+      "source_condition": "B",
+      "source_model": "luna6",
+      "source_repeat": 3,
+      "source_trial_id": "B:case_608:3"
+    },
+    "s09": {
+      "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+      "case_id": "case_608",
+      "correct_control": [
+        [
+          [
+            "assay",
+            "badge",
+            "step"
+          ],
+          [
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ],
+        [
+          [
+            "badge",
+            "step"
+          ],
+          [
+            "assay",
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ]
+      ],
+      "original_table": [
+        [
+          [
+            "assay",
+            "badge",
+            "step"
+          ],
+          [
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ],
+        [
+          [
+            "badge",
+            "handbook",
+            "step"
+          ],
+          [
+            "assay",
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ]
+      ],
+      "raw_reply_sha256": "c42bd7b80e251f75bba70f883a146cb35598d8d771165485639ef2b7bb1eae1e",
+      "seed_id": "s09",
+      "source_condition": "B",
+      "source_model": "luna6",
+      "source_repeat": 4,
+      "source_trial_id": "B:case_608:4"
+    },
+    "s10": {
+      "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+      "case_id": "case_608",
+      "correct_control": [
+        [
+          [
+            "assay",
+            "badge",
+            "step"
+          ],
+          [
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ],
+        [
+          [
+            "badge",
+            "step"
+          ],
+          [
+            "assay",
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ]
+      ],
+      "original_table": [
+        [
+          [
+            "assay",
+            "badge",
+            "step"
+          ],
+          [
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ],
+        [
+          [
+            "badge",
+            "handbook",
+            "step"
+          ],
+          [
+            "assay",
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ]
+      ],
+      "raw_reply_sha256": "15d2606bb695d886c9edb967f1f7694128afa50e829594cc75b2e1cbf9dc4fac",
+      "seed_id": "s10",
+      "source_condition": "C",
+      "source_model": "luna6",
+      "source_repeat": 1,
+      "source_trial_id": "C:case_608:1"
+    },
+    "s11": {
+      "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+      "case_id": "case_608",
+      "correct_control": [
+        [
+          [
+            "assay",
+            "badge",
+            "step"
+          ],
+          [
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ],
+        [
+          [
+            "badge",
+            "step"
+          ],
+          [
+            "assay",
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ]
+      ],
+      "original_table": [
+        [
+          [
+            "assay",
+            "badge",
+            "step"
+          ],
+          [
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ],
+        [
+          [
+            "badge",
+            "handbook",
+            "step"
+          ],
+          [
+            "assay",
+            "badge",
+            "handbook",
+            "step"
+          ]
+        ]
+      ],
+      "raw_reply_sha256": "15d2606bb695d886c9edb967f1f7694128afa50e829594cc75b2e1cbf9dc4fac",
+      "seed_id": "s11",
+      "source_condition": "C",
+      "source_model": "luna6",
+      "source_repeat": 2,
+      "source_trial_id": "C:case_608:2"
+    }
+  },
+  "units": {
+    "canonical_error_patterns": 3,
+    "correct_reference_tables": 2,
+    "independent_rules": 2,
+    "provenance_seed_records": 12
+  }
+}

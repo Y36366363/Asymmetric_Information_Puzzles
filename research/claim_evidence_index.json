@@ -841,6 +841,61 @@
       ]
     },
     {
+      "id": "gamespec_v11_frozen_seed_feedback_repair",
+      "status": "mixed",
+      "statement": "预注册144次开发修复：Luna无反馈/局部/语义联合修复5/12、5/12、1/12，正确表退化5/12、6/12、6/12；Sol各条件12/12修复、无退化。未测得语义增益；Luna语义条件最终提案12/12正确仍只修好1/12阶段表。",
+      "scope": "12份既有Luna真实错表来源，只有3种可见性错误模式和2个动态规则；两模型每条件单轮，带12份匹配正确表对照。先提交预注册、再冻结请求并调用。",
+      "limitations": "已知开发失败，重复来源非独立规则；所有条件已读完整规则，摘句改变定位、重复与长度，不能证明一般语义反馈无效或必要。Sol天花板不授予部署；两条路径共享作者冻结参考，旧A隐藏过程仍未识别。",
+      "next_question": "先离线检查输出修改与正确表退化，再另注册受约束单元补丁接口诊断；保留本轮负结果，不追预算或切换默认模型。",
+      "evidence": [
+        {
+          "path": "research/results/gamespec_feedback_repair_v11_2026-11-03/comparison.json",
+          "sha256": "a50b6ab323c9108d23580153909446f037ed243393ef8fcb49110d3bcf6b0381",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/actual_generation_calls", "equals": 144},
+            {"pointer": "/all_offline_rescores_agree", "equals": true},
+            {"pointer": "/models/luna6/conditions/none/wrong/joint_correct", "equals": 5},
+            {"pointer": "/models/luna6/conditions/local/wrong/joint_correct", "equals": 5},
+            {"pointer": "/models/luna6/conditions/semantic/wrong/joint_correct", "equals": 1},
+            {"pointer": "/models/luna6/conditions/none/correct_control/incorrect_joint_completed", "equals": 5},
+            {"pointer": "/models/luna6/conditions/local/correct_control/incorrect_joint_completed", "equals": 6},
+            {"pointer": "/models/luna6/conditions/semantic/correct_control/incorrect_joint_completed", "equals": 6},
+            {"pointer": "/models/sol61/conditions/none/wrong/joint_correct", "equals": 12},
+            {"pointer": "/models/sol61/conditions/local/wrong/joint_correct", "equals": 12},
+            {"pointer": "/models/sol61/conditions/semantic/wrong/joint_correct", "equals": 12},
+            {"pointer": "/old_scores_changed", "equals": false},
+            {"pointer": "/formal_trial_started", "equals": false},
+            {"pointer": "/new_runtime_epsilon_gto_allowed", "equals": false}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_feedback_repair_v11_2026-11-03/failure_breakdown.json",
+          "sha256": "ad133da164801aeb088c3090da1bfc92b47c5b68adb5b440560a3a498d0794c7",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {"pointer": "/models/luna6/conditions/semantic/wrong/legacy_proposal_correct", "equals": 12},
+            {"pointer": "/all_output_statuses/locally_consistent_unverified", "equals": 32},
+            {"pointer": "/all_output_statuses/reject_local", "equals": 10},
+            {"pointer": "/primary_scores_changed", "equals": false},
+            {"pointer": "/model_generation_calls", "equals": 0}
+          ]
+        },
+        {
+          "path": "research/results/gamespec_feedback_repair_v11_2026-11-03/luna6.json",
+          "sha256": "c7c35e50352d7ab375abcd2bf2badca4cd342f695f31f62713148a1c6894e4c4",
+          "kind": "artifact_assertion",
+          "assertions": [{"pointer": "/status", "equals": "completed"}]
+        },
+        {
+          "path": "research/results/gamespec_feedback_repair_v11_2026-11-03/sol61.json",
+          "sha256": "f21531870ef8b7892732bec4199a2ca90f1bb7e7b66aa68975dc02aa10ef939d",
+          "kind": "artifact_assertion",
+          "assertions": [{"pointer": "/status", "equals": "completed"}]
+        }
+      ]
+    },
+    {
       "id": "general_llm_solver",
       "status": "not_established",
       "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",

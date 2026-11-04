@@ -1,0 +1,2918 @@
+{
+  "analysis": {
+    "adaptive_opponent_line_released": false,
+    "all_failures": [],
+    "conditions": {
+      "local": {
+        "correct_control": {
+          "assigned": 12,
+          "category_counts": {},
+          "completed": 12,
+          "incorrect_joint_completed": 0,
+          "incorrect_table_completed": 0,
+          "joint_correct": 12,
+          "semantic_joint_degradation_valid_subset": 0,
+          "semantic_table_degradation_valid_subset": 0,
+          "states": {
+            "locally_consistent_unverified": 0,
+            "reject_local": 0,
+            "verified": 12
+          },
+          "table_correct": 12,
+          "valid_completed": 12,
+          "valid_joint_correct": 12,
+          "valid_table_correct": 12
+        },
+        "wrong": {
+          "assigned": 12,
+          "category_counts": {},
+          "completed": 12,
+          "incorrect_joint_completed": 0,
+          "incorrect_table_completed": 0,
+          "joint_correct": 12,
+          "semantic_joint_degradation_valid_subset": 0,
+          "semantic_table_degradation_valid_subset": 0,
+          "states": {
+            "locally_consistent_unverified": 0,
+            "reject_local": 0,
+            "verified": 12
+          },
+          "table_correct": 12,
+          "valid_completed": 12,
+          "valid_joint_correct": 12,
+          "valid_table_correct": 12
+        }
+      },
+      "none": {
+        "correct_control": {
+          "assigned": 12,
+          "category_counts": {},
+          "completed": 12,
+          "incorrect_joint_completed": 0,
+          "incorrect_table_completed": 0,
+          "joint_correct": 12,
+          "semantic_joint_degradation_valid_subset": 0,
+          "semantic_table_degradation_valid_subset": 0,
+          "states": {
+            "locally_consistent_unverified": 0,
+            "reject_local": 0,
+            "verified": 12
+          },
+          "table_correct": 12,
+          "valid_completed": 12,
+          "valid_joint_correct": 12,
+          "valid_table_correct": 12
+        },
+        "wrong": {
+          "assigned": 12,
+          "category_counts": {},
+          "completed": 12,
+          "incorrect_joint_completed": 0,
+          "incorrect_table_completed": 0,
+          "joint_correct": 12,
+          "semantic_joint_degradation_valid_subset": 0,
+          "semantic_table_degradation_valid_subset": 0,
+          "states": {
+            "locally_consistent_unverified": 0,
+            "reject_local": 0,
+            "verified": 12
+          },
+          "table_correct": 12,
+          "valid_completed": 12,
+          "valid_joint_correct": 12,
+          "valid_table_correct": 12
+        }
+      },
+      "semantic": {
+        "correct_control": {
+          "assigned": 12,
+          "category_counts": {},
+          "completed": 12,
+          "incorrect_joint_completed": 0,
+          "incorrect_table_completed": 0,
+          "joint_correct": 12,
+          "semantic_joint_degradation_valid_subset": 0,
+          "semantic_table_degradation_valid_subset": 0,
+          "states": {
+            "locally_consistent_unverified": 0,
+            "reject_local": 0,
+            "verified": 12
+          },
+          "table_correct": 12,
+          "valid_completed": 12,
+          "valid_joint_correct": 12,
+          "valid_table_correct": 12
+        },
+        "wrong": {
+          "assigned": 12,
+          "category_counts": {},
+          "completed": 12,
+          "incorrect_joint_completed": 0,
+          "incorrect_table_completed": 0,
+          "joint_correct": 12,
+          "semantic_joint_degradation_valid_subset": 0,
+          "semantic_table_degradation_valid_subset": 0,
+          "states": {
+            "locally_consistent_unverified": 0,
+            "reject_local": 0,
+            "verified": 12
+          },
+          "table_correct": 12,
+          "valid_completed": 12,
+          "valid_joint_correct": 12,
+          "valid_table_correct": 12
+        }
+      }
+    },
+    "cross_checks": {
+      "joint_correct": {
+        "local_fail_semantic_success": [],
+        "semantic_fail_local_success": []
+      },
+      "table_correct": {
+        "local_fail_semantic_success": [],
+        "semantic_fail_local_success": []
+      }
+    },
+    "development_diagnostic": true,
+    "equal_group_rates": {
+      "canonical_pattern": {
+        "local": {
+          "joint_correct": 1.0,
+          "table_correct": 1.0
+        },
+        "none": {
+          "joint_correct": 1.0,
+          "table_correct": 1.0
+        },
+        "semantic": {
+          "joint_correct": 1.0,
+          "table_correct": 1.0
+        }
+      },
+      "case_id": {
+        "local": {
+          "joint_correct": 1.0,
+          "table_correct": 1.0
+        },
+        "none": {
+          "joint_correct": 1.0,
+          "table_correct": 1.0
+        },
+        "semantic": {
+          "joint_correct": 1.0,
+          "table_correct": 1.0
+        }
+      }
+    },
+    "formal_trial_started": false,
+    "independent_held_out": false,
+    "matched_outcomes": [
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_281",
+        "seed_id": "s00",
+        "seed_kind": "wrong"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_281",
+        "seed_id": "s00",
+        "seed_kind": "correct_control"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_281",
+        "seed_id": "s01",
+        "seed_kind": "wrong"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_281",
+        "seed_id": "s01",
+        "seed_kind": "correct_control"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_281",
+        "seed_id": "s02",
+        "seed_kind": "wrong"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_281",
+        "seed_id": "s02",
+        "seed_kind": "correct_control"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_281",
+        "seed_id": "s03",
+        "seed_kind": "wrong"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_281",
+        "seed_id": "s03",
+        "seed_kind": "correct_control"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_281",
+        "seed_id": "s04",
+        "seed_kind": "wrong"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_281",
+        "seed_id": "s04",
+        "seed_kind": "correct_control"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_608",
+        "seed_id": "s05",
+        "seed_kind": "wrong"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_608",
+        "seed_id": "s05",
+        "seed_kind": "correct_control"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_608",
+        "seed_id": "s06",
+        "seed_kind": "wrong"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_608",
+        "seed_id": "s06",
+        "seed_kind": "correct_control"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_608",
+        "seed_id": "s07",
+        "seed_kind": "wrong"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_608",
+        "seed_id": "s07",
+        "seed_kind": "correct_control"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_608",
+        "seed_id": "s08",
+        "seed_kind": "wrong"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_608",
+        "seed_id": "s08",
+        "seed_kind": "correct_control"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_608",
+        "seed_id": "s09",
+        "seed_kind": "wrong"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_608",
+        "seed_id": "s09",
+        "seed_kind": "correct_control"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_608",
+        "seed_id": "s10",
+        "seed_kind": "wrong"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_608",
+        "seed_id": "s10",
+        "seed_kind": "correct_control"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_608",
+        "seed_id": "s11",
+        "seed_kind": "wrong"
+      },
+      {
+        "arms": {
+          "local": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "none": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          },
+          "semantic": {
+            "joint_correct": true,
+            "status": "completed",
+            "table_correct": true
+          }
+        },
+        "case_id": "case_608",
+        "seed_id": "s11",
+        "seed_kind": "correct_control"
+      }
+    ],
+    "new_runtime_epsilon_gto_allowed": false,
+    "old_A_latent_error_layer_identified": false,
+    "old_scores_changed": false,
+    "overall_scientific_pass": null,
+    "per_rule": {
+      "case_281": {
+        "local": {
+          "correct_control": {
+            "assigned": 5,
+            "category_counts": {},
+            "completed": 5,
+            "incorrect_joint_completed": 0,
+            "incorrect_table_completed": 0,
+            "joint_correct": 5,
+            "semantic_joint_degradation_valid_subset": 0,
+            "semantic_table_degradation_valid_subset": 0,
+            "states": {
+              "locally_consistent_unverified": 0,
+              "reject_local": 0,
+              "verified": 5
+            },
+            "table_correct": 5,
+            "valid_completed": 5,
+            "valid_joint_correct": 5,
+            "valid_table_correct": 5
+          },
+          "wrong": {
+            "assigned": 5,
+            "category_counts": {},
+            "completed": 5,
+            "incorrect_joint_completed": 0,
+            "incorrect_table_completed": 0,
+            "joint_correct": 5,
+            "semantic_joint_degradation_valid_subset": 0,
+            "semantic_table_degradation_valid_subset": 0,
+            "states": {
+              "locally_consistent_unverified": 0,
+              "reject_local": 0,
+              "verified": 5
+            },
+            "table_correct": 5,
+            "valid_completed": 5,
+            "valid_joint_correct": 5,
+            "valid_table_correct": 5
+          }
+        },
+        "none": {
+          "correct_control": {
+            "assigned": 5,
+            "category_counts": {},
+            "completed": 5,
+            "incorrect_joint_completed": 0,
+            "incorrect_table_completed": 0,
+            "joint_correct": 5,
+            "semantic_joint_degradation_valid_subset": 0,
+            "semantic_table_degradation_valid_subset": 0,
+            "states": {
+              "locally_consistent_unverified": 0,
+              "reject_local": 0,
+              "verified": 5
+            },
+            "table_correct": 5,
+            "valid_completed": 5,
+            "valid_joint_correct": 5,
+            "valid_table_correct": 5
+          },
+          "wrong": {
+            "assigned": 5,
+            "category_counts": {},
+            "completed": 5,
+            "incorrect_joint_completed": 0,
+            "incorrect_table_completed": 0,
+            "joint_correct": 5,
+            "semantic_joint_degradation_valid_subset": 0,
+            "semantic_table_degradation_valid_subset": 0,
+            "states": {
+              "locally_consistent_unverified": 0,
+              "reject_local": 0,
+              "verified": 5
+            },
+            "table_correct": 5,
+            "valid_completed": 5,
+            "valid_joint_correct": 5,
+            "valid_table_correct": 5
+          }
+        },
+        "semantic": {
+          "correct_control": {
+            "assigned": 5,
+            "category_counts": {},
+            "completed": 5,
+            "incorrect_joint_completed": 0,
+            "incorrect_table_completed": 0,
+            "joint_correct": 5,
+            "semantic_joint_degradation_valid_subset": 0,
+            "semantic_table_degradation_valid_subset": 0,
+            "states": {
+              "locally_consistent_unverified": 0,
+              "reject_local": 0,
+              "verified": 5
+            },
+            "table_correct": 5,
+            "valid_completed": 5,
+            "valid_joint_correct": 5,
+            "valid_table_correct": 5
+          },
+          "wrong": {
+            "assigned": 5,
+            "category_counts": {},
+            "completed": 5,
+            "incorrect_joint_completed": 0,
+            "incorrect_table_completed": 0,
+            "joint_correct": 5,
+            "semantic_joint_degradation_valid_subset": 0,
+            "semantic_table_degradation_valid_subset": 0,
+            "states": {
+              "locally_consistent_unverified": 0,
+              "reject_local": 0,
+              "verified": 5
+            },
+            "table_correct": 5,
+            "valid_completed": 5,
+            "valid_joint_correct": 5,
+            "valid_table_correct": 5
+          }
+        }
+      },
+      "case_608": {
+        "local": {
+          "correct_control": {
+            "assigned": 7,
+            "category_counts": {},
+            "completed": 7,
+            "incorrect_joint_completed": 0,
+            "incorrect_table_completed": 0,
+            "joint_correct": 7,
+            "semantic_joint_degradation_valid_subset": 0,
+            "semantic_table_degradation_valid_subset": 0,
+            "states": {
+              "locally_consistent_unverified": 0,
+              "reject_local": 0,
+              "verified": 7
+            },
+            "table_correct": 7,
+            "valid_completed": 7,
+            "valid_joint_correct": 7,
+            "valid_table_correct": 7
+          },
+          "wrong": {
+            "assigned": 7,
+            "category_counts": {},
+            "completed": 7,
+            "incorrect_joint_completed": 0,
+            "incorrect_table_completed": 0,
+            "joint_correct": 7,
+            "semantic_joint_degradation_valid_subset": 0,
+            "semantic_table_degradation_valid_subset": 0,
+            "states": {
+              "locally_consistent_unverified": 0,
+              "reject_local": 0,
+              "verified": 7
+            },
+            "table_correct": 7,
+            "valid_completed": 7,
+            "valid_joint_correct": 7,
+            "valid_table_correct": 7
+          }
+        },
+        "none": {
+          "correct_control": {
+            "assigned": 7,
+            "category_counts": {},
+            "completed": 7,
+            "incorrect_joint_completed": 0,
+            "incorrect_table_completed": 0,
+            "joint_correct": 7,
+            "semantic_joint_degradation_valid_subset": 0,
+            "semantic_table_degradation_valid_subset": 0,
+            "states": {
+              "locally_consistent_unverified": 0,
+              "reject_local": 0,
+              "verified": 7
+            },
+            "table_correct": 7,
+            "valid_completed": 7,
+            "valid_joint_correct": 7,
+            "valid_table_correct": 7
+          },
+          "wrong": {
+            "assigned": 7,
+            "category_counts": {},
+            "completed": 7,
+            "incorrect_joint_completed": 0,
+            "incorrect_table_completed": 0,
+            "joint_correct": 7,
+            "semantic_joint_degradation_valid_subset": 0,
+            "semantic_table_degradation_valid_subset": 0,
+            "states": {
+              "locally_consistent_unverified": 0,
+              "reject_local": 0,
+              "verified": 7
+            },
+            "table_correct": 7,
+            "valid_completed": 7,
+            "valid_joint_correct": 7,
+            "valid_table_correct": 7
+          }
+        },
+        "semantic": {
+          "correct_control": {
+            "assigned": 7,
+            "category_counts": {},
+            "completed": 7,
+            "incorrect_joint_completed": 0,
+            "incorrect_table_completed": 0,
+            "joint_correct": 7,
+            "semantic_joint_degradation_valid_subset": 0,
+            "semantic_table_degradation_valid_subset": 0,
+            "states": {
+              "locally_consistent_unverified": 0,
+              "reject_local": 0,
+              "verified": 7
+            },
+            "table_correct": 7,
+            "valid_completed": 7,
+            "valid_joint_correct": 7,
+            "valid_table_correct": 7
+          },
+          "wrong": {
+            "assigned": 7,
+            "category_counts": {},
+            "completed": 7,
+            "incorrect_joint_completed": 0,
+            "incorrect_table_completed": 0,
+            "joint_correct": 7,
+            "semantic_joint_degradation_valid_subset": 0,
+            "semantic_table_degradation_valid_subset": 0,
+            "states": {
+              "locally_consistent_unverified": 0,
+              "reject_local": 0,
+              "verified": 7
+            },
+            "table_correct": 7,
+            "valid_completed": 7,
+            "valid_joint_correct": 7,
+            "valid_table_correct": 7
+          }
+        }
+      }
+    },
+    "resources": {
+      "attempts": 72,
+      "cost_usd_estimate": 0.28418,
+      "errors": {},
+      "latency_seconds": 122.76336812356021,
+      "reasoning_tokens": 0,
+      "tokens": {
+        "completion_tokens": 6126,
+        "prompt_tokens": 111460
+      },
+      "unknown_usage_attempts": 0
+    },
+    "rows": [
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"public_label\",\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s00",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s00:wrong:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"public_label\",\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s00",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s00:wrong:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"public_label\",\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s00",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s00:wrong:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"private_banner\",\"counter\",\"token\",\"public_label\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s00",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s00:correct_control:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"private_banner\",\"counter\",\"token\",\"public_label\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s00",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s00:correct_control:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"private_banner\",\"counter\",\"token\",\"public_label\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s00",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s00:correct_control:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"private_banner\",\"counter\",\"token\",\"public_label\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s01",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s01:correct_control:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"private_banner\",\"counter\",\"token\",\"public_label\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s01",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s01:correct_control:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"private_banner\",\"counter\",\"token\",\"public_label\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s01",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s01:correct_control:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"public_label\",\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s01",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s01:wrong:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"public_label\",\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s01",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s01:wrong:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"public_label\",\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s01",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s01:wrong:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"public_label\",\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s02",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s02:wrong:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"public_label\",\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s02",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s02:wrong:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"public_label\",\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s02",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s02:wrong:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"private_banner\",\"counter\",\"token\",\"public_label\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s02",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s02:correct_control:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"private_banner\",\"counter\",\"token\",\"public_label\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s02",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s02:correct_control:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"private_banner\",\"counter\",\"token\",\"public_label\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s02",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s02:correct_control:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"private_banner\",\"counter\",\"token\",\"public_label\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s03",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s03:correct_control:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"private_banner\",\"counter\",\"token\",\"public_label\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s03",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s03:correct_control:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"private_banner\",\"counter\",\"token\",\"public_label\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s03",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s03:correct_control:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"public_label\",\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s03",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s03:wrong:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"public_label\",\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s03",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s03:wrong:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"public_label\",\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s03",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s03:wrong:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"public_label\",\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s04",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s04:wrong:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"public_label\",\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s04",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s04:wrong:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"public_label\",\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s04",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s04:wrong:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"private_banner\",\"counter\",\"token\",\"public_label\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s04",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s04:correct_control:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"private_banner\",\"counter\",\"token\",\"public_label\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s04",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s04:correct_control:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"private_banner\",\"counter\",\"token\"],[\"public_label\",\"private_banner\",\"counter\"]],[[\"private_banner\",\"counter\",\"token\",\"public_label\"],[\"public_label\",\"private_banner\",\"counter\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+        "seed_id": "s04",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s04:correct_control:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:c40127c3f0beb83ffe50e95d5ef414747222f39fc3b4e6eede7e6168f427f965",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"badge\",\"step\",\"assay\"],[\"badge\",\"step\",\"handbook\"]],[[\"badge\",\"step\"],[\"badge\",\"step\",\"assay\",\"handbook\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s05",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s05:correct_control:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:c40127c3f0beb83ffe50e95d5ef414747222f39fc3b4e6eede7e6168f427f965",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"badge\",\"step\",\"assay\"],[\"badge\",\"step\",\"handbook\"]],[[\"badge\",\"step\"],[\"badge\",\"step\",\"assay\",\"handbook\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s05",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s05:correct_control:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:c40127c3f0beb83ffe50e95d5ef414747222f39fc3b4e6eede7e6168f427f965",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"badge\",\"step\",\"assay\"],[\"badge\",\"step\",\"handbook\"]],[[\"badge\",\"step\"],[\"badge\",\"step\",\"assay\",\"handbook\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s05",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s05:correct_control:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:c40127c3f0beb83ffe50e95d5ef414747222f39fc3b4e6eede7e6168f427f965",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 2,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"badge\",\"step\",\"assay\"],[\"badge\",\"step\",\"handbook\"]],[[\"badge\",\"step\"],[\"badge\",\"step\",\"assay\",\"handbook\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s05",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s05:wrong:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:c40127c3f0beb83ffe50e95d5ef414747222f39fc3b4e6eede7e6168f427f965",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 2,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"badge\",\"step\",\"assay\"],[\"badge\",\"step\",\"handbook\"]],[[\"badge\",\"step\"],[\"badge\",\"step\",\"assay\",\"handbook\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s05",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s05:wrong:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:c40127c3f0beb83ffe50e95d5ef414747222f39fc3b4e6eede7e6168f427f965",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 2,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"badge\",\"step\",\"assay\"],[\"badge\",\"step\",\"handbook\"]],[[\"badge\",\"step\"],[\"badge\",\"step\",\"handbook\",\"assay\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s05",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s05:wrong:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:c40127c3f0beb83ffe50e95d5ef414747222f39fc3b4e6eede7e6168f427f965",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 2,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"badge\",\"step\",\"assay\"],[\"badge\",\"step\",\"handbook\"]],[[\"badge\",\"step\"],[\"badge\",\"step\",\"assay\",\"handbook\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s06",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s06:wrong:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:c40127c3f0beb83ffe50e95d5ef414747222f39fc3b4e6eede7e6168f427f965",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 2,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"badge\",\"step\",\"assay\"],[\"badge\",\"step\",\"handbook\"]],[[\"badge\",\"step\"],[\"badge\",\"step\",\"assay\",\"handbook\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s06",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s06:wrong:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:c40127c3f0beb83ffe50e95d5ef414747222f39fc3b4e6eede7e6168f427f965",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 2,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"badge\",\"step\",\"assay\"],[\"badge\",\"step\",\"handbook\"]],[[\"badge\",\"step\"],[\"badge\",\"step\",\"assay\",\"handbook\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s06",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s06:wrong:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:c40127c3f0beb83ffe50e95d5ef414747222f39fc3b4e6eede7e6168f427f965",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"badge\",\"step\",\"assay\"],[\"badge\",\"step\",\"handbook\"]],[[\"badge\",\"step\"],[\"badge\",\"step\",\"assay\",\"handbook\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s06",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s06:correct_control:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:c40127c3f0beb83ffe50e95d5ef414747222f39fc3b4e6eede7e6168f427f965",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"badge\",\"step\",\"assay\"],[\"badge\",\"step\",\"handbook\"]],[[\"badge\",\"step\"],[\"badge\",\"step\",\"assay\",\"handbook\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s06",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s06:correct_control:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:c40127c3f0beb83ffe50e95d5ef414747222f39fc3b4e6eede7e6168f427f965",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"badge\",\"step\",\"assay\"],[\"badge\",\"step\",\"handbook\"]],[[\"badge\",\"step\"],[\"badge\",\"step\",\"assay\",\"handbook\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s06",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s06:correct_control:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"handbook\",\"badge\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"handbook\",\"badge\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s07",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s07:correct_control:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"handbook\",\"badge\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"handbook\",\"badge\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s07",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s07:correct_control:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"handbook\",\"badge\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"handbook\",\"badge\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s07",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s07:correct_control:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"handbook\",\"badge\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"handbook\",\"badge\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s07",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s07:wrong:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"handbook\",\"badge\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"handbook\",\"badge\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s07",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s07:wrong:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"handbook\",\"badge\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"handbook\",\"badge\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s07",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s07:wrong:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s08",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s08:wrong:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s08",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s08:wrong:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s08",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s08:wrong:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s08",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s08:correct_control:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s08",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s08:correct_control:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s08",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s08:correct_control:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s09",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s09:correct_control:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s09",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s09:correct_control:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s09",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s09:correct_control:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s09",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s09:wrong:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s09",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s09:wrong:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s09",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s09:wrong:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s10",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s10:wrong:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s10",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s10:wrong:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s10",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s10:wrong:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s10",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s10:correct_control:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s10",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s10:correct_control:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s10",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s10:correct_control:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s11",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s11:correct_control:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s11",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s11:correct_control:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 0,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": null,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s11",
+        "seed_kind": "correct_control",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s11:correct_control:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "none",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s11",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s11:wrong:none",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "local",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s11",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s11:wrong:local",
+        "valid_completed": true,
+        "validation_status": "verified"
+      },
+      {
+        "arm": "f1_s1",
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "categories": [],
+        "condition": "C",
+        "feedback_arm": "semantic",
+        "joint_correct": true,
+        "metrics": {
+          "input_cell_errors": 1,
+          "joint_correct": true,
+          "output_cell_errors": 0,
+          "repair_rounds": 1,
+          "successful_repair_round": 1,
+          "table_correct": true
+        },
+        "raw_text": "{\"stage_table\":[[[\"assay\",\"badge\",\"step\"],[\"badge\",\"handbook\",\"step\"]],[[\"badge\",\"step\"],[\"assay\",\"badge\",\"handbook\",\"step\"]]],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+        "seed_id": "s11",
+        "seed_kind": "wrong",
+        "status": "completed",
+        "table_cell_differences": [],
+        "table_correct": true,
+        "task": "scope",
+        "trial_id": "s11:wrong:semantic",
+        "valid_completed": true,
+        "validation_status": "verified"
+      }
+    ],
+    "semantic_minus_local_joint_repair": 0.0,
+    "semantic_minus_local_table_repair": 0.0,
+    "units": {
+      "correct_reference_patterns": 2,
+      "provenance_seeds": 12,
+      "rule_instances": 2,
+      "wrong_patterns": 3
+    }
+  },
+  "raw_rescoring_agrees": true
+}
