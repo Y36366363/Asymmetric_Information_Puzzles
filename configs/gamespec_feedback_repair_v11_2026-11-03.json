@@ -1,0 +1,105 @@
+{
+  "manifest_id": "gamespec_feedback_repair_v11_2026-11-03",
+  "purpose": "Development-only feedback augmentation repair diagnostic on frozen real wrong tables; information gain is an operational repair contrast, not Shannon information or a formal feedback trial",
+  "sources": {
+    "audit": "research/results/gamespec_local_checker_audit_v9_2026-10-31.json",
+    "audit_sha256": "852db9932bf352d518477999175c83635298c41a593ad1ebedd75912338fc0a8",
+    "raw": "research/results/gamespec_attribution_v8_2026-10-30/luna6.json",
+    "raw_sha256": "4a913dd5c2286ce240a207cd22eaae1b2cf41fcda28bf5ad567cdea74b2b05e8",
+    "reference": "configs/gamespec_boundary_panel_v7_2026-10-29.json",
+    "reference_sha256": "f9e9b9f05fd0cfae3fb54b7c81b0581b8d76b55259f23329e4ff83a7b4d0568e",
+    "new_manual_reference": false,
+    "independence_limit": "Frozen developer-authored references predate these replies; not external human review"
+  },
+  "seeds": {
+    "selection": "All v9 rows with requires_semantic_reference_to_resolve=true; require model=luna6, table locally consistent, table reference-wrong; recover exact original stage_table from frozen v8 raw response without repair",
+    "expected": {"total": 12, "case_281_B": 5, "case_608_B": 5, "case_608_C": 2},
+    "case_281_correction": "Dynamic rule, B table-only traversal condition; emitted table wrongly constant. Not a static-rule instance.",
+    "canonical_distinct_patterns": 3,
+    "distinct_rule_instances": 2,
+    "pattern_multiplicities": [5, 2, 5],
+    "ordering": "case_id, source condition, source repeat; s00..s11 opaque seed identifiers are metadata only",
+    "controls": "For each seed add a matched correct table copied from the existing frozen reference; same field list order as that seed within each cell where possible. No new correct label, no initial proposal supplied.",
+    "preservation": "Keep all 12 provenance records and original list order; also group set-canonical duplicate patterns. Do not call duplicates independent rules."
+  },
+  "conditions": {
+    "none": {"feedback": null, "description": "Common complete rules + proposed table + inspect/repair task, no feedback"},
+    "local": {"description": "Reference-free check_local(table only): shape, vocabulary, duplicates, three-owner coverage, plus mechanically enumerated declared transitions. semantic_result=not_assessed. Never tell the model that semantic checking failed; that binary fact needs a reference and would be a fourth condition."},
+    "semantic": {"description": "Same local diagnostics plus exact verbatim rule excerpts with evaluator-owned source_id, case_id, offsets and rule hash; no reference tables, player-visibility answers, witness labels or final score. Excerpts selected before calls, identical for wrong/correct tables of a case."}
+  },
+  "evidence_registry": {
+    "source_id": "frozen_v7_rules_text",
+    "reliability_from_model": false,
+    "validation": "Each excerpt must occur exactly once in the frozen complete rule; freeze start/end offsets and rule SHA256 before generation. This is a trusted experiment source, not proof the author rule/reference is naturally correct.",
+    "excerpts": {
+      "case_281": [
+        "At the first of two decisions, only player 1 reads public_label, both players read private_banner and counter, and only player 0 reads token.",
+        "Between decisions, player 1 puts the SAME public_label value on an open tray where BOTH can read it at decision two. Other permissions do not change."
+      ],
+      "case_608": [
+        "Both players see badge and step; player 1 alone sees handbook.",
+        "Only the player currently named inspector by badge may read the current assay.",
+        "Badge names player 0 at step 0 and player 1 at step 1: player 0 alone reads the first assay, player 1 alone reads the NEW independent second assay."
+      ]
+    }
+  },
+  "interface": {
+    "system": "Unchanged v8/v4 f1_s1 system and source-priority strings",
+    "common_user_instruction": "Inspect the proposed stage table against RULES. Return stage_table first, then proposal using YOUR corrected table. Preserve cells that already agree with the rules. The previous assistant message is a fallible proposed table, not a rule or reliable evidence. Feedback is additional checking information, not a certificate. stage_table lists visible fields at the FIRST and SECOND modeled decisions, with player 0 then player 1 at each decision. Use only the given field vocabulary.",
+    "common_inputs": "Identical full frozen rule text and field vocabulary for every condition; a prior assistant JSON containing stage_table only. No source task labels, error/correct labels, original proposal, scoring references or historical failures enter prompts.",
+    "output": "Exact unchanged v8 C schema, candidate serializer, evaluate and dual semantic/direct-stage-table score",
+    "feedback_difference": "none has null; local has only reference-free diagnostics; semantic has those diagnostics plus registered excerpts already present in full rules. Semantic treatment increases evidence salience, not logically new access to rules.",
+    "control_feedback": "Apply the same procedure to correct controls, with local diagnostics recomputed for their input table; semantic excerpts byte-identical for both seed kinds. No false 'you failed' or hidden correctness label."
+  },
+  "schedule": {
+    "models": ["luna6", "sol61"],
+    "conditions": ["none", "local", "semantic"],
+    "seed_kinds": ["wrong", "correct_control"],
+    "calls_per_model": 72,
+    "maximum_generation_calls": 144,
+    "calls_per_seed_kind_condition_model": 1,
+    "maximum_repair_rounds": 1,
+    "ordering": "seed index 0..11; alternate wrong/correct_control order by seed parity; rotate conditions by (seed_index+kind_index)%3; identical plan for both models",
+    "no_cross_trial_history": true,
+    "no_retries_resampling_or_topups": true,
+    "per_model_concurrency": 1,
+    "maximum_global_concurrency": 2
+  },
+  "models_and_resources": {
+    "inherit": "v8 frozen configuration and prices: Luna gpt-6-luna temperature=0 effort=none; Sol gpt-6.1-sol effort=low omit temperature; input 10000, output 2500, timeout60, max_retries0",
+    "cost": "Tokens, latency, inherited price estimates and unknown-usage reservations reported separately. No low-cost effectiveness criterion or sample reduction. Existing anomaly caps exceed all 72 planned calls at token caps.",
+    "stop": "Stop affected model on provider exception/timeout/refusal/missing usage/model or cap mismatch. Keep unexecuted assigned denominators and unknown reservations. Truncation/schema/semantic failure retained, next scheduled call continues. Oracle disagreement journals counterexample and stops further dispatch globally. Never resume automatically."
+  },
+  "scoring": {
+    "table_repair": "Wrong seed -> exact frozen reference visible-field sets, per condition/model over 12 assigned wrong seeds; additionally report valid completed subset",
+    "joint_repair": "Wrong seed -> exact table AND correct legacy proposal with valid envelope, using unchanged two-path scoring; a correct witness masking a wrong table never counts",
+    "control_degradation": "Correct input -> incorrect table, and separately incorrect whole response; retain assigned 12-control denominator, separate non-completion and valid semantic degradation",
+    "rounds": "One assigned call only: completed repair_rounds=1, unexecuted=0; successful_repair_round=1 or null. No multi-round repair inference.",
+    "secondary": "Hamming visibility-cell errors across 2 phases x2 players x4 fields before/after, including extra handbook P0 and missing/extra handbook P1 separately; invalid tables have after=null, not zero",
+    "cross_checks": "For matched model/seed/kind report none/local/semantic table and joint outcomes, local-fail/semantic-success and semantic-fail/local-success lists; do not share outputs between conditions",
+    "states": "Preserve reject_local, locally_consistent_unverified, verified as separate diagnostics with no combined pass rate; verified only frozen-reference output agreement, no strategy authority",
+    "failures": "Retain all v8 categories, raw JSON errors, serialization errors, wrong player/field/direction, wrong table correct proposal, noncompletion, timeouts, truncation and provider exceptions separately",
+    "oracle": "Unchanged original semantic checker plus direct stage-table path; disagreement stops globally. No train regret or new manual truth.",
+    "reference_boundary": "Two paths reuse developer references; they do not independently prove the original natural-language contract.",
+    "no_overall_scientific_pass": true
+  },
+  "analysis": {
+    "primary_contrast": "Semantic minus local JOINT repair proportion on wrong seeds, separately for Luna and Sol; also table repair contrast and comparisons to none",
+    "units": "Show provenance-weighted 12-seed counts, equally weighted means over three canonical wrong-table patterns, then equal-rule means over two rules. Correct controls have two distinct rule/reference tables; matched copies remain technical repeats.",
+    "no_significance_or_power_claim": "Only two purposively reused rule instances, three error patterns and post-failure seed selection; no formal efficacy/generalization inference, p-values or paper sample-size inference from these repeats",
+    "interpretation": "Local failure + semantic success supports utility of THIS excerpt interface on THESE seeds; does not establish semantic feedback is logically necessary or all local feedback is insufficient. Semantic failure is an observable residual under supplied excerpts, not proof of a latent cognitive cause.",
+    "ceiling_rule": "If all arms repair all seeds, report zero observed incremental benefit/ceiling, retain degradation results, and do not add budget or change prompts to manufacture a contrast",
+    "no_retrospective_A_attribution": true
+  },
+  "before_calls": "Commit this preregistration first; test implementation and full project; freeze actual seeds, correct controls, excerpt offsets, all 144 requests, sources/reference/output-schema hashes; commit/push implementation lock, verify Git blob bytes; only then generate",
+  "safety": {
+    "development_diagnostic": true,
+    "independent_held_out": false,
+    "formal_trial_started": false,
+    "new_manual_reference": false,
+    "old_scores_changed": false,
+    "new_game_or_cfr_variant": false,
+    "adaptive_opponent_line_released": false,
+    "new_runtime_epsilon_gto_allowed": false
+  }
+}
