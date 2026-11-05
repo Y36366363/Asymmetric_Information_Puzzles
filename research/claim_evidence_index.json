@@ -896,6 +896,63 @@
       ]
     },
     {
+      "id": "gamespec_v12_cell_audit_and_patch_contract",
+      "status": "supported_in_scope",
+      "statement": "离线审计v11全部144份输出；Luna语义条件17份错表正确提案中，10份仅正确见证掩盖handbook错误，7份表与见证直接矛盾。10份原样保留输入错表，未识别内部认知原因。",
+      "scope": "使用原冻结规则、阶段表、见证和原始回复，无新模型调用、新人工真值或主评分变化。准备单元补丁接口及Luna单模型72次后续预注册，尚未派发。",
+      "limitations": "这是既有失败的开发分析；正确存在性见证不等于完整表正确。不能区分潜在理解、偶然命中或内部表示，也未测得补丁改善；Sol历史天花板不证明错误纯属模型能力。",
+      "next_question": "先冻结并测试同规则同反馈的整表/补丁请求与派发实现，再按预注册观察修复及正确表退化；不自动扩展试验。",
+      "evidence": [
+        {
+          "path": "research/results/gamespec_cell_audit_v12_2026-11-05.json",
+          "sha256": "45e6031d06c1d313d4e8bfa53caab23e995978e801b8e694b94f0745a2975abf",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/model_generation_calls",
+              "equals": 0
+            },
+            {
+              "pointer": "/all_output_count",
+              "equals": 144
+            },
+            {
+              "pointer": "/selected_count",
+              "equals": 17
+            },
+            {
+              "pointer": "/selected_classes/partial_witness_masks_other_cells",
+              "equals": 10
+            },
+            {
+              "pointer": "/selected_classes/table_witness_contradiction",
+              "equals": 7
+            },
+            {
+              "pointer": "/selected_unchanged_tables",
+              "equals": 10
+            },
+            {
+              "pointer": "/both_original_replays_agree",
+              "equals": true
+            },
+            {
+              "pointer": "/hidden_cause_identified",
+              "equals": false
+            },
+            {
+              "pointer": "/primary_scores_changed",
+              "equals": false
+            },
+            {
+              "pointer": "/runtime_authority",
+              "equals": false
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "general_llm_solver",
       "status": "not_established",
       "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",

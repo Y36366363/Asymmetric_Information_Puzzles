@@ -1,0 +1,1628 @@
+{
+  "date": "2026-11-05",
+  "endpoints": {
+    "aggregation": "Report all 72 assignments, per pattern and per rule; correct-control patterns s05/s07 duplicate the same reference and are not independent rules. Per-rule equal-weight summaries alongside raw counts.",
+    "cross_checks": "Paired seed_id/input_kind/feedback/repeat outcomes both directions. Separate proposal-reference correctness, proposal-own-table consistency and full table-reference agreement.",
+    "primary": "Within each none/local feedback stratum, patch minus rewrite whole-table repair proportion on wrong inputs (9 assigned per format/feedback). Report joint table+proposal repair separately.",
+    "required_safety_companion": "Correct-input table degradation, 9 assigned per format/feedback; also count joint degradation, introduced-error cells, residual-error cells, unchanged tables and invalid patches. Never combine wrong-input repair and correct-input preservation as one pass rate.",
+    "resources": "Record tokens, latency, errors, estimated cost and invoice uncertainty separately; no efficacy based on low cost.",
+    "uncertainty": "Three technical repeats in two known developer rules; descriptive counts and paired differences, no significance threshold, causal cognition claim or formal sample-size extrapolation."
+  },
+  "execution_state": "preregistered_awaiting_request_and_runner_freeze",
+  "interpretation": {
+    "a_b_c_hypotheses": "Cannot assign understood/guessing/distinct-internal-representations as observed truth.",
+    "adaptive_opponent_line": "hold",
+    "formal_trial_started": false,
+    "no_runtime_change": true,
+    "patch_better": "Supports this interface package on these known cases, not a proof of hidden understanding or generally superior patches.",
+    "patch_worse_or_equal": "Does not isolate comprehension; instruction following, editing and generation remain possible.",
+    "semantic_omission": "Omitted to narrow the diagnostic after the v11 negative result, not because semantic feedback is proven universally harmful."
+  },
+  "model": {
+    "automatic_retries": 0,
+    "concurrency": 1,
+    "endpoint": "chat_completions",
+    "maximum_input_tokens": 10000,
+    "maximum_output_tokens": 2500,
+    "model_id": "gpt-6-luna",
+    "provider": "openai",
+    "reasoning_effort": "none",
+    "substitution_allowed": false,
+    "temperature": 0,
+    "timeout_seconds": 60
+  },
+  "model_generation_calls": 0,
+  "model_scope": {
+    "candidate": "luna6",
+    "sol_history": "Descriptive ceiling only, never pooled with these prospective calls. Reintroduce Sol under a new preregistration for a subsequent changed-scale validation.",
+    "sol_new_calls": 0
+  },
+  "patch_semantics": {
+    "actions": [
+      "add",
+      "remove"
+    ],
+    "application": "Validate all edits against original table before applying atomically; no automatic fixup, no oracle access. Keep original table and raw edits. Canonical sorting only changes field order.",
+    "cell": "(stage, player, field), a Boolean visibility membership",
+    "max_edits": 16,
+    "scoring": "Expand valid edits deterministically to stage_table and retain the model proposal verbatim. Apply unchanged v11 C evaluator and both frozen scoring paths. Invalid patches count as assigned failures with separate error codes.",
+    "strict_errors": [
+      "wrong keys or types",
+      "bool or float indexes",
+      "index outside 0..1",
+      "unknown field or action",
+      "duplicate or contradictory edits for a cell",
+      "no-op edit",
+      "more than 16 edits",
+      "malformed input table"
+    ],
+    "zero_edits": "Allowed for all inputs, not supplied as the expected model answer on correct controls. An empty-patch unit test is not a model preservation result."
+  },
+  "purpose": "Development diagnostic of representation and preservation, not general semantic-feedback efficacy or hidden-cognition attribution.",
+  "schedule": {
+    "correct_control_calls": 36,
+    "feedback": [
+      "none",
+      "local"
+    ],
+    "input_kinds": [
+      "wrong",
+      "correct_control"
+    ],
+    "maximum_calls": 72,
+    "models": 1,
+    "no_topups_or_retries": true,
+    "plan": [
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 2,
+        "representation": "patch",
+        "seed_id": "s05",
+        "seed_kind": "wrong",
+        "trial_id": "s05:wrong:none:patch:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 0,
+        "representation": "rewrite",
+        "seed_id": "s07",
+        "seed_kind": "correct_control",
+        "trial_id": "s07:correct_control:local:rewrite:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 2,
+        "representation": "rewrite",
+        "seed_id": "s05",
+        "seed_kind": "correct_control",
+        "trial_id": "s05:correct_control:local:rewrite:2"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "none",
+        "repeat": 1,
+        "representation": "rewrite",
+        "seed_id": "s00",
+        "seed_kind": "correct_control",
+        "trial_id": "s00:correct_control:none:rewrite:1"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 1,
+        "representation": "patch",
+        "seed_id": "s05",
+        "seed_kind": "correct_control",
+        "trial_id": "s05:correct_control:local:patch:1"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "none",
+        "repeat": 2,
+        "representation": "patch",
+        "seed_id": "s00",
+        "seed_kind": "wrong",
+        "trial_id": "s00:wrong:none:patch:2"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "local",
+        "repeat": 0,
+        "representation": "patch",
+        "seed_id": "s00",
+        "seed_kind": "wrong",
+        "trial_id": "s00:wrong:local:patch:0"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "none",
+        "repeat": 2,
+        "representation": "rewrite",
+        "seed_id": "s00",
+        "seed_kind": "correct_control",
+        "trial_id": "s00:correct_control:none:rewrite:2"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "local",
+        "repeat": 2,
+        "representation": "rewrite",
+        "seed_id": "s00",
+        "seed_kind": "wrong",
+        "trial_id": "s00:wrong:local:rewrite:2"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "local",
+        "repeat": 2,
+        "representation": "patch",
+        "seed_id": "s00",
+        "seed_kind": "correct_control",
+        "trial_id": "s00:correct_control:local:patch:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 2,
+        "representation": "patch",
+        "seed_id": "s05",
+        "seed_kind": "correct_control",
+        "trial_id": "s05:correct_control:none:patch:2"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "local",
+        "repeat": 1,
+        "representation": "patch",
+        "seed_id": "s00",
+        "seed_kind": "correct_control",
+        "trial_id": "s00:correct_control:local:patch:1"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "local",
+        "repeat": 0,
+        "representation": "rewrite",
+        "seed_id": "s00",
+        "seed_kind": "correct_control",
+        "trial_id": "s00:correct_control:local:rewrite:0"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "none",
+        "repeat": 0,
+        "representation": "patch",
+        "seed_id": "s00",
+        "seed_kind": "correct_control",
+        "trial_id": "s00:correct_control:none:patch:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 2,
+        "representation": "rewrite",
+        "seed_id": "s05",
+        "seed_kind": "wrong",
+        "trial_id": "s05:wrong:local:rewrite:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 0,
+        "representation": "patch",
+        "seed_id": "s07",
+        "seed_kind": "correct_control",
+        "trial_id": "s07:correct_control:local:patch:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 2,
+        "representation": "rewrite",
+        "seed_id": "s07",
+        "seed_kind": "correct_control",
+        "trial_id": "s07:correct_control:none:rewrite:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 0,
+        "representation": "rewrite",
+        "seed_id": "s07",
+        "seed_kind": "correct_control",
+        "trial_id": "s07:correct_control:none:rewrite:0"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "local",
+        "repeat": 0,
+        "representation": "rewrite",
+        "seed_id": "s00",
+        "seed_kind": "wrong",
+        "trial_id": "s00:wrong:local:rewrite:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 0,
+        "representation": "patch",
+        "seed_id": "s07",
+        "seed_kind": "wrong",
+        "trial_id": "s07:wrong:local:patch:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 2,
+        "representation": "patch",
+        "seed_id": "s07",
+        "seed_kind": "correct_control",
+        "trial_id": "s07:correct_control:local:patch:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 0,
+        "representation": "rewrite",
+        "seed_id": "s05",
+        "seed_kind": "correct_control",
+        "trial_id": "s05:correct_control:local:rewrite:0"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "none",
+        "repeat": 0,
+        "representation": "rewrite",
+        "seed_id": "s00",
+        "seed_kind": "wrong",
+        "trial_id": "s00:wrong:none:rewrite:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 1,
+        "representation": "rewrite",
+        "seed_id": "s05",
+        "seed_kind": "wrong",
+        "trial_id": "s05:wrong:none:rewrite:1"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 1,
+        "representation": "patch",
+        "seed_id": "s05",
+        "seed_kind": "correct_control",
+        "trial_id": "s05:correct_control:none:patch:1"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 1,
+        "representation": "rewrite",
+        "seed_id": "s05",
+        "seed_kind": "correct_control",
+        "trial_id": "s05:correct_control:local:rewrite:1"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 0,
+        "representation": "patch",
+        "seed_id": "s07",
+        "seed_kind": "wrong",
+        "trial_id": "s07:wrong:none:patch:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 1,
+        "representation": "rewrite",
+        "seed_id": "s05",
+        "seed_kind": "correct_control",
+        "trial_id": "s05:correct_control:none:rewrite:1"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 2,
+        "representation": "rewrite",
+        "seed_id": "s05",
+        "seed_kind": "wrong",
+        "trial_id": "s05:wrong:none:rewrite:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 0,
+        "representation": "rewrite",
+        "seed_id": "s07",
+        "seed_kind": "wrong",
+        "trial_id": "s07:wrong:none:rewrite:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 2,
+        "representation": "rewrite",
+        "seed_id": "s07",
+        "seed_kind": "wrong",
+        "trial_id": "s07:wrong:local:rewrite:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 0,
+        "representation": "patch",
+        "seed_id": "s05",
+        "seed_kind": "correct_control",
+        "trial_id": "s05:correct_control:none:patch:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 1,
+        "representation": "patch",
+        "seed_id": "s05",
+        "seed_kind": "wrong",
+        "trial_id": "s05:wrong:none:patch:1"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 0,
+        "representation": "patch",
+        "seed_id": "s05",
+        "seed_kind": "correct_control",
+        "trial_id": "s05:correct_control:local:patch:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 2,
+        "representation": "patch",
+        "seed_id": "s07",
+        "seed_kind": "wrong",
+        "trial_id": "s07:wrong:none:patch:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 2,
+        "representation": "patch",
+        "seed_id": "s05",
+        "seed_kind": "correct_control",
+        "trial_id": "s05:correct_control:local:patch:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 1,
+        "representation": "rewrite",
+        "seed_id": "s07",
+        "seed_kind": "wrong",
+        "trial_id": "s07:wrong:none:rewrite:1"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 0,
+        "representation": "patch",
+        "seed_id": "s05",
+        "seed_kind": "wrong",
+        "trial_id": "s05:wrong:local:patch:0"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "none",
+        "repeat": 2,
+        "representation": "rewrite",
+        "seed_id": "s00",
+        "seed_kind": "wrong",
+        "trial_id": "s00:wrong:none:rewrite:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 0,
+        "representation": "patch",
+        "seed_id": "s05",
+        "seed_kind": "wrong",
+        "trial_id": "s05:wrong:none:patch:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 1,
+        "representation": "patch",
+        "seed_id": "s05",
+        "seed_kind": "wrong",
+        "trial_id": "s05:wrong:local:patch:1"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 1,
+        "representation": "rewrite",
+        "seed_id": "s07",
+        "seed_kind": "wrong",
+        "trial_id": "s07:wrong:local:rewrite:1"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 2,
+        "representation": "rewrite",
+        "seed_id": "s07",
+        "seed_kind": "correct_control",
+        "trial_id": "s07:correct_control:local:rewrite:2"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "local",
+        "repeat": 1,
+        "representation": "rewrite",
+        "seed_id": "s00",
+        "seed_kind": "wrong",
+        "trial_id": "s00:wrong:local:rewrite:1"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 0,
+        "representation": "rewrite",
+        "seed_id": "s05",
+        "seed_kind": "wrong",
+        "trial_id": "s05:wrong:none:rewrite:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 2,
+        "representation": "patch",
+        "seed_id": "s05",
+        "seed_kind": "wrong",
+        "trial_id": "s05:wrong:local:patch:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 0,
+        "representation": "patch",
+        "seed_id": "s07",
+        "seed_kind": "correct_control",
+        "trial_id": "s07:correct_control:none:patch:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 1,
+        "representation": "rewrite",
+        "seed_id": "s07",
+        "seed_kind": "correct_control",
+        "trial_id": "s07:correct_control:none:rewrite:1"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 2,
+        "representation": "patch",
+        "seed_id": "s07",
+        "seed_kind": "wrong",
+        "trial_id": "s07:wrong:local:patch:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 0,
+        "representation": "rewrite",
+        "seed_id": "s05",
+        "seed_kind": "correct_control",
+        "trial_id": "s05:correct_control:none:rewrite:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 0,
+        "representation": "rewrite",
+        "seed_id": "s05",
+        "seed_kind": "wrong",
+        "trial_id": "s05:wrong:local:rewrite:0"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "none",
+        "repeat": 1,
+        "representation": "patch",
+        "seed_id": "s00",
+        "seed_kind": "wrong",
+        "trial_id": "s00:wrong:none:patch:1"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 1,
+        "representation": "rewrite",
+        "seed_id": "s05",
+        "seed_kind": "wrong",
+        "trial_id": "s05:wrong:local:rewrite:1"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "none",
+        "repeat": 0,
+        "representation": "patch",
+        "seed_id": "s00",
+        "seed_kind": "wrong",
+        "trial_id": "s00:wrong:none:patch:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 1,
+        "representation": "patch",
+        "seed_id": "s07",
+        "seed_kind": "correct_control",
+        "trial_id": "s07:correct_control:none:patch:1"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "none",
+        "repeat": 2,
+        "representation": "patch",
+        "seed_id": "s00",
+        "seed_kind": "correct_control",
+        "trial_id": "s00:correct_control:none:patch:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 1,
+        "representation": "patch",
+        "seed_id": "s07",
+        "seed_kind": "correct_control",
+        "trial_id": "s07:correct_control:local:patch:1"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "none",
+        "repeat": 1,
+        "representation": "rewrite",
+        "seed_id": "s00",
+        "seed_kind": "wrong",
+        "trial_id": "s00:wrong:none:rewrite:1"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "local",
+        "repeat": 1,
+        "representation": "patch",
+        "seed_id": "s00",
+        "seed_kind": "wrong",
+        "trial_id": "s00:wrong:local:patch:1"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "local",
+        "repeat": 2,
+        "representation": "patch",
+        "seed_id": "s00",
+        "seed_kind": "wrong",
+        "trial_id": "s00:wrong:local:patch:2"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "local",
+        "repeat": 2,
+        "representation": "rewrite",
+        "seed_id": "s00",
+        "seed_kind": "correct_control",
+        "trial_id": "s00:correct_control:local:rewrite:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 2,
+        "representation": "rewrite",
+        "seed_id": "s07",
+        "seed_kind": "wrong",
+        "trial_id": "s07:wrong:none:rewrite:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 2,
+        "representation": "patch",
+        "seed_id": "s07",
+        "seed_kind": "correct_control",
+        "trial_id": "s07:correct_control:none:patch:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 1,
+        "representation": "patch",
+        "seed_id": "s07",
+        "seed_kind": "wrong",
+        "trial_id": "s07:wrong:local:patch:1"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 1,
+        "representation": "rewrite",
+        "seed_id": "s07",
+        "seed_kind": "correct_control",
+        "trial_id": "s07:correct_control:local:rewrite:1"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 2,
+        "representation": "rewrite",
+        "seed_id": "s05",
+        "seed_kind": "correct_control",
+        "trial_id": "s05:correct_control:none:rewrite:2"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "local",
+        "repeat": 0,
+        "representation": "rewrite",
+        "seed_id": "s07",
+        "seed_kind": "wrong",
+        "trial_id": "s07:wrong:local:rewrite:0"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "local",
+        "repeat": 0,
+        "representation": "patch",
+        "seed_id": "s00",
+        "seed_kind": "correct_control",
+        "trial_id": "s00:correct_control:local:patch:0"
+      },
+      {
+        "case_id": "case_608",
+        "feedback": "none",
+        "repeat": 1,
+        "representation": "patch",
+        "seed_id": "s07",
+        "seed_kind": "wrong",
+        "trial_id": "s07:wrong:none:patch:1"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "none",
+        "repeat": 0,
+        "representation": "rewrite",
+        "seed_id": "s00",
+        "seed_kind": "correct_control",
+        "trial_id": "s00:correct_control:none:rewrite:0"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "local",
+        "repeat": 1,
+        "representation": "rewrite",
+        "seed_id": "s00",
+        "seed_kind": "correct_control",
+        "trial_id": "s00:correct_control:local:rewrite:1"
+      },
+      {
+        "case_id": "case_281",
+        "feedback": "none",
+        "repeat": 1,
+        "representation": "patch",
+        "seed_id": "s00",
+        "seed_kind": "correct_control",
+        "trial_id": "s00:correct_control:none:patch:1"
+      }
+    ],
+    "random_order_seed": 20261105,
+    "repeats": 3,
+    "representations": [
+      "rewrite",
+      "patch"
+    ],
+    "rounds": 1,
+    "wrong_input_calls": 36,
+    "wrong_patterns": 3
+  },
+  "schema_version": "aip-gamespec-patch-diagnostic-prereg-v12",
+  "schemas": {
+    "case_281": {
+      "patch": {
+        "additionalProperties": false,
+        "properties": {
+          "edits": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "action": {
+                  "enum": [
+                    "add",
+                    "remove"
+                  ],
+                  "type": "string"
+                },
+                "field": {
+                  "enum": [
+                    "public_label",
+                    "private_banner",
+                    "counter",
+                    "token"
+                  ],
+                  "type": "string"
+                },
+                "player": {
+                  "enum": [
+                    0,
+                    1
+                  ],
+                  "type": "integer"
+                },
+                "stage": {
+                  "enum": [
+                    0,
+                    1
+                  ],
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "stage",
+                "player",
+                "field",
+                "action"
+              ],
+              "type": "object"
+            },
+            "maxItems": 16,
+            "minItems": 0,
+            "type": "array"
+          },
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "public_label",
+                              "private_banner",
+                              "counter",
+                              "token"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "public_label",
+                              "private_banner",
+                              "counter",
+                              "token"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "public_label",
+                          "private_banner",
+                          "counter",
+                          "token"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "public_label",
+                          "private_banner",
+                          "counter",
+                          "token"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "edits",
+          "proposal"
+        ],
+        "type": "object"
+      },
+      "rewrite": {
+        "additionalProperties": false,
+        "properties": {
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "public_label",
+                              "private_banner",
+                              "counter",
+                              "token"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "public_label",
+                              "private_banner",
+                              "counter",
+                              "token"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "public_label",
+                          "private_banner",
+                          "counter",
+                          "token"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "public_label",
+                          "private_banner",
+                          "counter",
+                          "token"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          },
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "public_label",
+                    "private_banner",
+                    "counter",
+                    "token"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table",
+          "proposal"
+        ],
+        "type": "object"
+      }
+    },
+    "case_608": {
+      "patch": {
+        "additionalProperties": false,
+        "properties": {
+          "edits": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "action": {
+                  "enum": [
+                    "add",
+                    "remove"
+                  ],
+                  "type": "string"
+                },
+                "field": {
+                  "enum": [
+                    "assay",
+                    "handbook",
+                    "badge",
+                    "step"
+                  ],
+                  "type": "string"
+                },
+                "player": {
+                  "enum": [
+                    0,
+                    1
+                  ],
+                  "type": "integer"
+                },
+                "stage": {
+                  "enum": [
+                    0,
+                    1
+                  ],
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "stage",
+                "player",
+                "field",
+                "action"
+              ],
+              "type": "object"
+            },
+            "maxItems": 16,
+            "minItems": 0,
+            "type": "array"
+          },
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "assay",
+                              "handbook",
+                              "badge",
+                              "step"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "assay",
+                              "handbook",
+                              "badge",
+                              "step"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "assay",
+                          "handbook",
+                          "badge",
+                          "step"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "assay",
+                          "handbook",
+                          "badge",
+                          "step"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "edits",
+          "proposal"
+        ],
+        "type": "object"
+      },
+      "rewrite": {
+        "additionalProperties": false,
+        "properties": {
+          "proposal": {
+            "additionalProperties": false,
+            "properties": {
+              "candidates": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "private_fields_by_player": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "player_0": {
+                          "items": {
+                            "enum": [
+                              "assay",
+                              "handbook",
+                              "badge",
+                              "step"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "player_1": {
+                          "items": {
+                            "enum": [
+                              "assay",
+                              "handbook",
+                              "badge",
+                              "step"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "player_0",
+                        "player_1"
+                      ],
+                      "type": "object"
+                    },
+                    "public_fields": {
+                      "items": {
+                        "enum": [
+                          "assay",
+                          "handbook",
+                          "badge",
+                          "step"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "public_fields",
+                    "private_fields_by_player"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 3,
+                "minItems": 0,
+                "type": "array"
+              },
+              "decision": {
+                "enum": [
+                  "candidate",
+                  "refusal"
+                ],
+                "type": "string"
+              },
+              "witness": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "after_visible": {
+                        "type": "boolean"
+                      },
+                      "before_visible": {
+                        "type": "boolean"
+                      },
+                      "field": {
+                        "enum": [
+                          "assay",
+                          "handbook",
+                          "badge",
+                          "step"
+                        ],
+                        "type": "string"
+                      },
+                      "player": {
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "player",
+                      "before_visible",
+                      "after_visible"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "decision",
+              "candidates",
+              "witness"
+            ],
+            "type": "object"
+          },
+          "stage_table": {
+            "items": {
+              "items": {
+                "items": {
+                  "enum": [
+                    "assay",
+                    "handbook",
+                    "badge",
+                    "step"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 4,
+                "minItems": 0,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "stage_table",
+          "proposal"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "selection": {
+    "distinct_correct_tables": 2,
+    "distinct_rules": 2,
+    "distinct_wrong_patterns": 3,
+    "matched_correct_control_slots": 3,
+    "rule": "Lexicographically first v11 seed_id in each canonical error pattern, using the frozen input catalog, not repair outcomes. Preserve exact input field order.",
+    "seed_ids": [
+      "s00",
+      "s05",
+      "s07"
+    ],
+    "seeds": {
+      "s00": {
+        "canonical_pattern": "case_281:4d8c940134cfc7a537656657f520df507cbece2056c522567d96a7b95e9c39e9",
+        "case_id": "case_281",
+        "correct_control": [
+          [
+            [
+              "private_banner",
+              "counter",
+              "token"
+            ],
+            [
+              "public_label",
+              "private_banner",
+              "counter"
+            ]
+          ],
+          [
+            [
+              "private_banner",
+              "counter",
+              "token",
+              "public_label"
+            ],
+            [
+              "public_label",
+              "private_banner",
+              "counter"
+            ]
+          ]
+        ],
+        "original_table": [
+          [
+            [
+              "private_banner",
+              "counter",
+              "token"
+            ],
+            [
+              "public_label",
+              "private_banner",
+              "counter"
+            ]
+          ],
+          [
+            [
+              "private_banner",
+              "counter",
+              "token"
+            ],
+            [
+              "public_label",
+              "private_banner",
+              "counter"
+            ]
+          ]
+        ],
+        "raw_reply_sha256": "a26ec46608d9b109855d1cb752cfa9a58d840517237e22332b27edb28222ccaa",
+        "seed_id": "s00",
+        "source_condition": "B",
+        "source_model": "luna6",
+        "source_repeat": 0,
+        "source_trial_id": "B:case_281:0"
+      },
+      "s05": {
+        "canonical_pattern": "case_608:c40127c3f0beb83ffe50e95d5ef414747222f39fc3b4e6eede7e6168f427f965",
+        "case_id": "case_608",
+        "correct_control": [
+          [
+            [
+              "badge",
+              "step",
+              "assay"
+            ],
+            [
+              "badge",
+              "step",
+              "handbook"
+            ]
+          ],
+          [
+            [
+              "badge",
+              "step"
+            ],
+            [
+              "badge",
+              "step",
+              "assay",
+              "handbook"
+            ]
+          ]
+        ],
+        "original_table": [
+          [
+            [
+              "badge",
+              "step",
+              "assay"
+            ],
+            [
+              "badge",
+              "step",
+              "handbook"
+            ]
+          ],
+          [
+            [
+              "badge",
+              "step",
+              "handbook"
+            ],
+            [
+              "badge",
+              "step",
+              "assay"
+            ]
+          ]
+        ],
+        "raw_reply_sha256": "be7887df0121553f8a0cdd7d9afb09fbf1929475fac13b1f83ef9fbe61d6c746",
+        "seed_id": "s05",
+        "source_condition": "B",
+        "source_model": "luna6",
+        "source_repeat": 0,
+        "source_trial_id": "B:case_608:0"
+      },
+      "s07": {
+        "canonical_pattern": "case_608:d8f99a0d2b619a58de278c7dc9701e7f9d476b9e09a530187ef98d6637b2272b",
+        "case_id": "case_608",
+        "correct_control": [
+          [
+            [
+              "assay",
+              "badge",
+              "step"
+            ],
+            [
+              "handbook",
+              "badge",
+              "step"
+            ]
+          ],
+          [
+            [
+              "badge",
+              "step"
+            ],
+            [
+              "assay",
+              "handbook",
+              "badge",
+              "step"
+            ]
+          ]
+        ],
+        "original_table": [
+          [
+            [
+              "assay",
+              "badge",
+              "step"
+            ],
+            [
+              "handbook",
+              "badge",
+              "step"
+            ]
+          ],
+          [
+            [
+              "handbook",
+              "badge",
+              "step"
+            ],
+            [
+              "assay",
+              "handbook",
+              "badge",
+              "step"
+            ]
+          ]
+        ],
+        "raw_reply_sha256": "bc781b87482e9b17f61df7f2a1d2307798052e97b1024af1e5119ca1e2bc9fc0",
+        "seed_id": "s07",
+        "source_condition": "B",
+        "source_model": "luna6",
+        "source_repeat": 2,
+        "source_trial_id": "B:case_608:2"
+      }
+    }
+  },
+  "shared_interface": {
+    "allowed_difference": "Only output representation/schema: complete table versus edits. Same rules, input order, feedback, model, input/output caps, source priority and shared instruction. Unequal schema length is part of the interface treatment; not a token-length-matched causal decomposition.",
+    "common_user_instruction": "Check the proposed table against RULES. Preserve every visibility cell that already agrees with RULES; change only cells that disagree. Return the representation required by the supplied schema first, then a proposal based on the resulting table. For stage_table, provide the complete resulting table. For edits, provide only add/remove edits to the input table; an empty edit list is allowed when no change is needed. Do not edit the same cell twice or include no-op edits. A locally consistent input is not semantically verified. The old assistant table is a revisable candidate, not evidence.",
+    "feedback": "Use v11 feedback_for unchanged for none/local, computed from the same input in paired formats; never announce semantic failure. No semantic excerpts in this diagnostic.",
+    "input": "Exact selected input as fallible assistant stage_table; complete frozen rule text and field vocabulary in user message. No control label, expected answer or oracle patches.",
+    "proposal": "Same v11 proposal schema in both formats, independently produced by model; never repair or derive the model proposal for it.",
+    "system": "Exact v11 frozen f1_s1 system message"
+  },
+  "sources_sha256": {
+    "configs/gamespec_boundary_panel_v7_2026-10-29.json": "f9e9b9f05fd0cfae3fb54b7c81b0581b8d76b55259f23329e4ff83a7b4d0568e",
+    "configs/gamespec_feedback_repair_v11_2026-11-03.json": "b8e1b17224ff7a57f8a8f3125efc4263c838345d2e7352f6015ffdb34426efd6",
+    "configs/gamespec_feedback_repair_v11_lock_2026-11-03.json": "94dd2a82662707d6400c99e73e011dc1ac74d95f4a96b64010dee18e786f8fe9",
+    "research/results/gamespec_cell_audit_v12_2026-11-05.json": "45e6031d06c1d313d4e8bfa53caab23e995978e801b8e694b94f0745a2975abf",
+    "research/results/gamespec_feedback_repair_v11_2026-11-03/seed_catalog.json": "179fcea353d8bbb12abad97fff204982314f1ad62856f0fbe672d3f43507f942"
+  },
+  "stopping": {
+    "interface": "Invalid JSON/schema/patch/truncation retained as failures; no silent retry or reference fixup.",
+    "oracle": "Any disagreement between existing independent scoring paths halts globally and saves counterexample.",
+    "pre_call": "Commit this preregistration first; separately test and commit exact 72 requests, schemas, implementation and dependency hashes before any API dispatch. This file is not an execution lock.",
+    "resource": "Same 10000 input/2500 output caps, 60s timeout, no automatic retries. Frozen historical price estimates only; abnormal-call 0.01 USD and total 2 USD estimates are safety stops, not pass criteria. No post-result increase.",
+    "transport": "One attempt per assignment. Timeout, provider exception, provider refusal, model mismatch or missing usage stops subsequent dispatch, preserving remaining assigned denominators."
+  }
+}
