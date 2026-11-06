@@ -953,6 +953,175 @@
       ]
     },
     {
+      "id": "gamespec_v12_luna_patch_execution_negative",
+      "status": "mixed",
+      "statement": "预注册72次Luna诊断：补丁无/局部反馈整表及联合修复均0/9，重写1/9、3/9；20/36补丁因no-op无效，8份有效错表补丁仍0修复。Sol前瞻重入触发，当前无Sol调用。",
+      "scope": "3种既有错表模式、2条开发规则，单模型、两格式两反馈、正确表对照、每格3次技术重复；先提交补充再冻结请求/依赖哈希后调用。",
+      "limitations": "不支持单元补丁改善这一接口；不能从有效局部提案断定完整理解。无效原子补丁未真正改变输入，不可把控制失败全称实际退化。旧表最终保留不识别隐藏复制/回退。未证明一般语义反馈/补丁无效，无正式显著性或部署权限。",
+      "next_question": "按预先触发规则另行冻结Sol同72任务确认，检查模型与relative-edit接口交互；先保留Luna失败，不事后放宽no-op或追加修复轮数。",
+      "evidence": [
+        {
+          "path": "research/results/gamespec_copy_audit_2026-11-06.json",
+          "sha256": "ee5af10d59f3a9a96700972bbf0f666f122c8246a7d4bd66d5c9cc333292a735",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/count",
+              "equals": 12
+            },
+            {
+              "pointer": "/classes/same_final_cells",
+              "equals": 10
+            },
+            {
+              "pointer": "/classes/changed_final_cells",
+              "equals": 2
+            },
+            {
+              "pointer": "/raw_fragment_equal",
+              "equals": 0
+            },
+            {
+              "pointer": "/same_order_whitespace_only",
+              "equals": 9
+            },
+            {
+              "pointer": "/same_cells_different_order",
+              "equals": 1
+            },
+            {
+              "pointer": "/changed_then_reverted_count",
+              "equals": null
+            }
+          ]
+        },
+        {
+          "path": "research/results/gamespec_patch_diagnostic_v12_2026-11-06/comparison.json",
+          "sha256": "67b86fe66c6cf6b54e11f2ab61de71af91a5b73e3ab2bac6784009509510d94a",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/actual_generation_calls",
+              "equals": 72
+            },
+            {
+              "pointer": "/Sol_generation_calls",
+              "equals": 0
+            },
+            {
+              "pointer": "/all_offline_rescores_agree",
+              "equals": true
+            },
+            {
+              "pointer": "/analysis/conditions/none/patch/wrong/joint_correct",
+              "equals": 0
+            },
+            {
+              "pointer": "/analysis/conditions/local/patch/wrong/joint_correct",
+              "equals": 0
+            },
+            {
+              "pointer": "/analysis/conditions/none/rewrite/wrong/joint_correct",
+              "equals": 1
+            },
+            {
+              "pointer": "/analysis/conditions/local/rewrite/wrong/joint_correct",
+              "equals": 3
+            },
+            {
+              "pointer": "/analysis/sol_reentry/triggered",
+              "equals": true
+            },
+            {
+              "pointer": "/analysis/sol_reentry/correct_proposal_wrong_table_failures",
+              "equals": 18
+            },
+            {
+              "pointer": "/old_scores_changed",
+              "equals": false
+            },
+            {
+              "pointer": "/new_runtime_epsilon_gto_allowed",
+              "equals": false
+            }
+          ]
+        },
+        {
+          "path": "research/results/gamespec_patch_diagnostic_v12_2026-11-06/operation_audit.json",
+          "sha256": "babf98b8fe9064facaef55c0d927106ca6449f69c59121dbbf780004b805cd6b",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/invalid_patches",
+              "equals": 20
+            },
+            {
+              "pointer": "/outputs_containing_noop",
+              "equals": 20
+            },
+            {
+              "pointer": "/valid_wrong_input_patch_outputs",
+              "equals": 8
+            },
+            {
+              "pointer": "/valid_wrong_input_patch_repairs",
+              "equals": 0
+            },
+            {
+              "pointer": "/noops_reinterpreted_as_valid",
+              "equals": false
+            }
+          ]
+        },
+        {
+          "path": "research/results/gamespec_patch_diagnostic_v12_2026-11-06/measurement_notes.json",
+          "sha256": "14581b294d4567164fa9c573f27595f88b161f675c0ea0aa5b152e5c82442380",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/control_preservation_denominators/none/patch/invalid_or_missing_result_table",
+              "equals": 7
+            },
+            {
+              "pointer": "/control_preservation_denominators/none/patch/valid_result_table_wrong",
+              "equals": 2
+            },
+            {
+              "pointer": "/control_preservation_denominators/local/patch/invalid_or_missing_result_table",
+              "equals": 3
+            },
+            {
+              "pointer": "/control_preservation_denominators/local/patch/valid_result_table_wrong",
+              "equals": 4
+            },
+            {
+              "pointer": "/all_output_states/reject_local",
+              "equals": 39
+            },
+            {
+              "pointer": "/all_output_states/locally_consistent_unverified",
+              "equals": 15
+            },
+            {
+              "pointer": "/all_output_states/verified",
+              "equals": 18
+            }
+          ]
+        },
+        {
+          "path": "research/results/gamespec_patch_diagnostic_v12_2026-11-06/luna6.json",
+          "sha256": "0971964926d962ce64a1d46406a07d166c863ba1a7bd1fa04990ad3b6e1356e6",
+          "kind": "artifact_assertion",
+          "assertions": [
+            {
+              "pointer": "/status",
+              "equals": "completed"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "general_llm_solver",
       "status": "not_established",
       "statement": "当前证据尚未确立 LLM 可可靠建模并求解未见结构的一般不完全信息博弈。",

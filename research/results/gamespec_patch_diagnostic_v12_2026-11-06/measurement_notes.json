@@ -1,0 +1,145 @@
+{
+  "all_output_states": {
+    "locally_consistent_unverified": 15,
+    "reject_local": 39,
+    "verified": 18
+  },
+  "analysis_timing": "post_run_descriptive_clarification_no_rescoring",
+  "control_metric_meaning": "Frozen correct_input_table_degraded counts failure to return a reference-correct table over all assigned controls, including invalid patches. Invalid atomic patches do not mutate the input. Report valid-result corruption separately; never call all invalid outputs actual applied corruption.",
+  "control_preservation_denominators": {
+    "local": {
+      "patch": {
+        "assigned": 9,
+        "assigned_preservation_failures": 7,
+        "invalid_or_missing_result_table": 3,
+        "reference_correct": 2,
+        "valid_result_table": 6,
+        "valid_result_table_wrong": 4
+      },
+      "rewrite": {
+        "assigned": 9,
+        "assigned_preservation_failures": 1,
+        "invalid_or_missing_result_table": 0,
+        "reference_correct": 8,
+        "valid_result_table": 9,
+        "valid_result_table_wrong": 1
+      }
+    },
+    "none": {
+      "patch": {
+        "assigned": 9,
+        "assigned_preservation_failures": 9,
+        "invalid_or_missing_result_table": 7,
+        "reference_correct": 0,
+        "valid_result_table": 2,
+        "valid_result_table_wrong": 2
+      },
+      "rewrite": {
+        "assigned": 9,
+        "assigned_preservation_failures": 5,
+        "invalid_or_missing_result_table": 0,
+        "reference_correct": 4,
+        "valid_result_table": 9,
+        "valid_result_table_wrong": 5
+      }
+    }
+  },
+  "formats": "All 72 replies are JSON and schema-shaped; 20/36 patches fail the preregistered relative-edit application contract due to no-op edits. This is distinct from JSON parse failure.",
+  "model_generation_calls": 0,
+  "operation_count_scope": "operation_audit.operation_counts labels each requested edit in isolation against original input/reference, including edits in rejected atomic patches. fixes_error/introduces_error are intended single-cell effects, not edits actually applied or credited repairs. Only accepted patches have a scored resulting table; invalid patch cell-ledger is null, never zero.",
+  "operation_counts_on_strictly_accepted_patches": {
+    "fixes_error": 2,
+    "introduces_error": 60
+  },
+  "paired_table_checks": {
+    "correct_control": {
+      "local": {
+        "patch_fail_rewrite_success": [
+          {
+            "repeat": 0,
+            "seed_id": "s00"
+          },
+          {
+            "repeat": 1,
+            "seed_id": "s00"
+          },
+          {
+            "repeat": 2,
+            "seed_id": "s00"
+          },
+          {
+            "repeat": 0,
+            "seed_id": "s05"
+          },
+          {
+            "repeat": 1,
+            "seed_id": "s05"
+          },
+          {
+            "repeat": 2,
+            "seed_id": "s05"
+          }
+        ],
+        "rewrite_fail_patch_success": []
+      },
+      "none": {
+        "patch_fail_rewrite_success": [
+          {
+            "repeat": 0,
+            "seed_id": "s00"
+          },
+          {
+            "repeat": 1,
+            "seed_id": "s00"
+          },
+          {
+            "repeat": 0,
+            "seed_id": "s05"
+          },
+          {
+            "repeat": 1,
+            "seed_id": "s05"
+          }
+        ],
+        "rewrite_fail_patch_success": []
+      }
+    },
+    "wrong": {
+      "local": {
+        "patch_fail_rewrite_success": [
+          {
+            "repeat": 0,
+            "seed_id": "s00"
+          },
+          {
+            "repeat": 1,
+            "seed_id": "s00"
+          },
+          {
+            "repeat": 2,
+            "seed_id": "s00"
+          }
+        ],
+        "rewrite_fail_patch_success": []
+      },
+      "none": {
+        "patch_fail_rewrite_success": [
+          {
+            "repeat": 0,
+            "seed_id": "s07"
+          }
+        ],
+        "rewrite_fail_patch_success": []
+      }
+    }
+  },
+  "primary_scores_changed": false,
+  "resource_source": "Estimates use inherited frozen historical prices, not invoice-verified charges. No Sol call made.",
+  "schema_version": "aip-gamespec-patch-measurement-notes-v1",
+  "sources_sha256": {
+    "research/results/gamespec_patch_diagnostic_v12_2026-11-06/comparison.json": "67b86fe66c6cf6b54e11f2ab61de71af91a5b73e3ab2bac6784009509510d94a",
+    "research/results/gamespec_patch_diagnostic_v12_2026-11-06/luna6.json": "0971964926d962ce64a1d46406a07d166c863ba1a7bd1fa04990ad3b6e1356e6",
+    "research/results/gamespec_patch_diagnostic_v12_2026-11-06/operation_audit.json": "babf98b8fe9064facaef55c0d927106ca6449f69c59121dbbf780004b805cd6b"
+  },
+  "whole_output_failures": 54
+}

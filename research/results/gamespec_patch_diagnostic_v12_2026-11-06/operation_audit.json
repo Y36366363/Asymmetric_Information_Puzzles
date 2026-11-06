@@ -1,0 +1,3556 @@
+{
+  "analysis_timing": "post_run_exploratory_failure_description",
+  "empty_patch_outputs": 2,
+  "interpretation": "No-op edits are compatible with confusing desired visibility assignments with relative edits; this is a hypothesis, not a hidden-comprehension diagnosis. Valid edits can still break correct cells. No old scores are relaxed.",
+  "invalid_patches": 20,
+  "model_generation_calls": 0,
+  "noops_reinterpreted_as_valid": false,
+  "operation_counts": {
+    "fixes_error": 11,
+    "introduces_error": 69,
+    "noop_add": 44,
+    "noop_remove": 34
+  },
+  "outputs_containing_noop": 20,
+  "outputs_containing_repeated_cell": 0,
+  "patch_outputs": 36,
+  "primary_scores_changed": false,
+  "rows": [
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s05",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s05:wrong:none:patch:2"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": false,
+      "operation_labels": [
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": true,
+      "proposal_correct": false,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+      "seed_id": "s05",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s05:correct_control:local:patch:1"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": false,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "fixes_error",
+          "field": "public_label",
+          "input_present": false,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": false,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"public_label\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"public_label\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"public_label\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+      "seed_id": "s00",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s00:wrong:none:patch:2"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": false,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "fixes_error",
+          "field": "public_label",
+          "input_present": false,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": false,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"public_label\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"public_label\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"public_label\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+      "seed_id": "s00",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s00:wrong:local:patch:0"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": false,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": false,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"public_label\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"public_label\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+      "seed_id": "s00",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s00:correct_control:local:patch:2"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "handbook",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "handbook",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"handbook\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":1,\"player\":1,\"field\":\"handbook\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s05",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s05:correct_control:none:patch:2"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": false,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": false,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"public_label\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"public_label\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+      "seed_id": "s00",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s00:correct_control:local:patch:1"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": false,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": false,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"public_label\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"public_label\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"public_label\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+      "seed_id": "s00",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s00:correct_control:none:patch:0"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s07",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s07:correct_control:local:patch:0"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": false,
+      "operation_labels": [
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "handbook",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "handbook",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": false,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":0,\"field\":\"handbook\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"handbook\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s07",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s07:wrong:local:patch:0"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [],
+      "empty_patch": true,
+      "feedback": "local",
+      "invalid_patch": false,
+      "operation_labels": [],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": true,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s07",
+      "seed_kind": "correct_control",
+      "table_correct": true,
+      "trial_id": "s07:correct_control:local:patch:2"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "handbook",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "handbook",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"handbook\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":1,\"player\":1,\"field\":\"handbook\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s05",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s05:correct_control:none:patch:1"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "fixes_error",
+          "field": "handbook",
+          "input_present": true,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"handbook\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s07",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s07:wrong:none:patch:0"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "handbook",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "handbook",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"handbook\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":1,\"player\":1,\"field\":\"handbook\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s05",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s05:correct_control:none:patch:0"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "handbook",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "handbook",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "fixes_error",
+          "field": "handbook",
+          "input_present": true,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "fixes_error",
+          "field": "handbook",
+          "input_present": false,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":0,\"field\":\"handbook\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"handbook\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"handbook\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"handbook\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s05",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s05:wrong:none:patch:1"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s05",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s05:correct_control:local:patch:0"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "handbook",
+          "input_present": true,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"handbook\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s07",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s07:wrong:none:patch:2"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s05",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s05:correct_control:local:patch:2"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "handbook",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "fixes_error",
+          "field": "handbook",
+          "input_present": true,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "fixes_error",
+          "field": "handbook",
+          "input_present": false,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"handbook\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"handbook\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"handbook\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s05",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s05:wrong:local:patch:0"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "handbook",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "handbook",
+          "input_present": true,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"handbook\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"handbook\",\"action\":\"add\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s05",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s05:wrong:none:patch:0"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "handbook",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "fixes_error",
+          "field": "handbook",
+          "input_present": true,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"handbook\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"handbook\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s05",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s05:wrong:local:patch:1"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "handbook",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "fixes_error",
+          "field": "handbook",
+          "input_present": true,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"handbook\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"handbook\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s05",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s05:wrong:local:patch:2"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s07",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s07:correct_control:none:patch:0"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": false,
+      "operation_labels": [
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "handbook",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": false,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":0,\"player\":0,\"field\":\"handbook\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s07",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s07:wrong:local:patch:2"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "remove",
+          "field": "private_banner",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "counter",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "counter",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "private_banner",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "counter",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 1,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "counter",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": false,
+      "operation_labels": [
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "private_banner",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "counter",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "counter",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "private_banner",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "counter",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "counter",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": false,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"private_banner\",\"action\":\"remove\"},{\"stage\":0,\"player\":0,\"field\":\"counter\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"public_label\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"counter\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"private_banner\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"counter\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"public_label\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"counter\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+      "seed_id": "s00",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s00:wrong:none:patch:1"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "remove",
+          "field": "private_banner",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "counter",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "private_banner",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "counter",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "private_banner",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "counter",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 1,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "private_banner",
+          "player": 1,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "counter",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": false,
+      "operation_labels": [
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "private_banner",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "counter",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "private_banner",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "counter",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "private_banner",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "counter",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "private_banner",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "counter",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": false,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"private_banner\",\"action\":\"remove\"},{\"stage\":0,\"player\":0,\"field\":\"counter\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"public_label\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"private_banner\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"counter\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"private_banner\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"counter\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"public_label\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"private_banner\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"counter\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+      "seed_id": "s00",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s00:wrong:none:patch:0"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s07",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s07:correct_control:none:patch:1"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": false,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": false,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"public_label\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"public_label\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"public_label\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+      "seed_id": "s00",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s00:correct_control:none:patch:2"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [],
+      "empty_patch": true,
+      "feedback": "local",
+      "invalid_patch": false,
+      "operation_labels": [],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": true,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s07",
+      "seed_kind": "correct_control",
+      "table_correct": true,
+      "trial_id": "s07:correct_control:local:patch:1"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "remove",
+          "field": "private_banner",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "counter",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "counter",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "private_banner",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "counter",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "private_banner",
+          "player": 1,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "counter",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": false,
+      "operation_labels": [
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "private_banner",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "counter",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "counter",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "private_banner",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "counter",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "private_banner",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "counter",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": false,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"private_banner\",\"action\":\"remove\"},{\"stage\":0,\"player\":0,\"field\":\"counter\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"public_label\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"counter\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"private_banner\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"counter\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"private_banner\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"counter\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+      "seed_id": "s00",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s00:wrong:local:patch:1"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "public_label",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "public_label",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "fixes_error",
+          "field": "public_label",
+          "input_present": false,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"public_label\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"public_label\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"public_label\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+      "seed_id": "s00",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s00:wrong:local:patch:2"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "handbook",
+          "player": 1,
+          "stage": 0
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "handbook",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "handbook",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":0,\"field\":\"handbook\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"handbook\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s07",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s07:correct_control:none:patch:2"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": false,
+      "operation_labels": [
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "handbook",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": false,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":0,\"player\":1,\"field\":\"handbook\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s07",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s07:wrong:local:patch:1"
+    },
+    {
+      "contains_noop": false,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "local",
+      "invalid_patch": false,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "introduces_error",
+          "field": "public_label",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": false,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"public_label\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"public_label\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+      "seed_id": "s00",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s00:correct_control:local:patch:0"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 1,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "field": "assay",
+          "player": 0,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "field": "assay",
+          "player": 1,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 1,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "assay",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "assay",
+          "input_present": true,
+          "player": 1,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        },
+        {
+          "action": "remove",
+          "applicable": true,
+          "effect": "fixes_error",
+          "field": "handbook",
+          "input_present": true,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [
+        {
+          "action": "remove",
+          "field": "handbook",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":0,\"player\":1,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"assay\",\"action\":\"remove\"},{\"stage\":1,\"player\":1,\"field\":\"assay\",\"action\":\"add\"},{\"stage\":1,\"player\":0,\"field\":\"handbook\",\"action\":\"remove\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"assay\",\"player\":0,\"before_visible\":true,\"after_visible\":false}}}",
+      "seed_id": "s07",
+      "seed_kind": "wrong",
+      "table_correct": false,
+      "trial_id": "s07:wrong:none:patch:1"
+    },
+    {
+      "contains_noop": true,
+      "contains_repeated_cell": false,
+      "edits": [
+        {
+          "action": "remove",
+          "field": "public_label",
+          "player": 0,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "field": "public_label",
+          "player": 0,
+          "stage": 1
+        }
+      ],
+      "empty_patch": false,
+      "feedback": "none",
+      "invalid_patch": true,
+      "operation_labels": [
+        {
+          "action": "remove",
+          "applicable": false,
+          "effect": "noop_remove",
+          "field": "public_label",
+          "input_present": false,
+          "player": 0,
+          "reference_present": false,
+          "repeated_cell": false,
+          "stage": 0
+        },
+        {
+          "action": "add",
+          "applicable": false,
+          "effect": "noop_add",
+          "field": "public_label",
+          "input_present": true,
+          "player": 0,
+          "reference_present": true,
+          "repeated_cell": false,
+          "stage": 1
+        }
+      ],
+      "oracle_minimal_edits_for_explanation_only": [],
+      "own_table_consistent": null,
+      "proposal_correct": true,
+      "raw_text": "{\"edits\":[{\"stage\":0,\"player\":0,\"field\":\"public_label\",\"action\":\"remove\"},{\"stage\":1,\"player\":0,\"field\":\"public_label\",\"action\":\"add\"}],\"proposal\":{\"decision\":\"refusal\",\"candidates\":[],\"witness\":{\"field\":\"public_label\",\"player\":0,\"before_visible\":false,\"after_visible\":true}}}",
+      "seed_id": "s00",
+      "seed_kind": "correct_control",
+      "table_correct": false,
+      "trial_id": "s00:correct_control:none:patch:1"
+    }
+  ],
+  "schema_version": "aip-gamespec-patch-operation-audit-v1",
+  "sources_sha256": {
+    "research/results/gamespec_patch_diagnostic_v12_2026-11-06/luna6.json": "0971964926d962ce64a1d46406a07d166c863ba1a7bd1fa04990ad3b6e1356e6",
+    "scripts/audit_gamespec_patch_operations.py": "5d69169953495867958a8b8089d92f433ddfb7336942351df9ed8ecbaef8b475"
+  },
+  "valid_patch_outputs": 16,
+  "valid_wrong_input_patch_outputs": 8,
+  "valid_wrong_input_patch_repairs": 0
+}
