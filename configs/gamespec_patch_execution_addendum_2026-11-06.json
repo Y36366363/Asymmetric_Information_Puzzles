@@ -1,0 +1,67 @@
+{
+  "base_protocol": "configs/gamespec_patch_diagnostic_v12_2026-11-05.json",
+  "base_sha256": "fa148ffed1c2546340b574dd4505b87f52a37b5e9dfb6fce7fc951caa235293a",
+  "copy_audit": {
+    "changed_then_reverted_count": null,
+    "meaning": "No intermediate edit trace exists. Final equality is observable, hidden copying/anchoring/reversion is not identified. This is v11 (seventeenth academic update), not an experiment named v17.",
+    "observed_counts": {
+      "changed_final_cells": 2,
+      "missing_or_invalid_table": 0,
+      "raw_fragment_equal": 0,
+      "same_cells_different_order": 1,
+      "same_final_cells": 10,
+      "same_order_whitespace_only": 9
+    },
+    "path": "research/results/gamespec_copy_audit_2026-11-06.json",
+    "sha256": "ee5af10d59f3a9a96700972bbf0f666f122c8246a7d4bd66d5c9cc333292a735"
+  },
+  "date": "2026-11-06",
+  "dispatch_clarifications": {
+    "error_taxonomy": [
+      "invalid_json",
+      "envelope_contract_failure",
+      "patch_application_failure",
+      "rewrite_table_contract_failure",
+      "proposal_contract_failure",
+      "table_reference_mismatch",
+      "proposal_reference_mismatch",
+      "proposal_own_table_mismatch",
+      "missing_or_empty_table",
+      "unchanged_wrong_table",
+      "truncated_output",
+      "provider_error",
+      "timeout",
+      "provider_refusal",
+      "missing_usage",
+      "provider_model_or_budget_mismatch",
+      "oracle_disagreement"
+    ],
+    "fairness": "Full shared instruction from base protocol verbatim, same system and input table; only schema/output representation differs.",
+    "no_hidden_category": "Never use understood-but-formatting-error as a truth label.",
+    "no_protocol_edits": "Base v12 file remains unchanged; this prospective addendum clarifies counting and model re-entry only.",
+    "runtime_dependency_lock": "Record exact Python version, installed distribution versions and SHA256 of Python-source/metadata files for openai and recursive installed dependencies, excluding caches. Require exact match before dispatch. No new package added.",
+    "score": "Validate patch/rewrite envelope and strict JSON without repair. Expand valid patch into existing C envelope; model proposal unmodified. Independent proposal-only score reported even when patch invalid, never grants joint/table credit.",
+    "stopped_run": "Retain all 72 assigned denominators and one attempted-call journal; no automatic resume/retry/replacement. Report reservations separately from known cost for failed/unknown-usage attempts.",
+    "unchanged_input": "For patches empty edits imply unchanged table; valid empty edits still fail semantic table repair on wrong inputs."
+  },
+  "generation_calls_before_addendum": 0,
+  "schema_version": "aip-gamespec-patch-execution-addendum-v1",
+  "sol_reentry": {
+    "action_when_not_triggered": "No automatic Sol top-up. Report trigger numerator/denominator and all residual failure types. A later changed-scale/key confirmation requires a separate preregistration including Sol regardless of this trigger.",
+    "action_when_triggered": "Queue a separate prospective Sol confirmation of the same 72-assignment schedule, same rules/feedback/schema/budget, changing only to frozen Sol model effort=low, omitting temperature. Commit exact Sol requests and a separate lock before dispatch; never pool models. No Sol calls in the current 72-call run.",
+    "eligible": {
+      "all_luna_assignments_completed": 72,
+      "luna_patch_wrong_assigned": 18,
+      "oracle_disagreements": 0
+    },
+    "evaluation_timing": "After all 72 Luna calls, frozen offline replay and all scoring agreement; no sequential peeking/early Sol dispatch.",
+    "interpretation": "50% is an explicit operational resource-routing threshold proposed by the user, not an official standard, scientific pass line or deployment permission. Majority is a fixed observable priority heuristic, not a cognitive diagnosis.",
+    "primary_trigger": {
+      "all_conditions_required": true,
+      "denominator": 18,
+      "discrepancy_majority": "2 * discrepancy_count > patch_wrong_table_failure_count",
+      "observable_table_failure_with_correct_proposal": "Among completed patch wrong-input outputs: frozen-reference proposal correct AND table incorrect or patch invalid; this is partial-answer/table discrepancy, not proven understood-but-formatting error.",
+      "patch_wrong_table_correct_strictly_less_than": 9
+    }
+  }
+}
